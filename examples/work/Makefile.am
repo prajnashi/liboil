@@ -5,7 +5,7 @@ else
 noinst_PROGRAMS = 
 endif
 
-work_SOURCES = work.c
+work_SOURCES = work.c conv.c
 
 
 AM_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)

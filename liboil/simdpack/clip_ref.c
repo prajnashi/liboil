@@ -30,6 +30,7 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboiltest.h>
 
 #define CLIP_DEFINE_REF(type) \
 static void clip_ ## type ## _ref ( \
@@ -48,12 +49,25 @@ static void clip_ ## type ## _ref ( \
     OIL_GET(dest,i*dstr,type_ ## type) = x; \
   } \
 } \
-OIL_DEFINE_CLASS(clip_ ## type, \
+static void \
+clip_ ## type ## _test (OilTest *test) \
+{ \
+  type_ ## type *s2 = (type_ ## type *)(test->params[OIL_ARG_SRC2].src_data + \
+    OIL_TEST_HEADER); \
+  type_ ## type *s3 = (type_ ## type *)(test->params[OIL_ARG_SRC3].src_data + \
+    OIL_TEST_HEADER); \
+  if (*s2 > *s3) { \
+    type_ ## type tmp; \
+    tmp = *s2; *s2 = *s3; *s3 = tmp; \
+  } \
+} \
+OIL_DEFINE_CLASS_FULL(clip_ ## type, \
     "type_" #type " *dest, " \
     "int dstr, " \
     "type_" #type " *src, " \
     "int sstr, int n, " \
-    "type_" #type " *s2_1, type_" #type " *s3_1"); \
+    "type_" #type " *s2_1, type_" #type " *s3_1", \
+    clip_ ## type ## _test); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type)
 
 CLIP_DEFINE_REF (s8);

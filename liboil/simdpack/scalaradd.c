@@ -31,6 +31,8 @@
 
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
+#include <liboil/liboilgcc.h>
+#include <string.h>
 
 #define SCALARADD_DEFINE_REF(type)		\
 static void scalaradd_ ## type ## _ref(		\
@@ -176,4 +178,53 @@ SCALARADD_DEFINE_UNROLL4 (f32);
 SCALARADD_DEFINE_UNROLL4 (f64);
 
 
-
+static void scalaradd_s8_mmx(	
+    type_s8 *dest, int dstr,		
+    type_s8 *src, int sstr,		
+    type_s8 *val, int n)			
+{
+  vec_s8 vval;
+  vec_s8 *vsrc;
+  vec_s8 *vdest;
+//  int i;
+  vsrc = (vec_s8*)src;
+  vdest = (vec_s8*)dest;
+  memset(&vval,*val,8);						
+//  for (i=0;i<8;i++) vval[i]=*val;
+  if(n&1) {					
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			\
+    OIL_INCREMENT(src, sstr);			
+  }						  
+  if(n&2) {					\
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+  }						
+  if(n&4) {					\
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+    *dest = *src + *val;			
+    OIL_INCREMENT(dest, dstr);			
+    OIL_INCREMENT(src, sstr);			
+  }						
+  n /= 8;					  
+  
+  while(n>0){					
+    *vdest = *vsrc + vval;			
+    OIL_INCREMENT(vdest,8);			
+    OIL_INCREMENT(vsrc,8);			
+    n--;					
+  }						
+}						
+OIL_DEFINE_IMPL_FULL(scalaradd_s8_mmx,scalaradd_s8,OIL_IMPL_FLAG_MMX);

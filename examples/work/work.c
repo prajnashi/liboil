@@ -25,7 +25,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define KLASS_NAME "conv_s16_f32"
+//#define KLASS_NAME "conv_s16_f32"
+#define KLASS_NAME "clip_s16"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -39,6 +40,9 @@
 #include <glib.h>
 #include <string.h>
 #include <math.h>
+
+#define SOME_FILE <stdio.h>
+#include SOME_FILE
 
 void register_impls(void);
 

@@ -1,5 +1,20 @@
 2005-03-16  David Schleef  <ds@schleef.org>
 
+	Patch from Jakub Stachowski <stachowski@hypair.net> to add a
+	few classes and implementations.  They're not correct --
+	requires fixage before release.
+
+	* examples/work/Makefile.am:
+	* examples/work/work.c:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/abs_sse.c: (abs_u8_s8_sse):
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/scalaradd.c: (scalaradd_s8_mmx):
+	* liboil/simdpack/simdpack.h:
+	* liboil/simdpack/vectoradd_s.c:
+
+2005-03-16  David Schleef  <ds@schleef.org>
+
 	* doc/liboil-sections.txt: clean up
 	* liboil/Makefile.am: clean liboilfuncs-doc.h
 
