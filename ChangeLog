@@ -1,3 +1,14 @@
+2005-01-08  David Schleef  <ds@schleef.org>
+
+	* examples/md5/md5sum.c: Don't use MAP_POPULATE if it's not
+	defined.
+	* liboil/dct/fdct8x8_f64.c: Fix pointer offsets
+	* liboil/dct/fdct8x8s_s16.c: (fdct8x8s_s16_ref): same
+	* liboil/simdpack/clip_s32.c: (clip_s32_fast): same
+	* liboil/simdpack/sad8x8.c: (sad8x8_f64_ref), (sad8x8_s16_ref): same
+	* testsuite/introspect.c: (xstrndup), (parse_string): add xstrndup()
+	* liboil/liboiltest.c: (check_array): Solaris chokes on INFINITY.
+
 2005-01-07  David Schleef  <ds@schleef.org>
 
 	* README: add some stuff to read

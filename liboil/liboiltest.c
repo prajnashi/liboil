@@ -496,7 +496,7 @@ check_array (void *data, void *ref, OilType type, int pre_n, int stride, int pos
       break;
     default:
       OIL_ERROR ("should not be reached (type == %d)", type);
-      return INFINITY;
+      return 1e9;
       break;
   }
   return x;

@@ -136,6 +136,21 @@ static int parse_size (const char *s, char **endptr)
 }
 #endif
 
+char *
+xstrndup (const char *s, int n)
+{
+  char *r;
+
+  if (strlen(s) < n) {
+    n = strlen(s);
+  }
+  r = malloc(n+1);
+  memcpy(r,s,n);
+  r[n] = 0;
+
+  return r;
+}
+
 static char * parse_string (const char *s, const char **endptr)
 {
   const char *s0;
@@ -146,7 +161,7 @@ static char * parse_string (const char *s, const char **endptr)
   }
   *endptr = s;
 
-  return strndup(s0, s - s0);
+  return xstrndup(s0, s - s0);
 }
 
 void parse_prototype (const char *s)

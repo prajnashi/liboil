@@ -45,6 +45,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#ifndef MAP_POPULATE
+#define MAP_POPULATE 0
+#endif
+
 #ifdef WORDS_BIGENDIAN
 #define uint32_from_host(a) \
     ((((a)&0xff)<<24)|(((a)&0xff00)<<8)|(((a)&0xff0000)>>8)|(((a)>>24)&0xff))

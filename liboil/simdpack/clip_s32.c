@@ -47,8 +47,8 @@ clip_s32_fast (int32_t *dest, int dstr, int32_t *src, int sstr, int n,
 
 	for(i=0;i<n;i++){
 		x = OIL_GET(src,i*sstr,int32_t);
-		OIL_GET(dest,i*dstr,int32_t) = x - (((x-*low)>>31)&(x-*low))
-                  + (((*hi-x)>>31)&(*hi-x));
+		OIL_GET(dest,i*dstr,int32_t) = x - (((x-*low)>>63)&(x-*low))
+                  + (((*hi-x)>>63)&(*hi-x));
 	}
 }
 

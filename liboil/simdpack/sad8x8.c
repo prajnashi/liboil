@@ -49,8 +49,8 @@ sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,
 	sum = 0;
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
-			sum += fabs(OIL_GET(src1,sstr1*i+j, double) -
-			    OIL_GET(src2,sstr2*i+j, double));
+			sum += fabs(OIL_GET(src1,sstr1*i+j*sizeof(double), double) -
+			    OIL_GET(src2,sstr2*i+j*sizeof(double), double));
 		}
 	}
 	*dest = sum;
@@ -69,8 +69,8 @@ sad8x8_s16_ref(uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2
 	sum = 0;
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
-			d = ((int)OIL_GET(src1,sstr1*i+j, int16_t)) -
-				((int)OIL_GET(src2,sstr2*i+j, int16_t));
+			d = ((int)OIL_GET(src1,sstr1*i+j*sizeof(int16_t), int16_t)) -
+				((int)OIL_GET(src2,sstr2*i+j*sizeof(int16_t), int16_t));
 			sum += (d<0) ? -d : d;
 		}
 	}
