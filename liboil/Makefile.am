@@ -14,7 +14,8 @@ noinst_LTLIBRARIES = liboilfunctions.la $(opt_libs)
 noinst_PROGRAMS = build_prototypes
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
-	liboiltypes.h liboilcpu.h liboilprototype.h
+	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
+	liboilrandom.h
 
 CLEANFILES = liboilarray.c
 

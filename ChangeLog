@@ -1,5 +1,11 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: fix distcheck
+	* liboil/liboilprototype.c: (oil_prototype_check_sanity): oops,
+	remove debugging
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/build_prototypes.c: (main): complain if prototype parsing
 	fails.
 	* liboil/conv_misc.c: (conv_f64_s16_table): fix valgrind problem

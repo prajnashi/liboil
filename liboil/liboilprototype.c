@@ -147,12 +147,6 @@ oil_prototype_check_sanity (OilPrototype *proto)
       if (proto->params[i].parameter_type == OIL_ARG_N) continue;
       if (proto->params[i].parameter_type == OIL_ARG_M) continue;
 
-OIL_ERROR ("sanity check %d %d %d %d\n",
-    proto->params[i].prestride_length,
-    proto->params[i].prestride_var,
-    proto->params[i].poststride_length,
-    proto->params[i].poststride_var);
-
       if (proto->params[i].prestride_length == 0 &&
           proto->params[i].prestride_var == 1) return 0;
       if (proto->params[i].poststride_length == 0 &&
