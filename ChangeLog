@@ -1,5 +1,10 @@
 2005-03-16  David Schleef  <ds@schleef.org>
 
+	* doc/liboil-sections.txt: clean up
+	* liboil/Makefile.am: clean liboilfuncs-doc.h
+
+2005-03-16  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: add liboilgcc.h, build build_prototypes_doc
 	* liboil/liboilfunction.c: fix docs
 	* liboil/build_prototypes_doc.c: build a file appropriate for gtk-doc

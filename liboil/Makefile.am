@@ -15,7 +15,7 @@ pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 
 nodist_noinst_HEADERS = liboilfuncs-doc.h
 
-CLEANFILES = liboilarray.c
+CLEANFILES = liboilarray.c liboilfuncs-doc.h
 
 liboilfunctions_la_SOURCES = \
 	null.c
