@@ -1,5 +1,11 @@
 2005-03-16  David Schleef  <ds@schleef.org>
 
+	* doc/tmpl/liboil-unused.sgml: More of the same
+	* doc/tmpl/liboilcpu.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+
+2005-03-16  David Schleef  <ds@schleef.org>
+
 	* Makefile.am: upgrade gtk-doc stuff, convert to XML
 	* configure.ac:
 	* doc/Makefile.am:

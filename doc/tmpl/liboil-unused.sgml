@@ -1849,6 +1849,15 @@ liboilfuncs
 @s_8x8: 
 @ss: 
 
+<!-- ##### USER_FUNCTION _oil_type_utf8_validate ##### -->
+<para>
+
+</para>
+
+@d_1: 
+@s: 
+@n: 
+
 <!-- ##### USER_FUNCTION _oil_type_vectoradd_f32 ##### -->
 <para>
 
@@ -1923,6 +1932,84 @@ liboilfuncs
 @n: 
 @s3_1: 
 @s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
 
 <!-- ##### USER_FUNCTION _oil_type_vectoradd_u16 ##### -->
 <para>
@@ -3008,6 +3095,12 @@ liboilfuncs
 </para>
 
 
+<!-- ##### VARIABLE oil_function_class_ptr_utf8_validate ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### VARIABLE oil_function_class_ptr_vectoradd_f32 ##### -->
 <para>
 
@@ -3033,6 +3126,42 @@ liboilfuncs
 
 
 <!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s_u8 ##### -->
 <para>
 
 </para>
