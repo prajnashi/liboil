@@ -50,7 +50,7 @@ void _oil_cpu_init (void);
  * oil_init:
  *
  * Initializes liboil.  This function must be called before any
- * other liboil function is used.  &oil_init may be called multiple
+ * other liboil function is used.  @oil_init may be called multiple
  * times.
  */
 void

@@ -1,5 +1,12 @@
 2005-03-16  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: add liboilgcc.h, build build_prototypes_doc
+	* liboil/liboilfunction.c: fix docs
+	* liboil/build_prototypes_doc.c: build a file appropriate for gtk-doc
+	* liboil/liboilgcc.h: File for gcc magic
+
+2005-03-16  David Schleef  <ds@schleef.org>
+
 	* doc/tmpl/liboil-unused.sgml: More of the same
 	* doc/tmpl/liboilcpu.sgml:
 	* doc/tmpl/liboilfuncs-doc.sgml:

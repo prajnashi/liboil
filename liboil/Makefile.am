@@ -7,11 +7,13 @@ lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 
 noinst_LTLIBRARIES = liboilfunctions.la
 
-noinst_PROGRAMS = build_prototypes build_marshal
+noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
-	liboilrandom.h
+	liboilrandom.h liboilgcc.h
+
+nodist_noinst_HEADERS = liboilfuncs-doc.h
 
 CLEANFILES = liboilarray.c
 
@@ -68,6 +70,11 @@ build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
 build_prototypes_LDADD = $(LIBOIL_LIBS)
 
+build_prototypes_doc_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
+build_prototypes_doc_SOURCES = build_prototypes_doc.c
+build_prototypes_doc_CFLAGS = $(LIBOIL_CFLAGS)
+build_prototypes_doc_LDADD = $(LIBOIL_LIBS)
+
 build_marshal_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
 
 build_marshal_SOURCES = build_marshal.c
@@ -103,4 +110,7 @@ liboilfuncs.h:
 
 liboilmarshal.c:
 	./build_marshal >liboilmarshal.c
+
+liboilfuncs-doc.h:
+	./build_prototypes_doc >liboilfuncs-doc.h
 
