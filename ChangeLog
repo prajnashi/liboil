@@ -1,5 +1,10 @@
 2005-01-09  David Schleef  <ds@schleef.org>
 
+	* autogen.sh: new and improved simple autogen.sh
+	* configure.ac: oops, define libversion correctly
+
+2005-01-09  David Schleef  <ds@schleef.org>
+
 	* AUTHORS: add
 	* INSTALL: add
 	* Makefile.am: add ACLOCAL_FLAGS
