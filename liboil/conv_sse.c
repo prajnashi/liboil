@@ -20,6 +20,7 @@
 #include "config.h"
 #endif
 #include <liboil.h>
+#include <conv.h>
 
 
 #ifdef __GNUC__

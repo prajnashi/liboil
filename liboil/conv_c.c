@@ -20,6 +20,7 @@
 #include "config.h"
 #endif
 #include <liboil.h>
+#include <conv.h>
 
 #include <math.h>
 

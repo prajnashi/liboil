@@ -92,7 +92,7 @@ abs_f32_f32_ref (float *dest, int dstr, float *src, int sstr, int n)
   int i;
 
   for (i=0; i<n; i++) {
-    OIL_GET(dest, i*dstr, float) = fabs(OIL_GET(dest, i*dstr, float));
+    OIL_GET(dest, i*dstr, float) = fabs(OIL_GET(src, i*sstr, float));
   }
 }
 
@@ -104,7 +104,7 @@ abs_f64_f64_ref (double *dest, int dstr, double *src, int sstr, int n)
   int i;
 
   for (i=0; i<n; i++) {
-    OIL_GET(dest, i*dstr, double) = fabs(OIL_GET(dest, i*dstr, double));
+    OIL_GET(dest, i*dstr, double) = fabs(OIL_GET(src, i*sstr, double));
   }
 }
 

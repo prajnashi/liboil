@@ -48,7 +48,8 @@ liboiltmp_la_SOURCES = \
 	$(i386_sources) \
 	liboilfunction.c \
 	liboildebug.c \
-	liboilcpu.c
+	liboilcpu.c \
+	liboilprototype.c
 liboiltmp_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboiltmp_la_LDFLAGS = -lm
 

@@ -6,24 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct _Parameter Parameter;
-struct _Parameter {
-  char *type;
-  gboolean ptr;
-  char *name;
-};
-
-enum{
-  OIL_TYPE_UNKNOWN,
-  OIL_TYPE_s8,
-  OIL_TYPE_u8,
-  OIL_TYPE_s16,
-  OIL_TYPE_u16,
-  OIL_TYPE_s32,
-  OIL_TYPE_u32,
-  OIL_TYPE_f32,
-  OIL_TYPE_f64,
-};
+#include <liboil/liboilprototype.h>
 
 GArray * parse_prototype (const char *s);
 char *param_to_string (GArray *array);
@@ -50,9 +33,11 @@ int main (int argc, char *argv[])
 
       string = param_to_string (array);
 
-      printf ("extern OilFunctionClass _oil_function_%s_class LIBOIL_ATTRIBUTE_SECTION(\".oil_function_class\");\n",
+      printf ("extern OilFunctionClass *oil_function_%s_class_ptr;\n",
           klass->name);
-      printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
+      //printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
+      //    klass->name, string, klass->name);
+      printf ("#define %s ((void (*)(%s)) \\\n\toil_function_%s_class_ptr->func)\n",
           klass->name, string, klass->name);
 
       param_free (array);
@@ -124,7 +109,7 @@ static char * parse_string (const char *s, const char **endptr)
 void
 param_append (GArray **array, char *type, gboolean ptr, char *name)
 {
-  Parameter param;
+  OilParameter param;
 
   param.type = type;
   param.ptr = ptr;
@@ -142,7 +127,7 @@ parse_prototype (const char *s)
   int i;
   GArray *array;
 
-  array = g_array_new (FALSE, FALSE, sizeof(Parameter));
+  array = g_array_new (FALSE, FALSE, sizeof(OilParameter));
 
   while (isspace(*s))s++;
   while (*s) {
@@ -181,13 +166,13 @@ parse_prototype (const char *s)
 char *param_to_string (GArray *array)
 {
   GString *string;
-  Parameter *param;
+  OilParameter *param;
   int i;
 
   string = g_string_new ("");
 
   for(i=0;i<array->len;i++){
-    param = &g_array_index (array, Parameter, i);
+    param = &g_array_index (array, OilParameter, i);
 
     g_string_append (string, param->type);
     g_string_append (string, " ");
@@ -204,11 +189,11 @@ char *param_to_string (GArray *array)
 
 void param_free (GArray *array)
 {
-  Parameter *param;
+  OilParameter *param;
   int i;
 
   for(i=0;i<array->len;i++){
-    param = &g_array_index (array, Parameter, i);
+    param = &g_array_index (array, OilParameter, i);
 
     g_free(param->name);
     g_free(param->type);

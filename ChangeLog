@@ -1,5 +1,25 @@
 2004-09-03  David Schleef  <ds@schleef.org>
 
+	
+	* liboil/Makefile.am: add liboilprototype.c
+	* liboil/build_prototypes.c: use liboilprototype.h
+	* liboil/conv_c.c: include conv.h
+	* liboil/conv_misc.c: include conv.h
+	* liboil/conv_sse.c: include conv.h
+	* liboil/liboilfuncs.h: use pointers to classes instead of directly
+	* liboil/liboilfunction.h: Add class pointer definition
+	* liboil/liboilprototype.c: (oil_prototype_append_param),
+	(oil_prototype_to_string), (oil_prototype_from_string),
+	(parse_string), (oil_prototype_free), (oil_string_new),
+	(oil_string_append), (oil_string_free): Add some prototype
+	manipulation functions.
+	* liboil/liboilprototype.h: ditto
+	* liboil/simdpack/abs.c: (abs_f32_f32_ref), (abs_f64_f64_ref): Fix
+	bug.
+	* testsuite/abs.c: (test), (main): works now
+
+2004-09-03  David Schleef  <ds@schleef.org>
+
 	Move a bunch of files around.
 	* configure.ac:
 	* liboil/Makefile.am:
