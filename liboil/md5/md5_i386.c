@@ -330,6 +330,10 @@ md5_asm2(uint32_t *state, uint32_t *src)
       :
       : "a" (&tmp)
       : "esi", "ebx", "ecx", "edx", "edi");
+#undef STEP1
+#undef STEP2
+#undef STEP3
+#undef STEP4
 }
 
 
@@ -488,6 +492,10 @@ md5_asm3(uint32_t *state, uint32_t *src)
       :
       : "a" (&tmp)
       : "esi", "ebx", "ecx", "edx", "edi");
+#undef STEP1
+#undef STEP2
+#undef STEP3
+#undef STEP4
 }
 
 

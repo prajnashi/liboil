@@ -1,3 +1,11 @@
+2004-11-17  David Schleef  <ds@schleef.org>
+
+	* configure.ac: version bump
+	* examples/jpeg/Makefile.am: add deps
+	* examples/md5/Makefile.am:
+	* examples/md5/md5sum.c: fix warning
+	* liboil/md5/md5_i386.c: (md5_asm2), (md5_asm3): fix warning
+
 2004-11-04  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add endianness check

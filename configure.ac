@@ -1,7 +1,7 @@
 AC_INIT
 AC_CANONICAL_TARGET([])
 
-AS_VERSION(liboil, LIBOIL_VERSION, 0, 2, 0, 0, LIBOIL_CVS="no", LIBOIL_CVS="yes")
+AS_VERSION(liboil, LIBOIL_VERSION, 0, 2, 1, 0, LIBOIL_CVS="no", LIBOIL_CVS="yes")
 
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
@@ -12,7 +12,12 @@ AC_SUBST(LIBOIL_MAJORMINOR)
 
 AM_CONFIG_HEADER(config.h)
 
-AS_LIBTOOL(LIBOIL, 0, 0, 0)
+dnl CURRENT, REVISION, AGE
+dnl - library source changed -> increment REVISION
+dnl - interfaces added/removed/changed -> increment CURRENT, REVISION = 0
+dnl - interfaces added -> increment AGE
+dnl - interfaces removed -> AGE = 0
+AS_LIBTOOL(LIBOIL, 0, 1, 1)
 
 AC_CONFIG_SRCDIR([liboil/liboil.h])
 

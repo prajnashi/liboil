@@ -7,6 +7,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfuncs.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <sys/stat.h>
 #include <sys/mman.h>
