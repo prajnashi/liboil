@@ -1,5 +1,15 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* configure.ac: use -fomit-frame-pointer, -funroll-all-loops and
+	-Wno-unused-functions
+	* liboil/colorspace/Makefile.am: create opt libs
+	* liboil/copy/Makefile.am: same
+	* liboil/dct/Makefile.am: same
+	* liboil/jpeg/Makefile.am: same
+	* liboil/md5/Makefile.am: same
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: fix distcheck
 	* liboil/liboilprototype.c: (oil_prototype_check_sanity): oops,
 	remove debugging

@@ -1,10 +1,17 @@
 
-noinst_LTLIBRARIES = libcolorspace.la
+if USE_ALT_OPT
+opt_libs = libcolorspace_opt1.la
+else
+opt_libs = 
+endif
+noinst_LTLIBRARIES = libcolorspace.la $(opt_libs)
 
 libcolorspace_la_SOURCES = 	\
 	rgb2bgr.c 		\
 	rgb2rgba.c
-
+libcolorspace_la_LIBADD = $(opt_libs)
 libcolorspace_la_CFLAGS = $(LIBOIL_CFLAGS)
 
+libcolorspace_opt1_la_SOURCES = $(libcolorspace_la_SOURCES)
+libcolorspace_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) $(LIBOIL_OPT_CFLAGS)
 
