@@ -1,3 +1,14 @@
+2005-02-01  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: (test_altivec), (oil_cpu_powerpc_getflags),
+	(illegal_instruction_handler), (oil_cpu_fault_check_enable),
+	(oil_cpu_fault_check_try), (oil_cpu_fault_check_disable): Add
+	illegal instruction checking.
+	* liboil/liboilcpu.h:
+	* liboil/liboilfunction.c: (oil_init):
+	* liboil/liboiltest.c: (oil_test_check_function),
+	(oil_test_check_impl):
+
 2005-01-31  David Schleef  <ds@schleef.org>
 
 	* doc/Makefile.am: Stop abusing _LDFLAGS

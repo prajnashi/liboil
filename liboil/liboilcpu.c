@@ -36,10 +36,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#if defined(__powerpc__)
 #include <setjmp.h>
 #include <signal.h>
-#endif
 
 #if defined(__i386__)
 static char * get_cpuinfo_flags_string (char *cpuinfo);
@@ -128,46 +126,26 @@ oil_cpu_i386_getflags(void)
 #endif
 
 #ifdef __powerpc__
-static jmp_buf jump_env;
-
-static int
-test_altivec (void)
+static void
+test_altivec (void *)
 {
-  int ret;
   char x[16] = { 0, };
 
-  ret = setjmp (jump_env);
-  if (!ret) {
-    asm volatile (
-        "  lvx %%v0, %0, %%r0  \n"
-        :: "r" (x));
-  }
-
-  return (ret==0);
-}
-
-static void
-illegal_instruction_handler (int num)
-{
-  longjmp (jump_env, 1);
+  asm volatile (
+      "  lvx %%v0, %0, %%r0  \n"
+      :: "r" (x));
 }
 
 static void
 oil_cpu_powerpc_getflags(void)
 {
-  struct sigaction act;
-  struct sigaction oldact;
 
-  memset (&act, 0, sizeof(act));
-  act.sa_handler = &illegal_instruction_handler;
-  sigaction (SIGILL, &act, &oldact);
-
-  if (test_altivec()) {
+  oil_cpu_fault_check_enable ();
+  if (oil_cpu_fault_check_try(test_altivec, NULL)) {
     OIL_DEBUG ("cpu flag altivec");
     oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
   }
-
-  sigaction (SIGILL, &oldact, NULL);
+  oil_cpu_fault_check_disable ();
 }
 #endif
 
@@ -262,4 +240,49 @@ _strndup (const char *s, int n)
   return r;
 }
 #endif
+
+static jmp_buf jump_env;
+static struct sigaction action;
+static struct sigaction oldaction;
+static int in_try_block;
+
+static void
+illegal_instruction_handler (int num)
+{
+  if (in_try_block) {
+    longjmp (jump_env, 1);
+  } else {
+    abort ();
+  }
+}
+
+void
+oil_cpu_fault_check_enable (void)
+{
+  memset (&action, 0, sizeof(action));
+  action.sa_handler = &illegal_instruction_handler;
+  sigaction (SIGILL, &action, &oldaction);
+  in_try_block = 0;
+}
+
+int
+oil_cpu_fault_check_try (void (*func) (void *), void *priv)
+{
+  int ret;
+
+  in_try_block = 1;
+  ret = setjmp (jump_env);
+  if (!ret) {
+    func (priv);
+  }
+  in_try_block = 0;
+
+  return (ret == 0);
+}
+
+void
+oil_cpu_fault_check_disable (void)
+{
+  sigaction (SIGILL, &oldaction, NULL);
+}
 

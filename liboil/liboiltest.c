@@ -33,6 +33,7 @@
 #include <liboil/liboildebug.h>
 #include <liboil/liboilrandom.h>
 #include <liboil/liboilprofile.h>
+#include <liboil/liboilcpu.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -121,8 +122,9 @@ oil_test_set_iterations (OilTest *test, int iterations)
 }
 
 static void
-oil_test_check_function (OilTest *test)
+oil_test_check_function (void * priv)
 {
+  OilTest *test = priv;
   int i;
   int j;
   unsigned long args[10];
@@ -140,7 +142,7 @@ oil_test_check_function (OilTest *test)
     }
   }
 
-  OIL_LOG("calling reference function %s", test->impl->name);
+  OIL_LOG("calling function %s", test->impl->name);
 
   pointer_mask = 1;
   for(i=0;i<test->proto->n_params;i++){
@@ -222,6 +224,7 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   int i;
   int n;
   int fail = 0;
+  int ret;
 
   if (test->proto->n_params > 10) {
     OIL_ERROR ("function has too many parameters");
@@ -233,7 +236,14 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   }
 
   test->impl = impl;
-  oil_test_check_function (test);
+  ret = oil_cpu_fault_check_try (oil_test_check_function, test);
+  if (!ret) {
+    OIL_ERROR ("illegal instruction in %s", test->impl->name);
+    test->impl->profile_ave = 0;
+    test->impl->profile_std = 0;
+
+    return 0;
+  }
 
   x = 0;
   n = 0;

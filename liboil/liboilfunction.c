@@ -68,7 +68,10 @@ oil_init (void)
   _oil_cpu_init ();
   oil_init_pointers ();
   oil_init_structs ();
+
+  oil_cpu_fault_check_enable ();
   oil_optimize_all ();
+  oil_cpu_fault_check_disable ();
 
   stop = oil_profile_stamp_gtod ();
 
