@@ -50,7 +50,7 @@ copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
     *dest++ = *src++;
   }
 }
-OIL_DEFINE_IMPL_REF (copy_u8_ptr, copy_u8);
+OIL_DEFINE_IMPL (copy_u8_ptr, copy_u8);
 
 static void
 copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
@@ -66,6 +66,6 @@ copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
     src += 4;
   }
 }
-OIL_DEFINE_IMPL_REF (copy_u8_ints, copy_u8);
+OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
 
 

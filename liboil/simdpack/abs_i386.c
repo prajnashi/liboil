@@ -46,6 +46,29 @@ abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm, abs_u16_s16);
 
+/* The previous function after running through uberopt */
+static void
+abs_u16_s16_i386asm_uber4 (uint16_t * dest, int dstr, int16_t * src,
+    int sstr, int n)
+{
+  __asm__ __volatile__ ("\n"
+      "	.p2align 4,,15			\n"
+      "1:                               \n"
+      "    movswl	(%0), %%eax	\n" /* UBER 0:     */
+      "    addl	$2, %0			\n" /* UBER 1: 0   */
+      "    movl	%%eax, %%edx		\n" /* UBER 2: 0   */
+      "    decl	%2			\n" /* UBER 7:     */
+      "    negl	%%edx			\n" /* UBER 3: 2   */
+      "    cmpl	$-1, %%eax ; cmovle %%edx, %%eax \n" /* UBER 4: 3 */
+      "    movw	%%ax, (%1)		\n" /* UBER 5: 4   */
+      "    addl	$2, %1			\n" /* UBER 6: 5   */
+      "    testl	%2, %2		\n"
+      "    jg	1b			\n"
+      :"+r" (src), "+r" (dest), "+r" (n)
+      ::"eax", "edx");
+}
+OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm_uber4, abs_u16_s16);
+
 static void
 abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -70,48 +93,31 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm2, abs_u16_s16);
 
-#if 0
-/* This doesn't work in PIC mode */
-/* Weave two threads */
 static void
 abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
-  while (n & 1) {
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    n--;
-  }
-  n /= 2;
   __asm__ __volatile__ ("\n"
-      "	pushl	%%ebp			\n"
-      "	movl	%%eax, %%ebp		\n"
       "	.p2align 4,,15			\n"
-      "1:	movswl	(%%edi), %%eax		\n"
-      "	addl	$2, %%edi		\n"
-      "  	 movswl	(%%edi), %%ecx		\n"
-      "	 addl	$2, %%edi		\n"
-      "	movl	%%eax, %%ebx		\n"
-      "	 movl	%%ecx, %%edx		\n"
-      "	negl	%%ebx			\n"
-      "	 negl	%%edx			\n"
-      "	cmpl	$-1, %%eax		\n"
-      "	cmovle	%%ebx, %%eax		\n"
-      "	 cmpl	$-1, %%ecx		\n"
-      "	 cmovle	%%edx, %%ecx		\n"
-      "	movw	%%ax, (%%ebp)		\n"
-      "	addl	$2, %%ebp		\n"
-      "	 movw	%%cx, (%%ebp)		\n"
-      "	 addl	$2, %%ebp		\n"
-      "	decl	%2			\n"
-      "	testl	%2, %2			\n"
-      "	jg	1b			\n"
-      "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
-      ::"ebx", "ecx", "edx", "ebp");
+      "1:  movswl (%1), %%eax           \n"
+      "    mov %3, %%edx                \n"
+      "    add %%edx, %1                \n"
+      "    mov %%eax, %%edx             \n"
+      "    sar $0xf, %%ax               \n"
+      "    and %%edx, %%eax             \n"
+      "    add %%eax, %%eax             \n"
+      "    sub %%eax, %%edx             \n"
+      "    mov %%dx, (%0)               \n"
+      "    mov %4, %%edx                \n"
+      "    add %%edx, %0                \n"
+      "    decl %2                      \n"
+      "    jne 1b                       \n"
+      : "+r" (src), "+r" (dest), "+m" (n)
+      : "m" (dstr), "m" (sstr)
+      : "eax", "edx");
 }
-
 OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm3, abs_u16_s16);
-#endif
+
+
 
 static void
 abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)

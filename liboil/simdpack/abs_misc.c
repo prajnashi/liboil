@@ -26,6 +26,27 @@
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
 static void
+abs_u16_s16_unroll2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
+{
+  while (n & 1) {
+    *dest = ABS (*src);
+    OIL_INCREMENT (dest, dstr);
+    OIL_INCREMENT (src, sstr);
+    n--;
+  }
+  while (n > 0) {
+    *dest = ABS (*src);
+    OIL_INCREMENT (dest, dstr);
+    OIL_INCREMENT (src, sstr);
+    *dest = ABS (*src);
+    OIL_INCREMENT (dest, dstr);
+    OIL_INCREMENT (src, sstr);
+    n -= 2;
+  }
+}
+OIL_DEFINE_IMPL (abs_u16_s16_unroll2, abs_u16_s16);
+
+static void
 abs_u16_s16_unroll4 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
   while (n & 3) {
@@ -50,7 +71,6 @@ abs_u16_s16_unroll4 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
     n -= 4;
   }
 }
-
 OIL_DEFINE_IMPL (abs_u16_s16_unroll4, abs_u16_s16);
 
 static void

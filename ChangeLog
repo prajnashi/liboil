@@ -1,5 +1,23 @@
 2004-12-05  David Schleef  <ds@schleef.org>
 
+	* configure.ac: add uberopt
+	* examples/Makefile.am: same
+	* examples/oil-inspect.c: (impl_compare), (oil_print_class): sort
+	implementations by profile_ave before printing.
+	* examples/uberopt/Makefile.am: add uberopt
+	* examples/uberopt/example.c: (abs_u16_s16_i386asm_UBER_INDEX):
+	* examples/uberopt/uberopt.c: (main):
+	* liboil/copy/Makefile.am: add trans8x8_i386.c
+	* liboil/copy/copy.c: not reference functions
+	* liboil/copy/trans8x8.c: fix reference function (oops!)
+	* liboil/copy/trans8x8_i386.c: new.  mmx implementation
+	* liboil/simdpack/abs_i386.c: (abs_u16_s16_i386asm_uber4),
+	(abs_u16_s16_i386asm3): new impl created by uberopt
+	* liboil/simdpack/abs_misc.c: (abs_u16_s16_unroll2),
+	(abs_u16_s16_unroll4): add unroll2
+
+2004-12-05  David Schleef  <ds@schleef.org>
+
 	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_ref),
 	(zigzag8x8_s16_unroll): new implementation
 	* liboil/simdpack/mix_powerpc.c: (mix_u8_a16_altivec): Add altivec

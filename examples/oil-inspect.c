@@ -106,10 +106,24 @@ oil_print_impl (OilFunctionImpl *impl, char* prefix)
   }
 }
 
+static int
+impl_compare (const void *a, const void *b)
+{
+  const OilFunctionImpl *ia = *(OilFunctionImpl **)a;
+  const OilFunctionImpl *ib = *(OilFunctionImpl **)b;
+
+  if (ia->profile_ave < ib->profile_ave) return -1;
+  if (ia->profile_ave > ib->profile_ave) return 1;
+  return 0;
+}
+
 static void
 oil_print_class (OilFunctionClass *klass, int verbose)
 {
   OilFunctionImpl *impl;
+  OilFunctionImpl **list;
+  int n;
+  int i;
   
   if (!verbose) {
     printf ("%s\n", klass->name);
@@ -117,7 +131,22 @@ oil_print_class (OilFunctionClass *klass, int verbose)
   }
   printf ("%s (%s)\n", klass->name, klass->prototype);
   printf ("  all implementations: \n");
+
+  n = 0;
   for (impl = klass->first_impl; impl; impl = impl->next) {
+    n++;
+  }
+  list = malloc(n * sizeof(OilFunctionImpl *));
+  i = 0;
+  for (impl = klass->first_impl; impl; impl = impl->next) {
+    list[i] = impl;
+    i++;
+  }
+
+  qsort (list, n, sizeof(OilFunctionImpl *), impl_compare);
+
+  for (i=0;i<n;i++){
+    impl = list[i];
     if ((impl->flags & OIL_IMPL_FLAG_REF) &&
 	klass->reference_impl != impl) {
       printerr ("warning: function %s is not reference implementation for class %s\n",
@@ -128,6 +157,8 @@ oil_print_class (OilFunctionClass *klass, int verbose)
       printf ("      currently chosen\n");
     }
   }
+
+  free(list);
 }
 
 static void
