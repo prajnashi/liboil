@@ -1,0 +1,82 @@
+/*
+ * LIBOIL - Library of Optimized Inner Loops
+ * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
+
+OIL_DEFINE_CLASS (argb_paint_u8, "uint8_t *i_4xn, uint8_t *s1_4, uint8_t *s2_n, int n");
+
+
+#define imult(a,b) (((a)*(b) + (((a)*(b)) >> 8))>>8)
+#define apply(a,b,c) (imult(a,255-c) + imult(b,c))
+
+static void
+argb_paint_u8_ref (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[0] = apply(dest[0],color[0],alpha[0]);
+    dest[1] = apply(dest[1],color[1],alpha[0]);
+    dest[2] = apply(dest[2],color[2],alpha[0]);
+    dest[3] = apply(dest[3],color[3],alpha[0]);
+    dest+=4;
+    alpha++;
+  }
+
+}
+OIL_DEFINE_IMPL_REF (argb_paint_u8_ref, argb_paint_u8);
+
+static void
+argb_paint_u8_fast (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    if (*alpha == 0) {
+    } else if (*alpha == 255) {
+      dest[0] = color[0];
+      dest[1] = color[1];
+      dest[2] = color[2];
+      dest[3] = color[3];
+    } else {
+      dest[0] = apply(dest[0],color[0],alpha[0]);
+      dest[1] = apply(dest[1],color[1],alpha[0]);
+      dest[2] = apply(dest[2],color[2],alpha[0]);
+      dest[3] = apply(dest[3],color[3],alpha[0]);
+    }
+    dest+=4;
+    alpha++;
+  }
+
+}
+OIL_DEFINE_IMPL (argb_paint_u8_fast, argb_paint_u8);
+

@@ -1,3 +1,14 @@
+2004-12-29  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/Makefile.am: some new classes
+	* liboil/colorspace/argb_paint.c: (argb_paint_u8_ref),
+	(argb_paint_u8_fast):
+	* liboil/colorspace/argb_paint_i386.c: (argb_paint_u8_mmx):
+	* liboil/colorspace/ayuv2argb.c: (ayuv2argb_u8_ref),
+	(ayuv2argb_u8_int):
+	* liboil/colorspace/ayuv2argb_i386.c: (ayuv2argb_u8_mmx),
+	(ayuv2argb_u8_mmx2), (ayuv2argb_u8_mmx3):
+
 2004-12-27  David Schleef  <ds@schleef.org>
 
 	* liboil/copy/copy_i386.c: (copy_u8_mmx), (copy_u8_mmx2):
