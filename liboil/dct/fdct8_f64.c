@@ -24,7 +24,7 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS (fdct8_f64, "double *dest, double *src, int dstr, int sstr");
+OIL_DEFINE_CLASS (fdct8_f64, "double *d_8, double *s_8, int dstr, int sstr");
 
 #define C0_9808 0.980785280
 #define C0_9239 0.923879532

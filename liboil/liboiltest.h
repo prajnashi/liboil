@@ -33,6 +33,7 @@ struct _OilTest {
 
   int iterations;
   int n;
+  int m;
 };
 
 

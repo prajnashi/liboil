@@ -21,8 +21,8 @@
 #endif
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *param, int n");
-OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *param, int n");
+OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
 
 
 static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)

@@ -20,6 +20,7 @@
 #define _LIBOIL_PROTOTYPE_H_
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilparameter.h>
 
 typedef struct _OilPrototype OilPrototype;
 struct _OilPrototype {

@@ -1,3 +1,53 @@
+2004-12-02  David Schleef  <ds@schleef.org>
+
+	* liboil/build_prototypes.c: (main): complain if prototype parsing
+	fails.
+	* liboil/conv_misc.c: (conv_f64_s16_table): fix valgrind problem
+	* liboil/liboilcpu.c: (_oil_cpu_init): parse OIL_CPU_FLAGS environment
+	variable
+	* liboil/liboilfunction.h: move stuff to liboilparameter.h
+	* liboil/liboilparameter.h: new
+	* liboil/liboilprototype.c: (oil_prototype_from_string),
+	(oil_prototype_check_sanity), (oil_arg_type_name),
+	(oil_param_from_string): implement a new style of parameter names
+	* liboil/liboilprototype.h: use liboilparameter.h
+	* liboil/liboiltest.c: (oil_test_new), (oil_test_go), (fill_array),
+	(init_parameter), (oil_test_init_params): implement a new style of
+	parameter names
+	* liboil/liboiltest.h: add m
+	* liboil/liboiltypes.h: move some typedefs here
+	* testsuite/introspect.c: (main): check return values
+	* testsuite/proto1.c: (main): same
+	* testsuite/proto2.c: (main): same
+	* testsuite/test1.c: (main): same
+
+	Fixes for new style of parameter names:
+	* liboil/colorspace/rgb2bgr.c:
+	* liboil/colorspace/rgb2rgba.c:
+	* liboil/copy/splat_ref.c:
+	* liboil/copy/trans8x8.c:
+	* liboil/dct/dct12_f32.c:
+	* liboil/dct/dct36_f32.c: (dct36_f32_ref):
+	* liboil/dct/fdct8_f64.c:
+	* liboil/dct/fdct8x8_f64.c: (fdct8x8_f64_ref):
+	* liboil/dct/idct8_f64.c:
+	* liboil/dct/idct8x8_c.c:
+	* liboil/dct/imdct32_f32.c:
+	* liboil/jpeg/convert8x8_c.c:
+	* liboil/jpeg/quantize8x8_c.c:
+	* liboil/jpeg/yuv2rgb_c.c:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/md5/md5.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/clip_s16.c: (clip_s16_fast2): fix bugs
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c: (multsum_f32_unroll2):
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/simdpack/sincos_f64.c:
+	* liboil/simdpack/vectoradd_f64.c:
+
 2004-12-01  David Schleef  <ds@schleef.org>
 
 	* liboil/simdpack/clip_s16.c: (clip_s16_ppcasm),

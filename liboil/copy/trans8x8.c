@@ -35,8 +35,8 @@ static void trans8x8_ ## type ## _ref (		\
     }						\
   }						\
 }						\
-OIL_DEFINE_CLASS (trans8x8_ ## type, "type_" #type " *dest, int dstr,	" \
-    "type_" #type " *src, int sstr"); \
+OIL_DEFINE_CLASS (trans8x8_ ## type, "type_" #type " *d_8x8, int ds,	" \
+    "type_" #type " *s_8x8, int ss"); \
 OIL_DEFINE_IMPL_REF (trans8x8_ ## type ## _ref, trans8x8_ ## type)
 
 TRANS8x8_DEFINE_REF(u8);
@@ -44,51 +44,4 @@ TRANS8x8_DEFINE_REF(u16);
 TRANS8x8_DEFINE_REF(u32);
 TRANS8x8_DEFINE_REF(f64);
 
-
-#ifdef TEST_trans8x8_f64
-int TEST_trans8x8_f64(void)
-{
-	int i;
-	int pass;
-	int failures = 0;
-	f64 *src, *dest_ref, *dest_test;
-	struct sl_profile_struct t;
-
-	src = sl_malloc_f64(64);
-	dest_ref = sl_malloc_f64(64);
-	dest_test = sl_malloc_f64(64);
-	
-	sl_profile_init(t);
-	srand(20020326);
-
-	printf("I: " sl_stringify(trans8x8_f64_FUNC) "\n");
-
-	for(pass=0;pass<N_PASS;pass++){
-		for(i=0;i<64;i++)src[i] = sl_rand_f64_0_1();
-
-		trans8x8_f64_ref(dest_test, src, 64, 64);
-		sl_profile_start(t);
-		trans8x8_f64_FUNC(dest_ref, src, 64, 64);
-		sl_profile_stop(t);
-
-		for(i=0;i<64;i++){
-			if(dest_test[i]!=dest_ref[i]){
-				failures++;
-			}
-		}
-	}
-
-	sl_free(src);
-	sl_free(dest_ref);
-	sl_free(dest_test);
-
-	if(failures){
-		printf("E: %d failures\n",failures);
-	}
-
-	sl_profile_print(t);
-
-	return failures;
-}
-#endif
 

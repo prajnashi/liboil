@@ -23,13 +23,15 @@ struct _OilString {
 
 static char * _strndup (const char *s, int n);
 static OilType oil_type_from_string (const char *s, int ptr);
-static OilArgType oil_arg_type_from_string (const char *s);
 
 static OilString *oil_string_new (const char *a);
 static void oil_string_append (OilString *s, const char *a);
 static char * oil_string_free (OilString *s, int free_seg);
 
 static char * parse_string (const char *s, const char **endptr);
+static int oil_param_from_string (OilParameter *p, char *s);
+
+static int oil_prototype_check_sanity (OilPrototype *proto);
 
 void
 oil_prototype_append_param (OilPrototype *proto, OilParameter *param)
@@ -103,14 +105,62 @@ OilPrototype *oil_prototype_from_string (const char *s)
     param.type = oil_type_from_string (type_name, ptr);
     param.type_name = type_name;
     param.parameter_name = parameter_name;
-    param.parameter_type = oil_arg_type_from_string (parameter_name);
+    oil_param_from_string (&param, parameter_name);
     param.order = order;
     oil_prototype_append_param (proto, &param);
+
+    if (param.type == OIL_TYPE_UNKNOWN ||
+        param.parameter_type == OIL_ARG_UNKNOWN) {
+      oil_prototype_free (proto);
+      return NULL;
+    }
 
     order++;
   }
 
+  if (!oil_prototype_check_sanity (proto)) {
+    OIL_ERROR ("prototype failed sanity check");
+    oil_prototype_free (proto);
+    return NULL;
+  }
+
   return proto;
+}
+
+static int
+oil_prototype_check_sanity (OilPrototype *proto)
+{
+  int i;
+  int has_n;
+
+  has_n = 0;
+  for (i=0;i<proto->n_params;i++){
+    if (proto->params[i].parameter_type == OIL_ARG_N) {
+      has_n = 1;
+    }
+  }
+
+  if (has_n == 0) {
+    /* check that no parameter depends on n */
+    for(i=0;i<proto->n_params;i++){
+      if (proto->params[i].is_stride) continue;
+      if (proto->params[i].parameter_type == OIL_ARG_N) continue;
+      if (proto->params[i].parameter_type == OIL_ARG_M) continue;
+
+OIL_ERROR ("sanity check %d %d %d %d\n",
+    proto->params[i].prestride_length,
+    proto->params[i].prestride_var,
+    proto->params[i].poststride_length,
+    proto->params[i].poststride_var);
+
+      if (proto->params[i].prestride_length == 0 &&
+          proto->params[i].prestride_var == 1) return 0;
+      if (proto->params[i].poststride_length == 0 &&
+          proto->params[i].poststride_var == 1) return 0;
+    }
+  }
+
+  return 1;
 }
 
 static char * parse_string (const char *s, const char **endptr)
@@ -317,66 +367,188 @@ static OilType oil_type_from_string (const char *s, int ptr)
   return OIL_TYPE_UNKNOWN;
 }
 
-static const char *arg_names[] = {
-  "unknown",
-  "n",
-  "dest1",
-  "dstr1",
-  "dest2",
-  "dstr2",
-  "src1",
-  "sstr1",
-  "src2",
-  "sstr2",
-  "src3",
-  "sstr3",
-  "state",
-  "param1",
-  "param2",
-  "param3",
-  NULL
-};
-static const char *arg_name_aliases[] = {
-  "dest",
-  "dstr",
-  "src",
-  "sstr",
-  "param",
-  NULL
-};
-static OilArgType arg_name_aliases_2[] = {
-  OIL_ARG_DEST1,
-  OIL_ARG_DSTR1,
-  OIL_ARG_SRC1,
-  OIL_ARG_SSTR1,
-  OIL_ARG_PARAM1,
-  OIL_ARG_UNKNOWN
-};
-
 const char * oil_arg_type_name (OilArgType type)
 {
-  return arg_names[type];
+  return "FIXME";
 }
 
-static OilArgType
-oil_arg_type_from_string (const char *s)
+static
+struct {
+  char *from;
+  char *to;
+} arg_aliases[] = {
+  { "dest", "d1" },
+  { "dest1", "d1" },
+  { "dstr", "ds1" },
+  { "dstr1", "ds1" },
+  { "dest2", "d2" },
+  { "dstr2", "ds2" },
+  { "src", "s1" },
+  { "src1", "s1" },
+  { "sstr", "ss1" },
+  { "sstr1", "ss1" },
+  { "src2", "s2" },
+  { "sstr2", "ss2" },
+  { "src3", "s3" },
+  { "sstr3", "ss3" },
+  { NULL, NULL }
+};
+
+static
+struct {
+  OilArgType type;
+  int direction;
+  int is_stride;
+  int index;
+} arg_types[] = {
+  { OIL_ARG_N, 'n', 0, 0 },
+  { OIL_ARG_M, 'm', 0, 0 },
+  { OIL_ARG_DEST1, 'd', 0, 1 },
+  { OIL_ARG_DSTR1, 'd', 1, 1 },
+  { OIL_ARG_DEST2, 'd', 0, 2 },
+  { OIL_ARG_DSTR2, 'd', 1, 2 },
+  { OIL_ARG_SRC1, 's', 0, 1 },
+  { OIL_ARG_SSTR1, 's', 1, 1 },
+  { OIL_ARG_SRC2, 's', 0, 2 },
+  { OIL_ARG_SSTR2, 's', 1, 2 },
+  { OIL_ARG_SRC3, 's', 0, 3 },
+  { OIL_ARG_SSTR3, 's', 1, 3 },
+  { OIL_ARG_SRC4, 's', 0, 4 },
+  { OIL_ARG_SSTR4, 's', 1, 4 },
+  { OIL_ARG_SRC5, 's', 0, 5 },
+  { OIL_ARG_SSTR5, 's', 1, 5 },
+  { OIL_ARG_INPLACE1, 'i', 0, 1 },
+  { OIL_ARG_ISTR1, 'i', 1, 1 },
+  { OIL_ARG_INPLACE2, 'i', 0, 2 },
+  { OIL_ARG_ISTR2, 'i', 1, 2 },
+  { 0, 0, 0, 0 }
+};
+
+static int
+oil_param_from_string (OilParameter *p, char *s)
 {
   int i;
 
-  for(i=1;arg_names[i];i++){
-    if (strcmp (s, arg_names[i]) == 0){
-      return i;
-    }
+  p->parameter_type = OIL_ARG_UNKNOWN;
+
+  if (s[0] == 'n' && s[1] == 0) {
+    p->direction = *s;
+    p->parameter_type = OIL_ARG_N;
+    return 1;
   }
-  for(i=0;arg_name_aliases[i];i++){
-    if (strcmp (s, arg_name_aliases[i]) == 0){
-      return arg_name_aliases_2[i];
+  if (s[0] == 'm' && s[1] == 0) {
+    p->direction = *s;
+    p->parameter_type = OIL_ARG_M;
+    return 1;
+  }
+
+  for(i=0;arg_aliases[i].from;i++){
+    if (strcmp (s,arg_aliases[i].from) == 0) {
+      s = arg_aliases[i].to;
+      break;
     }
   }
 
-  return OIL_ARG_UNKNOWN;
+  p->direction = *s;
+  switch (*s) {
+    case 'i':
+      break;
+    case 's':
+      break;
+    case 'd':
+      break;
+    default:
+      return 0;
+  }
+  s++;
+
+  if (*s == 's') {
+    p->is_stride = 1;
+    s++;
+  } else {
+    p->is_stride = 0;
+  }
+
+  if (isdigit (*s)) {
+    p->index = *s - '0';
+    s++;
+  } else {
+    p->index = 1;
+  }
+
+  if (!p->is_stride && *s == '_') {
+    int length;
+    int var;
+
+    s++;
+
+    if (isdigit (*s)) {
+      length = strtoul (s, &s, 10);
+      var = 0;
+    } else if (*s == 'n') {
+      length = 0;
+      var = 1;
+      s++;
+    } else if (*s == 'm') {
+      length = 0;
+      var = 2;
+      s++;
+    } else {
+      return 0;
+    }
+
+    if (*s == 'x') {
+      s++;
+      p->prestride_length = length;
+      p->prestride_var = var;
+
+      if (isdigit (*s)) {
+        p->poststride_length = strtoul (s, &s, 10);
+        p->poststride_var = 0;
+      } else if (*s == 'n') {
+        p->poststride_length = 0;
+        p->poststride_var = 1;
+        s++;
+      } else if (*s == 'm') {
+        p->poststride_length = 0;
+        p->poststride_var = 2;
+        s++;
+      } else {
+        return 0;
+      }
+
+    } else {
+      p->poststride_length = length;
+      p->poststride_var = var;
+      p->prestride_length = 1;
+      p->prestride_var = 0;
+    }
+
+  } else {
+    p->poststride_length = 0;
+    p->poststride_var = 1;
+    p->prestride_length = 1;
+    p->prestride_var = 0;
+  }
+  if (*s != 0) {
+    return 0;
+  }
+
+  p->parameter_type = OIL_ARG_UNKNOWN;
+  for (i=0;arg_types[i].type != OIL_ARG_UNKNOWN; i++) {
+    if (p->direction == arg_types[i].direction &&
+        p->is_stride == arg_types[i].is_stride &&
+        p->index == arg_types[i].index) {
+      p->parameter_type = arg_types[i].type;
+      break;
+    }
+  }
+
+  if (p->parameter_type == OIL_ARG_UNKNOWN) {
+    return 0;
+  }
+
+  return 1;
 }
-
-
 
 

@@ -26,9 +26,9 @@
 
 
 OIL_DEFINE_CLASS (sad8x8_s16,
-    "uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2, int sstr2");
+    "uint32_t *d_8x8, int ds, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
 OIL_DEFINE_CLASS (sad8x8_f64,
-    "double *dest, int dstr, double *src1, int sstr1, double *src2, int sstr2");
+    "double *d_8x8, int ds, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
 
 static void
 sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,

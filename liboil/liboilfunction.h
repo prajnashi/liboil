@@ -21,16 +21,6 @@
 
 #include <liboil/liboiltypes.h>
 
-typedef struct _OilFunctionClass OilFunctionClass;
-typedef struct _OilFunctionImpl OilFunctionImpl;
-typedef struct _OilParameter OilParameter;
-typedef struct _OilTest OilTest;
-
-typedef enum _OilType OilType;
-typedef enum _OilArgType OilArgType;
-
-typedef void (*OilTestFunction) (OilTest *test);
-
 #ifdef LIBOIL_STRICT_PROTOTYPES
 #include <liboil/liboilfuncs.h>
 #define LIBOIL_CHECK_PROTOTYPE(a) a
@@ -40,54 +30,14 @@ typedef void (*OilTestFunction) (OilTest *test);
 
 #ifndef OIL_OPT_MANGLE
 #define OIL_OPT_MANGLE(a) a
+#define OIL_OPT_FLAG_MANGLE(a) a
 #else
 #define OIL_NO_CLASSES
+#define OIL_OPT_FLAG_MANGLE(a) (((a)&(~OIL_IMPL_FLAG_REF)) | OIL_IMPL_FLAG_OPT)
 #endif
 #ifndef OIL_OPT_SUFFIX
 #define OIL_OPT_SUFFIX
 #endif
-
-enum _OilType {
-  OIL_TYPE_UNKNOWN = 0,
-  OIL_TYPE_INT,
-  OIL_TYPE_s8,
-  OIL_TYPE_u8,
-  OIL_TYPE_s16,
-  OIL_TYPE_u16,
-  OIL_TYPE_s32,
-  OIL_TYPE_u32,
-  OIL_TYPE_f32,
-  OIL_TYPE_f64,
-  OIL_TYPE_s8p,
-  OIL_TYPE_u8p,
-  OIL_TYPE_s16p,
-  OIL_TYPE_u16p,
-  OIL_TYPE_s32p,
-  OIL_TYPE_u32p,
-  OIL_TYPE_f32p,
-  OIL_TYPE_f64p,
-};
-
-enum _OilArgType {
-  OIL_ARG_UNKNOWN = 0,
-  OIL_ARG_N,
-  OIL_ARG_DEST1,
-  OIL_ARG_DSTR1,
-  OIL_ARG_DEST2,
-  OIL_ARG_DSTR2,
-  OIL_ARG_SRC1,
-  OIL_ARG_SSTR1,
-  OIL_ARG_SRC2,
-  OIL_ARG_SSTR2,
-  OIL_ARG_SRC3,
-  OIL_ARG_SSTR3,
-  OIL_ARG_STATE,
-  OIL_ARG_PARAM1,
-  OIL_ARG_PARAM2,
-  OIL_ARG_PARAM3,
-
-  OIL_ARG_LAST
-};
 
 struct _OilFunctionClass {
 	void *func;
@@ -112,22 +62,12 @@ struct _OilFunctionImpl {
 	unsigned int prof;
 };
 
-struct _OilParameter {
-  char *type_name;
-  char *parameter_name;
-  OilType type;
-  int order;
-  OilArgType parameter_type;
-
-  unsigned long value;
-  int size;
-};
-
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
 #define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + offset) )
 #define OIL_INCREMENT(ptr, offset) (ptr = (void *)((uint8_t *)ptr + offset) )
 
 #define OIL_IMPL_FLAG_REF	(1<<0)
+#define OIL_IMPL_FLAG_OPT	(1<<1)
 
 #define OIL_CPU_FLAG_MASK 0xffff0000
 
@@ -174,7 +114,7 @@ OilFunctionImpl OIL_OPT_MANGLE(_oil_function_impl_ ## function) = { \
 	NULL, \
 	&_oil_function_class_ ## klass , \
 	(void *)function, \
-	flags, \
+	OIL_OPT_FLAG_MANGLE(flags), \
         #function OIL_OPT_SUFFIX \
 } \
 LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)

@@ -34,8 +34,8 @@
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
 
-OIL_DEFINE_CLASS (idct8x8_f64, "double *dest, int dstr, double *src, int sstr");
-OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *dest, int dstr, int16_t *src, int sstr");
+OIL_DEFINE_CLASS (idct8x8_f64, "double *d_8x8, int dstr, double *s_8x8, int sstr");
+OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr");
 
 static void
 idct8x8_f64_slow (double *dest, int dstr, double *src, int sstr)
@@ -74,7 +74,7 @@ idct8x8_f64_slow (double *dest, int dstr, double *src, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL (idct8x8_f64_slow, idct8x8_f64);
+OIL_DEFINE_IMPL_REF (idct8x8_f64_slow, idct8x8_f64);
 
 #if defined(oil_idct8_f64)
 static void
@@ -111,7 +111,10 @@ idct8x8_s16_slow (int16_t *dest, int dstr, int16_t *src, int sstr)
 	oil_conv8x8_s16_f64 (dest,dstr,d,8*sizeof(double));
 }
 
+OIL_DEFINE_IMPL_REF (idct8x8_s16_slow, idct8x8_s16);
+#if 0
 OIL_DEFINE_IMPL_DEPENDS (idct8x8_s16_slow, idct8x8_s16,
     conv8x8_f64_s16, idct8x8_f64, conv8x8_s16_f64);
+#endif
 #endif
 

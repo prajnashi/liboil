@@ -165,6 +165,21 @@ oil_cpu_powerpc_getflags(void)
 void
 _oil_cpu_init (void)
 {
+  const char *envvar;
+
+  envvar = getenv ("OIL_CPU_FLAGS");
+  if (envvar != NULL) {
+    char *end = NULL;
+    unsigned long flags;
+
+    flags = strtoul (envvar, &end, 0);
+    if (end > envvar) {
+      oil_cpu_flags = flags;
+    }
+    OIL_INFO ("cpu flags from environment %08lx", oil_cpu_flags);
+    return;
+  }
+
 #ifdef __i386__
   oil_cpu_i386_getflags();
 #endif

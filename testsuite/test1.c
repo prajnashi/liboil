@@ -22,9 +22,14 @@ int main (int argc, char *argv[])
   for (i=0;i<oil_n_function_classes; i++ ){
     klass = oil_class_get_by_index(i);
 
-    test = oil_test_new (klass);
-
     printf("%s\n", klass->name);
+
+    test = oil_test_new (klass);
+    if (test == NULL) {
+      printf("  bad prototype\n");
+      continue;
+    }
+
     for (impl = klass->first_impl; impl; impl = impl->next) {
       printf("  %s\n", impl->name);
       if ((impl->flags & OIL_CPU_FLAG_MASK) & ~oil_cpu_flags) {

@@ -24,7 +24,7 @@
 #include <math.h>
 
 OIL_DEFINE_CLASS (sincos_f64,
-    "double *dest1, double *dest2, int n, double *param1, double *param2");
+    "double *dest1, double *dest2, int n, double *s1_1, double *s2_1");
 
 static void
 sincos_f64_ref (double *dest_sin, double *dest_cos, int n, double *offset,

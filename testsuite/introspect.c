@@ -12,6 +12,7 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
   int i;
+  int errors = 0;
 
   oil_init ();
 
@@ -22,19 +23,24 @@ int main (int argc, char *argv[])
 
     printf ("class: %s\n", klass->name);
     for(impl = klass->first_impl; impl; impl=impl->next) {
-      printf ("  %s %s\n", impl->name, (impl->flags&OIL_IMPL_FLAG_REF)?"(ref)":"");
+      printf ("  %s %s %s\n", impl->name,
+          (impl->flags&OIL_IMPL_FLAG_REF)?"(ref)":"",
+          (impl->flags&OIL_IMPL_FLAG_OPT)?"(opt)":"");
       if (impl->flags & OIL_IMPL_FLAG_REF) {
         ref++;
       }
     }
     if (ref < 1) {
       printf("ERROR: no reference function\n");
+      errors++;
     }
     if (ref > 1) {
       printf("ERROR: more than one reference function\n");
+      errors++;
     }
     if (klass->prototype == NULL) {
       printf("ERROR: prototype is NULL\n");
+      errors++;
     }
 #if 0
     printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
@@ -44,7 +50,7 @@ int main (int argc, char *argv[])
 #endif
   }
 
-  return 0;
+  return (errors)?1:0;
 }
 
 #ifdef unused

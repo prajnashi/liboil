@@ -45,19 +45,19 @@ conv_f64_s16_table(double *dest, int dest_stride, short *src,
 	if(n&1){
 		idx = (unsigned short)*src;
 		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
-		dest = OIL_OFFSET(dest, dest_stride);
-		src = OIL_OFFSET(src, dest_stride);
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 		n-=1;
 	}
 	for(i=0;i<n;i+=2){
 		idx = (unsigned short)*src;
 		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
-		dest = OIL_OFFSET(dest, dest_stride);
-		src = OIL_OFFSET(src, dest_stride);
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 		idx = (unsigned short)*src;
 		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
-		dest = OIL_OFFSET(dest, dest_stride);
-		src = OIL_OFFSET(src, dest_stride);
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16);

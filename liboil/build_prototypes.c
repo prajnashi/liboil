@@ -26,17 +26,20 @@ int main (int argc, char *argv[])
 
     if(klass->prototype) {
       proto = oil_prototype_from_string (klass->prototype);
+      if (proto) {
+        string = oil_prototype_to_string (proto);
 
-      string = oil_prototype_to_string (proto);
+        printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
+            klass->name);
+        printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
+        printf ("#define oil_%s ((_oil_type_%s)oil_function_class_ptr_%s->func)\n",
+            klass->name, klass->name, klass->name);
 
-      printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
-          klass->name);
-      printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
-      printf ("#define oil_%s ((_oil_type_%s)oil_function_class_ptr_%s->func)\n",
-          klass->name, klass->name, klass->name);
-
-      oil_prototype_free (proto);
-      free (string);
+        oil_prototype_free (proto);
+        free (string);
+      } else {
+        printf("/* ERROR: could not parse %s(%s) */\n", klass->name, klass->prototype);
+      }
     }
   }
 

@@ -25,6 +25,16 @@
 #define NULL ((void *)0)
 #endif
 
+typedef struct _OilFunctionClass OilFunctionClass;
+typedef struct _OilFunctionImpl OilFunctionImpl;
+typedef struct _OilParameter OilParameter;
+typedef struct _OilTest OilTest;
+
+typedef enum _OilType OilType;
+typedef enum _OilArgType OilArgType;
+
+typedef void (*OilTestFunction) (OilTest *test);
+
 #define type_s8 int8_t
 #define type_u8 uint8_t
 #define type_s16 int16_t

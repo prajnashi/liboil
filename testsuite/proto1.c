@@ -47,6 +47,10 @@ int main (int argc, char *argv[])
       OilPrototype *proto;
 
       proto = oil_prototype_from_string (klass->prototype);
+      if (proto == NULL) {
+        printf ("  bad prototype\n");
+        continue;
+      }
 
       for(j=0;j<proto->n_params;j++){
         x = get_name_index (proto->params[j].parameter_name);

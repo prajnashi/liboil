@@ -24,7 +24,7 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS (imdct32_f32, "float *dest, float *src");
+OIL_DEFINE_CLASS (imdct32_f32, "float *d_32, float *s_32");
 
 static void imdct32_f32_ref (float *dest, float *src)
 {

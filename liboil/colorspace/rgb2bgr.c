@@ -22,15 +22,10 @@
 
 #include <liboil/liboilfunction.h>
 
-static void
-rgb2bgr_test (OilTest *test)
-{
-}
-
 /* important: 
  * this function is supposed to work if dest == src 
  * if dest and src overlap in another way, the behaviour is undefined */
-OIL_DEFINE_CLASS_FULL (rgb2bgr, "uint8_t *dest, uint8_t* src, int n", rgb2bgr_test);
+OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
 
 static void
 rgb2bgr_ref (uint8_t *dest, uint8_t* src, int n)

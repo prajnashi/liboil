@@ -29,7 +29,7 @@
 OIL_DEFINE_CLASS(fdct8x8_f64, NULL);
 
 
-static void fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)
+static void fdct8x8_f64_ref(double *d_8x8, int dstr, double *s_8x8, int sstr)
 {
 	static double fdct_coeff[8][8];
 	static int fdct_coeff_init = 0;

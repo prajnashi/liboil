@@ -23,7 +23,8 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
-OIL_DEFINE_CLASS (unzigzag8x8_s16, "int16_t *dest, int dstr, int16_t *src, int sstr");
+OIL_DEFINE_CLASS (unzigzag8x8_s16,
+    "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 
 
 

@@ -23,13 +23,13 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/dct/dct.h>
 
-OIL_DEFINE_CLASS(dct36_f32, "float *dest, int dstr, float *src, int sstr, int n");
+OIL_DEFINE_CLASS(dct36_f32, "float *d_36, int dstr, float *s_36, int sstr");
 
 static void
-dct36_f32_ref(float *dest, int dstr, float *src, int sstr, int n)
+dct36_f32_ref(float *dest, int dstr, float *src, int sstr)
 {
   int i;
-  for(i=0;i<n;i++){
+  for(i=0;i<36;i++){
     dest[i] = src[i];
   }
 }

@@ -25,7 +25,7 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS (dct12_f32, "float *dest, int dstr, float *src, int sstr");
+OIL_DEFINE_CLASS (dct12_f32, "float *d_18, int dstr, float *s_18, int sstr");
 
 static void
 dct12_f32_ref (float *dest, int dstr, float *src, int sstr)
@@ -103,6 +103,8 @@ dct12_f32_ref (float *dest, int dstr, float *src, int sstr)
 OIL_DEFINE_IMPL_REF (dct12_f32_ref, dct12_f32);
 
 
+/* FIXME: broken, reads outside src array */
+#if 0
 static void
 dct12_f32_ref1(float *dest, int dstr, float *src, int sstr)
 {
@@ -134,6 +136,7 @@ dct12_f32_ref1(float *dest, int dstr, float *src, int sstr)
 	}
 }
 OIL_DEFINE_IMPL (dct12_f32_ref1, dct12_f32);
+#endif
 
 /* copyright: from mpglib */
 /*

@@ -44,7 +44,7 @@ OIL_DEFINE_CLASS(clip_ ## type, \
     "int dstr, " \
     "type_" #type " *src, " \
     "int sstr, int n, " \
-    "type_" #type " *param1, type_" #type " *param2"); \
+    "type_" #type " *s2_1, type_" #type " *s3_1"); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type)
 
 CLIP_DEFINE_REF (s8);
