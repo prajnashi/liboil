@@ -163,15 +163,15 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 		"	srawi 0,10,31		\n"
 		"	 subfc 18,19,%3		\n"
 		"	srawi 11,8,31		\n"
-		"	 srawi 30,20,31		\n"
+		"	 srawi 22,20,31		\n"
 		"	and 0,0,10		\n"
 		"	 srawi 21,18,31		\n"
 		"	and 11,11,8		\n"
-		"	 and 30,30,20		\n"
+		"	 and 22,22,20		\n"
 		"	subf 9,0,9		\n"
 		"	 and 21,21,18		\n"
 		"	add 9,9,11		\n"
-		"	 subf 19,30,19		\n"
+		"	 subf 19,22,19		\n"
 		"	sthu 9,2(%0)		\n"
 		"	 add 19,19,21		\n"
 		"	 sthu 19,2(%0)		\n"
@@ -179,7 +179,7 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	: "+b" (dest), "+b" (src), "+b" (low), "+b" (hi), "+b" (n)
 	: 
 	: "8", "9", "10", "11", "0",
-	  "18", "19", "20", "21", "30", "ctr");
+	  "18", "19", "20", "21", "22", "ctr");
 }
 OIL_DEFINE_IMPL (clip_s16_ppcasm3, clip_s16);
 #endif
