@@ -1,5 +1,22 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: add null.c, libprofile.c
+	* liboil/null.c: a null function
+	* liboil/liboilprofile.c: profiling code
+	* liboil/conv_3dnow.c: (conv_f32_s32_3dnow), (conv_s32_f32_3dnow):
+	add 'emms'
+	* liboil/liboilprofile.h: clean up, move some stuff to .c
+	* liboil/liboiltest.c: (oil_test_go): fix for profile changes
+	* liboil/simdpack/abs_u16_s16.c: (abs_u16_s16_mmx),
+	(abs_u16_s16_mmxx), (abs_u16_s16_mmx2): add 'emms'
+	* testsuite/md5_profile.c: (test): fix for profile changes
+	* testsuite/test1.c: (main), (calc_average), (calc_std),
+	(calc_std2), (calc_max), (hist): fix for profile changes.  Add
+	code to get a good estimate of the average execution time,
+	removing outliers.
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/copy/trans8x8_f32.c: Move unused files to junk directory
 	* liboil/copy/trans8x8_s16.c:
 	* liboil/dct/fdct8x8_s16.c:

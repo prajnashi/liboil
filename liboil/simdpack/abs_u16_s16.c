@@ -227,6 +227,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
     *dest = tmp[3];
     OIL_INCREMENT (dest, dstr);
   }
+  asm volatile ("emms");
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
@@ -273,6 +274,7 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	testl	%2, %2			\n"
       "	jg	1b			\n":"+D" (src), "+a" (dest), "+S" (n)
       :"c" (p));
+  asm volatile ("emms");
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
@@ -310,6 +312,7 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	jg	1b			\n"
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
       ::"ecx", "edx");
+  asm volatile ("emms");
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16, OIL_IMPL_REQUIRES_MMXEXT);

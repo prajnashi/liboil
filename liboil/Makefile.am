@@ -43,6 +43,7 @@ liboilfunctions_la_SOURCES = \
 	conv_c.c \
 	conv_bitstuff.c \
 	conv_misc.c \
+	null.c \
 	$(powerpc_sources) \
 	$(i386_sources)
 liboilfunctions_la_CFLAGS = $(LIBOIL_CFLAGS)
@@ -72,6 +73,7 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilfunction.c \
 	liboildebug.c \
 	liboilcpu.c \
+	liboilprofile.c \
 	liboilprototype.c \
 	liboilarray.c \
 	liboiltest.h \

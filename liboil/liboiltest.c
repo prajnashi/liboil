@@ -145,13 +145,13 @@ oil_test_go (OilTest *test)
     args[i] = test->params[j].value;
   }
 
-  oil_profile_init (test->prof);
+  oil_profile_init (&test->prof);
   for(i=0;i<test->iterations;i++){
-    oil_profile_start (test->prof);
+    oil_profile_start (&test->prof);
     ((void (*)(int,int,int,int,int,int,int,int,int,int))test->impl->func)
       (args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],
        args[8],args[9]);
-    oil_profile_stop (test->prof);
+    oil_profile_stop (&test->prof);
   }
 
   return 1;

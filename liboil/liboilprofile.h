@@ -19,12 +19,20 @@
 #ifndef _LIBOIL_PROFILE_H_
 #define _LIBOIL_PROFILE_H_
 
+#define OIL_PROFILE_HIST_LENGTH 10
+
 typedef struct _OilProfile OilProfile;
 struct _OilProfile {
-	unsigned long tsum;
-	unsigned long tmin;
-	unsigned long t;
-	unsigned long count;
+  unsigned long start;
+  unsigned long stop;
+  unsigned long min;
+  unsigned long last;
+  unsigned long total;
+  int n;
+
+  int hist_n;
+  unsigned long hist_time[OIL_PROFILE_HIST_LENGTH];
+  int hist_count[OIL_PROFILE_HIST_LENGTH];
 };
 
 #if defined(__i386__)
@@ -89,32 +97,23 @@ static inline unsigned long oil_profile_stamp(void)
 
 #else
 
-#include <sys/time.h>
-#include <time.h>
+#define OIL_PROFILE_USING_GTOD
 
-static inline unsigned long oil_profile_stamp(void)
-{
-	struct timeval tv;
-	gettimeofday(&tv,NULL);
-	return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
-}
+void oil_profile_stamp_gtod (void);
+
+#define oil_profile_stamp() oil_profile_stamp_gtod()
 
 #endif
 
-#define oil_profile_init(x) do{ (x).tsum = 0; (x).tmin=-1; (x).count=0; }while(0)
+void oil_profile_init(OilProfile *prof);
+void oil_profile_stop_handle(OilProfile *prof);
+
 #define oil_profile_start(x) do{ \
-	(x).t = -oil_profile_stamp(); \
-	__asm__ __volatile__("\n###### START PROFILE"); \
+	(x)->start = oil_profile_stamp(); \
 }while(0)
 #define oil_profile_stop(x) do{ \
-	__asm__ __volatile__("\n###### STOP PROFILE"); \
-	(x).t += oil_profile_stamp(); \
-	if((x).t<(x).tmin)(x).tmin=(x).t; \
-	(x).tsum += (x).t; \
-	(x).count ++; \
-}while(0)
-#define oil_profile_print(x) do{ \
-	printf("P: %lu %lu %lu %lu\n",(x).tsum,(x).tmin,(x).t,(x).count); \
+	(x)->stop = oil_profile_stamp(); \
+        oil_profile_stop_handle(x); \
 }while(0)
 
 

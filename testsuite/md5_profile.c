@@ -40,9 +40,9 @@ void test(void)
   src[14] = uint32_from_host(len << 3);
   src[15] = 0;
 
-  oil_profile_init(prof);
+  oil_profile_init(&prof);
   for(i=0;i<1000;i++){
-    oil_profile_start(prof);
+    oil_profile_start(&prof);
     oil_md5 (state, src);
     oil_md5 (state, src);
     oil_md5 (state, src);
@@ -59,9 +59,9 @@ void test(void)
     oil_md5 (state, src);
     oil_md5 (state, src);
     oil_md5 (state, src);
-    oil_profile_stop(prof);
+    oil_profile_stop(&prof);
   }
-  oil_profile_print(prof);
+  //oil_profile_print(&prof);
 
   g_print("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
       state[0]&0xff, (state[0]>>8)&0xff, (state[0]>>16)&0xff,
