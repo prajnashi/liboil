@@ -1,5 +1,25 @@
 2004-12-01  David Schleef  <ds@schleef.org>
 
+	* liboil/simdpack/abs_u32_s32.c: rip out simdpack test functions
+	* liboil/simdpack/average2_u8.c:
+	* liboil/simdpack/conv8x8_f64_s16.c:
+	* liboil/simdpack/conv8x8_s16x8_s8.c:
+	* liboil/simdpack/conv_f64_s16.c:
+	* liboil/simdpack/conv_s16_f64.c:
+	* liboil/simdpack/diffsquaresum_f64.c:
+	* liboil/simdpack/downsample2_f64.c:
+	* liboil/simdpack/downsample2_s16.c:
+	* liboil/simdpack/downsample2_u8.c:
+	* liboil/simdpack/downsamplex_f64.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/squaresum_f64.c:
+	* liboil/simdpack/sum_f64.c:
+
+2004-12-01  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Add --enable-prototype-checking and
 	--enable-alternate-optimization.
 	* liboil/Makefile.am: same
