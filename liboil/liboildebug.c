@@ -59,7 +59,7 @@ oil_spill (void)
   int i;
 
   for(i=0;i<oil_n_function_classes;i++){
-    klass = oil_function_classes + i;
+    klass = oil_class_get_by_index (i);
 
     printf("%s\n",klass->name);
     for(impl = klass->first_impl; impl; impl=impl->next){

@@ -40,7 +40,7 @@ int main (int argc, char *argv[])
   oil_init ();
 
   for (i=0;i<oil_n_function_classes; i++ ){
-    klass = oil_function_classes + i;
+    klass = oil_class_get_by_index(i);
 
     if(klass->prototype) {
       proto = oil_prototype_from_string (klass->prototype);

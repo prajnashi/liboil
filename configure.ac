@@ -32,6 +32,16 @@ AC_HELP_STRING([--disable-glib],[disable usage of glib]),
 esac])
 AM_CONDITIONAL(HAVE_GLIB, test "x$HAVE_GLIB" = "xyes")
 
+dnl If we have the GNU linker, we can use a few special tricks.
+dnl Basically, this means Linux for now.
+if test "x${target_os}" = "xlinux" -o "x${target_os}" = "xlinux-gnu" ; then
+  HAVE_GNU_LINKER=yes
+  AC_DEFINE(HAVE_GNU_LINKER, 1, [Define if GNU linker is being used])
+else
+  HAVE_GNU_LINKER=no
+fi
+AM_CONDITIONAL(HAVE_GNU_LINKER, test "x${HAVE_GNU_LINKER}" = "xyes")
+
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================
 

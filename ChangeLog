@@ -1,3 +1,19 @@
+2004-09-09  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Check for GNU linker (i.e., Linux)
+	* liboil/Makefile.am: Use alternate liboilarray.c if not Linux.
+	* liboil/build_prototypes.c: (main), (print_header):
+	* liboil/liboilarray.c: Array of classes and impls.
+	* liboil/liboil_begin.c: fix API changes
+	* liboil/liboil_end.c: api changes
+	* liboil/liboildebug.c: (oil_spill): api changes
+	* liboil/liboilfunction.c: (oil_optimize_all),
+	(oil_class_get_by_index), (oil_impl_get_by_index), (oil_class_get),
+	(oil_init_pointers), (oil_init_structs): Handle class and impl
+	arrays if not using gnu linker.
+	* liboil/liboilfunction.h: api changes
+	* testsuite/proto1.c: (main): api changes
+
 2004-09-08  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilprototype.c: (parse_string), (oil_string_free),

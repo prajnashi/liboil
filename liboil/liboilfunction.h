@@ -30,11 +30,12 @@ typedef void (*OilTestFunction) (OilFunctionClass *klass,
 
 #ifdef __GNUC__
 #define OIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
-#define OIL_ATTRIBUTE_SECTION(section_name) \
-  __attribute__ ((section (section_name)))
+#define OIL_IMPL_SECTION __attribute__ ((section ("oil_impl")))
+#define OIL_CLASS_SECTION __attribute__ ((section ("oil_class")))
 #else
 #define OIL_ATTRIBUTE_ALIGNED_16
-#define OIL_ATTRIBUTE_SECTION(section_name)
+#define OIL_IMPL_SECTION
+#define OIL_CLASS_SECTION
 #endif
 
 struct _OilFunctionClass {
@@ -85,8 +86,7 @@ struct _OilFunctionImpl {
 
 
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \
-OilFunctionClass _oil_function_class_ ## klass \
-		OIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
+OilFunctionClass _oil_function_class_ ## klass OIL_CLASS_SECTION = { \
 	NULL, \
 	#klass , \
 	NULL, \
@@ -100,8 +100,7 @@ OilFunctionClass *oil_function_class_ptr_ ## klass = \
   &_oil_function_class_ ## klass
 
 #define OIL_DEFINE_CLASS(klass, string) \
-OilFunctionClass _oil_function_class_ ## klass \
-		OIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
+OilFunctionClass _oil_function_class_ ## klass OIL_CLASS_SECTION = { \
 	NULL, \
 	#klass , \
 	NULL, \
@@ -117,8 +116,7 @@ OilFunctionClass *oil_function_class_ptr_ ## klass = \
 #define OIL_ARG(a,b,c,d) { a, b, c, d }
 
 #define OIL_DEFINE_IMPL_FULL(function,klass,flags) \
-OilFunctionImpl _oil_function_impl_ ## function \
-		OIL_ATTRIBUTE_SECTION(".oil_function_impl") /* unused */ = { \
+OilFunctionImpl _oil_function_impl_ ## function OIL_IMPL_SECTION = { \
 	NULL, \
 	&_oil_function_class_ ## klass , \
 	(void *)function, \
@@ -133,12 +131,9 @@ OilFunctionImpl _oil_function_impl_ ## function \
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
 
-extern OilFunctionClass *oil_function_classes;
-extern OilFunctionImpl *oil_function_impls;
+extern unsigned int oil_arch_flags;
 extern int oil_n_function_impls;
 extern int oil_n_function_classes;
-
-extern unsigned int oil_arch_flags;
 
 void oil_init (void);
 void oil_optimize_all (void);
@@ -147,6 +142,8 @@ void oil_optimize (const char *class_name);
 OilFunctionClass * oil_class_get_by_index (int i);
 OilFunctionClass *oil_class_get (const char *class_name);
 void oil_class_optimize (OilFunctionClass *klass);
+
+OilFunctionImpl * oil_impl_get_by_index (int i);
 
 
 #endif

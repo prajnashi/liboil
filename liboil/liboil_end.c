@@ -22,9 +22,7 @@
 #include <liboil/liboilfunction.h>
 
 
-OilFunctionClass _oil_end_function_class
-  OIL_ATTRIBUTE_SECTION(".oil_function_class");
-OilFunctionImpl _oil_end_function_impl
-  OIL_ATTRIBUTE_SECTION(".oil_function_impl");
+OilFunctionClass _oil_end_function_class OIL_CLASS_SECTION;
+OilFunctionImpl _oil_end_function_impl OIL_IMPL_SECTION;
 
 
