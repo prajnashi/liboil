@@ -1,5 +1,5 @@
 
-SUBDIRS = jpeg
+SUBDIRS = jpeg md5
 
 noinst_PROGRAMS = example1
 

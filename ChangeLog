@@ -1,5 +1,15 @@
 2004-11-01  David Schleef  <ds@schleef.org>
 
+	* configure.ac: add md5sum example
+	* examples/Makefile.am:
+	* examples/md5/Makefile.am:
+	* examples/md5/md5sum.c: (main):
+	* liboil/md5/Makefile.am: 
+	* liboil/md5/md5_i386.c: (md5_asm3): optimization
+	* liboil/md5/md5_powerpc.c: (md5_asm1): stub
+
+2004-11-01  David Schleef  <ds@schleef.org>
+
 	* COPYING: add
 	* Makefile.am: Add COPYING, fix CLEANFILES
 	* configure.ac: version bump

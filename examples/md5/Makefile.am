@@ -1,0 +1,8 @@
+
+
+noinst_PROGRAMS = md5sum
+
+md5sum_SOURCES = md5sum.c
+md5sum_CFLAGS =
+md5sum_LDFLAGS = $(LIBOIL_LIBS)
+
