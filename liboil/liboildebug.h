@@ -34,6 +34,10 @@ enum {
 #define OIL_DEBUG(...) OIL_DEBUG_PRINT(OIL_DEBUG_DEBUG, __VA_ARGS__)
 #define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
 
+#ifndef __PRETTY_FUNCTION__
+#define __PRETTY_FUNCTION__ ""
+#endif
+
 #define OIL_DEBUG_PRINT(level, ...) do { \
   if(_oil_debug_enabled) { \
     oil_debug_print((level), __FILE__, __PRETTY_FUNCTION__, __LINE__, \

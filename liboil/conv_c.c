@@ -540,7 +540,6 @@ CONV_DEFINE_FLOAT_RINTF(u32,f32);
 
 #endif
 
-#define HAVE_LRINT
 #ifdef HAVE_LRINT
 
 #define CONV_DEFINE_FLOAT_LRINT(desttype,srctype) \
@@ -580,7 +579,6 @@ CONV_DEFINE_FLOAT_LRINT(u32,f64);
 
 #endif
 
-#define HAVE_LRINTF
 #ifdef HAVE_LRINTF
 
 #define CONV_DEFINE_FLOAT_LRINTF(desttype,srctype) \

@@ -31,8 +31,8 @@ static void get8x8_f64_ref(double *dest, int dstr, double *src, int sstr,
 
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
-			*OIL_OFFSET (dest,dstr*i+j) = 
-				*OIL_OFFSET (src,sstr*(i+y)+j+x);
+			OIL_GET (dest,dstr*i+j, double) = 
+				OIL_GET (src,sstr*(i+y)+j+x, double);
 		}
 	}
 }

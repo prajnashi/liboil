@@ -125,7 +125,7 @@ static char * parse_string (const char *s, const char **endptr)
   }
   *endptr = s;
 
-  return strndup(s0, s - s0);
+  return g_strndup(s0, s - s0);
 }
 
 void

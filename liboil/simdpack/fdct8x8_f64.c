@@ -54,11 +54,11 @@ static void fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)
 				tmp2 = 0;
 				for(l=0;l<8;l++){
 					tmp2 += fdct_coeff[l][j] *
-					  *OIL_OFFSET (src, sstr*k + l);
+					  OIL_GET (src, sstr*k + l, double);
 				}
 				tmp1 += fdct_coeff[k][i] * tmp2;
 			}
-			*OIL_OFFSET (dest, dstr*i + j) = tmp1;
+			OIL_GET (dest, dstr*i + j, double) = tmp1;
 		}
 	}
 }
@@ -92,7 +92,7 @@ fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
 			x = 0;
 			for(k=0;k<8;k++){
 				x += fdct_coeff[k][j] *
-				  *OIL_OFFSET (src, sstr*i + k);
+				  OIL_GET (src, sstr*i + k, double);
 			}
 			tmp[8*i+j] = x;
 		}
@@ -104,7 +104,7 @@ fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
 			for(k=0;k<8;k++){
 				x += fdct_coeff[k][i] * tmp[8*k + j];
 			}
-			*OIL_OFFSET (dest,dstr*i+j) = x;
+			OIL_GET (dest,dstr*i+j, double) = x;
 		}
 	}
 }

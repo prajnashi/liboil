@@ -29,9 +29,9 @@ static void tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src,
 {
   int i;
   for(i=0;i<n;i++){
-    *dest = *OIL_OFFSET(table,tablestride*(int)src);
-    dest = OIL_OFFSET(dest, dstr);
-    src = OIL_OFFSET(src, sstr);
+    *dest = OIL_GET(table,tablestride*(int)src, uint8_t);
+    OIL_INCREMENT(dest, dstr);
+    OIL_INCREMENT(src, sstr);
   }
 }
 

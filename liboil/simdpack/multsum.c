@@ -54,13 +54,13 @@ static void multsum_f32_unroll2 (float *dest, float *src1, int sstr1,
   double sum2 = 0;
 
   if (n&1) {
-    sum1 += *OIL_OFFSET(src1,0) * *OIL_OFFSET(src2,0);
+    sum1 += OIL_GET(src1,0, float) * OIL_GET(src2,0, float);
   }
   OIL_INCREMENT (src1, sstr1);
   OIL_INCREMENT (src2, sstr2);
   for(i=0;i<n;i++){
-    sum1 += *OIL_OFFSET(src1,sstr1*i) * *OIL_OFFSET(src2,sstr2*i);
-    sum2 += *OIL_OFFSET(src1,sstr1*i) * *OIL_OFFSET(src2,sstr2*i);
+    sum1 += OIL_GET(src1,sstr1*i, float) * OIL_GET(src2,sstr2*i, float);
+    sum2 += OIL_GET(src1,sstr1*i, float) * OIL_GET(src2,sstr2*i, float);
   }
 
   *dest = sum1 + sum2;

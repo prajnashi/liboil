@@ -1,3 +1,48 @@
+2004-08-13  David Schleef  <ds@schleef.org>
+
+	Partial port to Forte/non-gcc-compilers.  Kill me now.
+	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/build_prototypes.c: (parse_string):
+	* liboil/conv_bitstuff.c: (conv_f32_u8_bitstuff),
+	(conv_f32_s8_bitstuff), (conv_f32_u16_bitstuff),
+	(conv_f32_s16_bitstuff), (conv_s16_f32_bitstuff),
+	(conv_f64_u8_bitstuff), (conv_f64_s8_bitstuff),
+	(conv_f64_u16_bitstuff), (conv_f64_s16_bitstuff):
+	* liboil/conv_c.c:
+	* liboil/conv_ref.c:
+	* liboil/conv_sse.c:
+	* liboil/jpeg/idct8_c.c:
+	* liboil/liboil_begin.c:
+	* liboil/liboil_end.c:
+	* liboil/liboildebug.h:
+	* liboil/liboilfunction.h:
+	* liboil/simdpack/abs.c: (abs_u16_s16_ref), (abs_u32_s32_ref),
+	(abs_f32_f32_ref), (abs_f64_f64_ref):
+	* liboil/simdpack/abs_u16_s16.c: (abs_u16_s16_ref):
+	* liboil/simdpack/abs_u32_s32.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/clip_s16.c: (clip_s16_ref), (clip_s16_fast):
+	* liboil/simdpack/fdct8_f64.c: (fdct8_f64_ref), (fdct8_f64_fast):
+	* liboil/simdpack/fdct8x8_f64.c: (fdct8x8_f64_ref),
+	(fdct8x8_f64_ref2):
+	* liboil/simdpack/fdct8x8s_s16.c: (fdct8x8s_s16_ref):
+	* liboil/simdpack/get8x8_f64.c: (get8x8_f64_ref):
+	* liboil/simdpack/idct8_f64.c: (idct8_f64_ref), (idct8_f64_fastx):
+	* liboil/simdpack/mult8x8_s16.c: (mult8x8_s16_ref):
+	* liboil/simdpack/multsum.c: (multsum_f32_unroll2):
+	* liboil/simdpack/permute.c:
+	* liboil/simdpack/sad8x8.c: (sad8x8_f64_ref), (sad8x8_s16_ref):
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/simdpack/sum_f64.c: (sum_f64_ref), (sum_f64_i10_simple),
+	(sum_f64_i10_unroll4):
+	* liboil/simdpack/vectoradd_f64.c:
+	* liboil/simdpack/zigzag8x8_s16.c: (zigzag8x8_s16_ref):
+	* liboil/splat_ref.c: (splat_u8_ref), (splat_u32_ref),
+	(splat_u32_unroll2):
+	* liboil/tablelookup_ref.c: (tablelookup_u8_ref):
+
 2004-08-12  David Schleef  <ds@schleef.org>
 
 	* configure.ac: Check for rintf() and friends

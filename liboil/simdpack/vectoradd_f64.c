@@ -33,8 +33,8 @@ static void vectoradd_ ## type ## _ref (	\
 {						\
   int i;					\
   for(i=0;i<n;i++) {				\
-    *OIL_OFFSET(dest,i*dstr) = v1 * *OIL_OFFSET(src1,i*sstr1) +	\
-        v2 * *OIL_OFFSET(src2,i*sstr2);		\
+    OIL_GET(dest,i*dstr, type_ ## type) = v1 * OIL_GET(src1,i*sstr1, type_ ## type) +	\
+        v2 * OIL_GET(src2,i*sstr2, type_ ## type);		\
   }						\
 }						\
 OIL_DEFINE_IMPL_REF (vectoradd_ ## type ## _ref, vectoradd_ ## type ## _class);

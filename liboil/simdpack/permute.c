@@ -32,11 +32,11 @@ static void permute_ ## type ## _ref(		\
 {						\
   int i;					\
   for(i=0;i<n;i++){				\
-    *OIL_OFFSET(dest,dstr*i) = *OIL_OFFSET(src,sstr*	\
-	*OIL_OFFSET(perm,pstr*i));		\
+    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src,sstr*	\
+	OIL_GET(perm,pstr*i, int), type_ ## type);		\
   }						\
 }						\
-OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type ## _class);
+OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type ## _class)
 
 PERMUTE_DEFINE_REF (s8);
 PERMUTE_DEFINE_REF (u8);

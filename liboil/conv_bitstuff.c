@@ -21,6 +21,8 @@
 #endif
 #include <liboil.h>
 
+#ifdef HAVE_IEEE754_H
+
 #include <ieee754.h>
 
 static void conv_f32_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
@@ -34,8 +36,8 @@ static void conv_f32_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = (*src<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f32_u8_bitstuff, conv_f32_u8_class);
@@ -51,8 +53,8 @@ static void conv_f32_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = ((*src^0x80)<<15);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f32_s8_bitstuff, conv_f32_s8_class);
@@ -68,8 +70,8 @@ static void conv_f32_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = (*src<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f32_u16_bitstuff, conv_f32_u16_class);
@@ -85,8 +87,8 @@ static void conv_f32_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = ((*src^0x8000)<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16_class);
@@ -109,8 +111,8 @@ static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, float *src,
 		d += (-32768-d)*signbit_S32(id.ieee.exponent-1039);
 		d += (32767-d)*signbit_S32(1039-id.ieee.exponent);
 		*dst = d;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_s16_f32_bitstuff, conv_s16_f32_class);
@@ -128,8 +130,8 @@ static void conv_f64_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = (*src<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f64_u8_bitstuff, conv_f64_u8_class);
@@ -145,8 +147,8 @@ static void conv_f64_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = ((*src^0x80)<<15);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f64_s8_bitstuff, conv_f64_s8_class);
@@ -162,8 +164,8 @@ static void conv_f64_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = (*src<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f64_u16_bitstuff, conv_f64_u16_class);
@@ -179,8 +181,8 @@ static void conv_f64_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 	for(i=0;i<n;i++){
 		id.ieee.mantissa = ((*src^0x8000)<<7);
 		*dst = id.f + offset;
-		dst = OIL_OFFSET(dst, dest_stride);
-		src = OIL_OFFSET(src, src_stride);
+		OIL_INCREMENT(dst, dest_stride);
+		OIL_INCREMENT(src, src_stride);
 	}
 }
 OIL_DEFINE_IMPL(conv_f64_s16_bitstuff, conv_f64_s16_class);
@@ -215,4 +217,6 @@ static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, float *src,
 	}
 }
 OIL_DEFINE_IMPL(conv_s16_f64_bitstuff, conv_s16_f64_class);
+
+#endif
 

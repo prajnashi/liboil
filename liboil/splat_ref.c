@@ -28,7 +28,7 @@ static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t value, int n)
 {
   int i;
   for(i=0;i<n;i++){
-    *OIL_OFFSET(dest,i*dstr) = value;
+    OIL_GET(dest,i*dstr, uint8_t) = value;
   }
 }
 OIL_DEFINE_CLASS_X(splat_u8,"uint8_t *dest, int dstr, uint8_t value, int n");
@@ -38,7 +38,7 @@ static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *src, int n)
 {
   int i;
   for(i=0;i<n;i++){
-    *OIL_OFFSET(dest,i*dstr) = *src;
+    OIL_GET(dest,i*dstr, uint32_t) = *src;
   }
 }
 OIL_DEFINE_CLASS_X(splat_u32,"uint32_t *dest, int dstr, uint32_t *src, int n");
@@ -51,14 +51,14 @@ static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *src, int n)
   int i;
   if (n&1) {
     *dest = *src;
-    dest = OIL_OFFSET(dest,dstr);
+    OIL_INCREMENT(dest,dstr);
   }
   n >>= 1;
   for(i=0;i<n;i++){
     *dest = *src;
-    dest = OIL_OFFSET(dest,dstr);
+    OIL_INCREMENT(dest,dstr);
     *dest = *src;
-    dest = OIL_OFFSET(dest,dstr);
+    OIL_INCREMENT(dest,dstr);
   }
 }
 OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32_class);

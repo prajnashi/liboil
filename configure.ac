@@ -17,7 +17,7 @@ AC_CONFIG_SRCDIR([liboil/liboil.h])
 
 ACLOCAL="$ACLOCAL -I m4 $ACLOCAL_FLAGS"
 
-AC_PROG_CC_STDC
+AC_PROG_CC([c99])
 #AM_PROG_AS
 
 PKG_CHECK_MODULES(GLIB, glib-2.0, HAVE_GLIB=yes, HAVE_GLIB=no)
@@ -52,6 +52,7 @@ esac
 AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
 AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
 
+
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
 AC_CHECK_LIB(m, lrint,
@@ -59,14 +60,17 @@ AC_CHECK_LIB(m, lrint,
 AC_CHECK_LIB(m, lrintf,
   AC_DEFINE(HAVE_LRINTF, 1, [Define if lrintf() is available]))
 
-LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE -I\$(top_srcdir) $GLIB_CFLAGS"
+AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
+if test "x$LIBOIL_CVS" = "xyes"
+then
+  AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
+fi
+
+LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir)"
 AC_SUBST(LIBOIL_CFLAGS)
 
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $GLIB_LIBS"
 AC_SUBST(LIBOIL_LIBS)
-
-LIBOIL_LITE_CFLAGS="-Wall -Werror"
-AC_SUBST(LIBOIL_LITE_CFLAGS)
 
 pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
@@ -76,7 +80,6 @@ Makefile
 liboil/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
-liboil-lite/Makefile
 testsuite/Makefile
 examples/Makefile
 liboil-0.1.pc

@@ -61,9 +61,9 @@ abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)
   int x;
 
   for (i=0; i<n; i++) {
-    x = *OIL_OFFSET(dest, i*dstr);
+    x = OIL_GET(src, i*sstr, uint16_t);
     x = ABS(x);
-    *OIL_OFFSET(dest, i*dstr) = x;
+    OIL_GET(dest, i*dstr, uint16_t) = x;
   }
 }
 OIL_DEFINE_IMPL_REF (abs_u16_s16_ref, abs_u16_s16_class);
@@ -75,9 +75,9 @@ abs_u32_s32_ref (uint32_t *dest, int dstr, int32_t *src, int sstr, int n)
   int x;
 
   for (i=0; i<n; i++) {
-    x = *OIL_OFFSET(dest, i*dstr);
+    x = OIL_GET(src, i*sstr, uint32_t);
     x = ABS(x);
-    *OIL_OFFSET(dest, i*dstr) = x;
+    OIL_GET(dest, i*dstr, uint32_t) = x;
   }
 }
 OIL_DEFINE_IMPL_REF (abs_u32_s32_ref, abs_u32_s32_class);
@@ -88,7 +88,7 @@ abs_f32_f32_ref (float *dest, int dstr, float *src, int sstr, int n)
   int i;
 
   for (i=0; i<n; i++) {
-    *OIL_OFFSET(dest, i*dstr) = fabs(*OIL_OFFSET(dest, i*dstr));
+    OIL_GET(dest, i*dstr, float) = fabs(OIL_GET(dest, i*dstr, float));
   }
 }
 
@@ -100,7 +100,7 @@ abs_f64_f64_ref (double *dest, int dstr, double *src, int sstr, int n)
   int i;
 
   for (i=0; i<n; i++) {
-    *OIL_OFFSET(dest, i*dstr) = fabs(*OIL_OFFSET(dest, i*dstr));
+    OIL_GET(dest, i*dstr, double) = fabs(OIL_GET(dest, i*dstr, double));
   }
 }
 

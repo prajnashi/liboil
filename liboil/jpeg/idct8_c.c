@@ -25,7 +25,8 @@
 
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (idct8_f64, "double *dest, int dstr, double *src, int sstr");
+//OIL_DEFINE_CLASS_X (idct8_f64, "double *dest, int dstr, double *src, int sstr");
+OIL_DEFINE_CLASS_X (idct8_f64, NULL);
 
 static void
 idct8_f64_c (double *dest, int dstr, double *src, int sstr)

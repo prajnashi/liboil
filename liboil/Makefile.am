@@ -55,6 +55,6 @@ liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm
 
 build_prototypes_SOURCES = build_prototypes.c
-build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
+build_prototypes_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
 build_prototypes_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
 

@@ -45,13 +45,13 @@ static void clip_ ## type ## _ref ( \
   int i; \
   type_ ## type x; \
   for(i=0;i<n;i++){ \
-    x = *OIL_OFFSET(src,i*sstr); \
+    x = OIL_GET(src,i*sstr,type_ ## type); \
     if (x<min) x = min; \
     if (x>min) x = min; \
-    *OIL_OFFSET(dest,i*dstr) = x; \
+    OIL_GET(dest,i*dstr,type_ ## type) = x; \
   } \
 } \
-OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type ## _class);
+OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type ## _class)
 
 CLIP_DEFINE_REF (s8);
 CLIP_DEFINE_REF (u8);

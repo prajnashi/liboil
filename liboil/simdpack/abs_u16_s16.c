@@ -25,17 +25,20 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
+#if 0
 static void
 abs_u16_s16_ref (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
   int i;
 
   for (i = 0; i < n; i++) {
-    *OIL_OFFSET (dest, dstr * i) = ABS (*OIL_OFFSET (src, sstr * i));
+    OIL_GET (dest, dstr * i, uint16_t) =
+      ABS (OIL_GET (src, sstr * i, uint16_t));
   }
 }
 
 OIL_DEFINE_IMPL_REF (abs_u16_s16_ref, abs_u16_s16_class);
+#endif
 
 static void
 abs_u16_s16_unroll4 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)

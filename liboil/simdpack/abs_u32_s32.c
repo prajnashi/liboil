@@ -24,6 +24,7 @@
 #include <liboil/simdpack/simdpack.h>
 
 
+#if 0
 static void
 abs_u32_s32_ref (uint32_t * dest, int32_t * src, int n)
 {
@@ -35,6 +36,7 @@ abs_u32_s32_ref (uint32_t * dest, int32_t * src, int n)
 }
 
 OIL_DEFINE_IMPL_REF (abs_u32_s32_ref, abs_u32_s32_class);
+#endif
 
 /* Similar algorithm as clipping, but for absolute value.  Note the stunt
  * pulled to get around 2*y rolling over.  */

@@ -35,8 +35,8 @@ sum_f64_ref (double *dest, double *src, int sstr, int n)
 
 	for(i=0;i<n;i++){
 		tmp = sum;
-		sum += *OIL_OFFSET(src, sstr*i);
-		errsum += (tmp - sum) + *OIL_OFFSET(src, sstr*i);
+		sum += OIL_GET(src, sstr*i, double);
+		errsum += (tmp - sum) + OIL_GET(src, sstr*i, double);
 	}
 
 	*dest = sum + errsum;
@@ -50,7 +50,7 @@ sum_f64_i10_simple (double *dest, double *src, int sstr, int n)
 	int i;
 
 	for(i=0;i<n;i++){
-		sum += *OIL_OFFSET(src, sstr*i);
+		sum += OIL_GET(src, sstr*i, double);
 	}
 
 	*dest = sum;
@@ -72,10 +72,10 @@ sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
 		n--;
 	}
 	for(i=0;i<n;i+=4){
-		sum1 += *OIL_OFFSET(src, sstr*i);
-		sum2 += *OIL_OFFSET(src, sstr*(i+1));
-		sum3 += *OIL_OFFSET(src, sstr*(i+2));
-		sum4 += *OIL_OFFSET(src, sstr*(i+3));
+		sum1 += OIL_GET(src, sstr*i, double);
+		sum2 += OIL_GET(src, sstr*(i+1), double);
+		sum3 += OIL_GET(src, sstr*(i+2), double);
+		sum4 += OIL_GET(src, sstr*(i+3), double);
 	}
 
 	*dest = sum1 + sum2 + sum3 + sum4;

@@ -31,7 +31,8 @@ static void scalaradd_ ## type ## _ref(		\
 {						\
   int i;					\
   for(i=0;i<n;i++){				\
-    *OIL_OFFSET(dest,dstr*i) = *OIL_OFFSET(src,sstr*i) + val; \
+    OIL_GET(dest,dstr*i, type_ ## type) =       \
+      OIL_GET(src,sstr*i, type_ ## type) + val; \
   }						\
 }						\
 OIL_DEFINE_IMPL_REF (scalaradd_ ## type ## _ref, scalaradd_ ## type ## _class);
@@ -96,8 +97,8 @@ static void scalaradd_ ## type ## _unroll2x(	\
   sstr *= 2;					\
   dstr *= 2;					\
   for(i=0;i<n;i++){				\
-    *OIL_OFFSET(dest,dstr*i) = *OIL_OFFSET(src,sstr*i) + val; \
-    *OIL_OFFSET(dest2,dstr*i) = *OIL_OFFSET(src2,sstr*i) + val; \
+    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src,sstr*i, type_ ## type) + val; \
+    OIL_GET(dest2,dstr*i, type_ ## type) = OIL_GET(src2,sstr*i, type_ ## type) + val; \
   }						\
 }						\
 OIL_DEFINE_IMPL (scalaradd_ ## type ## _unroll2x, scalaradd_ ## type ## _class);

@@ -49,7 +49,7 @@ static void zigzag8x8_s16_ref(int16_t *dest, int16_t *src, int sstr)
 	for(j=0;j<8;j++){
 		for(i=0;i<8;i++){
 			z = zigzag_order[j*8+i];
-			dest[j*8+i] = *OIL_OFFSET(src, sstr*(z>>3)+(z&7));
+			dest[j*8+i] = OIL_GET(src, sstr*(z>>3)+(z&7), int16_t);
 		}
 	}
 }

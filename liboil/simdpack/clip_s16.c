@@ -23,6 +23,7 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
+#if 0
 static void
 clip_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
     int16_t hi, int n)
@@ -31,14 +32,15 @@ clip_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	int16_t x;
 
 	for(i=0;i<n;i++){
-		x = *OIL_OFFSET(src,i*sstr);
+		x = OIL_GET(src,i*sstr, int16_t);
 		if(x>hi) x = hi;
 		if(x<low) x = low;
-		*OIL_OFFSET(dest,i*dstr) = x;
+		OIL_GET(dest,i*dstr, int16_t) = x;
 	}
 }
 
 OIL_DEFINE_IMPL (clip_s16_ref, clip_s16_class);
+#endif
 
 /* This is a suprisingly fast implementation of clipping
  * in straight C.  It would be difficult to do it faster in asm
@@ -52,9 +54,9 @@ clip_s16_fast (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	int32_t x;
 
 	for(i=0;i<n;i++){
-		x = *OIL_OFFSET(src,i*sstr);
+		x = OIL_GET(src,i*sstr, int16_t);
 		x = x - (((x-low)>>31)&(x-low)) + (((hi-x)>>31)&(hi-x));
-		*OIL_OFFSET(dest,i*dstr) = x;
+		OIL_GET(dest,i*dstr, int16_t) = x;
 	}
 }
 

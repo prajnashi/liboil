@@ -57,9 +57,9 @@ fdct8_f64_ref (double *dest, double *src, int dstr, int sstr)
 	for(i=0;i<8;i++){
 		x = 0;
 		for(j=0;j<8;j++){
-			x += fdct_coeff[j][i] * *OIL_OFFSET(src,sstr*j);
+			x += fdct_coeff[j][i] * OIL_GET(src,sstr*j, double);
 		}
-		*OIL_OFFSET(dest,dstr*i) = x;
+		OIL_GET(dest,dstr*i, double) = x;
 	}
 }
 
@@ -115,38 +115,38 @@ fdct8_f64_fast(double *dest, double *src, int dstr, int sstr)
 	double d07, d16, d25, d34;
 	double ss07s34, ds07s34, ss16s25, ds16s25;
 
-	s07 = *OIL_OFFSET(src,sstr*0) + *OIL_OFFSET(src,sstr*7);
-	d07 = *OIL_OFFSET(src,sstr*0) - *OIL_OFFSET(src,sstr*7);
-	s16 = *OIL_OFFSET(src,sstr*1) + *OIL_OFFSET(src,sstr*6);
-	d16 = *OIL_OFFSET(src,sstr*1) - *OIL_OFFSET(src,sstr*6);
-	s25 = *OIL_OFFSET(src,sstr*2) + *OIL_OFFSET(src,sstr*5);
-	d25 = *OIL_OFFSET(src,sstr*2) - *OIL_OFFSET(src,sstr*5);
-	s34 = *OIL_OFFSET(src,sstr*3) + *OIL_OFFSET(src,sstr*4);
-	d34 = *OIL_OFFSET(src,sstr*3) - *OIL_OFFSET(src,sstr*4);
+	s07 = OIL_GET(src,sstr*0,double) + OIL_GET(src,sstr*7,double);
+	d07 = OIL_GET(src,sstr*0,double) - OIL_GET(src,sstr*7,double);
+	s16 = OIL_GET(src,sstr*1,double) + OIL_GET(src,sstr*6,double);
+	d16 = OIL_GET(src,sstr*1,double) - OIL_GET(src,sstr*6,double);
+	s25 = OIL_GET(src,sstr*2,double) + OIL_GET(src,sstr*5,double);
+	d25 = OIL_GET(src,sstr*2,double) - OIL_GET(src,sstr*5,double);
+	s34 = OIL_GET(src,sstr*3,double) + OIL_GET(src,sstr*4,double);
+	d34 = OIL_GET(src,sstr*3,double) - OIL_GET(src,sstr*4,double);
 
 	ss07s34 = s07 + s34;
 	ds07s34 = s07 - s34;
 	ss16s25 = s16 + s25;
 	ds16s25 = s16 - s25;
 
-	*OIL_OFFSET(dest,dstr*0) = 0.5*C0_7071*(ss07s34 + ss16s25);
-	*OIL_OFFSET(dest,dstr*2) = 0.5*(C0_9239*ds07s34 + C0_3827*ds16s25);
-	*OIL_OFFSET(dest,dstr*4) = 0.5*C0_7071*(ss07s34 - ss16s25);
-	*OIL_OFFSET(dest,dstr*6) = 0.5*(C0_3827*ds07s34 - C0_9239*ds16s25);
+	OIL_GET(dest,dstr*0,double) = 0.5*C0_7071*(ss07s34 + ss16s25);
+	OIL_GET(dest,dstr*2,double) = 0.5*(C0_9239*ds07s34 + C0_3827*ds16s25);
+	OIL_GET(dest,dstr*4,double) = 0.5*C0_7071*(ss07s34 - ss16s25);
+	OIL_GET(dest,dstr*6,double) = 0.5*(C0_3827*ds07s34 - C0_9239*ds16s25);
 
-	*OIL_OFFSET(dest,dstr*1) = 0.5*(C0_9808*d07 + C0_8315*d16
+	OIL_GET(dest,dstr*1,double) = 0.5*(C0_9808*d07 + C0_8315*d16
 			+ C0_5556*d25 + C0_1951*d34);
-	*OIL_OFFSET(dest,dstr*3) = 0.5*(C0_8315*d07 - C0_1951*d16
+	OIL_GET(dest,dstr*3,double) = 0.5*(C0_8315*d07 - C0_1951*d16
 			- C0_9808*d25 - C0_5556*d34);
-	*OIL_OFFSET(dest,dstr*5) = 0.5*(C0_5556*d07 - C0_9808*d16
+	OIL_GET(dest,dstr*5,double) = 0.5*(C0_5556*d07 - C0_9808*d16
 			+ C0_1951*d25 + C0_8315*d34);
-	*OIL_OFFSET(dest,dstr*7) = 0.5*(C0_1951*d07 - C0_5556*d16
+	OIL_GET(dest,dstr*7,double) = 0.5*(C0_1951*d07 - C0_5556*d16
 			+ C0_8315*d25 - C0_9808*d34);
  
 #if 0
 	z1 = (ds1  tmp12 + tmp13) * 0.707106781;
-	*OIL_OFFSET(dest,dstr*2) = (tmp13 + z1)*(0.25*M_SQRT2)*0.765366864;
-	*OIL_OFFSET(dest,dstr*6) = (tmp13 - z1)*(0.25*M_SQRT2)*1.847759066;
+	OIL_GET(dest,dstr*2,double) = (tmp13 + z1)*(0.25*M_SQRT2)*0.765366864;
+	OIL_GET(dest,dstr*6,double) = (tmp13 - z1)*(0.25*M_SQRT2)*1.847759066;
 
 	tmp10 = tmp4 + tmp5;
 	tmp11 = tmp5 + tmp6;
@@ -160,10 +160,10 @@ fdct8_f64_fast(double *dest, double *src, int dstr, int sstr)
 	z11 = tmp7 + z3;
 	z13 = tmp7 - z3;
 
-	*OIL_OFFSET(dest,dstr*5) = (z13 + z2)*(0.25*M_SQRT2)*1.2728;
-	*OIL_OFFSET(dest,dstr*3) = (z13 - z2)*(0.25*M_SQRT2)*0.8504;
-	*OIL_OFFSET(dest,dstr*1) = (z11 + z4)*(0.25*M_SQRT2)*0.7209;
-	*OIL_OFFSET(dest,dstr*7) = (z11 - z4)*(0.25*M_SQRT2)*3.6245;
+	OIL_GET(dest,dstr*5,double) = (z13 + z2)*(0.25*M_SQRT2)*1.2728;
+	OIL_GET(dest,dstr*3,double) = (z13 - z2)*(0.25*M_SQRT2)*0.8504;
+	OIL_GET(dest,dstr*1,double) = (z11 + z4)*(0.25*M_SQRT2)*0.7209;
+	OIL_GET(dest,dstr*7,double) = (z11 - z4)*(0.25*M_SQRT2)*3.6245;
 #endif
 }
 OIL_DEFINE_IMPL (fdct8_f64_fast, fdct8_f64_class);

@@ -55,7 +55,7 @@ fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
 
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
-			s[8*i+j] = *OIL_OFFSET (src,sstr*i+j);
+			s[8*i+j] = OIL_GET (src,sstr*i+j, int16_t);
 		}
 	}
 

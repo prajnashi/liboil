@@ -22,6 +22,7 @@
 #include <liboil.h>
 
 
+#ifdef __GNUC__
 /* suboptimal */
 static void conv_f64_s32_sse(double *dst, int32_t *src, int n)
 {
@@ -61,4 +62,5 @@ static void conv_s32_f64_sse(int32_t *dst, double *src, int n)
 }
 OIL_DEFINE_IMPL_FULL(conv_s32_f64_sse, conv_s32_f64_class,
 	OIL_IMPL_REQUIRES_SSE);
+#endif
 
