@@ -20,14 +20,8 @@
 #define _OIL_SIMDPACK_SIMDPACK_H_
 
 OIL_DECLARE_CLASS(conv8x8_s16_f64);
-#define conv8x8_s16_f64 ((void (*)(int16_t *, int, double *, int)) \
-                    _oil_function_conv8x8_s16_f64_class.func)
 OIL_DECLARE_CLASS(conv8x8_f64_s16);
-#define conv8x8_f64_s16 ((void (*)(double *, int, int16_t *, int)) \
-                    _oil_function_conv8x8_f64_s16_class.func)
 OIL_DECLARE_CLASS(idct8x8_f64);
-#define idct8x8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_idct8x8_f64_class.func)
 
 OIL_DECLARE_CLASS(abs_u8_s8);
 OIL_DECLARE_CLASS(abs_u16_s16);
@@ -55,20 +49,14 @@ OIL_DECLARE_CLASS(diffsquaresum_f64);
 OIL_DECLARE_CLASS(downsample1x_f64);
 
 OIL_DECLARE_CLASS(fdct8_f64);
-#define fdct8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_fdct8_f64_class.func)
 
 OIL_DECLARE_CLASS(fdct8x8_f64);
-#define fdct8x8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_fdct8x8_f64_class.func)
 
 OIL_DECLARE_CLASS(fdct8x8s_s16);
 
 OIL_DECLARE_CLASS(get8x8_f64);
 
 OIL_DECLARE_CLASS(idct8_f64);
-#define idct8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_idct8_f64_class.func)
 
 OIL_DECLARE_CLASS(idct8x8_s16);
 OIL_DECLARE_CLASS(idct8x8s_s16);

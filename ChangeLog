@@ -1,5 +1,10 @@
 2004-11-22  David Schleef  <ds@schleef.org>
 
+	* liboil/simdpack/simdpack.h: remove defines that are automatically
+	in liboilfuncs.h.
+
+2004-11-22  David Schleef  <ds@schleef.org>
+
 	* liboil/simdpack/clip_s16.c: compile fix.
 	* liboil/simdpack/downsample2_u8.c: (downsample2_u8_ref),
 	(downsample2_u8_ave), (downsample2_u8_fast),
