@@ -95,6 +95,19 @@ static inline unsigned long oil_profile_stamp(void)
 	return ts;
 }
 
+#elif defined(__arm__)
+
+/* untested */
+static inline unsigned long oil_profile_stamp(void)
+{
+  unsigned int ts;
+  /* this only works for XScale 255 */
+  __asm__ __volatile__ (
+      "  mrc p14, 0, %0, c0, c0, 0 \n"
+      : "=r" (ts));
+  return ts;
+}
+
 #else
 
 #define oil_profile_stamp() oil_profile_stamp_gtod()

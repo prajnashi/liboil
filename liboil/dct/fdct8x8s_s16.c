@@ -21,10 +21,10 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilfuncs.h>
 #include <liboil/dct/dct.h>
 
 
-OIL_DEFINE_CLASS(fdct8x8s_s16, NULL);
 
 #define C0_9808 0.980785280
 #define C0_9239 0.923879532
@@ -39,6 +39,8 @@ Alternate scaling used by RTjpeg.
 */
 
 
+OIL_DEFINE_CLASS(fdct8x8s_s16,
+    "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 
 static void
 fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
@@ -62,7 +64,7 @@ fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
 		}
 	}
 
-	fdct8x8_f64(d,8*sizeof(double),s,8*sizeof(double));
+	oil_fdct8x8_f64(d,8*sizeof(double),s,8*sizeof(double));
 
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
@@ -70,9 +72,9 @@ fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
 		}
 	}
 
-	conv8x8_s16_f64(dest,dstr,d,8*sizeof(double));
+	oil_conv8x8_s16_f64(dest,dstr,d,8*sizeof(double));
 }
 
-OIL_DEFINE_IMPL_REF (fdct8x8s_s16_ref, fdct8x8s_s16_class);
+OIL_DEFINE_IMPL_REF (fdct8x8s_s16_ref, fdct8x8s_s16);
 
 

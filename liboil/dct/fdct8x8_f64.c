@@ -26,10 +26,12 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS(fdct8x8_f64, NULL);
+OIL_DEFINE_CLASS(fdct8x8_f64,
+    "double *d_8x8, int dstr, double *s_8x8, int sstr");
 
 
-static void fdct8x8_f64_ref(double *d_8x8, int dstr, double *s_8x8, int sstr)
+static void
+fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)
 {
 	static double fdct_coeff[8][8];
 	static int fdct_coeff_init = 0;
@@ -56,16 +58,18 @@ static void fdct8x8_f64_ref(double *d_8x8, int dstr, double *s_8x8, int sstr)
 				tmp2 = 0;
 				for(l=0;l<8;l++){
 					tmp2 += fdct_coeff[l][j] *
-					  OIL_GET (src, sstr*k + l, double);
+					  OIL_GET (src, sstr*k + l * sizeof(double),
+                                              double);
 				}
 				tmp1 += fdct_coeff[k][i] * tmp2;
 			}
-			OIL_GET (dest, dstr*i + j, double) = tmp1;
+			OIL_GET (dest, dstr*i + j*sizeof(double), double) =
+                          tmp1;
 		}
 	}
 }
 
-OIL_DEFINE_IMPL_REF (fdct8x8_f64_ref, fdct8x8_f64_class);
+OIL_DEFINE_IMPL_REF (fdct8x8_f64_ref, fdct8x8_f64);
 
 static void
 fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
@@ -94,7 +98,7 @@ fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
 			x = 0;
 			for(k=0;k<8;k++){
 				x += fdct_coeff[k][j] *
-				  OIL_GET (src, sstr*i + k, double);
+				  OIL_GET (src, sstr*i + k * sizeof(double), double);
 			}
 			tmp[8*i+j] = x;
 		}
@@ -106,12 +110,12 @@ fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
 			for(k=0;k<8;k++){
 				x += fdct_coeff[k][i] * tmp[8*k + j];
 			}
-			OIL_GET (dest,dstr*i+j, double) = x;
+			OIL_GET (dest,dstr*i+j*sizeof(double), double) = x;
 		}
 	}
 }
 
-OIL_DEFINE_IMPL (fdct8x8_f64_ref2, fdct8x8_f64_class);
+OIL_DEFINE_IMPL (fdct8x8_f64_ref2, fdct8x8_f64);
 
 
 static void
@@ -121,15 +125,16 @@ fdct8x8_f64_1d (double *dest, int dstr, double *src, int sstr)
 	double tmp[64];
 
 	for(i=0;i<8;i++){
-		fdct8_f64(tmp + i*8, sizeof(double), OIL_OFFSET(src,sstr*i),
-		    sizeof(double));
+		oil_fdct8_f64(tmp + i*8, OIL_OFFSET(src,sstr*i),
+                    sizeof (double), sizeof(double));
 	}
 
 	for(i=0;i<8;i++){
-		fdct8_f64(dest + i, dstr, tmp + i, 8*sizeof(double));
+		oil_fdct8_f64(dest + i, tmp + i,
+                    8*sizeof(double), 8*sizeof(double));
 	}
 }
 
-OIL_DEFINE_IMPL (fdct8x8_f64_1d, fdct8x8_f64_class);
+OIL_DEFINE_IMPL (fdct8x8_f64_1d, fdct8x8_f64);
 
 

@@ -366,7 +366,7 @@ const char * oil_arg_type_name (OilArgType type)
   return "FIXME";
 }
 
-static
+static const
 struct {
   char *from;
   char *to;
@@ -388,7 +388,7 @@ struct {
   { NULL, NULL }
 };
 
-static
+static const
 struct {
   OilArgType type;
   int direction;

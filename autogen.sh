@@ -5,4 +5,5 @@ libtoolize --force
 autoheader
 autoconf
 automake -a --foreign
-./configure --enable-maintainer-mode --enable-alternate-optimization $@
+#./configure --enable-maintainer-mode --enable-alternate-optimization $@
+./configure --enable-maintainer-mode --disable-static $@

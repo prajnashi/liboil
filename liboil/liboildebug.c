@@ -55,9 +55,9 @@ static void
 oil_debug_print_valist (int level, const char *file, const char *func,
         int line, const char *format, va_list args)
 {
-  static char *level_names[] = { "NONE", "ERROR", "WARNING", "INFO",
+  static const char *level_names[] = { "NONE", "ERROR", "WARNING", "INFO",
     "DEBUG", "LOG" };
-  char *level_name = "unknown";
+  const char *level_name = "unknown";
 
   if (level > _oil_debug_level) return;
 

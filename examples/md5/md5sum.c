@@ -1,3 +1,4 @@
+#define HAVE_MMAN_H
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -10,8 +11,12 @@
 #include <stdlib.h>
 
 #include <sys/stat.h>
+#ifdef HAVE_MMAN_H
 #include <sys/mman.h>
+#endif
+#include <errno.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #ifdef WORDS_BIGENDIAN
 #define uint32_from_host(a) \
@@ -115,7 +120,26 @@ int main(int argc, char *argv[])
   ret = fstat (fd, &st);
 
   n_bytes = st.st_size;
-  ptr = mmap (NULL, n_bytes, PROT_READ, MAP_PRIVATE, fd, 0);
+#ifdef HAVE_MMAN_H
+  while (1) {
+    ptr = mmap (NULL, n_bytes, PROT_READ, MAP_SHARED | MAP_POPULATE, fd, 0);
+    getpid();
+    if (ptr == MAP_FAILED) {
+      if (errno == EAGAIN) {
+        printf("egain\n");
+
+      } else {
+        perror ("mmap failed");
+        exit(1);
+      }
+    } else {
+      break;
+    }
+  }
+#else
+  printf ("no mmap\n");
+  exit(1);
+#endif
 
   state[0] = 0x67452301;
   state[1] = 0xefcdab89;

@@ -192,10 +192,7 @@ static unsigned char std_tables[] = {
 
 static void dumpbits (bits_t * bits);
 static char *sprintbits (char *str, unsigned int bits, int n);
-static void dump_block8x8_s16 (short *q);
-static void dequant8x8_s16 (short *dest, short *src, short *mult);
 
-//static void clipconv8x8_u8_s16(unsigned char *dest, int stride, short *src);
 static void huffman_table_load_std_jpeg (JpegDecoder * dec);
 
 
@@ -727,14 +724,14 @@ jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, bits_t * bits)
       }
 
       JPEG_DEBUG (3, "using quant table %d\n", quant_index);
-      dequant8x8_s16 (block2, block, dec->quant_table[quant_index]);
+      oil_mult8x8_s16 (block2, block, dec->quant_table[quant_index],
+          sizeof (short) * 8, sizeof(short) * 8, sizeof (short) * 8);
       dec->dc[component_index] += block2[0];
       block2[0] = dec->dc[component_index];
       oil_unzigzag8x8_s16 (block, sizeof (short) * 8, block2,
           sizeof (short) * 8);
       oil_idct8x8_s16 (block2, sizeof (short) * 8, block, sizeof (short) * 8);
-
-      dump_block8x8_s16 (block2);
+      oil_trans8x8_u16 (block, sizeof (short) * 8, block2, sizeof (short) * 8);
 
       ptr = dec->components[component_index].image +
           x * dec->components[component_index].h_oversample +
@@ -744,7 +741,7 @@ jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, bits_t * bits)
 
       oil_clipconv8x8_u8_s16 (ptr,
           dec->components[component_index].rowstride,
-          block2, sizeof (short) * 8);
+          block, sizeof (short) * 8);
     }
     x += 8;
     if (x * dec->scan_h_subsample >= dec->width) {
@@ -956,28 +953,6 @@ sprintbits (char *str, unsigned int bits, int n)
   str[i] = 0;
 
   return str;
-}
-
-static void
-dump_block8x8_s16 (short *q)
-{
-  int i;
-
-  for (i = 0; i < 8; i++) {
-    JPEG_DEBUG (3, "%3d %3d %3d %3d %3d %3d %3d %3d\n",
-        q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7]);
-    q += 8;
-  }
-}
-
-static void
-dequant8x8_s16 (short *dest, short *src, short *mult)
-{
-  int i;
-
-  for (i = 0; i < 64; i++) {
-    dest[i] = src[i] * mult[i];
-  }
 }
 
 static void

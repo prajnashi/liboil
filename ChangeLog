@@ -1,5 +1,24 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	* autogen.sh: who needs static libraries
+	* examples/jpeg/jpeg.c: (jpeg_decoder_decode_entropy_segment),
+	(sprintbits): clean up
+	* examples/jpeg/test_rgb.c: (main): clean up
+	* examples/md5/md5sum.c: (main): use mmap only if available
+	* examples/uberopt/Makefile.am: depends on glib
+	* liboil/Makefile.am: liboilarray.c depends on Makefile
+	* liboil/dct/Makefile.am: add code
+	* liboil/dct/fdct8x8_f64.c: (fdct8x8_f64_ref), (fdct8x8_f64_ref2),
+	(fdct8x8_f64_1d): fix code to compile
+	* liboil/dct/fdct8x8s_s16.c: (fdct8x8s_s16_ref): same
+	* liboil/liboildebug.c: (oil_debug_print_valist): make stuff const
+	* liboil/liboilfuncs.h: random update
+	* liboil/liboilprofile.h: add arm
+	* liboil/liboilprototype.c: make stuff const
+	* testsuite/Makefile.am: add test
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	* COPYING: change to BSD license
 	* license_block: license block
 	* liboil/copy/copy_powerpc.c: (copy_u8_altivec2),

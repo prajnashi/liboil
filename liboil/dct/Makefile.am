@@ -10,16 +10,26 @@ noinst_LTLIBRARIES = libdct.la $(opt_libs)
 noinst_HEADERS = \
 	dct.h
 
+if HAVE_CPU_I386
+i386_sources = \
+	idct8x8_i386.c
+else
+i386_sources =
+endif
+
 c_sources = \
 	dct12_f32.c \
 	dct36_f32.c \
 	fdct8_f64.c \
+	fdct8x8_f64.c \
+	fdct8x8s_s16.c \
 	idct8_f64.c \
 	idct8x8_c.c \
 	imdct32_f32.c
 
 libdct_la_SOURCES = \
-	$(c_sources)
+	$(c_sources) \
+	$(i386_sources)
 
 libdct_la_CFLAGS = $(LIBOIL_CFLAGS)
 libdct_la_LIBADD = $(opt_libs)

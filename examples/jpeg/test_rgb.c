@@ -14,12 +14,12 @@ void *getfile (char *path, int *n_bytes);
 static void dump_pnm (unsigned char *ptr, int rowstride, int width, int height);
 
 int
-main2 (int argc, char *argv[])
+main (int argc, char *argv[])
 {
   unsigned char *data;
   int len;
   JpegRGBDecoder *dec;
-  char *fn = "biglebowski.jpg";
+  char *fn;
   unsigned char *ptr;
   int rowstride;
   int width;
@@ -27,9 +27,17 @@ main2 (int argc, char *argv[])
 
   dec = jpeg_rgb_decoder_new ();
 
-  if (argc > 1)
-    fn = argv[1];
+  if (argc < 2) {
+    g_print("jpeg_rgb_test <file.jpg>\n");
+    exit(1);
+  }
+  fn = argv[1];
   data = getfile (fn, &len);
+
+  if (data == NULL) {
+    g_print("cannot read file %s\n", fn);
+    exit(1);
+  }
 
   jpeg_rgb_decoder_addbits (dec, data, len);
   jpeg_rgb_decoder_parse (dec);
@@ -45,14 +53,6 @@ main2 (int argc, char *argv[])
 
   return 0;
 }
-
-int
-main (int argc, char *argv[])
-{
-  return main2 (argc, argv);
-}
-
-
 
 
 
