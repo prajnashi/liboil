@@ -1,5 +1,9 @@
 2004-09-09  David Schleef  <ds@schleef.org>
 
+	* liboil/build_lists.c: (main), (print_header): new
+
+2004-09-09  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Check for GNU linker (i.e., Linux)
 	* liboil/Makefile.am: Use alternate liboilarray.c if not Linux.
 	* liboil/build_prototypes.c: (main), (print_header):
