@@ -24,6 +24,8 @@
 #include "jpeg.h"
 
 
+
+
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
 
@@ -74,5 +76,7 @@ unzigzag8x8_s16_c(int16_t *dest, int dstr, int16_t *src, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL (unzigzag8x8_s16_c, unzigzag8x8_s16_class);
+OIL_DEFINE_CLASS_X (unzigzag8x8_s16, "int16_t *dest, int dstr, int16_t *src, int sstr");
+
+OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_c, unzigzag8x8_s16_class);
 

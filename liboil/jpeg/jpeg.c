@@ -22,15 +22,6 @@
 
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS(conv8x8_s16_f64, NULL);
-OIL_DEFINE_CLASS(conv8x8_f64_s16, NULL);
-OIL_DEFINE_CLASS(clipconv8x8_u8_s16, NULL);
-
-OIL_DEFINE_CLASS(idct8_f64, NULL);
-
-OIL_DEFINE_CLASS(idct8x8_f64, NULL);
-OIL_DEFINE_CLASS(idct8x8_s16, NULL);
-
 OIL_DEFINE_CLASS(scanlinescale2_u8, NULL);
 
 OIL_DEFINE_CLASS(dequantize8x8_s16, NULL);
@@ -38,6 +29,4 @@ OIL_DEFINE_CLASS(dequantize8x8_s16, NULL);
 OIL_DEFINE_CLASS(yuv2rgbx_u8, NULL);
 OIL_DEFINE_CLASS(yuv2rgbx_sub2_u8, NULL);
 OIL_DEFINE_CLASS(yuv2rgbx_sub4_u8, NULL);
-
-OIL_DEFINE_CLASS(unzigzag8x8_s16, NULL);
 

@@ -286,6 +286,27 @@ extern OilFunctionClass _oil_function_splat_u32_class;
 extern OilFunctionClass _oil_function_tablelookup_u8_class;
 #define tablelookup_u8 ((void (*)(uint8_t *dest, int dstr, uint8_t *src, int sstr, uint8_t *table, int tablestride, int n)) \
 	_oil_function_tablelookup_u8_class.func)
+extern OilFunctionClass _oil_function_conv8x8_s16_f64_class;
+#define conv8x8_s16_f64 ((void (*)(int16_t *dest, int dstr, double *src, int sstr)) \
+	_oil_function_conv8x8_s16_f64_class.func)
+extern OilFunctionClass _oil_function_conv8x8_f64_s16_class;
+#define conv8x8_f64_s16 ((void (*)(double *dest, int dstr, int16_t *src, int sstr)) \
+	_oil_function_conv8x8_f64_s16_class.func)
+extern OilFunctionClass _oil_function_clipconv8x8_u8_s16_class;
+#define clipconv8x8_u8_s16 ((void (*)(uint8_t *dest, int dstr, int16_t *src, int sstr)) \
+	_oil_function_clipconv8x8_u8_s16_class.func)
+extern OilFunctionClass _oil_function_idct8_f64_class;
+#define idct8_f64 ((void (*)(double *dest, int dstr, double *src, int sstr)) \
+	_oil_function_idct8_f64_class.func)
+extern OilFunctionClass _oil_function_idct8x8_f64_class;
+#define idct8x8_f64 ((void (*)(double *dest, int dstr, double *src, int sstr)) \
+	_oil_function_idct8x8_f64_class.func)
+extern OilFunctionClass _oil_function_idct8x8_s16_class;
+#define idct8x8_s16 ((void (*)(int16_t *dest, int dstr, int16_t *src, int sstr)) \
+	_oil_function_idct8x8_s16_class.func)
+extern OilFunctionClass _oil_function_unzigzag8x8_s16_class;
+#define unzigzag8x8_s16 ((void (*)(int16_t *dest, int dstr, int16_t *src, int sstr)) \
+	_oil_function_unzigzag8x8_s16_class.func)
 extern OilFunctionClass _oil_function_scalarmult_s8_class;
 #define scalarmult_s8 ((void (*)(int8_t *dest, int dstr, int8_t *src, int sstr, int8_t value, int n)) \
 	_oil_function_scalarmult_s8_class.func)

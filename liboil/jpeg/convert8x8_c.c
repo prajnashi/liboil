@@ -24,6 +24,9 @@
 
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (conv8x8_s16_f64, "int16_t * dest, int dstr, double *src, int sstr");
+OIL_DEFINE_CLASS_X (conv8x8_f64_s16, "double *dest, int dstr, int16_t * src, int sstr");
+OIL_DEFINE_CLASS_X (clipconv8x8_u8_s16, "uint8_t * dest, int dstr, int16_t * src, int sstr");
 
 #define BLOCK8x8_F64(ptr, stride, row, column) \
 	(*((double *)((void *)ptr + stride*row) + column))
@@ -50,7 +53,7 @@ conv8x8_s16_f64_c (int16_t * dest, int dstr, double *src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL (conv8x8_s16_f64_c, conv8x8_s16_f64_class);
+OIL_DEFINE_IMPL_REF (conv8x8_s16_f64_c, conv8x8_s16_f64_class);
 
 static void
 conv8x8_f64_s16_c (double *dest, int dstr, int16_t * src, int sstr)
@@ -64,7 +67,7 @@ conv8x8_f64_s16_c (double *dest, int dstr, int16_t * src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL (conv8x8_f64_s16_c, conv8x8_f64_s16_class);
+OIL_DEFINE_IMPL_REF (conv8x8_f64_s16_c, conv8x8_f64_s16_class);
 
 static void
 clipconv8x8_u8_s16_c (uint8_t * dest, int dstr, int16_t * src, int sstr)
@@ -84,4 +87,4 @@ clipconv8x8_u8_s16_c (uint8_t * dest, int dstr, int16_t * src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL (clipconv8x8_u8_s16_c, clipconv8x8_u8_s16_class);
+OIL_DEFINE_IMPL_REF (clipconv8x8_u8_s16_c, clipconv8x8_u8_s16_class);

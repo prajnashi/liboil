@@ -99,6 +99,7 @@ oil_cpu_i386_getflags(void)
   }
   free (flags);
   free (cpuinfo);
+  free (cpuinfo_flags);
 
   OIL_INFO ("cpu flags %08lx\n", oil_cpu_flags);
 }
@@ -143,7 +144,7 @@ strsplit (char *s)
 
   while (*s == ' ') s++;
 
-  list = malloc (n * sizeof(char *));
+  list = malloc (1 * sizeof(char *));
   while (*s) {
     tok = s;
     while (*s && *s != ' ') s++;

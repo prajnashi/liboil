@@ -28,6 +28,8 @@ enum{
 GArray * parse_prototype (const char *s);
 char *param_to_string (GArray *array);
 void param_free (GArray *array);
+void print_header (void);
+void print_footer (void);
 
 int main (int argc, char *argv[])
 {
@@ -37,6 +39,8 @@ int main (int argc, char *argv[])
   char *string;
 
   oil_init ();
+
+  print_header ();
 
   for (i=0;i<oil_n_function_classes; i++ ){
     klass = oil_function_classes + i;
@@ -61,6 +65,8 @@ int main (int argc, char *argv[])
       param_free (array);
     }
   }
+
+  print_footer ();
 
   return 0;
 }
@@ -215,5 +221,37 @@ void param_free (GArray *array)
     g_free(param->type);
   }
   g_array_free(array, TRUE);
+}
+
+void print_header (void)
+{
+  g_print ("/* liboil - Library of Optimized Inner Loops\n");
+  g_print (" * Copyright (C) 2003  David A. Schleef <ds@schleef.org>\n");
+  g_print (" *\n");
+  g_print (" * This library is free software; you can redistribute it and/or\n");
+  g_print (" * modify it under the terms of version 2.1 of the GNU Lesser General\n");
+  g_print (" * Public License as published by the Free Software Foundation.\n");
+  g_print (" *\n");
+  g_print (" * This library is distributed in the hope that it will be useful,\n");
+  g_print (" * but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+  g_print (" * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n");
+  g_print (" * Library General Public License for more details.\n");
+  g_print (" *\n");
+  g_print (" * You should have received a copy of the GNU Lesser General Public\n");
+  g_print (" * License along with this library; if not, write to the\n");
+  g_print (" * Free Software Foundation, Inc., 59 Temple Place, Suite 330,\n");
+  g_print (" * Boston, MA 02111-1307 USA.\n");
+  g_print (" */\n");
+  g_print ("\n");
+  g_print ("#ifndef _LIBOIL_FUNCS_H_\n");
+  g_print ("#define _LIBOIL_FUNCS_H_\n");
+  g_print ("\n");
+}
+
+void print_footer (void)
+{
+  g_print("\n");
+  g_print("#endif\n");
+  g_print("\n");
 }
 

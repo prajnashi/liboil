@@ -1,0 +1,16 @@
+2004-08-12  David Schleef  <ds@schleef.org>
+
+	Start changelog and add some random changes.
+	* liboil/Makefile.am:
+	* liboil/build_prototypes.c: (main), (param_free), (print_header),
+	(print_footer):
+	* liboil/jpeg/convert8x8_c.c:
+	* liboil/jpeg/idct8_c.c:
+	* liboil/jpeg/idct8x8_c.c:
+	* liboil/jpeg/jpeg.c:
+	* liboil/jpeg/jpeg.h:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags), (strsplit):
+	* liboil/liboilfuncs.h:
+	* liboil/splat_ref.c: (splat_u32_ref):
+
