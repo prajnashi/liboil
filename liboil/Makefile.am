@@ -9,7 +9,7 @@ noinst_LTLIBRARIES = liboilend.la liboiltmp.la
 noinst_PROGRAMS = build_prototypes
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
-	liboiltypes.h
+	liboiltypes.h liboilcpu.h
 
 liboilend_la_SOURCES = \
 	liboil_end.c
@@ -56,5 +56,5 @@ liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm
 
 build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
-build_prototypes_LDFLAGS = $(LIBOIL_LIBS)
+build_prototypes_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
 
