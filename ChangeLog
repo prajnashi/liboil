@@ -1,5 +1,13 @@
 2004-09-13  David Schleef  <ds@schleef.org>
 
+	* examples/example1.c: (main): call optimize_all()
+	* liboil/Makefile.am: remove build_lists
+	* liboil/liboilfunction.h: use HAVE_GNU_LINKER
+	* testsuite/Makefile.am: add test
+	* testsuite/proto1.c: (main):
+
+2004-09-13  David Schleef  <ds@schleef.org>
+
 	* Makefile.am: Bump API version to 0.2
 	* configure.ac:
 	* liboil-0.1-uninstalled.pc.in:

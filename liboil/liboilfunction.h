@@ -28,7 +28,7 @@ typedef struct _OilFunctionArg OilFunctionArg;
 typedef void (*OilTestFunction) (OilFunctionClass *klass,
 		OilFunctionImpl *impl);
 
-#ifdef __GNUC__
+#ifdef HAVE_GNU_LINKER
 #define OIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
 #define OIL_IMPL_SECTION __attribute__ ((section ("oil_impl")))
 #define OIL_CLASS_SECTION __attribute__ ((section ("oil_class")))

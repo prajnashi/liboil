@@ -33,7 +33,6 @@ static int get_name_index (const char *s);
 int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
-  OilPrototype *proto;
   int i;
   int j;
 
@@ -43,8 +42,10 @@ int main (int argc, char *argv[])
     klass = oil_class_get_by_index(i);
 
     if(klass->prototype) {
-      proto = oil_prototype_from_string (klass->prototype);
       int x = 0;
+      OilPrototype *proto;
+
+      proto = oil_prototype_from_string (klass->prototype);
 
       for(j=0;j<proto->n_params;j++){
         x = get_name_index (proto->params[j].name);
