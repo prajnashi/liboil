@@ -40,9 +40,12 @@ unsigned long oil_cpu_flags;
 static char *
 get_cpuinfo (void)
 {
-  char *cpuinfo = malloc(4096);
+  char *cpuinfo;
   int fd;
   int n;
+
+  cpuinfo = malloc(4096);
+  if (cpuinfo == NULL) return NULL;
 
   fd = open("/proc/cpuinfo", O_RDONLY);
   if (fd < 0) return NULL;
@@ -64,9 +67,13 @@ oil_cpu_i386_getflags(void)
   char **f;
 
   cpuinfo = get_cpuinfo();
+  if (cpuinfo == NULL) return;
 
   cpuinfo_flags = get_cpuinfo_flags_string(cpuinfo);
-  if (cpuinfo_flags == NULL) return;
+  if (cpuinfo_flags == NULL) {
+    free (cpuinfo);
+    return;
+  }
 
   flags = strsplit(cpuinfo_flags);
   for (f = flags; *f; f++) {
