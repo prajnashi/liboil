@@ -1,3 +1,8 @@
+2005-03-17  David Schleef  <ds@schleef.org>
+
+	* liboil/simdpack/vectoradd_s_i386.c: need this too.  part of
+	the patch below.
+
 2005-03-16  David Schleef  <ds@schleef.org>
 
 	* gtk-doc.make: add me
