@@ -1,5 +1,10 @@
 2004-11-27  David Schleef  <ds@schleef.org>
 
+	* configure.ac: version bump
+	* testsuite/md5.c: (test): compile fix
+
+2004-11-27  David Schleef  <ds@schleef.org>
+
 	From Benjamin Otte
 	* autogen.sh:
 	* examples/Makefile.am: Add oil-inspect

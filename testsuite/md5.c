@@ -20,7 +20,6 @@ char *message = "liboil md5 test\n";
 
 void test(void)
 {
-  int i;
   uint32_t state[4];
   uint32_t src[16];
   int len;
