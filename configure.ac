@@ -6,7 +6,8 @@ AS_VERSION(liboil, LIBOIL_VERSION, 0, 1, 0, 1, LIBOIL_CVS="no", LIBOIL_CVS="yes"
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
-LIBOIL_MAJORMINOR=$LIBOIL_VERSION_MAJOR.$LIBOIL_VERSION_MINOR
+#LIBOIL_MAJORMINOR=$LIBOIL_VERSION_MAJOR.$LIBOIL_VERSION_MINOR
+LIBOIL_MAJORMINOR=0.2
 AC_SUBST(LIBOIL_MAJORMINOR)
 
 AM_CONFIG_HEADER(config.h)
@@ -32,9 +33,11 @@ AC_HELP_STRING([--disable-glib],[disable usage of glib]),
 esac])
 AM_CONDITIONAL(HAVE_GLIB, test "x$HAVE_GLIB" = "xyes")
 
-dnl If we have the GNU linker, we can use a few special tricks.
+dnl If we have GNU tools, we can use a few special tricks.
 dnl Basically, this means Linux for now.
-if test "x${target_os}" = "xlinux" -o "x${target_os}" = "xlinux-gnu" ; then
+dnl Disable this for now
+#if test "x${target_os}" = "xlinux" -o "x${target_os}" = "xlinux-gnu" ; then
+if false ; then
   HAVE_GNU_LINKER=yes
   AC_DEFINE(HAVE_GNU_LINKER, 1, [Define if GNU linker is being used])
 else
@@ -103,8 +106,7 @@ liboil/jpeg/Makefile
 liboil/simdpack/Makefile
 testsuite/Makefile
 examples/Makefile
-liboil-0.1.pc
-liboil-0.1-uninstalled.pc
+liboil.pc
 )
 
 

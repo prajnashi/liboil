@@ -1,3 +1,11 @@
+2004-09-13  David Schleef  <ds@schleef.org>
+
+	* Makefile.am: Bump API version to 0.2
+	* configure.ac:
+	* liboil-0.1-uninstalled.pc.in:
+	* liboil-0.1.pc.in:
+	* liboil.pc.in:
+
 2004-09-09  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: Hoop jumping to extract a list of symbols
