@@ -1,5 +1,10 @@
 2004-11-27  David Schleef  <ds@schleef.org>
 
+	* examples/md5/md5sum.c: (main): Fix problem with file sizes
+	that are multiples of 64.
+
+2004-11-27  David Schleef  <ds@schleef.org>
+
 	* liboil/simdpack/clip_s16.c: (clip_s16_ppcasm3): Use r22 instead
 	of r30.
 

@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
   state[2] = 0x98badcfe;
   state[3] = 0x10325476;
 
-  for (offset = 0; offset + 64 < n_bytes; offset += 64) {
+  for (offset = 0; offset + 64 <= n_bytes; offset += 64) {
     oil_md5 (state, (uint32_t *)(ptr + offset));
   }
 
