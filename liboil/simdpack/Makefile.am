@@ -37,9 +37,9 @@ else
 i386_sources =
 endif
 
-libsimdpack_la_abs_sse_o_CFLAGS = -msse
-libsimdpack_la_scalaradd_o_CFLAGS = -mmmx
-libsimdpack_la_vectoradd_s_o_CFLAGS = -mmmx -msse
+#libsimdpack_la_abs_sse_o_CFLAGS = -msse
+#libsimdpack_la_scalaradd_o_CFLAGS = -mmmx
+#libsimdpack_la_vectoradd_s_o_CFLAGS = -mmmx -msse
 
 if HAVE_CPU_POWERPC
 powerpc_sources = \
@@ -56,7 +56,7 @@ libsimdpack_la_SOURCES = \
 	$(c_sources) $(i386_sources) $(powerpc_sources)
 libsimdpack_la_LIBADD = \
 	$(opt_libs)
-libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS) -mmmx -msse
+libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)
 
 noinst_HEADERS = \
 	simdpack.h

@@ -1,5 +1,12 @@
 2005-03-17  David Schleef  <ds@schleef.org>
 
+	* examples/work/Makefile.am: yet another random change
+	* examples/work/work.c: (main): same
+	* liboil/liboilcpu.c: (test_altivec): powerpc fixes
+	* liboil/simdpack/Makefile.am: remove i386 flags
+
+2005-03-17  David Schleef  <ds@schleef.org>
+
 	* doc/liboil.types: add
 
 2005-03-17  David Schleef  <ds@schleef.org>

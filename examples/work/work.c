@@ -167,7 +167,7 @@ int main (int argc, char *argv[])
 
   oil_init ();
 
-  register_impls();
+  //register_impls();
 
   klass = oil_class_get (klass_name);
   if (klass == NULL) {

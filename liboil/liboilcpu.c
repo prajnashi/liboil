@@ -30,6 +30,7 @@
 #endif
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
+#include <liboil/liboilcpu.h>
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -127,7 +128,7 @@ oil_cpu_i386_getflags(void)
 
 #ifdef __powerpc__
 static void
-test_altivec (void *)
+test_altivec (void * ignored)
 {
   char x[16] = { 0, };
 
