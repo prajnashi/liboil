@@ -23,11 +23,11 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
-OIL_DEFINE_CLASS_X (yuv2rgbx_u8,
+OIL_DEFINE_CLASS (yuv2rgbx_u8,
     "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
-OIL_DEFINE_CLASS_X (yuv2rgbx_sub2_u8,
+OIL_DEFINE_CLASS (yuv2rgbx_sub2_u8,
     "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
-OIL_DEFINE_CLASS_X (yuv2rgbx_sub4_u8,
+OIL_DEFINE_CLASS (yuv2rgbx_sub4_u8,
     "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)

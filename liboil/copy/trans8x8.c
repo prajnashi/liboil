@@ -37,7 +37,7 @@ static void trans8x8_ ## type ## _ref (		\
   }						\
 }						\
 OIL_DEFINE_IMPL_REF (trans8x8_ ## type ## _ref, trans8x8_ ## type ## _class); \
-OIL_DEFINE_CLASS_X (trans8x8_ ## type, "type_" #type " *dest, int dstr,	" \
+OIL_DEFINE_CLASS (trans8x8_ ## type, "type_" #type " *dest, int dstr,	" \
     "type_" #type " *src, int sstr")
 
 TRANS8x8_DEFINE_REF(u8);

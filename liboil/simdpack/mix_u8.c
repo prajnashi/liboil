@@ -25,7 +25,7 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (mix_u8,
+OIL_DEFINE_CLASS (mix_u8,
     "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *param, int n");
 
 static void mix_u8_ref(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)

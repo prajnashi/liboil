@@ -26,7 +26,7 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS_X (mult8x8_s16, 
+OIL_DEFINE_CLASS (mult8x8_s16, 
     "int16_t *dest, int16_t *src1, int16_t *src2, int dstr, int sstr1, int sstr2");
 
 static void

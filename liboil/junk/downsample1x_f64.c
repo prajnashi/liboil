@@ -24,7 +24,7 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (downsample1x_f64,
+OIL_DEFINE_CLASS (downsample1x_f64,
     "double *dest, int dstr, double *src, int sstr, "
     "int ndest, int nsrc, double param1, double param2");
 

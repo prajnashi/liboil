@@ -1,5 +1,42 @@
 2004-09-07  David Schleef  <ds@schleef.org>
 
+	Global change from OIL_DEFINE_CLASS_X to OIL_DEFINE_CLASS
+	* liboil/conv_ref.c:
+	* liboil/copy/permute.c:
+	* liboil/copy/splat_ref.c:
+	* liboil/copy/tablelookup_ref.c:
+	* liboil/copy/trans8x8.c:
+	* liboil/dct/dct12_f32.c:
+	* liboil/dct/dct36_f32.c:
+	* liboil/dct/fdct8_f64.c:
+	* liboil/dct/idct8_f64.c:
+	* liboil/dct/idct8x8_c.c:
+	* liboil/dct/imdct32_f32.c:
+	* liboil/jpeg/convert8x8_c.c:
+	* liboil/jpeg/jpeg_rgb_decoder.c:
+	* liboil/jpeg/quantize8x8_c.c:
+	* liboil/jpeg/yuv2rgb_c.c:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/junk/downsample1x_f64.c:
+	* liboil/junk/get8x8_f64.c:
+	* liboil/liboilfunction.h:
+	* liboil/simdpack/abs.c:
+	* liboil/simdpack/average2_u8.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/diffsquaresum_f64.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/simdpack/sincos_f64.c:
+	* liboil/simdpack/squaresum_f64.c:
+	* liboil/simdpack/sum_f64.c:
+	* liboil/simdpack/vectoradd_f64.c:
+
+2004-09-07  David Schleef  <ds@schleef.org>
+
 	Add oil_ prefix to all virtual functions.
 	* examples/example1.c: (main):
 	* liboil/build_prototypes.c: (main):

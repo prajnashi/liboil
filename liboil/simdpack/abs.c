@@ -24,11 +24,11 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (abs_u8_s8, "uint8_t *dest, int dstr, int8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS_X (abs_u16_s16, "uint16_t *dest, int dstr, int16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS_X (abs_u32_s32, "uint32_t *dest, int dstr, int32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS_X (abs_f32_f32, "float *dest, int dstr, float *src, int sstr, int n");
-OIL_DEFINE_CLASS_X (abs_f64_f64, "double *dest, int dstr, double *src, int sstr, int n");
+OIL_DEFINE_CLASS (abs_u8_s8, "uint8_t *dest, int dstr, int8_t *src, int sstr, int n");
+OIL_DEFINE_CLASS (abs_u16_s16, "uint16_t *dest, int dstr, int16_t *src, int sstr, int n");
+OIL_DEFINE_CLASS (abs_u32_s32, "uint32_t *dest, int dstr, int32_t *src, int sstr, int n");
+OIL_DEFINE_CLASS (abs_f32_f32, "float *dest, int dstr, float *src, int sstr, int n");
+OIL_DEFINE_CLASS (abs_f64_f64, "double *dest, int dstr, double *src, int sstr, int n");
 
 //static void abs_test (OilFunctionClass *klass, OilFunctionImpl *impl);
 

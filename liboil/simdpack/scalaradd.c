@@ -35,7 +35,7 @@ static void scalaradd_ ## type ## _ref(		\
       OIL_GET(src,sstr*i, type_ ## type) + val; \
   }						\
 }						\
-OIL_DEFINE_CLASS_X (scalaradd_ ## type,         \
+OIL_DEFINE_CLASS (scalaradd_ ## type,         \
     "type_" #type " *dest, int dstr, "		\
     "type_" #type " *src, int sstr, "		\
     "type_" #type " param int n");		\

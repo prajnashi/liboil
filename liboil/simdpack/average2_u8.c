@@ -25,7 +25,7 @@
 
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (average2_u8, 
+OIL_DEFINE_CLASS (average2_u8, 
     "uint8_t * dest, int dstr, uint8_t *src1, int sstr1, "
     "uint8_t *src2, int sstr2, int n");
 

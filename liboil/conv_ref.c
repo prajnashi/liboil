@@ -25,140 +25,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#if 0
-static void conv_test(OilFunctionClass *klass, OilFunctionImpl *impl);
-
-OIL_DEFINE_CLASS(conv_s8_u8,
-  "int8_t *dest, int dstr, uint8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_s16,
-  "int8_t *dest, int dstr, int16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_u16,
-  "int8_t *dest, int dstr, uint16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_s32,
-  "int8_t *dest, int dstr, int32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_u32,
-  "int8_t *dest, int dstr, uint32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_f32,
-  "int8_t *dest, int dstr, float *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s8_f64,
-  "int8_t *dest, int dstr, double *src, int sstr, int n");
-
-OIL_DEFINE_CLASS(conv_u8_s8,
-  "uint8_t *dest, int dstr, uint8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_s16,
-  "uint8_t *dest, int dstr, int16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_u16,
-  "uint8_t *dest, int dstr, uint16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_s32,
-  "uint8_t *dest, int dstr, int32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_u32,
-  "uint8_t *dest, int dstr, uint32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_f32,
-  "uint8_t *dest, int dstr, float *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u8_f64,
-  "uint8_t *dest, int dstr, double *src, int sstr, int n");
-
-OIL_DEFINE_CLASS(conv_s16_s8,
-  "int16_t *dest, int dstr, int8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_u8,
-  "int16_t *dest, int dstr, uint8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_u16,
-  "int16_t *dest, int dstr, uint16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_s32,
-  "int16_t *dest, int dstr, int32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_u32,
-  "int16_t *dest, int dstr, uint32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_f32,
-  "int16_t *dest, int dstr, float *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_s16_f64,
-  "int16_t *dest, int dstr, double *src, int sstr, int n");
-
-OIL_DEFINE_CLASS(conv_u16_s8,
-  "uint16_t *dest, int dstr, int8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_u8,
-  "uint16_t *dest, int dstr, uint8_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_s16,
-  "uint16_t *dest, int dstr, int16_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_s32,
-  "uint16_t *dest, int dstr, int32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_u32,
-  "uint16_t *dest, int dstr, uint32_t *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_f32,
-  "uint16_t *dest, int dstr, float *src, int sstr, int n");
-OIL_DEFINE_CLASS(conv_u16_f64,
-  "uint16_t *dest, int dstr, double *src, int sstr, int n");
-
-OIL_DEFINE_CLASS(conv_s32_s8,conv_test);
-OIL_DEFINE_CLASS(conv_s32_s16,conv_test);
-OIL_DEFINE_CLASS(conv_s32_u8,conv_test);
-OIL_DEFINE_CLASS(conv_s32_u16,conv_test);
-OIL_DEFINE_CLASS(conv_s32_u32,conv_test);
-OIL_DEFINE_CLASS(conv_s32_f32,conv_test);
-OIL_DEFINE_CLASS(conv_s32_f64,conv_test);
-
-OIL_DEFINE_CLASS(conv_u32_s8,conv_test);
-OIL_DEFINE_CLASS(conv_u32_s16,conv_test);
-OIL_DEFINE_CLASS(conv_u32_u8,conv_test);
-OIL_DEFINE_CLASS(conv_u32_u16,conv_test);
-OIL_DEFINE_CLASS(conv_u32_s32,conv_test);
-OIL_DEFINE_CLASS(conv_u32_f32,conv_test);
-OIL_DEFINE_CLASS(conv_u32_f64,conv_test);
-
-OIL_DEFINE_CLASS(conv_f32_s8,conv_test);
-OIL_DEFINE_CLASS(conv_f32_s16,conv_test);
-OIL_DEFINE_CLASS(conv_f32_u8,conv_test);
-OIL_DEFINE_CLASS(conv_f32_u16,conv_test);
-OIL_DEFINE_CLASS(conv_f32_s32,conv_test);
-OIL_DEFINE_CLASS(conv_f32_u32,conv_test);
-OIL_DEFINE_CLASS(conv_f32_f64,conv_test);
-
-OIL_DEFINE_CLASS(conv_f64_s8,conv_test);
-OIL_DEFINE_CLASS(conv_f64_s16,conv_test);
-OIL_DEFINE_CLASS(conv_f64_s32,conv_test);
-OIL_DEFINE_CLASS(conv_f64_u8,conv_test);
-OIL_DEFINE_CLASS(conv_f64_u16,conv_test);
-OIL_DEFINE_CLASS(conv_f64_u32,conv_test);
-OIL_DEFINE_CLASS(conv_f64_f32,conv_test);
-
-
-
-OIL_DEFINE_CLASS(clipconv_s8_u8,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_s16,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_u16,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_s32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_u32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s8_f64,conv_test);
-
-OIL_DEFINE_CLASS(clipconv_u8_s8,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_s16,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_u16,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_s32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_u32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u8_f64,conv_test);
-
-OIL_DEFINE_CLASS(clipconv_s16_u16,conv_test);
-OIL_DEFINE_CLASS(clipconv_s16_s32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s16_u32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s16_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s16_f64,conv_test);
-
-OIL_DEFINE_CLASS(clipconv_u16_s16,conv_test);
-OIL_DEFINE_CLASS(clipconv_u16_s32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u16_u32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u16_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u16_f64,conv_test);
-
-OIL_DEFINE_CLASS(clipconv_s32_u32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s32_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_s32_f64,conv_test);
-
-OIL_DEFINE_CLASS(clipconv_u32_s32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u32_f32,conv_test);
-OIL_DEFINE_CLASS(clipconv_u32_f64,conv_test);
-#endif
-
 
 
 #define CONV_DEFINE_REF_CAST(desttype,srctype) \
@@ -174,7 +40,7 @@ static void conv_ ## desttype ## _ ## srctype ## _ref ( \
 			OIL_GET(src,i*src_stride, type_ ## srctype);	\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(conv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\
@@ -195,7 +61,7 @@ static void conv_ ## desttype ## _ ## srctype ## _ref ( \
 			rint(OIL_GET(src,i*src_stride, type_ ## srctype));	\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(conv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\
@@ -286,7 +152,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
 		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(clipconv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\
@@ -309,7 +175,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
 		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(clipconv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\
@@ -332,7 +198,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
 		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(clipconv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\
@@ -356,7 +222,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
 		OIL_GET(dest,i*dest_stride, type_ ## desttype) = rint(x);		\
 	}				\
 }					\
-OIL_DEFINE_CLASS_X(clipconv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"type_" #srctype " *src, "	\

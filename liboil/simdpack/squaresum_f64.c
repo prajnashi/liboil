@@ -25,7 +25,7 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS_X (squaresum_f64, "double *dest, double *src, int n");
+OIL_DEFINE_CLASS (squaresum_f64, "double *dest, double *src, int n");
 
 static void
 squaresum_f64_ref(double *dest, double *src, int n)

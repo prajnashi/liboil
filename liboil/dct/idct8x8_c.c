@@ -40,8 +40,8 @@ extern OilFunctionClass _oil_function_idct8x8_f64_class;
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
 
-OIL_DEFINE_CLASS_X (idct8x8_f64, "double *dest, int dstr, double *src, int sstr");
-OIL_DEFINE_CLASS_X (idct8x8_s16, "int16_t *dest, int dstr, int16_t *src, int sstr");
+OIL_DEFINE_CLASS (idct8x8_f64, "double *dest, int dstr, double *src, int sstr");
+OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *dest, int dstr, int16_t *src, int sstr");
 
 static void
 idct8x8_f64_slow (double *dest, int dstr, double *src, int sstr)

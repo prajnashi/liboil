@@ -23,7 +23,7 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/dct/dct.h>
 
-OIL_DEFINE_CLASS_X(dct36_f32, "float *dest, int dstr, float *src, int sstr, int n");
+OIL_DEFINE_CLASS(dct36_f32, "float *dest, int dstr, float *src, int sstr, int n");
 
 static void
 dct36_f32_ref(float *dest, int dstr, float *src, int sstr, int n)

@@ -84,7 +84,7 @@ struct _OilFunctionImpl {
 	extern OilFunctionClass _oil_function_ ## klass ## _class
 
 
-#define OIL_DEFINE_CLASS(klass, test) \
+#define OIL_DEFINE_CLASS_FULL(klass, string, test) \
 OilFunctionClass _oil_function_ ## klass ## _class \
 		LIBOIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
 	NULL, \
@@ -94,12 +94,12 @@ OilFunctionClass _oil_function_ ## klass ## _class \
         NULL, \
         NULL, \
         NULL, \
-        NULL \
+        string \
 }; \
 OilFunctionClass *oil_function_ ## klass ## _class_ptr = \
   &_oil_function_ ## klass ## _class
 
-#define OIL_DEFINE_CLASS_X(klass, string) \
+#define OIL_DEFINE_CLASS(klass, string) \
 OilFunctionClass _oil_function_ ## klass ## _class \
 		LIBOIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
 	NULL, \

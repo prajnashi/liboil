@@ -37,7 +37,7 @@ static void vectoradd_ ## type ## _ref (	\
         v2 * OIL_GET(src2,i*sstr2, type_ ## type);		\
   }						\
 }						\
-OIL_DEFINE_CLASS_X (vectoradd_ ## type,         \
+OIL_DEFINE_CLASS (vectoradd_ ## type,         \
     "type_" #type " *dest, int dstr, "		\
     "type_" #type " *src1, int sstr1, "		\
     "type_" #type " *src2, int sstr2, "		\

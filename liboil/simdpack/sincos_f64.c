@@ -24,7 +24,7 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS_X (sincos_f64,
+OIL_DEFINE_CLASS (sincos_f64,
     "double *dest1, double *dest2, int n, double param1, double param2");
 
 static void

@@ -39,7 +39,7 @@ static void clip_ ## type ## _ref ( \
     OIL_GET(dest,i*dstr,type_ ## type) = x; \
   } \
 } \
-OIL_DEFINE_CLASS_X(clip_ ## type, \
+OIL_DEFINE_CLASS(clip_ ## type, \
     "type_" #type " *dest, " \
     "int dstr, " \
     "type_" #type " *src, " \

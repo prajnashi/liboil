@@ -23,7 +23,7 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
-OIL_DEFINE_CLASS_X (dequantize8x8_s16, 
+OIL_DEFINE_CLASS (dequantize8x8_s16, 
     "int16_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2, int sstr2");
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
