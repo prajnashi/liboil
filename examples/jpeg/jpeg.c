@@ -553,7 +553,7 @@ jpeg_decoder_application0 (JpegDecoder * dec, bits_t * bits)
   length = get_be_u16 (bits);
   JPEG_DEBUG (0, "length=%d\n", length);
 
-  if (strncmp (bits->ptr, "JFIF", 4) == 0 && bits->ptr[4] == 0) {
+  if (memcmp (bits->ptr, "JFIF", 4) == 0 && bits->ptr[4] == 0) {
     int version;
     int units;
     int x_density;
@@ -580,7 +580,7 @@ jpeg_decoder_application0 (JpegDecoder * dec, bits_t * bits)
 
   }
 
-  if (strncmp (bits->ptr, "JFXX", 4) == 0 && bits->ptr[4] == 0) {
+  if (memcmp (bits->ptr, "JFXX", 4) == 0 && bits->ptr[4] == 0) {
     JPEG_DEBUG (0, "JFIF extension (not handled)\n");
     bits->ptr += length - 2;
   }

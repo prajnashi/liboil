@@ -97,8 +97,7 @@ void conv_f64_s16_bits(s16 *dest, f64 *src,
 }
 #endif
 
-#ifdef SIMDPACK_USE_POWERPC
-/* IMPL conv_f64_s16_ppcasm defined(SIMDPACK_USE_POWERPC) */
+#ifdef HAVE_CPU_POWERPC
 SL_conv_f64_s16_storage
 void conv_f64_s16_ppcasm(s16 *dest, f64 *src, int n)
 {
@@ -120,8 +119,7 @@ void conv_f64_s16_ppcasm(s16 *dest, f64 *src, int n)
 }
 #endif
 
-#ifdef SIMDPACK_USE_I386
-/* IMPL conv_f64_s16_i386asm defined(SIMDPACK_USE_I386) */
+#ifdef HAVE_CPU_I386
 SL_conv_f64_s16_storage
 void conv_f64_s16_i386asm(s16 *dest, f64 *src,
 	int n)

@@ -1,3 +1,23 @@
+2004-11-22  David Schleef  <ds@schleef.org>
+
+	* configure.ac: bump nano
+	* examples/jpeg/jpeg.c: (jpeg_decoder_application0): Fix warnings
+	under gcc-3.5
+	* liboil/Makefile.am: Add dependency to convince automake to
+	build things in the correct order (fixes build problems with -j2)
+	* liboil/md5/md5_i386.c: (md5_asm1), (md5_asm2), (md5_asm3):
+	Don't clobber ebx, since gcc can't handle it.
+	* liboil/simdpack/average2_u8.c: remove simdpack-isms
+	* liboil/simdpack/clip_s16.c: same
+	* liboil/simdpack/conv_f64_s16.c: same
+	* liboil/simdpack/downsample2_s16.c: (downsample2_s16_ref),
+	(downsample2_s16_fast), (downsample2_s16_unroll4),
+	(downsample2_s16_ppcasm): same
+	* liboil/simdpack/mix_u8.c: same
+	* liboil/simdpack/sad8x8.c: same
+
+=== 0.2.1 ===
+
 2004-11-17  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version bump

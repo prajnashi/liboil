@@ -85,7 +85,7 @@ clip_s16_fast2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 }
 OIL_DEFINE_IMPL (clip_s16_fast2, clip_s16);
 
-#ifdef SIMDPACK_USE_POWERPC
+#ifdef HAVE_CPU_POWERPC
 static void
 clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
     int16_t hi, int n)
@@ -113,8 +113,7 @@ clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16);
 #endif
 
-#ifdef SIMDPACK_USE_POWERPC
-/* IMPL clip_s16_ppcasm2 defined(SIMDPACK_USE_POWERPC) */
+#ifdef HAVE_CPU_POWERPC
 SL_clip_s16_storage
 clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
     int16_t hi, int n)
@@ -142,7 +141,7 @@ clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16);
 #endif
 
-#ifdef SIMDPACK_USE_POWERPC
+#ifdef HAVE_CPU_POWERPC
 /* This is just a basic weave of the previous function.  It uses
  * a lot of registers and gets pretty hairy, so it would take some
  * work to make better. */

@@ -40,6 +40,7 @@ md5_asm1(uint32_t *state, uint32_t *src)
     void *state;
     void *src;
     void *ebp;
+    void *ebx;
   }tmp;
 
   tmp.state = state;
@@ -47,6 +48,7 @@ md5_asm1(uint32_t *state, uint32_t *src)
 
   asm (
       "  mov %%ebp, 0x8(%%eax)\n"
+      "  mov %%ebx, 0xc(%%eax)\n"
       "  mov %%eax, %%ebp\n"
       "  mov (%%ebp), %%esi\n"
       "  mov (%%esi), %%eax\n"
@@ -171,10 +173,11 @@ md5_asm1(uint32_t *state, uint32_t *src)
       "  add %%ebx, 0x4(%%edi)\n"
       "  add %%ecx, 0x8(%%edi)\n"
       "  add %%edx, 0xc(%%edi)\n"
+      "  mov 0xc(%%ebp), %%ebx\n"
       "  mov 0x8(%%ebp), %%ebp\n"
       :
       : "a" (&tmp)
-      : "esi", "ebx", "ecx", "edx", "edi");
+      : "esi", "ecx", "edx", "edi");
 }
 #undef STEP1
 #undef STEP2
@@ -191,6 +194,7 @@ md5_asm2(uint32_t *state, uint32_t *src)
     void *state;
     void *src;
     void *ebp;
+    void *ebx;
   }tmp;
 
   tmp.state = state;
@@ -198,6 +202,7 @@ md5_asm2(uint32_t *state, uint32_t *src)
 
   asm (
       "  mov %%ebp, 0x8(%%eax)\n"
+      "  mov %%ebx, 0xc(%%eax)\n"
       "  mov %%eax, %%ebp\n"
       "  mov (%%ebp), %%esi\n"
       "  mov (%%esi), %%eax\n"
@@ -326,10 +331,11 @@ md5_asm2(uint32_t *state, uint32_t *src)
       "  add %%ebx, 0x4(%%edi)\n"
       "  add %%ecx, 0x8(%%edi)\n"
       "  add %%edx, 0xc(%%edi)\n"
+      "  mov 0xc(%%ebp), %%ebx\n"
       "  mov 0x8(%%ebp), %%ebp\n"
       :
       : "a" (&tmp)
-      : "esi", "ebx", "ecx", "edx", "edi");
+      : "esi", "ecx", "edx", "edi");
 #undef STEP1
 #undef STEP2
 #undef STEP3
@@ -347,6 +353,7 @@ md5_asm3(uint32_t *state, uint32_t *src)
     void *src;
     void *ebp;
     void *esp;
+    void *ebx;
   }tmp;
 
   tmp.state = state;
@@ -354,7 +361,8 @@ md5_asm3(uint32_t *state, uint32_t *src)
 
   asm (
       "  mov %%ebp, 0x8(%%eax)\n"
-      "  mov %%ebp, 0xc(%%eax)\n"
+      "  mov %%esp, 0xc(%%eax)\n"
+      "  mov %%ebx, 0x10(%%eax)\n"
       "  mov %%eax, %%ebp\n"
       "  mov (%%ebp), %%esi\n"
       "  mov (%%esi), %%eax\n"
@@ -487,11 +495,12 @@ md5_asm3(uint32_t *state, uint32_t *src)
       "  add %%ebx, 0x4(%%edi)\n"
       "  add %%ecx, 0x8(%%edi)\n"
       "  add %%edx, 0xc(%%edi)\n"
+      "  mov 0x10(%%ebp), %%ebx\n"
       "  mov 0xc(%%ebp), %%esp\n"
       "  mov 0x8(%%ebp), %%ebp\n"
       :
       : "a" (&tmp)
-      : "esi", "ebx", "ecx", "edx", "edi");
+      : "esi", "ecx", "edx", "edi");
 #undef STEP1
 #undef STEP2
 #undef STEP3

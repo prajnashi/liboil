@@ -123,7 +123,8 @@ average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 
 OIL_DEFINE_IMPL (average2_u8_unroll4, average2_u8);
 
-#ifdef SIMDPACK_USE_I386
+#if 0 /* doesn't compile */
+#ifdef HAVE_CPU_I386
 /* This doesn't work with sstr!=2 or dstr!=2 */
 static void
 average2_u8_i386asm (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
@@ -147,6 +148,7 @@ average2_u8_i386asm (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 }
 
 OIL_DEFINE_IMPL (average2_u8_i386asm, average2_u8);
+#endif
 #endif
 
 

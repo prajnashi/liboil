@@ -25,26 +25,11 @@ Averages sucessive input samples to produce output samples.
 
 */
 
-#ifndef _downsample2_s16_h_
-#define _downsample2_s16_h_
-
 #include <math.h>
 #include <sl_types.h>
 
-
-/* storage class */
-#ifndef SL_downsample2_s16_storage
- #ifdef SL_storage
-  #define SL_downsample2_s16_storage SL_storage
- #else
-  #define SL_downsample2_s16_storage static inline
- #endif
-#endif
-
-
-/* IMPL downsample2_s16_ref */
-SL_downsample2_s16_storage
-void downsample2_s16_ref(s16 *dest, s16 *src, int n)
+static void
+downsample2_s16_ref(s16 *dest, s16 *src, int n)
 {
 	int i;
 
@@ -53,9 +38,8 @@ void downsample2_s16_ref(s16 *dest, s16 *src, int n)
 	}
 }
 
-/* IMPL downsample2_s16_fast */
-SL_downsample2_s16_storage
-void downsample2_s16_fast(s16 *dest, s16 *src, int n)
+static void
+downsample2_s16_fast(s16 *dest, s16 *src, int n)
 {
 	while(n>1){
 		*dest++ = (src[0] + src[1] + 1)>>1;
@@ -64,9 +48,8 @@ void downsample2_s16_fast(s16 *dest, s16 *src, int n)
 	}
 }
 
-/* IMPL downsample2_s16_unroll4 */
-SL_downsample2_s16_storage
-void downsample2_s16_unroll4(s16 *dest, s16 *src, int n)
+static void
+downsample2_s16_unroll4(s16 *dest, s16 *src, int n)
 {
 	while(n&0x6){
 		*dest++ = (src[0] + src[1] + 1)>>1;
@@ -86,10 +69,9 @@ void downsample2_s16_unroll4(s16 *dest, s16 *src, int n)
 	}
 }
 
-#ifdef SIMDPACK_USE_POWERPC
-/* IMPL downsample2_s16_ppcasm defined(SIMDPACK_USE_POWERPC) */
-SL_downsample2_s16_storage
-void downsample2_s16_ppcasm(s16 *dest, s16 *src, int n)
+#ifdef HAVE_CPU_POWERPC
+static void
+downsample2_s16_ppcasm(s16 *dest, s16 *src, int n)
 {
 	dest--;
 	src--;
@@ -110,7 +92,6 @@ void downsample2_s16_ppcasm(s16 *dest, s16 *src, int n)
 }
 #endif
 
-#endif
 
 #ifdef TEST_downsample2_s16
 int TEST_downsample2_s16(void)

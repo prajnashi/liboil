@@ -107,7 +107,7 @@ mix_u8_unroll4(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int 
 }
 OIL_DEFINE_IMPL (mix_u8_unroll4, mix_u8);
 
-#ifdef SIMDPACK_USE_ALTIVEC
+#ifdef HAVE_CPU_ALTIVEC
 static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
 	static const uint8_t permute[] __attribute__ ((__aligned__ (16))) = {

@@ -159,7 +159,6 @@ sad8x8_s16_a16_altivec (uint32_t *dest, int16_t *src1, int16_t *src2, int s1str,
 #endif
 
 #if 0
-/* IMPL sad8x8_s16_l15_a16_altivec defined(SIMDPACK_USE_ALTIVEC) */
 SL_sad8x8_s16_storage
 void sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
 {

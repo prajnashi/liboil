@@ -79,6 +79,10 @@ liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm \
 	-export-symbols-regex '^oil_'
 
+# This is required to use 'make -j2'. Automake doesn't seem to notice
+# that one of the dependencies is in this directory.
+build_prototypes_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
+
 build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
 build_prototypes_LDFLAGS = $(LIBOIL_LIBS)
