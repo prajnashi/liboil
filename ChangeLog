@@ -1,5 +1,24 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* liboil/copy/trans8x8_f32.c: Remove simdpack-ish TEST functions
+	* liboil/copy/trans8x8_s16.c:
+	* liboil/dct/dct12_f32.c:
+	* liboil/dct/dct36_f32.c:
+	* liboil/dct/fdct8_f64.c:
+	* liboil/dct/fdct8x8_f64.c:
+	* liboil/dct/fdct8x8_s16.c:
+	* liboil/dct/fdct8x8s_s16.c:
+	* liboil/dct/idct8_f64.c:
+	* liboil/dct/idct8x8_f64.c:
+	* liboil/dct/idct8x8_s16.c:
+	* liboil/dct/idct8x8s_s16.c:
+	* liboil/dct/imdct32_f32.c:
+	* liboil/jpeg/zigzag8x8_s16.c:
+	* liboil/junk/downsample1x_f64.c:
+	* liboil/junk/get8x8_f64.c:
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* README: some notes
 	* examples/.cvsignore: update some cvsignore files
 	* examples/md5/.cvsignore:
