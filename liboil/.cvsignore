@@ -7,3 +7,4 @@ Makefile.in
 .libs
 .cvsignore
 build_prototypes
+liboilarray.c

@@ -1,0 +1,15 @@
+
+Ideas:
+
+implementations should be flagged as to whether or not they contain
+assembly, and also whether or not they are the product of the
+alternate optimization.  This way, testing code can automatically
+flag functions where the alternate optimization is faster than the
+C or asm code, indicating that the compiler output should be turned
+into assembly.
+
+
+
+Why is trans8x8_f64 so slow on powerpc (compared to trans8x8_u16)?
+
+

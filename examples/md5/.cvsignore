@@ -7,4 +7,4 @@ Makefile.in
 .libs
 .cvsignore
 example1
-oil-inspect
+md5sum

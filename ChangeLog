@@ -1,5 +1,16 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* README: some notes
+	* examples/.cvsignore: update some cvsignore files
+	* examples/md5/.cvsignore:
+	* liboil/.cvsignore:
+	* liboil/colorspace/.cvsignore:
+	* liboil/copy/.cvsignore:
+	* liboil/md5/.cvsignore:
+	* testsuite/.cvsignore:
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* configure.ac: use -fomit-frame-pointer, -funroll-all-loops and
 	-Wno-unused-functions
 	* liboil/colorspace/Makefile.am: create opt libs

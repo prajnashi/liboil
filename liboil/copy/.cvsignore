@@ -6,5 +6,4 @@ Makefile.in
 .deps
 .libs
 .cvsignore
-example1
-oil-inspect
+build_prototypes
