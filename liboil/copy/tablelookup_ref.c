@@ -25,6 +25,7 @@
 static void
 tablelookup_test (OilTest *test)
 {
+  /* limit table elements to 0..n-1 */
 
 }
 

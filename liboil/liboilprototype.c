@@ -349,7 +349,7 @@ static OilArgType arg_name_aliases_2[] = {
   OIL_ARG_DSTR1,
   OIL_ARG_SRC1,
   OIL_ARG_SSTR1,
-  OIL_ARG_ARG1,
+  OIL_ARG_PARAM1,
   OIL_ARG_UNKNOWN
 };
 

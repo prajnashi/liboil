@@ -28,14 +28,14 @@ static void clip_ ## type ## _ref ( \
     int dstr, \
     type_ ## type *src, \
     int sstr, int n, \
-    type_ ## type min, type_ ## type max) \
+    type_ ## type *min, type_ ## type *max) \
 { \
   int i; \
   type_ ## type x; \
   for(i=0;i<n;i++){ \
     x = OIL_GET(src,i*sstr,type_ ## type); \
-    if (x<min) x = min; \
-    if (x>min) x = min; \
+    if (x<*min) x = *min; \
+    if (x>*max) x = *max; \
     OIL_GET(dest,i*dstr,type_ ## type) = x; \
   } \
 } \
@@ -44,7 +44,7 @@ OIL_DEFINE_CLASS(clip_ ## type, \
     "int dstr, " \
     "type_" #type " *src, " \
     "int sstr, int n, " \
-    "type_" #type " param1, type_" #type " param2"); \
+    "type_" #type " *param1, type_" #type " *param2"); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type)
 
 CLIP_DEFINE_REF (s8);
@@ -83,52 +83,4 @@ clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
 #endif
 #endif
 
-
-#ifdef TEST_clip_f64
-int TEST_clip_f64(void)
-{
-	int i;
-	int pass;
-	int failures = 0;
-	f64 *src, *dest_ref, *dest_test;
-	struct sl_profile_struct t;
-
-	src = sl_malloc_f64(N);
-	dest_ref = sl_malloc_f64(N);
-	dest_test = sl_malloc_f64(N);
-
-	sl_profile_init(t);
-	srand(20020326);
-
-	printf("I: " sl_stringify(clip_f64_FUNC) "\n");
-
-	for(pass=0;pass<N_PASS;pass++){
-		for(i=0;i<N;i++)src[i]=sl_rand_f64_s16();
-
-		clip_f64_ref(dest_ref,src,-10000.0,10000.0,N);
-		sl_profile_start(t);
-		clip_f64_FUNC(dest_test,src,-10000.0,10000.0,N);
-		sl_profile_stop(t);
-
-		for(i=0;i<N;i++){
-			if(dest_test[i] != dest_ref[i]){
-				printf("%d %g %g %g\n",i,src[i],dest_ref[i],
-						dest_test[i]);
-			}
-		}
-	}
-
-	sl_free(src);
-	sl_free(dest_ref);
-	sl_free(dest_test);
-
-	if(failures){
-		printf("E: %d failures\n",failures);
-	}
-
-	sl_profile_print(t);
-
-	return failures;
-}
-#endif
 

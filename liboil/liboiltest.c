@@ -91,25 +91,22 @@ oil_test_go (OilTest *test)
   if (test->proto->n_params > 10) return 0;
   if (test->klass->test_func != NULL) return 0;
   if (!test->params[OIL_ARG_N].type) return 0;
+  if (test->params[OIL_ARG_UNKNOWN].type) return 0;
   if (test->params[OIL_ARG_STATE].type) return 0;
-  if (test->params[OIL_ARG_ARG1].type) return 0;
 
   oil_test_init_src_arrays(test);
   oil_test_init_dest_arrays(test);
+  oil_test_init_params(test);
 
   test->params[OIL_ARG_N].value = test->n;
 
-#if 0
-  printf("%s\n", test->klass->prototype);
-#endif
+  OIL_LOG("calling test function %s", test->impl->name);
   for(i=0;i<test->proto->n_params;i++){
     j = test->proto->params[i].parameter_type;
-#if 0
-    printf("  %s: 0x%08lx (%ld)\n",
+    OIL_LOG("  %s: 0x%08lx (%ld)",
         oil_arg_type_name (j),
         test->params[j].value,
         test->params[j].value);
-#endif
     args[i] = test->params[j].value;
   }
 
@@ -168,30 +165,13 @@ oil_test_cleanup (OilTest *test)
 
 }
 
-
 static void
-init_src_array (OilTest *test, OilArgType t, OilArgType ts)
+fill_array (void *ptr, int stride, OilType type, int n)
 {
-  int n;
-  int stride;
-  void *ptr;
   int i;
 
-  if (!test->params[t].type) return;
-
-  n = test->n;
-  stride = test->params[ts].value;
-  if (stride == 0) {
-    stride = oil_type_sizeof (test->params[t].type);
-    test->params[ts].value = stride;
-  }
-
-  ptr = malloc (stride * n);
-  memset (ptr, 0, stride * n);
-  test->params[t].value = (unsigned long) ptr;
-
   for(i=0;i<n;i++){
-    switch (test->params[t].type) {
+    switch (type) {
       case OIL_TYPE_s8p:
         OIL_GET(ptr, i*stride, int8_t) = oil_rand_s8();
         break;
@@ -217,11 +197,34 @@ init_src_array (OilTest *test, OilArgType t, OilArgType ts)
         OIL_GET(ptr, i*stride, double) = oil_rand_f64_0_1();
         break;
       default:
-        OIL_ERROR ("should not be reached (type == %d)", test->params[t].type);
+        OIL_ERROR ("should not be reached (type == %d)", type);
         return;
         break;
     }
   }
+}
+
+static void
+init_src_array (OilTest *test, OilArgType t, OilArgType ts)
+{
+  int n;
+  int stride;
+  void *ptr;
+
+  if (!test->params[t].type) return;
+
+  n = test->n;
+  stride = test->params[ts].value;
+  if (stride == 0) {
+    stride = oil_type_sizeof (test->params[t].type);
+    test->params[ts].value = stride;
+  }
+
+  ptr = malloc (stride * n);
+  memset (ptr, 0, stride * n);
+  test->params[t].value = (unsigned long) ptr;
+
+  fill_array (ptr, stride, test->params[t].type, n);
 }
 
 void
@@ -230,6 +233,30 @@ oil_test_init_src_arrays (OilTest *test)
   init_src_array (test, OIL_ARG_SRC1, OIL_ARG_SSTR1);
   init_src_array (test, OIL_ARG_SRC2, OIL_ARG_SSTR2);
   init_src_array (test, OIL_ARG_SRC3, OIL_ARG_SSTR3);
+}
+
+static void
+init_param (OilTest *test, OilArgType t)
+{
+  int size;
+  void *ptr;
+
+  if (!test->params[t].type) return;
+
+  size = oil_type_sizeof (test->params[t].type);
+  ptr = malloc (size);
+  memset (ptr, 0, size);
+  test->params[t].value = (unsigned long) ptr;
+
+  fill_array (ptr, 0, test->params[t].type, 1);
+}
+
+void
+oil_test_init_params (OilTest *test)
+{
+  init_param (test, OIL_ARG_PARAM1);
+  init_param (test, OIL_ARG_PARAM2);
+  init_param (test, OIL_ARG_PARAM3);
 }
 
 static void

@@ -24,20 +24,20 @@
 #include <liboil/simdpack/simdpack.h>
 
 #define SCALARMULT_DEFINE_REF(type)		\
-static void scalarmult_ ## type ## _ref(		\
+static void scalarmult_ ## type ## _ref(	\
     type_ ## type *dest, int dstr,		\
     type_ ## type *src, int sstr,		\
-    type_ ## type val, int n)			\
+    type_ ## type *val, int n)			\
 {						\
   int i;					\
   for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * val; \
+    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * *val; \
   }						\
 }						\
-OIL_DEFINE_CLASS(scalarmult_ ## type,         \
+OIL_DEFINE_CLASS(scalarmult_ ## type,           \
     "type_" #type " *dest, int dstr, "          \
     "type_" #type " *src, int sstr, "           \
-    "type_" #type " param, int n");             \
+    "type_" #type " *param, int n");            \
 OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
 
 
@@ -54,16 +54,16 @@ SCALARMULT_DEFINE_REF (f64);
 static void scalarmult_ ## type ## _unroll2(	\
     type_ ## type *dest, int dstr,		\
     type_ ## type *src, int sstr,		\
-    type_ ## type val, int n)			\
+    type_ ## type *val, int n)			\
 {						\
   if(n&1) {					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest, dstr);			\
     OIL_INCREMENT(src, sstr);			\
   }						\
   n /= 2;					\
   while(n>0){					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
     n--;					\
@@ -80,17 +80,17 @@ SCALARMULT_DEFINE_UNROLL2 (u32);
 SCALARMULT_DEFINE_UNROLL2 (f32);
 SCALARMULT_DEFINE_UNROLL2 (f64);
 
-#define SCALARMULT_DEFINE_UNROLL2x(type)		\
+#define SCALARMULT_DEFINE_UNROLL2x(type)	\
 static void scalarmult_ ## type ## _unroll2x(	\
     type_ ## type *dest, int dstr,		\
     type_ ## type *src, int sstr,		\
-    type_ ## type val, int n)			\
+    type_ ## type *val, int n)			\
 {						\
   type_ ## type *dest2;				\
   type_ ## type *src2;				\
   int i;					\
   if(n&1) {					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest, dstr);			\
     OIL_INCREMENT(src, sstr);			\
   }						\
@@ -100,8 +100,8 @@ static void scalarmult_ ## type ## _unroll2x(	\
   sstr *= 2;					\
   dstr *= 2;					\
   for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * val; \
-    OIL_GET(dest2,dstr*i,type_ ## type) = OIL_GET(src2,sstr*i,type_ ## type) * val; \
+    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * *val; \
+    OIL_GET(dest2,dstr*i,type_ ## type) = OIL_GET(src2,sstr*i,type_ ## type) * *val; \
   }						\
 }						\
 OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll2x, scalarmult_ ## type);
@@ -119,33 +119,33 @@ SCALARMULT_DEFINE_UNROLL2x (f64);
 static void scalarmult_ ## type ## _unroll4(	\
     type_ ## type *dest, int dstr,		\
     type_ ## type *src, int sstr,		\
-    type_ ## type val, int n)			\
+    type_ ## type *val, int n)			\
 {						\
   if(n&1) {					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest, dstr);			\
     OIL_INCREMENT(src, sstr);			\
   }						\
   if(n&2) {					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest, dstr);			\
     OIL_INCREMENT(src, sstr);			\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest, dstr);			\
     OIL_INCREMENT(src, sstr);			\
   }						\
   n /= 4;					\
   while(n>0){					\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
-    *dest = *src * val;				\
+    *dest = *src * *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
     n--;					\
@@ -163,54 +163,4 @@ SCALARMULT_DEFINE_UNROLL4 (f32);
 SCALARMULT_DEFINE_UNROLL4 (f64);
 
 
-
-#ifdef TEST_scalarmult_f64
-int TEST_scalarmult_f64(void)
-{
-	int i;
-	int pass;
-	int failures = 0;
-	f64 *src, *dest_ref, *dest_test;
-	struct sl_profile_struct t;
-	double offset;
-
-	src = sl_malloc_f64(N);
-	dest_ref = sl_malloc_f64(N);
-	dest_test = sl_malloc_f64(N);
-
-	sl_profile_init(t);
-	srand(20021001);
-
-	printf("I: " sl_stringify(scalarmult_f64_FUNC) "\n");
-
-	for(pass=0;pass<N_PASS;pass++){
-		for(i=0;i<N;i++)src[i]=sl_rand_f64_s16();
-		offset=sl_rand_f64_s16();
-
-		scalarmult_f64_ref(dest_ref,src,N,offset);
-		sl_profile_start(t);
-		scalarmult_f64_FUNC(dest_test,src,N,offset);
-		sl_profile_stop(t);
-
-		for(i=0;i<N;i++){
-			if(dest_test[i] != dest_ref[i]){
-				printf("%d %g %g %g\n",i,src[i],dest_ref[i],
-						dest_test[i]);
-			}
-		}
-	}
-
-	sl_free(src);
-	sl_free(dest_ref);
-	sl_free(dest_test);
-
-	if(failures){
-		printf("E: %d failures\n",failures);
-	}
-
-	sl_profile_print(t);
-
-	return failures;
-}
-#endif
 

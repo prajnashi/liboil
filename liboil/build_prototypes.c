@@ -31,8 +31,9 @@ int main (int argc, char *argv[])
 
       printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
           klass->name);
-      printf ("#define oil_%s ((void (*)(%s)) \\\n\toil_function_class_ptr_%s->func)\n",
-          klass->name, string, klass->name);
+      printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
+      printf ("#define oil_%s ((_oil_type_%s)oil_function_class_ptr_%s->func)\n",
+          klass->name, klass->name, klass->name);
 
       oil_prototype_free (proto);
       free (string);

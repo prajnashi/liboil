@@ -1,3 +1,30 @@
+2004-12-01  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am: remove old begin/end stuff
+	* liboil/build_prototypes.c: (main): add a typedef for functions
+	* liboil/copy/permute.c: (permute_test): add comment
+	* liboil/copy/tablelookup_ref.c: (tablelookup_test): same
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.h: remove old begin/end stuff
+	* liboil/liboilprototype.c: switch to OIL_ARG_PARAM1
+	* liboil/liboilprototype.h: include liboilfunction.h
+	* liboil/liboiltest.c: (oil_test_go), (fill_array),
+	(init_src_array), (oil_test_init_src_arrays), (init_param),
+	(oil_test_init_params): add support for parameters.  require
+	parameters to be pointers.
+	* liboil/liboiltest.h: same
+	* liboil/md5/md5.c: (md5_test): add test
+	* liboil/simdpack/clip_ref.c: fix prototypes and functions
+	* liboil/simdpack/clip_s16.c: (clip_s16_fast), (clip_s16_fast2),
+	(clip_s16_ppcasm), (clip_s16_ppcasm2), (clip_s16_ppcasm3): same
+	* liboil/simdpack/clip_s32.c: (clip_s32_fast): same
+	* liboil/simdpack/mix_u8.c: (mix_u8_fast2): same
+	* liboil/simdpack/sad8x8.c: (sad8x8_s16_ref): same
+	* liboil/simdpack/scalaradd.c: same
+	* liboil/simdpack/scalarmult.c: same
+	* liboil/simdpack/scalarmult_f64.c: same
+	* liboil/simdpack/vectoradd_f64.c: same
+
 2004-11-30  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: add target for rebuilding liboilfuncs.h

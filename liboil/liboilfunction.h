@@ -31,15 +31,16 @@ typedef enum _OilArgType OilArgType;
 
 typedef void (*OilTestFunction) (OilTest *test);
 
-
-#ifdef HAVE_GNU_LINKER
-#define OIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
-#define OIL_IMPL_SECTION __attribute__ ((section ("oil_impl")))
-#define OIL_CLASS_SECTION __attribute__ ((section ("oil_class")))
+#define LIBOIL_STRICT_PROTOTYPE_CHECKING
+#ifdef LIBOIL_STRICT_PROTOTYPE_CHECKING
+#include <liboil/liboilfuncs.h>
+#define LIBOIL_CHECK_PROTOTYPE(a) a
 #else
-#define OIL_ATTRIBUTE_ALIGNED_16
-#define OIL_IMPL_SECTION
-#define OIL_CLASS_SECTION
+#define LIBOIL_CHECK_PROTOTYPE(a)
+#endif
+
+#ifndef OIL_OPT_SUFFIX
+#define OIL_OPT_SUFFIX
 #endif
 
 enum _OilType {
@@ -77,9 +78,9 @@ enum _OilArgType {
   OIL_ARG_SRC3,
   OIL_ARG_SSTR3,
   OIL_ARG_STATE,
-  OIL_ARG_ARG1,
-  OIL_ARG_ARG2,
-  OIL_ARG_ARG3,
+  OIL_ARG_PARAM1,
+  OIL_ARG_PARAM2,
+  OIL_ARG_PARAM3,
 
   OIL_ARG_LAST
 };
@@ -96,7 +97,7 @@ struct _OilFunctionClass {
 	OilFunctionImpl *chosen_impl;
 
 	const char *prototype;
-} OIL_ATTRIBUTE_ALIGNED_16;
+};
 
 struct _OilFunctionImpl {
 	void *next;
@@ -105,7 +106,7 @@ struct _OilFunctionImpl {
 	unsigned int flags;
 	const char *name;
 	unsigned int prof;
-} OIL_ATTRIBUTE_ALIGNED_16;
+};
 
 struct _OilParameter {
   char *type_name;
@@ -143,7 +144,7 @@ struct _OilParameter {
 
 
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \
-OilFunctionClass _oil_function_class_ ## klass OIL_CLASS_SECTION = { \
+OilFunctionClass _oil_function_class_ ## klass = { \
 	NULL, \
 	#klass , \
 	NULL, \
@@ -159,23 +160,22 @@ OilFunctionClass *oil_function_class_ptr_ ## klass = \
 #define OIL_DEFINE_CLASS(klass, string) \
   OIL_DEFINE_CLASS_FULL (klass, string, NULL)
 
-#define OIL_ARG(a,b,c,d) { a, b, c, d }
-
 #define OIL_DEFINE_IMPL_FULL(function,klass,flags) \
-OilFunctionImpl _oil_function_impl_ ## function OIL_IMPL_SECTION = { \
+OilFunctionImpl _oil_function_impl_ ## function = { \
 	NULL, \
 	&_oil_function_class_ ## klass , \
 	(void *)function, \
 	flags, \
 	#function \
-}
+} \
+LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
 
 #define OIL_DEFINE_IMPL(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
 #define OIL_DEFINE_IMPL_REF(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
-	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
+	OIL_DEFINE_IMPL_FULL(function,klass,0)
 
 extern unsigned int oil_arch_flags;
 extern int oil_n_function_impls;

@@ -47,6 +47,7 @@ int oil_test_go (OilTest *test);
 void oil_test_cleanup (OilTest *test);
 void oil_test_init_src_arrays (OilTest *test);
 void oil_test_init_dest_arrays (OilTest *test);
+void oil_test_init_params (OilTest *test);
 
 #endif
 

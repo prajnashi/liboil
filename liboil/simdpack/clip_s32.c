@@ -30,71 +30,18 @@
  * it's limited to 31 bits. */
 
 static void
-clip_s32_fast (int32_t *dest, int dstr, int32_t *src, int sstr, int32_t low,
-    int32_t hi, int n)
+clip_s32_fast (int32_t *dest, int dstr, int32_t *src, int sstr, int n,
+    int32_t *low, int32_t *hi)
 {
 	int i;
 	int32_t x;
 
 	for(i=0;i<n;i++){
 		x = src[i];
-		dest[i] = x - (((x-low)>>31)&(x-low)) + (((hi-x)>>31)&(hi-x));
+		dest[i] = x - (((x-*low)>>31)&(x-*low)) + (((*hi-x)>>31)&(*hi-x));
 	}
 }
 
-OIL_DEFINE_IMPL (clip_s32_fast, clip_f32);
+OIL_DEFINE_IMPL (clip_s32_fast, clip_s32);
 
-#ifdef TEST_clip_s32
-int TEST_clip_s32(void)
-{
-	int i;
-	int failures = 0;
-	int pass;
-	int32_t *src, *dest_ref, *dest_test;
-	struct sl_profile_struct t;
-
-	src = sl_malloc_s32(N);
-	dest_ref = sl_malloc_s32(N);
-	dest_test = sl_malloc_s32(N);
-
-	sl_profile_init(t);
-	srand(20020326);
-
-	printf("I: " sl_stringify(clip_s32_FUNC) "\n");
-
-	for(pass=0;pass<N_PASS;pass++){
-		for(i=0;i<N;i++){
-#ifdef LIMITED31
-			src[i]=sl_rand_s32_l31();
-#else
-			src[i]=sl_rand_s32();
-#endif
-		}
-
-		clip_s32_ref(dest_ref,src,0xfff80000,0x0007ffff,N);
-		sl_profile_start(t);
-		clip_s32_FUNC(dest_test,src,0xfff80000,0x0007ffff,N);
-		sl_profile_stop(t);
-
-		for(i=0;i<N;i++){
-			if(dest_test[i] != dest_ref[i]){
-				printf("%d %d %d %d\n",i,src[i],dest_ref[i],
-					dest_test[i]);
-			}
-		}
-	}
-	
-	sl_free(src);
-	sl_free(dest_ref);
-	sl_free(dest_test);
-
-	if(failures){
-		printf("E: %d failures\n",failures);
-	}
-
-	sl_profile_print(t);
-
-	return failures;
-}
-#endif
 

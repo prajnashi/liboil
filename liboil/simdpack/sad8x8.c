@@ -50,7 +50,7 @@ sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,
 OIL_DEFINE_IMPL_REF(sad8x8_f64_ref, sad8x8_f64);
 
 static void
-sad8x8_s16_ref(uint32_t *dest, int16_t *src1, int sstr1, int16_t *src2,
+sad8x8_s16_ref(uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2,
     int sstr2)
 {
 	int i,j;

@@ -23,7 +23,14 @@
 #include <liboil/liboil.h>
 #include "md5.h"
 
-OIL_DEFINE_CLASS (md5, "uint32_t *state, uint32_t *src");
+
+static void
+md5_test(OilTest *test)
+{
+
+}
+
+OIL_DEFINE_CLASS_FULL (md5, "uint32_t *state, uint32_t *src", md5_test);
 
 #ifdef WORDS_BIGENDIAN
 #define uint32_to_host(a) \

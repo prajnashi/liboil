@@ -26,7 +26,7 @@
 #include <math.h>
 
 OIL_DEFINE_CLASS (mix_u8,
-    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *param, int n");
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 
 static void mix_u8_ref(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
@@ -51,7 +51,8 @@ static void mix_u8_fast(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *sc
 }
 OIL_DEFINE_IMPL (mix_u8_fast, mix_u8);
 
-static void mix_u8_fast2 (uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
+static void
+mix_u8_fast2 (uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
 	while(n>0){
 		*dest++ = ((*src1 - *src2) * *scale + *src2 * 255)>>8;

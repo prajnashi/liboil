@@ -28,6 +28,7 @@
 static void
 permute_test (OilTest *test)
 {
+  /* need to clip the values of src2 to 0..n-1 */
 
 }
 

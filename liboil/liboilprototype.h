@@ -19,6 +19,8 @@
 #ifndef _LIBOIL_PROTOTYPE_H_
 #define _LIBOIL_PROTOTYPE_H_
 
+#include <liboil/liboilfunction.h>
+
 typedef struct _OilPrototype OilPrototype;
 struct _OilPrototype {
   int n_params;
