@@ -1,5 +1,9 @@
 2005-03-16  David Schleef  <ds@schleef.org>
 
+	* gtk-doc.make: add me
+
+2005-03-16  David Schleef  <ds@schleef.org>
+
 	Patch from Jakub Stachowski <stachowski@hypair.net> to add a
 	few classes and implementations.  They're not correct --
 	requires fixage before release.
