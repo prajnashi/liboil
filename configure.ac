@@ -38,17 +38,20 @@ AC_HELP_STRING([--disable-glib],[disable usage of glib]),
 esac])
 AM_CONDITIONAL(HAVE_GLIB, test "x$HAVE_GLIB" = "xyes")
 
-dnl If we have GNU tools, we can use a few special tricks.
-dnl Basically, this means Linux for now.
-dnl Disable this for now
-#if test "x${target_os}" = "xlinux" -o "x${target_os}" = "xlinux-gnu" ; then
-if false ; then
-  HAVE_GNU_LINKER=yes
-  AC_DEFINE(HAVE_GNU_LINKER, 1, [Define if GNU linker is being used])
-else
-  HAVE_GNU_LINKER=no
+AC_ARG_ENABLE(prototype-checking,
+  AC_HELP_STRING([--enable-prototype-checking],[compile with strict prototype checking]),
+  enable_proto_check=$enableval,enable_proto_check=no)
+if test "x$enable_proto_check" = xyes ; then
+  AC_DEFINE(LIBOIL_STRICT_PROTOTYPES,1,[Defined if prototype checking enabled])
 fi
-AM_CONDITIONAL(HAVE_GNU_LINKER, test "x${HAVE_GNU_LINKER}" = "xyes")
+
+AC_ARG_ENABLE(alternate-optimization,
+  AC_HELP_STRING([--enable-alternate-optimization],[compile with alternate optimization flags]),
+  enable_alt_opt=$enableval,enable_alt_opt=no)
+AM_CONDITIONAL(USE_ALT_OPT, test "x$enable_alt_opt" = xyes)
+LIBOIL_OPT_CFLAGS="-O3 -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
+AC_SUBST(LIBOIL_OPT_CFLAGS)
+
 
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================
@@ -99,7 +102,7 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
     true)
 fi
 
-LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir)"
+LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir) -O2"
 AC_SUBST(LIBOIL_CFLAGS)
 
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
@@ -108,9 +111,13 @@ AC_SUBST(LIBOIL_LIBS)
 pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
 
+#CFLAGS=`echo "$CFLAGS" | sed -e 's/-O[0-9*]//g'`
+CFLAGS="-g"
+
 AC_OUTPUT(
 Makefile 
 liboil/Makefile
+liboil/colorspace/Makefile
 liboil/copy/Makefile
 liboil/dct/Makefile
 liboil/md5/Makefile

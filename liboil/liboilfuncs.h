@@ -399,6 +399,12 @@ typedef void (*_oil_type_permute_u32)(uint32_t * dest, int dstr, uint32_t * src1
 extern OilFunctionClass *oil_function_class_ptr_permute_u8;
 typedef void (*_oil_type_permute_u8)(uint8_t * dest, int dstr, uint8_t * src1, int sstr1, int32_t * src2, int sstr2, int n);
 #define oil_permute_u8 ((_oil_type_permute_u8)oil_function_class_ptr_permute_u8->func)
+extern OilFunctionClass *oil_function_class_ptr_rgb2bgr;
+typedef void (*_oil_type_rgb2bgr)(uint8_t * dest, uint8_t * src, int n);
+#define oil_rgb2bgr ((_oil_type_rgb2bgr)oil_function_class_ptr_rgb2bgr->func)
+extern OilFunctionClass *oil_function_class_ptr_rgb2rgba;
+typedef void (*_oil_type_rgb2rgba)(uint8_t * dest, uint8_t * src, int n);
+#define oil_rgb2rgba ((_oil_type_rgb2rgba)oil_function_class_ptr_rgb2rgba->func)
 extern OilFunctionClass *oil_function_class_ptr_sad8x8_f64;
 typedef void (*_oil_type_sad8x8_f64)(double * dest, int dstr, double * src1, int sstr1, double * src2, int sstr2);
 #define oil_sad8x8_f64 ((_oil_type_sad8x8_f64)oil_function_class_ptr_sad8x8_f64->func)
@@ -457,7 +463,7 @@ extern OilFunctionClass *oil_function_class_ptr_scanlinescale2_u8;
 typedef void (*_oil_type_scanlinescale2_u8)(uint8_t * dest, uint8_t * src, int n);
 #define oil_scanlinescale2_u8 ((_oil_type_scanlinescale2_u8)oil_function_class_ptr_scanlinescale2_u8->func)
 extern OilFunctionClass *oil_function_class_ptr_sincos_f64;
-typedef void (*_oil_type_sincos_f64)(double * dest1, double * dest2, int n, double param1, double param2);
+typedef void (*_oil_type_sincos_f64)(double * dest1, double * dest2, int n, double * param1, double * param2);
 #define oil_sincos_f64 ((_oil_type_sincos_f64)oil_function_class_ptr_sincos_f64->func)
 extern OilFunctionClass *oil_function_class_ptr_splat_u32;
 typedef void (*_oil_type_splat_u32)(uint32_t * dest, int dstr, uint32_t * param, int n);

@@ -31,14 +31,18 @@ typedef enum _OilArgType OilArgType;
 
 typedef void (*OilTestFunction) (OilTest *test);
 
-#define LIBOIL_STRICT_PROTOTYPE_CHECKING
-#ifdef LIBOIL_STRICT_PROTOTYPE_CHECKING
+#ifdef LIBOIL_STRICT_PROTOTYPES
 #include <liboil/liboilfuncs.h>
 #define LIBOIL_CHECK_PROTOTYPE(a) a
 #else
 #define LIBOIL_CHECK_PROTOTYPE(a)
 #endif
 
+#ifndef OIL_OPT_MANGLE
+#define OIL_OPT_MANGLE(a) a
+#else
+#define OIL_NO_CLASSES
+#endif
 #ifndef OIL_OPT_SUFFIX
 #define OIL_OPT_SUFFIX
 #endif
@@ -143,6 +147,7 @@ struct _OilParameter {
 	extern OilFunctionClass _oil_function_class_ ## klass
 
 
+#ifndef OIL_NO_CLASSES
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \
 OilFunctionClass _oil_function_class_ ## klass = { \
 	NULL, \
@@ -156,17 +161,21 @@ OilFunctionClass _oil_function_class_ ## klass = { \
 }; \
 OilFunctionClass *oil_function_class_ptr_ ## klass = \
   &_oil_function_class_ ## klass
+#else
+#define OIL_DEFINE_CLASS_FULL(klass, string, test) \
+  OIL_DECLARE_CLASS(klass)
+#endif
 
 #define OIL_DEFINE_CLASS(klass, string) \
   OIL_DEFINE_CLASS_FULL (klass, string, NULL)
 
 #define OIL_DEFINE_IMPL_FULL(function,klass,flags) \
-OilFunctionImpl _oil_function_impl_ ## function = { \
+OilFunctionImpl OIL_OPT_MANGLE(_oil_function_impl_ ## function) = { \
 	NULL, \
 	&_oil_function_class_ ## klass , \
 	(void *)function, \
 	flags, \
-	#function \
+        #function OIL_OPT_SUFFIX \
 } \
 LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
 

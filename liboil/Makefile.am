@@ -1,10 +1,15 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = copy dct jpeg simdpack md5
+SUBDIRS = colorspace copy dct jpeg simdpack md5
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
-noinst_LTLIBRARIES = liboilfunctions.la
+if USE_ALT_OPT
+opt_libs = liboilfunctions_opt1.la
+else
+opt_libs =
+endif
+noinst_LTLIBRARIES = liboilfunctions.la $(opt_libs)
 
 noinst_PROGRAMS = build_prototypes
 
@@ -25,6 +30,12 @@ else
 i386_sources = 
 endif
 
+liboilfunctions_opt1_la_SOURCES = \
+	conv_ref.c \
+	conv_misc.c
+liboilfunctions_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) \
+	$(LIBOIL_OPT_CFLAGS)
+
 liboilfunctions_la_SOURCES = \
 	conv.h \
 	conv_ref.c \
@@ -37,10 +48,12 @@ liboilfunctions_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboilfunctions_la_LDFLAGS = -lm
 liboilfunctions_la_LIBADD = \
 	copy/libcopy.la \
+	colorspace/libcolorspace.la \
 	dct/libdct.la \
 	jpeg/libjpeg.la \
 	md5/libmd5.la \
-	simdpack/libsimdpack.la
+	simdpack/libsimdpack.la \
+	$(opt_libs)
 
 liboiltmp1_la_SOURCES =
 liboiltmp1_la_LDFLAGS = -lm \

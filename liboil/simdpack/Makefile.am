@@ -1,5 +1,11 @@
 
-noinst_LTLIBRARIES = libsimdpack.la
+if USE_ALT_OPT
+opt_libs = libsimdpack_opt1.la
+else
+opt_libs =
+endif
+
+noinst_LTLIBRARIES = libsimdpack.la $(opt_libs)
 
 libsimdpack_la_SOURCES = \
 	abs.c \
@@ -20,9 +26,16 @@ libsimdpack_la_SOURCES = \
 	squaresum_f64.c \
 	sum_f64.c \
 	vectoradd_f64.c
+libsimdpack_la_LIBADD = \
+	$(opt_libs)
+
+libsimdpack_opt1_la_SOURCES = $(libsimdpack_la_SOURCES)
 
 noinst_HEADERS = \
 	simdpack.h
 
 libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)
+
+libsimdpack_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) \
+	$(LIBOIL_OPT_CFLAGS)
 

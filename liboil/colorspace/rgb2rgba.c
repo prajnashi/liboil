@@ -22,7 +22,12 @@
 
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS (rgb2rgba, "uint8_t *dest, uint8_t* src, int n");
+static void
+rgb2rgba_test (OilTest *test)
+{
+}
+
+OIL_DEFINE_CLASS_FULL (rgb2rgba, "uint8_t *dest, uint8_t* src, int n", rgb2rgba_test);
 
 static void
 rgb2rgba_ref (uint8_t *dest, uint8_t* src, int n)

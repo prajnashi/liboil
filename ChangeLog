@@ -1,5 +1,19 @@
 2004-12-01  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Add --enable-prototype-checking and
+	--enable-alternate-optimization.
+	* liboil/Makefile.am: same
+	* liboil/colorspace/Makefile.am: remove colorspace.h
+	* liboil/colorspace/rgb2bgr.c: (rgb2bgr_test): temporary fix
+	* liboil/colorspace/rgb2rgba.c: (rgb2rgba_test): temporary fix
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.h: add alternate optimization stuff
+	* liboil/simdpack/Makefile.am: build alt opt lib
+	* liboil/simdpack/sincos_f64.c: (sincos_f64_ref),
+	(sincos_f64_i20_fast): change params to pointers
+
+2004-12-01  David Schleef  <ds@schleef.org>
+
 	From Benjamin Otte
 	* liboil/colorspace/Makefile.am:
 	* liboil/colorspace/rgb2bgr.c: (rgb2bgr_ref), (rgb2bgr_ppc),
