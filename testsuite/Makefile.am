@@ -1,7 +1,7 @@
 
-check_PROGRAMS = moo introspect
+check_PROGRAMS = moo introspect abs
 
-TESTS = moo introspect
+TESTS = moo introspect abs
 
 AM_LDFLAGS = $(LIBOIL_LIBS)
 AM_CFLAGS = $(LIBOIL_CFLAGS)

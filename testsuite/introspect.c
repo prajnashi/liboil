@@ -22,6 +22,7 @@ void parse_prototype (const char *s);
 int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
+  OilFunctionImpl *impl;
   int i;
 
   oil_init ();
@@ -29,14 +30,17 @@ int main (int argc, char *argv[])
   for (i=0;i<oil_n_function_classes; i++ ){
     klass = oil_function_classes + i;
 
-    if(klass->prototype) {
-      printf ("extern OilFunctionClass _oil_function_%s_class;\n",
-          klass->name);
+    printf ("class: %s\n", klass->name);
+    for(impl = klass->first_impl; impl; impl=impl->next) {
+      printf ("  %s\n", impl->name);
+    }
+#if 0
       printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
           klass->name, klass->prototype, klass->name);
       //printf("void %s (%s);\n", klass->name, klass->prototype);
       parse_prototype(klass->prototype);
     }
+#endif
   }
 
   return 0;

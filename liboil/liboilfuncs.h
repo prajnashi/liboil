@@ -310,6 +310,21 @@ extern OilFunctionClass _oil_function_scalarmult_f32_class;
 extern OilFunctionClass _oil_function_scalarmult_f64_class;
 #define scalarmult_f64 ((void (*)(double *dest, int dstr, double *src, int sstr, double value, int n)) \
 	_oil_function_scalarmult_f64_class.func)
+extern OilFunctionClass _oil_function_abs_u8_s8_class;
+#define abs_u8_s8 ((void (*)(uint8_t *dest, int dstr, int8_t *src, int sstr, int n)) \
+	_oil_function_abs_u8_s8_class.func)
+extern OilFunctionClass _oil_function_abs_u16_s16_class;
+#define abs_u16_s16 ((void (*)(uint16_t *dest, int dstr, int16_t *src, int sstr, int n)) \
+	_oil_function_abs_u16_s16_class.func)
+extern OilFunctionClass _oil_function_abs_u32_s32_class;
+#define abs_u32_s32 ((void (*)(uint32_t *dest, int dstr, int32_t *src, int sstr, int n)) \
+	_oil_function_abs_u32_s32_class.func)
+extern OilFunctionClass _oil_function_abs_f32_f32_class;
+#define abs_f32_f32 ((void (*)(float *dest, int dstr, float *src, int sstr, int n)) \
+	_oil_function_abs_f32_f32_class.func)
+extern OilFunctionClass _oil_function_abs_f64_f64_class;
+#define abs_f64_f64 ((void (*)(double *dest, int dstr, double *src, int sstr, int n)) \
+	_oil_function_abs_f64_f64_class.func)
 
 #endif
 

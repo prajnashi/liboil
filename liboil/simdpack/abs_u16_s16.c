@@ -25,6 +25,7 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
+#if 0
 static void
 abs_u16_s16_ref (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -82,6 +83,7 @@ abs_u16_s16_fast (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL (abs_u16_s16_fast, abs_u16_s16_class);
 
+#if 0
 #ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -177,9 +179,10 @@ OIL_DEFINE_IMPL (abs_u16_s16_i386asm3, abs_u16_s16_class);
 static void
 abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
-  short p[] = { -32768, -32768, -32768, -32768,
+  const short p[] = { -32768, -32768, -32768, -32768,
     32767, 32767, 32767, 32767
   };
+  short tmp[4];
 
   while (n & 3) {
     *dest = ABS (*src);
@@ -189,24 +192,37 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
   }
   n /= 4;
   __asm__ __volatile__ ("\n"
-      "	movq	(%3), %%mm2		\n"
-      "	movq	8(%3), %%mm3		\n"
-      "	.p2align 4,,15			\n"
-      "1:	movq	(%%edi), %%mm0		\n"
-      "	movq	(%%edi), %%mm1		\n"
-      "	addl	$8, %%edi		\n"
-      "	paddsw	%%mm2, %%mm0		\n"
-      "	paddsw	%%mm3, %%mm1		\n"
-      "	psubsw	%%mm2, %%mm0		\n"
-      "	psubsw	%%mm3, %%mm1		\n"
-      "	psubw	%%mm1, %%mm0		\n"
-      "	movq	%%mm0, (%%eax)		\n"
-      "	addl	$8, %%eax		\n"
-      "	decl	%2			\n"
-      "	testl	%2, %2			\n"
-      "	jg	1b			\n":"+D" (src), "+a" (dest), "+S" (n)
-      :"c" (p)
-      :"ebp");
+      "	movq	(%0), %%mm2		\n"
+      "	movq	8(%0), %%mm3		\n"
+      :: "c" (p));
+  while (n--) {
+    tmp[0] = *src;
+    OIL_INCREMENT (src, sstr);
+    tmp[1] = *src;
+    OIL_INCREMENT (src, sstr);
+    tmp[2] = *src;
+    OIL_INCREMENT (src, sstr);
+    tmp[3] = *src;
+    OIL_INCREMENT (src, sstr);
+    __asm__ __volatile__ ("\n"
+        "	movq	(%%eax), %%mm1		\n"
+        "	paddsw	%%mm2, %%mm0		\n"
+        "	paddsw	%%mm3, %%mm1		\n"
+        "	psubsw	%%mm2, %%mm0		\n"
+        "	psubsw	%%mm3, %%mm1		\n"
+        "	psubw	%%mm1, %%mm0		\n"
+        "	movq	%%mm0, (%%eax)		\n"
+        :: "a" (&tmp)
+    );
+    *dest = tmp[0];
+    OIL_INCREMENT (dest, dstr);
+    *dest = tmp[1];
+    OIL_INCREMENT (dest, dstr);
+    *dest = tmp[2];
+    OIL_INCREMENT (dest, dstr);
+    *dest = tmp[3];
+    OIL_INCREMENT (dest, dstr);
+  }
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMX);
@@ -407,4 +423,6 @@ TEST_abs_u16_s16 (void)
 
   return failures;
 }
+#endif
+#endif
 #endif

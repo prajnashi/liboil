@@ -38,6 +38,7 @@ abs_test (OilFunctionClass *klass, OilFunctionImpl *impl)
 }
 #endif
 
+#if 0
 static void
 abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
 {
@@ -51,6 +52,7 @@ abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (abs_u8_s8_ref, abs_u8_s8_class);
+#endif
 
 static void
 abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)

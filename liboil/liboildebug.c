@@ -38,7 +38,12 @@ _oil_debug_init(void)
 
   envvar = getenv ("OIL_DEBUG");
   if (envvar != NULL) {
-    _oil_debug_level = strtol (envvar + 10, NULL, 0);
+    char *end = NULL;
+    int level;
+    level = strtol (envvar, &end, 0);
+    if (end > envvar) {
+      _oil_debug_level = level;
+    }
   }
 
   //OIL_INFO ("debug init");

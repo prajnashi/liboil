@@ -27,7 +27,9 @@
 #include <string.h>
 
 OilFunctionClass *oil_function_classes;
+int oil_function_class_stride;
 OilFunctionImpl *oil_function_impls;
+int oil_function_impl_stride;
 int oil_n_function_impls;
 int oil_n_function_classes;
 
@@ -48,7 +50,7 @@ oil_init (void)
   _oil_cpu_init ();
   oil_init_pointers ();
   oil_init_structs ();
-  oil_optimize_all ();
+  //oil_optimize_all ();
 
   if (0)
     oil_spill ();
@@ -61,7 +63,7 @@ oil_optimize_all (void)
   int i;
 
   for (i = 0; i < oil_n_function_classes; i++) {
-    klass = oil_function_classes + i;
+    klass = (void *)oil_function_classes + i * oil_function_class_stride;
 
     oil_class_optimize (klass);
   }
@@ -88,7 +90,7 @@ oil_class_get (const char *class_name)
   int i;
 
   for (i = 0; i < oil_n_function_classes; i++) {
-    klass = oil_function_classes + i;
+    klass = (void *)oil_function_classes + i * oil_function_class_stride;
 
     if (strcmp (klass->name, class_name) == 0)
       return klass;
@@ -105,21 +107,31 @@ oil_class_optimize (OilFunctionClass * klass)
 
   OIL_LOG ("optimizing class %s", klass->name);
 
-  if (klass->test_func == NULL) {
-    //OIL_ERROR ("class %s has no test function", klass->name);
+  if (klass->first_impl == NULL) {
+    OIL_ERROR ("class %s has no implmentations", klass->name);
     return;
   }
+#if 0
+  if (klass->test_func == NULL) {
+    //OIL_ERROR ("class %s has no test function", klass->name);
+    OIL_LOG ("class %s has no test function", klass->name);
+    return;
+  }
+#endif
 
   min_impl = NULL;
   min = 2147483647;
   for (impl = klass->first_impl; impl; impl = impl->next) {
 #if 0
-    printf ("  %p %08x %s\n", impl->func,
-	impl->flags, (impl == klass->reference_impl) ? "(ref)" : "");
+    printf ("  %p %08x %5.5s %s\n", impl->func,
+	impl->flags, (impl == klass->reference_impl) ? "(ref)" : "",
+        impl->name
+        );
 #endif
+    OIL_LOG ("testing impl %s", impl->name);
     if ((impl->flags & OIL_ARCH_FLAGS) & (~oil_cpu_flags))
       continue;
-    klass->test_func (klass, impl);
+    //klass->test_func (klass, impl);
 
     if (impl->prof < min) {
       min_impl = impl;
@@ -136,23 +148,22 @@ oil_init_pointers (void)
   unsigned long begin;
   unsigned long next;
   unsigned long end;
-  unsigned long stride;
 
   begin = ((unsigned long) &_oil_begin_function_class);
   next = ((unsigned long) &_oil_next_function_class);
   end = ((unsigned long) &_oil_end_function_class);
-  stride = next - begin;
+  oil_function_class_stride = next - begin;
 
-  oil_function_classes = (OilFunctionClass *) (next + stride);
-  oil_n_function_classes = (end - next) / stride - 1;
+  oil_function_classes = (OilFunctionClass *) (next + oil_function_class_stride);
+  oil_n_function_classes = (end - next) / oil_function_class_stride - 1;
 
   begin = ((unsigned long) &_oil_begin_function_impl);
   next = ((unsigned long) &_oil_next_function_impl);
   end = ((unsigned long) &_oil_end_function_impl);
-  stride = next - begin;
+  oil_function_impl_stride = next - begin;
 
-  oil_function_impls = (OilFunctionImpl *) (next + stride);
-  oil_n_function_impls = (end - next) / stride - 1;
+  oil_function_impls = (OilFunctionImpl *) (next + oil_function_impl_stride);
+  oil_n_function_impls = (end - next) / oil_function_impl_stride - 1;
 }
 
 static void
