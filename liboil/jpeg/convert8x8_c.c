@@ -53,7 +53,7 @@ conv8x8_s16_f64_c (int16_t * dest, int dstr, double *src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL_REF (conv8x8_s16_f64_c, conv8x8_s16_f64_class);
+OIL_DEFINE_IMPL_REF (conv8x8_s16_f64_c, conv8x8_s16_f64);
 
 static void
 conv8x8_f64_s16_c (double *dest, int dstr, int16_t * src, int sstr)
@@ -67,7 +67,7 @@ conv8x8_f64_s16_c (double *dest, int dstr, int16_t * src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL_REF (conv8x8_f64_s16_c, conv8x8_f64_s16_class);
+OIL_DEFINE_IMPL_REF (conv8x8_f64_s16_c, conv8x8_f64_s16);
 
 static void
 clipconv8x8_u8_s16_c (uint8_t * dest, int dstr, int16_t * src, int sstr)
@@ -87,4 +87,4 @@ clipconv8x8_u8_s16_c (uint8_t * dest, int dstr, int16_t * src, int sstr)
   }
 }
 
-OIL_DEFINE_IMPL_REF (clipconv8x8_u8_s16_c, clipconv8x8_u8_s16_class);
+OIL_DEFINE_IMPL_REF (clipconv8x8_u8_s16_c, clipconv8x8_u8_s16);

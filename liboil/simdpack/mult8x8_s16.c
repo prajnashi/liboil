@@ -44,7 +44,7 @@ mult8x8_s16_ref(int16_t *dest, int16_t *src1, int16_t *src2, int dstr, int sstr1
 	}
 }
 
-OIL_DEFINE_IMPL_REF (mult8x8_s16_ref, mult8x8_s16_class);
+OIL_DEFINE_IMPL_REF (mult8x8_s16_ref, mult8x8_s16);
 
 #ifdef TEST_mult8x8_s16
 int TEST_mult8x8_s16(void)

@@ -33,7 +33,7 @@ static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)
     OIL_GET(dest,i*dstr, uint8_t) = *param;
   }
 }
-OIL_DEFINE_IMPL_REF(splat_u8_ref, splat_u8_class);
+OIL_DEFINE_IMPL_REF(splat_u8_ref, splat_u8);
 
 static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
 {
@@ -42,7 +42,7 @@ static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
     OIL_GET(dest,i*dstr, uint32_t) = *param;
   }
 }
-OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32_class);
+OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32);
 
 
 
@@ -61,5 +61,5 @@ static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
     OIL_INCREMENT(dest,dstr);
   }
 }
-OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32_class);
+OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32);
 

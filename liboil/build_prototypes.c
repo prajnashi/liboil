@@ -29,9 +29,9 @@ int main (int argc, char *argv[])
 
       string = oil_prototype_to_string (proto);
 
-      printf ("extern OilFunctionClass *oil_function_%s_class_ptr;\n",
+      printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
           klass->name);
-      printf ("#define oil_%s ((void (*)(%s)) \\\n\toil_function_%s_class_ptr->func)\n",
+      printf ("#define oil_%s ((void (*)(%s)) \\\n\toil_function_class_ptr_%s->func)\n",
           klass->name, string, klass->name);
 
       oil_prototype_free (proto);

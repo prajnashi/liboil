@@ -42,7 +42,7 @@ OIL_DEFINE_CLASS (vectoradd_ ## type,         \
     "type_" #type " *src1, int sstr1, "		\
     "type_" #type " *src2, int sstr2, "		\
     "int n, type_" #type " param1, type_" #type " param2");	\
-OIL_DEFINE_IMPL_REF (vectoradd_ ## type ## _ref, vectoradd_ ## type ## _class);
+OIL_DEFINE_IMPL_REF (vectoradd_ ## type ## _ref, vectoradd_ ## type);
 
 VECTORADD_DEFINE_IMPL (s8);
 VECTORADD_DEFINE_IMPL (u8);

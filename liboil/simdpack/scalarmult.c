@@ -38,7 +38,7 @@ OIL_DEFINE_CLASS(scalarmult_ ## type,         \
     "type_" #type " *dest, int dstr, "          \
     "type_" #type " *src, int sstr, "           \
     "type_" #type " param, int n");             \
-OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type ## _class);
+OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
 
 
 SCALARMULT_DEFINE_REF (s8);
@@ -69,7 +69,7 @@ static void scalarmult_ ## type ## _unroll2(	\
     n--;					\
   }						\
 }						\
-OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll2, scalarmult_ ## type ## _class);
+OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll2, scalarmult_ ## type);
 
 SCALARMULT_DEFINE_UNROLL2 (s8);
 SCALARMULT_DEFINE_UNROLL2 (u8);
@@ -104,7 +104,7 @@ static void scalarmult_ ## type ## _unroll2x(	\
     OIL_GET(dest2,dstr*i,type_ ## type) = OIL_GET(src2,sstr*i,type_ ## type) * val; \
   }						\
 }						\
-OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll2x, scalarmult_ ## type ## _class);
+OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll2x, scalarmult_ ## type);
 
 SCALARMULT_DEFINE_UNROLL2x (s8);
 SCALARMULT_DEFINE_UNROLL2x (u8);
@@ -151,7 +151,7 @@ static void scalarmult_ ## type ## _unroll4(	\
     n--;					\
   }						\
 }						\
-OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll4, scalarmult_ ## type ## _class);
+OIL_DEFINE_IMPL (scalarmult_ ## type ## _unroll4, scalarmult_ ## type);
 
 SCALARMULT_DEFINE_UNROLL4 (s8);
 SCALARMULT_DEFINE_UNROLL4 (u8);

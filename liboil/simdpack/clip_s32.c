@@ -42,7 +42,7 @@ clip_s32_fast (int32_t *dest, int dstr, int32_t *src, int sstr, int32_t low,
 	}
 }
 
-OIL_DEFINE_IMPL (clip_s32_fast, clip_f32_class);
+OIL_DEFINE_IMPL (clip_s32_fast, clip_f32);
 
 #ifdef TEST_clip_s32
 int TEST_clip_s32(void)

@@ -63,7 +63,7 @@ static void idct8_f64_ref(double *dest, int dstr, double *src, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL_REF (idct8_f64_ref, idct8_f64_class);
+OIL_DEFINE_IMPL_REF (idct8_f64_ref, idct8_f64);
 
 
 static void idct8_f64_fastx(double *dest, int dstr, double *src, int sstr)
@@ -105,7 +105,7 @@ static void idct8_f64_fastx(double *dest, int dstr, double *src, int sstr)
 
 }
 
-OIL_DEFINE_IMPL (idct8_f64_fastx, idct8_f64_class);
+OIL_DEFINE_IMPL (idct8_f64_fastx, idct8_f64);
 
 
 #ifdef TEST_idct8_f64

@@ -1,5 +1,55 @@
 2004-09-07  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: only export oil_ symbols
+	* liboil/build_prototypes.c: (main): change to
+	oil_function_class_ptr_%s
+	* liboil/conv_c.c: same
+	* liboil/conv_misc.c: same
+	* liboil/conv_ref.c: same
+	* liboil/conv_sse.c: same
+	* liboil/copy/permute.c: same...
+	* liboil/copy/splat_ref.c:
+	* liboil/copy/tablelookup_ref.c:
+	* liboil/copy/trans8x8.c:
+	* liboil/dct/dct12_f32.c:
+	* liboil/dct/dct36_f32.c:
+	* liboil/dct/fdct8_f64.c:
+	* liboil/dct/idct8_f64.c:
+	* liboil/dct/idct8x8_c.c:
+	* liboil/dct/imdct32_f32.c:
+	* liboil/jpeg/convert8x8_c.c:
+	* liboil/jpeg/jpeg_rgb_decoder.c:
+	* liboil/jpeg/quantize8x8_c.c:
+	* liboil/jpeg/yuv2rgb_c.c:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/liboil_begin.c:
+	* liboil/liboil_end.c:
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.c: move declarations to .c files
+	* liboil/liboilfunction.h: same.  Fix namespace issues.
+	* liboil/simdpack/abs.c: class fixes
+	* liboil/simdpack/abs_u16_s16.c: same...
+	* liboil/simdpack/abs_u32_s32.c:
+	* liboil/simdpack/average2_u8.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/clip_s16.c:
+	* liboil/simdpack/clip_s32.c:
+	* liboil/simdpack/diffsquaresum_f64.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/simdpack/sincos_f64.c:
+	* liboil/simdpack/squaresum_f64.c:
+	* liboil/simdpack/sum_f64.c:
+	* liboil/simdpack/vectoradd_f64.c:
+	* testsuite/abs.c: (main): remove usage of internal symbol
+	* testsuite/moo.c: (main): same
+
+2004-09-07  David Schleef  <ds@schleef.org>
+
 	Global change from OIL_DEFINE_CLASS_X to OIL_DEFINE_CLASS
 	* liboil/conv_ref.c:
 	* liboil/copy/permute.c:

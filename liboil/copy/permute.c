@@ -36,7 +36,7 @@ static void permute_ ## type ## _ref(		\
 	OIL_GET(src2,sstr2*i, int), type_ ## type);		\
   }						\
 }						\
-OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type ## _class); \
+OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type); \
 OIL_DEFINE_CLASS (permute_ ## type, "type_" #type " *dest, int dstr, " \
     "type_" #type " *src1, int sstr1, int32_t *src2, int sstr2, int n")
 

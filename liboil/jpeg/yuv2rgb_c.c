@@ -61,7 +61,7 @@ yuv2rgbx_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
 	}
 }
 
-OIL_DEFINE_IMPL_REF (yuv2rgbx_u8_ref, yuv2rgbx_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_u8_ref, yuv2rgbx_u8);
 
 static void
 yuv2rgbx_u8_int (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
@@ -80,7 +80,7 @@ yuv2rgbx_u8_int (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
 	}
 }
 
-OIL_DEFINE_IMPL (yuv2rgbx_u8_int, yuv2rgbx_u8_class);
+OIL_DEFINE_IMPL (yuv2rgbx_u8_int, yuv2rgbx_u8);
 
 static void
 yuv2rgbx_sub2_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
@@ -105,7 +105,7 @@ yuv2rgbx_sub2_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int 
 	}
 }
 
-OIL_DEFINE_IMPL_REF (yuv2rgbx_sub2_u8_ref, yuv2rgbx_sub2_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_sub2_u8_ref, yuv2rgbx_sub2_u8);
 
 static void
 yuv2rgbx_sub4_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
@@ -142,5 +142,5 @@ yuv2rgbx_sub4_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int 
 	}
 }
 
-OIL_DEFINE_IMPL_REF (yuv2rgbx_sub4_u8_ref, yuv2rgbx_sub4_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_sub4_u8_ref, yuv2rgbx_sub4_u8);
 

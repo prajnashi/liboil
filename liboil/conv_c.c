@@ -41,7 +41,7 @@ static void conv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _c,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 #define CONV_DEFINE_FLOAT(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _c ( \
@@ -58,7 +58,7 @@ static void conv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _c,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_CAST(s8,u8);
 CONV_DEFINE_CAST(s8,s16);
@@ -146,7 +146,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class);
+	clipconv_ ## desttype ## _ ## srctype);
 
 #define CLIPCONV_DEFINE_UPPER(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
@@ -166,7 +166,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class);
+	clipconv_ ## desttype ## _ ## srctype);
 
 #define CLIPCONV_DEFINE_LOWER(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
@@ -186,7 +186,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class);
+	clipconv_ ## desttype ## _ ## srctype);
 
 #define CLIPCONV_DEFINE_FLOAT(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
@@ -207,7 +207,7 @@ static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class);
+	clipconv_ ## desttype ## _ ## srctype);
 
 /* clip upper */
 CLIPCONV_DEFINE_UPPER(s8,u8);
@@ -274,7 +274,7 @@ static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll2,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 #define CONV_DEFINE_FLOAT_UNROLL2(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
@@ -300,7 +300,7 @@ static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll2,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_CAST_UNROLL2(s8,u8);
 CONV_DEFINE_CAST_UNROLL2(s8,s16);
@@ -406,7 +406,7 @@ static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll4,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 #define CONV_DEFINE_FLOAT_UNROLL4(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
@@ -446,7 +446,7 @@ static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll4,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_CAST_UNROLL4(s8,u8);
 CONV_DEFINE_CAST_UNROLL4(s8,s16);
@@ -530,7 +530,7 @@ static void conv_ ## desttype ## _ ## srctype ## _rintf ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _rintf,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_FLOAT_RINTF(s8,f32);
 CONV_DEFINE_FLOAT_RINTF(u8,f32);
@@ -558,7 +558,7 @@ static void conv_ ## desttype ## _ ## srctype ## _lrint ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _lrint,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_FLOAT_LRINT(s8,f32);
 CONV_DEFINE_FLOAT_LRINT(s8,f64);
@@ -597,7 +597,7 @@ static void conv_ ## desttype ## _ ## srctype ## _lrintf ( \
 	}				\
 }					\
 OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _lrintf,	\
-	conv_ ## desttype ## _ ## srctype ## _class);
+	conv_ ## desttype ## _ ## srctype);
 
 CONV_DEFINE_FLOAT_LRINTF(s8,f32);
 CONV_DEFINE_FLOAT_LRINTF(u8,f32);

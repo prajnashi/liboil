@@ -39,7 +39,7 @@ clip_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	}
 }
 
-OIL_DEFINE_IMPL (clip_s16_ref, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_ref, clip_s16);
 #endif
 
 /* This is a suprisingly fast implementation of clipping
@@ -60,7 +60,7 @@ clip_s16_fast (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	}
 }
 
-OIL_DEFINE_IMPL (clip_s16_fast, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_fast, clip_s16);
 
 static void
 clip_s16_fast2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
@@ -83,7 +83,7 @@ clip_s16_fast2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 		n--;
 	}
 }
-OIL_DEFINE_IMPL (clip_s16_fast2, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_fast2, clip_s16);
 
 #ifdef SIMDPACK_USE_POWERPC
 static void
@@ -110,7 +110,7 @@ clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	: 
 	: "7", "9", "10", "8", "11", "0", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16);
 #endif
 
 #ifdef SIMDPACK_USE_POWERPC
@@ -139,7 +139,7 @@ clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	: 
 	: "9", "10", "8", "11", "0", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16);
 #endif
 
 #ifdef SIMDPACK_USE_POWERPC
@@ -182,7 +182,7 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
 	: "8", "9", "10", "11", "0",
 	  "18", "19", "20", "21", "30", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm3, clip_s16_class);
+OIL_DEFINE_IMPL (clip_s16_ppcasm3, clip_s16);
 #endif
 
 

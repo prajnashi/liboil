@@ -36,5 +36,5 @@ scanlinescale2_u8_ref (uint8_t *dest, uint8_t *src, int n)
 	}
 }
 
-OIL_DEFINE_IMPL_REF (scanlinescale2_u8_ref, scanlinescale2_u8_class);
+OIL_DEFINE_IMPL_REF (scanlinescale2_u8_ref, scanlinescale2_u8);
 

@@ -42,7 +42,7 @@ static void imdct32_f32_ref (float *dest, float *src)
 	}
 }
 
-OIL_DEFINE_IMPL_REF (imdct32_f32_ref, imdct32_f32_class);
+OIL_DEFINE_IMPL_REF (imdct32_f32_ref, imdct32_f32);
 
 /* from mpglib */
 /*
@@ -368,7 +368,7 @@ static void imdct32_f32_mpglib(float *dest,float *samples)
  dest[31] = b1[0x1F];
 }
 
-OIL_DEFINE_IMPL (imdct32_f32_mpglib, imdct32_f32_class);
+OIL_DEFINE_IMPL (imdct32_f32_mpglib, imdct32_f32);
 
 
 

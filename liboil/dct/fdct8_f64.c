@@ -64,7 +64,7 @@ fdct8_f64_ref (double *dest, double *src, int dstr, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL_REF (fdct8_f64_ref, fdct8_f64_class);
+OIL_DEFINE_IMPL_REF (fdct8_f64_ref, fdct8_f64);
 
 /*
  * This algorithm is roughly similar to a Fast-Fourier transform,
@@ -167,7 +167,7 @@ fdct8_f64_fast(double *dest, double *src, int dstr, int sstr)
 	OIL_GET(dest,dstr*7,double) = (z11 - z4)*(0.25*M_SQRT2)*3.6245;
 #endif
 }
-OIL_DEFINE_IMPL (fdct8_f64_fast, fdct8_f64_class);
+OIL_DEFINE_IMPL (fdct8_f64_fast, fdct8_f64);
 
 
 

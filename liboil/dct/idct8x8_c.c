@@ -24,12 +24,6 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
-/* for bootstrapping */
-#ifndef idct8x8_f64
-extern OilFunctionClass _oil_function_idct8x8_f64_class;
-#define idct8x8_f64 ((void (*)(double *dest, int dstr, double *src, int sstr)) \
-            _oil_function_idct8x8_f64_class.func)
-#endif
 
 #define BLOCK8x8_F64(ptr, stride, row, column) \
 	(*((double *)((void *)ptr + stride*row) + column))
@@ -80,8 +74,9 @@ idct8x8_f64_slow (double *dest, int dstr, double *src, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL (idct8x8_f64_slow, idct8x8_f64_class);
+OIL_DEFINE_IMPL (idct8x8_f64_slow, idct8x8_f64);
 
+#if defined(oil_idct8_f64)
 static void
 idct8x8_f64_c (double *dest, int dstr, double *src, int sstr)
 {
@@ -101,8 +96,11 @@ idct8x8_f64_c (double *dest, int dstr, double *src, int sstr)
 	}
 }
 
-OIL_DEFINE_IMPL_DEPENDS (idct8x8_f64_c, idct8x8_f64_class, idct8_f64_class);
+OIL_DEFINE_IMPL_DEPENDS (idct8x8_f64_c, idct8x8_f64, idct8_f64);
+#endif
 
+#if defined(oil_conv8x8_f64_s16) && defined(oil_idct8x8_f64) && \
+    defined(oil_conv8x8_s16_f64)
 static void
 idct8x8_s16_slow (int16_t *dest, int dstr, int16_t *src, int sstr)
 {
@@ -113,6 +111,7 @@ idct8x8_s16_slow (int16_t *dest, int dstr, int16_t *src, int sstr)
 	oil_conv8x8_s16_f64 (dest,dstr,d,8*sizeof(double));
 }
 
-OIL_DEFINE_IMPL_DEPENDS (idct8x8_s16_slow, idct8x8_s16_class,
-    conv8x8_f64_s16_class, idct8x8_f64_class, conv8x8_s16_f64);
+OIL_DEFINE_IMPL_DEPENDS (idct8x8_s16_slow, idct8x8_s16,
+    conv8x8_f64_s16, idct8x8_f64, conv8x8_s16_f64);
+#endif
 

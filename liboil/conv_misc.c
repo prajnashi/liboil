@@ -25,7 +25,8 @@
 #include <math.h>
 
 
-static void conv_f64_s16_table(double *dest, int dest_stride, short *src,
+static void
+conv_f64_s16_table(double *dest, int dest_stride, short *src,
 	int src_stride, int n)
 {
 	static float ints_high[256];
@@ -59,7 +60,7 @@ static void conv_f64_s16_table(double *dest, int dest_stride, short *src,
 		src = OIL_OFFSET(src, dest_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16_class);
+OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16);
 
 
 #ifdef HAVE_CPU_PPC
@@ -91,7 +92,7 @@ void conv_f64_s16_altivec(double *dest, int dest_stride, short *src,
 		dest = OIL_OFFSET(dest, dest_stride * 4);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_s16_altivec, conv_f64_s16_class);
+OIL_DEFINE_IMPL(conv_f64_s16_altivec, conv_f64_s16);
 #endif
 
 
@@ -130,32 +131,7 @@ void clipconv_s16_f64_ppcasm(short *dest, double *src, int n)
 	: "r9",
 	  "r5" );
 }
-OIL_DEFINE_IMPL(clipconv_s16_f64_ppcasm, clipconv_s16_f64_class);
+OIL_DEFINE_IMPL(clipconv_s16_f64_ppcasm, clipconv_s16_f64);
 #endif
 
-
-void conv_double_short_dstr(double *dest, short *src, int n, int dstr)
-{
-	int i;
-	void *d = dest;
-	for(i=0;i<n;i++){
-		(*(double *)d)=*src++;
-		d += dstr;
-	}
-}
-
-void conv_short_double_sstr(short *dest, double *src, int n, int sstr)
-{
-	int i;
-	double x;
-	void *s = src;
-
-	for(i=0;i<n;i++){
-		x = *(double *)s;
-		if(x<-32768.0)x=-32768.0;
-		if(x>32767.0)x=32767.0;
-		*dest++ = rint(x);
-		s += sstr;
-	}
-}
 

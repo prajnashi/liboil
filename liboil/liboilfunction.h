@@ -29,12 +29,12 @@ typedef void (*OilTestFunction) (OilFunctionClass *klass,
 		OilFunctionImpl *impl);
 
 #ifdef __GNUC__
-#define LIBOIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
-#define LIBOIL_ATTRIBUTE_SECTION(section_name) \
+#define OIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
+#define OIL_ATTRIBUTE_SECTION(section_name) \
   __attribute__ ((section (section_name)))
 #else
-#define LIBOIL_ATTRIBUTE_ALIGNED_16
-#define LIBOIL_ATTRIBUTE_SECTION(section_name)
+#define OIL_ATTRIBUTE_ALIGNED_16
+#define OIL_ATTRIBUTE_SECTION(section_name)
 #endif
 
 struct _OilFunctionClass {
@@ -49,7 +49,7 @@ struct _OilFunctionClass {
 	OilFunctionImpl *chosen_impl;
 
 	const char *prototype;
-} LIBOIL_ATTRIBUTE_ALIGNED_16;
+} OIL_ATTRIBUTE_ALIGNED_16;
 
 struct _OilFunctionImpl {
 	void *next;
@@ -58,7 +58,7 @@ struct _OilFunctionImpl {
 	unsigned int flags;
 	const char *name;
 	unsigned int prof;
-} LIBOIL_ATTRIBUTE_ALIGNED_16;
+} OIL_ATTRIBUTE_ALIGNED_16;
 
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
 #define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + offset) )
@@ -81,12 +81,12 @@ struct _OilFunctionImpl {
 #define OIL_IMPL_REQUIRES_ALTIVEC       (1<<16)
 
 #define OIL_DECLARE_CLASS(klass) \
-	extern OilFunctionClass _oil_function_ ## klass ## _class
+	extern OilFunctionClass _oil_function_class_ ## klass
 
 
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \
-OilFunctionClass _oil_function_ ## klass ## _class \
-		LIBOIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
+OilFunctionClass _oil_function_class_ ## klass \
+		OIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
 	NULL, \
 	#klass , \
 	NULL, \
@@ -96,12 +96,12 @@ OilFunctionClass _oil_function_ ## klass ## _class \
         NULL, \
         string \
 }; \
-OilFunctionClass *oil_function_ ## klass ## _class_ptr = \
-  &_oil_function_ ## klass ## _class
+OilFunctionClass *oil_function_class_ptr_ ## klass = \
+  &_oil_function_class_ ## klass
 
 #define OIL_DEFINE_CLASS(klass, string) \
-OilFunctionClass _oil_function_ ## klass ## _class \
-		LIBOIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
+OilFunctionClass _oil_function_class_ ## klass \
+		OIL_ATTRIBUTE_SECTION(".oil_function_class") = { \
 	NULL, \
 	#klass , \
 	NULL, \
@@ -111,16 +111,16 @@ OilFunctionClass _oil_function_ ## klass ## _class \
 	NULL, \
 	string \
 }; \
-OilFunctionClass *oil_function_ ## klass ## _class_ptr = \
-  &_oil_function_ ## klass ## _class
+OilFunctionClass *oil_function_class_ptr_ ## klass = \
+  &_oil_function_class_ ## klass
 
 #define OIL_ARG(a,b,c,d) { a, b, c, d }
 
 #define OIL_DEFINE_IMPL_FULL(function,klass,flags) \
 OilFunctionImpl _oil_function_impl_ ## function \
-		LIBOIL_ATTRIBUTE_SECTION(".oil_function_impl") /* unused */ = { \
+		OIL_ATTRIBUTE_SECTION(".oil_function_impl") /* unused */ = { \
 	NULL, \
-	&_oil_function_ ## klass , \
+	&_oil_function_class_ ## klass , \
 	(void *)function, \
 	flags, \
 	#function \
@@ -132,14 +132,6 @@ OilFunctionImpl _oil_function_impl_ ## function \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
-
-extern OilFunctionClass _oil_begin_function_class;
-extern OilFunctionClass _oil_next_function_class;
-extern OilFunctionClass _oil_end_function_class;
-
-extern OilFunctionImpl _oil_begin_function_impl;
-extern OilFunctionImpl _oil_next_function_impl;
-extern OilFunctionImpl _oil_end_function_impl;
 
 extern OilFunctionClass *oil_function_classes;
 extern OilFunctionImpl *oil_function_impls;

@@ -48,7 +48,7 @@ diffsquaresum_f64_ref(double *dest, double *src1, int sstr1, double *src2,
 	*dest = sum + errsum;
 }
 
-OIL_DEFINE_IMPL_REF (diffsquaresum_f64_ref, diffsquaresum_f64_class);
+OIL_DEFINE_IMPL_REF (diffsquaresum_f64_ref, diffsquaresum_f64);
 
 static void
 diffsquaresum_f64_i10_simple(double *dest, double *src1, int sstr1, double *src2,
@@ -66,7 +66,7 @@ diffsquaresum_f64_i10_simple(double *dest, double *src1, int sstr1, double *src2
 
 	*dest = sum;
 }
-OIL_DEFINE_IMPL (diffsquaresum_f64_i10_simple, diffsquaresum_f64_class);
+OIL_DEFINE_IMPL (diffsquaresum_f64_i10_simple, diffsquaresum_f64);
 
 static void
 diffsquaresum_f64_i10_unroll2(double *dest, double *src1, int sstr1, double *src2,
@@ -97,7 +97,7 @@ diffsquaresum_f64_i10_unroll2(double *dest, double *src1, int sstr1, double *src
 
 	*dest = sum0 + sum1;
 }
-OIL_DEFINE_IMPL (diffsquaresum_f64_i10_unroll2, diffsquaresum_f64_class);
+OIL_DEFINE_IMPL (diffsquaresum_f64_i10_unroll2, diffsquaresum_f64);
 
 static void diffsquaresum_f64_i10_unroll4(double *dest, double *src1, int sstr1,
 	double *src2, int sstr2, int n)
@@ -137,7 +137,7 @@ static void diffsquaresum_f64_i10_unroll4(double *dest, double *src1, int sstr1,
 
 	*dest = sum0 + sum1 + sum2 + sum3;
 }
-OIL_DEFINE_IMPL (diffsquaresum_f64_i10_unroll4, diffsquaresum_f64_class);
+OIL_DEFINE_IMPL (diffsquaresum_f64_i10_unroll4, diffsquaresum_f64);
 
 
 #ifdef TEST_diffsquaresum_f64

@@ -45,7 +45,7 @@ static void multsum_ ## type ## _ref(	\
   }					\
   *dest = sum + errsum;			\
 }					\
-OIL_DEFINE_IMPL_REF (multsum_ ## type ## _ref, multsum_ ## type ## _class); \
+OIL_DEFINE_IMPL_REF (multsum_ ## type ## _ref, multsum_ ## type); \
 OIL_DEFINE_CLASS (multsum_ ## type, \
     "type_" #type " *dest, "		\
     "type_" #type " *src1, int sstr1, "	\
@@ -75,7 +75,7 @@ static void multsum_f32_unroll2 (float *dest, float *src1, int sstr1,
 
   *dest = sum1 + sum2;
 }
-OIL_DEFINE_IMPL (multsum_f32_unroll2, multsum_f32_class);
+OIL_DEFINE_IMPL (multsum_f32_unroll2, multsum_f32);
 
 #ifdef HAVE_CPU_POWERPC
 /* This could probably be improved by unrolling */

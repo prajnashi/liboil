@@ -44,5 +44,5 @@ dequantize8x8_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr,
 	}
 }
 
-OIL_DEFINE_IMPL_REF (dequantize8x8_s16_ref, dequantize8x8_s16_class);
+OIL_DEFINE_IMPL_REF (dequantize8x8_s16_ref, dequantize8x8_s16);
 

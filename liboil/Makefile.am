@@ -18,7 +18,7 @@ pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 liboilend_la_SOURCES = \
 	liboil_end.c
 liboilend_la_CFLAGS = $(LIBOIL_CFLAGS)
-liboilend_la_LDFLAGS = -lm
+liboilend_la_LDFLAGS = 
 
 if HAVE_CPU_POWERPC
 powerpc_sources = conv_powerpc.c
@@ -63,7 +63,8 @@ liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	simdpack/libsimdpack.la \
 	liboilend.la
 liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
-liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm
+liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm \
+	-export-symbols-regex '^oil_'
 
 build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)

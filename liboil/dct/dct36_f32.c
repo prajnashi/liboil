@@ -34,7 +34,7 @@ dct36_f32_ref(float *dest, int dstr, float *src, int sstr, int n)
   }
 }
 
-OIL_DEFINE_IMPL_REF (dct36_f32_ref, dct36_f32_class);
+OIL_DEFINE_IMPL_REF (dct36_f32_ref, dct36_f32);
 
 #ifdef TEST_dct36_f32
 int TEST_dct36_f32(void)

@@ -23,13 +23,13 @@
 
 
 OilFunctionClass _oil_begin_function_class
-  LIBOIL_ATTRIBUTE_SECTION(".oil_function_class");
+  OIL_ATTRIBUTE_SECTION(".oil_function_class");
 OilFunctionClass _oil_next_function_class
-  LIBOIL_ATTRIBUTE_SECTION(".oil_function_class");
+  OIL_ATTRIBUTE_SECTION(".oil_function_class");
 
 OilFunctionImpl _oil_begin_function_impl
-  LIBOIL_ATTRIBUTE_SECTION(".oil_function_impl");
+  OIL_ATTRIBUTE_SECTION(".oil_function_impl");
 OilFunctionImpl _oil_next_function_impl
-  LIBOIL_ATTRIBUTE_SECTION(".oil_function_impl");
+  OIL_ATTRIBUTE_SECTION(".oil_function_impl");
 
 

@@ -78,5 +78,5 @@ unzigzag8x8_s16_c(int16_t *dest, int dstr, int16_t *src, int sstr)
 }
 
 
-OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_c, unzigzag8x8_s16_class);
+OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_c, unzigzag8x8_s16);
 

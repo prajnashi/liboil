@@ -38,7 +38,7 @@ sincos_f64_ref (double *dest_sin, double *dest_cos, int n, double offset,
 		dest_cos[i] = cos(offset + interval*i);
 	}
 }
-OIL_DEFINE_IMPL_REF (sincos_f64_ref, sincos_f64_class);
+OIL_DEFINE_IMPL_REF (sincos_f64_ref, sincos_f64);
 
 /* XXX This gets more inaccurate as N increases */
 static void
@@ -59,7 +59,7 @@ sincos_f64_i20_fast(double *dest_sin, double *dest_cos, int n, double offset,
 		dest_cos[i] = c = temp_c;
 	}
 }
-OIL_DEFINE_IMPL (sincos_f64_i20_fast, sincos_f64_class);
+OIL_DEFINE_IMPL (sincos_f64_i20_fast, sincos_f64);
 
 
 #ifdef TEST_sincos_f64

@@ -46,7 +46,7 @@ OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(conv_ ## desttype ## _ ## srctype ## _ref,	\
-	conv_ ## desttype ## _ ## srctype ## _class)
+	conv_ ## desttype ## _ ## srctype)
 
 #define CONV_DEFINE_FLOAT_REF(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -67,7 +67,7 @@ OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(conv_ ## desttype ## _ ## srctype ## _ref,	\
-	conv_ ## desttype ## _ ## srctype ## _class)
+	conv_ ## desttype ## _ ## srctype)
 
 CONV_DEFINE_REF_CAST(s8,u8);
 CONV_DEFINE_REF_CAST(s8,s16);
@@ -158,7 +158,7 @@ OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class)
+	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_UPPER_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -181,7 +181,7 @@ OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class)
+	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_LOWER_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -204,7 +204,7 @@ OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class)
+	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_FLOAT_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -228,7 +228,7 @@ OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
 	"type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
-	clipconv_ ## desttype ## _ ## srctype ## _class)
+	clipconv_ ## desttype ## _ ## srctype)
 
 /* clip upper */
 CLIPCONV_DEFINE_UPPER_REF(s8,u8);

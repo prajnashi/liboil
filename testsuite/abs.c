@@ -28,7 +28,6 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
 
-  _oil_debug_level = OIL_DEBUG_INFO;
   oil_init ();
 
   oil_optimize_all();

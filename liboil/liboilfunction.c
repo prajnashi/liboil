@@ -26,6 +26,14 @@
 #include <stdio.h>
 #include <string.h>
 
+extern OilFunctionClass _oil_begin_function_class;
+extern OilFunctionClass _oil_next_function_class;
+extern OilFunctionClass _oil_end_function_class;
+
+extern OilFunctionImpl _oil_begin_function_impl;
+extern OilFunctionImpl _oil_next_function_impl;
+extern OilFunctionImpl _oil_end_function_impl;
+
 OilFunctionClass *oil_function_classes;
 int oil_function_class_stride;
 OilFunctionImpl *oil_function_impls;

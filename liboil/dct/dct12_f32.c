@@ -100,7 +100,7 @@ dct12_f32_ref (float *dest, int dstr, float *src, int sstr)
      out2[5-2] += in4 * wi[5-2];
 }
 
-OIL_DEFINE_IMPL_REF (dct12_f32_ref, dct12_f32_class);
+OIL_DEFINE_IMPL_REF (dct12_f32_ref, dct12_f32);
 
 
 static void
@@ -133,7 +133,7 @@ dct12_f32_ref1(float *dest, int dstr, float *src, int sstr)
 		}
 	}
 }
-OIL_DEFINE_IMPL (dct12_f32_ref1, dct12_f32_class);
+OIL_DEFINE_IMPL (dct12_f32_ref1, dct12_f32);
 
 /* copyright: from mpglib */
 /*
@@ -226,7 +226,7 @@ dct12_f32_mpglib(float *dest, int dstr, float *src, int sstr)
      out2[5-2] += in4 * wi[5-2];
 }
 
-OIL_DEFINE_IMPL (dct12_f32_mpglib, dct12_f32_class);
+OIL_DEFINE_IMPL (dct12_f32_mpglib, dct12_f32);
 
 
 
