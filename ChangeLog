@@ -1,5 +1,9 @@
 2005-03-17  David Schleef  <ds@schleef.org>
 
+	* doc/liboil.types: add
+
+2005-03-17  David Schleef  <ds@schleef.org>
+
 	* examples/work/conv.c: (conv_s16_f32_asm1), (register_impls):
 	add me
 
