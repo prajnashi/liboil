@@ -23,15 +23,14 @@
 
 typedef struct _OilFunctionClass OilFunctionClass;
 typedef struct _OilFunctionImpl OilFunctionImpl;
-//typedef struct _OilFunctionArg OilFunctionArg;
 typedef struct _OilParameter OilParameter;
-typedef struct _OilClosure OilClosure;
+typedef struct _OilTest OilTest;
 
 typedef enum _OilType OilType;
 typedef enum _OilArgType OilArgType;
 
-typedef unsigned int (*OilTestFunction) (OilFunctionClass *klass,
-		OilFunctionImpl *impl);
+typedef void (*OilTestFunction) (OilTest *test);
+
 
 #ifdef HAVE_GNU_LINKER
 #define OIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
@@ -80,7 +79,9 @@ enum _OilArgType {
   OIL_ARG_STATE,
   OIL_ARG_ARG1,
   OIL_ARG_ARG2,
-  OIL_ARG_ARG3
+  OIL_ARG_ARG3,
+
+  OIL_ARG_LAST
 };
 
 struct _OilFunctionClass {
@@ -114,6 +115,7 @@ struct _OilParameter {
   OilArgType parameter_type;
 
   unsigned long value;
+  int size;
 };
 
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
@@ -122,7 +124,7 @@ struct _OilParameter {
 
 #define OIL_IMPL_FLAG_REF	(1<<0)
 
-#define OIL_ARCH_FLAGS 0xffff0000
+#define OIL_CPU_FLAG_MASK 0xffff0000
 
 /* i386 */
 #define OIL_IMPL_REQUIRES_CMOV 	        (1<<16)

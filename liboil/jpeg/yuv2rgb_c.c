@@ -21,14 +21,24 @@
 #endif
 
 #include <liboil/liboil.h>
+#include <liboil/liboiltest.h>
 #include "jpeg.h"
 
-OIL_DEFINE_CLASS (yuv2rgbx_u8,
-    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
-OIL_DEFINE_CLASS (yuv2rgbx_sub2_u8,
-    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
-OIL_DEFINE_CLASS (yuv2rgbx_sub4_u8,
-    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
+static void
+yuv_test (OilTest *test)
+{
+
+}
+
+OIL_DEFINE_CLASS_FULL (yuv2rgbx_u8,
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n",
+    yuv_test);
+OIL_DEFINE_CLASS_FULL (yuv2rgbx_sub2_u8,
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n",
+    yuv_test);
+OIL_DEFINE_CLASS_FULL (yuv2rgbx_sub4_u8,
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n",
+    yuv_test);
 
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)
 #define clamp_lower(x,a) ((x<a)?(a):(x))

@@ -22,7 +22,6 @@ struct _OilString {
 };
 
 static char * _strndup (const char *s, int n);
-static const char * oil_type_name (OilType type);
 static OilType oil_type_from_string (const char *s, int ptr);
 static OilArgType oil_arg_type_from_string (const char *s);
 
@@ -276,7 +275,7 @@ static const char *oil_type_names_3 [] = {
 };
 #define ARRAY_LENGTH(x) (sizeof(x)/sizeof(x[0]))
 
-static const char * oil_type_name (OilType type)
+const char * oil_type_name (OilType type)
 {
 
   if (type < 0 || type >= ARRAY_LENGTH(oil_type_names))
@@ -318,7 +317,7 @@ static OilType oil_type_from_string (const char *s, int ptr)
   return OIL_TYPE_UNKNOWN;
 }
 
-static char *arg_names[] = {
+static const char *arg_names[] = {
   "unknown",
   "n",
   "dest1",
@@ -332,16 +331,52 @@ static char *arg_names[] = {
   "src3",
   "sstr3",
   "state",
-  "arg1",
-  "arg2",
-  "arg3",
+  "param1",
+  "param2",
+  "param3",
   NULL
 };
+static const char *arg_name_aliases[] = {
+  "dest",
+  "dstr",
+  "src",
+  "sstr",
+  "param",
+  NULL
+};
+static OilArgType arg_name_aliases_2[] = {
+  OIL_ARG_DEST1,
+  OIL_ARG_DSTR1,
+  OIL_ARG_SRC1,
+  OIL_ARG_SSTR1,
+  OIL_ARG_ARG1,
+  OIL_ARG_UNKNOWN
+};
+
+const char * oil_arg_type_name (OilArgType type)
+{
+  return arg_names[type];
+}
 
 static OilArgType
 oil_arg_type_from_string (const char *s)
 {
+  int i;
 
-  return OIL_ARG_TYPE_UNKNOWN;
+  for(i=1;arg_names[i];i++){
+    if (strcmp (s, arg_names[i]) == 0){
+      return i;
+    }
+  }
+  for(i=0;arg_name_aliases[i];i++){
+    if (strcmp (s, arg_name_aliases[i]) == 0){
+      return arg_name_aliases_2[i];
+    }
+  }
+
+  return OIL_ARG_UNKNOWN;
 }
+
+
+
 

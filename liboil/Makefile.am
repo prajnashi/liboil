@@ -71,7 +71,9 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboildebug.c \
 	liboilcpu.c \
 	liboilprototype.c \
-	liboilarray.c
+	liboilarray.c \
+	liboiltest.h \
+	liboiltest.c
 liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboilfunctions.la \
 	liboilend.la

@@ -42,15 +42,15 @@ OIL_DEFINE_IMPL_REF (abs_u32_s32_ref, abs_u32_s32);
  * pulled to get around 2*y rolling over.  */
 
 static void
-abs_u32_s32_fast (uint32_t * dest, int32_t * src, int n)
+abs_u32_s32_fast (uint32_t * dest, int dstr, int32_t * src, int sstr, int n)
 {
   int i;
   int32_t x, y;
 
   for (i = 0; i < n; i++) {
-    x = src[i];
+    x = OIL_GET(src, i * sstr, int32_t);
     y = ((x >> 31) & x);
-    dest[i] = x - y - y;
+    OIL_GET(dest, i * dstr, uint32_t) = x - y - y;
   }
 }
 

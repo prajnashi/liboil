@@ -42,7 +42,7 @@ static void conv_f64_s32_sse(double *dst, int dst_stride, int32_t *src, int src_
 	}
 }
 OIL_DEFINE_IMPL_FULL(conv_f64_s32_sse, conv_f64_s32,
-	OIL_IMPL_REQUIRES_SSE);
+	OIL_IMPL_REQUIRES_SSE2);
 
 /* suboptimal */
 static void conv_s32_f64_sse(int32_t *dst, int dst_stride, double *src, int src_stride, int n)
@@ -62,6 +62,6 @@ static void conv_s32_f64_sse(int32_t *dst, int dst_stride, double *src, int src_
 	}
 }
 OIL_DEFINE_IMPL_FULL(conv_s32_f64_sse, conv_s32_f64,
-	OIL_IMPL_REQUIRES_SSE);
+	OIL_IMPL_REQUIRES_SSE2);
 #endif
 

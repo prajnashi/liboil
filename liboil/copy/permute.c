@@ -21,8 +21,15 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboiltest.h>
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
+
+static void
+permute_test (OilTest *test)
+{
+
+}
 
 #define PERMUTE_DEFINE_REF(type)		\
 static void permute_ ## type ## _ref(		\
@@ -37,8 +44,9 @@ static void permute_ ## type ## _ref(		\
   }						\
 }						\
 OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type); \
-OIL_DEFINE_CLASS (permute_ ## type, "type_" #type " *dest, int dstr, " \
-    "type_" #type " *src1, int sstr1, int32_t *src2, int sstr2, int n")
+OIL_DEFINE_CLASS_FULL (permute_ ## type, "type_" #type " *dest, int dstr, " \
+    "type_" #type " *src1, int sstr1, int32_t *src2, int sstr2, int n", \
+    permute_test)
 
 PERMUTE_DEFINE_REF (s8);
 PERMUTE_DEFINE_REF (u8);

@@ -16,26 +16,37 @@
  * Boston, MA 02111-1307 USA.
  */
 
-#ifndef _LIBOIL_PROTOTYPE_H_
-#define _LIBOIL_PROTOTYPE_H_
+#ifndef _LIBOIL_TEST_H_
+#define _LIBOIL_TEST_H_
 
-typedef struct _OilPrototype OilPrototype;
-struct _OilPrototype {
-  int n_params;
-  OilParameter *params;
+#include <liboil/liboil.h>
+#include <liboil/liboilprototype.h>
+#include <liboil/liboilprofile.h>
+
+//typedef struct _OilTest OilTest;
+struct _OilTest {
   OilFunctionClass *klass;
+  OilFunctionImpl *impl;
+  OilPrototype *proto;
+  OilParameter params[OIL_ARG_LAST];
+  OilProfile prof;
+
+  int iterations;
+  int n;
 };
 
 
-OilPrototype *oil_prototype_from_string (const char *s);
-char *oil_prototype_to_string (OilPrototype *proto);
-void oil_prototype_free (OilPrototype *proto);
-void oil_prototype_append_param (OilPrototype *proto, OilParameter *param);
+OilTest *oil_test_new (OilFunctionClass *klass);
+void oil_test_free (OilTest *test);
 
-int oil_type_sizeof (OilType type);
-const char * oil_type_name (OilType type);
-const char * oil_arg_type_name (OilArgType type);
+void oil_test_set_impl (OilTest *test, OilFunctionImpl *impl);
+void oil_test_set_iterations (OilTest *test, int iterations);
 
+int oil_test_go (OilTest *test);
+
+void oil_test_cleanup (OilTest *test);
+void oil_test_init_src_arrays (OilTest *test);
+void oil_test_init_dest_arrays (OilTest *test);
 
 #endif
 

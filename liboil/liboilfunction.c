@@ -177,7 +177,7 @@ oil_class_optimize (OilFunctionClass * klass)
         );
 #endif
     OIL_LOG ("testing impl %s", impl->name);
-    if ((impl->flags & OIL_ARCH_FLAGS) & (~oil_cpu_flags))
+    if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
       continue;
     //klass->test_func (klass, impl);
 

@@ -1,3 +1,30 @@
+2004-11-30  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am: add testing
+	* liboil/conv_sse.c: opcodes are SSE2, not SSE (oops)
+	* liboil/copy/permute.c: (permute_test): avoid generic test function
+	* liboil/copy/tablelookup_ref.c: (tablelookup_test): same
+	* liboil/jpeg/yuv2rgb_c.c: (yuv_test): same
+	* liboil/liboilfunction.c: (oil_class_optimize): change to
+	OIL_CPU_FLAG_MASK
+	* liboil/liboilfunction.h: same.  Misc API adjustments
+	* liboil/liboilprototype.c: (oil_type_name), (oil_arg_type_name),
+	(oil_arg_type_from_string): handle parameter aliases
+	* liboil/liboilprototype.h: add functions
+	* liboil/liboilrandom.h: new.  #define wrapping rand() for various
+	types and ranges
+	* liboil/liboiltest.c: (oil_test_new), (oil_test_free),
+	(oil_test_set_impl), (oil_test_set_iterations), (oil_test_go),
+	(oil_test_cleanup), (init_src_array), (oil_test_init_src_arrays),
+	(init_dest_array), (oil_test_init_dest_arrays): testing structure
+	* liboil/liboiltest.h: same
+	* liboil/simdpack/abs_u32_s32.c: (abs_u32_s32_fast): fix. previously
+	ignored stride.
+	* testsuite/Makefile.am: new test
+	* testsuite/proto2.c: (main), (get_param_by_type): ignore this
+	* testsuite/test1.c: look at this instead.  tests the new testing
+	structure.
+
 2004-11-29  David Schleef  <ds@schleef.org>
 
 	* configure.ac: bump to 0.3 series
