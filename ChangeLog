@@ -1,5 +1,10 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	* liboil/liboil_begin.c: remove, unused
+	* liboil/liboil_end.c:
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	Move non-relicensed code to lgpl/.  Not yet in the build.
 	* liboil/lgpl/dct12_f32.c: (dct12_f32_mpglib):
 	* liboil/lgpl/dct36.c: (dct36):
