@@ -1,5 +1,10 @@
 2004-12-30  David Schleef  <ds@schleef.org>
 
+	* liboil/dct/idct8x8_i386.c: (idct8x8_s16_mmx), (fdct8x8s_s16_mmx):
+	new file
+
+2004-12-30  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilfunction.h: add DISABLED flag and reformat
 
 2004-12-29  David Schleef  <ds@schleef.org>
