@@ -69,6 +69,7 @@ esac
 AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
 AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
 
+AC_C_BIGENDIAN
 
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))

@@ -1,3 +1,15 @@
+2004-11-04  David Schleef  <ds@schleef.org>
+
+	* configure.ac: add endianness check
+	* examples/md5/md5sum.c: (main): endianness fixes
+	* liboil/md5/md5.c: (md5_c): endianness fixes
+	* liboil/md5/md5_powerpc.c: (md5_asm1), (md5_asm2), (md5_asm3): some
+	asm implementations
+	* testsuite/Makefile.am:
+	* testsuite/md5.c: (test): endianness fixes
+	* testsuite/md5_profile.c: (test), (main): Add a profiling tool
+	for md5.
+
 2004-11-01  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add md5sum example

@@ -5,8 +5,10 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfuncs.h>
+#include <liboil/liboilprofile.h>
 #include <glib.h>
 #include <string.h>
+#include <stdio.h>
 
 char *message = "liboil md5 test\n";
 //char *message = "";
@@ -24,6 +26,7 @@ void test(void)
   uint32_t state[4];
   uint32_t src[16];
   int len;
+  OilProfile prof;
 
   state[0] = 0x67452301;
   state[1] = 0xefcdab89;
@@ -37,7 +40,28 @@ void test(void)
   src[14] = uint32_from_host(len << 3);
   src[15] = 0;
 
-  oil_md5 (state, src);
+  oil_profile_init(prof);
+  for(i=0;i<1000;i++){
+    oil_profile_start(prof);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_md5 (state, src);
+    oil_profile_stop(prof);
+  }
+  oil_profile_print(prof);
 
   g_print("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
       state[0]&0xff, (state[0]>>8)&0xff, (state[0]>>16)&0xff,
@@ -85,6 +109,13 @@ int main (int argc, char *argv[])
   test();
 
   oil_class_choose_by_name (klass, "md5_asm2");
+  impl = klass->chosen_impl;
+  g_print("chosen=%p\n", impl);
+  impl = klass->reference_impl;
+  g_print("ref=%p\n", impl);
+  test();
+
+  oil_class_choose_by_name (klass, "md5_asm3");
   impl = klass->chosen_impl;
   g_print("chosen=%p\n", impl);
   impl = klass->reference_impl;

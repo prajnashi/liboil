@@ -1,4 +1,8 @@
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdio.h>
 #include <liboil/liboil.h>
 #include <liboil/liboilfuncs.h>
@@ -7,6 +11,13 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <fcntl.h>
+
+#ifdef WORDS_BIGENDIAN
+#define uint32_from_host(a) \
+    ((((a)&0xff)<<24)|(((a)&0xff00)<<8)|(((a)&0xff0000)>>8)|(((a)>>24)&0xff))
+#else
+#define uint32_from_host(a) (a)
+#endif
 
 #if 0
 int main(int argc, char *argv[])
@@ -127,7 +138,8 @@ int main(int argc, char *argv[])
 
   for(;n<56;n++) buffer[n] = 0;
 
-  *(uint64_t *)(buffer + 56) = n_bytes << 3;
+  *(uint32_t *)(buffer + 56) = uint32_from_host (n_bytes << 3);
+  *(uint32_t *)(buffer + 60) = uint32_from_host (n_bytes >>29);
   oil_md5 (state, (uint32_t *)buffer);
 
   printf("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
