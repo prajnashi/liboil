@@ -1,5 +1,9 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	* testsuite/trans.c: (test), (main): Add test code.
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	* autogen.sh: who needs static libraries
 	* examples/jpeg/jpeg.c: (jpeg_decoder_decode_entropy_segment),
 	(sprintbits): clean up
