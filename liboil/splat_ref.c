@@ -40,7 +40,14 @@ static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *src, int n)
   for(i=0;i<n;i++){
     *OIL_OFFSET(dest,i*dstr) = *src;
   }
-#if 0
+}
+OIL_DEFINE_CLASS_X(splat_u32,"uint32_t *dest, int dstr, uint32_t *src, int n");
+OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32_class);
+
+
+
+static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *src, int n)
+{
   int i;
   if (n&1) {
     *dest = *src;
@@ -53,8 +60,6 @@ static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *src, int n)
     *dest = *src;
     dest = OIL_OFFSET(dest,dstr);
   }
-#endif
 }
-OIL_DEFINE_CLASS_X(splat_u32,"uint32_t *dest, int dstr, uint32_t *src, int n");
-OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32_class);
+OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32_class);
 

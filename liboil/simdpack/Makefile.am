@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libsimdpack.la
 
 libsimdpack_la_SOURCES = \
 	abs.c \
+	abs_u16_s16.c \
 	abs_u32_s32.c \
 	average2_u8.c \
 	clip_ref.c \

@@ -20,12 +20,11 @@
 #include "config.h"
 #endif
 
-#include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
-#if 0
 static void
 abs_u16_s16_ref (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -83,7 +82,6 @@ abs_u16_s16_fast (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL (abs_u16_s16_fast, abs_u16_s16_class);
 
-#if 0
 #ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -107,7 +105,7 @@ abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm, abs_u16_s16_class);
 #endif
 
-#ifdef SIMPACK_USE_I386
+#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -133,7 +131,7 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm2, abs_u16_s16_class);
 #endif
 
-#ifdef SIMPACK_USE_I386
+#ifdef HAVE_CPU_I386
 /* Weave two threads */
 static void
 abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -373,56 +371,3 @@ abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_altivec, abs_u16_s16_class, OIL_IMPL_REQUIRES_ALTIVEC);
 #endif
 
-#if 0
-int
-TEST_abs_u16_s16 (void)
-{
-  int i;
-  int pass;
-  int failures = 0;
-  u16 *dest_test;
-  u16 *dest_ref;
-  s16 *src;
-  struct sl_profile_struct t;
-
-  src = sl_malloc (sizeof (s16) * N);
-  dest_test = sl_malloc (sizeof (s16) * N);
-  dest_ref = sl_malloc (sizeof (s16) * N);
-
-  sl_profile_init (t);
-  srand (20020305);
-
-  printf ("I: " sl_stringify (abs_u16_s16_FUNC) "\n");
-
-  for (pass = 0; pass < N_PASS; pass++) {
-    for (i = 0; i < N; i++)
-      src[i] = sl_rand_s16 ();
-
-    abs_u16_s16_ref (dest_ref, src, sstr, N);
-    sl_profile_start (t);
-    abs_u16_s16_FUNC (dest_test, src, sstr, N);
-    sl_profile_stop (t);
-
-    for (i = 0; i < N; i++) {
-      if (dest_test[i] != dest_ref[i]) {
-	printf ("%d %d %u %u\n", i, src[i], dest_ref[i], dest_test[i]);
-	failures++;
-      }
-    }
-  }
-
-  sl_free (dest_ref);
-  sl_free (dest_test);
-  sl_free (src);
-
-  if (failures) {
-    printf ("E: %d failures\n", failures);
-  }
-
-  sl_profile_print (t);
-
-  return failures;
-}
-#endif
-#endif
-#endif

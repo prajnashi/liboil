@@ -1,5 +1,13 @@
 2004-08-12  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Check for rintf() and friends
+	* liboil/conv_c.c: use check
+	* liboil/simdpack/Makefile.am: enable abs_u16_s16.c
+	* liboil/simdpack/abs_u16_s16.c: fix compilation
+	* liboil/splat_ref.c: (splat_u32_ref), (splat_u32_unroll2):
+
+2004-08-12  David Schleef  <ds@schleef.org>
+
 	* m4/as-version.m4: Update from autostars
 
 2004-08-12  David Schleef  <ds@schleef.org>

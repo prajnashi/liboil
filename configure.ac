@@ -52,6 +52,13 @@ esac
 AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
 AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
 
+AC_CHECK_LIB(m, rintf,
+  AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
+AC_CHECK_LIB(m, lrint,
+  AC_DEFINE(HAVE_LRINT, 1, [Define if lrint() is available]))
+AC_CHECK_LIB(m, lrintf,
+  AC_DEFINE(HAVE_LRINTF, 1, [Define if lrintf() is available]))
+
 LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE -I\$(top_srcdir) $GLIB_CFLAGS"
 AC_SUBST(LIBOIL_CFLAGS)
 
