@@ -19,7 +19,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil.h>
+#include <liboil/liboilfunction.h>
 
 #include <math.h>
 #include <string.h>

@@ -118,6 +118,7 @@ AC_OUTPUT(
 Makefile 
 liboil/Makefile
 liboil/colorspace/Makefile
+liboil/conv/Makefile
 liboil/copy/Makefile
 liboil/dct/Makefile
 liboil/md5/Makefile

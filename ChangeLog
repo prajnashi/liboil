@@ -1,3 +1,26 @@
+2004-12-03  David Schleef  <ds@schleef.org>
+
+	* configure.ac: move conv code to its own directory
+	* liboil/Makefile.am:
+	* liboil/conv.h:
+	* liboil/conv/.cvsignore:
+	* liboil/conv/Makefile.am:
+	* liboil/conv/conv.h:
+	* liboil/conv/conv_3dnow.c:
+	* liboil/conv/conv_bitstuff.c:
+	* liboil/conv/conv_c.c:
+	* liboil/conv/conv_misc.c:
+	* liboil/conv/conv_powerpc.c:
+	* liboil/conv/conv_ref.c:
+	* liboil/conv/conv_sse.c:
+	* liboil/conv_3dnow.c:
+	* liboil/conv_bitstuff.c:
+	* liboil/conv_c.c:
+	* liboil/conv_misc.c:
+	* liboil/conv_powerpc.c:
+	* liboil/conv_ref.c:
+	* liboil/conv_sse.c:
+
 2004-12-02  David Schleef  <ds@schleef.org>
 
 	* examples/example1.c: (main): remove oil_optimize_all()

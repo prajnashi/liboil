@@ -19,8 +19,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil.h>
-#include <conv.h>
+#include <liboil/liboilfunction.h>
+#include <liboil/conv/conv.h>
 
 #include <math.h>
 
