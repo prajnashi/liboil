@@ -25,7 +25,7 @@ typedef struct _OilFunctionClass OilFunctionClass;
 typedef struct _OilFunctionImpl OilFunctionImpl;
 typedef struct _OilFunctionArg OilFunctionArg;
 
-typedef void (*OilTestFunction) (OilFunctionClass *klass,
+typedef unsigned int (*OilTestFunction) (OilFunctionClass *klass,
 		OilFunctionImpl *impl);
 
 #ifdef HAVE_GNU_LINKER
@@ -90,7 +90,7 @@ OilFunctionClass _oil_function_class_ ## klass OIL_CLASS_SECTION = { \
 	NULL, \
 	#klass , \
 	NULL, \
-        (OilTestFunction) test, \
+        test, \
         NULL, \
         NULL, \
         NULL, \
@@ -100,18 +100,7 @@ OilFunctionClass *oil_function_class_ptr_ ## klass = \
   &_oil_function_class_ ## klass
 
 #define OIL_DEFINE_CLASS(klass, string) \
-OilFunctionClass _oil_function_class_ ## klass OIL_CLASS_SECTION = { \
-	NULL, \
-	#klass , \
-	NULL, \
-        (OilTestFunction) NULL, \
-	NULL, \
-	NULL, \
-	NULL, \
-	string \
-}; \
-OilFunctionClass *oil_function_class_ptr_ ## klass = \
-  &_oil_function_class_ ## klass
+  OIL_DEFINE_CLASS_FULL (klass, string, NULL)
 
 #define OIL_ARG(a,b,c,d) { a, b, c, d }
 

@@ -1,5 +1,16 @@
 2004-11-27  David Schleef  <ds@schleef.org>
 
+	From Benjamin Otte
+	* autogen.sh:
+	* examples/Makefile.am: Add oil-inspect
+	* examples/oil-inspect.c: (printerr), (string_append),
+	(oil_flags_to_string), (oil_print_impl), (oil_print_class),
+	(oil_print_all), (main):
+	* liboil/liboilfunction.h:
+	* liboil/md5/md5_i386.c: don't mark functions as reference
+
+2004-11-27  David Schleef  <ds@schleef.org>
+
 	* examples/md5/md5sum.c: (main): Fix problem with file sizes
 	that are multiples of 64.
 
