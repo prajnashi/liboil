@@ -1,5 +1,12 @@
 2004-12-01  David Schleef  <ds@schleef.org>
 
+	* liboil/simdpack/clip_s16.c: (clip_s16_ppcasm),
+	(clip_s16_ppcasm2), (clip_s16_ppcasm3): Fix compile problem.
+	Change asm arguments from read/write to read.  Not 100% correct,
+	but we don't care, because we're not simdpack.
+
+2004-12-01  David Schleef  <ds@schleef.org>
+
 	* autogen.sh: add alt-opt by default
 	* configure.ac: add -funroll-all-loops
 	* testsuite/Makefile.am: Add proto3

@@ -71,7 +71,6 @@ static void
 clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
     int16_t *low, int16_t *hi)
 {
-	low=-low;
 	__asm__ __volatile__(
 		"	li 7, 0			\n"
 		"	mtctr %4		\n"
@@ -87,8 +86,8 @@ clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 		"	sthx 9,7,%0		\n"
 		"	addi 7,7,2		\n"
 		"	bdnz 1b			\n"
-	: "+b" (dest), "+b" (src), "+b" (*low), "+b" (*hi), "+b" (n)
-	: 
+        :
+	: "b" (dest), "b" (src), "b" (-*low), "b" (*hi), "b" (n)
 	: "7", "9", "10", "8", "11", "0", "ctr");
 }
 OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16);
@@ -99,7 +98,6 @@ static void
 clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
     int16_t *low, int16_t *hi)
 {
-	low=-low;
 	src--;
 	dest--;
 	__asm__ __volatile__(
@@ -115,8 +113,8 @@ clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 		"	add 9,9,11		\n"
 		"	sthu 9,2(%0)		\n"
 		"	bdnz 1b			\n"
-	: "+b" (dest), "+b" (src), "+b" (*low), "+b" (*hi), "+b" (n)
-	: 
+        :
+	: "b" (dest), "b" (src), "b" (-*low), "b" (*hi), "b" (n)
 	: "9", "10", "8", "11", "0", "ctr");
 }
 OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16);
@@ -130,7 +128,6 @@ static void
 clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
     int16_t *low, int16_t *hi)
 {
-	low=-low;
 	src--;
 	dest--;
 	n/=2;
@@ -157,8 +154,8 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 		"	 add 19,19,21		\n"
 		"	 sthu 19,2(%0)		\n"
 		"	bdnz 1b			\n"
-	: "+b" (dest), "+b" (src), "+b" (*low), "+b" (*hi), "+b" (n)
 	: 
+	: "b" (dest), "b" (src), "b" (-*low), "b" (*hi), "b" (n)
 	: "8", "9", "10", "11", "0",
 	  "18", "19", "20", "21", "22", "ctr");
 }
