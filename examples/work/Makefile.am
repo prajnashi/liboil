@@ -1,5 +1,9 @@
 
+if HAVE_GLIB
 noinst_PROGRAMS = work
+else
+noinst_PROGRAMS = 
+endif
 
 work_SOURCES = work.c
 

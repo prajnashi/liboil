@@ -67,5 +67,8 @@ void oil_test_init_src_arrays (OilTest *test);
 void oil_test_init_dest_arrays (OilTest *test);
 void oil_test_init_params (OilTest *test);
 
+void _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
+    unsigned int pointer_mask, OilProfile *prof);
+
 #endif
 

@@ -119,17 +119,6 @@ oil_test_set_iterations (OilTest *test, int iterations)
 }
 
 static void
-_oil_test_marshal_function (void *func, unsigned long *args, int n_args,
-    unsigned int pointer_mask, OilProfile *prof)
-{
-  oil_profile_start (prof);
-  ((void (*)(int,int,int,int,int,int,int,int,int,int))func)
-    (args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],
-     args[8],args[9]);
-  oil_profile_stop (prof);
-}
-
-static void
 oil_test_check_function (OilTest *test)
 {
   int i;
@@ -151,7 +140,7 @@ oil_test_check_function (OilTest *test)
 
   OIL_LOG("calling reference function %s", test->impl->name);
 
-  pointer_mask = 0;
+  pointer_mask = 1;
   for(i=0;i<test->proto->n_params;i++){
     OilParameter *p;
     j = test->proto->params[i].parameter_type;

@@ -162,7 +162,7 @@ main (int argc, char *argv[])
 
           s = strstr(lines[i],"UBER_INDEX");
           if (s) {
-            g_print("%.*s%d%s\n", (s-lines[i]), lines[i], n_impls, s+10);
+            g_print("%.*s%d%s\n", (int)(s-lines[i]), lines[i], n_impls, s+10);
           } else {
             g_print("%s\n",lines[i]);
           }
@@ -180,7 +180,7 @@ main (int argc, char *argv[])
 
           s = strstr(lines[i],"UBER_INDEX");
           if (s) {
-            g_print("%.*s%d%s\n", (s-lines[i]), lines[i], n_impls, s+10);
+            g_print("%.*s%d%s\n", (int)(s-lines[i]), lines[i], n_impls, s+10);
           } else {
             g_print("%s\n",lines[i]);
           }

@@ -114,7 +114,7 @@ oil_print_impl (OilFunctionImpl *impl, OilTest *test, char* prefix)
     free (c);
   }
   if (impl->profile_ave) {
-    printf ("%s  profile: %g ticks (st.dev. %g)\n", prefix, impl->profile_ave,
+    printf ("%s  profile: %g ticks (std.dev. %g)\n", prefix, impl->profile_ave,
         impl->profile_std);
   }
   if (test && !(impl->flags & OIL_IMPL_FLAG_REF)) {
