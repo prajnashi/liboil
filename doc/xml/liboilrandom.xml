@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
+>
+<refentry id="liboil-liboilrandom">
+<refmeta>
+<refentrytitle>liboilrandom</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBOIL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>liboilrandom</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="oil-rand-s32">oil_rand_s32</link>                    ()
+#define     <link linkend="oil-rand-s32-l31">oil_rand_s32_l31</link>                ()
+#define     <link linkend="oil-rand-s16">oil_rand_s16</link>                    ()
+#define     <link linkend="oil-rand-s16-l15">oil_rand_s16_l15</link>                ()
+#define     <link linkend="oil-rand-s16-l9">oil_rand_s16_l9</link>                 ()
+#define     <link linkend="oil-rand-s16-l8">oil_rand_s16_l8</link>                 ()
+#define     <link linkend="oil-rand-s16-l4">oil_rand_s16_l4</link>                 ()
+#define     <link linkend="oil-rand-s8">oil_rand_s8</link>                     ()
+#define     <link linkend="oil-rand-u32">oil_rand_u32</link>                    ()
+#define     <link linkend="oil-rand-u32-l31">oil_rand_u32_l31</link>                ()
+#define     <link linkend="oil-rand-u16">oil_rand_u16</link>                    ()
+#define     <link linkend="oil-rand-u8">oil_rand_u8</link>                     ()
+#define     <link linkend="oil-rand-f64-0-1">oil_rand_f64_0_1</link>                ()
+#define     <link linkend="oil-rand-f64-s32">oil_rand_f64_s32</link>                ()
+#define     <link linkend="oil-rand-f64-s16">oil_rand_f64_s16</link>                ()
+#define     <link linkend="oil-rand-f64-s8">oil_rand_f64_s8</link>                 ()
+#define     <link linkend="oil-rand-f64-u32">oil_rand_f64_u32</link>                ()
+#define     <link linkend="oil-rand-f64-u16">oil_rand_f64_u16</link>                ()
+#define     <link linkend="oil-rand-f64-u8">oil_rand_f64_u8</link>                 ()
+#define     <link linkend="oil-rand-f32-0-1">oil_rand_f32_0_1</link>                ()
+#define     <link linkend="oil-rand-f32-s32">oil_rand_f32_s32</link>                ()
+#define     <link linkend="oil-rand-f32-s16">oil_rand_f32_s16</link>                ()
+#define     <link linkend="oil-rand-f32-s8">oil_rand_f32_s8</link>                 ()
+#define     <link linkend="oil-rand-f32-u32">oil_rand_f32_u32</link>                ()
+#define     <link linkend="oil-rand-f32-u16">oil_rand_f32_u16</link>                ()
+#define     <link linkend="oil-rand-f32-u8">oil_rand_f32_u8</link>                 ()
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="oil-rand-s32"/>oil_rand_s32()</title>
+<indexterm><primary>oil_rand_s32</primary></indexterm><programlisting>#define oil_rand_s32() ((rand()&amp;0xffff)&lt;&lt;16 | (rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s32-l31"/>oil_rand_s32_l31()</title>
+<indexterm><primary>oil_rand_s32_l31</primary></indexterm><programlisting>#define oil_rand_s32_l31() (((int32_t)rand())-0x40000000)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s16"/>oil_rand_s16()</title>
+<indexterm><primary>oil_rand_s16</primary></indexterm><programlisting>#define oil_rand_s16() ((int16_t)(rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s16-l15"/>oil_rand_s16_l15()</title>
+<indexterm><primary>oil_rand_s16_l15</primary></indexterm><programlisting>#define oil_rand_s16_l15() (oil_rand_s16()&gt;&gt;1)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s16-l9"/>oil_rand_s16_l9()</title>
+<indexterm><primary>oil_rand_s16_l9</primary></indexterm><programlisting>#define oil_rand_s16_l9() (oil_rand_s16()&gt;&gt;7)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s16-l8"/>oil_rand_s16_l8()</title>
+<indexterm><primary>oil_rand_s16_l8</primary></indexterm><programlisting>#define oil_rand_s16_l8() (oil_rand_s16()&gt;&gt;8)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s16-l4"/>oil_rand_s16_l4()</title>
+<indexterm><primary>oil_rand_s16_l4</primary></indexterm><programlisting>#define oil_rand_s16_l4() (oil_rand_s16()&gt;&gt;12)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-s8"/>oil_rand_s8()</title>
+<indexterm><primary>oil_rand_s8</primary></indexterm><programlisting>#define oil_rand_s8() ((int8_t)(rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-u32"/>oil_rand_u32()</title>
+<indexterm><primary>oil_rand_u32</primary></indexterm><programlisting>#define oil_rand_u32() ((rand()&amp;0xffff)&lt;&lt;16 | (rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-u32-l31"/>oil_rand_u32_l31()</title>
+<indexterm><primary>oil_rand_u32_l31</primary></indexterm><programlisting>#define oil_rand_u32_l31() ((uint32_t)rand())
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-u16"/>oil_rand_u16()</title>
+<indexterm><primary>oil_rand_u16</primary></indexterm><programlisting>#define oil_rand_u16() ((uint16_t)(rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-u8"/>oil_rand_u8()</title>
+<indexterm><primary>oil_rand_u8</primary></indexterm><programlisting>#define oil_rand_u8() ((uint8_t)(rand()&amp;0xffff))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-0-1"/>oil_rand_f64_0_1()</title>
+<indexterm><primary>oil_rand_f64_0_1</primary></indexterm><programlisting>#define oil_rand_f64_0_1() (((rand()/(RAND_MAX+1.0))+rand())/(RAND_MAX+1.0))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-s32"/>oil_rand_f64_s32()</title>
+<indexterm><primary>oil_rand_f64_s32</primary></indexterm><programlisting>#define oil_rand_f64_s32() (oil_rand_f64_0_1()*4294967296.0-2147483648.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-s16"/>oil_rand_f64_s16()</title>
+<indexterm><primary>oil_rand_f64_s16</primary></indexterm><programlisting>#define oil_rand_f64_s16() (oil_rand_f64_0_1()*65536.0-32768.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-s8"/>oil_rand_f64_s8()</title>
+<indexterm><primary>oil_rand_f64_s8</primary></indexterm><programlisting>#define oil_rand_f64_s8() (oil_rand_f64_0_1()*256.0-128.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-u32"/>oil_rand_f64_u32()</title>
+<indexterm><primary>oil_rand_f64_u32</primary></indexterm><programlisting>#define oil_rand_f64_u32() (oil_rand_f64_0_1()*4294967296.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-u16"/>oil_rand_f64_u16()</title>
+<indexterm><primary>oil_rand_f64_u16</primary></indexterm><programlisting>#define oil_rand_f64_u16() (oil_rand_f64_0_1()*65536.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f64-u8"/>oil_rand_f64_u8()</title>
+<indexterm><primary>oil_rand_f64_u8</primary></indexterm><programlisting>#define oil_rand_f64_u8() (oil_rand_f64_0_1()*256.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-0-1"/>oil_rand_f32_0_1()</title>
+<indexterm><primary>oil_rand_f32_0_1</primary></indexterm><programlisting>#define oil_rand_f32_0_1() (rand()/(RAND_MAX+1.0))
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-s32"/>oil_rand_f32_s32()</title>
+<indexterm><primary>oil_rand_f32_s32</primary></indexterm><programlisting>#define oil_rand_f32_s32() (oil_rand_f64_0_1()*4294967296.0-2147483648.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-s16"/>oil_rand_f32_s16()</title>
+<indexterm><primary>oil_rand_f32_s16</primary></indexterm><programlisting>#define oil_rand_f32_s16() (oil_rand_f64_0_1()*65536.0-32768.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-s8"/>oil_rand_f32_s8()</title>
+<indexterm><primary>oil_rand_f32_s8</primary></indexterm><programlisting>#define oil_rand_f32_s8() (oil_rand_f64_0_1()*256.0-128.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-u32"/>oil_rand_f32_u32()</title>
+<indexterm><primary>oil_rand_f32_u32</primary></indexterm><programlisting>#define oil_rand_f32_u32() (oil_rand_f64_0_1()*4294967296.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-u16"/>oil_rand_f32_u16()</title>
+<indexterm><primary>oil_rand_f32_u16</primary></indexterm><programlisting>#define oil_rand_f32_u16() (oil_rand_f64_0_1()*65536.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="oil-rand-f32-u8"/>oil_rand_f32_u8()</title>
+<indexterm><primary>oil_rand_f32_u8</primary></indexterm><programlisting>#define oil_rand_f32_u8() (oil_rand_f64_0_1()*256.0)
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

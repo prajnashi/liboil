@@ -96,6 +96,8 @@ fi
 
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
+GTK_DOC_CHECK(1.0)
+
 
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================

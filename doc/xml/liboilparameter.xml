@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
+>
+<refentry id="liboil-liboilparameter">
+<refmeta>
+<refentrytitle>liboilparameter</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBOIL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>liboilparameter</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+enum        <link linkend="OilType">OilType</link>;
+enum        <link linkend="OilArgType">OilArgType</link>;
+            <link linkend="OilParameter">OilParameter</link>;
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="OilType"/>enum OilType</title>
+<indexterm><primary>OilType</primary></indexterm><programlisting>typedef enum {
+  OIL_TYPE_UNKNOWN = 0,
+  OIL_TYPE_INT,
+  OIL_TYPE_s8,
+  OIL_TYPE_u8,
+  OIL_TYPE_s16,
+  OIL_TYPE_u16,
+  OIL_TYPE_s32,
+  OIL_TYPE_u32,
+  OIL_TYPE_f32,
+  OIL_TYPE_f64,
+  OIL_TYPE_s8p,
+  OIL_TYPE_u8p,
+  OIL_TYPE_s16p,
+  OIL_TYPE_u16p,
+  OIL_TYPE_s32p,
+  OIL_TYPE_u32p,
+  OIL_TYPE_f32p,
+  OIL_TYPE_f64p,
+} OilType;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilArgType"/>enum OilArgType</title>
+<indexterm><primary>OilArgType</primary></indexterm><programlisting>typedef enum {
+  OIL_ARG_UNKNOWN = 0,
+  OIL_ARG_N,
+  OIL_ARG_M,
+  OIL_ARG_DEST1,
+  OIL_ARG_DSTR1,
+  OIL_ARG_DEST2,
+  OIL_ARG_DSTR2,
+  OIL_ARG_SRC1,
+  OIL_ARG_SSTR1,
+  OIL_ARG_SRC2,
+  OIL_ARG_SSTR2,
+  OIL_ARG_SRC3,
+  OIL_ARG_SSTR3,
+  OIL_ARG_SRC4,
+  OIL_ARG_SSTR4,
+  OIL_ARG_SRC5,
+  OIL_ARG_SSTR5,
+  OIL_ARG_INPLACE1,
+  OIL_ARG_ISTR1,
+  OIL_ARG_INPLACE2,
+  OIL_ARG_ISTR2,
+
+  OIL_ARG_LAST
+} OilArgType;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilParameter"/>OilParameter</title>
+<indexterm><primary>OilParameter</primary></indexterm><programlisting>typedef struct {
+  char *type_name;
+  char *parameter_name;
+
+  int order;
+  OilType type;
+
+  int direction;
+  int is_pointer;
+  int is_stride;
+  int index;
+  int prestride_length;
+  int prestride_var;
+  int poststride_length;
+  int poststride_var;
+
+  OilArgType parameter_type;
+
+  void *src_data;
+  void *ref_data;
+  void *test_data;
+  unsigned long value;
+
+  int pre_n;
+  int post_n;
+  int stride;
+  int size;
+  int guard;
+} OilParameter;
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
+>
+<refentry id="liboil-liboildebug">
+<refmeta>
+<refentrytitle>liboildebug</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBOIL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>liboildebug</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+<link linkend="void">void</link>        (<link linkend="OilDebugPrintFunc">*OilDebugPrintFunc</link>)            (<link linkend="int">int</link> level,
+                                             const <link linkend="char">char</link> *file,
+                                             const <link linkend="char">char</link> *func,
+                                             <link linkend="int">int</link> line,
+                                             const <link linkend="char">char</link> *format,
+                                             <link linkend="va-list">va_list</link> varargs);
+enum        <link linkend="OilDebugLevel">OilDebugLevel</link>;
+#define     <link linkend="OIL-ERROR:CAPS">OIL_ERROR</link>                       (...)
+#define     <link linkend="OIL-WARNING:CAPS">OIL_WARNING</link>                     (...)
+#define     <link linkend="OIL-INFO:CAPS">OIL_INFO</link>                        (...)
+#define     <link linkend="OIL-DEBUG:CAPS">OIL_DEBUG</link>                       (...)
+#define     <link linkend="OIL-LOG:CAPS">OIL_LOG</link>                         (...)
+#define     <link linkend="OIL-FUNCTION:CAPS">OIL_FUNCTION</link>
+#define     <link linkend="OIL-DEBUG-PRINT:CAPS">OIL_DEBUG_PRINT</link>                 (level, ...)
+<link linkend="void">void</link>        <link linkend="oil-debug-set-print-function">oil_debug_set_print_function</link>    (<link linkend="OilDebugPrintFunc">OilDebugPrintFunc</link> func);
+<link linkend="int">int</link>         <link linkend="oil-debug-get-level">oil_debug_get_level</link>             (void);
+<link linkend="void">void</link>        <link linkend="oil-debug-set-level">oil_debug_set_level</link>             (<link linkend="int">int</link> level);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="OilDebugPrintFunc"/>OilDebugPrintFunc ()</title>
+<indexterm><primary>OilDebugPrintFunc</primary></indexterm><programlisting><link linkend="void">void</link>        (*OilDebugPrintFunc)            (<link linkend="int">int</link> level,
+                                             const <link linkend="char">char</link> *file,
+                                             const <link linkend="char">char</link> *func,
+                                             <link linkend="int">int</link> line,
+                                             const <link linkend="char">char</link> *format,
+                                             <link linkend="va-list">va_list</link> varargs);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>varargs</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OilDebugLevel"/>enum OilDebugLevel</title>
+<indexterm><primary>OilDebugLevel</primary></indexterm><programlisting>typedef enum {
+  OIL_DEBUG_NONE = 0,
+  OIL_DEBUG_ERROR,
+  OIL_DEBUG_WARNING,
+  OIL_DEBUG_INFO,
+  OIL_DEBUG_DEBUG,
+  OIL_DEBUG_LOG
+} OilDebugLevel;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OIL-ERROR:CAPS"/>OIL_ERROR()</title>
+<indexterm><primary>OIL_ERROR</primary></indexterm><programlisting>#define OIL_ERROR(...) OIL_DEBUG_PRINT(OIL_DEBUG_ERROR, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OIL-WARNING:CAPS"/>OIL_WARNING()</title>
+<indexterm><primary>OIL_WARNING</primary></indexterm><programlisting>#define OIL_WARNING(...) OIL_DEBUG_PRINT(OIL_DEBUG_WARNING, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OIL-INFO:CAPS"/>OIL_INFO()</title>
+<indexterm><primary>OIL_INFO</primary></indexterm><programlisting>#define OIL_INFO(...) OIL_DEBUG_PRINT(OIL_DEBUG_INFO, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OIL-DEBUG:CAPS"/>OIL_DEBUG()</title>
+<indexterm><primary>OIL_DEBUG</primary></indexterm><programlisting>#define OIL_DEBUG(...) OIL_DEBUG_PRINT(OIL_DEBUG_DEBUG, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OIL-LOG:CAPS"/>OIL_LOG()</title>
+<indexterm><primary>OIL_LOG</primary></indexterm><programlisting>#define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="OIL-FUNCTION:CAPS"/>OIL_FUNCTION</title>
+<indexterm><primary>OIL_FUNCTION</primary></indexterm><programlisting>#define     OIL_FUNCTION</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OIL-DEBUG-PRINT:CAPS"/>OIL_DEBUG_PRINT()</title>
+<indexterm><primary>OIL_DEBUG_PRINT</primary></indexterm><programlisting>#define     OIL_DEBUG_PRINT(level, ...)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="oil-debug-set-print-function"/>oil_debug_set_print_function ()</title>
+<indexterm><primary>oil_debug_set_print_function</primary></indexterm><programlisting><link linkend="void">void</link>        oil_debug_set_print_function    (<link linkend="OilDebugPrintFunc">OilDebugPrintFunc</link> func);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="oil-debug-get-level"/>oil_debug_get_level ()</title>
+<indexterm><primary>oil_debug_get_level</primary></indexterm><programlisting><link linkend="int">int</link>         oil_debug_get_level             (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="oil-debug-set-level"/>oil_debug_set_level ()</title>
+<indexterm><primary>oil_debug_set_level</primary></indexterm><programlisting><link linkend="void">void</link>        oil_debug_set_level             (<link linkend="int">int</link> level);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

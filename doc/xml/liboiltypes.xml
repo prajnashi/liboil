@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
+>
+<refentry id="liboil-liboiltypes">
+<refmeta>
+<refentrytitle>liboiltypes</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBOIL Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>liboiltypes</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="NULL:CAPS">NULL</link>
+            <link linkend="OilFunctionClass">OilFunctionClass</link>;
+            <link linkend="OilFunctionImpl">OilFunctionImpl</link>;
+            <link linkend="OilParameter">OilParameter</link>;
+            <link linkend="OilTest">OilTest</link>;
+<link linkend="void">void</link>        (<link linkend="OilTestFunction">*OilTestFunction</link>)              (<link linkend="OilTest">OilTest</link> *test);
+#define     <link linkend="type-s8">type_s8</link>
+#define     <link linkend="type-u8">type_u8</link>
+#define     <link linkend="type-s16">type_s16</link>
+#define     <link linkend="type-u16">type_u16</link>
+#define     <link linkend="type-s32">type_s32</link>
+#define     <link linkend="type-u32">type_u32</link>
+#define     <link linkend="type-f32">type_f32</link>
+#define     <link linkend="type-f64">type_f64</link>
+#define     <link linkend="type-min-s8">type_min_s8</link>
+#define     <link linkend="type-min-u8">type_min_u8</link>
+#define     <link linkend="type-min-s16">type_min_s16</link>
+#define     <link linkend="type-min-u16">type_min_u16</link>
+#define     <link linkend="type-min-s32">type_min_s32</link>
+#define     <link linkend="type-min-u32">type_min_u32</link>
+#define     <link linkend="type-max-s8">type_max_s8</link>
+#define     <link linkend="type-max-u8">type_max_u8</link>
+#define     <link linkend="type-max-s16">type_max_s16</link>
+#define     <link linkend="type-max-u16">type_max_u16</link>
+#define     <link linkend="type-max-s32">type_max_s32</link>
+#define     <link linkend="type-max-u32">type_max_u32</link>
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="NULL:CAPS"/>NULL</title>
+<indexterm><primary>NULL</primary></indexterm><programlisting>#define NULL ((void *)0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilFunctionClass"/>OilFunctionClass</title>
+<indexterm><primary>OilFunctionClass</primary></indexterm><programlisting>typedef struct {
+	void *func;
+	const char *name;
+	const char *desc;
+	OilTestFunction test_func;
+
+	OilFunctionImpl *first_impl;
+	OilFunctionImpl *reference_impl;
+
+	OilFunctionImpl *chosen_impl;
+
+	const char *prototype;
+} OilFunctionClass;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilFunctionImpl"/>OilFunctionImpl</title>
+<indexterm><primary>OilFunctionImpl</primary></indexterm><programlisting>typedef struct {
+	void *next;
+	OilFunctionClass *klass;
+	void *func;
+	unsigned int flags;
+	const char *name;
+        double profile_ave;
+        double profile_std;
+} OilFunctionImpl;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilParameter"/>OilParameter</title>
+<indexterm><primary>OilParameter</primary></indexterm><programlisting>typedef struct {
+  char *type_name;
+  char *parameter_name;
+
+  int order;
+  OilType type;
+
+  int direction;
+  int is_pointer;
+  int is_stride;
+  int index;
+  int prestride_length;
+  int prestride_var;
+  int poststride_length;
+  int poststride_var;
+
+  OilArgType parameter_type;
+
+  void *src_data;
+  void *ref_data;
+  void *test_data;
+  unsigned long value;
+
+  int pre_n;
+  int post_n;
+  int stride;
+  int size;
+  int guard;
+} OilParameter;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilTest"/>OilTest</title>
+<indexterm><primary>OilTest</primary></indexterm><programlisting>typedef struct {
+  OilFunctionClass *klass;
+  OilFunctionImpl *impl;
+  OilPrototype *proto;
+  OilParameter params[OIL_ARG_LAST];
+  OilProfile prof;
+
+  int iterations;
+  int n;
+  int m;
+  
+  int inited;
+  int tested_ref;
+
+  double sum_abs_diff;
+  int n_points;
+} OilTest;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="OilTestFunction"/>OilTestFunction ()</title>
+<indexterm><primary>OilTestFunction</primary></indexterm><programlisting><link linkend="void">void</link>        (*OilTestFunction)              (<link linkend="OilTest">OilTest</link> *test);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>test</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="type-s8"/>type_s8</title>
+<indexterm><primary>type_s8</primary></indexterm><programlisting>#define type_s8 int8_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-u8"/>type_u8</title>
+<indexterm><primary>type_u8</primary></indexterm><programlisting>#define type_u8 uint8_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-s16"/>type_s16</title>
+<indexterm><primary>type_s16</primary></indexterm><programlisting>#define type_s16 int16_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-u16"/>type_u16</title>
+<indexterm><primary>type_u16</primary></indexterm><programlisting>#define type_u16 uint16_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-s32"/>type_s32</title>
+<indexterm><primary>type_s32</primary></indexterm><programlisting>#define type_s32 int32_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-u32"/>type_u32</title>
+<indexterm><primary>type_u32</primary></indexterm><programlisting>#define type_u32 uint32_t
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-f32"/>type_f32</title>
+<indexterm><primary>type_f32</primary></indexterm><programlisting>#define type_f32 float
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-f64"/>type_f64</title>
+<indexterm><primary>type_f64</primary></indexterm><programlisting>#define type_f64 double
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-s8"/>type_min_s8</title>
+<indexterm><primary>type_min_s8</primary></indexterm><programlisting>#define type_min_s8 (-128)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-u8"/>type_min_u8</title>
+<indexterm><primary>type_min_u8</primary></indexterm><programlisting>#define type_min_u8 (0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-s16"/>type_min_s16</title>
+<indexterm><primary>type_min_s16</primary></indexterm><programlisting>#define type_min_s16 (-32768)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-u16"/>type_min_u16</title>
+<indexterm><primary>type_min_u16</primary></indexterm><programlisting>#define type_min_u16 (0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-s32"/>type_min_s32</title>
+<indexterm><primary>type_min_s32</primary></indexterm><programlisting>#define type_min_s32 (-2147483647 - 1)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-min-u32"/>type_min_u32</title>
+<indexterm><primary>type_min_u32</primary></indexterm><programlisting>#define type_min_u32 (0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-s8"/>type_max_s8</title>
+<indexterm><primary>type_max_s8</primary></indexterm><programlisting>#define type_max_s8 (127)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-u8"/>type_max_u8</title>
+<indexterm><primary>type_max_u8</primary></indexterm><programlisting>#define type_max_u8 (255)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-s16"/>type_max_s16</title>
+<indexterm><primary>type_max_s16</primary></indexterm><programlisting>#define type_max_s16 (32767)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-u16"/>type_max_u16</title>
+<indexterm><primary>type_max_u16</primary></indexterm><programlisting>#define type_max_u16 (65535)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-s32"/>type_max_s32</title>
+<indexterm><primary>type_max_s32</primary></indexterm><programlisting>#define type_max_s32 (2147483647)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="type-max-u32"/>type_max_u32</title>
+<indexterm><primary>type_max_u32</primary></indexterm><programlisting>#define type_max_u32 (4294967295U)
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,7 +1,7 @@
 
 SUBDIRS = liboil testsuite examples doc
 
-EXTRA_DIST = COPYING autogen.sh
+EXTRA_DIST = COPYING autogen.sh gtk-doc.make
 
 pkgconfig_DATA = liboil-$(LIBOIL_MAJORMINOR).pc
 

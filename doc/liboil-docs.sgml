@@ -1,17 +1,8 @@
-<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
-<!ENTITY liboil SYSTEM "sgml/liboil.sgml">
-<!ENTITY liboilcpu SYSTEM "sgml/liboilcpu.sgml">
-<!ENTITY liboildebug SYSTEM "sgml/liboildebug.sgml">
-<!ENTITY liboilfuncs-doc SYSTEM "sgml/liboilfuncs-doc.sgml">
-<!ENTITY liboilfunction SYSTEM "sgml/liboilfunction.sgml">
-<!ENTITY liboilparameter SYSTEM "sgml/liboilparameter.sgml">
-<!ENTITY liboilprofile SYSTEM "sgml/liboilprofile.sgml">
-<!ENTITY liboilprototype SYSTEM "sgml/liboilprototype.sgml">
-<!ENTITY liboilrandom SYSTEM "sgml/liboilrandom.sgml">
-<!ENTITY liboiltest SYSTEM "sgml/liboiltest.sgml">
-
-]>
-<book id="index">
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"
+>
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
     <title>Liboil Reference Manual</title>
   </bookinfo>
@@ -24,8 +15,8 @@
       during the lifetime of the 0.3 series.
     </para>
 
-    &liboil;
-    &liboilfuncs-doc;
+    <xi:include href="xml/liboil.xml"/>
+    <xi:include href="xml/liboilfuncs-doc.xml"/>
 
   </chapter>
   <chapter>
@@ -38,13 +29,13 @@
       may be moved to the stable API during the 0.3 series.
     </para>
 
-    &liboilcpu;
-    &liboildebug;
-    &liboilfunction;
-    &liboilparameter;
-    &liboilprofile;
-    &liboilprototype;
-    &liboilrandom;
-    &liboiltest;
+    <xi:include href="xml/liboilcpu.xml"/>
+    <xi:include href="xml/liboildebug.xml"/>
+    <xi:include href="xml/liboilfunction.xml"/>
+    <xi:include href="xml/liboilparameter.xml"/>
+    <xi:include href="xml/liboilprofile.xml"/>
+    <xi:include href="xml/liboilprototype.xml"/>
+    <xi:include href="xml/liboilrandom.xml"/>
+    <xi:include href="xml/liboiltest.xml"/>
   </chapter>
 </book>

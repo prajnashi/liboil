@@ -1,3 +1,26 @@
+2005-03-16  David Schleef  <ds@schleef.org>
+
+	* Makefile.am: upgrade gtk-doc stuff, convert to XML
+	* configure.ac:
+	* doc/Makefile.am:
+	* doc/build_prototypes_doc.c:
+	* doc/liboil-docs.sgml:
+	* doc/liboil-sections.txt:
+	* doc/xml/liboil-doc.bottom: move sgml files here
+	* doc/xml/liboil.xml:
+	* doc/xml/liboilcpu.xml:
+	* doc/xml/liboildebug.xml:
+	* doc/xml/liboilfuncs-doc.xml:
+	* doc/xml/liboilfunction.xml:
+	* doc/xml/liboilparameter.xml:
+	* doc/xml/liboilprofile.xml:
+	* doc/xml/liboilprototype.xml:
+	* doc/xml/liboilrandom.xml:
+	* doc/xml/liboiltest.xml:
+	* doc/xml/liboiltypes.xml:
+	* doc/xml/object_index.sgml:
+	* doc/xml/tree_index.sgml:
+
 2005-03-01  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add utf8
