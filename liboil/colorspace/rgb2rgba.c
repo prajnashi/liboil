@@ -41,23 +41,3 @@ rgb2rgba_ref (uint8_t *dest, uint8_t* src, int n)
 
 OIL_DEFINE_IMPL_REF (rgb2rgba_ref, rgb2rgba);
 
-#ifdef HAVE_CPU_POWERPC
-static void
-rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
-{
-  n /= 3;
-  dest -= 4;
-  asm volatile (
-	"	mtctr %2		\n"
-	"1:	lswi 10, %1, 3		\n"
-	"	addi %1, %1, 3		\n"
-	"	ori 10, 10, 0xFF	\n"
-	"	stwu 10, 4(%0)		\n"
-	"	bdnz 1b			\n"
-      : "+b" (dest), "+b" (src)
-      : "b" (n)
-      : "10", "ctr");
-}
-
-OIL_DEFINE_IMPL (rgb2rgba_ppc, rgb2rgba);
-#endif

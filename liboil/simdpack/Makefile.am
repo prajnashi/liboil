@@ -7,10 +7,9 @@ endif
 
 noinst_LTLIBRARIES = libsimdpack.la $(opt_libs)
 
-libsimdpack_la_SOURCES = \
+c_sources = \
 	abs.c \
-	abs_u16_s16.c \
-	abs_u32_s32.c \
+	abs_misc.c \
 	average2_u8.c \
 	clip_ref.c \
 	clip_s16.c \
@@ -26,16 +25,35 @@ libsimdpack_la_SOURCES = \
 	squaresum_f64.c \
 	sum_f64.c \
 	vectoradd_f64.c
+
+if HAVE_CPU_I386
+i386_sources = \
+	abs_i386.c
+else
+i386_sources =
+endif
+
+if HAVE_CPU_POWERPC
+powerpc_sources = \
+	abs_powerpc.c \
+	clip_powerpc.c \
+	mix_powerpc.c \
+	multsum_powerpc.c \
+	sad8x8_powerpc.c
+else
+powerpc_sources =
+endif
+
+libsimdpack_la_SOURCES = \
+	$(c_sources) $(i386_sources) $(powerpc_sources)
 libsimdpack_la_LIBADD = \
 	$(opt_libs)
-
-libsimdpack_opt1_la_SOURCES = $(libsimdpack_la_SOURCES)
+libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)
 
 noinst_HEADERS = \
 	simdpack.h
 
-libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)
-
+libsimdpack_opt1_la_SOURCES = $(c_sources)
 libsimdpack_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) \
 	$(LIBOIL_OPT_CFLAGS)
 

@@ -1,5 +1,34 @@
 2004-12-03  David Schleef  <ds@schleef.org>
 
+	Move asm code into arch-specific files.
+	* liboil/colorspace/Makefile.am:
+	* liboil/colorspace/rgb2bgr.c:
+	* liboil/colorspace/rgb2bgr_powerpc.c:
+	* liboil/colorspace/rgb2rgba.c:
+	* liboil/colorspace/rgb2rgba_powerpc.c:
+	* liboil/conv/conv_misc.c:
+	* liboil/conv/conv_powerpc.c:
+	* liboil/copy/Makefile.am:
+	* liboil/dct/Makefile.am:
+	* liboil/jpeg/Makefile.am:
+	* liboil/md5/Makefile.am:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/abs_i386.c:
+	* liboil/simdpack/abs_misc.c:
+	* liboil/simdpack/abs_powerpc.c:
+	* liboil/simdpack/abs_u16_s16.c:
+	* liboil/simdpack/abs_u32_s32.c:
+	* liboil/simdpack/clip_powerpc.c:
+	* liboil/simdpack/clip_s16.c:
+	* liboil/simdpack/mix_powerpc.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/multsum_powerpc.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/sad8x8_powerpc.c:
+
+2004-12-03  David Schleef  <ds@schleef.org>
+
 	* configure.ac: move conv code to its own directory
 	* liboil/Makefile.am:
 	* liboil/conv.h:

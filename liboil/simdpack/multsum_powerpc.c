@@ -21,27 +21,30 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/simdpack/simdpack.h>
+#include <math.h>
 
-/* important: 
- * this function is supposed to work if dest == src 
- * if dest and src overlap in another way, the behaviour is undefined */
-OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
 
-static void
-rgb2bgr_ref (uint8_t *dest, uint8_t* src, int n)
+/* This could probably be improved by unrolling */
+static void multsum_f32_ppcasm(float *dest, float *src1, int sstr1,
+    float *src2, int sstr2, int n)
 {
-  int i;
-  uint8_t tmp;
-  
-  for (i = 0; i < n; i++) {
-    tmp = src[2];
-    dest[1] = src[1];
-    dest[2] = src[0];
-    dest[0] = tmp;
-    dest += 3;
-    src += 3;
-  }
+	asm __volatile__("\n"
+		"	lfs f0, 0(%0)\n"
+		"	lfs f1, 0(%1)\n"
+		"	fmuls f2, f0, f1\n"
+		"	addi %2, %2, -1\n"
+		"	mtctr %2\n"
+		"1:	lfsu f0, 4(%0)\n"
+		"	lfsu f1, 4(%1)\n"
+		"	fmadds f2,f0,f1,f2\n"
+		"	bdnz 1b\n"
+		"	stfs f2, 0(%3)\n"
+	: "+b" (src1), "+b" (src2), "+b" (n)
+	: "b" (dest)
+	: "32", "33", "34", "ctr");
 }
+OIL_DEFINE_IMPL (multsum_f32_ppcasm, multsum_f32);
 
-OIL_DEFINE_IMPL_REF (rgb2bgr_ref, rgb2bgr);
+
 

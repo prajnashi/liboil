@@ -6,12 +6,24 @@ opt_libs =
 endif
 noinst_LTLIBRARIES = libcolorspace.la $(opt_libs)
 
-libcolorspace_la_SOURCES = 	\
+c_sources = \
 	rgb2bgr.c 		\
 	rgb2rgba.c
+
+if HAVE_CPU_POWERPC
+powerpc_sources = \
+	rgb2bgr_powerpc.c \
+	rgb2rgba_powerpc.c
+else
+powerpc_sources =
+endif
+
+libcolorspace_la_SOURCES = 	\
+	$(c_sources) \
+	$(powerpc_sources)
 libcolorspace_la_LIBADD = $(opt_libs)
 libcolorspace_la_CFLAGS = $(LIBOIL_CFLAGS)
 
-libcolorspace_opt1_la_SOURCES = $(libcolorspace_la_SOURCES)
+libcolorspace_opt1_la_SOURCES = $(c_sources)
 libcolorspace_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) $(LIBOIL_OPT_CFLAGS)
 

@@ -25,67 +25,6 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
-#if 0
-static void
-abs_u16_s16_ref (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
-{
-  int i;
-
-  for (i = 0; i < n; i++) {
-    OIL_GET (dest, dstr * i, uint16_t) =
-      ABS (OIL_GET (src, sstr * i, uint16_t));
-  }
-}
-
-OIL_DEFINE_IMPL_REF (abs_u16_s16_ref, abs_u16_s16);
-#endif
-
-static void
-abs_u16_s16_unroll4 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
-{
-  while (n & 3) {
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    n--;
-  }
-  while (n > 0) {
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-    n -= 4;
-  }
-}
-
-OIL_DEFINE_IMPL (abs_u16_s16_unroll4, abs_u16_s16);
-
-static void
-abs_u16_s16_fast (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
-{
-  int i;
-  int16_t x, y;
-
-  for (i = 0; i < n; i++) {
-    x = *src;
-    y = ((x >> 15) & x);
-    *dest = x - y - y;
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-  }
-}
-
-OIL_DEFINE_IMPL (abs_u16_s16_fast, abs_u16_s16);
-
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -106,9 +45,7 @@ abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm, abs_u16_s16);
-#endif
 
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -132,11 +69,9 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm2, abs_u16_s16);
-#endif
 
 #if 0
 /* This doesn't work in PIC mode */
-#ifdef HAVE_CPU_I386
 /* Weave two threads */
 static void
 abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -177,9 +112,7 @@ abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm3, abs_u16_s16);
 #endif
-#endif
 
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -231,9 +164,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
-#endif
 
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -278,9 +209,7 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
-#endif
 
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -316,9 +245,7 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16, OIL_IMPL_REQUIRES_MMXEXT);
-#endif
 
-#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -348,34 +275,4 @@ abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16, OIL_IMPL_REQUIRES_SSE2);
-#endif
-
-#ifdef HAVE_CPU_POWERPC
-static void
-abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
-    int n)
-{
-  int i;
-
-  for (i = n & ~0x7; i < n; i++) {
-    *dest = ABS (*src);
-    OIL_INCREMENT (dest, dstr);
-    OIL_INCREMENT (src, sstr);
-  }
-  n /= 8;
-  __asm__ __volatile__ ("\n"
-      "	li %%r10, 0			\n"
-      "	vxor %%v2, %%v2, %%v2		\n"
-      "	mtctr %2			\n"
-      "1:	lvx %%v0,%%r10,%1		\n"
-      "	vsubshs %%v1, %%v2, %%v0	\n"
-      "	vmaxsh %%v1, %%v1, %%v0		\n"
-      "	stvx %%v1,%%r10,%0		\n"
-      "	addi %%r10, %%r10, 16		\n"
-      "	bdnz 1b				\n":"+b" (dest), "+b" (src), "+b" (n)
-      ::"10", "ctr");
-}
-
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_a16_altivec, abs_u16_s16, OIL_IMPL_REQUIRES_ALTIVEC);
-#endif
 

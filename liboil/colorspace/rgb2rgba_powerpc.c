@@ -22,26 +22,21 @@
 
 #include <liboil/liboilfunction.h>
 
-/* important: 
- * this function is supposed to work if dest == src 
- * if dest and src overlap in another way, the behaviour is undefined */
-OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
-
 static void
-rgb2bgr_ref (uint8_t *dest, uint8_t* src, int n)
+rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
 {
-  int i;
-  uint8_t tmp;
-  
-  for (i = 0; i < n; i++) {
-    tmp = src[2];
-    dest[1] = src[1];
-    dest[2] = src[0];
-    dest[0] = tmp;
-    dest += 3;
-    src += 3;
-  }
+  n /= 3;
+  dest -= 4;
+  asm volatile (
+	"	mtctr %2		\n"
+	"1:	lswi 10, %1, 3		\n"
+	"	addi %1, %1, 3		\n"
+	"	ori 10, 10, 0xFF	\n"
+	"	stwu 10, 4(%0)		\n"
+	"	bdnz 1b			\n"
+      : "+b" (dest), "+b" (src)
+      : "b" (n)
+      : "10", "ctr");
 }
 
-OIL_DEFINE_IMPL_REF (rgb2bgr_ref, rgb2bgr);
-
+OIL_DEFINE_IMPL (rgb2rgba_ppc, rgb2rgba);
