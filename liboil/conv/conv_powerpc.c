@@ -19,12 +19,25 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil.h>
+#include <liboil/liboilfunction.h>
 
+/* FIXME move these to a header */
+OIL_DECLARE_CLASS(clipconv_s8_f32);
+OIL_DECLARE_CLASS(clipconv_u8_f32);
+OIL_DECLARE_CLASS(clipconv_s16_f32);
+OIL_DECLARE_CLASS(clipconv_u16_f32);
+OIL_DECLARE_CLASS(clipconv_s32_f32);
+OIL_DECLARE_CLASS(clipconv_u32_f32);
+OIL_DECLARE_CLASS(clipconv_s8_f64);
+OIL_DECLARE_CLASS(clipconv_u8_f64);
+OIL_DECLARE_CLASS(clipconv_s16_f64);
+OIL_DECLARE_CLASS(clipconv_u16_f64);
+OIL_DECLARE_CLASS(clipconv_s32_f64);
+OIL_DECLARE_CLASS(clipconv_u32_f64);
 
 #define DEFINE_CLIPCONVERT_POWERPC(dsttype,srctype,minval,maxval,insn1,insn2)					\
-void clipconvert_##dsttype##_##srctype##_powerpc(oil_type_##dsttype *dst,	\
-	int dst_stride, oil_type_##srctype *src, int src_stride, int n)		\
+void clipconv_##dsttype##_##srctype##_powerpc(type_##dsttype *dst,	\
+	int dst_stride, type_##srctype *src, int src_stride, int n)		\
 {									\
 	double min = (minval);						\
 	double max = (maxval);						\
@@ -48,21 +61,21 @@ void clipconvert_##dsttype##_##srctype##_powerpc(oil_type_##dsttype *dst,	\
 	  "r" (dst_stride)						\
 	: "32", "33", "11", "ctr" );					\
 } \
-OIL_DEFINE_IMPL_ASM(clipconvert_##dsttype##_##srctype##_powerpc, \
-    clipconvert_##dsttype##_##srctype);
+OIL_DEFINE_IMPL_ASM(clipconv_##dsttype##_##srctype##_powerpc, \
+    clipconv_##dsttype##_##srctype);
 
-#define LFDUX	"1:	lfdux 0,%6,%1		\n"
-#define LFSUX	"1:	lfsux 0,%6,%1		\n"
+#define LFDUX	"1:	lfdux 0,%1,%6		\n"
+#define LFSUX	"1:	lfsux 0,%1,%6		\n"
 
 #define LBZ_STBUX \
 		"	lbz 11,7(%5)		\n" \
-		"	stbux 11,%7,%0		\n"
+		"	stbux 11,%0,%7		\n"
 #define LHZ_STHUX \
 		"	lhz 11,7(%5)		\n" \
-		"	sthux 11,%7,%0		\n"
+		"	sthux 11,%0,%7		\n"
 #define LWZ_STWUX \
 		"	lwz 11,7(%5)		\n" \
-		"	stwux 11,%7,%0		\n"
+		"	stwux 11,%0,%7		\n"
 
 DEFINE_CLIPCONVERT_POWERPC(s8,f32, -128.0, 127.0, LFSUX, LBZ_STBUX)
 DEFINE_CLIPCONVERT_POWERPC(u8,f32, 0.0, 255.0, LFSUX, LBZ_STBUX)
@@ -79,8 +92,8 @@ DEFINE_CLIPCONVERT_POWERPC(s32,f64, -2147483648.0, 2147483647.0, LFDUX, LWZ_STWU
 DEFINE_CLIPCONVERT_POWERPC(u32,f64, 0.0, 4294967295.0, LFDUX, LWZ_STWUX)
 
 
-#if defined(SL_COMPILE_FEATURE_POWERPC_ALTIVEC)
-SL_FUNC void _sl_clipconvert_S8_F32__powerpc_altivec(
+#if 0
+SL_FUNC void _sl_clipconv_S8_F32__powerpc_altivec(
         int8_t *dst, int dst_stride, float *src, int src_stride, int n)
 {
 	static uint8_t vec[16] __attribute__ ((__aligned__ (16)));
@@ -128,7 +141,7 @@ SL_FUNC void _sl_clipconvert_S8_F32__powerpc_altivec(
 	}
 }
 
-SL_FUNC void _sl_clipconvert_S16_F32__powerpc_altivec(
+SL_FUNC void _sl_clipconv_S16_F32__powerpc_altivec(
         int16_t *dst, int dst_stride, float *src, int src_stride, int n)
 {
 	static uint8_t vec[16] __attribute__ ((__aligned__ (16)));
@@ -223,12 +236,11 @@ SL_FUNC void _sl_clipconvert_S32_F32__powerpc_altivec(
 		(void *)dst += dst_stride;
 	}
 }
-#endif
 
 
 static void
-convert_s16_f64__powerpc(
-        int16_t *dst, int dst_stride, double *src, int src_stride, int n)
+convert_s16_f64__powerpc(int16_t *dst, int dst_stride, double *src,
+    int src_stride, int n)
 {
 	double ftmp;
 	
@@ -247,8 +259,8 @@ convert_s16_f64__powerpc(
 	: "32", "33", "11", "ctr" );
 }
 
- SL_FUNC void _sl_convert_S16_F32__powerpc(
-        int16_t *dst, int dst_stride, float *src, int src_stride, int n)
+static void
+_sl_convert_S16_F32__powerpc(int16_t *dst, int dst_stride, float *src, int src_stride, int n)
 {
 	double ftmp;
 	
@@ -267,7 +279,6 @@ convert_s16_f64__powerpc(
 	: "32", "33", "11", "ctr" );
 }
 
-#endif
 
 void conv_f64_s16_altivec(double *dest, int dest_stride, short *src,
 	int src_stride, int n)
@@ -298,10 +309,13 @@ void conv_f64_s16_altivec(double *dest, int dest_stride, short *src,
 	}
 }
 OIL_DEFINE_IMPL_ASM (conv_f64_s16_altivec, conv_f64_s16);
+#endif
 
 
 /* double to short */
 
+/* FIXME wrong prototype */
+#if 0
 void clipconv_s16_f64_ppcasm(short *dest, double *src, int n)
 {
 	int tmp[2];
@@ -335,5 +349,6 @@ void clipconv_s16_f64_ppcasm(short *dest, double *src, int n)
 	  "r5" );
 }
 OIL_DEFINE_IMPL_ASM (clipconv_s16_f64_ppcasm, clipconv_s16_f64);
+#endif
 
 

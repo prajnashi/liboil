@@ -1,5 +1,18 @@
 2004-12-03  David Schleef  <ds@schleef.org>
 
+	Compile and segfault fixes.
+	* liboil/colorspace/rgb2bgr_powerpc.c: (rgb2bgr_ppc):
+	* liboil/colorspace/rgb2rgba_powerpc.c:
+	* liboil/conv/conv_powerpc.c:
+	(_sl_clipconv_S8_F32__powerpc_altivec),
+	(_sl_clipconv_S16_F32__powerpc_altivec),
+	(_sl_clipconvert_S32_F32__powerpc_altivec),
+	(convert_s16_f64__powerpc), (_sl_convert_S16_F32__powerpc):
+	* liboil/copy/copy.c: (copy_u8_ptr), (copy_u8_ints):
+	* liboil/simdpack/sad8x8_powerpc.c:
+
+2004-12-03  David Schleef  <ds@schleef.org>
+
 	* liboil/conv/conv_powerpc.c: (convert_s16_f64__powerpc): fix up
 	some powerpc asm code.  probably doesn't compile.
 	* liboil/liboilfunction.c: (oil_init): bump debugging

@@ -22,6 +22,8 @@
 
 #include <liboil/liboilfunction.h>
 
+OIL_DECLARE_CLASS (rgb2rgba);
+
 static void
 rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
 {

@@ -25,6 +25,7 @@
 #include <math.h>
 
 
+#if 0
 static void
 sad8x8_s16_a16_altivec (uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
 {
@@ -172,5 +173,6 @@ sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, int s1s
 	);
 	*dest = x[3];
 }
+#endif
 
 

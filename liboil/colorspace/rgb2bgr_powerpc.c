@@ -21,12 +21,18 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilfuncs.h>
+
+OIL_DECLARE_CLASS (rgb2bgr);
 
 static void
 rgb2bgr_ppc (uint8_t *dest, uint8_t* src, int n)
 {
   if (n&3) {
+#if 0
+    /* FIXME */
     rgb2bgr_ref (dest, src, n&3);
+#endif
     dest += 3 * (n&3);
     src += 3 * (n&3);
   }

@@ -43,4 +43,29 @@ copy_u8_libc (uint8_t *dest, uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL (copy_u8_libc, copy_u8);
 
+static void
+copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
+{
+  while(n--) {
+    *dest++ = *src++;
+  }
+}
+OIL_DEFINE_IMPL_REF (copy_u8_ptr, copy_u8);
+
+static void
+copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
+{
+  int i;
+  for(i=0;i<(n&3);i++){
+    *dest++ = *src++;
+  }
+  n >>= 2;
+  for(i=0;i<n;i++){
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+  }
+}
+OIL_DEFINE_IMPL_REF (copy_u8_ints, copy_u8);
+
 
