@@ -21,6 +21,8 @@ struct _OilString {
   char *data;
 };
 
+static char * _strndup (const char *s, int n);
+
 static OilString *oil_string_new (const char *a);
 static void oil_string_append (OilString *s, const char *a);
 static char * oil_string_free (OilString *s, int free_seg);
@@ -131,7 +133,7 @@ static char * parse_string (const char *s, const char **endptr)
   }
   *endptr = s;
 
-  return strndup(s0, s - s0);
+  return _strndup(s0, s - s0);
 }
 
 void
@@ -192,5 +194,17 @@ oil_string_free (OilString *s, int free_seg)
     return NULL;
   }
   return data;
+}
+
+
+static char *
+_strndup (const char *s, int n)
+{
+  char *r;
+  r = malloc (n+1);
+  memcpy(r,s,n);
+  r[n]=0;
+
+  return r;
 }
 
