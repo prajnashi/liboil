@@ -28,7 +28,9 @@ c_sources = \
 
 if HAVE_CPU_I386
 i386_sources = \
-	abs_i386.c
+	abs_i386.c \
+	mult8x8_i386.c \
+	scalarmult_i386.c
 else
 i386_sources =
 endif

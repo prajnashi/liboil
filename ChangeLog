@@ -1,3 +1,15 @@
+2004-12-06  David Schleef  <ds@schleef.org>
+
+	* liboil/copy/Makefile.am: add copy_i386
+	* liboil/copy/copy_i386.c: (copy_u8_mmx), (copy_u8_mmx2): some mmx
+	implementations
+	* liboil/simdpack/Makefile.am: add _i386 sources
+	* liboil/simdpack/mult8x8_i386.c: (mult8x8_s16_mmx): new impls
+	* liboil/simdpack/mult8x8_s16.c: (mult8x8_s16_ref): should have
+	been added earlier
+	* liboil/simdpack/scalarmult_i386.c: (scalarmult_f32_sse): new
+	impls
+
 2004-12-05  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add uberopt

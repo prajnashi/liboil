@@ -16,6 +16,7 @@ endif
 
 if HAVE_CPU_I386
 i386_sources = \
+	copy_i386.c \
 	trans8x8_i386.c
 else
 i386_sources =
