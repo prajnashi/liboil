@@ -1,3 +1,37 @@
+2004-12-23  David Schleef  <ds@schleef.org>
+
+	Clean up API.
+	* examples/md5/md5sum.c:
+	* examples/oil-inspect.c: (oil_print_impl), (oil_print_all):
+	* examples/work/work.c:
+	* liboil/build_prototypes.c: (main), (print_header),
+	(print_footer):
+	* liboil/liboil.h:
+	* liboil/liboilcpu.c: (_oil_cpu_init), (oil_cpu_get_flags):
+	* liboil/liboilcpu.h:
+	* liboil/liboildebug.c: (_oil_debug_init),
+	(oil_debug_print_valist), (_oil_debug_print),
+	(oil_debug_get_level), (oil_debug_set_level),
+	(oil_debug_set_print_function):
+	* liboil/liboildebug.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilfunction.c: (oil_optimize_all),
+	(oil_class_get_n_classes), (oil_class_get_by_index),
+	(oil_impl_get_by_index), (oil_class_get), (oil_class_optimize),
+	(oil_init_pointers), (oil_init_structs):
+	* liboil/liboilfunction.h:
+	* liboil/liboilprototype.c:
+	* liboil/liboiltest.c:
+	* testsuite/abs.c:
+	* testsuite/copy.c:
+	* testsuite/introspect.c: (main):
+	* testsuite/md5.c:
+	* testsuite/md5_profile.c:
+	* testsuite/proto1.c: (main):
+	* testsuite/proto2.c: (main):
+	* testsuite/test1.c: (main):
+	* testsuite/trans.c:
+
 2004-12-22  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add examples/work

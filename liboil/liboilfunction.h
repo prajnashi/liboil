@@ -139,17 +139,13 @@ LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
 
-extern unsigned int oil_arch_flags;
-extern int oil_n_function_impls;
-extern int oil_n_function_classes;
-
-void oil_init (void);
 void oil_optimize_all (void);
 void oil_optimize (const char *class_name);
 
 OilFunctionClass * oil_class_get_by_index (int i);
 OilFunctionClass *oil_class_get (const char *class_name);
 void oil_class_optimize (OilFunctionClass *klass);
+int oil_class_get_n_classes (void);
 
 OilFunctionImpl * oil_impl_get_by_index (int i);
 

@@ -28,6 +28,11 @@
 #ifndef _LIBOIL_DEBUG_H_
 #define _LIBOIL_DEBUG_H_
 
+#include <stdarg.h>
+
+typedef void (*OilDebugPrintFunc) (int level, const char *file,
+    const char *func, int line, const char *format, va_list varargs);
+
 enum {
   OIL_DEBUG_NONE = 0,
   OIL_DEBUG_ERROR,
@@ -43,23 +48,25 @@ enum {
 #define OIL_DEBUG(...) OIL_DEBUG_PRINT(OIL_DEBUG_DEBUG, __VA_ARGS__)
 #define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
 
-#ifndef __PRETTY_FUNCTION__
-#define __PRETTY_FUNCTION__ ""
+#ifdef __PRETTY_FUNCTION__
+#define OIL_FUNCTION __PRETTY_FUNCTION__
+#elif defined(__func__)
+#define OIL_FUNCTION __func__
+#else
+#define OIL_FUNCTION ""
 #endif
 
 #define OIL_DEBUG_PRINT(level, ...) do { \
-  if(_oil_debug_enabled) { \
-    oil_debug_print((level), __FILE__, __PRETTY_FUNCTION__, __LINE__, \
-	__VA_ARGS__); \
-  } \
+  _oil_debug_print((level), __FILE__, OIL_FUNCTION, __LINE__, __VA_ARGS__); \
 }while(0)
 
-extern int _oil_debug_enabled;
-extern int _oil_debug_level;
+void oil_debug_set_print_function (OilDebugPrintFunc func);
+int oil_debug_get_level (void);
+void oil_debug_set_level (int level);
 
 void _oil_debug_init (void);
 
-void oil_debug_print (int level, const char *file, const char *func,
+void _oil_debug_print (int level, const char *file, const char *func,
     int line, const char *format, ...);
 
 #endif

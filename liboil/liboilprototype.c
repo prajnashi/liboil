@@ -25,14 +25,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <liboil/liboil.h>
 #include <liboil/liboilprototype.h>
+#include <liboil/liboildebug.h>
 
 #ifndef FALSE
 #define FALSE 0

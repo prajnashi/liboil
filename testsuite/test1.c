@@ -45,12 +45,16 @@ int main (int argc, char *argv[])
   OilFunctionImpl *impl;
   OilTest *test;
   int i;
+  int n;
   //int j;
   int ret;
+  unsigned int cpu_flags;
 
   oil_init ();
 
-  for (i=0;i<oil_n_function_classes; i++ ){
+  cpu_flags = oil_cpu_get_flags ();
+  n = oil_class_get_n_classes ();
+  for (i=0;i<n; i++ ){
     klass = oil_class_get_by_index(i);
 
     printf("%s\n", klass->name);
@@ -63,7 +67,7 @@ int main (int argc, char *argv[])
 
     for (impl = klass->first_impl; impl; impl = impl->next) {
       printf("  %s\n", impl->name);
-      if ((impl->flags & OIL_CPU_FLAG_MASK) & ~oil_cpu_flags) {
+      if ((impl->flags & OIL_CPU_FLAG_MASK) & ~cpu_flags) {
         printf("    not supported\n");
       } else {
         oil_test_set_impl (test, impl);

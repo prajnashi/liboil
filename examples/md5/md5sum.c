@@ -33,7 +33,7 @@
 
 #include <stdio.h>
 #include <liboil/liboil.h>
-#include <liboil/liboilfuncs.h>
+#include <liboil/liboilfunction.h>
 #include <string.h>
 #include <stdlib.h>
 

@@ -27,7 +27,7 @@
 
 
 #include <liboil/liboil.h>
-#include <liboil/liboilfuncs.h>
+#include <liboil/liboilfunction.h>
 #include <glib.h>
 
 void test(void)

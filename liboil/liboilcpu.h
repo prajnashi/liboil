@@ -28,9 +28,8 @@
 #ifndef _LIBOIL_CPU_H_
 #define _LIBOIL_CPU_H_
 
-extern unsigned long oil_cpu_flags;
-
 void _oil_cpu_init (void);
+unsigned int oil_cpu_get_flags (void);
 
 #endif
 

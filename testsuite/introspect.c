@@ -28,6 +28,7 @@
 
 #include <stdio.h>
 #include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,11 +40,13 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
   int i;
+  int n;
   int errors = 0;
 
   oil_init ();
 
-  for (i=0;i<oil_n_function_classes; i++ ){
+  n = oil_class_get_n_classes ();
+  for (i=0;i<n; i++ ){
     int ref=0;
 
     klass = oil_class_get_by_index (i);

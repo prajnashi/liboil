@@ -42,10 +42,12 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   int i;
   int j;
+  int n;
 
   oil_init ();
 
-  for (i=0;i<oil_n_function_classes; i++ ){
+  n = oil_class_get_n_classes ();
+  for (i=0;i<n; i++ ){
     klass = oil_class_get_by_index(i);
 
     if(klass->prototype) {

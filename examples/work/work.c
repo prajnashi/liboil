@@ -31,6 +31,7 @@
 #endif
 
 #include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
 #include <liboil/liboilrandom.h>
 #include <glib.h>
 #include <string.h>

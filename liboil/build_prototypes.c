@@ -42,13 +42,15 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   OilPrototype *proto;
   int i;
+  int n;
   char *string;
 
   oil_init ();
 
   print_header ();
 
-  for (i=0;i<oil_n_function_classes; i++ ){
+  n = oil_class_get_n_classes ();
+  for (i=0;i<n; i++ ){
     klass = oil_class_get_by_index (i);
 
     if(klass->prototype) {
@@ -59,7 +61,7 @@ int main (int argc, char *argv[])
         printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
             klass->name);
         printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
-        printf ("#define oil_%s ((_oil_type_%s)oil_function_class_ptr_%s->func)\n",
+        printf ("#define oil_%s ((_oil_type_%s)(*(void **)oil_function_class_ptr_%s))\n",
             klass->name, klass->name, klass->name);
 
         oil_prototype_free (proto);
@@ -109,12 +111,22 @@ void print_header (void)
   printf ("#ifndef _LIBOIL_FUNCS_H_\n");
   printf ("#define _LIBOIL_FUNCS_H_\n");
   printf ("\n");
+  printf ("#include <liboil/liboiltypes.h>\n");
+  printf ("\n");
+  printf ("#ifdef __cplusplus\n");
+  printf ("extern \"C\" {\n");
+  printf ("#endif\n");
+  printf ("\n");
 }
 
 void print_footer (void)
 {
-  printf("\n");
-  printf("#endif\n");
-  printf("\n");
+  printf ("\n");
+  printf ("#ifdef __cplusplus\n");
+  printf ("}\n");
+  printf ("#endif\n");
+  printf ("\n");
+  printf ("#endif\n");
+  printf ("\n");
 }
 

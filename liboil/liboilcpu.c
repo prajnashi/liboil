@@ -47,7 +47,7 @@ static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
 #endif
 
-unsigned long oil_cpu_flags;
+static unsigned long oil_cpu_flags;
 
 #if defined(__i386__)
 static char *
@@ -197,6 +197,12 @@ _oil_cpu_init (void)
 #endif
 
   OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
+}
+
+unsigned int
+oil_cpu_get_flags (void)
+{
+  return oil_cpu_flags;
 }
 
 #if defined(__i386__)

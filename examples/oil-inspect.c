@@ -30,6 +30,8 @@
 #endif
 
 #include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
+#include <liboil/liboilcpu.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -100,6 +102,8 @@ static void
 oil_print_impl (OilFunctionImpl *impl, char* prefix)
 {
   char *c;
+  unsigned int cpu_flags = oil_cpu_get_flags();
+
   printf ("%s%s\n", prefix, impl->name);
   c = oil_flags_to_string (impl->flags);
   if (c) {
@@ -110,7 +114,7 @@ oil_print_impl (OilFunctionImpl *impl, char* prefix)
     printf ("%s  profile: %g ticks (st.dev. %g)\n", prefix, impl->profile_ave,
         impl->profile_std);
   }
-  if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags)) {
+  if ((impl->flags & OIL_CPU_FLAG_MASK) & (~cpu_flags)) {
     printf ("%s  disabled\n", prefix);
   }
 }
@@ -174,8 +178,10 @@ static void
 oil_print_all (void)
 {
   int i;
+  int n;
 
-  for (i = 0; i < oil_n_function_classes; i++){
+  n = oil_class_get_n_classes ();
+  for (i = 0; i < n; i++){
     OilFunctionClass *klass = oil_class_get_by_index (i);
     oil_print_class (klass, 0);
   }

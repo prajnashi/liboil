@@ -30,6 +30,7 @@
 #endif
 
 #include <liboil/liboiltest.h>
+#include <liboil/liboildebug.h>
 #include <liboil/liboilrandom.h>
 #include <liboil/liboilprofile.h>
 #include <stdlib.h>

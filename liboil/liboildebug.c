@@ -28,17 +28,20 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil/liboildebug.h>
 #include <liboil/liboilfunction.h>
+#include <liboil/liboildebug.h>
 
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
 
-int _oil_debug_enabled = 1;
-int _oil_debug_level = OIL_DEBUG_ERROR;
+static void oil_debug_print_valist (int level, const char *file,
+    const char *func, int line, const char *format, va_list args);
 
+static int _oil_debug_level = OIL_DEBUG_ERROR;
+
+static OilDebugPrintFunc _oil_debug_print_func = oil_debug_print_valist;
 
 void
 _oil_debug_init(void)
@@ -54,10 +57,9 @@ _oil_debug_init(void)
       _oil_debug_level = level;
     }
   }
+  _oil_debug_print_func = oil_debug_print_valist;
 
-  //OIL_INFO ("debug init");
-  OIL_DEBUG_PRINT(OIL_DEBUG_INFO, "debug init");
-
+  OIL_INFO ("debug init");
 }
 
 static void
@@ -74,20 +76,41 @@ oil_debug_print_valist (int level, const char *file, const char *func,
     level_name = level_names[level];
   }
   
-  fprintf (stdout, "OIL: %s %s %d: %s(): ", level_name, file, line, func);
-  vfprintf (stdout, format, args);
-  fprintf (stdout, "\n");
+  fprintf (stderr, "OIL: %s %s %d: %s(): ", level_name, file, line, func);
+  vfprintf (stderr, format, args);
+  fprintf (stderr, "\n");
 }
 
 void
-oil_debug_print (int level, const char *file, const char *func,
+_oil_debug_print (int level, const char *file, const char *func,
         int line, const char *format, ...)
 {
   va_list var_args;
 
   va_start (var_args, format);
-  oil_debug_print_valist (level, file, func, line, format, var_args);
+  _oil_debug_print_func (level, file, func, line, format, var_args);
   va_end (var_args);
 }
 
+int
+oil_debug_get_level (void)
+{
+  return _oil_debug_level;
+}
+
+void
+oil_debug_set_level (int level)
+{
+  _oil_debug_level = level;
+}
+
+void
+oil_debug_set_print_function (OilDebugPrintFunc func)
+{
+  if (func) {
+    _oil_debug_print_func = func;
+  } else {
+    _oil_debug_print_func = oil_debug_print_valist;
+  }
+}
 

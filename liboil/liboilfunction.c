@@ -28,7 +28,6 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
 #include <liboil/liboilcpu.h>
 #include <liboil/liboiltest.h>
@@ -39,8 +38,8 @@
 extern OilFunctionClass *_oil_function_class_array[];
 extern OilFunctionImpl *_oil_function_impl_array[];
 
-int oil_n_function_impls;
-int oil_n_function_classes;
+static int _oil_n_function_impls;
+static int _oil_n_function_classes;
 
 static void oil_init_pointers (void);
 static void oil_init_structs (void);
@@ -75,7 +74,7 @@ oil_optimize_all (void)
   OilFunctionClass *klass;
   int i;
 
-  for (i = 0; i < oil_n_function_classes; i++) {
+  for (i = 0; i < _oil_n_function_classes; i++) {
     klass = oil_class_get_by_index (i);
 
     oil_class_optimize (klass);
@@ -96,15 +95,25 @@ oil_optimize (const char *class_name)
   oil_class_optimize (klass);
 }
 
+int
+oil_class_get_n_classes (void)
+{
+  return _oil_n_function_classes;
+}
+
 OilFunctionClass *
 oil_class_get_by_index (int i)
 {
+  if (i<0 || i>=_oil_n_function_classes) return NULL;
+
   return _oil_function_class_array[i];
 }
 
 OilFunctionImpl *
 oil_impl_get_by_index (int i)
 {
+  if (i<0 || i>=_oil_n_function_impls) return NULL;
+
   return _oil_function_impl_array[i];
 }
 
@@ -114,7 +123,7 @@ oil_class_get (const char *class_name)
   OilFunctionClass *klass;
   int i;
 
-  for (i = 0; i < oil_n_function_classes; i++) {
+  for (i = 0; i < _oil_n_function_classes; i++) {
     klass = oil_class_get_by_index (i);
 
     if (strcmp (klass->name, class_name) == 0)
@@ -143,6 +152,7 @@ oil_class_optimize (OilFunctionClass * klass)
   OilFunctionImpl *impl;
   OilFunctionImpl *min_impl;
   OilTest *test;
+  unsigned int oil_cpu_flags = oil_cpu_get_flags();
   int ret;
 
   OIL_DEBUG ("optimizing class %s", klass->name);
@@ -191,11 +201,11 @@ oil_init_pointers (void)
   int i;
 
   for(i=0;_oil_function_class_array[i];i++) {
-    oil_n_function_classes++;
+    _oil_n_function_classes++;
   }
 
   for(i=0;_oil_function_impl_array[i];i++) {
-    oil_n_function_impls++;
+    _oil_n_function_impls++;
   }
 
 }
@@ -206,7 +216,7 @@ oil_init_structs (void)
   int i;
   OilFunctionImpl *impl;
 
-  for (i = 0; i < oil_n_function_impls; i++) {
+  for (i = 0; i < _oil_n_function_impls; i++) {
     impl = oil_impl_get_by_index (i);
     OIL_DEBUG ("registering impl %p (%s)", impl,
           (impl->name != NULL) ? impl->name : "NULL");

@@ -30,11 +30,9 @@
 
 #include <stdint.h>
 
-#include <liboil/liboilcpu.h>
-#include <liboil/liboildebug.h>
-#include <liboil/liboilfunction.h>
-
 #include <liboil/liboilfuncs.h>
+
+void oil_init (void);
 
 
 #endif
