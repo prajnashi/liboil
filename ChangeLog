@@ -1,3 +1,12 @@
+2004-12-05  David Schleef  <ds@schleef.org>
+
+	* liboil/jpeg/Makefile.am: Add zigzag8x8_powerpc.c
+	* liboil/jpeg/jpeg.h:
+	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_ref),
+	(unzigzag8x8_s16_ref): add zigzag function class
+	* liboil/jpeg/zigzag8x8_powerpc.c: add non-working altivec
+	implementation
+
 2004-12-03  David Schleef  <ds@schleef.org>
 
 	Compile and segfault fixes.

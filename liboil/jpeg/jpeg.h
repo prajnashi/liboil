@@ -34,6 +34,7 @@ OIL_DECLARE_CLASS(yuv2rgbx_sub2_u8);
 OIL_DECLARE_CLASS(yuv2rgbx_sub4_u8);
 
 OIL_DECLARE_CLASS(unzigzag8x8_s16);
+OIL_DECLARE_CLASS(zigzag8x8_s16);
 
 #endif
 

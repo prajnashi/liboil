@@ -9,6 +9,13 @@ noinst_LTLIBRARIES = libjpeg.la $(opt_libs)
 
 noinst_HEADERS = jpeg.h
 
+if HAVE_CPU_POWERPC
+powerpc_sources = \
+	zigzag8x8_powerpc.c
+else
+powerpc_sources =
+endif
+
 c_sources = \
 	convert8x8_c.c \
 	jpeg_rgb_decoder.c \
@@ -17,7 +24,8 @@ c_sources = \
 	zigzag8x8_c.c
 
 libjpeg_la_SOURCES = \
-	$(c_sources)
+	$(c_sources) \
+	$(powerpc_sources)
 libjpeg_la_LIBADD = $(opt_libs)
 libjpeg_la_CFLAGS = $(LIBOIL_CFLAGS)
 

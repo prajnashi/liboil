@@ -23,6 +23,8 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
+OIL_DEFINE_CLASS (zigzag8x8_s16,
+    "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 OIL_DEFINE_CLASS (unzigzag8x8_s16,
     "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 
@@ -31,7 +33,6 @@ OIL_DEFINE_CLASS (unzigzag8x8_s16,
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
 
-#if 0
 static const unsigned char zigzag_order[64] = {
 	0,
 	8, 1,
@@ -49,7 +50,6 @@ static const unsigned char zigzag_order[64] = {
 	62, 55,
 	63
 };
-#endif
 
 static const unsigned char unzigzag_order[64] = {
 	0,  1,  5,  6,  14, 15, 27, 28,
@@ -63,8 +63,24 @@ static const unsigned char unzigzag_order[64] = {
 };
 
 
+static void zigzag8x8_s16_ref(int16_t *dest, int dstr, int16_t *src, int sstr)
+{
+	int i,j;
+	unsigned int z;
+
+	for(j=0;j<8;j++){
+		for(i=0;i<8;i++){
+			z = zigzag_order[j*8+i];
+			OIL_GET(dest,j*dstr +i*sizeof(int16_t), int16_t) =
+                          OIL_GET(src, sstr*(z>>3)+(z&7)*sizeof(int16_t),
+                              int16_t);
+		}
+	}
+}
+OIL_DEFINE_IMPL_REF (zigzag8x8_s16_ref, zigzag8x8_s16);
+
 static void
-unzigzag8x8_s16_c(int16_t *dest, int dstr, int16_t *src, int sstr)
+unzigzag8x8_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
 {
 	int i,j;
 	unsigned int z;
@@ -72,12 +88,14 @@ unzigzag8x8_s16_c(int16_t *dest, int dstr, int16_t *src, int sstr)
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
 			z = unzigzag_order[i*8+j];
-			BLOCK8x8_S16(dest,dstr,i,j) =
-				BLOCK8x8_S16(src,sstr,(z>>3),(z&7));
+			OIL_GET(dest,j*dstr +i*sizeof(int16_t), int16_t) =
+                          OIL_GET(src, sstr*(z>>3)+(z&7)*sizeof(int16_t),
+                              int16_t);
 		}
 	}
 }
+OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_ref, unzigzag8x8_s16);
 
 
-OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_c, unzigzag8x8_s16);
+
 
