@@ -1,5 +1,9 @@
 2004-09-08  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Use -Wa,-mregnames if possible
+
+2004-09-08  David Schleef  <ds@schleef.org>
+
 	* .cvsignore: Some stuff to ignore
 	* examples/.cvsignore:
 	* liboil/.cvsignore:

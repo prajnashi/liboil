@@ -69,6 +69,11 @@ if test "x$LIBOIL_CVS" = "xyes"
 then
   AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
 fi
+if test x$HAVE_CPU_POWERPC = xyes ; then
+  AS_COMPILER_FLAG(["-Wa,-mregnames"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
+    true)
+fi
 
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir)"
 AC_SUBST(LIBOIL_CFLAGS)
