@@ -1,5 +1,10 @@
 2005-03-17  David Schleef  <ds@schleef.org>
 
+	* examples/work/conv.c: (conv_s16_f32_asm1), (register_impls):
+	add me
+
+2005-03-17  David Schleef  <ds@schleef.org>
+
 	* liboil/simdpack/vectoradd_s_i386.c: need this too.  part of
 	the patch below.
 
