@@ -21,6 +21,7 @@
 #endif
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
+#include <liboil/liboilcpu.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -30,10 +31,10 @@ OilFunctionImpl *oil_function_impls;
 int oil_n_function_impls;
 int oil_n_function_classes;
 
-unsigned int oil_arch_flags = OIL_IMPL_REQUIRES_MMX;
-
 static void oil_init_pointers (void);
 static void oil_init_structs (void);
+
+void _oil_cpu_init (void);
 
 void
 oil_init (void)
@@ -44,6 +45,7 @@ oil_init (void)
   inited = 1;
 
   _oil_debug_init ();
+  _oil_cpu_init ();
   oil_init_pointers ();
   oil_init_structs ();
   oil_optimize_all ();
@@ -115,7 +117,7 @@ oil_class_optimize (OilFunctionClass * klass)
     printf ("  %p %08x %s\n", impl->func,
 	impl->flags, (impl == klass->reference_impl) ? "(ref)" : "");
 #endif
-    if ((impl->flags & OIL_ARCH_FLAGS) & (~oil_arch_flags))
+    if ((impl->flags & OIL_ARCH_FLAGS) & (~oil_cpu_flags))
       continue;
     klass->test_func (klass, impl);
 

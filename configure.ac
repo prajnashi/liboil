@@ -34,13 +34,7 @@ dnl ==============================================
 dnl Determine CPU
 case "x${target_cpu}" in
   xi?86 | k?) HAVE_CPU_I386=yes
-              AC_DEFINE(HAVE_CPU_I386, 1, [Define if the target CPU is an x86])
-              dnl FIXME could use some better detection
-              dnl       (ie CPUID)
-              case "x${target_cpu}" in
-                xi386 | xi486) ;;
-                *)             AC_DEFINE(HAVE_RDTSC, 1, [Define if RDTSC is available]) ;;
-              esac ;;
+              AC_DEFINE(HAVE_CPU_I386, 1, [Define if the target CPU is an x86]) ;;
   xpowerpc)   HAVE_CPU_POWERPC=yes
               AC_DEFINE(HAVE_CPU_POWERPC, 1, [Define if the target CPU is a POWERPC]) ;;
   xalpha)     HAVE_CPU_ALPHA=yes

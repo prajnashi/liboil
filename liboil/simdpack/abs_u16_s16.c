@@ -209,7 +209,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       :"ebp");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_mmx, abs_u16_s16_class);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMX);
 #endif
 
 #ifdef HAVE_CPU_I386
@@ -256,10 +256,10 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       :"ebp");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_mmxx, abs_u16_s16_class);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMX);
 #endif
 
-#ifdef HAVE_CPU_MMXEXT
+#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -293,10 +293,10 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ebx", "ecx", "edx", "ebp");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_mmx2, abs_u16_s16_class);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMXEXT);
 #endif
 
-#ifdef HAVE_SSE2
+#ifdef HAVE_CPU_I386
 static void
 abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -325,7 +325,7 @@ abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ebx", "ecx", "edx", "ebp");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_sse2, abs_u16_s16_class);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16_class, OIL_IMPL_REQUIRES_SSE2);
 #endif
 
 #ifdef HAVE_CPU_POWERPC
@@ -354,7 +354,7 @@ abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
       ::"10", "ctr");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_altivec, abs_u16_s16_class);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_altivec, abs_u16_s16_class, OIL_IMPL_REQUIRES_ALTIVEC);
 #endif
 
 #if 0

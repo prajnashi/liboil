@@ -16,17 +16,12 @@
  * Boston, MA 02111-1307 USA.
  */
 
-#ifndef _LIBOIL_H_
-#define _LIBOIL_H_
+#ifndef _LIBOIL_CPU_H_
+#define _LIBOIL_CPU_H_
 
-#include <stdint.h>
+extern unsigned long oil_cpu_flags;
 
-#include <liboil/liboilcpu.h>
-#include <liboil/liboildebug.h>
-#include <liboil/liboilfunction.h>
-
-#include <liboil/liboilfuncs.h>
-
+void _oil_cpu_init (void);
 
 #endif
 

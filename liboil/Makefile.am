@@ -39,7 +39,8 @@ liboiltmp_la_SOURCES = \
 	tablelookup_ref.c \
 	$(powerpc_sources) \
 	liboilfunction.c \
-	liboildebug.c
+	liboildebug.c \
+	liboilcpu.c
 liboiltmp_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboiltmp_la_LDFLAGS = -lm
 
