@@ -193,7 +193,7 @@ noinst_PROGRAMS = build_prototypes_doc
 
 build_prototypes_doc_SOURCES = build_prototypes_doc.c
 build_prototypes_doc_CFLAGS = $(LIBOIL_CFLAGS)
-build_prototypes_doc_LDFLAGS = $(LIBOIL_LIBS)
+build_prototypes_doc_LDADD = $(LIBOIL_LIBS)
 
 liboilfuncs-doc.h:
 	./build_prototypes_doc >liboilfuncs-doc.h
