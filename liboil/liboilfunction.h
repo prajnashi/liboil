@@ -39,7 +39,7 @@ struct _OilFunctionClass {
 
 	OilFunctionImpl *chosen_impl;
 
-	char *test_description;
+	const char *prototype;
 	//void *padding[2];
 } __attribute__ ((aligned (16)));
 
@@ -59,8 +59,13 @@ struct _OilFunctionImpl {
 #define OIL_IMPL_FLAG_REF	(1<<0)
 
 #define OIL_ARCH_FLAGS 0xffff0000
-#define OIL_IMPL_REQUIRES_MMX	(1<<16)
-#define OIL_IMPL_REQUIRES_SSE	(1<<17)
+#define OIL_IMPL_REQUIRES_CMOV 	        (1<<16)
+#define OIL_IMPL_REQUIRES_MMX	        (1<<17)
+#define OIL_IMPL_REQUIRES_SSE	        (1<<18)
+#define OIL_IMPL_REQUIRES_MMXEXT        (1<<19)
+#define OIL_IMPL_REQUIRES_SSE2          (1<<20)
+#define OIL_IMPL_REQUIRES_3DNOW	        (1<<21)
+#define OIL_IMPL_REQUIRES_3DNOWEXT	(1<<22)
 
 #define OIL_DECLARE_CLASS(klass) \
 	extern OilFunctionClass _oil_function_ ## klass ## _class;

@@ -17,7 +17,7 @@ enum{
   OIL_TYPE_f64,
 };
 
-void parse_description(char *s);
+void parse_prototype (const char *s);
 
 int main (int argc, char *argv[])
 {
@@ -29,20 +29,42 @@ int main (int argc, char *argv[])
   for (i=0;i<oil_n_function_classes; i++ ){
     klass = oil_function_classes + i;
 
-    printf("class %s\n", klass->name);
-    if(klass->test_description) {
-      printf("test: %s\n",
-	  klass->test_description);
-      parse_description(klass->test_description);
+    if(klass->prototype) {
+      printf ("extern OilFunctionClass _oil_function_%s_class;\n",
+          klass->name);
+      printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
+          klass->name, klass->prototype, klass->name);
+      //printf("void %s (%s);\n", klass->name, klass->prototype);
+      parse_prototype(klass->prototype);
     }
   }
 
   return 0;
 }
 
+#ifdef unused
+static char *typenames[] = {
+  "type_s8",
+  "type_u8",
+  "type_s16",
+  "type_u16",
+  "type_s32",
+  "type_u32",
+  "type_f32",
+  "type_f64",
+  "int8_t",
+  "uint8_t",
+  "int16_t",
+  "uint16_t",
+  "int32_t",
+  "uint32_t",
+  "float",
+  "double",
+  "int",
+};
+
 static int parse_type (char *s, char **endptr)
 {
-  char *typenames[] = { "s8","u8","s16","u16","s32","u32","f32","f64" };
   int i;
 
   while(isspace(*s))s++;
@@ -57,7 +79,7 @@ static int parse_type (char *s, char **endptr)
   return OIL_TYPE_UNKNOWN;
 }
 
-static int parse_size (char *s, char **endptr)
+static int parse_size (const char *s, const char **endptr)
 {
   while(isspace(*s))s++;
 
@@ -71,24 +93,48 @@ static int parse_size (char *s, char **endptr)
 
   return -1;
 }
+#endif
 
-void parse_description (char *s)
+static char * parse_string (const char *s, const char **endptr)
 {
-  int type;
-  int size;
+  const char *s0;
 
-  while(isspace(*s))s++;
-
-  type = parse_type (s,&s);
-  if (type == OIL_TYPE_UNKNOWN){
-    return;
-  }
-  while(isspace(*s))s++;
-
-  if(s[0] == '['){
+  s0 = s;
+  while(isalnum(*s) || *s=='_') {
     s++;
-    size = parse_size(s,&s);
-    if (size < 0) return;
+  }
+  *endptr = s;
+
+  return strndup(s0, s - s0);
+}
+
+void parse_prototype (const char *s)
+{
+  char *type;
+  char *name;
+  int ptr = 0;
+
+  while (isspace(*s))s++;
+  while (*s) {
+    type = parse_string (s, &s);
+
+    while (isspace(*s))s++;
+
+    if(s[0] == '*'){
+      ptr = 1;
+      s++;
+    }
+    while (isspace(*s))s++;
+    name = parse_string (s, &s);
+
+    while (isspace(*s))s++;
+
+    if(s[0] == ','){
+      s++;
+    }
+    while (isspace(*s))s++;
+
+    printf("%s %s\n", type, name);
   }
 }
 

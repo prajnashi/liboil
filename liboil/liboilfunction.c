@@ -38,9 +38,15 @@ static void oil_init_structs (void);
 void
 oil_init (void)
 {
+  static int inited = 0;
+
+  if (inited) return;
+  inited = 1;
+
   _oil_debug_init ();
   oil_init_pointers ();
   oil_init_structs ();
+  oil_optimize_all ();
 
   if (0)
     oil_spill ();
@@ -98,10 +104,10 @@ oil_class_optimize (OilFunctionClass * klass)
   OIL_LOG ("optimizing class %s", klass->name);
 
   if (klass->test_func == NULL) {
-    OIL_ERROR ("class %s has no test function", klass->name);
+    //OIL_ERROR ("class %s has no test function", klass->name);
     return;
   }
-  //printf("%s\n",klass->name);
+
   min_impl = NULL;
   min = 2147483647;
   for (impl = klass->first_impl; impl; impl = impl->next) {

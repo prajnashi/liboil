@@ -90,15 +90,6 @@ OIL_DEFINE_CLASS(scalaradd_u32, NULL);
 OIL_DEFINE_CLASS(scalaradd_f32, NULL);
 OIL_DEFINE_CLASS(scalaradd_f64, NULL);
 
-OIL_DEFINE_CLASS(scalarmult_s8, NULL);
-OIL_DEFINE_CLASS(scalarmult_u8, NULL);
-OIL_DEFINE_CLASS(scalarmult_s16, NULL);
-OIL_DEFINE_CLASS(scalarmult_u16, NULL);
-OIL_DEFINE_CLASS(scalarmult_s32, NULL);
-OIL_DEFINE_CLASS(scalarmult_u32, NULL);
-OIL_DEFINE_CLASS(scalarmult_f32, NULL);
-OIL_DEFINE_CLASS(scalarmult_f64, NULL);
-
 OIL_DEFINE_CLASS(sincos_f64, NULL);
 OIL_DEFINE_CLASS(squaresum_f64, NULL);
 OIL_DEFINE_CLASS(sum_f64, NULL);

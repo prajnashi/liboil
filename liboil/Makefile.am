@@ -1,8 +1,15 @@
 
+pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
+
 SUBDIRS = jpeg simdpack
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 noinst_LTLIBRARIES = liboilend.la liboiltmp.la
+
+noinst_PROGRAMS = build_prototypes
+
+pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
+	liboiltypes.h
 
 liboilend_la_SOURCES = \
 	liboil_end.c
@@ -28,6 +35,8 @@ liboiltmp_la_SOURCES = \
 	conv_bitstuff.c \
 	conv_sse.c \
 	conv_misc.c \
+	splat_ref.c \
+	tablelookup_ref.c \
 	$(powerpc_sources) \
 	liboilfunction.c \
 	liboildebug.c
@@ -43,4 +52,8 @@ liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboilend.la
 liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm
+
+build_prototypes_SOURCES = build_prototypes.c
+build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
+build_prototypes_LDFLAGS = $(LIBOIL_LIBS)
 

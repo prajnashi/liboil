@@ -8,8 +8,8 @@ toolsdir=${exec_prefix}/bin
 Name: liboil-@LIBOIL_MAJORMINOR@ Uninstalled
 Description: Library of Optimized Inner Loops, uninstalled
 Version: @VERSION@
-Requires:
-Libs: -L${libdir} -L${libdir} -loil-@LIBOIL_MAJORMINOR@
+Requires: glib-2.0
+Libs: -L${libdir} -loil-@LIBOIL_MAJORMINOR@
 Cflags: -I${includedir}
 
 

@@ -19,7 +19,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include <liboil/conv.h>
+#include <liboil.h>
 
 
 #if defined(SL_COMPILE_ARCH_POWERPC)

@@ -24,8 +24,8 @@
 //#include <liboil/.h>
 
 
-tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src, int sstr,
-    uint8_t *table, int tablestride, int n)
+static void tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src,
+    int sstr, uint8_t *table, int tablestride, int n)
 {
   int i;
   for(i=0;i<n;i++){
@@ -35,7 +35,9 @@ tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src, int sstr,
   }
 }
 
+OIL_DEFINE_CLASS_X (tablelookup_u8,
+    "uint8_t *dest, int dstr, uint8_t *src, int sstr, "
+    "uint8_t *table, int tablestride, int n");
 OIL_DEFINE_IMPL_REF (tablelookup_u8_ref, tablelookup_u8_class);
 
-OIL_DEFINE_CLASS (tablelookup_u8, NULL);
 

@@ -23,7 +23,7 @@
 
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
-#include <liboil/conv.h>
+#include <liboil/liboilfuncs.h>
 
 
 #endif

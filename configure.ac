@@ -20,6 +20,12 @@ ACLOCAL="$ACLOCAL -I m4 $ACLOCAL_FLAGS"
 AC_PROG_CC_STDC
 #AM_PROG_AS
 
+PKG_CHECK_MODULES(GLIB, glib-2.0, HAVE_GLIB=yes, HAVE_GLIB=no)
+AC_SUBST(GLIB_LIBS)
+AC_SUBST(GLIB_CFLAGS)
+if test x"$HAVE_GLIB" = "xno"; then
+  AC_MSG_ERROR([cannot find glib-2.0, which is required to build liboil])
+fi
 
 
 dnl Set up conditionals for (target) architecture:
@@ -52,14 +58,17 @@ esac
 AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
 AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
 
-LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE -I\$(top_srcdir)"
+LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE -I\$(top_srcdir) $GLIB_CFLAGS"
 AC_SUBST(LIBOIL_CFLAGS)
 
-LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
+LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $GLIB_LIBS"
 AC_SUBST(LIBOIL_LIBS)
 
 LIBOIL_LITE_CFLAGS="-Wall -Werror"
 AC_SUBST(LIBOIL_LITE_CFLAGS)
+
+pkgconfigdir="\$(libdir)/pkgconfig"
+AC_SUBST(pkgconfigdir)
 
 AC_OUTPUT(
 Makefile 
@@ -68,6 +77,7 @@ liboil/jpeg/Makefile
 liboil/simdpack/Makefile
 liboil-lite/Makefile
 testsuite/Makefile
+examples/Makefile
 liboil-0.1.pc
 liboil-0.1-uninstalled.pc
 )
