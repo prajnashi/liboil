@@ -7,6 +7,13 @@ endif
 
 noinst_LTLIBRARIES = libcopy.la $(opt_libs)
 
+if HAVE_CPU_POWERPC
+powerpc_sources = \
+	copy_powerpc.c
+else
+powerpc_sources =
+endif
+
 c_sources = \
 	copy.c \
 	permute.c \
@@ -15,7 +22,8 @@ c_sources = \
 	trans8x8.c
 
 libcopy_la_SOURCES = \
-	$(c_sources)
+	$(c_sources) \
+	$(powerpc_sources)
 libcopy_la_LIBADD = $(opt_libs)
 
 libcopy_la_CFLAGS = $(LIBOIL_CFLAGS)

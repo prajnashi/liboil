@@ -1,5 +1,15 @@
 2004-12-05  David Schleef  <ds@schleef.org>
 
+	* liboil/copy/Makefile.am: add copy_powerpc.c
+	* liboil/copy/copy_powerpc.c: a fast altivec copy_u8
+	* liboil/liboilparameter.h: add ptr field
+	* liboil/liboiltest.c: (oil_test_free), (init_parameter): use
+	ptr field instead of value for the allocated area, to make the
+	code simpler, and also allow for a buffer area.
+	* liboil/liboiltest.h: add OIL_TEST_HEADER/FOOTER
+
+2004-12-05  David Schleef  <ds@schleef.org>
+
 	* liboil/jpeg/Makefile.am: Add zigzag8x8_powerpc.c
 	* liboil/jpeg/jpeg.h:
 	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_ref),

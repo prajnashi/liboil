@@ -85,6 +85,7 @@ struct _OilParameter {
 
   OilArgType parameter_type;
 
+  void *ptr;
   unsigned long value;
   int size;
 };

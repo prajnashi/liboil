@@ -38,6 +38,8 @@ struct _OilTest {
   int inited;
 };
 
+#define OIL_TEST_HEADER 256
+#define OIL_TEST_FOOTER 256
 
 OilTest *oil_test_new (OilFunctionClass *klass);
 void oil_test_free (OilTest *test);

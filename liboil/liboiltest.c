@@ -65,38 +65,16 @@ oil_test_new (OilFunctionClass *klass)
 void
 oil_test_free (OilTest *test)
 {
+  int i;
+
   if (test->proto) {
     oil_prototype_free (test->proto);
   }
 
-  if (test->params[OIL_ARG_DEST1].value) {
-    free ((void *)test->params[OIL_ARG_DEST1].value);
-  }
-  if (test->params[OIL_ARG_DEST2].value) {
-    free ((void *)test->params[OIL_ARG_DEST2].value);
-  }
-
-  if (test->params[OIL_ARG_SRC1].value) {
-    free ((void *)test->params[OIL_ARG_SRC1].value);
-  }
-  if (test->params[OIL_ARG_SRC2].value) {
-    free ((void *)test->params[OIL_ARG_SRC2].value);
-  }
-  if (test->params[OIL_ARG_SRC3].value) {
-    free ((void *)test->params[OIL_ARG_SRC3].value);
-  }
-  if (test->params[OIL_ARG_SRC4].value) {
-    free ((void *)test->params[OIL_ARG_SRC4].value);
-  }
-  if (test->params[OIL_ARG_SRC5].value) {
-    free ((void *)test->params[OIL_ARG_SRC5].value);
-  }
-
-  if (test->params[OIL_ARG_INPLACE1].value) {
-    free ((void *)test->params[OIL_ARG_INPLACE1].value);
-  }
-  if (test->params[OIL_ARG_INPLACE2].value) {
-    free ((void *)test->params[OIL_ARG_INPLACE2].value);
+  for(i=0;i<OIL_ARG_LAST;i++){
+    if (test->params[i].ptr) {
+      free (test->params[i].ptr);
+    }
   }
 
   free(test);
@@ -283,9 +261,10 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
     }
   }
 
-  ptr = malloc (stride * post_n);
-  memset (ptr, 0, stride * post_n);
-  p->value = (unsigned long) ptr;
+  ptr = malloc (stride * post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER);
+  memset (ptr, 0, stride * post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER);
+  p->ptr = ptr;
+  p->value = (unsigned long) ptr + OIL_TEST_HEADER;
 
   if (p->direction == 'i' || p->direction == 's') {
     fill_array (ptr, p->type, pre_n, stride, post_n);
