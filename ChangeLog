@@ -1,3 +1,7 @@
+2005-01-05  David Schleef  <ds@schleef.org>
+
+	* testsuite/stride.c: (main), (hist): new test
+
 2005-01-01  David Schleef  <ds@schleef.org>
 
 	* liboil/colorspace/argb_paint_i386.c:
