@@ -1,3 +1,11 @@
+2005-03-24  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: (get_proc_cpuinfo),
+	(oil_cpu_i386_getflags_cpuinfo), (get_cpuid),
+	(oil_cpu_i386_getflags_cpuid), (oil_cpu_i386_getflags): Add
+	support for getting flags from cpuid instruction directly.
+	* liboil/liboilfunction.h: Add SSE3
+
 2005-03-17  David Schleef  <ds@schleef.org>
 
 	* configure.ac: bump version

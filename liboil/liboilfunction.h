@@ -91,6 +91,7 @@ struct _OilFunctionImpl {
 #define OIL_IMPL_FLAG_SSE2              (1<<20)
 #define OIL_IMPL_FLAG_3DNOW             (1<<21)
 #define OIL_IMPL_FLAG_3DNOWEXT          (1<<22)
+#define OIL_IMPL_FLAG_SSE3              (1<<23)
 
 /* powerpc */
 #define OIL_IMPL_FLAG_ALTIVEC       (1<<16)

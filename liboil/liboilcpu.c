@@ -50,7 +50,7 @@ static unsigned long oil_cpu_flags;
 
 #if defined(__i386__)
 static char *
-get_cpuinfo (void)
+get_proc_cpuinfo (void)
 {
   char *cpuinfo;
   int fd;
@@ -71,15 +71,11 @@ get_cpuinfo (void)
 
 #ifdef __i386__
 static void
-oil_cpu_i386_getflags(void)
+oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 {
-  char *cpuinfo;
   char *cpuinfo_flags;
   char **flags;
   char **f;
-
-  cpuinfo = get_cpuinfo();
-  if (cpuinfo == NULL) return;
 
   cpuinfo_flags = get_cpuinfo_flags_string(cpuinfo);
   if (cpuinfo_flags == NULL) {
@@ -124,6 +120,98 @@ oil_cpu_i386_getflags(void)
   free (cpuinfo);
   free (cpuinfo_flags);
 }
+
+static void
+get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
+{
+  __asm__ (
+      "  pushl %%ebx\n"
+      "  cpuid\n"
+      "  mov %%ebx, %%esi\n"
+      "  popl %%ebx\n"
+      : "=a" (*a), "=S" (*b), "=c" (*c), "=d" (*d)
+      : "0" (op));
+}
+
+static void
+test_cpuid (void)
+{
+  uint32_t eax, ebx, ecx, edx;
+
+  get_cpuid (0x00000000, &eax, &ebx, &ecx, &edx);
+}
+
+static void
+oil_cpu_i386_getflags_cpuid (void)
+{
+  uint32_t eax, ebx, ecx, edx;
+  int level;
+  char vendor[13];
+
+  oil_cpu_fault_check_enable ();
+  if (!oil_cpu_fault_check_try(test_cpuid, NULL)) {
+    /* CPU thinks cpuid is an illegal instruction. */
+    return;
+  }
+  oil_cpu_fault_check_disable ();
+
+  get_cpuid (0x00000000, &level, (uint32_t *)(vendor+0),
+      (uint32_t *)(vendor+8), (uint32_t *)(vendor+4));
+
+  OIL_DEBUG("cpuid %d %s", level, vendor);
+
+  if (level < 1) {
+    return;
+  }
+
+  get_cpuid (0x00000001, &eax, &ebx, &ecx, &edx);
+
+  /* Intel flags */
+  if (edx & (1<<15)) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_CMOV;
+  }
+  if (edx & (1<<23)) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_MMX;
+  }
+  if (edx & (1<<25)) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_SSE;
+  }
+  if (edx & (1<<26)) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+  }
+  if (ecx & (1<<0)) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_SSE3;
+  }
+  
+  if (memcmp (vendor, "AuthenticAMD", 12) == 0) {
+    get_cpuid (0x80000001, &eax, &ebx, &ecx, &edx);
+
+    /* AMD flags */
+    if (edx & (1<<22)) {
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
+    }
+    if (edx & (1<<31)) {
+      oil_cpu_flags |= OIL_IMPL_FLAG_3DNOW;
+    }
+    if (edx & (1<<30)) {
+      oil_cpu_flags |= OIL_IMPL_FLAG_3DNOWEXT;
+    }
+  }
+}
+
+static void
+oil_cpu_i386_getflags(void)
+{
+  char *cpuinfo;
+
+  cpuinfo = get_proc_cpuinfo();
+  if (cpuinfo) {
+    oil_cpu_i386_getflags_cpuinfo(cpuinfo);
+  } else {
+    oil_cpu_i386_getflags_cpuid();
+  }
+}
+
 #endif
 
 #ifdef __powerpc__
