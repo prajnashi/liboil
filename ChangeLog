@@ -1,5 +1,9 @@
 2004-08-12  David Schleef  <ds@schleef.org>
 
+	* testsuite/abs.c: (test), (main):  Add
+
+2004-08-12  David Schleef  <ds@schleef.org>
+
 	Start changelog and add some random changes.
 	* liboil/Makefile.am:
 	* liboil/build_prototypes.c: (main), (param_free), (print_header),
