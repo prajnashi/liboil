@@ -1,3 +1,13 @@
+2005-01-11  David Schleef  <ds@schleef.org>
+
+	* README: additional notes
+	* configure.ac: look for mmap()
+	* examples/md5/md5sum.c: (main): fix for same
+	* liboil/copy/trans8x8_i386.c: (trans8x8_u16_mmx): Need to be
+	careful about using %ebx
+	* liboil/dct/idct8x8_i386.c: (fdct8x8s_s16_mmx): same
+	* liboil/simdpack/abs_i386.c: (abs_u16_s16_mmx): clobber memory
+
 2005-01-09  David Schleef  <ds@schleef.org>
 
 	* autogen.sh:

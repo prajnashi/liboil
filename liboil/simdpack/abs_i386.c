@@ -134,7 +134,7 @@ OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm3, abs_u16_s16);
 static void
 abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
-  const int16_t p[][4] = {
+  static const int16_t p[][4] = {
     { -32768, -32768, -32768, -32768 },
     { 32767, 32767, 32767, 32767 }
   };
@@ -150,7 +150,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
   __asm__ __volatile__ ("\n"
       "	movq	(%0), %%mm2		\n"
       "	movq	8(%0), %%mm3		\n"
-      :: "c" (p));
+      :: "r" (p));
   while (n--) {
     tmp[0] = *src;
     OIL_INCREMENT (src, sstr);
@@ -161,16 +161,16 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
     tmp[3] = *src;
     OIL_INCREMENT (src, sstr);
     __asm__ __volatile__ ("\n"
-        "	movq	(%%eax), %%mm1		\n"
+        "	movq	(%0), %%mm1		\n"
         "	movq	%%mm1, %%mm0		\n"
         "	paddsw	%%mm2, %%mm0		\n"
         "	paddsw	%%mm3, %%mm1		\n"
         "	psubsw	%%mm2, %%mm0		\n"
         "	psubsw	%%mm3, %%mm1		\n"
         "	psubw	%%mm1, %%mm0		\n"
-        "	movq	%%mm0, (%%eax)		\n"
-        :: "a" (&tmp)
-    );
+        "	movq	%%mm0, (%0)		\n"
+        : : "r" (tmp)
+        : "memory" );
     *dest = tmp[0];
     OIL_INCREMENT (dest, dstr);
     *dest = tmp[1];

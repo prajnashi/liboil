@@ -101,6 +101,7 @@ AM_CONDITIONAL(HAVE_CPU_IA64, test "x$HAVE_CPU_IA64" = "xyes")
 
 AC_C_BIGENDIAN
 
+AC_FUNC_MMAP()
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
 AC_CHECK_LIB(m, lrint,

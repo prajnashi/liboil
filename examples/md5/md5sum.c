@@ -25,8 +25,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define HAVE_MMAN_H
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -38,7 +36,7 @@
 #include <stdlib.h>
 
 #include <sys/stat.h>
-#ifdef HAVE_MMAN_H
+#ifdef HAVE_MMAP
 #include <sys/mman.h>
 #endif
 #include <errno.h>
@@ -151,7 +149,7 @@ int main(int argc, char *argv[])
   ret = fstat (fd, &st);
 
   n_bytes = st.st_size;
-#ifdef HAVE_MMAN_H
+#ifdef HAVE_MMAP
   while (1) {
     ptr = mmap (NULL, n_bytes, PROT_READ, MAP_SHARED | MAP_POPULATE, fd, 0);
     getpid();
