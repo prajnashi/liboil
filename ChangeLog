@@ -1,3 +1,7 @@
+2004-08-20  David Schleef  <ds@schleef.org>
+
+	* m4/as-compiler-flag.m4: add
+
 2004-08-18  David Schleef  <ds@schleef.org>
 
 	* Makefile.am: remove liboil-lite
