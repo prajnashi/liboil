@@ -28,6 +28,8 @@
 #ifndef _LIBOIL_PROFILE_H_
 #define _LIBOIL_PROFILE_H_
 
+#include <stdint.h>
+
 #define OIL_PROFILE_HIST_LENGTH 10
 
 typedef struct _OilProfile OilProfile;
@@ -84,7 +86,7 @@ static inline unsigned long oil_profile_stamp(void)
 
 static inline unsigned long oil_profile_stamp(void)
 {
-	unsigned int ts;
+	uint64_t ts;
 	__asm__ __volatile__ ("STCK %0\n" : "=m" (ts));
 	return ts;
 }

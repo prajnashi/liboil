@@ -12,8 +12,7 @@ c_sources = \
 	abs_misc.c \
 	average2_u8.c \
 	clip_ref.c \
-	clip_s16.c \
-	clip_s32.c \
+	clip_fast.c \
 	diffsquaresum_f64.c \
 	mix_u8.c \
 	mult8x8_s16.c \

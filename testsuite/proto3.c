@@ -117,7 +117,7 @@ int check_param (Param *p, char *s)
     case 'd':
       break;
     default:
-      printf ("  ERROR at %s\n", s);
+      printf ("  parse error at %s\n", s);
       return 0;
   }
   s++;
@@ -154,7 +154,7 @@ int check_param (Param *p, char *s)
       var = 2;
       s++;
     } else {
-      printf ("  ERROR at %s\n", s);
+      printf ("  parse error at %s\n", s);
       return 0;
     }
 
@@ -175,7 +175,7 @@ int check_param (Param *p, char *s)
         p->poststride_var = 2;
         s++;
       } else {
-        printf ("  ERROR at %s\n", s);
+        printf ("  parse error at %s\n", s);
         return 0;
       }
 
@@ -193,7 +193,7 @@ int check_param (Param *p, char *s)
     p->prestride_var = 0;
   }
   if (*s != 0) {
-    printf ("  ERROR at %s\n", s);
+    printf ("  parse error at %s\n", s);
     return 0;
   }
 

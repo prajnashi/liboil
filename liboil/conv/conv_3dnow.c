@@ -42,10 +42,9 @@ conv_f32_s16_3dnow(float *dst, int dst_stride, int16_t *src, int src_stride,
 
 	for(i=0;i<n;i++){
 		asm volatile(
-                        "  xor %%eax, %%eax \n"
-                        "  movw 0(%0), %%eax \n"
+                        "  movswl 0(%0), %%eax \n"
                         "  movd %%eax, %%mm0 \n"
-			"  pi2fd 0(%0), %%mm0 \n"
+			"  pi2fd %%mm0, %%mm0 \n"
 			"  movd %%mm0, 0(%1) \n"
 			:
 			: "r" (src), "r" (dst)
@@ -76,7 +75,7 @@ conv_s32_f32_3dnow (int32_t *dst, int dst_stride, float *src, int src_stride,
 			"  pfadd 0(%2), %%mm0 \n"
 			"  pf2id %%mm0, %%mm1 \n"
 			"  pfcmpgt 0(%2), %%mm0 \n"
-			"  paddd %%mm0, %%mm1 \n"
+			"  psubd %%mm0, %%mm1 \n"
 			"  movd %%mm1, 0(%1) \n"
 			:
 			: "r" (src), "r" (dst), "r" (constants)

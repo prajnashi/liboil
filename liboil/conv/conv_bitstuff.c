@@ -106,6 +106,8 @@ OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16);
 
 #define signbit_S32(x) (((uint32_t)(x))>>31)
 
+#if 0
+/* broken */
 /* This implementation is slightly inaccurate */
 static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, float *src,
 	int src_stride, int n)
@@ -126,6 +128,7 @@ static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, float *src,
 	}
 }
 OIL_DEFINE_IMPL(conv_s16_f32_bitstuff, conv_s16_f32);
+#endif
 
 
 #if 0
@@ -198,6 +201,8 @@ static void conv_f64_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 OIL_DEFINE_IMPL(conv_f64_s16_bitstuff, conv_f64_s16);
 #endif
 
+#if 0
+/* broken */
 /* This implementation is slightly inaccurate */
 static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, float *src,
 	int src_stride, int n)
@@ -227,6 +232,7 @@ static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, float *src,
 	}
 }
 OIL_DEFINE_IMPL(conv_s16_f64_bitstuff, conv_s16_f64);
+#endif
 
 #endif
 

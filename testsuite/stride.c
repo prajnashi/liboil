@@ -49,6 +49,7 @@ int main (int argc, char *argv[])
   int j;
   int ret;
   unsigned int cpu_flags;
+  int fail = 0;
 
   oil_init ();
 
@@ -82,6 +83,7 @@ int main (int argc, char *argv[])
         ret = oil_test_check_impl (test, impl);
         if (!ret) {
           printf("    failed stride test\n");
+          fail = 1;
         }
 #if 0
           printf("    %lu %g\n",test->prof.min,
@@ -98,7 +100,7 @@ int main (int argc, char *argv[])
     oil_test_free (test);
   }
 
-  return 0;
+  return fail;
 }
 
 

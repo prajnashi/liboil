@@ -1,5 +1,21 @@
 2005-01-09  David Schleef  <ds@schleef.org>
 
+	* examples/work/work.c: (test), (main): misc changes
+	* liboil/conv/conv_3dnow.c: (conv_f32_s16_3dnow),
+	(conv_s32_f32_3dnow): fix asm
+	* liboil/conv/conv_bitstuff.c: disable brokenness
+	* liboil/liboilprofile.h: fix s390 profiling
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/clip_fast.c: (clip_s16_fast), (clip_s16_fast2),
+	(clip_s32_fast): merge clip_s16.c and clip_s32.c
+	* liboil/simdpack/clip_s16.c: remove
+	* liboil/simdpack/clip_s32.c: remove
+	* testsuite/Makefile.am: glib fixes
+	* testsuite/proto3.c: (check_param): fail if problem
+	* testsuite/stride.c: (main): same
+
+2005-01-09  David Schleef  <ds@schleef.org>
+
 	* examples/uberopt/uberopt.c: (main): Use gsize
 	* liboil/colorspace/rgb2bgr_powerpc.c: (rgb2bgr_ppc),
 	(rgb2bgr_ppc2): Fix powerpc asm

@@ -43,7 +43,7 @@ void register_impls(void);
 void test(void)
 {
   int16_t dest[100];
-  int16_t src[100];
+  float src[100];
   int i;
 
   for(i=0;i<100;i++){
@@ -51,10 +51,10 @@ void test(void)
     dest[i] = 0;
   }
 
-  oil_abs_u16_s16 (dest, 4, src, 4, 50);
+  oil_conv_s16_f32 (dest, 2, src, 4, 100);
 
   for(i=0;i<100;i++){
-    g_print("%d %d\n",dest[i],src[i]);
+    g_print("%d %g\n",dest[i],src[i]);
   }
 
 }
@@ -63,19 +63,16 @@ int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
-  unsigned long cpu_flags;
 
   oil_init ();
 
-  cpu_flags = oil_cpu_get_flags ();
-
   //register_impls();
 
-  klass = oil_class_get ("abs_u16_s16");
+  klass = oil_class_get ("conv_s16_f32");
   oil_class_optimize (klass);
 
   for (impl = klass->first_impl; impl; impl = impl->next) {
-    if (((impl->flags & OIL_CPU_FLAG_MASK) & ~cpu_flags) == 0) {
+    if (oil_impl_is_runnable (impl)) {
       klass->chosen_impl = impl;
       klass->func = impl->func;
       g_print("impl %s %g %g\n", impl->name, impl->profile_ave,
