@@ -1,3 +1,21 @@
+2004-09-15  David Schleef  <ds@schleef.org>
+
+	* configure.ac:  Add jpeg library from swfdec.
+	* examples/Makefile.am:
+	* examples/jpeg/Makefile.am:
+	* examples/jpeg/bits.h:
+	* examples/jpeg/huffman.c:
+	* examples/jpeg/huffman.h:
+	* examples/jpeg/jpeg.c:
+	* examples/jpeg/jpeg.h:
+	* examples/jpeg/jpeg_debug.h:
+	* examples/jpeg/jpeg_internal.h:
+	* examples/jpeg/jpeg_rgb_decoder.c:
+	* examples/jpeg/jpeg_rgb_decoder.h:
+	* examples/jpeg/jpeg_rgb_internal.h:
+	* examples/jpeg/test.c:
+	* examples/jpeg/test_rgb.c:
+
 2004-09-13  David Schleef  <ds@schleef.org>
 
 	* examples/example1.c: (main): call optimize_all()

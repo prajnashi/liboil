@@ -1,4 +1,6 @@
 
+SUBDIRS = jpeg
+
 noinst_PROGRAMS = example1
 
 

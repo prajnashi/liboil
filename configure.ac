@@ -106,6 +106,7 @@ liboil/jpeg/Makefile
 liboil/simdpack/Makefile
 testsuite/Makefile
 examples/Makefile
+examples/jpeg/Makefile
 liboil.pc
 )
 
