@@ -55,7 +55,7 @@ oil_test_new (OilFunctionClass *klass)
         sizeof(OilParameter));
   }
 
-  test->iterations = 100;
+  test->iterations = 10;
   test->n = 100;
   test->m = 100;
 
@@ -69,8 +69,37 @@ oil_test_free (OilTest *test)
     oil_prototype_free (test->proto);
   }
 
+  if (test->params[OIL_ARG_DEST1].value) {
+    free ((void *)test->params[OIL_ARG_DEST1].value);
+  }
+  if (test->params[OIL_ARG_DEST2].value) {
+    free ((void *)test->params[OIL_ARG_DEST2].value);
+  }
 
+  if (test->params[OIL_ARG_SRC1].value) {
+    free ((void *)test->params[OIL_ARG_SRC1].value);
+  }
+  if (test->params[OIL_ARG_SRC2].value) {
+    free ((void *)test->params[OIL_ARG_SRC2].value);
+  }
+  if (test->params[OIL_ARG_SRC3].value) {
+    free ((void *)test->params[OIL_ARG_SRC3].value);
+  }
+  if (test->params[OIL_ARG_SRC4].value) {
+    free ((void *)test->params[OIL_ARG_SRC4].value);
+  }
+  if (test->params[OIL_ARG_SRC5].value) {
+    free ((void *)test->params[OIL_ARG_SRC5].value);
+  }
 
+  if (test->params[OIL_ARG_INPLACE1].value) {
+    free ((void *)test->params[OIL_ARG_INPLACE1].value);
+  }
+  if (test->params[OIL_ARG_INPLACE2].value) {
+    free ((void *)test->params[OIL_ARG_INPLACE2].value);
+  }
+
+  free(test);
 }
 
 void
@@ -93,11 +122,18 @@ oil_test_go (OilTest *test)
   int args[10];
 
   if (test->proto->n_params > 10) return 0;
-  if (test->klass->test_func != NULL) return 0;
 
-  oil_test_init_params(test);
+  if (!test->inited) {
+    oil_test_init_params(test);
 
-  test->params[OIL_ARG_N].value = test->n;
+    test->params[OIL_ARG_N].value = test->n;
+    
+    test->inited = 1;
+  }
+
+  if (test->klass->test_func) {
+    test->klass->test_func (test);
+  }
 
   OIL_LOG("calling test function %s", test->impl->name);
   for(i=0;i<test->proto->n_params;i++){

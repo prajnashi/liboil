@@ -1,5 +1,14 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* liboil/liboiltest.c: (oil_test_new), (oil_test_free),
+	(oil_test_go): Fix memleaks by freeing stuff properly.
+	* liboil/liboiltest.h: same
+	* liboil/copy/permute.c: (permute_test): implement test function
+	* liboil/copy/tablelookup_ref.c: (tablelookup_u8_ref): fix
+	prototype and remove test function.
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/copy/trans8x8_f32.c: Remove simdpack-ish TEST functions
 	* liboil/copy/trans8x8_s16.c:
 	* liboil/dct/dct12_f32.c:

@@ -22,27 +22,21 @@
 
 #include <liboil/liboilfunction.h>
 
-static void
-tablelookup_test (OilTest *test)
-{
-  /* limit table elements to 0..n-1 */
-
-}
+OIL_DEFINE_CLASS (tablelookup_u8,
+    "uint8_t *d, int ds, uint8_t *s1, int ss1, "
+    "uint8_t *s2_256, int ss2, int n");
 
 static void tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src,
     int sstr, uint8_t *table, int tablestride, int n)
 {
   int i;
   for(i=0;i<n;i++){
-    *dest = OIL_GET(table,tablestride*(int)src, uint8_t);
+    *dest = OIL_GET(table,tablestride*(int)(*src), uint8_t);
     OIL_INCREMENT(dest, dstr);
     OIL_INCREMENT(src, sstr);
   }
 }
 
-OIL_DEFINE_CLASS_FULL (tablelookup_u8,
-    "uint8_t *dest, int dstr, uint8_t *src1, int sstr1, "
-    "uint8_t *src2, int sstr2, int n", tablelookup_test);
 OIL_DEFINE_IMPL_REF (tablelookup_u8_ref, tablelookup_u8);
 
 

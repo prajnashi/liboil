@@ -28,7 +28,15 @@
 static void
 permute_test (OilTest *test)
 {
-  /* need to clip the values of src2 to 0..n-1 */
+  int i;
+  int n = test->n;
+  int stride = test->params[OIL_ARG_SSTR2].value;
+  void *ptr = (void *)test->params[OIL_ARG_SRC2].value;
+
+  for(i=0;i<n;i++){
+    /* FIXME */
+    OIL_GET(ptr, i*stride, int32_t) = 0; /* oil_rand_s32(); */
+  }
 
 }
 
