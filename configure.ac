@@ -184,6 +184,7 @@ liboil/dct/Makefile
 liboil/md5/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
+liboil/utf8/Makefile
 testsuite/Makefile
 examples/Makefile
 examples/jpeg/Makefile

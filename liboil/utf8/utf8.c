@@ -25,34 +25,65 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
-#include <stdio.h>
 #include <liboil/liboil.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+#include <liboil/liboiltest.h>
+#include <liboil/liboilrandom.h>
+#include "utf8.h"
 
-#include <liboil/liboilprototype.h>
 
-int main (int argc, char *argv[])
+static void
+utf8_validate_test (OilTest *test)
 {
-  OilFunctionClass *klass;
   int i;
-  int n;
+  int n = test->n;
+  uint8_t *ptr = (uint8_t *)test->params[OIL_ARG_SRC1].src_data +
+    OIL_TEST_HEADER;
 
-  oil_init ();
-
-  printf("null is at %p\n", &oil_function_class_ptr_null);
-  oil_null ();
-
-  n = oil_class_get_n_classes ();
-  for (i=0;i<n; i++ ){
-    klass = oil_class_get_by_index(i);
-
-    printf("%p %s\n", klass, klass->name);
+  for (i=0;i<n;i++){
+    OIL_GET(ptr, i, uint8_t) = oil_rand_u8() & 0x7f;
   }
 
-  return 0;
 }
 
+OIL_DEFINE_CLASS_FULL (utf8_validate, "int32_t *d_1, uint8_t *s, int n",
+    utf8_validate_test);
+
+
+static void
+utf8_validate_ref (int32_t *d_1, uint8_t *s, int n)
+{
+  int i;
+  int extra_bytes;
+  int mask;
+
+  for(i=0;i<n;i++){
+    if (s[i] < 128) continue;
+    if ((s[i] & 0xe0) == 0xc0) {
+      extra_bytes = 1;
+      mask = 0x7f;
+    } else if ((s[i] & 0xf0) == 0xe0) {
+      extra_bytes = 2;
+      mask = 0x1f;
+    } else if ((s[i] & 0xf8) == 0xf0) {
+      extra_bytes = 3;
+      mask = 0x0f;
+    } else {
+      goto error;
+    }
+    if (i + extra_bytes >= n) goto error;
+    while(extra_bytes--) {
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+    }
+  }
+
+error:
+  d_1[0] = i;
+}
+
+OIL_DEFINE_IMPL_REF (utf8_validate_ref, utf8_validate);
 

@@ -534,6 +534,9 @@ typedef void (*_oil_type_trans8x8_u8)(uint8_t * d_8x8, int ds, const uint8_t * s
 extern OilFunctionClass *oil_function_class_ptr_unzigzag8x8_s16;
 typedef void (*_oil_type_unzigzag8x8_s16)(int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss);
 #define oil_unzigzag8x8_s16 ((_oil_type_unzigzag8x8_s16)(*(void **)oil_function_class_ptr_unzigzag8x8_s16))
+extern OilFunctionClass *oil_function_class_ptr_utf8_validate;
+typedef void (*_oil_type_utf8_validate)(int32_t * d_1, const uint8_t * s, int n);
+#define oil_utf8_validate ((_oil_type_utf8_validate)(*(void **)oil_function_class_ptr_utf8_validate))
 extern OilFunctionClass *oil_function_class_ptr_vectoradd_f32;
 typedef void (*_oil_type_vectoradd_f32)(float * dest, int dstr, const float * src1, int sstr1, const float * src2, int sstr2, int n, const float * s3_1, const float * s4_1);
 #define oil_vectoradd_f32 ((_oil_type_vectoradd_f32)(*(void **)oil_function_class_ptr_vectoradd_f32))

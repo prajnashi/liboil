@@ -1,3 +1,16 @@
+2005-03-01  David Schleef  <ds@schleef.org>
+
+	* configure.ac: add utf8
+	* examples/work/work.c: (test), (dump_array), (dump_test),
+	(dump_source), (main): improve things a bit
+	* liboil/Makefile.am: add utf8
+	* liboil/liboilfuncs.h: add utf8
+	* liboil/liboilfunction.c: (oil_class_optimize): Fix memleak.
+	* liboil/utf8/Makefile.am: utf8 functions
+	* liboil/utf8/utf8.c: (utf8_validate_test), (utf8_validate_ref):
+	* liboil/utf8/utf8.h: same
+	* testsuite/dso_check.c: (main): fix compilation
+
 2005-02-13  David Schleef  <ds@schleef.org>
 
 	* testsuite/dso_check.c: (main): Add

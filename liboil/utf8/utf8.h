@@ -25,34 +25,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _LIBOIL_MD5_H_
+#define _LIBOIL_MD5_H_
 
-#include <stdio.h>
-#include <liboil/liboil.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+#include <liboil/liboilfunction.h>
 
-#include <liboil/liboilprototype.h>
+OIL_DECLARE_CLASS(utf8_validate);
 
-int main (int argc, char *argv[])
-{
-  OilFunctionClass *klass;
-  int i;
-  int n;
-
-  oil_init ();
-
-  printf("null is at %p\n", &oil_function_class_ptr_null);
-  oil_null ();
-
-  n = oil_class_get_n_classes ();
-  for (i=0;i<n; i++ ){
-    klass = oil_class_get_by_index(i);
-
-    printf("%p %s\n", klass, klass->name);
-  }
-
-  return 0;
-}
-
+#endif
 

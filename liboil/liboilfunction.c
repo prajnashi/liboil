@@ -280,6 +280,8 @@ oil_class_optimize (OilFunctionClass * klass)
   }
   klass->chosen_impl = min_impl;
   klass->func = min_impl->func;
+
+  oil_test_free (test);
 }
 
 static void
