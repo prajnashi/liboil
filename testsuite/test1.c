@@ -18,7 +18,7 @@ int main (int argc, char *argv[])
   OilFunctionImpl *impl;
   OilTest *test;
   int i;
-  int j;
+  //int j;
   int ret;
 
   oil_init ();
@@ -43,12 +43,15 @@ int main (int argc, char *argv[])
 
         ret = oil_test_go (test);
         if (ret) {
+#if 0
           printf("    %lu %g\n",test->prof.min,
               (double)test->prof.total/test->prof.n);
           for(j=0;j<test->prof.hist_n;j++){
             printf("    %lu %d\n",test->prof.hist_time[j],test->prof.hist_count[j]);
           }
-          hist(test);
+#endif
+          printf("    ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
+          //hist(test);
         } else {
           printf("  not tested\n");
           break;
@@ -62,85 +65,6 @@ int main (int argc, char *argv[])
   return 0;
 }
 
-
-double
-calc_average(OilTest *test)
-{
-  double sum;
-  int n;
-  int i;
-
-  n = 0;
-  sum = 0;
-  for(i=0;i<10;i++){
-    sum += test->prof.hist_time[i] * test->prof.hist_count[i];
-    n += test->prof.hist_count[i];
-  }
-
-  return sum / n;
-
-}
-
-#if 0
-double
-calc_std(OilTest *test, double ave)
-{
-  double x2;
-  double x;
-  int n;
-  int i;
-
-  x2 = 0;
-  n = 0;
-  for(i=0;i<10;i++){
-    x = test->prof.hist_time[i] - ave;
-    x2 += x * x * test->prof.hist_count[i];
-    n += test->prof.hist_count[i];
-  }
-
-  return sqrt (x2) / (n-1);
-}
-
-double
-calc_std2 (OilTest *test)
-{
-  double s2;
-  double s;
-  double x;
-  int n;
-  int i;
-
-  s2 = 0;
-  s = 0;
-  n = 0;
-  for(i=0;i<10;i++){
-    x = test->prof.hist_time[i];
-    s2 += x * x * test->prof.hist_count[i];
-    s += x * test->prof.hist_count[i];
-    n += test->prof.hist_count[i];
-  }
-
-  return sqrt (s2 - s * s / n) / (n-1);
-}
-
-int
-calc_max (OilTest *test)
-{
-  int max_i;
-  int i;
-
-  max_i = -1;
-  for(i=0;i<10;i++) {
-    if (test->prof.hist_count[i] > 0) {
-      if (max_i == -1 || test->prof.hist_time[i] > test->prof.hist_time[max_i]) {
-        max_i = i;
-      }
-    }
-  }
-
-  return max_i;
-}
-#endif
 
 void
 hist(OilTest *test)
@@ -182,7 +106,7 @@ hist(OilTest *test)
       test->prof.hist_count[max_i] = 0;
     }
   } while (off > 4.0);
-  printf("    ==> ave=%g std=%g\n", ave, std);
+  printf("    ave=%g std=%g\n", ave, std);
 }
 
 

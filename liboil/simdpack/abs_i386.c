@@ -44,7 +44,7 @@ abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"eax", "edx");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_i386asm, abs_u16_s16);
+OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm, abs_u16_s16);
 
 static void
 abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -68,7 +68,7 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ecx", "edx");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_i386asm2, abs_u16_s16);
+OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm2, abs_u16_s16);
 
 #if 0
 /* This doesn't work in PIC mode */
@@ -110,7 +110,7 @@ abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ebx", "ecx", "edx", "ebp");
 }
 
-OIL_DEFINE_IMPL (abs_u16_s16_i386asm3, abs_u16_s16);
+OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm3, abs_u16_s16);
 #endif
 
 static void

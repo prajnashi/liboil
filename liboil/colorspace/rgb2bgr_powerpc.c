@@ -70,7 +70,7 @@ rgb2bgr_ppc (uint8_t *dest, uint8_t* src, int n)
       : "10", "11", "12", "13", "ctr");
 }
 
-OIL_DEFINE_IMPL (rgb2bgr_ppc, rgb2bgr);
+OIL_DEFINE_IMPL_ASM (rgb2bgr_ppc, rgb2bgr);
 
 static void
 rgb2bgr_ppc2 (uint8_t *dest, uint8_t* src, int n)
@@ -90,7 +90,7 @@ rgb2bgr_ppc2 (uint8_t *dest, uint8_t* src, int n)
       : "10", "11", "ctr");
 }
 
-OIL_DEFINE_IMPL (rgb2bgr_ppc2, rgb2bgr);
+OIL_DEFINE_IMPL_ASM (rgb2bgr_ppc2, rgb2bgr);
 
 static void
 rgb2bgr_ppc3 (uint8_t *dest, uint8_t* src, int n)
@@ -111,7 +111,7 @@ rgb2bgr_ppc3 (uint8_t *dest, uint8_t* src, int n)
       : "10", "ctr");
 }
 
-OIL_DEFINE_IMPL (rgb2bgr_ppc3, rgb2bgr);
+OIL_DEFINE_IMPL_ASM (rgb2bgr_ppc3, rgb2bgr);
 
 static void
 rgb2bgr_ppc4 (uint8_t *dest, uint8_t* src, int n)
@@ -132,5 +132,5 @@ rgb2bgr_ppc4 (uint8_t *dest, uint8_t* src, int n)
       : "10", "11", "12", "ctr");
 }
 
-OIL_DEFINE_IMPL (rgb2bgr_ppc4, rgb2bgr);
+OIL_DEFINE_IMPL_ASM (rgb2bgr_ppc4, rgb2bgr);
 

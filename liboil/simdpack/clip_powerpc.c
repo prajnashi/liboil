@@ -46,7 +46,7 @@ clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	: "b" (dest), "b" (src), "b" (-*low), "b" (*hi), "b" (n)
 	: "7", "9", "10", "8", "11", "0", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16);
+OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm, clip_s16);
 
 static void
 clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
@@ -71,7 +71,7 @@ clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	: "b" (dest), "b" (src), "b" (-*low), "b" (*hi), "b" (n)
 	: "9", "10", "8", "11", "0", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16);
+OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm2, clip_s16);
 
 /* This is just a basic weave of the previous function.  It uses
  * a lot of registers and gets pretty hairy, so it would take some
@@ -111,6 +111,6 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	: "8", "9", "10", "11", "0",
 	  "18", "19", "20", "21", "22", "ctr");
 }
-OIL_DEFINE_IMPL (clip_s16_ppcasm3, clip_s16);
+OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm3, clip_s16);
 
 

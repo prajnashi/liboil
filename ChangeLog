@@ -1,5 +1,22 @@
 2004-12-03  David Schleef  <ds@schleef.org>
 
+	* liboil/conv/conv_powerpc.c: (convert_s16_f64__powerpc): fix up
+	some powerpc asm code.  probably doesn't compile.
+	* liboil/liboilfunction.c: (oil_init): bump debugging
+	* liboil/liboilfunction.h: add OIL_DEFINE_IMPL_ASM
+	* liboil/md5/md5_i386.c: use it
+	* liboil/md5/md5_powerpc.c:
+	* liboil/colorspace/rgb2bgr_powerpc.c:
+	* liboil/colorspace/rgb2rgba_powerpc.c:
+	* liboil/simdpack/abs_i386.c:
+	* liboil/simdpack/clip_powerpc.c:
+	* liboil/simdpack/mix_powerpc.c:
+	* liboil/simdpack/multsum_powerpc.c:
+	* liboil/simdpack/sad8x8_powerpc.c: (sad8x8_s16_l15_a16_altivec):
+	* testsuite/test1.c: (main), (hist): quiet down a bit
+
+2004-12-03  David Schleef  <ds@schleef.org>
+
 	Move asm code into arch-specific files.
 	* liboil/colorspace/Makefile.am:
 	* liboil/colorspace/rgb2bgr.c:

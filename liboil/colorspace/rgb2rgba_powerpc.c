@@ -39,4 +39,4 @@ rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
       : "10", "ctr");
 }
 
-OIL_DEFINE_IMPL (rgb2rgba_ppc, rgb2rgba);
+OIL_DEFINE_IMPL_ASM (rgb2rgba_ppc, rgb2rgba);

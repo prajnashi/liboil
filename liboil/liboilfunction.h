@@ -125,6 +125,8 @@ LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
 #define OIL_DEFINE_IMPL_REF(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
+#define OIL_DEFINE_IMPL_ASM(function,klass) \
+	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_ASM)
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
 

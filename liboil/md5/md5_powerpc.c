@@ -185,7 +185,7 @@ md5_asm1 (uint32_t *state, uint32_t *src)
 }
 
 
-OIL_DEFINE_IMPL (md5_asm1, md5);
+OIL_DEFINE_IMPL_ASM (md5_asm1, md5);
 
 static void
 md5_asm2 (uint32_t *state, uint32_t *src)
@@ -340,7 +340,7 @@ md5_asm2 (uint32_t *state, uint32_t *src)
 }
 
 
-OIL_DEFINE_IMPL (md5_asm2, md5);
+OIL_DEFINE_IMPL_ASM (md5_asm2, md5);
 
 static void
 md5_asm3 (uint32_t *state, uint32_t *src)
@@ -499,5 +499,5 @@ md5_asm3 (uint32_t *state, uint32_t *src)
 }
 
 
-OIL_DEFINE_IMPL (md5_asm3, md5);
+OIL_DEFINE_IMPL_ASM (md5_asm3, md5);
 

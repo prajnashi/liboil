@@ -57,7 +57,7 @@ oil_init (void)
 
   stop = oil_profile_stamp_gtod ();
 
-  OIL_DEBUG ("initialization completed in %ld usec", stop-start);
+  OIL_INFO ("initialization completed in %ld usec", stop-start);
 }
 
 void

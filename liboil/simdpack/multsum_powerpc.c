@@ -44,7 +44,7 @@ static void multsum_f32_ppcasm(float *dest, float *src1, int sstr1,
 	: "b" (dest)
 	: "32", "33", "34", "ctr");
 }
-OIL_DEFINE_IMPL (multsum_f32_ppcasm, multsum_f32);
+OIL_DEFINE_IMPL_ASM (multsum_f32_ppcasm, multsum_f32);
 
 
 

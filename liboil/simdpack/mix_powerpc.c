@@ -69,6 +69,6 @@ static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint
 	: "r" (n/16)
 	: "12", "ctr");
 }
-OIL_DEFINE_IMPL (mix_u8_a16_altivec, mix_u8);
+OIL_DEFINE_IMPL_ASM (mix_u8_a16_altivec, mix_u8);
 
 

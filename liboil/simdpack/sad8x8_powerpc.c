@@ -110,8 +110,8 @@ sad8x8_s16_a16_altivec (uint32_t *dest, int16_t *src1, int16_t *src2, int s1str,
 	*dest = x[3];
 }
 
-SL_sad8x8_s16_storage
-void sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
+static void
+sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
 {
 	static uint32_t x[4] __attribute__ ((__aligned__ (16)));
 
