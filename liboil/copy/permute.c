@@ -27,18 +27,18 @@
 #define PERMUTE_DEFINE_REF(type)		\
 static void permute_ ## type ## _ref(		\
     type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    int32_t *perm, int pstr, int n)		\
+    type_ ## type *src1, int sstr1,		\
+    int32_t *src2, int sstr2, int n)		\
 {						\
   int i;					\
   for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src,sstr*	\
-	OIL_GET(perm,pstr*i, int), type_ ## type);		\
+    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src1,sstr1*	\
+	OIL_GET(src2,sstr2*i, int), type_ ## type);		\
   }						\
 }						\
 OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type ## _class); \
 OIL_DEFINE_CLASS_X (permute_ ## type, "type_" #type " *dest, int dstr, " \
-    "type_" #type " *src, int sstr, int32_t *perm, int pstr, int n")
+    "type_" #type " *src1, int sstr1, int32_t *src2, int sstr2, int n")
 
 PERMUTE_DEFINE_REF (s8);
 PERMUTE_DEFINE_REF (u8);

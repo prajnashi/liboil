@@ -24,11 +24,11 @@
 #include "jpeg.h"
 
 OIL_DEFINE_CLASS_X (yuv2rgbx_u8,
-    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 OIL_DEFINE_CLASS_X (yuv2rgbx_sub2_u8,
-    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 OIL_DEFINE_CLASS_X (yuv2rgbx_sub4_u8,
-    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)
 #define clamp_lower(x,a) ((x<a)?(a):(x))

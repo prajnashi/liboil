@@ -44,7 +44,7 @@ OIL_DEFINE_CLASS_X(clip_ ## type, \
     "int dstr, " \
     "type_" #type " *src, " \
     "int sstr, int n, " \
-    "type_" #type "min, type_" #type "max"); \
+    "type_" #type " param1, type_" #type " param2"); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type ## _class)
 
 CLIP_DEFINE_REF (s8);

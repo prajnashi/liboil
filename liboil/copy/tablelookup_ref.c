@@ -36,8 +36,8 @@ static void tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src,
 }
 
 OIL_DEFINE_CLASS_X (tablelookup_u8,
-    "uint8_t *dest, int dstr, uint8_t *src, int sstr, "
-    "uint8_t *table, int tablestride, int n");
+    "uint8_t *dest, int dstr, uint8_t *src1, int sstr1, "
+    "uint8_t *src2, int sstr2, int n");
 OIL_DEFINE_IMPL_REF (tablelookup_u8_ref, tablelookup_u8_class);
 
 

@@ -37,7 +37,7 @@ static void scalarmult_ ## type ## _ref(		\
 OIL_DEFINE_CLASS_X(scalarmult_ ## type,         \
     "type_" #type " *dest, int dstr, "          \
     "type_" #type " *src, int sstr, "           \
-    "type_" #type " value, int n");             \
+    "type_" #type " param, int n");             \
 OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type ## _class);
 
 

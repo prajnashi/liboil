@@ -45,7 +45,7 @@ oil_prototype_append_param (OilPrototype *proto, OilParameter *param)
   proto->n_params++;
   proto->params = realloc(proto->params,
       sizeof(OilParameter) * proto->n_params);
-  proto->params[proto->n_params] = *param;
+  proto->params[proto->n_params - 1] = *param;
 }
 
 char *oil_prototype_to_string (OilPrototype *proto)
@@ -137,7 +137,15 @@ static char * parse_string (const char *s, const char **endptr)
 void
 oil_prototype_free (OilPrototype *proto)
 {
-  if (proto->params) free (proto->params);
+  int i;
+
+  if (proto->params) {
+    for(i=0;i<proto->n_params;i++) {
+      free (proto->params[i].name);
+      free (proto->params[i].type);
+    }
+    free (proto->params);
+  }
   free (proto);
 }
 

@@ -22,42 +22,42 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/copy/copy.h>
 
-OIL_DEFINE_CLASS_X(splat_u8,"uint8_t *dest, int dstr, uint8_t value, int n");
-OIL_DEFINE_CLASS_X(splat_u32,"uint32_t *dest, int dstr, uint32_t *src, int n");
+OIL_DEFINE_CLASS_X(splat_u8,"uint8_t *dest, int dstr, uint8_t *param, int n");
+OIL_DEFINE_CLASS_X(splat_u32,"uint32_t *dest, int dstr, uint32_t *param, int n");
 
 
-static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t value, int n)
+static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)
 {
   int i;
   for(i=0;i<n;i++){
-    OIL_GET(dest,i*dstr, uint8_t) = value;
+    OIL_GET(dest,i*dstr, uint8_t) = *param;
   }
 }
 OIL_DEFINE_IMPL_REF(splat_u8_ref, splat_u8_class);
 
-static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *src, int n)
+static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
 {
   int i;
   for(i=0;i<n;i++){
-    OIL_GET(dest,i*dstr, uint32_t) = *src;
+    OIL_GET(dest,i*dstr, uint32_t) = *param;
   }
 }
 OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32_class);
 
 
 
-static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *src, int n)
+static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
 {
   int i;
   if (n&1) {
-    *dest = *src;
+    *dest = *param;
     OIL_INCREMENT(dest,dstr);
   }
   n >>= 1;
   for(i=0;i<n;i++){
-    *dest = *src;
+    *dest = *param;
     OIL_INCREMENT(dest,dstr);
-    *dest = *src;
+    *dest = *param;
     OIL_INCREMENT(dest,dstr);
   }
 }

@@ -24,7 +24,7 @@
 #include "jpeg.h"
 
 OIL_DEFINE_CLASS_X (dequantize8x8_s16, 
-    "int16_t *dest, int dstr, int16_t *src, int sstr, int16_t *quant, int qstr");
+    "int16_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2, int sstr2");
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))

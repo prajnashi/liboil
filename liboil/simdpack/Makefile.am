@@ -10,8 +10,6 @@ libsimdpack_la_SOURCES = \
 	clip_s16.c \
 	clip_s32.c \
 	diffsquaresum_f64.c \
-	downsample1x_f64.c \
-	get8x8_f64.c \
 	mix_u8.c \
 	mult8x8_s16.c \
 	multsum.c \

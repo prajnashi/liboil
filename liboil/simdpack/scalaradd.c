@@ -38,7 +38,7 @@ static void scalaradd_ ## type ## _ref(		\
 OIL_DEFINE_CLASS_X (scalaradd_ ## type,         \
     "type_" #type " *dest, int dstr, "		\
     "type_" #type " *src, int sstr, "		\
-    "type_" #type " val, int n");		\
+    "type_" #type " param int n");		\
 OIL_DEFINE_IMPL_REF (scalaradd_ ## type ## _ref, scalaradd_ ## type ## _class);
 
 

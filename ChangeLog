@@ -1,5 +1,25 @@
 2004-09-07  David Schleef  <ds@schleef.org>
 
+	* liboil/build_prototypes.c: Use new api
+	* liboil/copy/permute.c: param changes
+	* liboil/copy/splat_ref.c: param changes
+	* liboil/copy/tablelookup_ref.c: param changes
+	* liboil/jpeg/jpeg_rgb_decoder.c: param changes
+	* liboil/jpeg/quantize8x8_c.c: param changes
+	* liboil/jpeg/yuv2rgb_c.c: param changes
+	* liboil/liboilprototype.c: bugfixes
+	* liboil/simdpack/Makefile.am: remove files
+	* liboil/simdpack/clip_ref.c: param changes
+	* liboil/simdpack/mix_u8.c: param changes
+	* liboil/simdpack/scalaradd.c: param changes
+	* liboil/simdpack/scalarmult.c: param changes
+	* liboil/simdpack/sincos_f64.c: param changes
+	* liboil/simdpack/vectoradd_f64.c: param changes
+	* testsuite/Makefile.am: new test
+	* testsuite/proto1.c: prototype checker
+
+2004-09-07  David Schleef  <ds@schleef.org>
+
 	* liboil/junk/downsample1x_f64.c: move these
 	* liboil/junk/get8x8_f64.c:
 	* liboil/simdpack/downsample1x_f64.c:
