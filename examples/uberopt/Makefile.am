@@ -1,5 +1,5 @@
 
-EXTRA_DIST = it.c
+EXTRA_DIST = example.c
 
 
 noinst_PROGRAMS = uberopt

@@ -1,5 +1,9 @@
 2004-12-06  David Schleef  <ds@schleef.org>
 
+	* examples/uberopt/Makefile.am: dist example.c, not it.c
+
+2004-12-06  David Schleef  <ds@schleef.org>
+
 	* liboil/copy/Makefile.am: add copy_i386
 	* liboil/copy/copy_i386.c: (copy_u8_mmx), (copy_u8_mmx2): some mmx
 	implementations
