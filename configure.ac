@@ -1,6 +1,5 @@
 AC_PREREQ([2.58])
 AC_INIT(liboil,0.2.2.1)
-#AC_CANONICAL_TARGET([])
 
 nano=$(echo $VERSION | sed 's/[0-9]\.[0-9]\.[0-9]\.*//')
 if test x"$nano" = x1 ; then
@@ -10,7 +9,7 @@ else
 fi
 
 AM_INIT_AUTOMAKE(1.6)
-
+AC_CANONICAL_TARGET([])
 AM_MAINTAINER_MODE
 
 LIBOIL_MAJORMINOR=0.3
@@ -61,7 +60,9 @@ AC_SUBST(LIBOIL_OPT_CFLAGS)
 AC_ARG_ENABLE(failing-implementations,
   AC_HELP_STRING([--enable-failing-implementations],[compile with failing implementations]),
   enable_failing_implementations=$enableval,enable_failing_implementations=no)
-AM_CONDITIONAL(USE_FAILING_IMPLS, test "x$enable_failing_implementations" = xyes)
+if test "x$enable_failing_implementations" = xyes ; then
+  AC_DEFINE(USE_FAILING_IMPLS, 1, [Define if compiling failing implementations])
+fi
 
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================
@@ -70,8 +71,10 @@ dnl Determine CPU
 case "x${target_cpu}" in
   xi?86 | k?) HAVE_CPU_I386=yes
               AC_DEFINE(HAVE_CPU_I386, 1, [Define if the target CPU is an x86]) ;;
+  xx86_64)    HAVE_CPU_AMD64=yes
+              AC_DEFINE(HAVE_CPU_AMD64, 1, [Define if the target CPU is an amd64]) ;;
   xpowerpc)   HAVE_CPU_POWERPC=yes
-              AC_DEFINE(HAVE_CPU_POWERPC, 1, [Define if the target CPU is a POWERPC]) ;;
+              AC_DEFINE(HAVE_CPU_POWERPC, 1, [Define if the target CPU is a powerpc]) ;;
   xalpha)     HAVE_CPU_ALPHA=yes
               AC_DEFINE(HAVE_CPU_ALPHA, 1, [Define if the target CPU is an Alpha]) ;;
   xarm*)      HAVE_CPU_ARM=yes
@@ -82,10 +85,19 @@ case "x${target_cpu}" in
               AC_DEFINE(HAVE_CPU_MIPS, 1, [Define if the target CPU is a MIPS]) ;;
   xhppa*)     HAVE_CPU_HPPA=yes
               AC_DEFINE(HAVE_CPU_HPPA, 1, [Define if the target CPU is a HPPA]) ;;
+  xia64*)     HAVE_CPU_IA64=yes
+              AC_DEFINE(HAVE_CPU_IA64, 1, [Define if the target CPU is a IA64]) ;;
 esac
 
-AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_I386, test "x$HAVE_CPU_I386" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_AMD64, test "x$HAVE_CPU_AMD64" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_POWERPC, test "x$HAVE_CPU_POWERPC" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_ALPHA, test "x$HAVE_CPU_ALPHA" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_ARM, test "x$HAVE_CPU_ARM" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_SPARC, test "x$HAVE_CPU_SPARC" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_MIPS, test "x$HAVE_CPU_MIPS" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_HPPA, test "x$HAVE_CPU_HPPA" = "xyes")
+AM_CONDITIONAL(HAVE_CPU_IA64, test "x$HAVE_CPU_IA64" = "xyes")
 
 AC_C_BIGENDIAN
 
