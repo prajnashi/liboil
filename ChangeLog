@@ -1,3 +1,19 @@
+2005-01-07  David Schleef  <ds@schleef.org>
+
+	* README: add some stuff to read
+	* configure.ac: check for ieee754.h header
+	* liboil/colorspace/argb_paint.c: (argb_paint_u8_ref),
+	(argb_paint_u8_fast): change algorithm to be more accurate
+	* liboil/colorspace/argb_paint_i386.c: (argb_paint_u8_mmx): same
+	* liboil/conv/conv_3dnow.c: (conv_f32_s16_3dnow), 
+	(conv_s32_f32_3dnow): make these implementations actually work
+	* liboil/conv/conv_bitstuff.c: compile fixes
+	* liboil/conv/conv_misc.c: (conv_f64_s16_table),
+	(conv_f32_s16_table): add a f32 impl
+	* liboil/simdpack/diffsquaresum_f64.c: (diffsquaresum_f64_ref),
+	(diffsquaresum_f64_i10_simple), (diffsquaresum_f64_i10_fast):
+	fix implementation
+
 2005-01-05  David Schleef  <ds@schleef.org>
 
 	* testsuite/stride.c: (main), (hist): new test

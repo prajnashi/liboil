@@ -86,6 +86,9 @@ AC_CHECK_LIB(m, lrint,
 AC_CHECK_LIB(m, lrintf,
   AC_DEFINE(HAVE_LRINTF, 1, [Define if lrintf() is available]))
 
+AC_CHECK_HEADER(ieee754.h,
+  AC_DEFINE(HAVE_IEEE754_H, 1, [Define if ieee754.h exists]))
+
 AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
 if test "x$LIBOIL_CVS" = "xyes"
 then

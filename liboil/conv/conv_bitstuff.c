@@ -29,6 +29,7 @@
 #include "config.h"
 #endif
 #include <liboil/liboilfunction.h>
+#include <conv.h>
 
 #ifdef HAVE_IEEE754_H
 
@@ -49,7 +50,7 @@ static void conv_f32_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f32_u8_bitstuff, conv_f32_u8_class);
+OIL_DEFINE_IMPL(conv_f32_u8_bitstuff, conv_f32_u8);
 
 static void conv_f32_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 	int src_stride, int n)
@@ -66,7 +67,7 @@ static void conv_f32_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f32_s8_bitstuff, conv_f32_s8_class);
+OIL_DEFINE_IMPL(conv_f32_s8_bitstuff, conv_f32_s8);
 
 static void conv_f32_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 	int src_stride, int n)
@@ -83,7 +84,7 @@ static void conv_f32_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f32_u16_bitstuff, conv_f32_u16_class);
+OIL_DEFINE_IMPL(conv_f32_u16_bitstuff, conv_f32_u16);
 
 static void conv_f32_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 	int src_stride, int n)
@@ -100,7 +101,7 @@ static void conv_f32_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16_class);
+OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16);
 
 
 #define signbit_S32(x) (((uint32_t)(x))>>31)
@@ -124,7 +125,7 @@ static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, float *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_s16_f32_bitstuff, conv_s16_f32_class);
+OIL_DEFINE_IMPL(conv_s16_f32_bitstuff, conv_s16_f32);
 
 
 #if 0
@@ -143,7 +144,7 @@ static void conv_f64_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_u8_bitstuff, conv_f64_u8_class);
+OIL_DEFINE_IMPL(conv_f64_u8_bitstuff, conv_f64_u8);
 
 static void conv_f64_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 	int src_stride, int n)
@@ -160,7 +161,7 @@ static void conv_f64_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_s8_bitstuff, conv_f64_s8_class);
+OIL_DEFINE_IMPL(conv_f64_s8_bitstuff, conv_f64_s8);
 
 static void conv_f64_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 	int src_stride, int n)
@@ -177,7 +178,7 @@ static void conv_f64_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_u16_bitstuff, conv_f64_u16_class);
+OIL_DEFINE_IMPL(conv_f64_u16_bitstuff, conv_f64_u16);
 
 static void conv_f64_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 	int src_stride, int n)
@@ -194,7 +195,7 @@ static void conv_f64_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_s16_bitstuff, conv_f64_s16_class);
+OIL_DEFINE_IMPL(conv_f64_s16_bitstuff, conv_f64_s16);
 #endif
 
 /* This implementation is slightly inaccurate */
@@ -225,7 +226,7 @@ static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, float *src,
 		OIL_INCREMENT (src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_s16_f64_bitstuff, conv_s16_f64_class);
+OIL_DEFINE_IMPL(conv_s16_f64_bitstuff, conv_s16_f64);
 
 #endif
 

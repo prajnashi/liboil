@@ -35,11 +35,12 @@
 OIL_DECLARE_CLASS (argb_paint_u8);
 
 
-#define imult(a,b) (((a)*(b) + (((a)*(b)) >> 8))>>8)
-#define apply(a,b,c) (imult(a,255-c) + imult(b,c))
+#define div255(x) (((x + 128) + ((x + 128)>>8))>>8)
+#define blend(x,y,a) div255((x)*(a) + (y)*(255-(a)))
 
 static short constants[][4] = {
-  { 255, 255, 255, 255 }
+  { 255, 255, 255, 255 },
+  { 128, 128, 128, 128 }
 };
 
 static void
@@ -55,10 +56,10 @@ argb_paint_u8_mmx (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
       "  movq (%0), %%mm1\n"
       "  punpcklbw %%mm0, %%mm1\n"
       "  movb (%2), %%al\n"
-      "  je 3f\n"
+      "  je 4f\n"
       "  cmpl $255, %1\n"
       "  jne 2f\n"
-      "  movd %%mm3, (%0)\n"
+      "  movq %%mm3, %%mm2\n"
       "  jmp 3f\n"
       "2:\n"
       "  movd %1, %%mm2\n"
@@ -68,13 +69,15 @@ argb_paint_u8_mmx (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
       "  pmullw %%mm1, %%mm4\n"
       "  pmullw %%mm3, %%mm2\n"
       "  paddw %%mm4, %%mm2\n"
+      "  paddw 8(%4), %%mm2\n"
       "  movq %%mm2, %%mm1\n"
       "  psrlw $8, %%mm1\n"
       "  paddw %%mm1, %%mm2\n"
       "  psrlw $8, %%mm2\n"
+      "3: \n"
       "  packuswb %%mm0, %%mm2\n"
       "  movd %%mm2, (%0)\n"
-      "3:\n"
+      "4:\n"
       "  add $4, %0\n"
       "  add $1, %2\n"
       "  decl %3\n"
@@ -84,4 +87,5 @@ argb_paint_u8_mmx (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
       : "r" (&constants));
 }
 OIL_DEFINE_IMPL_FULL (argb_paint_u8_mmx, argb_paint_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_SSE);
+
 

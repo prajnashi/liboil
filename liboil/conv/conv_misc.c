@@ -38,6 +38,43 @@ static void
 conv_f64_s16_table(double *dest, int dest_stride, short *src,
 	int src_stride, int n)
 {
+	static double ints_high[256];
+	static double ints_low[256];
+	static int init = 0;
+	int i;
+	unsigned int idx;
+	if(!init){
+		for(i=0;i<256;i++){
+			ints_high[i]=256.0*((i<128)?i:i-256);
+			ints_low[i]=i;
+		}
+		init = 1;
+	}
+
+	if(n&1){
+		idx = (unsigned short)*src;
+		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
+		n-=1;
+	}
+	for(i=0;i<n;i+=2){
+		idx = (unsigned short)*src;
+		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
+		idx = (unsigned short)*src;
+		*dest = ints_high[(idx>>8)] + ints_low[(idx&0xff)];
+		OIL_INCREMENT(dest, dest_stride);
+		OIL_INCREMENT(src, src_stride);
+	}
+}
+OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16);
+
+static void
+conv_f32_s16_table(float *dest, int dest_stride, short *src,
+	int src_stride, int n)
+{
 	static float ints_high[256];
 	static float ints_low[256];
 	static int init = 0;
@@ -69,6 +106,7 @@ conv_f64_s16_table(double *dest, int dest_stride, short *src,
 		OIL_INCREMENT(src, src_stride);
 	}
 }
-OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16);
+OIL_DEFINE_IMPL(conv_f32_s16_table, conv_f32_s16);
+
 
 

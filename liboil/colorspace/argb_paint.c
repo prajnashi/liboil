@@ -35,8 +35,8 @@
 OIL_DEFINE_CLASS (argb_paint_u8, "uint8_t *i_4xn, uint8_t *s1_4, uint8_t *s2_n, int n");
 
 
-#define imult(a,b) (((a)*(b) + (((a)*(b)) >> 8))>>8)
-#define apply(a,b,c) (imult(a,255-c) + imult(b,c))
+#define div255(x) (((x + 128) + ((x + 128)>>8))>>8)
+#define blend(x,y,a) div255((x)*(a) + (y)*(255-(a)))
 
 static void
 argb_paint_u8_ref (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
@@ -44,10 +44,10 @@ argb_paint_u8_ref (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
   int i;
 
   for(i=0;i<n;i++){
-    dest[0] = apply(dest[0],color[0],alpha[0]);
-    dest[1] = apply(dest[1],color[1],alpha[0]);
-    dest[2] = apply(dest[2],color[2],alpha[0]);
-    dest[3] = apply(dest[3],color[3],alpha[0]);
+    dest[0] = blend(color[0],dest[0],alpha[0]);
+    dest[1] = blend(color[1],dest[1],alpha[0]);
+    dest[2] = blend(color[2],dest[2],alpha[0]);
+    dest[3] = blend(color[3],dest[3],alpha[0]);
     dest+=4;
     alpha++;
   }
@@ -68,10 +68,10 @@ argb_paint_u8_fast (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
       dest[2] = color[2];
       dest[3] = color[3];
     } else {
-      dest[0] = apply(dest[0],color[0],alpha[0]);
-      dest[1] = apply(dest[1],color[1],alpha[0]);
-      dest[2] = apply(dest[2],color[2],alpha[0]);
-      dest[3] = apply(dest[3],color[3],alpha[0]);
+      dest[0] = blend(color[0],dest[0],alpha[0]);
+      dest[1] = blend(color[1],dest[1],alpha[0]);
+      dest[2] = blend(color[2],dest[2],alpha[0]);
+      dest[3] = blend(color[3],dest[3],alpha[0]);
     }
     dest+=4;
     alpha++;

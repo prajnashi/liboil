@@ -47,7 +47,8 @@ diffsquaresum_f64_ref(double *dest, double *src1, int sstr1, double *src2,
 	int i;
 
 	for(i=0;i<n;i++){
-		x = OIL_OFFSET(src1, i*sstr1) - OIL_OFFSET(src2, i*sstr2);
+		x = OIL_GET(src1, i*sstr1, double) -
+                  OIL_GET(src2, i*sstr2, double);
 		x = x*x;
 		tmp = sum;
 		sum += x;
@@ -68,7 +69,8 @@ diffsquaresum_f64_i10_simple(double *dest, double *src1, int sstr1, double *src2
 	int i;
 
 	for(i=0;i<n;i++){
-		x = OIL_OFFSET(src1, i*sstr1) - OIL_OFFSET(src2, i*sstr2);
+		x = OIL_GET(src1, i*sstr1, double) -
+                  OIL_GET(src2, i*sstr2, double);
 		x = x*x;
 		sum += x;
 	}
@@ -76,6 +78,25 @@ diffsquaresum_f64_i10_simple(double *dest, double *src1, int sstr1, double *src2
 	*dest = sum;
 }
 OIL_DEFINE_IMPL (diffsquaresum_f64_i10_simple, diffsquaresum_f64);
+
+static void
+diffsquaresum_f64_i10_fast(double *dest, double *src1, int sstr1, double *src2,
+    int sstr2, int n)
+{
+	double sum0 = 0;
+	double x;
+
+	while(n>0){
+		x = *src1 - *src2;
+		sum0 += x * x;
+		OIL_INCREMENT (src1, sstr1);
+		OIL_INCREMENT (src2, sstr2);
+		n--;
+	}
+
+	*dest = sum0;
+}
+OIL_DEFINE_IMPL (diffsquaresum_f64_i10_fast, diffsquaresum_f64);
 
 static void
 diffsquaresum_f64_i10_unroll2(double *dest, double *src1, int sstr1, double *src2,

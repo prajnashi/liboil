@@ -34,45 +34,52 @@
 
 #ifdef __GNUC__
 /* suboptimal */
-static void conv_f32_s32_3dnow(float *dst, int dst_stride, int32_t *src, int src_stride, int n)
+static void
+conv_f32_s16_3dnow(float *dst, int dst_stride, int16_t *src, int src_stride,
+    int n)
 {
 	int i;
 
-	if (n & 1) 
-	  *dst++ = (float) *src++;
-	n /= 2;
-
 	for(i=0;i<n;i++){
 		asm volatile(
-			"	pi2fd 0(%0), %%mm0		\n"
-			"	movq %%mm0, 0(%1)		\n"
+                        "  xor %%eax, %%eax \n"
+                        "  movw 0(%0), %%eax \n"
+                        "  movd %%eax, %%mm0 \n"
+			"  pi2fd 0(%0), %%mm0 \n"
+			"  movd %%mm0, 0(%1) \n"
 			:
-			: "a" (src), "c" (dst)
-			: "mm0" 
+			: "r" (src), "r" (dst)
+			: "eax", "mm0" 
 		);
 		dst = OIL_OFFSET(dst, dst_stride);
 		src = OIL_OFFSET(src, src_stride);
 	}
         asm volatile ("emms");
 }
-OIL_DEFINE_IMPL_FULL(conv_f32_s32_3dnow, conv_f32_s32,
+OIL_DEFINE_IMPL_FULL(conv_f32_s16_3dnow, conv_f32_s16,
 	OIL_IMPL_FLAG_3DNOW);
 
 /* suboptimal */
-static void conv_s32_f32_3dnow (int32_t *dst, int dst_stride, float *src, int src_stride, int n)
+static void
+conv_s32_f32_3dnow (int32_t *dst, int dst_stride, float *src, int src_stride,
+    int n)
 {
 	int i;
-
-	if (n & 1) 
-	  *src++ = (int32_t) *dst++;
-	n /= 2;
+        const float constants[][2] = {
+          { -0.5, -0.5 },
+          { -1.0, -1.0 }
+        };
 
 	for(i=0;i<n;i++){
 		asm volatile(
-			"	pf2id 0(%0), %%mm0		\n"
-			"	movq %%mm0, 0(%1)		\n"
+			"  movq 0(%0), %%mm0 \n"
+			"  pfadd 0(%2), %%mm0 \n"
+			"  pf2id %%mm0, %%mm1 \n"
+			"  pfcmpgt 0(%2), %%mm0 \n"
+			"  paddd %%mm0, %%mm1 \n"
+			"  movd %%mm1, 0(%1) \n"
 			:
-			: "a" (src), "c" (dst)
+			: "r" (src), "r" (dst), "r" (constants)
 			: "mm0" 
 		);
 		dst = OIL_OFFSET(dst, dst_stride);
