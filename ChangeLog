@@ -1,5 +1,9 @@
 2004-08-12  David Schleef  <ds@schleef.org>
 
+	* m4/as-version.m4: Update from autostars
+
+2004-08-12  David Schleef  <ds@schleef.org>
+
 	* testsuite/abs.c: (test), (main):  Add
 
 2004-08-12  David Schleef  <ds@schleef.org>
