@@ -128,12 +128,14 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	testl	%2, %2			\n"
       "	jg	1b			\n"
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
-      ::"ebx", "ecx", "edx", "ebp");
+      ::"ecx", "edx");
 }
 
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm2, abs_u16_s16_class);
 #endif
 
+#if 0
+/* This doesn't work in PIC mode */
 #ifdef HAVE_CPU_I386
 /* Weave two threads */
 static void
@@ -174,6 +176,7 @@ abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 }
 
 OIL_DEFINE_IMPL (abs_u16_s16_i386asm3, abs_u16_s16_class);
+#endif
 #endif
 
 #ifdef HAVE_CPU_I386
@@ -269,8 +272,7 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	decl	%2			\n"
       "	testl	%2, %2			\n"
       "	jg	1b			\n":"+D" (src), "+a" (dest), "+S" (n)
-      :"c" (p)
-      :"ebp");
+      :"c" (p));
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMX);
@@ -307,7 +309,7 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	testl	%2, %2			\n"
       "	jg	1b			\n"
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
-      ::"ebx", "ecx", "edx", "ebp");
+      ::"ecx", "edx");
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16_class, OIL_IMPL_REQUIRES_MMXEXT);
@@ -339,7 +341,7 @@ abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	testl	%2, %2			\n"
       "	jg	1b			\n"
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
-      ::"ebx", "ecx", "edx", "ebp");
+      ::"ecx", "edx");
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16_class, OIL_IMPL_REQUIRES_SSE2);

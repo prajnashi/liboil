@@ -1,3 +1,11 @@
+2004-08-18  David Schleef  <ds@schleef.org>
+
+	* Makefile.am: remove liboil-lite
+	* configure.ac: add -D_GNU_SOURCE to flags
+	* liboil/simdpack/abs_u16_s16.c: (abs_u16_s16_i386asm2),
+	(abs_u16_s16_mmxx), (abs_u16_s16_mmx2), (abs_u16_s16_sse2):
+	Fix some problems with ebx usage.
+
 2004-08-13  David Schleef  <ds@schleef.org>
 
 	Partial port to Forte/non-gcc-compilers.  Kill me now.
