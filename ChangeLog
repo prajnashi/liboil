@@ -1,3 +1,11 @@
+2004-11-29  David Schleef  <ds@schleef.org>
+
+	From Benjamin Otte
+	* liboil/Makefile.am:
+	* liboil/conv_sse.c: (conv_f64_s32_sse), (conv_s32_f64_sse): Fix
+	implementations.
+	* liboil/conv_3dnow.c: new
+
 2004-11-27  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version bump

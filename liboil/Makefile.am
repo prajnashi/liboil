@@ -25,7 +25,7 @@ powerpc_sources =
 endif
 
 if HAVE_CPU_I386
-i386_sources = conv_sse.c
+i386_sources = conv_sse.c conv_3dnow.c
 else
 i386_sources = 
 endif
