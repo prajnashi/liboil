@@ -1,5 +1,38 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* liboil/copy/trans8x8_f32.c: Move unused files to junk directory
+	* liboil/copy/trans8x8_s16.c:
+	* liboil/dct/fdct8x8_s16.c:
+	* liboil/dct/idct8x8_f64.c:
+	* liboil/dct/idct8x8_s16.c:
+	* liboil/dct/idct8x8s_s16.c:
+	* liboil/jpeg/zigzag8x8_s16.c:
+	* liboil/junk/conv8x8_f64_s16.c:
+	* liboil/junk/conv8x8_s16x8_s8.c:
+	* liboil/junk/conv_f64_s16.c:
+	* liboil/junk/conv_s16_f64.c:
+	* liboil/junk/downsample2_f64.c:
+	* liboil/junk/downsample2_s16.c:
+	* liboil/junk/downsample2_u8.c:
+	* liboil/junk/downsamplex_f64.c:
+	* liboil/junk/fdct8x8_s16.c:
+	* liboil/junk/idct8x8_f64.c:
+	* liboil/junk/idct8x8_s16.c:
+	* liboil/junk/idct8x8s_s16.c:
+	* liboil/junk/trans8x8_f32.c:
+	* liboil/junk/trans8x8_s16.c:
+	* liboil/junk/zigzag8x8_s16.c:
+	* liboil/simdpack/conv8x8_f64_s16.c:
+	* liboil/simdpack/conv8x8_s16x8_s8.c:
+	* liboil/simdpack/conv_f64_s16.c:
+	* liboil/simdpack/conv_s16_f64.c:
+	* liboil/simdpack/downsample2_f64.c:
+	* liboil/simdpack/downsample2_s16.c:
+	* liboil/simdpack/downsample2_u8.c:
+	* liboil/simdpack/downsamplex_f64.c:
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/liboiltest.c: (oil_test_new), (oil_test_free),
 	(oil_test_go): Fix memleaks by freeing stuff properly.
 	* liboil/liboiltest.h: same
