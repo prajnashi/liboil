@@ -404,6 +404,6 @@ fdct8x8s_s16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
       : "eax", "ebx", "ecx", "edx");
 
 }
-OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_SSE);
 
 

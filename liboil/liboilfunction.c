@@ -186,7 +186,8 @@ oil_class_optimize (OilFunctionClass * klass)
         }
       }
     } else {
-      OIL_ERROR("uncaught error");
+      OIL_WARNING("disabling implementation %s", impl->name);
+      impl->flags |= OIL_IMPL_FLAG_DISABLED;
     }
   }
   klass->chosen_impl = min_impl;

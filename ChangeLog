@@ -1,3 +1,23 @@
+2005-01-01  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/argb_paint_i386.c:
+	* liboil/colorspace/ayuv2argb_i386.c:
+	* liboil/liboilfunction.c: (oil_class_optimize): disable functions
+	that fail test
+	* liboil/liboiltest.c: (oil_test_new), (check_zero),
+	(oil_test_check_impl), (init_parameter): Fix double-free bug, plus
+	other problems with testing from applications.
+	* liboil/dct/idct8x8_i386.c: pshufw apparently is not MMX
+	* liboil/simdpack/abs_i386.c: (abs_u16_s16_i386asm3),
+	(abs_u16_s16_mmx), (abs_u16_s16_mmxx): disable code that doesn't
+	handle strides correctly.
+	* liboil/simdpack/clip_s32.c: (clip_s32_fast): fix code to pass test
+	* liboil/simdpack/diffsquaresum_f64.c: 
+	(diffsquaresum_f64_i10_unroll4): fix prototype
+	* liboil/simdpack/scalaradd.c: fix implementation
+	* liboil/simdpack/scalarmult.c: fix implementation
+	* testsuite/Makefile.am: add stride test
+
 2004-12-30  David Schleef  <ds@schleef.org>
 
 	* liboil/dct/idct8x8_i386.c: (idct8x8_s16_mmx), (fdct8x8s_s16_mmx):

@@ -35,19 +35,20 @@
 /* This is a suprisingly fast implementation of clipping
  * in straight C.  It would be difficult to do it faster in asm
  * without specialized opcodes.  However, this trick clips
- * the range min^(1<<31) to max^(1<<31) incorrectly.  So
- * it's limited to 31 bits. */
+ * the range min^(1<<31) to max^(1<<31) incorrectly with int32_t.
+ * Thus the use of int64_t. */
 
 static void
 clip_s32_fast (int32_t *dest, int dstr, int32_t *src, int sstr, int n,
     int32_t *low, int32_t *hi)
 {
 	int i;
-	int32_t x;
+	int64_t x;
 
 	for(i=0;i<n;i++){
-		x = src[i];
-		dest[i] = x - (((x-*low)>>31)&(x-*low)) + (((*hi-x)>>31)&(*hi-x));
+		x = OIL_GET(src,i*sstr,int32_t);
+		OIL_GET(dest,i*dstr,int32_t) = x - (((x-*low)>>31)&(x-*low))
+                  + (((*hi-x)>>31)&(*hi-x));
 	}
 }
 

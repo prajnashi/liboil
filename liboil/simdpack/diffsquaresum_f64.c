@@ -34,7 +34,7 @@
 #include <math.h>
 
 OIL_DEFINE_CLASS (diffsquaresum_f64,
-    "double *dest, double *src1, int sstr1, double *src2, int sstr2, int n");
+    "double *d_1, double *src1, int sstr1, double *src2, int sstr2, int n");
 
 static void
 diffsquaresum_f64_ref(double *dest, double *src1, int sstr1, double *src2,
@@ -108,7 +108,8 @@ diffsquaresum_f64_i10_unroll2(double *dest, double *src1, int sstr1, double *src
 }
 OIL_DEFINE_IMPL (diffsquaresum_f64_i10_unroll2, diffsquaresum_f64);
 
-static void diffsquaresum_f64_i10_unroll4(double *dest, double *src1, int sstr1,
+static void
+diffsquaresum_f64_i10_unroll4(double *dest, double *src1, int sstr1,
 	double *src2, int sstr2, int n)
 {
 	double sum0 = 0;

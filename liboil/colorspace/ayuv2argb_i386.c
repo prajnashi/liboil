@@ -87,7 +87,7 @@ ayuv2argb_u8_mmx (uint8_t *argb, uint8_t *ayuv, int n)
       : "r" (&constants));
 
 }
-OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx, ayuv2argb_u8, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx, ayuv2argb_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_SSE);
 
 
 static short constants2[][4] = {
@@ -132,7 +132,7 @@ ayuv2argb_u8_mmx2 (uint8_t *argb, uint8_t *ayuv, int n)
 
 }
 
-OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx2, ayuv2argb_u8, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx2, ayuv2argb_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_SSE);
 
 static void
 ayuv2argb_u8_mmx3 (uint8_t *argb, uint8_t *ayuv, int n)
@@ -170,5 +170,5 @@ ayuv2argb_u8_mmx3 (uint8_t *argb, uint8_t *ayuv, int n)
       : "r" (&constants2));
 
 }
-OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx3, ayuv2argb_u8, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (ayuv2argb_u8_mmx3, ayuv2argb_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_SSE);
 

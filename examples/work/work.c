@@ -33,6 +33,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilrandom.h>
+#include <liboil/liboilcpu.h>
 #include <glib.h>
 #include <string.h>
 #include <math.h>
@@ -41,27 +42,19 @@ void register_impls(void);
 
 void test(void)
 {
-  uint8_t dest[100*4];
-  uint8_t color[4];
-  uint8_t alpha[100];
+  int16_t dest[100];
+  int16_t src[100];
   int i;
 
-  for(i=0;i<16;i++){
-    dest[i*4+0] = 0;
-    dest[i*4+1] = 0;
-    dest[i*4+2] = 0;
-    dest[i*4+3] = 255;
-    alpha[i]=i*16;
+  for(i=0;i<100;i++){
+    src[i] = oil_rand_s16();
+    dest[i] = 0;
   }
-  color[0] = 255;
-  color[1] = 128;
-  color[2] = 10;
-  color[3] = 128;
 
-  oil_argb_paint_u8 (dest, color, alpha, 16);
+  oil_abs_u16_s16 (dest, 4, src, 4, 50);
 
-  for(i=0;i<4*16;i+=4){
-    g_print("%d %d %d %d\n",dest[i+0],dest[i+1],dest[i+2],dest[i+3]);
+  for(i=0;i<100;i++){
+    g_print("%d %d\n",dest[i],src[i]);
   }
 
 }
@@ -70,20 +63,25 @@ int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
+  unsigned long cpu_flags;
 
   oil_init ();
 
-  register_impls();
+  cpu_flags = oil_cpu_get_flags ();
 
-  klass = oil_class_get ("argb_paint_u8");
+  //register_impls();
+
+  klass = oil_class_get ("abs_u16_s16");
   oil_class_optimize (klass);
 
   for (impl = klass->first_impl; impl; impl = impl->next) {
-    klass->chosen_impl = impl;
-    klass->func = impl->func;
-    g_print("impl %s %g %g\n", impl->name, impl->profile_ave,
-        impl->profile_std);
-    test();
+    if (((impl->flags & OIL_CPU_FLAG_MASK) & ~cpu_flags) == 0) {
+      klass->chosen_impl = impl;
+      klass->func = impl->func;
+      g_print("impl %s %g %g\n", impl->name, impl->profile_ave,
+          impl->profile_std);
+      test();
+    }
   }
 
   return 0;

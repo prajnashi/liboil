@@ -76,6 +76,9 @@ static void scalaradd_ ## type ## _unroll2(	\
     *dest = *src + *val;			\
     OIL_INCREMENT(dest,dstr);			\
     OIL_INCREMENT(src,sstr);			\
+    *dest = *src + *val;			\
+    OIL_INCREMENT(dest,dstr);			\
+    OIL_INCREMENT(src,sstr);			\
     n--;					\
   }						\
 }						\

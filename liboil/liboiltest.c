@@ -69,6 +69,11 @@ oil_test_new (OilFunctionClass *klass)
     memcpy (&test->params[proto->params[i].parameter_type], &proto->params[i],
         sizeof(OilParameter));
   }
+  for (i=0;i<OIL_ARG_LAST;i++){
+    test->params[i].src_data = NULL;
+    test->params[i].ref_data = NULL;
+    test->params[i].test_data = NULL;
+  }
 
   test->iterations = 10;
   test->n = 100;
@@ -209,19 +214,30 @@ oil_test_check_ref (OilTest *test)
   test->tested_ref = 1;
 }
 
+static int
+check_zero (uint8_t *data, int n)
+{
+  int i;
+  for(i=0;i<n;i++) {
+    if (data[i] != 0) return 0;
+  }
+  return 1;
+}
+
 int
 oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
 {
   double x;
   int i;
   int n;
+  int fail = 0;
 
   if (test->proto->n_params > 10) {
     OIL_ERROR ("function has too many parameters");
     return 0;
   }
 
-  if (!test->tested_ref) {
+  if (!test->inited || !test->tested_ref) {
     oil_test_check_ref(test);
   }
 
@@ -238,17 +254,29 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
         x += check_array (p->ref_data, p->test_data, p->type, p->pre_n,
             p->stride, p->post_n);
         n += p->pre_n * p->post_n;
+        if (!check_zero (p->test_data, OIL_TEST_HEADER)) {
+          fail = 1;
+          OIL_ERROR("function %s wrote before area for parameter %s",
+              test->impl->name, p->parameter_name);
+        }
+        if (!check_zero ((uint8_t *)p->test_data + p->size - OIL_TEST_FOOTER,
+              OIL_TEST_FOOTER)) {
+          fail = 1;
+          OIL_ERROR("function %s wrote after area for parameter %s",
+              test->impl->name, p->parameter_name);
+        }
       }
     }
   }
   OIL_DEBUG("sum of absolute differences %g for %d values", x, n);
-  if (x > n) {
-    OIL_ERROR ("function %s in class %s failed check (%g > %d)",
-        test->impl->name, test->klass->name, x, n);
-  }
-
   test->sum_abs_diff = x;
   test->n_points = n;
+
+  if (x > n || fail) {
+    OIL_ERROR ("function %s in class %s failed check (%g > %d) outside=%d",
+        test->impl->name, test->klass->name, x, n, fail);
+    return 0;
+  }
 
   return 1;
 }
@@ -333,17 +361,20 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
 
   if (p->direction == 'i' || p->direction == 's') {
     if (p->src_data) free (p->src_data);
+
+    OIL_DEBUG("allocating %d bytes for src_data for %s", p->size, p->parameter_name);
     p->src_data = malloc (p->size);
     memset (p->src_data, 0, p->size);
-    fill_array (p->src_data, p->type, p->pre_n, p->stride, p->post_n);
+    fill_array (p->src_data + OIL_TEST_HEADER, p->type, p->pre_n, p->stride, p->post_n);
   }
 
   if (p->direction == 'i' || p->direction == 'd') {
     if (p->ref_data) free (p->ref_data);
     p->ref_data = malloc (p->size);
     memset (p->ref_data, 0, p->size);
+    OIL_DEBUG("allocating %d bytes for ref_data and test_data for %s", p->size, p->parameter_name);
 
-    if (p->test_data) free (p->ref_data);
+    if (p->test_data) free (p->test_data);
     p->test_data = malloc (p->size);
     memset (p->test_data, 0, p->size);
   }

@@ -34,6 +34,7 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
+#if 0
 static void
 abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -53,8 +54,10 @@ abs_u16_s16_i386asm (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"eax", "edx");
 }
 
-OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm, abs_u16_s16);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_i386asm, abs_u16_s16, OIL_IMPL_FLAG_CMOV);
+#endif
 
+#if 0
 /* The previous function after running through uberopt */
 static void
 abs_u16_s16_i386asm_uber4 (uint16_t * dest, int dstr, int16_t * src,
@@ -76,8 +79,10 @@ abs_u16_s16_i386asm_uber4 (uint16_t * dest, int dstr, int16_t * src,
       :"+r" (src), "+r" (dest), "+r" (n)
       ::"eax", "edx");
 }
-OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm_uber4, abs_u16_s16);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_i386asm_uber4, abs_u16_s16, OIL_IMPL_FLAG_CMOV);
+#endif
 
+#if 0
 static void
 abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -99,28 +104,26 @@ abs_u16_s16_i386asm2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
       ::"ecx", "edx");
 }
-
-OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm2, abs_u16_s16);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_i386asm2, abs_u16_s16, OIL_IMPL_FLAG_CMOV);
+#endif
 
 static void
 abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
   __asm__ __volatile__ ("\n"
       "	.p2align 4,,15			\n"
-      "1:  movswl (%1), %%eax           \n"
-      "    mov %3, %%edx                \n"
-      "    add %%edx, %1                \n"
+      "1:  movsxw (%1), %%eax           \n"
+      "    add %3, %1                   \n"
       "    mov %%eax, %%edx             \n"
       "    sar $0xf, %%ax               \n"
       "    and %%edx, %%eax             \n"
       "    add %%eax, %%eax             \n"
       "    sub %%eax, %%edx             \n"
       "    mov %%dx, (%0)               \n"
-      "    mov %4, %%edx                \n"
-      "    add %%edx, %0                \n"
+      "    add %4, %0                   \n"
       "    decl %2                      \n"
       "    jne 1b                       \n"
-      : "+r" (src), "+r" (dest), "+m" (n)
+      : "+r" (dest), "+r" (src), "+m" (n)
       : "m" (dstr), "m" (sstr)
       : "eax", "edx");
 }
@@ -131,10 +134,11 @@ OIL_DEFINE_IMPL_ASM (abs_u16_s16_i386asm3, abs_u16_s16);
 static void
 abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
-  const short p[] = { -32768, -32768, -32768, -32768,
-    32767, 32767, 32767, 32767
+  const int16_t p[][4] = {
+    { -32768, -32768, -32768, -32768 },
+    { 32767, 32767, 32767, 32767 }
   };
-  short tmp[4];
+  int16_t tmp[4];
 
   while (n & 3) {
     *dest = ABS (*src);
@@ -158,6 +162,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
     OIL_INCREMENT (src, sstr);
     __asm__ __volatile__ ("\n"
         "	movq	(%%eax), %%mm1		\n"
+        "	movq	%%mm1, %%mm0		\n"
         "	paddsw	%%mm2, %%mm0		\n"
         "	paddsw	%%mm3, %%mm1		\n"
         "	psubsw	%%mm2, %%mm0		\n"
@@ -180,6 +185,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16, OIL_IMPL_FLAG_MMX);
 
+#if 0
 static void
 abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -222,8 +228,8 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       :"c" (p));
   asm volatile ("emms");
 }
-
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_FLAG_MMX);
+#endif
 
 static void
 abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
