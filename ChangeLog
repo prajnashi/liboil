@@ -1,3 +1,9 @@
+2004-12-27  David Schleef  <ds@schleef.org>
+
+	* liboil/copy/copy_i386.c: (copy_u8_mmx), (copy_u8_mmx2):
+	Fix bug for certain values of n.
+	* liboil/liboil.h: add oil_memcpy()
+
 2004-12-23  David Schleef  <ds@schleef.org>
 
 	Clean up API.

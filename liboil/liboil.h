@@ -34,6 +34,8 @@
 
 void oil_init (void);
 
+#define oil_memcpy(a,b,c) oil_copy_u8((void *)(a),(void *)(b),(c))
+
 
 #endif
 

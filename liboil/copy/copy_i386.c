@@ -47,7 +47,7 @@ copy_u8_mmx (uint8_t *dest, uint8_t *src, int n)
     *dest++ = *src++;
     n--;
   }
-  asm volatile (
+  if (n) asm volatile (
       "  mov $0, %%eax\n"
       "1:\n"
       "  movq (%1,%%eax), %%mm0\n"
@@ -75,7 +75,7 @@ copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
     *dest++ = *src++;
     n--;
   }
-  asm volatile (
+  if (n) asm volatile (
       "  mov $0, %%eax\n"
       "1:\n"
       "  movq (%1,%%eax), %%mm0\n"
