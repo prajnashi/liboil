@@ -1,5 +1,11 @@
 2004-11-30  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags), (test_altivec),
+	(illegal_instruction_handler), (oil_cpu_powerpc_getflags),
+	(_oil_cpu_init): Detect altivec
+
+2004-11-30  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: add testing
 	* liboil/conv_sse.c: opcodes are SSE2, not SSE (oops)
 	* liboil/copy/permute.c: (permute_test): avoid generic test function

@@ -27,8 +27,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#if defined(__powerpc__)
+#include <setjmp.h>
+#include <signal.h>
+#endif
 
-#ifdef __i386__
+#if defined(__i386__)
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
@@ -36,7 +40,7 @@ static char * _strndup (const char *s, int n);
 
 unsigned long oil_cpu_flags;
 
-#ifdef __i386__
+#if defined(__i386__)
 static char *
 get_cpuinfo (void)
 {
@@ -111,8 +115,50 @@ oil_cpu_i386_getflags(void)
   free (flags);
   free (cpuinfo);
   free (cpuinfo_flags);
+}
+#endif
 
-  OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
+#ifdef __powerpc__
+static jmp_buf jump_env;
+
+static int
+test_altivec (void)
+{
+  int ret;
+  char x[16] = { 0, };
+
+  ret = setjmp (jump_env);
+  if (!ret) {
+    asm volatile (
+        "  lvx %%v0, %0, %%r0  \n"
+        :: "r" (x));
+  }
+
+  return (ret==0);
+}
+
+static void
+illegal_instruction_handler (int num)
+{
+  longjmp (jump_env, 1);
+}
+
+static void
+oil_cpu_powerpc_getflags(void)
+{
+  struct sigaction act;
+  struct sigaction oldact;
+
+  memset (&act, 0, sizeof(act));
+  act.sa_handler = &illegal_instruction_handler;
+  sigaction (SIGILL, &act, &oldact);
+
+  if (test_altivec()) {
+    OIL_DEBUG ("cpu flag altivec");
+    oil_cpu_flags |= OIL_IMPL_REQUIRES_ALTIVEC;
+  }
+
+  sigaction (SIGILL, &oldact, NULL);
 }
 #endif
 
@@ -122,10 +168,14 @@ _oil_cpu_init (void)
 #ifdef __i386__
   oil_cpu_i386_getflags();
 #endif
+#ifdef __powerpc__
+  oil_cpu_powerpc_getflags();
+#endif
 
+  OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
 }
 
-#ifdef __i386__
+#if defined(__i386__)
 static char *
 get_cpuinfo_flags_string (char *cpuinfo)
 {
