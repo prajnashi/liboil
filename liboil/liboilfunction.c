@@ -46,6 +46,13 @@ static void oil_init_structs (void);
 
 void _oil_cpu_init (void);
 
+/**
+ * oil_init:
+ *
+ * Initializes liboil.  This function must be called before any
+ * other liboil function is used.  &oil_init may be called multiple
+ * times.
+ */
 void
 oil_init (void)
 {
@@ -68,6 +75,11 @@ oil_init (void)
   OIL_INFO ("initialization completed in %ld usec", stop-start);
 }
 
+/**
+ * oil_optimize_all:
+ *
+ * Optimizes all function classes.
+ */
 void
 oil_optimize_all (void)
 {
@@ -81,6 +93,12 @@ oil_optimize_all (void)
   }
 }
 
+/**
+ * oil_optimize:
+ * @class_name: name of function class to optimize
+ *
+ * Optimizes function class given by @class_name.
+ */
 void
 oil_optimize (const char *class_name)
 {
@@ -95,12 +113,25 @@ oil_optimize (const char *class_name)
   oil_class_optimize (klass);
 }
 
+/**
+ * oil_class_get_n_classes:
+ *
+ * Returns: the number of function classes
+ */
 int
 oil_class_get_n_classes (void)
 {
   return _oil_n_function_classes;
 }
 
+/**
+ * oil_class_get_by_index:
+ * @i: index of function class
+ *
+ * Returns a pointer to the function class with index @i.
+ *
+ * Returns: a pointer to a function class structure
+ */
 OilFunctionClass *
 oil_class_get_by_index (int i)
 {
@@ -109,6 +140,15 @@ oil_class_get_by_index (int i)
   return _oil_function_class_array[i];
 }
 
+/**
+ * oil_impl_is_runnable:
+ * @impl: a function implementation
+ *
+ * Determines whether the function implementation given by @impl
+ * can be executed by the current CPU.
+ *
+ * Returns: 1 if the implementation can be executed, otherwise 0
+ */
 int
 oil_impl_is_runnable (OilFunctionImpl *impl)
 {
@@ -119,6 +159,14 @@ oil_impl_is_runnable (OilFunctionImpl *impl)
   return 1;
 }
 
+/**
+ * oil_impl_get_by_index:
+ * @i: index
+ *
+ * Returns a pointer to the function implementation with index @i.
+ *
+ * Returns: a pointer to a function implementation structure
+ */
 OilFunctionImpl *
 oil_impl_get_by_index (int i)
 {
@@ -127,6 +175,15 @@ oil_impl_get_by_index (int i)
   return _oil_function_impl_array[i];
 }
 
+/**
+ * oil_class_get:
+ * @class_name: the name of the function class
+ *
+ * Returns a pointer to the function class that has the given class
+ * name.  If no such class is found, NULL is returned.
+ *
+ * Returns: a pointer to a function class
+ */
 OilFunctionClass *
 oil_class_get (const char *class_name)
 {
@@ -142,6 +199,16 @@ oil_class_get (const char *class_name)
   return NULL;
 }
 
+/**
+ * oil_class_choose_by_name:
+ * @klass: a function class
+ * @name: the name of an implementation
+ *
+ * Sets the chosen implementation for the given function class to
+ * the implementation with the given name.  If no implementation
+ * having the given name is found, the chosen implementation is
+ * not changed.
+ */
 void
 oil_class_choose_by_name (OilFunctionClass * klass, const char *name)
 {
@@ -156,6 +223,15 @@ oil_class_choose_by_name (OilFunctionClass * klass, const char *name)
   }
 }
 
+/**
+ * oil_class_optimize:
+ * @klass: a function class
+ *
+ * Tests and profiles each implementation for the given function
+ * class.  Testing compares the output of running each implementation
+ * on random input against the reference implementation for the
+ * same input.
+ */
 void
 oil_class_optimize (OilFunctionClass * klass)
 {
@@ -243,6 +319,14 @@ oil_init_structs (void)
   }
 }
 
+/**
+ * oil_class_register_impl_by_name:
+ * @klass_name: the name of the class
+ * @impl: an implementation
+ *
+ * Adds @impl to the list of implementations associated with
+ * the function class given by @klass_name.
+ */
 void
 oil_class_register_impl_by_name (const char *klass_name, OilFunctionImpl *impl)
 {

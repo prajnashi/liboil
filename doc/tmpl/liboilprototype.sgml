@@ -1,0 +1,87 @@
+<!-- ##### SECTION Title ##### -->
+liboilprototype
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT OilPrototype ##### -->
+<para>
+
+</para>
+
+@n_params: 
+@params: 
+@klass: 
+
+<!-- ##### FUNCTION oil_prototype_from_string ##### -->
+<para>
+
+</para>
+
+@s: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_prototype_to_string ##### -->
+<para>
+
+</para>
+
+@proto: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_prototype_free ##### -->
+<para>
+
+</para>
+
+@proto: 
+
+
+<!-- ##### FUNCTION oil_prototype_append_param ##### -->
+<para>
+
+</para>
+
+@proto: 
+@param: 
+
+
+<!-- ##### FUNCTION oil_type_sizeof ##### -->
+<para>
+
+</para>
+
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_type_name ##### -->
+<para>
+
+</para>
+
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_arg_type_name ##### -->
+<para>
+
+</para>
+
+@type: 
+@Returns: 
+
+

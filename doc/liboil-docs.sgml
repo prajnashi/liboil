@@ -1,0 +1,50 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!ENTITY liboil SYSTEM "sgml/liboil.sgml">
+<!ENTITY liboilcpu SYSTEM "sgml/liboilcpu.sgml">
+<!ENTITY liboildebug SYSTEM "sgml/liboildebug.sgml">
+<!ENTITY liboilfuncs-doc SYSTEM "sgml/liboilfuncs-doc.sgml">
+<!ENTITY liboilfunction SYSTEM "sgml/liboilfunction.sgml">
+<!ENTITY liboilparameter SYSTEM "sgml/liboilparameter.sgml">
+<!ENTITY liboilprofile SYSTEM "sgml/liboilprofile.sgml">
+<!ENTITY liboilprototype SYSTEM "sgml/liboilprototype.sgml">
+<!ENTITY liboilrandom SYSTEM "sgml/liboilrandom.sgml">
+<!ENTITY liboiltest SYSTEM "sgml/liboiltest.sgml">
+
+]>
+<book id="index">
+  <bookinfo>
+    <title>Liboil Reference Manual</title>
+  </bookinfo>
+
+  <chapter>
+    <title>Liboil Stable API</title>
+
+    <para>
+      These functions are part of the stable API, and will not change
+      during the lifetime of the 0.3 series.
+    </para>
+
+    &liboil;
+    &liboilfuncs-doc;
+
+  </chapter>
+  <chapter>
+    <title>Liboil Unstable API</title>
+
+    <para>
+      These functions are part of the unstable API, and may change
+      between releases in the 0.3 series.  These functions should not
+      be used by applications.  Some of this functionality
+      may be moved to the stable API during the 0.3 series.
+    </para>
+
+    &liboilcpu;
+    &liboildebug;
+    &liboilfunction;
+    &liboilparameter;
+    &liboilprofile;
+    &liboilprototype;
+    &liboilrandom;
+    &liboiltest;
+  </chapter>
+</book>

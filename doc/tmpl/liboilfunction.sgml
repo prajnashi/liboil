@@ -1,0 +1,345 @@
+<!-- ##### SECTION Title ##### -->
+OilFunction
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO LIBOIL_CHECK_PROTOTYPE ##### -->
+<para>
+
+</para>
+
+@a: 
+
+
+<!-- ##### MACRO OIL_OPT_MANGLE ##### -->
+<para>
+
+</para>
+
+@a: 
+
+
+<!-- ##### MACRO OIL_OPT_FLAG_MANGLE ##### -->
+<para>
+
+</para>
+
+@a: 
+
+
+<!-- ##### MACRO OIL_NO_CLASSES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_OPT_SUFFIX ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT OilFunctionImpl ##### -->
+<para>
+
+</para>
+
+@next: 
+@klass: 
+@func: 
+@flags: 
+@name: 
+@profile_ave: 
+@profile_std: 
+
+<!-- ##### MACRO OIL_GET ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@offset: 
+@type: 
+
+
+<!-- ##### MACRO OIL_OFFSET ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@offset: 
+
+
+<!-- ##### MACRO OIL_INCREMENT ##### -->
+<para>
+
+</para>
+
+@ptr: 
+@offset: 
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_REF ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_OPT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_ASM ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_DISABLED ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_CPU_FLAG_MASK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_CMOV ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_MMX ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_MMXEXT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_3DNOW ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_3DNOWEXT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_ALTIVEC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO OIL_DECLARE_CLASS ##### -->
+<para>
+
+</para>
+
+@klass: 
+
+
+<!-- ##### MACRO OIL_DEFINE_CLASS_FULL ##### -->
+<para>
+
+</para>
+
+@klass: 
+@string: 
+@test: 
+
+
+<!-- ##### MACRO OIL_DEFINE_CLASS ##### -->
+<para>
+
+</para>
+
+@klass: 
+@string: 
+
+
+<!-- ##### MACRO OIL_DEFINE_IMPL_FULL ##### -->
+<para>
+
+</para>
+
+@function: 
+@klass: 
+@flags: 
+
+
+<!-- ##### MACRO OIL_DEFINE_IMPL ##### -->
+<para>
+
+</para>
+
+@function: 
+@klass: 
+
+
+<!-- ##### MACRO OIL_DEFINE_IMPL_REF ##### -->
+<para>
+
+</para>
+
+@function: 
+@klass: 
+
+
+<!-- ##### MACRO OIL_DEFINE_IMPL_ASM ##### -->
+<para>
+
+</para>
+
+@function: 
+@klass: 
+
+
+<!-- ##### MACRO OIL_DEFINE_IMPL_DEPENDS ##### -->
+<para>
+
+</para>
+
+@function: 
+@klass: 
+@...: 
+
+
+<!-- ##### FUNCTION oil_optimize_all ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION oil_optimize ##### -->
+<para>
+
+</para>
+
+@class_name: 
+
+
+<!-- ##### FUNCTION oil_class_get_by_index ##### -->
+<para>
+
+</para>
+
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_get ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_optimize ##### -->
+<para>
+
+</para>
+
+@klass: 
+
+
+<!-- ##### FUNCTION oil_class_get_n_classes ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_impl_get_by_index ##### -->
+<para>
+
+</para>
+
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_impl_is_runnable ##### -->
+<para>
+
+</para>
+
+@impl: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_choose_by_name ##### -->
+<para>
+
+</para>
+
+@klass: 
+@name: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl_by_name ##### -->
+<para>
+
+</para>
+
+@klass_name: 
+@impl: 
+
+

@@ -1,0 +1,198 @@
+<!-- ##### SECTION Title ##### -->
+liboilrandom
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO oil_rand_s32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s32_l31 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s16_l15 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s16_l9 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s16_l8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s16_l4 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_s8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_u32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_u32_l31 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_u16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_u8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_0_1 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_s32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_s16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_s8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_u32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_u16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f64_u8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_0_1 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_s32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_s16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_s8 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_u32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_u16 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_rand_f32_u8 ##### -->
+<para>
+
+</para>
+
+
+

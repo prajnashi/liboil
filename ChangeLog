@@ -1,3 +1,36 @@
+2005-01-18  David Schleef  <ds@schleef.org>
+
+	* Makefile.am: documentation.  woohoo.
+	* configure.ac:
+	* doc/Makefile.am:
+	* doc/build_prototypes_doc.c: (main), (print_header),
+	(print_footer):
+	* doc/liboil-docs.sgml:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/conv.sgml:
+	* doc/tmpl/dct.sgml:
+	* doc/tmpl/jpeg.sgml:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboil.sgml:
+	* doc/tmpl/liboilcpu.sgml:
+	* doc/tmpl/liboildebug.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprofile.sgml:
+	* doc/tmpl/liboilprototype.sgml:
+	* doc/tmpl/liboilrandom.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	* doc/tmpl/md5.sgml:
+	* doc/tmpl/simdpack.sgml:
+	* liboil/liboil.h:
+	* liboil/liboildebug.h:
+	* liboil/liboilfunction.c:
+	* liboil/liboilparameter.h:
+	* liboil/liboiltest.c: (check_holes):
+	* liboil/liboiltypes.h:
+
 2005-01-13  David Schleef  <ds@schleef.org>
 
 	* testsuite/Makefile.am: add proto4

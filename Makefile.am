@@ -1,5 +1,5 @@
 
-SUBDIRS = liboil testsuite examples
+SUBDIRS = liboil testsuite examples doc
 
 EXTRA_DIST = COPYING autogen.sh
 

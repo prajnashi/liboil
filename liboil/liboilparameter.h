@@ -30,7 +30,7 @@
 
 #include <liboil/liboiltypes.h>
 
-enum _OilType {
+typedef enum {
   OIL_TYPE_UNKNOWN = 0,
   OIL_TYPE_INT,
   OIL_TYPE_s8,
@@ -49,9 +49,9 @@ enum _OilType {
   OIL_TYPE_u32p,
   OIL_TYPE_f32p,
   OIL_TYPE_f64p,
-};
+} OilType;
 
-enum _OilArgType {
+typedef enum {
   OIL_ARG_UNKNOWN = 0,
   OIL_ARG_N,
   OIL_ARG_M,
@@ -75,7 +75,7 @@ enum _OilArgType {
   OIL_ARG_ISTR2,
 
   OIL_ARG_LAST
-};
+} OilArgType;
 
 struct _OilParameter {
   char *type_name;

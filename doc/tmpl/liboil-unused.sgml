@@ -1,0 +1,3082 @@
+<!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Title ##### -->
+liboilfuncs
+
+
+<!-- ##### USER_FUNCTION _oil_type_abs_f32_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_abs_f64_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_abs_u16_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_abs_u32_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_abs_u8_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_argb_paint_u8 ##### -->
+<para>
+
+</para>
+
+@i_4xn: 
+@s1_4: 
+@s2_n: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_average2_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_ayuv2argb_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@s_4xn: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clip_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv8x8_u8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s16_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s16_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s16_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s16_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s16_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s32_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s32_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s32_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_s8_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u16_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u16_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u16_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u16_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u16_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u32_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u32_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u32_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_clipconv_u8_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv8x8_f64_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv8x8_s16_f64 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f32_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_f64_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s16_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s32_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_s8_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u16_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u32_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_conv_u8_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_copy_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_dct36_f32 ##### -->
+<para>
+
+</para>
+
+@d_36: 
+@dstr: 
+@s_36: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_dequantize8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s1_8x8: 
+@sstr1: 
+@s2_8x8: 
+@sstr2: 
+
+<!-- ##### USER_FUNCTION _oil_type_diffsquaresum_f64 ##### -->
+<para>
+
+</para>
+
+@d_1: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_fdct8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8: 
+@s_8: 
+@dstr: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_fdct8x8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_fdct8x8s_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_idct8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8: 
+@dstr: 
+@s_8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_idct8x8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_idct8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+<!-- ##### USER_FUNCTION _oil_type_imdct12_f64 ##### -->
+<para>
+
+</para>
+
+@d_12: 
+@s_6: 
+
+<!-- ##### USER_FUNCTION _oil_type_imdct32_f32 ##### -->
+<para>
+
+</para>
+
+@d_32: 
+@s_32: 
+
+<!-- ##### USER_FUNCTION _oil_type_imdct36_f64 ##### -->
+<para>
+
+</para>
+
+@d_36: 
+@s_18: 
+
+<!-- ##### USER_FUNCTION _oil_type_md5 ##### -->
+<para>
+
+</para>
+
+@i_4: 
+@s_16: 
+
+<!-- ##### USER_FUNCTION _oil_type_mdct12_f64 ##### -->
+<para>
+
+</para>
+
+@d_6: 
+@s_12: 
+
+<!-- ##### USER_FUNCTION _oil_type_mdct36_f64 ##### -->
+<para>
+
+</para>
+
+@d_18: 
+@s_36: 
+
+<!-- ##### USER_FUNCTION _oil_type_mix_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_mult8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@s1_8x8: 
+@s2_8x8: 
+@ds: 
+@ss1: 
+@ss2: 
+
+<!-- ##### USER_FUNCTION _oil_type_multsum_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_multsum_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_null ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### USER_FUNCTION _oil_type_permute_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_permute_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_rgb2bgr ##### -->
+<para>
+
+</para>
+
+@d_3xn: 
+@s_3xn: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_rgb2rgba ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@s_3xn: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_sad8x8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s1_8x8: 
+@ss1: 
+@s2_8x8: 
+@ss2: 
+
+<!-- ##### USER_FUNCTION _oil_type_sad8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s1_8x8: 
+@ss1: 
+@s2_8x8: 
+@ss2: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalaradd_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scalarmult_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_scanlinescale2_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_sincos_f64 ##### -->
+<para>
+
+</para>
+
+@dest1: 
+@dest2: 
+@n: 
+@s1_1: 
+@s2_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_splat_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@s1_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_splat_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@s1_1: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_squaresum_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_sum_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src: 
+@sstr: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_tablelookup_u8 ##### -->
+<para>
+
+</para>
+
+@d: 
+@ds: 
+@s1: 
+@ss1: 
+@s2_256: 
+@ss2: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_trans8x8_f64 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_trans8x8_u16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_trans8x8_u32 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_trans8x8_u8 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_unzigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_vectoradd_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+<!-- ##### USER_FUNCTION _oil_type_yuv2rgbx_sub2_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_yuv2rgbx_sub4_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_yuv2rgbx_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+<!-- ##### USER_FUNCTION _oil_type_zigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+<!-- ##### VARIABLE oil_function_class_ptr_abs_f32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_abs_f64_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_abs_u16_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_abs_u32_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_abs_u8_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_argb_paint_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_average2_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_ayuv2argb_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clip_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv8x8_u8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s16_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s16_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s16_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s16_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s16_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s32_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s32_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_s8_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u16_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u16_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u16_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u16_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u16_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u32_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u32_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_clipconv_u8_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv8x8_f64_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv8x8_s16_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f32_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_f64_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s16_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s32_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_s8_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u16_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u32_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_conv_u8_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_copy_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_dct36_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_dequantize8x8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_diffsquaresum_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_fdct8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_fdct8x8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_fdct8x8s_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_idct8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_idct8x8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_idct8x8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_imdct12_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_imdct32_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_imdct36_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_md5 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_mdct12_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_mdct36_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_mix_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_mult8x8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_multsum_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_multsum_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_null ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_permute_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_rgb2bgr ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_rgb2rgba ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_sad8x8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_sad8x8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalaradd_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scalarmult_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_scanlinescale2_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_sincos_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_splat_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_splat_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_squaresum_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_sum_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_tablelookup_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_trans8x8_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_trans8x8_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_trans8x8_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_trans8x8_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_unzigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_f32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_f64 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_s8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_u16 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_u32 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_vectoradd_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_yuv2rgbx_sub2_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_yuv2rgbx_sub4_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_yuv2rgbx_u8 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### VARIABLE oil_function_class_ptr_zigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+

@@ -505,7 +505,6 @@ check_holes (void *data, OilType type, int pre_n, int stride, int post_n,
     int guard)
 {
   int i;
-  int j;
   int chunk_size;
   int hole_size;
 

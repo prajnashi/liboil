@@ -39,9 +39,6 @@ typedef struct _OilFunctionImpl OilFunctionImpl;
 typedef struct _OilParameter OilParameter;
 typedef struct _OilTest OilTest;
 
-typedef enum _OilType OilType;
-typedef enum _OilArgType OilArgType;
-
 typedef void (*OilTestFunction) (OilTest *test);
 
 #define type_s8 int8_t

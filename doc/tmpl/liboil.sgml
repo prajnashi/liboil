@@ -1,0 +1,33 @@
+<!-- ##### SECTION Title ##### -->
+liboil
+
+<!-- ##### SECTION Short_Description ##### -->
+Miscellaneous functions
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION oil_init ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_memcpy ##### -->
+<para>
+Copies data from a source location to destination.  Similar to memcpy().
+</para>
+
+@dest: pointer to destination memory
+@src: pointer to source memory
+@n_bytes: number of bytes to copy
+
+
