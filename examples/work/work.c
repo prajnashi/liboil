@@ -37,30 +37,32 @@
 #include <string.h>
 #include <math.h>
 
+void register_impls(void);
+
 void test(void)
 {
-  double src[12];
-  double dest[6];
-  double d2[12];
+  uint8_t dest[100*4];
+  uint8_t color[4];
+  uint8_t alpha[100];
   int i;
 
-  for(i=0;i<12;i++){
-    src[i] = oil_rand_f64_0_1();
+  for(i=0;i<16;i++){
+    dest[i*4+0] = 0;
+    dest[i*4+1] = 0;
+    dest[i*4+2] = 0;
+    dest[i*4+3] = 255;
+    alpha[i]=i*16;
   }
+  color[0] = 255;
+  color[1] = 128;
+  color[2] = 10;
+  color[3] = 128;
 
-  oil_mdct12_f64 (dest, src);
+  oil_argb_paint_u8 (dest, color, alpha, 16);
 
-  for(i=0;i<6;i++){
-    g_print("%4g ",dest[i]);
+  for(i=0;i<4*16;i+=4){
+    g_print("%d %d %d %d\n",dest[i+0],dest[i+1],dest[i+2],dest[i+3]);
   }
-  g_print("\n");
-
-  oil_imdct12_f64 (d2, dest);
-
-  for(i=0;i<12;i++){
-    g_print("%4g ",d2[i]/6.0);
-  }
-  g_print("\n");
 
 }
 
@@ -71,14 +73,18 @@ int main (int argc, char *argv[])
 
   oil_init ();
 
-  klass = oil_class_get ("mdct12_f64");
+  register_impls();
 
-  oil_class_choose_by_name (klass, "imdct12_f64_ref");
-  impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
-  impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
-  test();
+  klass = oil_class_get ("argb_paint_u8");
+  oil_class_optimize (klass);
+
+  for (impl = klass->first_impl; impl; impl = impl->next) {
+    klass->chosen_impl = impl;
+    klass->func = impl->func;
+    g_print("impl %s %g %g\n", impl->name, impl->profile_ave,
+        impl->profile_std);
+    test();
+  }
 
   return 0;
 }

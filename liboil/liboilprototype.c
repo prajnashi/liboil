@@ -465,11 +465,15 @@ oil_param_from_string (OilParameter *p, char *s)
 
   if (s[0] == 'n' && s[1] == 0) {
     p->direction = *s;
+    p->is_stride = 0;
+    p->is_pointer = 0;
     p->parameter_type = OIL_ARG_N;
     return 1;
   }
   if (s[0] == 'm' && s[1] == 0) {
     p->direction = *s;
+    p->is_stride = 0;
+    p->is_pointer = 0;
     p->parameter_type = OIL_ARG_M;
     return 1;
   }
@@ -496,9 +500,11 @@ oil_param_from_string (OilParameter *p, char *s)
 
   if (*s == 's') {
     p->is_stride = 1;
+    p->is_pointer = 0;
     s++;
   } else {
     p->is_stride = 0;
+    p->is_pointer = 1;
   }
 
   if (isdigit (*s)) {

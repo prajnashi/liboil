@@ -40,7 +40,8 @@ permute_test (OilTest *test)
   int i;
   int n = test->n;
   int stride = test->params[OIL_ARG_SSTR2].value;
-  void *ptr = (void *)test->params[OIL_ARG_SRC2].value;
+  uint8_t *ptr = (uint8_t *)test->params[OIL_ARG_SRC2].src_data +
+    OIL_TEST_HEADER;
 
   for(i=0;i<n;i++){
     /* FIXME */

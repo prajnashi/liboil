@@ -1,6 +1,8 @@
 
 noinst_PROGRAMS = work
 
+work_SOURCES = work.c argb_paint.c
+
 
 AM_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
 AM_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)

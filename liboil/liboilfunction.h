@@ -151,5 +151,8 @@ OilFunctionImpl * oil_impl_get_by_index (int i);
 
 void oil_class_choose_by_name (OilFunctionClass * klass, const char *name);
 
+void oil_class_register_impl_by_name (const char *klass_name,
+    OilFunctionImpl *impl);
+
 #endif
 

@@ -85,6 +85,7 @@ struct _OilParameter {
   OilType type;
 
   int direction;
+  int is_pointer;
   int is_stride;
   int index;
   int prestride_length;
@@ -94,8 +95,14 @@ struct _OilParameter {
 
   OilArgType parameter_type;
 
-  void *ptr;
+  void *src_data;
+  void *ref_data;
+  void *test_data;
   unsigned long value;
+
+  int pre_n;
+  int post_n;
+  int stride;
   int size;
 };
 

@@ -1,5 +1,26 @@
 2004-12-29  David Schleef  <ds@schleef.org>
 
+	Add support for checking the output of functions and comparing
+	it to the reference function.
+	* examples/oil-inspect.c: (oil_print_impl), (oil_print_class):
+	* examples/work/Makefile.am:
+	* examples/work/work.c: (test), (main):
+	* liboil/copy/permute.c: (permute_test):
+	* liboil/liboilfuncs.h:
+	* liboil/liboilfunction.c: (oil_class_optimize),
+	(oil_class_register_impl_by_name):
+	* liboil/liboilfunction.h:
+	* liboil/liboilparameter.h:
+	* liboil/liboilprototype.c: (oil_param_from_string):
+	* liboil/liboiltest.c: (oil_test_free),
+	(_oil_test_marshal_function), (oil_test_check_function),
+	(oil_test_check_ref), (oil_test_check_impl), (init_parameter),
+	(fill_array), (check_array):
+	* liboil/liboiltest.h:
+	* testsuite/test1.c: (main):
+
+2004-12-29  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/Makefile.am: some new classes
 	* liboil/colorspace/argb_paint.c: (argb_paint_u8_ref),
 	(argb_paint_u8_fast):

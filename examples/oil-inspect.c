@@ -32,6 +32,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilcpu.h>
+#include <liboil/liboiltest.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -99,10 +100,12 @@ oil_flags_to_string (unsigned int flags)
 }
 
 static void
-oil_print_impl (OilFunctionImpl *impl, char* prefix)
+oil_print_impl (OilFunctionImpl *impl, OilTest *test, char* prefix)
 {
   char *c;
   unsigned int cpu_flags = oil_cpu_get_flags();
+
+  oil_test_check_impl (test, impl);
 
   printf ("%s%s\n", prefix, impl->name);
   c = oil_flags_to_string (impl->flags);
@@ -113,6 +116,10 @@ oil_print_impl (OilFunctionImpl *impl, char* prefix)
   if (impl->profile_ave) {
     printf ("%s  profile: %g ticks (st.dev. %g)\n", prefix, impl->profile_ave,
         impl->profile_std);
+  }
+  if (test && !(impl->flags & OIL_IMPL_FLAG_REF)) {
+    printf ("%s  sum abs difference: %g (n=%d)\n", prefix,
+        test->sum_abs_diff, test->n_points);
   }
   if ((impl->flags & OIL_CPU_FLAG_MASK) & (~cpu_flags)) {
     printf ("%s  disabled\n", prefix);
@@ -137,6 +144,7 @@ oil_print_class (OilFunctionClass *klass, int verbose)
   OilFunctionImpl **list;
   int n;
   int i;
+  OilTest *test;
   
   if (!verbose) {
     printf ("%s\n", klass->name);
@@ -158,6 +166,8 @@ oil_print_class (OilFunctionClass *klass, int verbose)
 
   qsort (list, n, sizeof(OilFunctionImpl *), impl_compare);
 
+  test = oil_test_new (klass);
+
   for (i=0;i<n;i++){
     impl = list[i];
     if ((impl->flags & OIL_IMPL_FLAG_REF) &&
@@ -165,11 +175,13 @@ oil_print_class (OilFunctionClass *klass, int verbose)
       printerr ("warning: function %s is not reference implementation for class %s\n",
 	  impl->name, klass->name);
     }
-    oil_print_impl (impl, "    ");
+    oil_print_impl (impl, test, "    ");
     if (klass->chosen_impl == impl) {
       printf ("      currently chosen\n");
     }
   }
+
+  oil_test_free (test);
 
   free(list);
 }

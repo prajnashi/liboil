@@ -70,11 +70,10 @@ int main (int argc, char *argv[])
       if ((impl->flags & OIL_CPU_FLAG_MASK) & ~cpu_flags) {
         printf("    not supported\n");
       } else {
-        oil_test_set_impl (test, impl);
 
         test->n = 1600;
 
-        ret = oil_test_go (test);
+        ret = oil_test_check_impl (test, impl);
         if (ret) {
 #if 0
           printf("    %lu %g\n",test->prof.min,

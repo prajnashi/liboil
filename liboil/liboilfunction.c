@@ -174,9 +174,7 @@ oil_class_optimize (OilFunctionClass * klass)
     if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
       continue;
 
-    oil_test_set_impl (test, impl);
-
-    ret = oil_test_go (test);
+    ret = oil_test_check_impl (test, impl);
     if (ret) {
       OIL_LOG ("impl %s ave=%g std=%g", impl->name, impl->profile_ave,
           impl->profile_std);
@@ -234,3 +232,22 @@ oil_init_structs (void)
     }
   }
 }
+
+void
+oil_class_register_impl_by_name (const char *klass_name, OilFunctionImpl *impl)
+{
+  OilFunctionClass *klass;
+
+  klass = oil_class_get (klass_name);
+  if (klass == NULL) return;
+
+  impl->klass = klass;
+  impl->next = impl->klass->first_impl;
+  klass->first_impl = impl;
+  if (impl->flags & OIL_IMPL_FLAG_REF) {
+    impl->klass->reference_impl = impl;
+    impl->klass->chosen_impl = impl;
+    impl->klass->func = impl->func;
+  }
+}
+

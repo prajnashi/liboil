@@ -45,6 +45,10 @@ struct _OilTest {
   int m;
   
   int inited;
+  int tested_ref;
+
+  double sum_abs_diff;
+  int n_points;
 };
 
 #define OIL_TEST_HEADER 256
@@ -53,10 +57,10 @@ struct _OilTest {
 OilTest *oil_test_new (OilFunctionClass *klass);
 void oil_test_free (OilTest *test);
 
-void oil_test_set_impl (OilTest *test, OilFunctionImpl *impl);
 void oil_test_set_iterations (OilTest *test, int iterations);
 
-int oil_test_go (OilTest *test);
+void oil_test_check_ref (OilTest *test);
+int oil_test_check_impl (OilTest *test, OilFunctionImpl *impl);
 
 void oil_test_cleanup (OilTest *test);
 void oil_test_init_src_arrays (OilTest *test);

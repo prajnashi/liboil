@@ -35,8 +35,13 @@
 #include <liboil/liboilprofile.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include <stdio.h>
+#include <math.h>
+
+static void fill_array (void *ptr, OilType type, int pre_n, int stride,
+    int post_n);
+static double check_array (void *data, void *ref, OilType type, int pre_n,
+    int stride, int post_n);
 
 OilTest *
 oil_test_new (OilFunctionClass *klass)
@@ -82,8 +87,14 @@ oil_test_free (OilTest *test)
   }
 
   for(i=0;i<OIL_ARG_LAST;i++){
-    if (test->params[i].ptr) {
-      free (test->params[i].ptr);
+    if (test->params[i].src_data) {
+      free (test->params[i].src_data);
+    }
+    if (test->params[i].ref_data) {
+      free (test->params[i].ref_data);
+    }
+    if (test->params[i].test_data) {
+      free (test->params[i].test_data);
     }
   }
 
@@ -102,14 +113,24 @@ oil_test_set_iterations (OilTest *test, int iterations)
   test->iterations = iterations;
 }
 
-int
-oil_test_go (OilTest *test)
+static void
+_oil_test_marshal_function (void *func, unsigned long *args, int n_args,
+    unsigned int pointer_mask, OilProfile *prof)
+{
+  oil_profile_start (prof);
+  ((void (*)(int,int,int,int,int,int,int,int,int,int))func)
+    (args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],
+     args[8],args[9]);
+  oil_profile_stop (prof);
+}
+
+static void
+oil_test_check_function (OilTest *test)
 {
   int i;
   int j;
-  int args[10];
-
-  if (test->proto->n_params > 10) return 0;
+  unsigned long args[10];
+  unsigned int pointer_mask;
 
   if (!test->inited) {
     oil_test_init_params(test);
@@ -117,33 +138,117 @@ oil_test_go (OilTest *test)
     test->params[OIL_ARG_N].value = test->n;
     
     test->inited = 1;
+
+    if (test->klass->test_func) {
+      test->klass->test_func (test);
+    }
   }
 
-  if (test->klass->test_func) {
-    test->klass->test_func (test);
-  }
+  OIL_LOG("calling reference function %s", test->impl->name);
 
-  OIL_LOG("calling test function %s", test->impl->name);
+  pointer_mask = 0;
   for(i=0;i<test->proto->n_params;i++){
+    OilParameter *p;
     j = test->proto->params[i].parameter_type;
-    OIL_LOG("  %s: 0x%08lx (%ld)",
-        oil_arg_type_name (j),
-        test->params[j].value,
-        test->params[j].value);
-    args[i] = test->params[j].value;
+    p = &test->params[j];
+
+    pointer_mask <<= 1;
+    OIL_LOG("  %s: 0x%08lx (%ld)", oil_arg_type_name (j), p->value, p->value);
+    if (p->is_pointer) {
+      pointer_mask |= 1;
+      if (p->direction == 's') {
+        args[i] = (unsigned long)p->src_data + OIL_TEST_HEADER;
+      } else if (p->direction == 'i') {
+        memcpy (p->test_data, p->src_data, p->size);
+        args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
+      } else if (p->direction == 'd') {
+        memset (p->test_data, 0, p->size);
+        args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
+      } else {
+        OIL_ERROR ("not reached");
+      }
+    } else {
+      args[i] = p->value;
+    }
   }
 
   oil_profile_init (&test->prof);
   for(i=0;i<test->iterations;i++){
-    oil_profile_start (&test->prof);
-    ((void (*)(int,int,int,int,int,int,int,int,int,int))test->impl->func)
-      (args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],
-       args[8],args[9]);
-    oil_profile_stop (&test->prof);
+    _oil_test_marshal_function (test->impl->func, args, test->proto->n_params,
+        pointer_mask, &test->prof);
   }
 
   oil_profile_get_ave_std (&test->prof, &test->impl->profile_ave,
       &test->impl->profile_std);
+}
+
+void
+oil_test_check_ref (OilTest *test)
+{
+  int i;
+
+  if (test->proto->n_params > 10) {
+    OIL_ERROR ("function has too many parameters");
+    return;
+  }
+
+  test->impl = test->klass->reference_impl;
+
+  oil_test_check_function (test);
+
+  for(i=0;i<OIL_ARG_LAST;i++){
+    OilParameter *p = &test->params[i];
+
+    if (p->is_pointer) {
+      if (p->direction == 'i' || p->direction == 'd') {
+        memcpy (p->ref_data, p->test_data, p->size);
+      }
+    }
+  }
+
+  test->tested_ref = 1;
+}
+
+int
+oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
+{
+  double x;
+  int i;
+  int n;
+
+  if (test->proto->n_params > 10) {
+    OIL_ERROR ("function has too many parameters");
+    return 0;
+  }
+
+  if (!test->tested_ref) {
+    oil_test_check_ref(test);
+  }
+
+  test->impl = impl;
+  oil_test_check_function (test);
+
+  x = 0;
+  n = 0;
+  for(i=0;i<OIL_ARG_LAST;i++){
+    OilParameter *p = &test->params[i];
+
+    if (p->is_pointer) {
+      if (p->direction == 'i' || p->direction == 'd') {
+        x += check_array (p->ref_data, p->test_data, p->type, p->pre_n,
+            p->stride, p->post_n);
+        n += p->pre_n * p->post_n;
+      }
+    }
+  }
+  OIL_DEBUG("sum of absolute differences %g for %d values", x, n);
+  if (x > n) {
+    OIL_ERROR ("function %s in class %s failed check (%g > %d)",
+        test->impl->name, test->klass->name, x, n);
+  }
+
+  test->sum_abs_diff = x;
+  test->n_points = n;
 
   return 1;
 }
@@ -191,97 +296,58 @@ oil_test_cleanup (OilTest *test)
 
 }
 
-static void
-fill_array (void *ptr, OilType type, int pre_n, int stride, int post_n)
-{
-  int i;
-  int j;
-  int s2 = oil_type_sizeof (type);
-
-  for(i=0;i<post_n;i++){
-    for(j=0;j<pre_n;j++){
-      switch (type) {
-        case OIL_TYPE_s8p:
-          OIL_GET(ptr, i*stride + j*s2, int8_t) = oil_rand_s8();
-          break;
-        case OIL_TYPE_u8p:
-          OIL_GET(ptr, i*stride + j*s2, uint8_t) = oil_rand_u8();
-          break;
-        case OIL_TYPE_s16p:
-          OIL_GET(ptr, i*stride + j*s2, int16_t) = oil_rand_s16();
-          break;
-        case OIL_TYPE_u16p:
-          OIL_GET(ptr, i*stride + j*s2, uint16_t) = oil_rand_u16();
-          break;
-        case OIL_TYPE_s32p:
-          OIL_GET(ptr, i*stride + j*s2, int32_t) = oil_rand_s32();
-          break;
-        case OIL_TYPE_u32p:
-          OIL_GET(ptr, i*stride + j*s2, uint32_t) = oil_rand_u32();
-          break;
-        case OIL_TYPE_f32p:
-          OIL_GET(ptr, i*stride + j*s2, float) = oil_rand_f32_0_1();
-          break;
-        case OIL_TYPE_f64p:
-          OIL_GET(ptr, i*stride + j*s2, double) = oil_rand_f64_0_1();
-          break;
-        default:
-          OIL_ERROR ("should not be reached (type == %d)", type);
-          return;
-          break;
-      }
-    }
-  }
-}
 
 static void
 init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
 {
-  int stride;
-  void *ptr;
-  int pre_n;
-  int post_n;
-
   if (!p->type) return;
 
   if (p->prestride_length) {
-    pre_n = p->prestride_length;
+    p->pre_n = p->prestride_length;
   } else {
     if (p->prestride_var == 1) {
-      pre_n = test->n;
+      p->pre_n = test->n;
     } else {
-      pre_n = test->m;
+      p->pre_n = test->m;
     }
   }
 
   if (ps->value) {
-    stride = ps->value;
+    p->stride = ps->value;
   } else {
-    stride = oil_type_sizeof (p->type) * pre_n;
-    ps->value = stride;
+    p->stride = oil_type_sizeof (p->type) * p->pre_n;
+    ps->value = p->stride;
   }
 
   if (p->poststride_length) {
-    post_n = p->poststride_length;
+    p->post_n = p->poststride_length;
   } else {
     if (p->poststride_var == 1) {
-      post_n = test->n;
+      p->post_n = test->n;
     } else {
-      post_n = test->m;
+      p->post_n = test->m;
     }
   }
 
-  ptr = malloc (stride * post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER);
-  memset (ptr, 0, stride * post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER);
-  p->ptr = ptr;
-  p->value = (unsigned long) ptr + OIL_TEST_HEADER;
+  p->size = p->stride * p->post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER;
 
   if (p->direction == 'i' || p->direction == 's') {
-    fill_array (ptr, p->type, pre_n, stride, post_n);
+    if (p->src_data) free (p->src_data);
+    p->src_data = malloc (p->size);
+    memset (p->src_data, 0, p->size);
+    fill_array (p->src_data, p->type, p->pre_n, p->stride, p->post_n);
   }
 
-}
+  if (p->direction == 'i' || p->direction == 'd') {
+    if (p->ref_data) free (p->ref_data);
+    p->ref_data = malloc (p->size);
+    memset (p->ref_data, 0, p->size);
 
+    if (p->test_data) free (p->ref_data);
+    p->test_data = malloc (p->size);
+    memset (p->test_data, 0, p->size);
+  }
+}
 
 void
 oil_test_init_params (OilTest *test)
@@ -308,3 +374,99 @@ oil_test_init_params (OilTest *test)
       &test->params[OIL_ARG_ISTR2]);
 }
 
+static void
+fill_array (void *data, OilType type, int pre_n, int stride, int post_n)
+{
+  int i;
+  int j;
+  int s2 = oil_type_sizeof (type);
+
+#define FILL(type,func) do {\
+  for(i=0;i<post_n;i++){ \
+    for(j=0;j<pre_n;j++){ \
+      OIL_GET(data, i*stride + j*s2, type) = func ; \
+    } \
+  } \
+}while(0)
+
+  switch (type) {
+    case OIL_TYPE_s8p:
+      FILL(int8_t,oil_rand_s8());
+      break;
+    case OIL_TYPE_u8p:
+      FILL(uint8_t,oil_rand_u8());
+      break;
+    case OIL_TYPE_s16p:
+      FILL(int16_t,oil_rand_s16());
+      break;
+    case OIL_TYPE_u16p:
+      FILL(uint16_t,oil_rand_u16());
+      break;
+    case OIL_TYPE_s32p:
+      FILL(int32_t,oil_rand_s32());
+      break;
+    case OIL_TYPE_u32p:
+      FILL(uint32_t,oil_rand_u32());
+      break;
+    case OIL_TYPE_f32p:
+      FILL(float,oil_rand_f32_0_1());
+      break;
+    case OIL_TYPE_f64p:
+      FILL(double,oil_rand_f64_0_1());
+      break;
+    default:
+      OIL_ERROR ("should not be reached (type == %d)", type);
+      return;
+      break;
+  }
+}
+
+static double
+check_array (void *data, void *ref, OilType type, int pre_n, int stride, int post_n)
+{
+  int i;
+  int j;
+  int s2 = oil_type_sizeof (type);
+  double x = 0;
+
+#define CHECK(type) do {\
+  for(i=0;i<post_n;i++){ \
+    for(j=0;j<pre_n;j++){ \
+      x += fabs((double)OIL_GET(data, i*stride + j*s2, type) - \
+          (double)OIL_GET(ref, i*stride + j*s2, type)); \
+    } \
+  } \
+}while(0)
+
+  switch (type) {
+    case OIL_TYPE_s8p:
+      CHECK(int8_t);
+      break;
+    case OIL_TYPE_u8p:
+      CHECK(uint8_t);
+      break;
+    case OIL_TYPE_s16p:
+      CHECK(int16_t);
+      break;
+    case OIL_TYPE_u16p:
+      CHECK(uint16_t);
+      break;
+    case OIL_TYPE_s32p:
+      CHECK(int32_t);
+      break;
+    case OIL_TYPE_u32p:
+      CHECK(uint32_t);
+      break;
+    case OIL_TYPE_f32p:
+      CHECK(float);
+      break;
+    case OIL_TYPE_f64p:
+      CHECK(double);
+      break;
+    default:
+      OIL_ERROR ("should not be reached (type == %d)", type);
+      return INFINITY;
+      break;
+  }
+  return x;
+}
