@@ -1,5 +1,12 @@
 2004-09-09  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: Hoop jumping to extract a list of symbols
+	to generate into liboilarray.c
+	* liboil/build_lists.c: remove
+	* liboil/liboilarray.c: remove
+
+2004-09-09  David Schleef  <ds@schleef.org>
+
 	* liboil/build_lists.c: (main), (print_header): new
 
 2004-09-09  David Schleef  <ds@schleef.org>
