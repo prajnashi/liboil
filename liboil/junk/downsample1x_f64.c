@@ -26,7 +26,7 @@
 
 OIL_DEFINE_CLASS_X (downsample1x_f64,
     "double *dest, int dstr, double *src, int sstr, "
-    "int ndest, int nsrc, double ratio, double invratio");
+    "int ndest, int nsrc, double param1, double param2");
 
 /*
 Kernel: downsample1x_f64

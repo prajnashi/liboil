@@ -1,3 +1,10 @@
+2004-09-07  David Schleef  <ds@schleef.org>
+
+	* liboil/junk/downsample1x_f64.c: move these
+	* liboil/junk/get8x8_f64.c:
+	* liboil/simdpack/downsample1x_f64.c:
+	* liboil/simdpack/get8x8_f64.c:
+
 2004-09-03  David Schleef  <ds@schleef.org>
 
 	
