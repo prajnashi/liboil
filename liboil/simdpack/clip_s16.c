@@ -114,7 +114,7 @@ OIL_DEFINE_IMPL (clip_s16_ppcasm, clip_s16);
 #endif
 
 #ifdef HAVE_CPU_POWERPC
-SL_clip_s16_storage
+static void
 clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
     int16_t hi, int n)
 {
@@ -145,7 +145,7 @@ OIL_DEFINE_IMPL (clip_s16_ppcasm2, clip_s16);
 /* This is just a basic weave of the previous function.  It uses
  * a lot of registers and gets pretty hairy, so it would take some
  * work to make better. */
-SL_clip_int16_t_storage
+static void
 clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int16_t low,
     int16_t hi, int n)
 {

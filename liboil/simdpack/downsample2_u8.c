@@ -25,27 +25,13 @@ Averages sucessive input samples to produce output samples.
 
 */
 
-#ifndef _downsample2_u8_h_
-#define _downsample2_u8_h_
-
 #include <math.h>
 #include <sl_types.h>
 #include <endian.h>
 
 
-/* storage class */
-#ifndef SL_downsample2_u8_storage
- #ifdef SL_storage
-  #define SL_downsample2_u8_storage SL_storage
- #else
-  #define SL_downsample2_u8_storage static inline
- #endif
-#endif
-
-
-/* IMPL downsample2_u8_ref */
-SL_downsample2_u8_storage
-void downsample2_u8_ref(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_ref(u8 *dest, u8 *src, int n)
 {
 	int i;
 
@@ -55,16 +41,14 @@ void downsample2_u8_ref(u8 *dest, u8 *src, int n)
 }
 
 #include <average2_u8.h>
-/* IMPL downsample2_u8_ave */
-SL_downsample2_u8_storage
-void downsample2_u8_ave(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_ave(u8 *dest, u8 *src, int n)
 {
 	average2_u8(dest,src,2,src+1,2,n/2);
 }
 
-/* IMPL downsample2_u8_fast */
-SL_downsample2_u8_storage
-void downsample2_u8_fast(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_fast(u8 *dest, u8 *src, int n)
 {
 	while(n>1){
 		*dest++ = (src[0] + src[1])>>1;
@@ -73,9 +57,8 @@ void downsample2_u8_fast(u8 *dest, u8 *src, int n)
 	}
 }
 
-/* IMPL downsample2_u8_trick1 */
-SL_downsample2_u8_storage
-void downsample2_u8_trick1(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_trick1(u8 *dest, u8 *src, int n)
 {
 	unsigned int x, y;
 
@@ -105,9 +88,8 @@ void downsample2_u8_trick1(u8 *dest, u8 *src, int n)
 	}
 }
 
-/* IMPL downsample2_u8_trick2 */
-SL_downsample2_u8_storage
-void downsample2_u8_trick2(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_trick2(u8 *dest, u8 *src, int n)
 {
 	unsigned int x, y;
 
@@ -126,9 +108,8 @@ void downsample2_u8_trick2(u8 *dest, u8 *src, int n)
 	}
 }
 
-/* IMPL downsample2_u8_trick3 */
-SL_downsample2_u8_storage
-void downsample2_u8_trick3(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_trick3(u8 *dest, u8 *src, int n)
 {
 	unsigned int x, y;
 
@@ -148,9 +129,8 @@ void downsample2_u8_trick3(u8 *dest, u8 *src, int n)
 	}
 }
 
-/* IMPL downsample2_u8_unroll4 */
-SL_downsample2_u8_storage
-void downsample2_u8_unroll4(u8 *dest, u8 *src, int n)
+static void
+downsample2_u8_unroll4(u8 *dest, u8 *src, int n)
 {
 	while(n&0x6){
 		*dest++ = (src[0] + src[1])>>1;
@@ -170,10 +150,9 @@ void downsample2_u8_unroll4(u8 *dest, u8 *src, int n)
 	}
 }
 
-#ifdef SIMDPACK_USE_POWERPC
-/* IMPL downsample2_u8_ppcasm defined(SIMDPACK_USE_POWERPC) */
-SL_downsample2_u8_storage
-void downsample2_u8_ppcasm(u8 *dest, u8 *src, int n)
+#ifdef HAVE_CPU_POWERPC
+static void
+downsample2_u8_ppcasm(u8 *dest, u8 *src, int n)
 {
 	dest--;
 	src--;
@@ -193,7 +172,6 @@ void downsample2_u8_ppcasm(u8 *dest, u8 *src, int n)
 }
 #endif
 
-#endif
 
 #ifdef TEST_downsample2_u8
 int TEST_downsample2_u8(void)

@@ -1,5 +1,14 @@
 2004-11-22  David Schleef  <ds@schleef.org>
 
+	* liboil/simdpack/clip_s16.c: compile fix.
+	* liboil/simdpack/downsample2_u8.c: (downsample2_u8_ref),
+	(downsample2_u8_ave), (downsample2_u8_fast),
+	(downsample2_u8_trick1), (downsample2_u8_trick2),
+	(downsample2_u8_trick3), (downsample2_u8_unroll4),
+	(downsample2_u8_ppcasm): remove more simdpack-isms.
+
+2004-11-22  David Schleef  <ds@schleef.org>
+
 	* configure.ac: bump nano
 	* examples/jpeg/jpeg.c: (jpeg_decoder_application0): Fix warnings
 	under gcc-3.5
