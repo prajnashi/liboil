@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+toolsdir=${exec_prefix}/bin
+
+
+Name: liboil-@LIBOIL_MAJORMINOR@ Uninstalled
+Description: Library of Optimized Inner Loops, uninstalled
+Version: @VERSION@
+Requires:
+Libs: -L${libdir} -L${libdir} -loil-@LIBOIL_MAJORMINOR@
+Cflags: -I${includedir}
+
+
