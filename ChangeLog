@@ -1,5 +1,15 @@
 2005-01-09  David Schleef  <ds@schleef.org>
 
+	* AUTHORS: add
+	* INSTALL: add
+	* Makefile.am: add ACLOCAL_FLAGS
+	* NEWS: add
+	* configure.ac: fix up for modern autoconf/automake
+	* liboil/Makefile.am: use -version-info
+	* license_block: update for 2005
+
+2005-01-09  David Schleef  <ds@schleef.org>
+
 	* examples/oil-inspect.c: (oil_print_impl): use "std." as abbr for
 	standard
 	* examples/uberopt/uberopt.c: (main): fix compile problem on ia64

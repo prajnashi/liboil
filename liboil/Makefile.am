@@ -54,6 +54,7 @@ liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboilfunctions.la
 liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm \
+	-version-info $(LIBOIL_LIBVERSION) \
 	-export-symbols-regex '^oil_'
 
 # This is required to use 'make -j2'. Automake doesn't seem to notice

@@ -1,12 +1,18 @@
-AC_INIT
-AC_CANONICAL_TARGET([])
+AC_PREREQ([2.58])
+AC_INIT(liboil,0.2.2.1)
+#AC_CANONICAL_TARGET([])
 
-AS_VERSION(liboil, LIBOIL_VERSION, 0, 2, 2, 1, LIBOIL_CVS="no", LIBOIL_CVS="yes")
+nano=$(echo $VERSION | sed 's/[0-9]\.[0-9]\.[0-9]\.*//')
+if test x"$nano" = x1 ; then
+  LIBOIL_CVS="yes"
+else
+  LIBOIL_CVS="no"
+fi
+
+AM_INIT_AUTOMAKE(1.6)
 
 AM_MAINTAINER_MODE
-AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
-#LIBOIL_MAJORMINOR=$LIBOIL_VERSION_MAJOR.$LIBOIL_VERSION_MINOR
 LIBOIL_MAJORMINOR=0.3
 AC_SUBST(LIBOIL_MAJORMINOR)
 
@@ -17,14 +23,14 @@ dnl - library source changed -> increment REVISION
 dnl - interfaces added/removed/changed -> increment CURRENT, REVISION = 0
 dnl - interfaces added -> increment AGE
 dnl - interfaces removed -> AGE = 0
-AS_LIBTOOL(LIBOIL, 0, 0, 0)
+LIBOIL_LIBVERSION="-release 0:0:0"
+AC_SUBST(LIBOIL_LIBVERSION)
+AM_PROG_LIBTOOL
 
 AC_CONFIG_SRCDIR([liboil/liboil.h])
 
-ACLOCAL="$ACLOCAL -I m4 $ACLOCAL_FLAGS"
-
-AC_PROG_CC([c99])
-#AM_PROG_AS
+ACLOCAL_AMFLAGS="-I m4 $ACLOCAL_FLAGS"
+AC_SUBST(ACLOCAL_AMFLAGS)
 
 PKG_CHECK_MODULES(GLIB, glib-2.0, HAVE_GLIB=yes, HAVE_GLIB=no)
 AC_SUBST(GLIB_LIBS)
@@ -52,6 +58,10 @@ AM_CONDITIONAL(USE_ALT_OPT, test "x$enable_alt_opt" = xyes)
 LIBOIL_OPT_CFLAGS="-O3 -fomit-frame-pointer -funroll-all-loops -Wno-unused-function -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
 AC_SUBST(LIBOIL_OPT_CFLAGS)
 
+AC_ARG_ENABLE(failing-implementations,
+  AC_HELP_STRING([--enable-failing-implementations],[compile with failing implementations]),
+  enable_failing_implementations=$enableval,enable_failing_implementations=no)
+AM_CONDITIONAL(USE_FAILING_IMPLS, test "x$enable_failing_implementations" = xyes)
 
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================
@@ -117,7 +127,7 @@ AC_SUBST(pkgconfigdir)
 #CFLAGS=`echo "$CFLAGS" | sed -e 's/-O[0-9*]//g'`
 CFLAGS="-g"
 
-AC_OUTPUT(
+AC_CONFIG_FILES([
 Makefile 
 liboil/Makefile
 liboil/colorspace/Makefile
@@ -134,7 +144,8 @@ examples/md5/Makefile
 examples/uberopt/Makefile
 examples/work/Makefile
 liboil.pc
-)
+])
+AC_OUTPUT
 
 
 
