@@ -87,6 +87,11 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)
 fi
+if test x$HAVE_CPU_POWERPC = xyes ; then
+  AS_COMPILER_FLAG(["-Wa,-maltivec"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-maltivec"],
+    true)
+fi
 
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir)"
 AC_SUBST(LIBOIL_CFLAGS)

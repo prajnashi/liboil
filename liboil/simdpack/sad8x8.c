@@ -70,6 +70,7 @@ sad8x8_s16_ref(uint32_t *dest, int16_t *src1, int sstr1, int16_t *src2,
 
 OIL_DEFINE_IMPL_REF(sad8x8_s16_ref, sad8x8_s16);
 
+#if 0
 #ifdef HAVE_CPU_POWERPC
 static void
 sad8x8_s16_a16_altivec (uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
@@ -155,7 +156,9 @@ sad8x8_s16_a16_altivec (uint32_t *dest, int16_t *src1, int16_t *src2, int s1str,
 	);
 	*dest = x[3];
 }
+#endif
 
+#if 0
 /* IMPL sad8x8_s16_l15_a16_altivec defined(SIMDPACK_USE_ALTIVEC) */
 SL_sad8x8_s16_storage
 void sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, int s1str, int s2str)
@@ -219,6 +222,7 @@ void sad8x8_s16_l15_a16_altivec(uint32_t *dest, int16_t *src1, int16_t *src2, in
 	);
 	*dest = x[3];
 }
+#endif
 #endif
 
 

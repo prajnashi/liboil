@@ -58,6 +58,7 @@ CLIP_DEFINE_REF (f64);
 
 
 
+#if 0
 #ifdef HAVE_CPU_POWERPC
 static void
 clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
@@ -79,6 +80,7 @@ clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
 	: "f" (low), "f" (hi), "b" (&ftmp)
 	: "32", "33", "11" );
 }
+#endif
 #endif
 
 

@@ -1,3 +1,12 @@
+2004-10-21  David Schleef  <ds@schleef.org>
+
+	* configure.ac: fixes for powerpc
+	* liboil/simdpack/abs_u16_s16.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/multsum.c: (multsum_f32_ppcasm):
+	* liboil/simdpack/sad8x8.c:
+	* testsuite/Makefile.am:
+
 2004-09-15  David Schleef  <ds@schleef.org>
 
 	* configure.ac:  Add jpeg library from swfdec.
