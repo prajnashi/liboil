@@ -1,7 +1,7 @@
 AC_INIT
 AC_CANONICAL_TARGET([])
 
-AS_VERSION(liboil, LIBOIL_VERSION, 0, 1, 0, 1, LIBOIL_CVS="no", LIBOIL_CVS="yes")
+AS_VERSION(liboil, LIBOIL_VERSION, 0, 2, 0, 0, LIBOIL_CVS="no", LIBOIL_CVS="yes")
 
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
@@ -107,6 +107,7 @@ Makefile
 liboil/Makefile
 liboil/copy/Makefile
 liboil/dct/Makefile
+liboil/md5/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
 testsuite/Makefile

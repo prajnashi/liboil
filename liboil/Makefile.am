@@ -1,7 +1,7 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = copy dct jpeg simdpack
+SUBDIRS = copy dct jpeg simdpack md5
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 noinst_LTLIBRARIES = liboilend.la liboilfunctions.la
@@ -9,7 +9,9 @@ noinst_LTLIBRARIES = liboilend.la liboilfunctions.la
 noinst_PROGRAMS = build_prototypes
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
-	liboiltypes.h liboilcpu.h
+	liboiltypes.h liboilcpu.h liboilprototype.h
+
+CLEANFILES = liboilarray.c
 
 liboilend_la_SOURCES = \
 	liboil_end.c
@@ -48,6 +50,7 @@ liboilfunctions_la_LIBADD = \
 	copy/libcopy.la \
 	dct/libdct.la \
 	jpeg/libjpeg.la \
+	md5/libmd5.la \
 	simdpack/libsimdpack.la
 
 liboiltmp1_la_SOURCES =
@@ -77,8 +80,8 @@ liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm \
 	-export-symbols-regex '^oil_'
 
 build_prototypes_SOURCES = build_prototypes.c
-build_prototypes_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
-build_prototypes_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
+build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
+build_prototypes_LDFLAGS = $(LIBOIL_LIBS)
 
 
 liboilarray.c: liboiltmp1.la

@@ -145,6 +145,7 @@ void oil_class_optimize (OilFunctionClass *klass);
 
 OilFunctionImpl * oil_impl_get_by_index (int i);
 
+void oil_class_choose_by_name (OilFunctionClass * klass, const char *name);
 
 #endif
 

@@ -2,8 +2,10 @@
 
 if HAVE_GLIB
 noinst_LTLIBRARIES = libjpeg.la
+noinst_PROGRAMS = jpeg_test jpeg_rgb_test
 else
 noinst_LTLIBRARIES =
+noinst_PROGRAMS = 
 endif
 
 libjpeg_la_SOURCES = jpeg.c huffman.c jpeg_rgb_decoder.c
@@ -14,7 +16,6 @@ noinst_HEADERS = bits.h huffman.h jpeg.h jpeg_debug.h \
 	jpeg_internal.h jpeg_rgb_decoder.h jpeg_rgb_internal.h
 	
 
-noinst_PROGRAMS = jpeg_test jpeg_rgb_test
 
 jpeg_test_SOURCES = test.c
 jpeg_test_CFLAGS = $(GLIB_CFLAGS)

@@ -13,6 +13,6 @@ libcopy_la_SOURCES = \
 noinst_HEADERS = \
 	copy.h
 
-libdct_la_CFLAGS = $(LIBOIL_CFLAGS)
+libcopy_la_CFLAGS = $(LIBOIL_CFLAGS)
 
 

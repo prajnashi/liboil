@@ -133,6 +133,20 @@ oil_class_get (const char *class_name)
 }
 
 void
+oil_class_choose_by_name (OilFunctionClass * klass, const char *name)
+{
+  OilFunctionImpl *impl;
+
+  for(impl = klass->first_impl; impl; impl = impl->next) {
+    if (impl->name && strcmp (impl->name, name) == 0) {
+      klass->chosen_impl = impl;
+      klass->func = impl->func;
+      return;
+    }
+  }
+}
+
+void
 oil_class_optimize (OilFunctionClass * klass)
 {
   OilFunctionImpl *impl;

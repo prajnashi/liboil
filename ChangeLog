@@ -1,3 +1,22 @@
+2004-11-01  David Schleef  <ds@schleef.org>
+
+	* COPYING: add
+	* Makefile.am: Add COPYING, fix CLEANFILES
+	* configure.ac: version bump
+	* examples/jpeg/Makefile.am: fix glib dep
+	* liboil/Makefile.am: add md5, fix glib dep
+	* liboil/copy/Makefile.am: 
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.c: (oil_class_choose_by_name): add new
+	function
+	* liboil/liboilfunction.h: same
+	* liboil/md5/Makefile.am: add md5 function class
+	* liboil/md5/md5.c: (md5_c):
+	* liboil/md5/md5.h:
+	* liboil/md5/md5_i386.c: (md5_asm1), (md5_asm2):
+	* testsuite/Makefile.am: add an md5 test
+	* testsuite/md5.c: (test), (main):
+
 2004-10-21  David Schleef  <ds@schleef.org>
 
 	* configure.ac: fixes for powerpc
