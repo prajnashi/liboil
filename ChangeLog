@@ -1,5 +1,9 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	* testsuite/copy.c: (test), (main): new test
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	* examples/example1.c: more relicensing
 	* examples/md5/md5sum.c:
 	* examples/oil-inspect.c:
