@@ -361,7 +361,7 @@ extern OilFunctionClass *oil_function_class_ptr_dequantize8x8_s16;
 typedef void (*_oil_type_dequantize8x8_s16)(int16_t * d_8x8, int dstr, const int16_t * s1_8x8, int sstr1, const int16_t * s2_8x8, int sstr2);
 #define oil_dequantize8x8_s16 ((_oil_type_dequantize8x8_s16)(*(void **)oil_function_class_ptr_dequantize8x8_s16))
 extern OilFunctionClass *oil_function_class_ptr_diffsquaresum_f64;
-typedef void (*_oil_type_diffsquaresum_f64)(double * dest, const double * src1, int sstr1, const double * src2, int sstr2, int n);
+typedef void (*_oil_type_diffsquaresum_f64)(double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n);
 #define oil_diffsquaresum_f64 ((_oil_type_diffsquaresum_f64)(*(void **)oil_function_class_ptr_diffsquaresum_f64))
 extern OilFunctionClass *oil_function_class_ptr_fdct8_f64;
 typedef void (*_oil_type_fdct8_f64)(double * d_8, const double * s_8, int dstr, int sstr);

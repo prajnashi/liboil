@@ -1,7 +1,7 @@
 
 SUBDIRS = liboil testsuite examples
 
-EXTRA_DIST = COPYING
+EXTRA_DIST = COPYING autogen.sh
 
 pkgconfig_DATA = liboil-$(LIBOIL_MAJORMINOR).pc
 

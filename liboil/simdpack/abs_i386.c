@@ -231,6 +231,7 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_FLAG_MMX);
 #endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -264,9 +265,10 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ecx", "edx");
   asm volatile ("emms");
 }
-
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16, OIL_IMPL_FLAG_MMXEXT);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
@@ -294,6 +296,6 @@ abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       "	popl	%%ebp			\n":"+D" (src), "+a" (dest), "+S" (n)
       ::"ecx", "edx");
 }
-
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16, OIL_IMPL_FLAG_SSE2);
+#endif
 

@@ -42,6 +42,8 @@ static void fill_array (void *ptr, OilType type, int pre_n, int stride,
     int post_n);
 static double check_array (void *data, void *ref, OilType type, int pre_n,
     int stride, int post_n);
+static int check_holes (void *data, OilType type, int pre_n,
+    int stride, int post_n, int guard);
 
 OilTest *
 oil_test_new (OilFunctionClass *klass)
@@ -156,7 +158,7 @@ oil_test_check_function (OilTest *test)
         memcpy (p->test_data, p->src_data, p->size);
         args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
       } else if (p->direction == 'd') {
-        memset (p->test_data, 0, p->size);
+        memset (p->test_data, p->guard, p->size);
         args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
       } else {
         OIL_ERROR ("not reached");
@@ -204,11 +206,11 @@ oil_test_check_ref (OilTest *test)
 }
 
 static int
-check_zero (uint8_t *data, int n)
+check_guard (uint8_t *data, int n, int guard)
 {
   int i;
   for(i=0;i<n;i++) {
-    if (data[i] != 0) return 0;
+    if (data[i] != guard) return 0;
   }
   return 1;
 }
@@ -240,18 +242,24 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
 
     if (p->is_pointer) {
       if (p->direction == 'i' || p->direction == 'd') {
-        x += check_array (p->ref_data, p->test_data, p->type, p->pre_n,
+        x += check_array (p->test_data, p->ref_data, p->type, p->pre_n,
             p->stride, p->post_n);
         n += p->pre_n * p->post_n;
-        if (!check_zero (p->test_data, OIL_TEST_HEADER)) {
+        if (!check_guard (p->test_data, OIL_TEST_HEADER, p->guard)) {
           fail = 1;
           OIL_ERROR("function %s wrote before area for parameter %s",
               test->impl->name, p->parameter_name);
         }
-        if (!check_zero ((uint8_t *)p->test_data + p->size - OIL_TEST_FOOTER,
-              OIL_TEST_FOOTER)) {
+        if (!check_guard ((uint8_t *)p->test_data + p->size - OIL_TEST_FOOTER,
+              OIL_TEST_FOOTER, p->guard)) {
           fail = 1;
           OIL_ERROR("function %s wrote after area for parameter %s",
+              test->impl->name, p->parameter_name);
+        }
+        if (!check_holes (p->test_data, p->type, p->pre_n, p->stride,
+              p->post_n, p->guard)) {
+          fail = 1;
+          OIL_ERROR("function %s wrote in interstitial area for parameter %s",
               test->impl->name, p->parameter_name);
         }
       }
@@ -347,25 +355,26 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
   }
 
   p->size = p->stride * p->post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER;
+  p->guard = oil_rand_u8();
 
   if (p->direction == 'i' || p->direction == 's') {
     if (p->src_data) free (p->src_data);
 
     OIL_DEBUG("allocating %d bytes for src_data for %s", p->size, p->parameter_name);
     p->src_data = malloc (p->size);
-    memset (p->src_data, 0, p->size);
+    memset (p->src_data, p->guard, p->size);
     fill_array (p->src_data + OIL_TEST_HEADER, p->type, p->pre_n, p->stride, p->post_n);
   }
 
   if (p->direction == 'i' || p->direction == 'd') {
     if (p->ref_data) free (p->ref_data);
     p->ref_data = malloc (p->size);
-    memset (p->ref_data, 0, p->size);
+    memset (p->ref_data, p->guard, p->size);
     OIL_DEBUG("allocating %d bytes for ref_data and test_data for %s", p->size, p->parameter_name);
 
     if (p->test_data) free (p->test_data);
     p->test_data = malloc (p->size);
-    memset (p->test_data, 0, p->size);
+    memset (p->test_data, p->guard, p->size);
   }
 }
 
@@ -490,3 +499,28 @@ check_array (void *data, void *ref, OilType type, int pre_n, int stride, int pos
   }
   return x;
 }
+
+static int
+check_holes (void *data, OilType type, int pre_n, int stride, int post_n,
+    int guard)
+{
+  int i;
+  int j;
+  int chunk_size;
+  int hole_size;
+
+  chunk_size = pre_n * oil_type_sizeof (type);
+  hole_size = stride - chunk_size;
+  if (hole_size == 0) {
+    return 1;
+  }
+
+  for(i=0;i<post_n;i++){
+    if (!check_guard (data + stride * i + chunk_size, hole_size, guard)) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+

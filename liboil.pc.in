@@ -8,7 +8,7 @@ toolsdir=${exec_prefix}/bin
 Name: liboil-@LIBOIL_MAJORMINOR@
 Description: Libaray of Optimized Inner Loops
 Version: @VERSION@
-Libs: -L${libdir} -loil-@LIBOIL_MAJORMINOR@
+Libs: -L${libdir} -loil-@LIBOIL_MAJORMINOR@ -lm
 Cflags: -I${includedir}
 
 

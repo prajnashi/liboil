@@ -104,6 +104,7 @@ struct _OilParameter {
   int post_n;
   int stride;
   int size;
+  int guard;
 };
 
 #endif

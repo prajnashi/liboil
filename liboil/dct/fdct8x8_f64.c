@@ -139,7 +139,7 @@ fdct8x8_f64_1d (double *dest, int dstr, double *src, int sstr)
 
 	for(i=0;i<8;i++){
 		oil_fdct8_f64(dest + i, tmp + i,
-                    8*sizeof(double), 8*sizeof(double));
+                    dstr, 8*sizeof(double));
 	}
 }
 

@@ -60,9 +60,9 @@ scalarmult_f32_sse (float *dest, int dstr, float *src, int sstr,
         : 
         : "r" (t));
     OIL_GET(dest,dstr*(i + 0), float) = t[0];
-    OIL_GET(dest,dstr*(i + 0), float) = t[1];
-    OIL_GET(dest,dstr*(i + 0), float) = t[2];
-    OIL_GET(dest,dstr*(i + 0), float) = t[3];
+    OIL_GET(dest,dstr*(i + 1), float) = t[1];
+    OIL_GET(dest,dstr*(i + 2), float) = t[2];
+    OIL_GET(dest,dstr*(i + 3), float) = t[3];
   }
 
 }

@@ -37,10 +37,12 @@ OIL_DEFINE_CLASS(dct36_f32, "float *d_36, int dstr, float *s_36, int sstr");
 static void
 dct36_f32_ref(float *dest, int dstr, float *src, int sstr)
 {
+#if 0
   int i;
   for(i=0;i<36;i++){
     dest[i] = src[i];
   }
+#endif
 }
 
 OIL_DEFINE_IMPL_REF (dct36_f32_ref, dct36_f32);

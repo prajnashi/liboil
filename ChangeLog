@@ -1,3 +1,22 @@
+2005-01-13  David Schleef  <ds@schleef.org>
+
+	* Makefile.am: dist autogen.sh
+	* README: add comments
+	* configure.ac: bump version.  Fix ordering.  failing->broken
+	* liboil.pc.in: add -lm
+	* liboil/dct/dct36_f32.c: (dct36_f32_ref): still broken.  Note to
+	self: only add classes that _have_ a reference implementation.
+	* liboil/dct/fdct8x8_f64.c: (fdct8x8_f64_1d): fix striding
+	* liboil/liboilfuncs.h: parameter name change
+	* liboil/liboilparameter.h: Add guard value.
+	* liboil/liboiltest.c: (oil_test_check_function), (check_guard),
+	(oil_test_check_impl), (init_parameter), (check_holes): check
+	interstitial regions.  Use a guard value instead of 0.
+	* liboil/simdpack/abs_i386.c: (abs_u16_s16_mmx2),
+	(abs_u16_s16_sse2): disable broken impls
+	* liboil/simdpack/scalarmult_i386.c: (scalarmult_f32_sse): fix
+	impl
+
 2005-01-11  David Schleef  <ds@schleef.org>
 
 	* README: additional notes

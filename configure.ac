@@ -1,5 +1,5 @@
 AC_PREREQ([2.58])
-AC_INIT(liboil,0.2.2.1)
+AC_INIT(liboil,0.3.0)
 
 nano=$(echo $VERSION | sed 's/[0-9]\.[0-9]\.[0-9]\.*//')
 if test x"$nano" = x1 ; then
@@ -8,8 +8,8 @@ else
   LIBOIL_CVS="no"
 fi
 
-AM_INIT_AUTOMAKE(1.6)
 AC_CANONICAL_TARGET([])
+AM_INIT_AUTOMAKE(1.6)
 AM_MAINTAINER_MODE
 
 LIBOIL_MAJORMINOR=0.3
@@ -28,7 +28,7 @@ AM_PROG_LIBTOOL
 
 AC_CONFIG_SRCDIR([liboil/liboil.h])
 
-ACLOCAL_AMFLAGS="-I m4 $ACLOCAL_FLAGS"
+ACLOCAL_AMFLAGS="-I m4 $ACLOCAL_AMFLAGS"
 AC_SUBST(ACLOCAL_AMFLAGS)
 
 PKG_CHECK_MODULES(GLIB, glib-2.0, HAVE_GLIB=yes, HAVE_GLIB=no)
@@ -57,11 +57,11 @@ AM_CONDITIONAL(USE_ALT_OPT, test "x$enable_alt_opt" = xyes)
 LIBOIL_OPT_CFLAGS="-O3 -fomit-frame-pointer -funroll-all-loops -Wno-unused-function -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
 AC_SUBST(LIBOIL_OPT_CFLAGS)
 
-AC_ARG_ENABLE(failing-implementations,
-  AC_HELP_STRING([--enable-failing-implementations],[compile with failing implementations]),
-  enable_failing_implementations=$enableval,enable_failing_implementations=no)
-if test "x$enable_failing_implementations" = xyes ; then
-  AC_DEFINE(USE_FAILING_IMPLS, 1, [Define if compiling failing implementations])
+AC_ARG_ENABLE(broken-implementations,
+  AC_HELP_STRING([--enable-broken-implementations],[compile with broken implementations]),
+  enable_broken_implementations=$enableval,enable_broken_implementations=no)
+if test "x$enable_broken_implementations" = xyes ; then
+  AC_DEFINE(ENABLE_BROKEN_IMPLS, 1, [Define if compiling broken implementations])
 fi
 
 dnl Set up conditionals for (target) architecture:
