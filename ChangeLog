@@ -1,5 +1,23 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	* examples/example1.c: more relicensing
+	* examples/md5/md5sum.c:
+	* examples/oil-inspect.c:
+	* examples/uberopt/example.c:
+	* examples/uberopt/uberopt.c:
+	* testsuite/abs.c:
+	* testsuite/introspect.c:
+	* testsuite/md5.c:
+	* testsuite/md5_profile.c:
+	* testsuite/moo.c:
+	* testsuite/proto1.c:
+	* testsuite/proto2.c:
+	* testsuite/proto3.c:
+	* testsuite/test1.c:
+	* testsuite/trans.c:
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	* liboil/liboil_begin.c: remove, unused
 	* liboil/liboil_end.c:
 
