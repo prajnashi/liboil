@@ -1,5 +1,16 @@
 2004-11-30  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: add target for rebuilding liboilfuncs.h
+	* liboil/copy/Makefile.am:
+	* liboil/copy/copy.c: (copy_u8_ref), (copy_u8_libc): Add a memcpy
+	function.
+	* liboil/copy/copy.h: remove useless header file
+	* liboil/copy/splat_ref.c: same
+	* liboil/copy/trans8x8.c: same
+	* liboil/liboilfuncs.h: update
+
+2004-11-30  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilcpu.c: (oil_cpu_i386_getflags), (test_altivec),
 	(illegal_instruction_handler), (oil_cpu_powerpc_getflags),
 	(_oil_cpu_init): Detect altivec

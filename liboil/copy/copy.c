@@ -1,5 +1,5 @@
 /* liboil - Library of Optimized Inner Loops
- * Copyright (C) 2003  David A. Schleef <ds@schleef.org>
+ * Copyright (C) 2004  David A. Schleef <ds@schleef.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of version 2.1 of the GNU Lesser General
@@ -16,18 +16,31 @@
  * Boston, MA 02111-1307 USA.
  */
 
-#ifndef _LIBOIL_COPY_H_
-#define _LIBOIL_COPY_H_
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <string.h>
 
 #include <liboil/liboilfunction.h>
 
-OIL_DECLARE_CLASS(splat_u8);
-OIL_DECLARE_CLASS(splat_u32);
-OIL_DECLARE_CLASS(tablelookup_u8);
-OIL_DECLARE_CLASS(trans8x8_u8);
-OIL_DECLARE_CLASS(trans8x8_u16);
-OIL_DECLARE_CLASS(trans8x8_u32);
-OIL_DECLARE_CLASS(trans8x8_f64);
+OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
 
-#endif
+static void
+copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = src[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
+
+static void
+copy_u8_libc (uint8_t *dest, uint8_t *src, int n)
+{
+  memcpy (dest, src, n);
+}
+OIL_DEFINE_IMPL (copy_u8_libc, copy_u8);
+
 

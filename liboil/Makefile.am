@@ -114,4 +114,7 @@ liboilarray.c: liboiltmp1.la
 	echo '};' >>liboilarray.c
 	echo >>liboilarray.c
 
+liboilfuncs.h:
+	./build_prototypes >liboilfuncs.h
+
 

@@ -21,7 +21,6 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/copy/copy.h>
 #include <math.h>
 
 #define TRANS8x8_DEFINE_REF(type)		\
@@ -36,9 +35,9 @@ static void trans8x8_ ## type ## _ref (		\
     }						\
   }						\
 }						\
-OIL_DEFINE_IMPL_REF (trans8x8_ ## type ## _ref, trans8x8_ ## type); \
 OIL_DEFINE_CLASS (trans8x8_ ## type, "type_" #type " *dest, int dstr,	" \
-    "type_" #type " *src, int sstr")
+    "type_" #type " *src, int sstr"); \
+OIL_DEFINE_IMPL_REF (trans8x8_ ## type ## _ref, trans8x8_ ## type)
 
 TRANS8x8_DEFINE_REF(u8);
 TRANS8x8_DEFINE_REF(u16);
