@@ -6,7 +6,11 @@ SUBDIRS = jpeg simdpack
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 noinst_LTLIBRARIES = liboilend.la liboiltmp.la
 
+if HAVE_GLIB
 noinst_PROGRAMS = build_prototypes
+else
+noinst_PROGRAMS = 
+endif
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h
@@ -22,6 +26,12 @@ else
 powerpc_sources = 
 endif
 
+if HAVE_CPU_I386
+i386_sources = conv_sse.c
+else
+i386_sources = 
+endif
+
 liboiltmp_la_SOURCES = \
 	conv.h \
 	liboil.h \
@@ -33,11 +43,11 @@ liboiltmp_la_SOURCES = \
 	conv_ref.c \
 	conv_c.c \
 	conv_bitstuff.c \
-	conv_sse.c \
 	conv_misc.c \
 	splat_ref.c \
 	tablelookup_ref.c \
 	$(powerpc_sources) \
+	$(i386_sources) \
 	liboilfunction.c \
 	liboildebug.c \
 	liboilcpu.c

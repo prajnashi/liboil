@@ -1,3 +1,12 @@
+2004-09-02  David Schleef  <ds@schleef.org>
+
+	* configure.ac: remove strict glib dependency
+	* liboil-0.1-uninstalled.pc.in: remove glib
+	* liboil-0.1.pc.in: remove glib
+	* liboil/Makefile.am: remove glib dependency, make conv_sse an i386
+	source
+	* liboil/liboilcpu.c: handle non-Linux builds
+
 2004-08-20  David Schleef  <ds@schleef.org>
 
 	* m4/as-compiler-flag.m4: add

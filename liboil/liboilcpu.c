@@ -28,12 +28,15 @@
 #include <string.h>
 #include <stdio.h>
 
+#ifdef __i386__
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
+#endif
 
 unsigned long oil_cpu_flags;
 
+#ifdef __i386__
 static char *
 get_cpuinfo (void)
 {
@@ -49,6 +52,7 @@ get_cpuinfo (void)
 
   return cpuinfo;
 }
+#endif
 
 #ifdef __i386__
 static void
@@ -114,6 +118,7 @@ _oil_cpu_init (void)
 
 }
 
+#ifdef __i386__
 static char *
 get_cpuinfo_flags_string (char *cpuinfo)
 {
@@ -169,4 +174,5 @@ _strndup (const char *s, int n)
 
   return r;
 }
+#endif
 

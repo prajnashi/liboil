@@ -23,10 +23,14 @@ AC_PROG_CC([c99])
 PKG_CHECK_MODULES(GLIB, glib-2.0, HAVE_GLIB=yes, HAVE_GLIB=no)
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
-if test x"$HAVE_GLIB" = "xno"; then
-  AC_MSG_ERROR([cannot find glib-2.0, which is required to build liboil])
-fi
-
+AC_ARG_ENABLE(glib,
+AC_HELP_STRING([--disable-glib],[disable usage of glib]),
+[case "${enableval}" in
+  yes) HAVE_GLIB=yes ;;
+  no) HAVE_GLIB=no ;;
+  *) AC_MSG_ERROR(bad value ${enableval} for --disable-glib) ;;
+esac])
+AM_CONDITIONAL(HAVE_GLIB, test "x$HAVE_GLIB" = "xyes")
 
 dnl Set up conditionals for (target) architecture:
 dnl ==============================================
@@ -69,7 +73,7 @@ fi
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir)"
 AC_SUBST(LIBOIL_CFLAGS)
 
-LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $GLIB_LIBS"
+LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
 AC_SUBST(LIBOIL_LIBS)
 
 pkgconfigdir="\$(libdir)/pkgconfig"
