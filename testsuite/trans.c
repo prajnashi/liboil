@@ -74,18 +74,21 @@ void test(void)
 int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
-  OilFunctionImpl *impl;
+  //OilFunctionImpl *impl;
 
   oil_init ();
 
   klass = oil_class_get ("fdct8x8s_s16");
 
+#if 0
+  /* FIXME this doesn't check for CPU validity */
   oil_class_choose_by_name (klass, "fdct8x8s_s16_mmx");
   impl = klass->chosen_impl;
   g_print("chosen=%p\n", impl);
   impl = klass->reference_impl;
   g_print("ref=%p\n", impl);
   test();
+#endif
 
   return 0;
 }

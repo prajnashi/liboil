@@ -1,3 +1,8 @@
+2005-01-09  David Schleef  <ds@schleef.org>
+
+	* testsuite/trans.c: (main): Disable some temporary code that
+	fails on uhv.
+
 2005-01-08  David Schleef  <ds@schleef.org>
 
 	* examples/md5/md5sum.c: Don't use MAP_POPULATE if it's not
