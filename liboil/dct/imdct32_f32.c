@@ -21,8 +21,10 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/dct/dct.h>
 #include <math.h>
+
+OIL_DEFINE_CLASS_X (imdct32_f32, "float *dest, float *src");
 
 static void imdct32_f32_ref (float *dest, float *src)
 {
@@ -366,7 +368,7 @@ static void imdct32_f32_mpglib(float *dest,float *samples)
  dest[31] = b1[0x1F];
 }
 
-OIL_DEFINE_IMPL_REF (imdct32_f32_mpglib, imdct32_f32_class);
+OIL_DEFINE_IMPL (imdct32_f32_mpglib, imdct32_f32_class);
 
 
 

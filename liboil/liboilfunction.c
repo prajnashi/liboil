@@ -84,6 +84,12 @@ oil_optimize (const char *class_name)
 }
 
 OilFunctionClass *
+oil_class_get_by_index (int i)
+{
+  return (void *)oil_function_classes + i * oil_function_class_stride;
+}
+
+OilFunctionClass *
 oil_class_get (const char *class_name)
 {
   OilFunctionClass *klass;
@@ -105,7 +111,7 @@ oil_class_optimize (OilFunctionClass * klass)
   OilFunctionImpl *min_impl;
   int min;
 
-  OIL_LOG ("optimizing class %s", klass->name);
+  OIL_DEBUG ("optimizing class %s", klass->name);
 
   if (klass->first_impl == NULL) {
     OIL_ERROR ("class %s has no implmentations", klass->name);
@@ -153,17 +159,23 @@ oil_init_pointers (void)
   next = ((unsigned long) &_oil_next_function_class);
   end = ((unsigned long) &_oil_end_function_class);
   oil_function_class_stride = next - begin;
+  OIL_DEBUG("classes: begin %p next %p end %p stride %d", begin, next, end,
+      oil_function_class_stride);
 
   oil_function_classes = (OilFunctionClass *) (next + oil_function_class_stride);
   oil_n_function_classes = (end - next) / oil_function_class_stride - 1;
+  OIL_DEBUG("classes: %d at %p", oil_n_function_classes, oil_function_classes);
 
   begin = ((unsigned long) &_oil_begin_function_impl);
   next = ((unsigned long) &_oil_next_function_impl);
   end = ((unsigned long) &_oil_end_function_impl);
   oil_function_impl_stride = next - begin;
+  OIL_DEBUG("impls: begin %p next %p end %p stride %d", begin, next, end,
+      oil_function_impl_stride);
 
   oil_function_impls = (OilFunctionImpl *) (next + oil_function_impl_stride);
   oil_n_function_impls = (end - next) / oil_function_impl_stride - 1;
+  OIL_DEBUG("impls: %d at %p", oil_n_function_impls, oil_function_impls);
 }
 
 static void
@@ -174,6 +186,13 @@ oil_init_structs (void)
 
   for (i = 0; i < oil_n_function_impls; i++) {
     impl = oil_function_impls + i;
+    OIL_DEBUG ("registering impl %p (%s)", impl,
+          (impl->name != NULL) ? impl->name : "NULL");
+    if (impl->klass == NULL) {
+      OIL_ERROR ("impl->klass is NULL for impl %p (%s)", impl,
+          (impl->name != NULL) ? impl->name : "NULL");
+      continue;
+    }
     impl->next = impl->klass->first_impl;
     impl->klass->first_impl = impl;
     if (impl->flags & OIL_IMPL_FLAG_REF) {

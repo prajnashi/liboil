@@ -28,13 +28,14 @@ typedef struct _OilFunctionArg OilFunctionArg;
 typedef void (*OilTestFunction) (OilFunctionClass *klass,
 		OilFunctionImpl *impl);
 
-#if 0
+#ifdef __GNUC__
 #define LIBOIL_ATTRIBUTE_ALIGNED_16 __attribute__ ((aligned (16)))
 #define LIBOIL_ATTRIBUTE_SECTION(section_name) \
-  __attribute__ ((section (section_name))) = {
-#endif
+  __attribute__ ((section (section_name)))
+#else
 #define LIBOIL_ATTRIBUTE_ALIGNED_16
 #define LIBOIL_ATTRIBUTE_SECTION(section_name)
+#endif
 
 struct _OilFunctionClass {
 	void *func;
@@ -147,6 +148,7 @@ void oil_init (void);
 void oil_optimize_all (void);
 void oil_optimize (const char *class_name);
 
+OilFunctionClass * oil_class_get_by_index (int i);
 OilFunctionClass *oil_class_get (const char *class_name);
 void oil_class_optimize (OilFunctionClass *klass);
 

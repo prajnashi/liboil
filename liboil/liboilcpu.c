@@ -71,31 +71,31 @@ oil_cpu_i386_getflags(void)
   flags = strsplit(cpuinfo_flags);
   for (f = flags; *f; f++) {
     if (strcmp (*f, "cmov") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_CMOV;
     }
     if (strcmp (*f, "mmx") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_MMX;
     }
     if (strcmp (*f, "sse") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_SSE;
     }
     if (strcmp (*f, "mmxext") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_MMXEXT;
     }
     if (strcmp (*f, "sse2") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_SSE2;
     }
     if (strcmp (*f, "3dnow") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_3DNOW;
     }
     if (strcmp (*f, "3dnowext") == 0) {
-      OIL_DEBUG ("cpu flag %s\n", *f);
+      OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_REQUIRES_3DNOWEXT;
     }
 
@@ -105,7 +105,7 @@ oil_cpu_i386_getflags(void)
   free (cpuinfo);
   free (cpuinfo_flags);
 
-  OIL_INFO ("cpu flags %08lx\n", oil_cpu_flags);
+  OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
 }
 #endif
 

@@ -46,18 +46,11 @@ int main (int argc, char *argv[])
     klass = oil_function_classes + i;
 
     if(klass->prototype) {
-#if 0
-      printf ("extern OilFunctionClass _oil_function_%s_class;\n",
-          klass->name);
-      printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
-          klass->name, klass->prototype, klass->name);
-#endif
-      //printf("void %s (%s);\n", klass->name, klass->prototype);
       array = parse_prototype(klass->prototype);
 
       string = param_to_string (array);
 
-      printf ("extern OilFunctionClass _oil_function_%s_class;\n",
+      printf ("extern OilFunctionClass _oil_function_%s_class LIBOIL_ATTRIBUTE_SECTION(\".oil_function_class\");\n",
           klass->name);
       printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
           klass->name, string, klass->name);

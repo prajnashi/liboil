@@ -24,6 +24,12 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (abs_u8_s8, "uint8_t *dest, int dstr, int8_t *src, int sstr, int n");
+OIL_DEFINE_CLASS_X (abs_u16_s16, "uint16_t *dest, int dstr, int16_t *src, int sstr, int n");
+OIL_DEFINE_CLASS_X (abs_u32_s32, "uint32_t *dest, int dstr, int32_t *src, int sstr, int n");
+OIL_DEFINE_CLASS_X (abs_f32_f32, "float *dest, int dstr, float *src, int sstr, int n");
+OIL_DEFINE_CLASS_X (abs_f64_f64, "double *dest, int dstr, double *src, int sstr, int n");
+
 //static void abs_test (OilFunctionClass *klass, OilFunctionImpl *impl);
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
@@ -38,7 +44,6 @@ abs_test (OilFunctionClass *klass, OilFunctionImpl *impl)
 }
 #endif
 
-#if 0
 static void
 abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
 {
@@ -46,13 +51,12 @@ abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
   int x;
 
   for (i=0; i<n; i++) {
-    x = *OIL_OFFSET(dest, i*dstr);
+    x = OIL_GET(src, i*sstr, int8_t);
     x = ABS(x);
-    *OIL_OFFSET(dest, i*dstr) = x;
+    OIL_GET(dest, i*dstr, uint8_t) = x;
   }
 }
 OIL_DEFINE_IMPL_REF (abs_u8_s8_ref, abs_u8_s8_class);
-#endif
 
 static void
 abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)
@@ -61,7 +65,7 @@ abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)
   int x;
 
   for (i=0; i<n; i++) {
-    x = OIL_GET(src, i*sstr, uint16_t);
+    x = OIL_GET(src, i*sstr, int16_t);
     x = ABS(x);
     OIL_GET(dest, i*dstr, uint16_t) = x;
   }
@@ -75,7 +79,7 @@ abs_u32_s32_ref (uint32_t *dest, int dstr, int32_t *src, int sstr, int n)
   int x;
 
   for (i=0; i<n; i++) {
-    x = OIL_GET(src, i*sstr, uint32_t);
+    x = OIL_GET(src, i*sstr, int32_t);
     x = ABS(x);
     OIL_GET(dest, i*dstr, uint32_t) = x;
   }

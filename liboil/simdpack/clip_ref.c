@@ -22,18 +22,6 @@
 
 #include <liboil/liboilfunction.h>
 
-static void clip_test (OilFunctionClass *klass, OilFunctionImpl *impl);
-
-OIL_DEFINE_CLASS (clip_s8, clip_test);
-OIL_DEFINE_CLASS (clip_u8, clip_test);
-OIL_DEFINE_CLASS (clip_s16, clip_test);
-OIL_DEFINE_CLASS (clip_u16, clip_test);
-OIL_DEFINE_CLASS (clip_s32, clip_test);
-OIL_DEFINE_CLASS (clip_u32, clip_test);
-OIL_DEFINE_CLASS (clip_f32, clip_test);
-OIL_DEFINE_CLASS (clip_f64, clip_test);
-
-
 #define CLIP_DEFINE_REF(type) \
 static void clip_ ## type ## _ref ( \
     type_ ## type *dest, \
@@ -51,6 +39,12 @@ static void clip_ ## type ## _ref ( \
     OIL_GET(dest,i*dstr,type_ ## type) = x; \
   } \
 } \
+OIL_DEFINE_CLASS_X(clip_ ## type, \
+    "type_" #type " *dest, " \
+    "int dstr, " \
+    "type_" #type " *src, " \
+    "int sstr, int n, " \
+    "type_" #type "min, type_" #type "max"); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type ## _class)
 
 CLIP_DEFINE_REF (s8);
@@ -87,11 +81,6 @@ clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
 }
 #endif
 
-
-static void clip_test (OilFunctionClass *klass, OilFunctionImpl *impl)
-{
-
-}
 
 #ifdef TEST_clip_f64
 int TEST_clip_f64(void)

@@ -16,7 +16,8 @@ void test(void)
     src[i] = (i-50)*100;
   }
 
-  abs_f32_f32 (dest, 2, src, 2, 100);
+//g_print("%p\n", abs_f32_f32);
+  //abs_f32_f32 (dest, 4, src, 4, 100);
 
   for (i=0; i<100; i++) {
     g_print("%d %g %g\n", i, src[i], dest[i]);
@@ -28,13 +29,15 @@ int main (int argc, char *argv[])
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
 
+g_print("%p %d\n", &_oil_debug_level, _oil_debug_level);
   _oil_debug_level = OIL_DEBUG_INFO;
   oil_init ();
 
-  //oil_optimize_all();
+  oil_optimize_all();
 
   klass = oil_class_get ("abs_f32_f32");
   oil_class_optimize(klass);
+g_print("%p %p\n", klass, &_oil_function_abs_f32_f32_class);
 
   g_print("class=%s\n", klass->name);
   for (impl = klass->first_impl; impl; impl=impl->next) {
@@ -49,7 +52,7 @@ int main (int argc, char *argv[])
   impl = klass->reference_impl;
   g_print("ref=%p\n", impl);
 
-  //test();
+  test();
 
   return 0;
 }

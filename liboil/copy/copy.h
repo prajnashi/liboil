@@ -16,33 +16,18 @@
  * Boston, MA 02111-1307 USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
+#ifndef _LIBOIL_COPY_H_
+#define _LIBOIL_COPY_H_
+
+#include <liboil/liboilfunction.h>
+
+OIL_DECLARE_CLASS(splat_u8);
+OIL_DECLARE_CLASS(splat_u32);
+OIL_DECLARE_CLASS(tablelookup_u8);
+OIL_DECLARE_CLASS(trans8x8_u8);
+OIL_DECLARE_CLASS(trans8x8_u16);
+OIL_DECLARE_CLASS(trans8x8_u32);
+OIL_DECLARE_CLASS(trans8x8_f64);
+
 #endif
-
-#include <liboil/liboil.h>
-#include "jpeg.h"
-
-OIL_DEFINE_CLASS_X (dequantize8x8_s16, 
-    "int16_t *dest, int dstr, int16_t *src, int sstr, int16_t *quant, int qstr");
-
-#define BLOCK8x8_S16(ptr, stride, row, column) \
-	(*((int16_t *)((void *)ptr + stride*row) + column))
-
-static void
-dequantize8x8_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr,
-    int16_t *quant, int qstr)
-{
-	int i,j;
-
-	for(i=0;i<8;i++){
-		for(j=0;j<8;j++){
-			BLOCK8x8_S16(dest,dstr,i,j) =
-				BLOCK8x8_S16(src,sstr,i,j) *
-				BLOCK8x8_S16(quant,qstr,i,j);
-		}
-	}
-}
-
-OIL_DEFINE_IMPL_REF (dequantize8x8_s16_ref, dequantize8x8_s16_class);
 

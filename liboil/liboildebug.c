@@ -82,7 +82,7 @@ oil_debug_print_valist (int level, const char *file, const char *func,
 
   if (level > _oil_debug_level) return;
 
-  if(level>=OIL_DEBUG_NONE && level<OIL_DEBUG_LOG){
+  if(level>=OIL_DEBUG_NONE && level<=OIL_DEBUG_LOG){
     level_name = level_names[level];
   }
   

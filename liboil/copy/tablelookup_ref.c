@@ -1,5 +1,5 @@
 /* liboil - Library of Optimized Inner Loops
- * Copyright (C) 2003  David A. Schleef <ds@schleef.org>
+ * Copyright (C) 2004  David A. Schleef <ds@schleef.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of version 2.1 of the GNU Lesser General
@@ -21,29 +21,23 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
-#include <math.h>
+//#include <liboil/.h>
 
-#define PERMUTE_DEFINE_REF(type)		\
-static void permute_ ## type ## _ref(		\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    int *perm, int pstr, int n)			\
-{						\
-  int i;					\
-  for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src,sstr*	\
-	OIL_GET(perm,pstr*i, int), type_ ## type);		\
-  }						\
-}						\
-OIL_DEFINE_IMPL_REF (permute_ ## type ## _ref, permute_ ## type ## _class)
 
-PERMUTE_DEFINE_REF (s8);
-PERMUTE_DEFINE_REF (u8);
-PERMUTE_DEFINE_REF (s16);
-PERMUTE_DEFINE_REF (u16);
-PERMUTE_DEFINE_REF (s32);
-PERMUTE_DEFINE_REF (u32);
-PERMUTE_DEFINE_REF (f32);
-PERMUTE_DEFINE_REF (f64);
+static void tablelookup_u8_ref (uint8_t *dest, int dstr, uint8_t *src,
+    int sstr, uint8_t *table, int tablestride, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    *dest = OIL_GET(table,tablestride*(int)src, uint8_t);
+    OIL_INCREMENT(dest, dstr);
+    OIL_INCREMENT(src, sstr);
+  }
+}
+
+OIL_DEFINE_CLASS_X (tablelookup_u8,
+    "uint8_t *dest, int dstr, uint8_t *src, int sstr, "
+    "uint8_t *table, int tablestride, int n");
+OIL_DEFINE_IMPL_REF (tablelookup_u8_ref, tablelookup_u8_class);
+
 

@@ -21,10 +21,12 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/liboilfuncs.h>
+#include <liboil/dct/dct.h>
 #include <math.h>
 
 
+OIL_DEFINE_CLASS(fdct8x8_f64, NULL);
 
 
 static void fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)

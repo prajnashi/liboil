@@ -25,6 +25,8 @@
 #include <math.h>
 
 
+OIL_DEFINE_CLASS_X (squaresum_f64, "double *dest, double *src, int n");
+
 static void
 squaresum_f64_ref(double *dest, double *src, int n)
 {
@@ -57,7 +59,7 @@ squaresum_f64_i10_simple(double *dest, double *src, int n)
 
 	*dest = sum2;
 }
-OIL_DEFINE_IMPL_REF (squaresum_f64_i10_simple, squaresum_f64_class);
+OIL_DEFINE_IMPL (squaresum_f64_i10_simple, squaresum_f64_class);
 
 #if 0
 #include <multsum_f64.h>
@@ -95,7 +97,7 @@ squaresum_f64_i10_unroll4a(double *dest, double *src, int n)
 
 	*dest = sum1 + sum2 + sum3 + sum4;
 }
-OIL_DEFINE_IMPL_REF (squaresum_f64_i10_unroll4a, squaresum_f64_class);
+OIL_DEFINE_IMPL (squaresum_f64_i10_unroll4a, squaresum_f64_class);
 
 static void
 squaresum_f64_i10_unroll4(double *dest, double *src, int n)
@@ -120,7 +122,7 @@ squaresum_f64_i10_unroll4(double *dest, double *src, int n)
 
 	*dest = sum1 + sum2 + sum3 + sum4;
 }
-OIL_DEFINE_IMPL_REF (squaresum_f64_i10_unroll4, squaresum_f64_class);
+OIL_DEFINE_IMPL (squaresum_f64_i10_unroll4, squaresum_f64_class);
 
 static void
 squaresum_f64_i10_unroll8(double *dest, double *src, int n)
@@ -153,7 +155,7 @@ squaresum_f64_i10_unroll8(double *dest, double *src, int n)
 
 	*dest = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7 + sum8;
 }
-OIL_DEFINE_IMPL_REF (squaresum_f64_i10_unroll8, squaresum_f64_class);
+OIL_DEFINE_IMPL (squaresum_f64_i10_unroll8, squaresum_f64_class);
 
 #ifdef TEST_squaresum_f64
 int TEST_squaresum_f64(void)

@@ -54,7 +54,7 @@ abs_u32_s32_fast (uint32_t * dest, int32_t * src, int n)
   }
 }
 
-OIL_DEFINE_IMPL_REF (abs_u32_s32_fast, abs_u32_s32_class);
+OIL_DEFINE_IMPL (abs_u32_s32_fast, abs_u32_s32_class);
 
 #ifdef TEST_abs_u32_s32
 int

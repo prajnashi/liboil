@@ -25,6 +25,9 @@
 
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (average2_u8, 
+    "uint8_t * dest, int dstr, uint8_t *src1, int sstr1, "
+    "uint8_t *src2, int sstr2, int n");
 
 static void
 average2_u8_ref (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
@@ -75,7 +78,7 @@ average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
   }
 }
 
-OIL_DEFINE_IMPL_REF (average2_u8_trick, average2_u8_class);
+OIL_DEFINE_IMPL (average2_u8_trick, average2_u8_class);
 
 static void
 average2_u8_fast (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
@@ -89,7 +92,7 @@ average2_u8_fast (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
   }
 }
 
-OIL_DEFINE_IMPL_REF (average2_u8_fast, average2_u8_class);
+OIL_DEFINE_IMPL (average2_u8_fast, average2_u8_class);
 
 static void
 average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
@@ -118,7 +121,7 @@ average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
   }
 }
 
-OIL_DEFINE_IMPL_REF (average2_u8_unroll4, average2_u8_class);
+OIL_DEFINE_IMPL (average2_u8_unroll4, average2_u8_class);
 
 #ifdef SIMDPACK_USE_I386
 /* This doesn't work with sstr!=2 or dstr!=2 */
@@ -143,7 +146,7 @@ average2_u8_i386asm (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 
 }
 
-OIL_DEFINE_IMPL_REF (average2_u8_i386asm, average2_u8_class);
+OIL_DEFINE_IMPL (average2_u8_i386asm, average2_u8_class);
 #endif
 
 

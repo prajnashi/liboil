@@ -28,11 +28,25 @@ int main (int argc, char *argv[])
   oil_init ();
 
   for (i=0;i<oil_n_function_classes; i++ ){
-    klass = oil_function_classes + i;
+    int ref=0;
+
+    klass = oil_class_get_by_index (i);
 
     printf ("class: %s\n", klass->name);
     for(impl = klass->first_impl; impl; impl=impl->next) {
-      printf ("  %s\n", impl->name);
+      printf ("  %s %s\n", impl->name, (impl->flags&OIL_IMPL_FLAG_REF)?"(ref)":"");
+      if (impl->flags & OIL_IMPL_FLAG_REF) {
+        ref++;
+      }
+    }
+    if (ref < 1) {
+      printf("ERROR: no reference function\n");
+    }
+    if (ref > 1) {
+      printf("ERROR: more than one reference function\n");
+    }
+    if (klass->prototype == NULL) {
+      printf("ERROR: prototype is NULL\n");
     }
 #if 0
       printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",

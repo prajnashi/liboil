@@ -25,11 +25,6 @@ OIL_DECLARE_CLASS(conv8x8_s16_f64);
 OIL_DECLARE_CLASS(conv8x8_f64_s16);
 OIL_DECLARE_CLASS(clipconv8x8_u8_s16);
 
-OIL_DECLARE_CLASS(idct8_f64);
-
-OIL_DECLARE_CLASS(idct8x8_f64);
-OIL_DECLARE_CLASS(idct8x8_s16);
-
 OIL_DECLARE_CLASS(scanlinescale2_u8);
 
 OIL_DECLARE_CLASS(dequantize8x8_s16);
@@ -39,17 +34,6 @@ OIL_DECLARE_CLASS(yuv2rgbx_sub2_u8);
 OIL_DECLARE_CLASS(yuv2rgbx_sub4_u8);
 
 OIL_DECLARE_CLASS(unzigzag8x8_s16);
-
-#if 0
-#define idct8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_idct8_f64_class.func)
-#define idct8x8_f64 ((void (*)(double *, int, double *, int)) \
-                    _oil_function_idct8x8_f64_class.func)
-#define conv8x8_f64_s16 ((void (*)(double *, int, int16_t *, int)) \
-                    _oil_function_conv8x8_f64_s16_class.func)
-#define conv8x8_s16_f64 ((void (*)(int16_t *, int, double *, int)) \
-                    _oil_function_conv8x8_s16_f64_class.func)
-#endif
 
 #endif
 

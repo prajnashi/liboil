@@ -24,6 +24,10 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (downsample1x_f64,
+    "double *dest, int dstr, double *src, int sstr, "
+    "int ndest, int nsrc, double ratio, double invratio");
+
 /*
 Kernel: downsample1x_f64
 Description: downsamples a scan line using linear interpolation

@@ -25,6 +25,8 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (mix_u8,
+    "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n");
 
 static void mix_u8_ref(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
@@ -47,7 +49,7 @@ static void mix_u8_fast(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *sc
 		n--;
 	}
 }
-OIL_DEFINE_IMPL_REF (mix_u8_fast, mix_u8_class);
+OIL_DEFINE_IMPL (mix_u8_fast, mix_u8_class);
 
 static void mix_u8_fast2 (uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
@@ -59,7 +61,7 @@ static void mix_u8_fast2 (uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *
 		n--;
 	}
 }
-OIL_DEFINE_IMPL_REF (mix_u8_fast2, mix_u8_class);
+OIL_DEFINE_IMPL (mix_u8_fast2, mix_u8_class);
 
 /* PowerPC likes this one */
 static void
@@ -71,7 +73,7 @@ mix_u8_fast3(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 		dest[i] = ((src1[i] - src2[i]) * scale[i] + src2[i] * 255)>>8;
 	}
 }
-OIL_DEFINE_IMPL_REF (mix_u8_fast3, mix_u8_class);
+OIL_DEFINE_IMPL (mix_u8_fast3, mix_u8_class);
 
 static void
 mix_u8_unroll4(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
@@ -103,7 +105,7 @@ mix_u8_unroll4(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int 
 		n-=4;
 	}
 }
-OIL_DEFINE_IMPL_REF (mix_u8_unroll4, mix_u8_class);
+OIL_DEFINE_IMPL (mix_u8_unroll4, mix_u8_class);
 
 #ifdef SIMDPACK_USE_ALTIVEC
 static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
@@ -149,7 +151,7 @@ static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint
 	: "r" (n/16)
 	: "12", "ctr");
 }
-OIL_DEFINE_IMPL_REF (mix_u8_a16_altivec, mix_u8_class);
+OIL_DEFINE_IMPL (mix_u8_a16_altivec, mix_u8_class);
 #endif
 
 

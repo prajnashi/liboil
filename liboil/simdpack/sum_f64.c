@@ -24,6 +24,8 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (sum_f64, "double *dest, double *src, int sstr, int n");
+//OIL_DEFINE_CLASS_X (sum_f64_i10, "double *dest, double *src, int sstr, int n");
 
 static void
 sum_f64_ref (double *dest, double *src, int sstr, int n)
@@ -55,7 +57,7 @@ sum_f64_i10_simple (double *dest, double *src, int sstr, int n)
 
 	*dest = sum;
 }
-OIL_DEFINE_IMPL_REF (sum_f64_i10_simple, sum_f64_class);
+OIL_DEFINE_IMPL (sum_f64_i10_simple, sum_f64_class);
 
 static void
 sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
@@ -80,7 +82,7 @@ sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
 
 	*dest = sum1 + sum2 + sum3 + sum4;
 }
-OIL_DEFINE_IMPL_REF (sum_f64_i10_unroll4, sum_f64_class);
+OIL_DEFINE_IMPL (sum_f64_i10_unroll4, sum_f64_class);
 
 
 #ifdef TEST_sum_f64

@@ -23,6 +23,8 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
+OIL_DEFINE_CLASS_X (get8x8_f64,
+    "double *dest, int dstr, double *src, int sstr, int x, int y");
 
 static void get8x8_f64_ref(double *dest, int dstr, double *src, int sstr,
     int x, int y)

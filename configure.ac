@@ -82,6 +82,8 @@ AC_SUBST(pkgconfigdir)
 AC_OUTPUT(
 Makefile 
 liboil/Makefile
+liboil/copy/Makefile
+liboil/dct/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
 testsuite/Makefile

@@ -21,9 +21,10 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/dct/dct.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (fdct8_f64, "double *dest, double *src, int dstr, int sstr");
 
 #define C0_9808 0.980785280
 #define C0_9239 0.923879532

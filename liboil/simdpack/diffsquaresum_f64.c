@@ -24,6 +24,9 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS_X (diffsquaresum_f64,
+    "double *dest, double *src1, int sstr1, double *src2, int sstr2, int n");
+
 static void
 diffsquaresum_f64_ref(double *dest, double *src1, int sstr1, double *src2,
     int sstr2, int n)

@@ -24,6 +24,7 @@
 
 #include "jpeg.h"
 
+OIL_DEFINE_CLASS_X (scanlinescale2_u8, "unsigned char *dest, unsigned char *src, int len");
 
 static void
 scanlinescale2_u8_ref (unsigned char *dest, unsigned char *src, int len)

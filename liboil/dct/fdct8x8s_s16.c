@@ -21,7 +21,10 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/dct/dct.h>
+
+
+OIL_DEFINE_CLASS(fdct8x8s_s16, NULL);
 
 #define C0_9808 0.980785280
 #define C0_9239 0.923879532

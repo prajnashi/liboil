@@ -24,6 +24,12 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+
+OIL_DEFINE_CLASS_X (sad8x8_s16,
+    "uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2, int sstr2");
+OIL_DEFINE_CLASS_X (sad8x8_f64,
+    "double *dest, int dstr, double *src1, int sstr1, double *src2, int sstr2");
+
 static void
 sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,
     int sstr2)

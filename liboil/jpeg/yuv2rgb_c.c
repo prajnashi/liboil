@@ -23,6 +23,13 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
+OIL_DEFINE_CLASS_X (yuv2rgbx_u8,
+    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+OIL_DEFINE_CLASS_X (yuv2rgbx_sub2_u8,
+    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+OIL_DEFINE_CLASS_X (yuv2rgbx_sub4_u8,
+    "uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n");
+
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)
 #define clamp_lower(x,a) ((x<a)?(a):(x))
 #define clamp_upper(x,b) ((x>b)?(b):(x))
@@ -54,7 +61,7 @@ yuv2rgbx_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
 	}
 }
 
-OIL_DEFINE_IMPL (yuv2rgbx_u8_ref, yuv2rgbx_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_u8_ref, yuv2rgbx_u8_class);
 
 static void
 yuv2rgbx_u8_int (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
@@ -98,7 +105,7 @@ yuv2rgbx_sub2_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int 
 	}
 }
 
-OIL_DEFINE_IMPL (yuv2rgbx_sub2_u8_ref, yuv2rgbx_sub2_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_sub2_u8_ref, yuv2rgbx_sub2_u8_class);
 
 static void
 yuv2rgbx_sub4_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int n)
@@ -135,5 +142,5 @@ yuv2rgbx_sub4_u8_ref (uint8_t *rgbp, uint8_t *yp, uint8_t *up, uint8_t *vp, int 
 	}
 }
 
-OIL_DEFINE_IMPL (yuv2rgbx_sub4_u8_ref, yuv2rgbx_sub4_u8_class);
+OIL_DEFINE_IMPL_REF (yuv2rgbx_sub4_u8_ref, yuv2rgbx_sub4_u8_class);
 

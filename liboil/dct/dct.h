@@ -16,17 +16,18 @@
  * Boston, MA 02111-1307 USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#ifndef _LIBOIL_DCT_H_
+#define _LIBOIL_DCT_H_
 
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS(scanlinescale2_u8, NULL);
+OIL_DECLARE_CLASS(dct12_f32);
+OIL_DECLARE_CLASS(dct36_f32);
+OIL_DECLARE_CLASS(fdct8_f64);
+OIL_DECLARE_CLASS(fdct8x8_f64);
+OIL_DECLARE_CLASS(fdct8x8s_s16);
+OIL_DECLARE_CLASS(idct8_f64);
+OIL_DECLARE_CLASS(imdct32_f32);
 
-OIL_DEFINE_CLASS(dequantize8x8_s16, NULL);
-
-OIL_DEFINE_CLASS(yuv2rgbx_u8, NULL);
-OIL_DEFINE_CLASS(yuv2rgbx_sub2_u8, NULL);
-OIL_DEFINE_CLASS(yuv2rgbx_sub4_u8, NULL);
+#endif
 

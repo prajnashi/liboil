@@ -1,3 +1,102 @@
+2004-09-03  David Schleef  <ds@schleef.org>
+
+	Move a bunch of files around.
+	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/build_prototypes.c: (main):
+	* liboil/copy/Makefile.am:
+	* liboil/copy/copy.h:
+	* liboil/copy/permute.c:
+	* liboil/copy/splat_ref.c: (splat_u8_ref), (splat_u32_ref),
+	(splat_u32_unroll2):
+	* liboil/copy/tablelookup_ref.c: (tablelookup_u8_ref):
+	* liboil/copy/trans8x8.c: (TEST_trans8x8_f64):
+	* liboil/copy/trans8x8_f32.c: (trans8x8_f32_ref),
+	(trans4x4_f32_a16_altivec), (trans8x8_f32_a16_altivec),
+	(TEST_trans8x8_f32):
+	* liboil/copy/trans8x8_s16.c: (trans8x8_s16_ref),
+	(trans8x8_s16_a16_altivec), (trans8x8_s16_altivecwrap),
+	(TEST_trans8x8_s16):
+	* liboil/dct/Makefile.am:
+	* liboil/dct/dct.h:
+	* liboil/dct/dct12_f32.c: (dct12_f32_ref), (dct12_f32_ref1),
+	(dct12_f32_mpglib), (TEST_dct12_f32):
+	* liboil/dct/dct36.c: (dct36):
+	* liboil/dct/dct36_f32.c: (dct36_f32_ref), (TEST_dct36_f32):
+	* liboil/dct/fdct8_f64.c: (fdct8_f64_ref), (fdct8_f64_fast),
+	(TEST_fdct8_f64):
+	* liboil/dct/fdct8x8_f64.c: (fdct8x8_f64_ref), (fdct8x8_f64_ref2),
+	(fdct8x8_f64_1d), (TEST_fdct8x8_f64):
+	* liboil/dct/fdct8x8_s16.c: (fdct8x8_s16_ref), (TEST_fdct8x8_s16):
+	* liboil/dct/fdct8x8s_s16.c: (fdct8x8s_s16_ref),
+	(TEST_fdct8x8s_s16):
+	* liboil/dct/idct8_f64.c: (idct8_f64_ref), (idct8_f64_fastx),
+	(TEST_idct8_f64):
+	* liboil/dct/idct8x8_c.c: (idct8x8_f64_slow), (idct8x8_f64_c),
+	(idct8x8_s16_slow):
+	* liboil/dct/idct8x8_f64.c: (idct8x8_f64_ref), (idct8x8_f64_ref2),
+	(idct8x8_f64_1d), (TEST_idct8x8_f64):
+	* liboil/dct/idct8x8_s16.c: (idct8x8_s16_ref), (idct8x8_s16_fast),
+	(TEST_idct8x8_s16):
+	* liboil/dct/idct8x8s_s16.c: (idct8x8s_s16_ref),
+	(TEST_idct8x8s_s16):
+	* liboil/dct/imdct32_f32.c: (imdct32_f32_ref),
+	(imdct32_f32_mpglib), (TEST_imdct32_f32):
+	* liboil/jpeg/Makefile.am:
+	* liboil/jpeg/idct8_c.c:
+	* liboil/jpeg/idct8x8_c.c:
+	* liboil/jpeg/jpeg.c:
+	* liboil/jpeg/jpeg.h:
+	* liboil/jpeg/jpeg_rgb_decoder.c:
+	* liboil/jpeg/quantize8x8_c.c:
+	* liboil/jpeg/yuv2rgb_c.c:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags):
+	* liboil/liboildebug.c: (oil_debug_print_valist):
+	* liboil/liboilfuncs.h:
+	* liboil/liboilfunction.c: (oil_class_get_by_index),
+	(oil_class_optimize), (oil_init_pointers), (oil_init_structs):
+	* liboil/liboilfunction.h:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/abs.c: (abs_u8_s8_ref), (abs_u16_s16_ref),
+	(abs_u32_s32_ref):
+	* liboil/simdpack/abs_u32_s32.c:
+	* liboil/simdpack/average2_u8.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/dct12_f32.c:
+	* liboil/simdpack/dct36.c:
+	* liboil/simdpack/dct36_f32.c:
+	* liboil/simdpack/diffsquaresum_f64.c:
+	* liboil/simdpack/downsample1x_f64.c:
+	* liboil/simdpack/fdct8_f64.c:
+	* liboil/simdpack/fdct8x8_f64.c:
+	* liboil/simdpack/fdct8x8_s16.c:
+	* liboil/simdpack/fdct8x8s_s16.c:
+	* liboil/simdpack/get8x8_f64.c:
+	* liboil/simdpack/idct8_f64.c:
+	* liboil/simdpack/idct8x8_f64.c:
+	* liboil/simdpack/idct8x8_s16.c:
+	* liboil/simdpack/idct8x8s_s16.c:
+	* liboil/simdpack/imdct32_f32.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/permute.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/simdpack.c:
+	* liboil/simdpack/sincos_f64.c:
+	* liboil/simdpack/squaresum_f64.c:
+	* liboil/simdpack/sum_f64.c:
+	* liboil/simdpack/trans8x8.c:
+	* liboil/simdpack/trans8x8_f32.c:
+	* liboil/simdpack/trans8x8_s16.c:
+	* liboil/simdpack/vectoradd_f64.c:
+	* liboil/simdpack/zigzag8x8_s16.c:
+	* testsuite/Makefile.am:
+	* testsuite/abs.c: (test), (main):
+	* testsuite/introspect.c: (main):
+
 2004-09-02  David Schleef  <ds@schleef.org>
 
 	* configure.ac: remove strict glib dependency

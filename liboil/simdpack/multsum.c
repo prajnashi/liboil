@@ -36,14 +36,24 @@ static void multsum_ ## type ## _ref(	\
   double sum = 0;			\
   double errsum = 0;			\
   for(i=0;i<n;i++){			\
-    x = *OIL_OFFSET(src1,sstr1*i) * *OIL_OFFSET(src2,sstr2*i);		\
+    type_ ## type x;                    \
+    type_ ## type tmp;                  \
+    x = OIL_GET(src1,sstr1*i,type_ ## type) * OIL_GET(src2,sstr2*i,type_ ## type);		\
     tmp = sum;				\
     sum += x;				\
     errsum += (tmp - sum) + x;		\
   }					\
   *dest = sum + errsum;			\
 }					\
-OIL_DEFINE_IMPL_REF (multsum_ ## type ## _ref, multsum_ ## type ## _class);
+OIL_DEFINE_IMPL_REF (multsum_ ## type ## _ref, multsum_ ## type ## _class); \
+OIL_DEFINE_CLASS_X (multsum_ ## type, \
+    "type_" #type " *dest, "		\
+    "type_" #type " *src1, int sstr1, "	\
+    "type_" #type " *src2, int sstr2, "	\
+    "int n")
+
+MULTSUM_DEFINE_REF(f32);
+MULTSUM_DEFINE_REF(f64);
 
 
 static void multsum_f32_unroll2 (float *dest, float *src1, int sstr1,

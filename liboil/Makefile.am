@@ -1,7 +1,7 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = jpeg simdpack
+SUBDIRS = copy dct jpeg simdpack
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 noinst_LTLIBRARIES = liboilend.la liboiltmp.la
@@ -44,8 +44,6 @@ liboiltmp_la_SOURCES = \
 	conv_c.c \
 	conv_bitstuff.c \
 	conv_misc.c \
-	splat_ref.c \
-	tablelookup_ref.c \
 	$(powerpc_sources) \
 	$(i386_sources) \
 	liboilfunction.c \
@@ -58,6 +56,8 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil_begin.c
 liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboiltmp.la \
+	copy/libcopy.la \
+	dct/libdct.la \
 	jpeg/libjpeg.la \
 	simdpack/libsimdpack.la \
 	liboilend.la

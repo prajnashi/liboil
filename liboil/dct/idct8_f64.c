@@ -21,8 +21,10 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/dct/dct.h>
 #include <math.h>
+
+OIL_DEFINE_CLASS_X (idct8_f64, "double *dest, int dstr, double *src, int sstr");
 
 #define C0_9808 0.980785280
 #define C0_9239 0.923879532
@@ -103,7 +105,7 @@ static void idct8_f64_fastx(double *dest, int dstr, double *src, int sstr)
 
 }
 
-OIL_DEFINE_IMPL_REF (idct8_f64_fastx, idct8_f64_class);
+OIL_DEFINE_IMPL (idct8_f64_fastx, idct8_f64_class);
 
 
 #ifdef TEST_idct8_f64

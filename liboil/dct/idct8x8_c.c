@@ -21,7 +21,7 @@
 #endif
 
 #include <liboil/liboil.h>
-#include "jpeg.h"
+#include <liboil/dct/dct.h>
 #include <math.h>
 
 /* for bootstrapping */

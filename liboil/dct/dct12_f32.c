@@ -21,9 +21,11 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/dct/dct.h>
 #include <math.h>
 
+
+OIL_DEFINE_CLASS_X (dct12_f32, "float *dest, int dstr, float *src, int sstr");
 
 static void
 dct12_f32_ref (float *dest, int dstr, float *src, int sstr)
