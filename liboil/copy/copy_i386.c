@@ -60,7 +60,7 @@ copy_u8_mmx (uint8_t *dest, uint8_t *src, int n)
       : "c" (n/8)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_mmx, copy_u8, OIL_IMPL_REQUIRES_MMX);
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx, copy_u8, OIL_IMPL_FLAG_MMX);
 
 static void
 copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
@@ -90,7 +90,7 @@ copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
       : "c" (n/16)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_mmx2, copy_u8, OIL_IMPL_REQUIRES_MMX);
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx2, copy_u8, OIL_IMPL_FLAG_MMX);
 
 
 

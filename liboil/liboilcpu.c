@@ -92,31 +92,31 @@ oil_cpu_i386_getflags(void)
   for (f = flags; *f; f++) {
     if (strcmp (*f, "cmov") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_CMOV;
+      oil_cpu_flags |= OIL_IMPL_FLAG_CMOV;
     }
     if (strcmp (*f, "mmx") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_MMX;
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMX;
     }
     if (strcmp (*f, "sse") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_SSE;
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE;
     }
     if (strcmp (*f, "mmxext") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_MMXEXT;
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
     }
     if (strcmp (*f, "sse2") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_SSE2;
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
     }
     if (strcmp (*f, "3dnow") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_3DNOW;
+      oil_cpu_flags |= OIL_IMPL_FLAG_3DNOW;
     }
     if (strcmp (*f, "3dnowext") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
-      oil_cpu_flags |= OIL_IMPL_REQUIRES_3DNOWEXT;
+      oil_cpu_flags |= OIL_IMPL_FLAG_3DNOWEXT;
     }
 
     free (*f);
@@ -164,7 +164,7 @@ oil_cpu_powerpc_getflags(void)
 
   if (test_altivec()) {
     OIL_DEBUG ("cpu flag altivec");
-    oil_cpu_flags |= OIL_IMPL_REQUIRES_ALTIVEC;
+    oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
   }
 
   sigaction (SIGILL, &oldact, NULL);

@@ -80,6 +80,14 @@ char *oil_prototype_to_string (OilPrototype *proto)
   for(i=0;i<proto->n_params;i++){
     param = proto->params + i;
 
+    if (param->parameter_type == OIL_ARG_SRC1 ||
+        param->parameter_type == OIL_ARG_SRC2 ||
+        param->parameter_type == OIL_ARG_SRC3 ||
+        param->parameter_type == OIL_ARG_SRC4 ||
+        param->parameter_type == OIL_ARG_SRC5) {
+      oil_string_append (string, "const ");
+    }
+
     if (param->type != OIL_TYPE_UNKNOWN) {
       oil_string_append (string, oil_type_name (param->type));
     } else {

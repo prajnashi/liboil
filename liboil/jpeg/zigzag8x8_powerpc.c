@@ -190,7 +190,7 @@ zigzag8x8_s16_a16_altivec(int16_t *dest, int dstr, int16_t *src, int sstr)
 	block8x8_s16(dest,dstr,7,1) = block8x8_s16(src,sstr,4,7);
 	block8x8_s16(dest,dstr,7,7) = block8x8_s16(src,sstr,7,7);
 }
-OIL_DEFINE_IMPL_FULL (zigzag8x8_s16_altivec, zigzag8x8_s16, OIL_REQUIRES_ALTIVEC);
+OIL_DEFINE_IMPL_FULL (zigzag8x8_s16_altivec, zigzag8x8_s16, OIL_FLAG_ALTIVEC);
 #endif
 
 

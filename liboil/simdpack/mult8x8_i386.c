@@ -130,5 +130,5 @@ mult8x8_s16_mmx(int16_t *dest, int16_t *src1, int16_t *src2, int dstr, int sstr1
             : "m" (dstr), "m" (sstr1), "m" (sstr2));
 }
 
-OIL_DEFINE_IMPL_FULL (mult8x8_s16_mmx, mult8x8_s16, OIL_IMPL_REQUIRES_MMX);
+OIL_DEFINE_IMPL_FULL (mult8x8_s16_mmx, mult8x8_s16, OIL_IMPL_FLAG_MMX);
 

@@ -74,23 +74,23 @@ oil_flags_to_string (unsigned int flags)
   if (flags & OIL_IMPL_FLAG_ASM) 
     ret = string_append (ret, "asm");
 #ifdef HAVE_CPU_I386
-  if (flags & OIL_IMPL_REQUIRES_CMOV) 
+  if (flags & OIL_IMPL_FLAG_CMOV) 
     ret = string_append (ret, "cmov");
-  if (flags & OIL_IMPL_REQUIRES_MMX) 
+  if (flags & OIL_IMPL_FLAG_MMX) 
     ret = string_append (ret, "mmx");
-  if (flags & OIL_IMPL_REQUIRES_SSE) 
+  if (flags & OIL_IMPL_FLAG_SSE) 
     ret = string_append (ret, "sse");
-  if (flags & OIL_IMPL_REQUIRES_MMXEXT) 
+  if (flags & OIL_IMPL_FLAG_MMXEXT) 
     ret = string_append (ret, "mmxext");
-  if (flags & OIL_IMPL_REQUIRES_SSE2) 
+  if (flags & OIL_IMPL_FLAG_SSE2) 
     ret = string_append (ret, "sse2");
-  if (flags & OIL_IMPL_REQUIRES_3DNOW) 
+  if (flags & OIL_IMPL_FLAG_3DNOW) 
     ret = string_append (ret, "3dnow");
-  if (flags & OIL_IMPL_REQUIRES_3DNOWEXT) 
+  if (flags & OIL_IMPL_FLAG_3DNOWEXT) 
     ret = string_append (ret, "3dnowext");
 #endif
 #ifdef HAVE_CPU_PPC
-  if (flags & OIL_IMPL_REQUIRES_ALTIVEC) 
+  if (flags & OIL_IMPL_FLAG_ALTIVEC) 
     ret = string_append (ret, "altivec");
 #endif
   return ret;

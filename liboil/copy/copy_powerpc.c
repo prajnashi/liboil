@@ -69,7 +69,7 @@ copy_u8_altivec (uint8_t *dest, uint8_t *src, int n)
     n--;
   }
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_altivec, copy_u8, OIL_IMPL_REQUIRES_ALTIVEC);
+OIL_DEFINE_IMPL_FULL (copy_u8_altivec, copy_u8, OIL_IMPL_FLAG_ALTIVEC);
 
 
 
@@ -116,7 +116,7 @@ copy_u8_altivec2 (uint8_t *dest, uint8_t *src, int n)
     n--;
   }
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_altivec2, copy_u8, OIL_IMPL_REQUIRES_ALTIVEC);
+OIL_DEFINE_IMPL_FULL (copy_u8_altivec2, copy_u8, OIL_IMPL_FLAG_ALTIVEC);
 
 
 
@@ -159,7 +159,7 @@ copy_u8_altivec3 (uint8_t *dest, uint8_t *src, int n)
     n--;
   }
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_altivec3, copy_u8, OIL_IMPL_REQUIRES_ALTIVEC);
+OIL_DEFINE_IMPL_FULL (copy_u8_altivec3, copy_u8, OIL_IMPL_FLAG_ALTIVEC);
 
 
 

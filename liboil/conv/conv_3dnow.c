@@ -56,7 +56,7 @@ static void conv_f32_s32_3dnow(float *dst, int dst_stride, int32_t *src, int src
         asm volatile ("emms");
 }
 OIL_DEFINE_IMPL_FULL(conv_f32_s32_3dnow, conv_f32_s32,
-	OIL_IMPL_REQUIRES_3DNOW);
+	OIL_IMPL_FLAG_3DNOW);
 
 /* suboptimal */
 static void conv_s32_f32_3dnow (int32_t *dst, int dst_stride, float *src, int src_stride, int n)
@@ -81,6 +81,6 @@ static void conv_s32_f32_3dnow (int32_t *dst, int dst_stride, float *src, int sr
         asm volatile ("emms");
 }
 OIL_DEFINE_IMPL_FULL(conv_s32_f32_3dnow, conv_s32_f32,
-	OIL_IMPL_REQUIRES_3DNOW);
+	OIL_IMPL_FLAG_3DNOW);
 #endif
 

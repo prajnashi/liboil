@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +25,60 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <liboil/liboil.h>
+#include <liboil/liboilrandom.h>
+#include <glib.h>
+#include <string.h>
+#include <math.h>
 
-static void
-scalarmult_f32_sse (float *dest, int dstr, float *src, int sstr,
-    float *val, int n)
+void test(void)
 {
-  float tmp[8];
-  float *t = (void *)(((unsigned long)tmp & ~0xf) + 16);
+  double src[12];
+  double dest[6];
+  double d2[12];
   int i;
 
-  t[0] = *val;
-  t[1] = *val;
-  t[2] = *val;
-  t[3] = *val;
-  asm volatile (
-      "  movss (%0), %%xmm1 \n"
-      : 
-      : "r" (t));
-  for(i=0;i<n;i+=4) {
-    t[0] = OIL_GET(src,sstr*(i + 0), float);
-    t[1] = OIL_GET(src,sstr*(i + 1), float);
-    t[2] = OIL_GET(src,sstr*(i + 2), float);
-    t[3] = OIL_GET(src,sstr*(i + 3), float);
-    asm volatile (
-        "  movss (%0), %%xmm0 \n"
-        "  mulps %%xmm1, %%xmm0 \n"
-        "  movss %%xmm0, (%0) \n"
-        : 
-        : "r" (t));
-    OIL_GET(dest,dstr*(i + 0), float) = t[0];
-    OIL_GET(dest,dstr*(i + 0), float) = t[1];
-    OIL_GET(dest,dstr*(i + 0), float) = t[2];
-    OIL_GET(dest,dstr*(i + 0), float) = t[3];
+  for(i=0;i<12;i++){
+    src[i] = oil_rand_f64_0_1();
   }
 
-}
-OIL_DEFINE_IMPL_FULL (scalarmult_f32_sse, scalarmult_f32, OIL_IMPL_FLAG_SSE);
+  oil_mdct12_f64 (dest, src);
 
+  for(i=0;i<6;i++){
+    g_print("%4g ",dest[i]);
+  }
+  g_print("\n");
+
+  oil_imdct12_f64 (d2, dest);
+
+  for(i=0;i<12;i++){
+    g_print("%4g ",d2[i]/6.0);
+  }
+  g_print("\n");
+
+}
+
+int main (int argc, char *argv[])
+{
+  OilFunctionClass *klass;
+  OilFunctionImpl *impl;
+
+  oil_init ();
+
+  klass = oil_class_get ("mdct12_f64");
+
+  oil_class_choose_by_name (klass, "imdct12_f64_ref");
+  impl = klass->chosen_impl;
+  g_print("chosen=%p\n", impl);
+  impl = klass->reference_impl;
+  g_print("ref=%p\n", impl);
+  test();
+
+  return 0;
+}
 

@@ -83,16 +83,16 @@ struct _OilFunctionImpl {
 #define OIL_CPU_FLAG_MASK 0xffff0000
 
 /* i386 */
-#define OIL_IMPL_REQUIRES_CMOV 	        (1<<16)
-#define OIL_IMPL_REQUIRES_MMX	        (1<<17)
-#define OIL_IMPL_REQUIRES_SSE	        (1<<18)
-#define OIL_IMPL_REQUIRES_MMXEXT        (1<<19)
-#define OIL_IMPL_REQUIRES_SSE2          (1<<20)
-#define OIL_IMPL_REQUIRES_3DNOW	        (1<<21)
-#define OIL_IMPL_REQUIRES_3DNOWEXT	(1<<22)
+#define OIL_IMPL_FLAG_CMOV 	        (1<<16)
+#define OIL_IMPL_FLAG_MMX	        (1<<17)
+#define OIL_IMPL_FLAG_SSE	        (1<<18)
+#define OIL_IMPL_FLAG_MMXEXT        (1<<19)
+#define OIL_IMPL_FLAG_SSE2          (1<<20)
+#define OIL_IMPL_FLAG_3DNOW	        (1<<21)
+#define OIL_IMPL_FLAG_3DNOWEXT	(1<<22)
 
 /* powerpc */
-#define OIL_IMPL_REQUIRES_ALTIVEC       (1<<16)
+#define OIL_IMPL_FLAG_ALTIVEC       (1<<16)
 
 #define OIL_DECLARE_CLASS(klass) \
 	extern OilFunctionClass _oil_function_class_ ## klass

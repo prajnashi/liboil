@@ -178,7 +178,7 @@ abs_u16_s16_mmx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
   asm volatile ("emms");
 }
 
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx, abs_u16_s16, OIL_IMPL_FLAG_MMX);
 
 static void
 abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -223,7 +223,7 @@ abs_u16_s16_mmxx (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
   asm volatile ("emms");
 }
 
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_REQUIRES_MMX);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmxx, abs_u16_s16, OIL_IMPL_FLAG_MMX);
 
 static void
 abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -259,7 +259,7 @@ abs_u16_s16_mmx2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
   asm volatile ("emms");
 }
 
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16, OIL_IMPL_REQUIRES_MMXEXT);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_mmx2, abs_u16_s16, OIL_IMPL_FLAG_MMXEXT);
 
 static void
 abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
@@ -289,5 +289,5 @@ abs_u16_s16_sse2 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
       ::"ecx", "edx");
 }
 
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16, OIL_IMPL_REQUIRES_SSE2);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_sse2, abs_u16_s16, OIL_IMPL_FLAG_SSE2);
 

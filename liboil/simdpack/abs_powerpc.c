@@ -59,5 +59,5 @@ abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
       ::"10", "ctr");
 }
 
-OIL_DEFINE_IMPL_FULL (abs_u16_s16_a16_altivec, abs_u16_s16, OIL_IMPL_REQUIRES_ALTIVEC);
+OIL_DEFINE_IMPL_FULL (abs_u16_s16_a16_altivec, abs_u16_s16, OIL_IMPL_FLAG_ALTIVEC);
 

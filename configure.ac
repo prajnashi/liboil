@@ -129,6 +129,7 @@ examples/Makefile
 examples/jpeg/Makefile
 examples/md5/Makefile
 examples/uberopt/Makefile
+examples/work/Makefile
 liboil.pc
 )
 

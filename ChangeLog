@@ -1,3 +1,30 @@
+2004-12-22  David Schleef  <ds@schleef.org>
+
+	* configure.ac: add examples/work
+	* examples/Makefile.am: same
+	* examples/oil-inspect.c: (oil_flags_to_string): REQUIRES->FLAG
+	* examples/work/Makefile.am: 
+	* examples/work/work.c: (test), (main):
+	* liboil/conv/conv_3dnow.c: REQUIRES->FLAG
+	* liboil/conv/conv_sse.c: same
+	* liboil/copy/copy_i386.c: same
+	* liboil/copy/copy_powerpc.c: same
+	* liboil/dct/dct12_f32.c: (mdct12_f64_ref), (imdct12_f64_ref),
+	(mdct36_f64_ref), (imdct36_f64_ref): remove mpglib code, new
+	reference implementations of mdct functions
+	* liboil/jpeg/zigzag8x8_powerpc.c: REQUIRES->FLAG
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags),
+	(oil_cpu_powerpc_getflags): REQUIRES->FLAG
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.h: REQUIRES->FLAG
+	* liboil/liboilprototype.c: (oil_prototype_to_string): Add 'const'
+	for source arrays.
+	* liboil/simdpack/abs_i386.c: REQUIRES->FLAG
+	* liboil/simdpack/abs_powerpc.c: REQUIRES->FLAG
+	* liboil/simdpack/mix_powerpc.c: REQUIRES->FLAG
+	* liboil/simdpack/mult8x8_i386.c: REQUIRES->FLAG
+	* liboil/simdpack/scalarmult_i386.c: REQUIRES->FLAG
+
 2004-12-21  David Schleef  <ds@schleef.org>
 
 	* testsuite/copy.c: (test), (main): new test
