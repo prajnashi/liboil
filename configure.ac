@@ -58,11 +58,15 @@ AC_SUBST(LIBOIL_CFLAGS)
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
 AC_SUBST(LIBOIL_LIBS)
 
+LIBOIL_LITE_CFLAGS="-Wall -Werror"
+AC_SUBST(LIBOIL_LITE_CFLAGS)
+
 AC_OUTPUT(
 Makefile 
 liboil/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
+liboil-lite/Makefile
 testsuite/Makefile
 liboil-0.1.pc
 liboil-0.1-uninstalled.pc

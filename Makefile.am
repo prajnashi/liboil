@@ -1,3 +1,3 @@
 
-SUBDIRS = liboil testsuite
+SUBDIRS = liboil liboil-lite testsuite
 
