@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     src[i] = i;
   }
 
-  conv_f64_s32 (dest, sizeof(double), src, sizeof(int32_t), 100);
+  oil_conv_f64_s32 (dest, sizeof(double), src, sizeof(int32_t), 100);
 
   for(i=0;i<100;i++){
     printf("%d %g\n",src[i],dest[i]);

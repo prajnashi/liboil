@@ -16,8 +16,7 @@ void test(void)
     src[i] = (i-50)*100;
   }
 
-  g_print("%p\n", abs_f32_f32);
-  abs_f32_f32 (dest, 4, src, 4, 100);
+  oil_abs_f32_f32 (dest, 4, src, 4, 100);
 
   for (i=0; i<100; i++) {
     g_print("%d %g %g\n", i, src[i], dest[i]);

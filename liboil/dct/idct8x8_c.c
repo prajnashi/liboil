@@ -90,12 +90,12 @@ idct8x8_f64_c (double *dest, int dstr, double *src, int sstr)
 	int tmpstr = 8*sizeof(double);
 
 	for(i=0;i<8;i++){
-		idct8_f64(
+		oil_idct8_f64(
 			BLOCK8x8_PTR_F64(tmp,tmpstr,i,0), sizeof(double),
 			BLOCK8x8_PTR_F64(src,sstr,i,0), sizeof(double));
 	}
 	for(i=0;i<8;i++){
-		idct8_f64(
+		oil_idct8_f64(
 			BLOCK8x8_PTR_F64(dest,dstr,0,i), dstr,
 			BLOCK8x8_PTR_F64(tmp,tmpstr,0,i), tmpstr);
 	}
@@ -108,9 +108,9 @@ idct8x8_s16_slow (int16_t *dest, int dstr, int16_t *src, int sstr)
 {
 	double s[64], d[64];
 
-	conv8x8_f64_s16 (s,8*sizeof(double),src,sstr);
-	idct8x8_f64 (d,8*sizeof(double),s,8*sizeof(double));
-	conv8x8_s16_f64 (dest,dstr,d,8*sizeof(double));
+	oil_conv8x8_f64_s16 (s,8*sizeof(double),src,sstr);
+	oil_idct8x8_f64 (d,8*sizeof(double),s,8*sizeof(double));
+	oil_conv8x8_s16_f64 (dest,dstr,d,8*sizeof(double));
 }
 
 OIL_DEFINE_IMPL_DEPENDS (idct8x8_s16_slow, idct8x8_s16_class,

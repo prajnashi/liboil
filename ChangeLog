@@ -1,5 +1,14 @@
 2004-09-07  David Schleef  <ds@schleef.org>
 
+	Add oil_ prefix to all virtual functions.
+	* examples/example1.c: (main):
+	* liboil/build_prototypes.c: (main):
+	* liboil/dct/idct8x8_c.c: (idct8x8_f64_c), (idct8x8_s16_slow):
+	* liboil/liboilfuncs.h:
+	* testsuite/abs.c: (test):
+
+2004-09-07  David Schleef  <ds@schleef.org>
+
 	* liboil/build_prototypes.c: Use new api
 	* liboil/copy/permute.c: param changes
 	* liboil/copy/splat_ref.c: param changes
