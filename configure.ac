@@ -7,7 +7,7 @@ AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
 #LIBOIL_MAJORMINOR=$LIBOIL_VERSION_MAJOR.$LIBOIL_VERSION_MINOR
-LIBOIL_MAJORMINOR=0.2
+LIBOIL_MAJORMINOR=0.3
 AC_SUBST(LIBOIL_MAJORMINOR)
 
 AM_CONFIG_HEADER(config.h)
@@ -17,7 +17,7 @@ dnl - library source changed -> increment REVISION
 dnl - interfaces added/removed/changed -> increment CURRENT, REVISION = 0
 dnl - interfaces added -> increment AGE
 dnl - interfaces removed -> AGE = 0
-AS_LIBTOOL(LIBOIL, 0, 1, 1)
+AS_LIBTOOL(LIBOIL, 0, 0, 0)
 
 AC_CONFIG_SRCDIR([liboil/liboil.h])
 

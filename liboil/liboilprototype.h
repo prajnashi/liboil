@@ -19,29 +19,11 @@
 #ifndef _LIBOIL_PROTOTYPE_H_
 #define _LIBOIL_PROTOTYPE_H_
 
-typedef struct _OilParameter OilParameter;
-struct _OilParameter {
-  char *type;
-  int ptr;
-  char *name;
-};
-
 typedef struct _OilPrototype OilPrototype;
 struct _OilPrototype {
   int n_params;
   OilParameter *params;
-};
-
-enum{
-  OIL_TYPE_UNKNOWN,
-  OIL_TYPE_s8,
-  OIL_TYPE_u8,
-  OIL_TYPE_s16,
-  OIL_TYPE_u16,
-  OIL_TYPE_s32,
-  OIL_TYPE_u32,
-  OIL_TYPE_f32,
-  OIL_TYPE_f64,
+  OilFunctionClass *klass;
 };
 
 
@@ -49,6 +31,8 @@ OilPrototype *oil_prototype_from_string (const char *s);
 char *oil_prototype_to_string (OilPrototype *proto);
 void oil_prototype_free (OilPrototype *proto);
 void oil_prototype_append_param (OilPrototype *proto, OilParameter *param);
+
+int oil_type_sizeof (OilType type);
 
 
 #endif

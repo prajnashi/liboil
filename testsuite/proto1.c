@@ -24,6 +24,7 @@ static char *names[] = {
   "param",
   "param1",
   "param2",
+  "state",
   NULL
 };
 
@@ -48,10 +49,10 @@ int main (int argc, char *argv[])
       proto = oil_prototype_from_string (klass->prototype);
 
       for(j=0;j<proto->n_params;j++){
-        x = get_name_index (proto->params[j].name);
+        x = get_name_index (proto->params[j].parameter_name);
         if (x<0) {
           printf("%s(%s) [%s]\n", klass->name, klass->prototype,
-              proto->params[j].name);
+              proto->params[j].parameter_name);
           break;
         }
       }

@@ -1,5 +1,19 @@
 2004-11-29  David Schleef  <ds@schleef.org>
 
+	* configure.ac: bump to 0.3 series
+	* liboil/liboilfunction.h: Add types and argument types.
+	* liboil/liboilprototype.c: (oil_prototype_to_string),
+	(oil_prototype_from_string), (oil_prototype_free), (_strndup),
+	(oil_type_sizeof), (oil_type_name), (oil_type_from_string),
+	(oil_arg_type_from_string): Add stuff for types and argument types.
+	* liboil/liboilprototype.h: Move some stuff to liboilfunction.h (why?)
+	* testsuite/Makefile.am: Add proto2
+	* testsuite/introspect.c: (main), (parse_size): remove junk
+	* testsuite/proto1.c: (main): add state
+	* testsuite/proto2.c: add
+
+2004-11-29  David Schleef  <ds@schleef.org>
+
 	From Benjamin Otte
 	* liboil/Makefile.am:
 	* liboil/conv_sse.c: (conv_f64_s32_sse), (conv_s32_f64_sse): Fix

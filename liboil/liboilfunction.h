@@ -23,7 +23,12 @@
 
 typedef struct _OilFunctionClass OilFunctionClass;
 typedef struct _OilFunctionImpl OilFunctionImpl;
-typedef struct _OilFunctionArg OilFunctionArg;
+//typedef struct _OilFunctionArg OilFunctionArg;
+typedef struct _OilParameter OilParameter;
+typedef struct _OilClosure OilClosure;
+
+typedef enum _OilType OilType;
+typedef enum _OilArgType OilArgType;
 
 typedef unsigned int (*OilTestFunction) (OilFunctionClass *klass,
 		OilFunctionImpl *impl);
@@ -37,6 +42,46 @@ typedef unsigned int (*OilTestFunction) (OilFunctionClass *klass,
 #define OIL_IMPL_SECTION
 #define OIL_CLASS_SECTION
 #endif
+
+enum _OilType {
+  OIL_TYPE_UNKNOWN = 0,
+  OIL_TYPE_INT,
+  OIL_TYPE_s8,
+  OIL_TYPE_u8,
+  OIL_TYPE_s16,
+  OIL_TYPE_u16,
+  OIL_TYPE_s32,
+  OIL_TYPE_u32,
+  OIL_TYPE_f32,
+  OIL_TYPE_f64,
+  OIL_TYPE_s8p,
+  OIL_TYPE_u8p,
+  OIL_TYPE_s16p,
+  OIL_TYPE_u16p,
+  OIL_TYPE_s32p,
+  OIL_TYPE_u32p,
+  OIL_TYPE_f32p,
+  OIL_TYPE_f64p,
+};
+
+enum _OilArgType {
+  OIL_ARG_UNKNOWN = 0,
+  OIL_ARG_N,
+  OIL_ARG_DEST1,
+  OIL_ARG_DSTR1,
+  OIL_ARG_DEST2,
+  OIL_ARG_DSTR2,
+  OIL_ARG_SRC1,
+  OIL_ARG_SSTR1,
+  OIL_ARG_SRC2,
+  OIL_ARG_SSTR2,
+  OIL_ARG_SRC3,
+  OIL_ARG_SSTR3,
+  OIL_ARG_STATE,
+  OIL_ARG_ARG1,
+  OIL_ARG_ARG2,
+  OIL_ARG_ARG3
+};
 
 struct _OilFunctionClass {
 	void *func;
@@ -60,6 +105,16 @@ struct _OilFunctionImpl {
 	const char *name;
 	unsigned int prof;
 } OIL_ATTRIBUTE_ALIGNED_16;
+
+struct _OilParameter {
+  char *type_name;
+  char *parameter_name;
+  OilType type;
+  int order;
+  OilArgType parameter_type;
+
+  unsigned long value;
+};
 
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
 #define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + offset) )

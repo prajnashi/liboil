@@ -5,18 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum{
-  OIL_TYPE_UNKNOWN,
-  OIL_TYPE_s8,
-  OIL_TYPE_u8,
-  OIL_TYPE_s16,
-  OIL_TYPE_u16,
-  OIL_TYPE_s32,
-  OIL_TYPE_u32,
-  OIL_TYPE_f32,
-  OIL_TYPE_f64,
-};
-
 void parse_prototype (const char *s);
 
 int main (int argc, char *argv[])
@@ -49,11 +37,10 @@ int main (int argc, char *argv[])
       printf("ERROR: prototype is NULL\n");
     }
 #if 0
-      printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
-          klass->name, klass->prototype, klass->name);
-      //printf("void %s (%s);\n", klass->name, klass->prototype);
-      parse_prototype(klass->prototype);
-    }
+    printf ("#define %s ((void (*)(%s)) \\\n\t_oil_function_%s_class.func)\n",
+        klass->name, klass->prototype, klass->name);
+    //printf("void %s (%s);\n", klass->name, klass->prototype);
+    parse_prototype(klass->prototype);
 #endif
   }
 
@@ -97,12 +84,12 @@ static int parse_type (char *s, char **endptr)
   return OIL_TYPE_UNKNOWN;
 }
 
-static int parse_size (const char *s, const char **endptr)
+static int parse_size (const char *s, char **endptr)
 {
   while(isspace(*s))s++;
 
   if(s[0] == 'n'){
-    *endptr = s + 1;
+    *endptr = (char *)(s + 1);
     return 0;
   }
   if(isdigit(s[0])){

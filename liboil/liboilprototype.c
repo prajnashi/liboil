@@ -22,24 +22,15 @@ struct _OilString {
 };
 
 static char * _strndup (const char *s, int n);
+static const char * oil_type_name (OilType type);
+static OilType oil_type_from_string (const char *s, int ptr);
+static OilArgType oil_arg_type_from_string (const char *s);
 
 static OilString *oil_string_new (const char *a);
 static void oil_string_append (OilString *s, const char *a);
 static char * oil_string_free (OilString *s, int free_seg);
 
 static char * parse_string (const char *s, const char **endptr);
-
-static char *typenames[][2] = {
-  { "type_s8", "int8_t" },
-  { "type_u8", "uint8_t" },
-  { "type_s16", "int16_t" },
-  { "type_u16", "uint16_t" },
-  { "type_s32", "int32_t" },
-  { "type_u32", "uint32_t" },
-  { "type_f32", "float" },
-  { "type_f64", "double" },
-};
-
 
 void
 oil_prototype_append_param (OilPrototype *proto, OilParameter *param)
@@ -61,10 +52,13 @@ char *oil_prototype_to_string (OilPrototype *proto)
   for(i=0;i<proto->n_params;i++){
     param = proto->params + i;
 
-    oil_string_append (string, param->type);
+    if (param->type != OIL_TYPE_UNKNOWN) {
+      oil_string_append (string, oil_type_name (param->type));
+    } else {
+      oil_string_append (string, param->type_name);
+    }
     oil_string_append (string, " ");
-    if (param->ptr) oil_string_append (string, "*");
-    oil_string_append (string, param->name);
+    oil_string_append (string, param->parameter_name);
 
     if(i<proto->n_params-1){
       oil_string_append (string, ", ");
@@ -77,25 +71,18 @@ char *oil_prototype_to_string (OilPrototype *proto)
 OilPrototype *oil_prototype_from_string (const char *s)
 {
   OilPrototype *proto;
-  OilParameter param;
-  char *type;
-  char *name;
+  OilParameter param = { 0 };
+  char *type_name;
+  char *parameter_name;
   int ptr;
-  int i;
+  int order = 0;
 
   proto = malloc (sizeof(OilPrototype));
   memset (proto, 0, sizeof(OilPrototype));
 
   while (isspace(*s))s++;
   while (*s) {
-    type = parse_string (s, &s);
-    for(i=0;i<sizeof(typenames)/sizeof(typenames[0]);i++) {
-      if (strcmp(type,typenames[i][0])==0) {
-        free(type);
-        type = strdup(typenames[i][1]);
-        break;
-      }
-    }
+    type_name = parse_string (s, &s);
 
     while (isspace(*s))s++;
 
@@ -105,7 +92,7 @@ OilPrototype *oil_prototype_from_string (const char *s)
       s++;
     }
     while (isspace(*s))s++;
-    name = parse_string (s, &s);
+    parameter_name = parse_string (s, &s);
 
     while (isspace(*s))s++;
 
@@ -114,10 +101,14 @@ OilPrototype *oil_prototype_from_string (const char *s)
     }
     while (isspace(*s))s++;
 
-    param.type = type;
-    param.ptr = ptr;
-    param.name = name;
+    param.type = oil_type_from_string (type_name, ptr);
+    param.type_name = type_name;
+    param.parameter_name = parameter_name;
+    param.parameter_type = oil_arg_type_from_string (parameter_name);
+    param.order = order;
     oil_prototype_append_param (proto, &param);
+
+    order++;
   }
 
   return proto;
@@ -143,8 +134,12 @@ oil_prototype_free (OilPrototype *proto)
 
   if (proto->params) {
     for(i=0;i<proto->n_params;i++) {
-      free (proto->params[i].name);
-      free (proto->params[i].type);
+      if (proto->params[i].parameter_name) {
+        free (proto->params[i].parameter_name);
+      }
+      if (proto->params[i].type_name) {
+        free (proto->params[i].type_name);
+      }
     }
     free (proto->params);
   }
@@ -206,5 +201,147 @@ _strndup (const char *s, int n)
   r[n]=0;
 
   return r;
+}
+
+
+int oil_type_sizeof (OilType type)
+{
+  switch (type) {
+    case OIL_TYPE_UNKNOWN:
+    case OIL_TYPE_INT:
+      return 0;
+    case OIL_TYPE_s8:
+    case OIL_TYPE_u8:
+    case OIL_TYPE_s8p:
+    case OIL_TYPE_u8p:
+      return 1;
+    case OIL_TYPE_s16:
+    case OIL_TYPE_u16:
+    case OIL_TYPE_s16p:
+    case OIL_TYPE_u16p:
+      return 2;
+    case OIL_TYPE_s32:
+    case OIL_TYPE_u32:
+    case OIL_TYPE_f32:
+    case OIL_TYPE_s32p:
+    case OIL_TYPE_u32p:
+    case OIL_TYPE_f32p:
+      return 4;
+    case OIL_TYPE_f64:
+    case OIL_TYPE_f64p:
+      return 8;
+  }
+  return 0;
+}
+
+static const char *oil_type_names [] = {
+  "unknown",
+  "int",
+  "int8_t",
+  "uint8_t",
+  "int16_t",
+  "uint16_t",
+  "int32_t",
+  "uint32_t",
+  "float",
+  "double",
+  "int8_t *",
+  "uint8_t *",
+  "int16_t *",
+  "uint16_t *",
+  "int32_t *",
+  "uint32_t *",
+  "float *",
+  "double *"
+};
+static const char *oil_type_names_2 [] = {
+  "int8_t",
+  "uint8_t",
+  "int16_t",
+  "uint16_t",
+  "int32_t",
+  "uint32_t",
+  "float",
+  "double"
+};
+static const char *oil_type_names_3 [] = {
+  "type_s8",
+  "type_u8",
+  "type_s16",
+  "type_u16",
+  "type_s32",
+  "type_u32",
+  "type_f32",
+  "type_f64"
+};
+#define ARRAY_LENGTH(x) (sizeof(x)/sizeof(x[0]))
+
+static const char * oil_type_name (OilType type)
+{
+
+  if (type < 0 || type >= ARRAY_LENGTH(oil_type_names))
+    return "unknown";
+
+  return oil_type_names[type];
+}
+
+static OilType oil_type_from_string (const char *s, int ptr)
+{
+  int i;
+
+  if (ptr) {
+    for(i=0;i<ARRAY_LENGTH(oil_type_names_2);i++){
+      if (strcmp(s,oil_type_names_2[i]) == 0){
+        return OIL_TYPE_s8p + i;
+      }
+    }
+    for(i=0;i<ARRAY_LENGTH(oil_type_names_3);i++){
+      if (strcmp(s,oil_type_names_3[i]) == 0){
+        return OIL_TYPE_s8p + i;
+      }
+    }
+  } else {
+    if (strcmp (s,"int") == 0) {
+      return OIL_TYPE_INT;
+    }
+    for(i=0;i<ARRAY_LENGTH(oil_type_names_2);i++){
+      if (strcmp(s,oil_type_names_2[i]) == 0){
+        return OIL_TYPE_s8 + i;
+      }
+    }
+    for(i=0;i<ARRAY_LENGTH(oil_type_names_3);i++){
+      if (strcmp(s,oil_type_names_3[i]) == 0){
+        return OIL_TYPE_s8 + i;
+      }
+    }
+  }
+  return OIL_TYPE_UNKNOWN;
+}
+
+static char *arg_names[] = {
+  "unknown",
+  "n",
+  "dest1",
+  "dstr1",
+  "dest2",
+  "dstr2",
+  "src1",
+  "sstr1",
+  "src2",
+  "sstr2",
+  "src3",
+  "sstr3",
+  "state",
+  "arg1",
+  "arg2",
+  "arg3",
+  NULL
+};
+
+static OilArgType
+oil_arg_type_from_string (const char *s)
+{
+
+  return OIL_ARG_TYPE_UNKNOWN;
 }
 
