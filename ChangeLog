@@ -1,3 +1,7 @@
+2005-02-13  David Schleef  <ds@schleef.org>
+
+	* testsuite/dso_check.c: (main): Add
+
 2005-02-01  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: (test_altivec), (oil_cpu_powerpc_getflags),
