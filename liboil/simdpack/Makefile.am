@@ -32,7 +32,8 @@ libsimdpack_la_SOURCES = \
 	trans8x8.c \
 	vectoradd_f64.c \
 	zigzag8x8_s16.c \
-	simdpack.c
+	simdpack.c \
+	simdpack.h
 
 libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)
 

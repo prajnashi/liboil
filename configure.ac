@@ -52,7 +52,7 @@ esac
 AM_CONDITIONAL(HAVE_CPU_I386,	test "x$HAVE_CPU_I386" = "xyes")
 AM_CONDITIONAL(HAVE_CPU_POWERPC,	test "x$HAVE_CPU_POWERPC" = "xyes")
 
-LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE"
+LIBOIL_CFLAGS="-Wall -Werror -D_GNU_SOURCE -I\$(top_srcdir)"
 AC_SUBST(LIBOIL_CFLAGS)
 
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"

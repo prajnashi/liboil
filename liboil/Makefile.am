@@ -16,6 +16,13 @@ powerpc_sources =
 endif
 
 liboiltmp_la_SOURCES = \
+	conv.h \
+	liboil.h \
+	liboildebug.h \
+	liboilfuncs.h \
+	liboilfunction.h \
+	liboilprofile.h \
+	liboiltypes.h \
 	conv_ref.c \
 	conv_c.c \
 	conv_bitstuff.c \

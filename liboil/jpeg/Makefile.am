@@ -9,7 +9,8 @@ libjpeg_la_SOURCES = \
 	quantize8x8_c.c \
 	yuv2rgb_c.c \
 	zigzag8x8_c.c \
-	jpeg.c
+	jpeg.c \
+	jpeg.h
 libjpeg_la_CFLAGS = $(LIBOIL_CFLAGS)
 
 
