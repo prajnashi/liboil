@@ -154,6 +154,9 @@ oil_test_go (OilTest *test)
     oil_profile_stop (&test->prof);
   }
 
+  oil_profile_get_ave_std (&test->prof, &test->impl->profile_ave,
+      &test->impl->profile_std);
+
   return 1;
 }
 

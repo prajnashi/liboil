@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
   int i;
 
   oil_init();
-  oil_optimize_all();
 
   src = malloc(100*sizeof(int32_t));
   dest = malloc(100*sizeof(double));

@@ -49,7 +49,6 @@ extern int _oil_debug_enabled;
 extern int _oil_debug_level;
 
 void _oil_debug_init (void);
-void oil_spill (void);
 
 void oil_debug_print (int level, const char *file, const char *func,
     int line, const char *format, ...);

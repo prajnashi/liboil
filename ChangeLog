@@ -1,5 +1,26 @@
 2004-12-02  David Schleef  <ds@schleef.org>
 
+	* examples/example1.c: (main): remove oil_optimize_all()
+	* examples/oil-inspect.c: (oil_flags_to_string), (oil_print_impl),
+	(oil_print_class), (main): fix flag and profile printing
+	* liboil/liboildebug.c: remove oil_spill()
+	* liboil/liboildebug.h: same
+	* liboil/liboilfunction.c: (oil_init), (oil_class_get_by_index),
+	(oil_impl_get_by_index), (oil_class_optimize), (oil_init_pointers):
+	remove GNU_LINKER stuff.  Implement optimization.
+	* liboil/liboilfunction.h: change profile info to double.  add
+	ASM flag.
+	* liboil/liboilprofile.c: (oil_profile_get_ave_std): add function
+	to eliminate outliers in a profile measurement.
+	* liboil/liboilprofile.h: same
+	* liboil/liboiltest.c: (oil_test_go): use it
+	* testsuite/abs.c: (main): remove oil_optimize_all()
+	* testsuite/md5.c: (main): remove oil_optimize_all()
+	* testsuite/md5_profile.c: (main): remove oil_optimize_all()
+	* testsuite/moo.c: (main): remove oil_optimize_all()
+
+2004-12-02  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: add null.c, libprofile.c
 	* liboil/null.c: a null function
 	* liboil/liboilprofile.c: profiling code

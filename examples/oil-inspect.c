@@ -60,6 +60,10 @@ oil_flags_to_string (unsigned int flags)
   
   if (flags & OIL_IMPL_FLAG_REF) 
     ret = string_append (ret, "REF");
+  if (flags & OIL_IMPL_FLAG_OPT) 
+    ret = string_append (ret, "altopt");
+  if (flags & OIL_IMPL_FLAG_ASM) 
+    ret = string_append (ret, "asm");
 #ifdef HAVE_CPU_I386
   if (flags & OIL_IMPL_REQUIRES_CMOV) 
     ret = string_append (ret, "cmov");
@@ -69,7 +73,7 @@ oil_flags_to_string (unsigned int flags)
     ret = string_append (ret, "sse");
   if (flags & OIL_IMPL_REQUIRES_MMXEXT) 
     ret = string_append (ret, "mmxext");
-  if (flags & OIL_IMPL_REQUIRES_MMX) 
+  if (flags & OIL_IMPL_REQUIRES_SSE2) 
     ret = string_append (ret, "sse2");
   if (flags & OIL_IMPL_REQUIRES_3DNOW) 
     ret = string_append (ret, "3dnow");
@@ -93,8 +97,12 @@ oil_print_impl (OilFunctionImpl *impl, char* prefix)
     printf ("%s  flags: %s\n", prefix, c);
     free (c);
   }
-  if (impl->prof) {
-    printf ("%s  profile: %u ticks\n", prefix, impl->prof);
+  if (impl->profile_ave) {
+    printf ("%s  profile: %g ticks (st.dev. %g)\n", prefix, impl->profile_ave,
+        impl->profile_std);
+  }
+  if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags)) {
+    printf ("%s  disabled\n", prefix);
   }
 }
 
@@ -108,11 +116,6 @@ oil_print_class (OilFunctionClass *klass, int verbose)
     return;
   }
   printf ("%s (%s)\n", klass->name, klass->prototype);
-  if (klass->test_func) {
-    printf ("  test function is %p\n", klass->test_func);
-  } else {
-    printf ("  no test function\n");
-  }
   printf ("  all implementations: \n");
   for (impl = klass->first_impl; impl; impl = impl->next) {
     if ((impl->flags & OIL_IMPL_FLAG_REF) &&
@@ -142,7 +145,6 @@ int
 main (int argc, char *argv[])
 {
   oil_init();
-  oil_optimize_all();
 
   if (argc > 1) {
     int i;

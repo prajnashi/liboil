@@ -30,8 +30,6 @@ int main (int argc, char *argv[])
 
   oil_init ();
 
-  oil_optimize_all();
-
   klass = oil_class_get ("abs_f32_f32");
   oil_class_optimize(klass);
 

@@ -97,16 +97,14 @@ static inline unsigned long oil_profile_stamp(void)
 
 #else
 
-#define OIL_PROFILE_USING_GTOD
-
-void oil_profile_stamp_gtod (void);
-
 #define oil_profile_stamp() oil_profile_stamp_gtod()
 
 #endif
 
+unsigned long oil_profile_stamp_gtod (void);
 void oil_profile_init(OilProfile *prof);
 void oil_profile_stop_handle(OilProfile *prof);
+void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
 
 #define oil_profile_start(x) do{ \
 	(x)->start = oil_profile_stamp(); \

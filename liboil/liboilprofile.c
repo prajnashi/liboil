@@ -25,16 +25,14 @@
 #include <sys/time.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
-#ifdef OIL_PROFILE_USING_GTOD
 unsigned long oil_profile_stamp_gtod (void)
 {
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
 	return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
 }
-
-#endif
 
 void
 oil_profile_init (OilProfile *prof)
@@ -69,4 +67,47 @@ oil_profile_stop_handle (OilProfile *prof)
     prof->hist_n++;
   }
 }
+
+void
+oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p)
+{
+  double ave;
+  double std;
+  int max_i;
+  double off;
+  double s;
+  double s2;
+  int i;
+  int n;
+  double x;
+
+  do {
+    s = s2 = 0;
+    n = 0;
+    max_i = -1;
+    for(i=0;i<10;i++){
+      x = prof->hist_time[i];
+      s2 += x * x * prof->hist_count[i];
+      s += x * prof->hist_count[i];
+      n += prof->hist_count[i];
+      if (prof->hist_count[i] > 0) {
+        if (max_i == -1 || prof->hist_time[i] > prof->hist_time[max_i]) {
+          max_i = i;
+        }
+      }
+    }
+
+    ave = s / n;
+    std = sqrt (s2 - s * s / n + n*n) / (n-1);
+    off = (prof->hist_time[max_i] - ave)/std;
+
+    if (off > 4.0) {
+      prof->hist_count[max_i] = 0;
+    }
+  } while (off > 4.0);
+
+  if (ave_p) *ave_p = ave;
+  if (std_p) *std_p = std;
+}
+
 

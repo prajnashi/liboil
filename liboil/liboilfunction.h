@@ -59,7 +59,8 @@ struct _OilFunctionImpl {
 	void *func;
 	unsigned int flags;
 	const char *name;
-	unsigned int prof;
+        double profile_ave;
+        double profile_std;
 };
 
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
@@ -68,6 +69,7 @@ struct _OilFunctionImpl {
 
 #define OIL_IMPL_FLAG_REF	(1<<0)
 #define OIL_IMPL_FLAG_OPT	(1<<1)
+#define OIL_IMPL_FLAG_ASM	(1<<2)
 
 #define OIL_CPU_FLAG_MASK 0xffff0000
 

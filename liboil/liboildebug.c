@@ -51,27 +51,6 @@ _oil_debug_init(void)
 
 }
 
-void
-oil_spill (void)
-{
-  OilFunctionClass *klass;
-  OilFunctionImpl *impl;
-  int i;
-
-  for(i=0;i<oil_n_function_classes;i++){
-    klass = oil_class_get_by_index (i);
-
-    printf("%s\n",klass->name);
-    for(impl = klass->first_impl; impl; impl=impl->next){
-      printf("  %p %08x %5d %-10s %s\n",impl->func,
-	  impl->flags,
-	  impl->prof,
-	  (impl==klass->reference_impl)?"(ref)":"",
-	  impl->name);
-    }
-  }
-}
-
 static void
 oil_debug_print_valist (int level, const char *file, const char *func,
         int line, const char *format, va_list args)

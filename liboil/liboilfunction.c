@@ -22,27 +22,13 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
 #include <liboil/liboilcpu.h>
+#include <liboil/liboiltest.h>
 
 #include <stdio.h>
 #include <string.h>
 
-#ifdef HAVE_GNU_LINKER
-extern OilFunctionClass _oil_begin_function_class;
-extern OilFunctionClass _oil_next_function_class;
-extern OilFunctionClass _oil_end_function_class;
-
-extern OilFunctionImpl _oil_begin_function_impl;
-extern OilFunctionImpl _oil_next_function_impl;
-extern OilFunctionImpl _oil_end_function_impl;
-
-static OilFunctionClass *_oil_function_classes;
-static int _oil_function_class_stride;
-static OilFunctionImpl *_oil_function_impls;
-static int _oil_function_impl_stride;
-#else
 extern OilFunctionClass *_oil_function_class_array[];
 extern OilFunctionImpl *_oil_function_impl_array[];
-#endif
 
 int oil_n_function_impls;
 int oil_n_function_classes;
@@ -56,18 +42,22 @@ void
 oil_init (void)
 {
   static int inited = 0;
+  unsigned long start, stop;
 
   if (inited) return;
   inited = 1;
+
+  start = oil_profile_stamp_gtod ();
 
   _oil_debug_init ();
   _oil_cpu_init ();
   oil_init_pointers ();
   oil_init_structs ();
-  //oil_optimize_all ();
+  oil_optimize_all ();
 
-  if (0)
-    oil_spill ();
+  stop = oil_profile_stamp_gtod ();
+
+  OIL_DEBUG ("initialization completed in %ld usec", stop-start);
 }
 
 void
@@ -100,21 +90,13 @@ oil_optimize (const char *class_name)
 OilFunctionClass *
 oil_class_get_by_index (int i)
 {
-#ifdef HAVE_GNU_LINKER
-  return (void *)_oil_function_classes + i * _oil_function_class_stride;
-#else
   return _oil_function_class_array[i];
-#endif
 }
 
 OilFunctionImpl *
 oil_impl_get_by_index (int i)
 {
-#ifdef HAVE_GNU_LINKER
-  return (void *)_oil_function_impls + i * _oil_function_impl_stride;
-#else
   return _oil_function_impl_array[i];
-#endif
 }
 
 OilFunctionClass *
@@ -151,7 +133,8 @@ oil_class_optimize (OilFunctionClass * klass)
 {
   OilFunctionImpl *impl;
   OilFunctionImpl *min_impl;
-  int min;
+  OilTest *test;
+  int ret;
 
   OIL_DEBUG ("optimizing class %s", klass->name);
 
@@ -159,68 +142,40 @@ oil_class_optimize (OilFunctionClass * klass)
     OIL_ERROR ("class %s has no implmentations", klass->name);
     return;
   }
-#if 0
-  if (klass->test_func == NULL) {
-    //OIL_ERROR ("class %s has no test function", klass->name);
-    OIL_LOG ("class %s has no test function", klass->name);
+
+  test = oil_test_new (klass);
+  if (test == NULL) {
+    OIL_ERROR ("failed to test function class %s", klass->name);
     return;
   }
-#endif
 
   min_impl = NULL;
-  min = 2147483647;
   for (impl = klass->first_impl; impl; impl = impl->next) {
-#if 0
-    printf ("  %p %08x %5.5s %s\n", impl->func,
-	impl->flags, (impl == klass->reference_impl) ? "(ref)" : "",
-        impl->name
-        );
-#endif
     OIL_LOG ("testing impl %s", impl->name);
     if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
       continue;
-    //klass->test_func (klass, impl);
 
-    if (impl->prof < min) {
-      min_impl = impl;
-      min = impl->prof;
+    oil_test_set_impl (test, impl);
+
+    ret = oil_test_go (test);
+    if (ret) {
+      OIL_LOG ("impl %s ave=%g std=%g", impl->name, impl->profile_ave,
+          impl->profile_std);
+      if (min_impl == NULL) {
+        min_impl = impl;
+      } else {
+        if (impl->profile_ave < min_impl->profile_ave) {
+          min_impl = impl;
+        }
+      }
+    } else {
+      OIL_ERROR("uncaught error");
     }
   }
   klass->chosen_impl = min_impl;
   klass->func = min_impl->func;
 }
 
-#ifdef HAVE_GNU_LINKER
-static void
-oil_init_pointers (void)
-{
-  unsigned long begin;
-  unsigned long next;
-  unsigned long end;
-
-  begin = ((unsigned long) &_oil_begin_function_class);
-  next = ((unsigned long) &_oil_next_function_class);
-  end = ((unsigned long) &_oil_end_function_class);
-  _oil_function_class_stride = next - begin;
-  OIL_DEBUG("classes: begin %p next %p end %p stride %d", begin, next, end,
-      _oil_function_class_stride);
-
-  _oil_function_classes = (OilFunctionClass *) (next + _oil_function_class_stride);
-  oil_n_function_classes = (end - next) / _oil_function_class_stride - 1;
-  OIL_DEBUG("classes: %d at %p", oil_n_function_classes, _oil_function_classes);
-
-  begin = ((unsigned long) &_oil_begin_function_impl);
-  next = ((unsigned long) &_oil_next_function_impl);
-  end = ((unsigned long) &_oil_end_function_impl);
-  _oil_function_impl_stride = next - begin;
-  OIL_DEBUG("impls: begin %p next %p end %p stride %d", begin, next, end,
-      _oil_function_impl_stride);
-
-  _oil_function_impls = (OilFunctionImpl *) (next + _oil_function_impl_stride);
-  oil_n_function_impls = (end - next) / _oil_function_impl_stride - 1;
-  OIL_DEBUG("impls: %d at %p", oil_n_function_impls, _oil_function_impls);
-}
-#else
 static void
 oil_init_pointers (void)
 {
@@ -235,7 +190,6 @@ oil_init_pointers (void)
   }
 
 }
-#endif
 
 static void
 oil_init_structs (void)
