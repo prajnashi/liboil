@@ -41,6 +41,8 @@ int main (int argc, char *argv[])
       } else {
         oil_test_set_impl (test, impl);
 
+        test->n = 1600;
+
         ret = oil_test_go (test);
         if (ret) {
 #if 0

@@ -1,5 +1,13 @@
 2004-12-05  David Schleef  <ds@schleef.org>
 
+	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_ref),
+	(zigzag8x8_s16_unroll): new implementation
+	* liboil/simdpack/mix_powerpc.c: (mix_u8_a16_altivec): Add altivec
+	flag.
+	* testsuite/test1.c: (main):
+
+2004-12-05  David Schleef  <ds@schleef.org>
+
 	* liboil/copy/Makefile.am: add copy_powerpc.c
 	* liboil/copy/copy_powerpc.c: a fast altivec copy_u8
 	* liboil/liboilparameter.h: add ptr field

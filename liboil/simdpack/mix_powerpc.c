@@ -36,6 +36,7 @@ static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint
 	for(i=(n&~0xf);i<n;i++){
 		dest[i] = (src1[i]*scale[i] + src2[i]*(255-scale[i]))>>8;
 	}
+        
 	__asm__ __volatile__("\n"
 		"	li	%%r12, 0		\n"
 		"	vxor	%%v3, %%v3, %%v3	\n"
@@ -69,6 +70,6 @@ static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint
 	: "r" (n/16)
 	: "12", "ctr");
 }
-OIL_DEFINE_IMPL_ASM (mix_u8_a16_altivec, mix_u8);
+OIL_DEFINE_IMPL_FULL (mix_u8_a16_altivec, mix_u8, OIL_IMPL_REQUIRES_ALTIVEC);
 
 

@@ -63,7 +63,8 @@ static const unsigned char unzigzag_order[64] = {
 };
 
 
-static void zigzag8x8_s16_ref(int16_t *dest, int dstr, int16_t *src, int sstr)
+static void
+zigzag8x8_s16_ref(int16_t *dest, int dstr, int16_t *src, int sstr)
 {
 	int i,j;
 	unsigned int z;
@@ -98,4 +99,78 @@ OIL_DEFINE_IMPL_REF (unzigzag8x8_s16_ref, unzigzag8x8_s16);
 
 
 
+
+static void
+zigzag8x8_s16_unroll (int16_t *dest, int dstr, int16_t *src, int sstr)
+{
+#define ACK(x,y) \
+        OIL_GET(dest, ((y)>>3) * dstr + ((y)&7) * sizeof(int16_t), int16_t) = \
+          OIL_GET(src, ((x)>>3) * sstr + ((x)&7) * sizeof(int16_t), int16_t);
+
+        ACK(0, 0);
+        ACK(1, 8);
+        ACK(2, 1);
+        ACK(3, 2);
+        ACK(4, 9);
+        ACK(5, 16);
+        ACK(6, 24);
+        ACK(7, 17);
+        ACK(8, 10);
+        ACK(9, 3);
+        ACK(10, 4);
+        ACK(11, 11);
+        ACK(12, 18);
+        ACK(13, 25);
+        ACK(14, 32);
+        ACK(15, 40);
+        ACK(16, 33);
+        ACK(17, 26);
+        ACK(18, 19);
+        ACK(19, 12);
+        ACK(20, 5);
+        ACK(21, 6);
+        ACK(22, 13);
+        ACK(23, 20);
+        ACK(24, 27);
+        ACK(25, 34);
+        ACK(26, 41);
+        ACK(27, 48);
+        ACK(28, 56);
+        ACK(29, 49);
+        ACK(30, 42);
+        ACK(31, 35);
+        ACK(32, 28);
+        ACK(33, 21);
+        ACK(34, 14);
+        ACK(35, 7);
+        ACK(36, 15);
+        ACK(37, 22);
+        ACK(38, 29);
+        ACK(39, 36);
+        ACK(40, 43);
+        ACK(41, 50);
+        ACK(42, 57);
+        ACK(43, 58);
+        ACK(44, 51);
+        ACK(45, 44);
+        ACK(46, 37);
+        ACK(47, 30);
+        ACK(48, 23);
+        ACK(49, 31);
+        ACK(50, 38);
+        ACK(51, 45);
+        ACK(52, 52);
+        ACK(53, 59);
+        ACK(54, 60);
+        ACK(55, 53);
+        ACK(56, 46);
+        ACK(57, 39);
+        ACK(58, 47);
+        ACK(59, 54);
+        ACK(60, 61);
+        ACK(61, 62);
+        ACK(62, 55);
+        ACK(63, 63);
+}
+OIL_DEFINE_IMPL (zigzag8x8_s16_unroll, zigzag8x8_s16);
 
