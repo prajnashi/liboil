@@ -80,10 +80,10 @@ OIL_DEFINE_IMPL_ASM(clipconv_##dsttype##_##srctype##_powerpc, \
 		"	lbz r11,7(%5)		\n" \
 		"	stbux r11,%0,%7		\n"
 #define LHZ_STHUX \
-		"	lhz r11,7(%5)		\n" \
+		"	lhz r11,6(%5)		\n" \
 		"	sthux r11,%0,%7		\n"
 #define LWZ_STWUX \
-		"	lwz r11,7(%5)		\n" \
+		"	lwz r11,4(%5)		\n" \
 		"	stwux r11,%0,%7		\n"
 
 DEFINE_CLIPCONVERT_POWERPC(s8,f32, -128.0, 127.0, LFSUX, LBZ_STBUX)

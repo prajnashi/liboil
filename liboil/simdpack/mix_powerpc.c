@@ -34,6 +34,7 @@
 #include <math.h>
 
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *scale, int n)
 {
 	static const uint8_t permute[] __attribute__ ((__aligned__ (16))) = {
@@ -79,5 +80,5 @@ static void mix_u8_a16_altivec(uint8_t *dest, uint8_t *src1, uint8_t *src2, uint
 	: "12", "ctr");
 }
 OIL_DEFINE_IMPL_FULL (mix_u8_a16_altivec, mix_u8, OIL_IMPL_FLAG_ALTIVEC);
-
+#endif
 

@@ -34,6 +34,7 @@
 #include <math.h>
 
 
+#ifdef ENABLE_BROKEN_IMPLS
 /* This could probably be improved by unrolling */
 static void multsum_f32_ppcasm(float *dest, float *src1, int sstr1,
     float *src2, int sstr2, int n)
@@ -54,6 +55,7 @@ static void multsum_f32_ppcasm(float *dest, float *src1, int sstr1,
 	: "32", "33", "34", "ctr");
 }
 OIL_DEFINE_IMPL_ASM (multsum_f32_ppcasm, multsum_f32);
+#endif
 
 
 

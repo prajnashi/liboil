@@ -32,6 +32,7 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
     int16_t *low, int16_t *hi)
@@ -56,7 +57,9 @@ clip_s16_ppcasm (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	: "7", "9", "10", "8", "11", "0", "ctr");
 }
 OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm, clip_s16);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
     int16_t *low, int16_t *hi)
@@ -81,7 +84,9 @@ clip_s16_ppcasm2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	: "9", "10", "8", "11", "0", "ctr");
 }
 OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm2, clip_s16);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 /* This is just a basic weave of the previous function.  It uses
  * a lot of registers and gets pretty hairy, so it would take some
  * work to make better. */
@@ -121,5 +126,6 @@ clip_s16_ppcasm3 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 	  "18", "19", "20", "21", "22", "ctr");
 }
 OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm3, clip_s16);
+#endif
 
 

@@ -1,5 +1,14 @@
 2005-01-13  David Schleef  <ds@schleef.org>
 
+	* liboil/colorspace/rgb2rgba_powerpc.c: (rgb2rgba_ppc): fix code
+	* liboil/conv/conv_powerpc.c: asm fix
+	* liboil/simdpack/abs_powerpc.c: broken
+	* liboil/simdpack/clip_powerpc.c: same
+	* liboil/simdpack/mix_powerpc.c: same
+	* liboil/simdpack/multsum_powerpc.c: same
+
+2005-01-13  David Schleef  <ds@schleef.org>
+
 	* Makefile.am: dist autogen.sh
 	* README: add comments
 	* configure.ac: bump version.  Fix ordering.  failing->broken

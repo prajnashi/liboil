@@ -34,6 +34,7 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
     int n)
@@ -60,4 +61,5 @@ abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
 }
 
 OIL_DEFINE_IMPL_FULL (abs_u16_s16_a16_altivec, abs_u16_s16, OIL_IMPL_FLAG_ALTIVEC);
+#endif
 
