@@ -38,7 +38,6 @@ int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
   int i;
-  int j;
   int n;
 
   oil_init ();
@@ -49,6 +48,7 @@ int main (int argc, char *argv[])
 
     if(klass->prototype) {
       OilPrototype *proto;
+      char *string;
 
       proto = oil_prototype_from_string (klass->prototype);
       if (proto == NULL) {
@@ -56,14 +56,12 @@ int main (int argc, char *argv[])
         continue;
       }
 
-      for(j=0;j<proto->n_params;j++){
-        if (proto->params[j].parameter_type == OIL_ARG_UNKNOWN) {
-          printf("ERROR bad parameter %s(%s) [%s]\n", klass->name, klass->prototype,
-              proto->params[j].parameter_name);
-          break;
-        }
-      }
+      string = oil_prototype_to_string (proto);
+
+      printf("%s (%s)\n", klass->name, string);
+
       oil_prototype_free (proto);
+      free(string);
     } else {
       printf("ERROR no prototype for %s\n", klass->name);
     }

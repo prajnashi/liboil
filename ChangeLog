@@ -1,5 +1,11 @@
 2005-01-13  David Schleef  <ds@schleef.org>
 
+	* testsuite/Makefile.am: add proto4
+	* testsuite/proto1.c: (main): fix
+	* testsuite/proto4.c: (main): new
+
+2005-01-13  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/rgb2rgba_powerpc.c: (rgb2rgba_ppc): fix code
 	* liboil/conv/conv_powerpc.c: asm fix
 	* liboil/simdpack/abs_powerpc.c: broken

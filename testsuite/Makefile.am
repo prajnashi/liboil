@@ -5,7 +5,7 @@ else
 glib_programs =
 endif
 
-programs = moo introspect proto1 proto2 test1 proto3 stride
+programs = moo introspect proto1 proto2 test1 proto3 proto4 stride
 
 check_PROGRAMS = $(programs) $(glib_programs)
 
