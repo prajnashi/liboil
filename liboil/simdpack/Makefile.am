@@ -23,23 +23,16 @@ c_sources = \
 	sincos_f64.c \
 	squaresum_f64.c \
 	sum_f64.c \
-	vectoradd_s.c \
 	vectoradd_f64.c
 
 if HAVE_CPU_I386
 i386_sources = \
 	abs_i386.c \
 	mult8x8_i386.c \
-	abs_sse.c \
-	scalarmult_i386.c \
-	vectoradd_s_i386.c
+	scalarmult_i386.c
 else
 i386_sources =
 endif
-
-#libsimdpack_la_abs_sse_o_CFLAGS = -msse
-#libsimdpack_la_scalaradd_o_CFLAGS = -mmmx
-#libsimdpack_la_vectoradd_s_o_CFLAGS = -mmmx -msse
 
 if HAVE_CPU_POWERPC
 powerpc_sources = \

@@ -1,5 +1,18 @@
 2005-03-17  David Schleef  <ds@schleef.org>
 
+	* configure.ac: bump version
+
+	* doc/tmpl/liboil-unused.sgml: revert patch
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/xml/liboilfuncs-doc.xml:
+	* liboil/Makefile.am:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/simdpack.h:
+
+2005-03-17  David Schleef  <ds@schleef.org>
+
 	* examples/work/Makefile.am: yet another random change
 	* examples/work/work.c: (main): same
 	* liboil/liboilcpu.c: (test_altivec): powerpc fixes

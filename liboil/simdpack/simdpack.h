@@ -128,19 +128,6 @@ OIL_DECLARE_CLASS(vectoradd_u32);
 OIL_DECLARE_CLASS(vectoradd_f32);
 OIL_DECLARE_CLASS(vectoradd_f64);
 
-
-OIL_DECLARE_CLASS(vectoradd_s_s8);
-OIL_DECLARE_CLASS(vectoradd_s_u8);
-OIL_DECLARE_CLASS(vectoradd_s_s16);
-OIL_DECLARE_CLASS(vectoradd_s_u16);
-OIL_DECLARE_CLASS(vectoradd_s_s32);
-OIL_DECLARE_CLASS(vectoradd_s_u32);
-OIL_DECLARE_CLASS(vectoradd_s_f32);
-OIL_DECLARE_CLASS(vectoradd_s_f64);
-
-
-
-
 OIL_DECLARE_CLASS(zigzag8x8_s16);
 
 

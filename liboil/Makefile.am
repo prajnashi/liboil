@@ -114,3 +114,8 @@ liboilmarshal.c:
 liboilfuncs-doc.h:
 	./build_prototypes_doc >liboilfuncs-doc.h
 
+update:
+	./build_prototypes >liboilfuncs.h
+	./build_marshal >liboilmarshal.c
+	./build_prototypes_doc >liboilfuncs-doc.h
+
