@@ -47,14 +47,14 @@ abs_u16_s16_a16_altivec (uint16_t * dest, int dstr, int16_t * src, int sstr,
   }
   n /= 8;
   __asm__ __volatile__ ("\n"
-      "	li %%r10, 0			\n"
-      "	vxor %%v2, %%v2, %%v2		\n"
+      "	li r10, 0			\n"
+      "	vxor v2, v2, v2		\n"
       "	mtctr %2			\n"
-      "1:	lvx %%v0,%%r10,%1		\n"
-      "	vsubshs %%v1, %%v2, %%v0	\n"
-      "	vmaxsh %%v1, %%v1, %%v0		\n"
-      "	stvx %%v1,%%r10,%0		\n"
-      "	addi %%r10, %%r10, 16		\n"
+      "1:	lvx v0,r10,%1		\n"
+      "	vsubshs v1, v2, v0	\n"
+      "	vmaxsh v1, v1, v0		\n"
+      "	stvx v1,r10,%0		\n"
+      "	addi r10, r10, 16		\n"
       "	bdnz 1b				\n":"+b" (dest), "+b" (src), "+b" (n)
       ::"10", "ctr");
 }

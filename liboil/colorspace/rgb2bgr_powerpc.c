@@ -51,33 +51,33 @@ rgb2bgr_ppc (uint8_t *dest, uint8_t* src, int n)
   asm volatile (
 	"	mtctr %2		\n"
 	"1:	lwzu r10, 4(%1)		\n" /* rgbr x */
-	"	rotlwi r10, r10, r16	\n" /* brrg x */
+	"	rotlwi r10, r10, 16	\n" /* brrg x */
 	"	and r11, r10, %3		\n" /* -r-g .x */
 	"	sub r10, r10, r11		\n" /* b-r- x. */
 	"	andi. r12, r11, 0xFF	\n" /* ---g ..x */
 	"	rotlwi r12, r12, 16	\n" /* -g-- ..x */
-	"	or r10, r10, 12		\n" /* bgr- x.. */
+	"	or r10, r10, r12		\n" /* bgr- x.. */
 	"	lwzu r12, 4(%1)		\n" /* gbrg ..x */
 	"	and r13, r12, %4		\n" /* -br- ...x */
-	"	sub r12, r12, 13		\n" /* g--g ..x. */
+	"	sub r12, r12, r13		\n" /* g--g ..x. */
 	"	rotlwi r13, r13, 16	\n" /* r--b ...x */
 	"	andis. r11, r11, 0xFF	\n" /* -r-- .x.. */
-	"	or r12, r12, 11		\n" /* gr-g ..x. */
+	"	or r12, r12, r11		\n" /* gr-g ..x. */
 	"	andi. r11, r13, 0xFF	\n" /* ---b .x.. */
-	"	or r10, r10, 11		\n" /* bgrb x... */
+	"	or r10, r10, r11		\n" /* bgrb x... */
 	"	stwu r10, 4(%0)		\n"
 	"	lwzu r10, 4(%1)		\n" /* brgb x... */
 	"	rotlwi r10, r10, 16	\n" /* gbbr x... */
 	"	and r11, r10, %3		\n" /* -b-r .x.. */
-	"	sub r10, r10, 11		\n" /* g-b- x... */
+	"	sub r10, r10, r11		\n" /* g-b- x... */
 	"	andis. r13, r13, 0xFF00	\n" /* r--- ...x */
-	"	or r11, r11, 13		\n" /* rb-r .x.. */
+	"	or r11, r11, r13		\n" /* rb-r .x.. */
 	"	andi. r13, r10, 0xFF00	\n" /* --b- ...x */
-	"       or r12, r12, 13		\n" /* grbg ..x. */
+	"       or r12, r12, r13		\n" /* grbg ..x. */
 	"	stwu r12, 4(%0)		\n"
 	"	andis. r10, r10, 0xFF00	\n" /* g--- x... */
 	"	rotlwi r10, r10, 16	\n" /* --g- x... */
-	"	or r11, r11, 10		\n" /* rbgr .x.. */
+	"	or r11, r11, r10		\n" /* rbgr .x.. */
 	"	stwu r11, 4(%0)		\n"
 	"	bdnz 1b			\n"
       : "+b" (dest), "+b" (src)
@@ -96,7 +96,7 @@ rgb2bgr_ppc2 (uint8_t *dest, uint8_t* src, int n)
 	"	addi %1, %1, 3		\n"
 	"	andis. r11, r10, 0xFF	\n"
 	"	rotlwi r10, r10, 16	\n"
-	"	or r10, r10, 11		\n"
+	"	or r10, r10, r11		\n"
 	"	stswi r10, %0, 3		\n"
 	"	addi %0, %0, 3		\n"
 	"	bdnz 1b			\n"

@@ -1,5 +1,24 @@
 2005-01-09  David Schleef  <ds@schleef.org>
 
+	* examples/uberopt/uberopt.c: (main): Use gsize
+	* liboil/colorspace/rgb2bgr_powerpc.c: (rgb2bgr_ppc),
+	(rgb2bgr_ppc2): Fix powerpc asm
+	* liboil/colorspace/rgb2rgba_powerpc.c: (rgb2rgba_ppc): same
+	* liboil/conv/conv_powerpc.c:
+	(_sl_clipconv_S8_F32__powerpc_altivec): same
+	* liboil/copy/copy_powerpc.c: (copy_u8_altivec),
+	(copy_u8_altivec2), (copy_u8_altivec3): same
+	* liboil/liboilfunction.c: (oil_impl_is_runnable),
+	(oil_class_optimize): add is_runnable() function
+	* liboil/liboilfunction.h: same
+	* liboil/simdpack/abs_powerpc.c: (abs_u16_s16_a16_altivec): fix asm
+	* liboil/simdpack/clip_powerpc.c: (clip_s16_ppcasm),
+	(clip_s16_ppcasm2), (clip_s16_ppcasm3): same
+	* liboil/simdpack/mix_powerpc.c: (mix_u8_a16_altivec): same
+	* testsuite/copy.c: (main): use oil_impl_is_runnable()
+
+2005-01-09  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/rgb2bgr_powerpc.c: (rgb2bgr_ppc),
 	(rgb2bgr_ppc2), (rgb2bgr_ppc3), (rgb2bgr_ppc4): Change from NN
 	notation to rNN.

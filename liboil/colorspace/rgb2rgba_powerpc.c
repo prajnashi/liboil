@@ -40,10 +40,10 @@ rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
   dest -= 4;
   asm volatile (
 	"	mtctr %2		\n"
-	"1:	lswi 10, %1, 3		\n"
+	"1:	lswi r10, %1, 3		\n"
 	"	addi %1, %1, 3		\n"
-	"	ori 10, 10, 0xFF	\n"
-	"	stwu 10, 4(%0)		\n"
+	"	ori r10, r10, 0xFF	\n"
+	"	stwu r10, 4(%0)		\n"
 	"	bdnz 1b			\n"
       : "+b" (dest), "+b" (src)
       : "b" (n)

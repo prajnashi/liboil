@@ -57,12 +57,12 @@ void clipconv_##dsttype##_##srctype##_powerpc(type_##dsttype *dst,	\
 		"	sub %0,%0,%7		\n"			\
 		"	mtctr %2		\n"			\
 		insn1							\
-		"	fsub 1,0,%3		\n"			\
-		"	fsel 0,1,0,%3		\n"			\
-		"	fsub 1,0,%4		\n"			\
-		"	fsel 0,1,%4,0		\n"			\
-		"	fctiw 1,0		\n"			\
-		"	stfd 1,0(%5)		\n"			\
+		"	fsub f1,f0,%3		\n"			\
+		"	fsel f0,f1,f0,%3	\n"			\
+		"	fsub f1,f0,%4		\n"			\
+		"	fsel f0,f1,%4,f0	\n"			\
+		"	fctiw f1,f0		\n"			\
+		"	stfd f1,0(%5)		\n"			\
 		insn2							\
 		"	bdnz 1b			\n"			\
 	: "+b" (dst), "+b" (src)					\
@@ -73,18 +73,18 @@ void clipconv_##dsttype##_##srctype##_powerpc(type_##dsttype *dst,	\
 OIL_DEFINE_IMPL_ASM(clipconv_##dsttype##_##srctype##_powerpc, \
     clipconv_##dsttype##_##srctype);
 
-#define LFDUX	"1:	lfdux 0,%1,%6		\n"
-#define LFSUX	"1:	lfsux 0,%1,%6		\n"
+#define LFDUX	"1:	lfdux f0,%1,%6		\n"
+#define LFSUX	"1:	lfsux f0,%1,%6		\n"
 
 #define LBZ_STBUX \
-		"	lbz 11,7(%5)		\n" \
-		"	stbux 11,%0,%7		\n"
+		"	lbz r11,7(%5)		\n" \
+		"	stbux r11,%0,%7		\n"
 #define LHZ_STHUX \
-		"	lhz 11,7(%5)		\n" \
-		"	sthux 11,%0,%7		\n"
+		"	lhz r11,7(%5)		\n" \
+		"	sthux r11,%0,%7		\n"
 #define LWZ_STWUX \
-		"	lwz 11,7(%5)		\n" \
-		"	stwux 11,%0,%7		\n"
+		"	lwz r11,7(%5)		\n" \
+		"	stwux r11,%0,%7		\n"
 
 DEFINE_CLIPCONVERT_POWERPC(s8,f32, -128.0, 127.0, LFSUX, LBZ_STBUX)
 DEFINE_CLIPCONVERT_POWERPC(u8,f32, 0.0, 255.0, LFSUX, LBZ_STBUX)
@@ -130,10 +130,10 @@ SL_FUNC void _sl_clipconv_S8_F32__powerpc_altivec(
 		((float *)vec)[3] = *src;
 
 		asm volatile(
-			"	lvx %%v0,0,%0		\n"
-			"	vrfin %%v0,%%v0		\n"
-			"	vctsxs %%v0,%%v0,24	\n"
-			"	stvx %%v0,0,%0		\n"
+			"	lvx v0,0,%0		\n"
+			"	vrfin v0,v0		\n"
+			"	vctsxs v0,v0,24		\n"
+			"	stvx v0,0,%0		\n"
 		:
 		: "b" (&(vec[0]))
 		: "memory"

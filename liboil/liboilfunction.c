@@ -109,6 +109,16 @@ oil_class_get_by_index (int i)
   return _oil_function_class_array[i];
 }
 
+int
+oil_impl_is_runnable (OilFunctionImpl *impl)
+{
+  unsigned int oil_cpu_flags = oil_cpu_get_flags();
+
+  if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
+    return 0;
+  return 1;
+}
+
 OilFunctionImpl *
 oil_impl_get_by_index (int i)
 {
@@ -152,7 +162,6 @@ oil_class_optimize (OilFunctionClass * klass)
   OilFunctionImpl *impl;
   OilFunctionImpl *min_impl;
   OilTest *test;
-  unsigned int oil_cpu_flags = oil_cpu_get_flags();
   int ret;
 
   OIL_DEBUG ("optimizing class %s", klass->name);
@@ -171,7 +180,7 @@ oil_class_optimize (OilFunctionClass * klass)
   min_impl = NULL;
   for (impl = klass->first_impl; impl; impl = impl->next) {
     OIL_LOG ("testing impl %s", impl->name);
-    if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
+    if (!oil_impl_is_runnable (impl))
       continue;
 
     ret = oil_test_check_impl (test, impl);

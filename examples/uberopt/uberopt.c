@@ -55,7 +55,7 @@ main (int argc, char *argv[])
 {
   gboolean ret;
   char *contents;
-  int length;
+  gsize length;
   char **lines;
   int i;
   int j;

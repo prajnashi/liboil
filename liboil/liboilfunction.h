@@ -149,6 +149,7 @@ void oil_class_optimize (OilFunctionClass *klass);
 int oil_class_get_n_classes (void);
 
 OilFunctionImpl * oil_impl_get_by_index (int i);
+int oil_impl_is_runnable (OilFunctionImpl *impl);
 
 void oil_class_choose_by_name (OilFunctionClass * klass, const char *name);
 

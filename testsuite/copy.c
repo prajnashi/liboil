@@ -40,10 +40,12 @@ int main (int argc, char *argv[])
 
   oil_class_choose_by_name (klass, "copy_u8_altivec");
   impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
-  impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
-  test();
+  if (oil_impl_is_runnable (impl)) {
+    g_print("chosen=%p\n", impl);
+    impl = klass->reference_impl;
+    g_print("ref=%p\n", impl);
+    test();
+  }
 
   return 0;
 }
