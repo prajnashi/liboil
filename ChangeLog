@@ -1,3 +1,11 @@
+2004-12-21  David Schleef  <ds@schleef.org>
+
+	* COPYING: change to BSD license
+	* license_block: license block
+	* liboil/copy/copy_powerpc.c: (copy_u8_altivec2),
+	(copy_u8_altivec3): new implementation
+	* testsuite/Makefile.am:
+
 2004-12-06  David Schleef  <ds@schleef.org>
 
 	* examples/uberopt/Makefile.am: dist example.c, not it.c
