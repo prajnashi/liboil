@@ -1,5 +1,12 @@
 2004-12-21  David Schleef  <ds@schleef.org>
 
+	Move non-relicensed code to lgpl/.  Not yet in the build.
+	* liboil/lgpl/dct12_f32.c: (dct12_f32_mpglib):
+	* liboil/lgpl/dct36.c: (dct36):
+	* liboil/lgpl/imdct32_f32.c: (imdct32_f32_mpglib):
+
+2004-12-21  David Schleef  <ds@schleef.org>
+
 	Global relicensing.
 	* liboil/build_prototypes.c: (print_header):
 	* liboil/colorspace/rgb2bgr.c:
