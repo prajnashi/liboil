@@ -1,5 +1,9 @@
 2005-01-09  David Schleef  <ds@schleef.org>
 
+	* INSTALL: er, no, we don't need this
+
+2005-01-09  David Schleef  <ds@schleef.org>
+
 	* autogen.sh: new and improved simple autogen.sh
 	* configure.ac: oops, define libversion correctly
 
