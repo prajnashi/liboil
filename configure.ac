@@ -49,7 +49,7 @@ AC_ARG_ENABLE(alternate-optimization,
   AC_HELP_STRING([--enable-alternate-optimization],[compile with alternate optimization flags]),
   enable_alt_opt=$enableval,enable_alt_opt=no)
 AM_CONDITIONAL(USE_ALT_OPT, test "x$enable_alt_opt" = xyes)
-LIBOIL_OPT_CFLAGS="-O3 -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
+LIBOIL_OPT_CFLAGS="-O3 -funroll-all-loops -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
 AC_SUBST(LIBOIL_OPT_CFLAGS)
 
 

@@ -1,5 +1,13 @@
 2004-12-01  David Schleef  <ds@schleef.org>
 
+	* autogen.sh: add alt-opt by default
+	* configure.ac: add -funroll-all-loops
+	* testsuite/Makefile.am: Add proto3
+	* testsuite/proto3.c: (main), (check_param), (print_param): A little
+	proggy to test parsing of a new style of parameter names
+
+2004-12-01  David Schleef  <ds@schleef.org>
+
 	* liboil/simdpack/abs_u32_s32.c: rip out simdpack test functions
 	* liboil/simdpack/average2_u8.c:
 	* liboil/simdpack/conv8x8_f64_s16.c:
