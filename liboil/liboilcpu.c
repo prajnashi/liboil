@@ -134,7 +134,7 @@ get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
 }
 
 static void
-test_cpuid (void)
+test_cpuid (void *ignored)
 {
   uint32_t eax, ebx, ecx, edx;
 
@@ -147,13 +147,15 @@ oil_cpu_i386_getflags_cpuid (void)
   uint32_t eax, ebx, ecx, edx;
   int level;
   char vendor[13];
+  int ret;
 
   oil_cpu_fault_check_enable ();
-  if (!oil_cpu_fault_check_try(test_cpuid, NULL)) {
+  ret = oil_cpu_fault_check_try(test_cpuid, NULL);
+  oil_cpu_fault_check_disable ();
+  if (!ret) {
     /* CPU thinks cpuid is an illegal instruction. */
     return;
   }
-  oil_cpu_fault_check_disable ();
 
   get_cpuid (0x00000000, &level, (uint32_t *)(vendor+0),
       (uint32_t *)(vendor+8), (uint32_t *)(vendor+4));

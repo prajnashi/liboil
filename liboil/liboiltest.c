@@ -186,7 +186,13 @@ oil_test_check_ref (OilTest *test)
   int i;
 
   if (test->proto->n_params > 10) {
-    OIL_ERROR ("function has too many parameters");
+    OIL_ERROR ("function class %s has too many parameters",
+        test->klass->name);
+    return;
+  }
+  if (test->klass->reference_impl == NULL) {
+    OIL_ERROR ("function class %s has no reference implementation",
+        test->klass->name);
     return;
   }
 

@@ -34,48 +34,69 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS (sad8x8_s16,
-    "uint32_t *d_8x8, int ds, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
-OIL_DEFINE_CLASS (sad8x8_f64,
-    "double *d_8x8, int ds, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
+OIL_DEFINE_CLASS (sad8x8_u8,
+    "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
+OIL_DEFINE_CLASS (sad8x8_s16_2,
+    "uint32_t *d_1, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
+OIL_DEFINE_CLASS (sad8x8_f64_2,
+    "double *d_1, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
 
 static void
-sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,
+sad8x8_f64_2_ref (double *dest, double *src1, int sstr1, double *src2,
     int sstr2)
 {
-	int i,j;
-	double sum;
+  int i, j;
+  double sum;
 
-	sum = 0;
-	for(i=0;i<8;i++){
-		for(j=0;j<8;j++){
-			sum += fabs(OIL_GET(src1,sstr1*i+j*sizeof(double), double) -
-			    OIL_GET(src2,sstr2*i+j*sizeof(double), double));
-		}
-	}
-	*dest = sum;
+  sum = 0;
+  for (i = 0; i < 8; i++) {
+    for (j = 0; j < 8; j++) {
+      sum += fabs (OIL_GET (src1, sstr1 * i + j * sizeof (double), double) -
+          OIL_GET (src2, sstr2 * i + j * sizeof (double), double));
+    }
+  }
+  *dest = sum;
 }
 
-OIL_DEFINE_IMPL_REF(sad8x8_f64_ref, sad8x8_f64);
+OIL_DEFINE_IMPL_REF (sad8x8_f64_2_ref, sad8x8_f64_2);
 
 static void
-sad8x8_s16_ref(uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2,
+sad8x8_s16_2_ref (uint32_t * dest, int16_t * src1, int sstr1, int16_t * src2,
     int sstr2)
 {
-	int i,j;
-	int d;
-	uint32_t sum;
+  int i, j;
+  int d;
+  uint32_t sum;
 
-	sum = 0;
-	for(i=0;i<8;i++){
-		for(j=0;j<8;j++){
-			d = ((int)OIL_GET(src1,sstr1*i+j*sizeof(int16_t), int16_t)) -
-				((int)OIL_GET(src2,sstr2*i+j*sizeof(int16_t), int16_t));
-			sum += (d<0) ? -d : d;
-		}
-	}
-	*dest = sum;
+  sum = 0;
+  for (i = 0; i < 8; i++) {
+    for (j = 0; j < 8; j++) {
+      d = ((int) OIL_GET (src1, sstr1 * i + j * sizeof (int16_t), int16_t)) -
+          ((int) OIL_GET (src2, sstr2 * i + j * sizeof (int16_t), int16_t));
+      sum += (d < 0) ? -d : d;
+    }
+  }
+  *dest = sum;
 }
+OIL_DEFINE_IMPL_REF (sad8x8_s16_2_ref, sad8x8_s16_2);
 
-OIL_DEFINE_IMPL_REF(sad8x8_s16_ref, sad8x8_s16);
+static void
+sad8x8_u8_ref (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
+    int sstr2)
+{
+  int i, j;
+  int d;
+  uint32_t sum;
+
+  sum = 0;
+  for (i = 0; i < 8; i++) {
+    for (j = 0; j < 8; j++) {
+      d = ((int) OIL_GET (src1, sstr1 * i + j * sizeof (uint8_t), uint8_t)) -
+          ((int) OIL_GET (src2, sstr2 * i + j * sizeof (uint8_t), uint8_t));
+      sum += (d < 0) ? -d : d;
+    }
+  }
+  *dest = sum;
+}
+OIL_DEFINE_IMPL_REF (sad8x8_u8_ref, sad8x8_u8);
 

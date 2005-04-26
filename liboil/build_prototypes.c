@@ -57,6 +57,10 @@ int main (int argc, char *argv[])
       proto = oil_prototype_from_string (klass->prototype);
       if (proto) {
         string = oil_prototype_to_string (proto);
+        if (strlen (string) == 0) {
+          free (string);
+          string = strdup("void");
+        }
 
         printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
             klass->name);

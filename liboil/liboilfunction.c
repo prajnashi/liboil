@@ -245,6 +245,10 @@ oil_class_optimize (OilFunctionClass * klass)
 
   OIL_DEBUG ("optimizing class %s", klass->name);
 
+  if (klass->reference_impl == NULL) {
+    OIL_ERROR ("class %s has no reference implmentation", klass->name);
+    return;
+  }
   if (klass->first_impl == NULL) {
     OIL_ERROR ("class %s has no implmentations", klass->name);
     return;
@@ -277,6 +281,11 @@ oil_class_optimize (OilFunctionClass * klass)
       OIL_WARNING("disabling implementation %s", impl->name);
       impl->flags |= OIL_IMPL_FLAG_DISABLED;
     }
+  }
+  if (min_impl == NULL) {
+    OIL_ERROR ("failed to find optimal implementation for class %s",
+        klass->name);
+    return;
   }
   klass->chosen_impl = min_impl;
   klass->func = min_impl->func;
@@ -340,6 +349,20 @@ oil_class_register_impl_by_name (const char *klass_name, OilFunctionImpl *impl)
   klass = oil_class_get (klass_name);
   if (klass == NULL) return;
 
+  oil_class_register_impl (klass, impl);
+}
+
+/**
+ * oil_class_register_impl_by_name:
+ * @klass: the class
+ * @impl: an implementation
+ *
+ * Adds @impl to the list of implementations associated with
+ * the function class given by @klass.
+ */
+void
+oil_class_register_impl (OilFunctionClass *klass, OilFunctionImpl *impl)
+{
   impl->klass = klass;
   impl->next = impl->klass->first_impl;
   klass->first_impl = impl;

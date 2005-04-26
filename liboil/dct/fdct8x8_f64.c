@@ -126,6 +126,7 @@ fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
 
 OIL_DEFINE_IMPL (fdct8x8_f64_ref2, fdct8x8_f64);
 
+#ifdef oil_fdct8_f64
 static void
 fdct8x8_f64_1d (double *dest, int dstr, double *src, int sstr)
 {
@@ -142,7 +143,7 @@ fdct8x8_f64_1d (double *dest, int dstr, double *src, int sstr)
                     dstr, 8*sizeof(double));
 	}
 }
-
 OIL_DEFINE_IMPL (fdct8x8_f64_1d, fdct8x8_f64);
+#endif
 
 

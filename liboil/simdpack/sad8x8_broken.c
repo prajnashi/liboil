@@ -30,62 +30,52 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/liboilfuncs.h>
-#include <liboil/dct/dct.h>
+#include <liboil/simdpack/simdpack.h>
+#include <math.h>
 
 
+OIL_DEFINE_CLASS (sad8x8_s16,
+    "uint32_t *d_8x8, int ds, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
+OIL_DEFINE_CLASS (sad8x8_f64,
+    "double *d_8x8, int ds, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
 
-#define C0_9808 0.980785280
-#define C0_9239 0.923879532
-#define C0_8315 0.831469612
-#define C0_7071 0.707106781
-#define C0_5556 0.555570233
-#define C0_3827 0.382683432
-#define C0_1951 0.195090322
-
-/*
-Alternate scaling used by RTjpeg.
-*/
-
-
-OIL_DEFINE_CLASS(fdct8x8s_s16,
-    "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
-
-#if defined(oil_fdct8x8_f64) && defined(oil_conv8x8_s16_f64)
 static void
-fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+sad8x8_f64_ref(double *dest, int dstr, double *src1, int sstr1, double *src2,
+    int sstr2)
 {
-	double s[64], d[64];
-	double scale[8] = {
-		4*C0_7071,
-		4*C0_9808,
-		4*C0_9239,
-		4*C0_8315,
-		4*C0_7071,
-		4*C0_5556,
-		4*C0_3827,
-		4*C0_1951,
-	};
 	int i,j;
+	double sum;
 
+	sum = 0;
 	for(i=0;i<8;i++){
 		for(j=0;j<8;j++){
-			s[8*i+j] = OIL_GET (src,sstr*i+j*sizeof(int16_t), int16_t);
+			sum += fabs(OIL_GET(src1,sstr1*i+j*sizeof(double), double) -
+			    OIL_GET(src2,sstr2*i+j*sizeof(double), double));
 		}
 	}
-
-	oil_fdct8x8_f64(d,8*sizeof(double),s,8*sizeof(double));
-
-	for(i=0;i<8;i++){
-		for(j=0;j<8;j++){
-			d[8*i+j] *= scale[i] * scale[j];
-		}
-	}
-
-	oil_conv8x8_s16_f64(dest,dstr,d,8*sizeof(double));
+	*dest = sum;
 }
 
-OIL_DEFINE_IMPL_REF (fdct8x8s_s16_ref, fdct8x8s_s16);
-#endif
+OIL_DEFINE_IMPL_REF(sad8x8_f64_ref, sad8x8_f64);
 
+static void
+sad8x8_s16_ref(uint32_t *dest, int dstr, int16_t *src1, int sstr1, int16_t *src2,
+    int sstr2)
+{
+	int i,j;
+	int d;
+	uint32_t sum;
+
+	sum = 0;
+	for(i=0;i<8;i++){
+		for(j=0;j<8;j++){
+			d = ((int)OIL_GET(src1,sstr1*i+j*sizeof(int16_t), int16_t)) -
+				((int)OIL_GET(src2,sstr2*i+j*sizeof(int16_t), int16_t));
+			sum += (d<0) ? -d : d;
+		}
+	}
+	*dest = sum;
+}
+
+OIL_DEFINE_IMPL_REF(sad8x8_s16_ref, sad8x8_s16);
 

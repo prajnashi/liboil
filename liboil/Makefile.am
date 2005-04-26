@@ -11,7 +11,7 @@ noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
-	liboilrandom.h liboilgcc.h
+	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h
 
 nodist_noinst_HEADERS = liboilfuncs-doc.h
 

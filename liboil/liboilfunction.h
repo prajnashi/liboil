@@ -154,6 +154,7 @@ int oil_impl_is_runnable (OilFunctionImpl *impl);
 
 void oil_class_choose_by_name (OilFunctionClass * klass, const char *name);
 
+void oil_class_register_impl (OilFunctionClass * klass, OilFunctionImpl *impl);
 void oil_class_register_impl_by_name (const char *klass_name,
     OilFunctionImpl *impl);
 

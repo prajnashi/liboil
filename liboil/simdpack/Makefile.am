@@ -18,6 +18,7 @@ c_sources = \
 	mult8x8_s16.c \
 	multsum.c \
 	sad8x8.c \
+	sad8x8_broken.c \
 	scalaradd.c \
 	scalarmult.c \
 	sincos_f64.c \

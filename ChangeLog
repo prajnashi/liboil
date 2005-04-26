@@ -1,3 +1,34 @@
+2005-04-26  David Schleef  <ds@schleef.org>
+
+	* configure.ac: version bump
+	* doc/xml/liboilfunction.xml: update
+	* liboil/Makefile.am: install a few more headers
+	* liboil/build_prototypes.c: (main): Make sure we print "void" for
+	oil_null() function prototype.
+	* liboil/dct/fdct8x8_f64.c: (fdct8x8_f64_1d): 
+	* liboil/dct/fdct8x8s_s16.c:
+	* liboil/dct/idct8x8_c.c: (idct8x8_f64_ref),
+	(idct8x8lim10_f64_ref), (idct8x8_s16_ref), (idct8x8lim10_s16_ref):
+	* liboil/liboilcpu.c: (test_cpuid), (oil_cpu_i386_getflags_cpuid):
+	remember to disable fault checking.
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.c: (oil_class_optimize),
+	(oil_class_register_impl_by_name), (oil_class_register_impl):
+	Better error checking.  Allow registration by class, since we
+	allow unregistered classes.
+	* liboil/liboilfunction.h: same
+	* liboil/liboilmarshal.c: (_oil_test_marshal_function): update
+	* liboil/liboiltest.c: (oil_test_check_ref): better error checking
+	* liboil/simdpack/Makefile.am: add sad8x8_broken.c
+	* liboil/simdpack/clip_ref.c: Add a test function to make sure
+	low < high.
+	* liboil/simdpack/sad8x8.c: (sad8x8_f64_2_ref), (sad8x8_s16_2_ref),
+	(sad8x8_u8_ref): Deprecate old classes, because the prototypes are
+	strangely wrong.  Replace with new, correct class definitions.
+	Add a new u8 class.
+	* liboil/simdpack/sad8x8_broken.c: (sad8x8_f64_ref),
+	(sad8x8_s16_ref): Move old classes here.
+
 2005-03-24  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: (get_proc_cpuinfo),

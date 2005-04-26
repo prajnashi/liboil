@@ -118,6 +118,12 @@ _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
         ();
       oil_profile_stop (prof);
       break;
+    case 0x003a:
+      oil_profile_start (prof);
+      ((void (*)(void *,void *,int,void *,int))func)
+        ((void *)args[0],(void *)args[1],(int)args[2],(void *)args[3],(int)args[4]);
+      oil_profile_stop (prof);
+      break;
     case 0x003b:
       oil_profile_start (prof);
       ((void (*)(void *,void *,int,void *,void *))func)
