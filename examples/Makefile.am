@@ -1,5 +1,5 @@
 
-SUBDIRS = jpeg md5 uberopt work
+SUBDIRS = jpeg md5 uberopt work huffman
 
 noinst_PROGRAMS = example1 oil-inspect
 

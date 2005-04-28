@@ -1,3 +1,14 @@
+2005-04-28  David Schleef  <ds@schleef.org>
+
+	Add an example huffman (variable code length) decoder
+	* configure.ac:
+	* examples/Makefile.am:
+	* examples/huffman/Makefile.am:
+	* examples/huffman/huffman.c: (huffman_new), (huffman_add_code),
+	(huffman_decode_iterate), (huffman_decode_ref):
+	* examples/huffman/huffman.h:
+	* examples/huffman/huffman_test.c: (main):
+
 2005-04-26  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version bump
