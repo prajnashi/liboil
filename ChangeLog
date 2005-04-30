@@ -1,5 +1,13 @@
 2005-04-30  David Schleef  <ds@schleef.org>
 
+	* liboil/copy/Makefile.am: Some cool new implementations.
+	* liboil/copy/trans8x8_c.c: (trans8x8_u16_c1), (trans8x8_u16_c2),
+	(trans8x8_u16_c3), (trans8x8_u16_c4):
+	* liboil/copy/trans8x8_i386.c: (trans8x8_u16_asm1),
+	(trans8x8_u16_asm2):
+
+2005-04-30  David Schleef  <ds@schleef.org>
+
 	* examples/uberopt/uberopt.c: Select 100 random sequences instead
 	of generating all possible.
 	* examples/uberopt/it.c: Example code

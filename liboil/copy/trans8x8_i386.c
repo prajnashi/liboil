@@ -34,6 +34,7 @@
 
 OIL_DECLARE_CLASS(trans8x8_u16);
 
+/* this could use additional work. */
 static void
 trans8x8_u16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 {
@@ -135,4 +136,101 @@ trans8x8_u16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 }
 OIL_DEFINE_IMPL (trans8x8_u16_mmx, trans8x8_u16);
 
+void
+trans8x8_u16_asm1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+{
+  int saved_ebx = 0;
+  asm (
+      "  movl %%ebx, %4 \n"
+      "  movl %0, %%ecx \n"
+      "  movl %2, %%ebx \n"
+      "  movl %1, %%edx \n"
+      "  lea (%%ecx,%%edx,8), %%esi \n"
+      "  sub %%edx, %%esi\n "
+      "  movl $7, %%edi \n"
+      "1: \n"
+
+      "  mov (%%ebx), %%ax \n"
+      "  mov %%ax,(%%ecx) \n"
+      "  mov 2(%%ebx), %%ax \n"
+      "  mov %%ax,(%%ecx,%%edx,1) \n"
+      "  mov 4(%%ebx), %%ax \n"
+      "  mov %%ax,(%%ecx,%%edx,2) \n"
+      "  mov 8(%%ebx), %%ax \n"
+      "  mov %%ax,(%%ecx,%%edx,4) \n"
+
+      "  neg %%edx \n"
+
+      "  mov 6(%%ebx), %%ax \n"
+      "  mov %%ax,(%%esi,%%edx,4) \n"
+      "  mov 10(%%ebx), %%ax \n"
+      "  mov %%ax,(%%esi,%%edx,2) \n"
+      "  mov 12(%%ebx), %%ax \n"
+      "  mov %%ax,(%%esi,%%edx,1) \n"
+      "  mov 14(%%ebx), %%ax \n"
+      "  mov %%ax,(%%esi) \n"
+
+      "  neg %%edx \n"
+      "  add %3, %%ebx \n"
+      "  add $2, %%ecx \n"
+      "  add $2, %%esi \n"
+
+      "  dec %%edi \n"
+      "  jge 1b \n"
+      "  movl %4, %%ebx \n"
+      :
+      : "m" (dest), "m" (dstr), "m" (src), "m" (sstr), "m" (saved_ebx)
+      : "eax", "ecx", "edx", "esi", "edi");
+}
+OIL_DEFINE_IMPL (trans8x8_u16_asm1, trans8x8_u16);
+
+void
+trans8x8_u16_asm2 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+{
+  int i;
+  int saved_ebx = 0;
+  asm (
+      "  movl %%ebx, %5 \n"
+      "  movl %0, %%ecx \n"
+      "  movl %2, %%ebx \n"
+      "  movl %1, %%edx \n"
+      "  lea (%%ecx,%%edx,8), %%esi \n"
+      "  sub %%edx, %%esi\n "
+      "  movl $7, %4 \n"
+      "  movl %%edx, %%edi \n"
+      "  negl %%edi \n"
+      "1: \n"
+
+      "  movl (%%ebx), %%eax \n"
+      "  mov %%ax,(%%ecx) \n"
+      "  shr $16, %%eax \n"
+      "  mov %%ax,(%%ecx,%%edx,1) \n"
+
+      "  movl 4(%%ebx), %%eax \n"
+      "  mov %%ax,(%%ecx,%%edx,2) \n"
+      "  shr $16, %%eax \n"
+      "  mov %%ax,(%%esi,%%edi,4) \n"
+
+      "  movl 8(%%ebx), %%eax \n"
+      "  mov %%ax,(%%ecx,%%edx,4) \n"
+      "  shr $16, %%eax \n"
+      "  mov %%ax,(%%esi,%%edi,2) \n"
+
+      "  movl 12(%%ebx), %%eax \n"
+      "  mov %%ax,(%%esi,%%edi,1) \n"
+      "  shr $16, %%eax \n"
+      "  mov %%ax,(%%esi) \n"
+
+      "  add %3, %%ebx \n"
+      "  add $2, %%ecx \n"
+      "  add $2, %%esi \n"
+
+      "  decl %4 \n"
+      "  jge 1b \n"
+      "  movl %5, %%ebx \n"
+      :
+      : "m" (dest), "m" (dstr), "m" (src), "m" (sstr), "m" (i), "m" (saved_ebx)
+      : "eax", "ebx", "ecx", "edx", "esi", "edi");
+}
+OIL_DEFINE_IMPL (trans8x8_u16_asm2, trans8x8_u16);
 

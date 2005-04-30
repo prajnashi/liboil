@@ -27,7 +27,8 @@ c_sources = \
 	permute.c \
 	splat_ref.c \
 	tablelookup_ref.c \
-	trans8x8.c
+	trans8x8.c \
+	trans8x8_c.c
 
 libcopy_la_SOURCES = \
 	$(c_sources) \
