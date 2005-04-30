@@ -25,7 +25,8 @@ c_sources = \
 	fdct8x8s_s16.c \
 	idct8_f64.c \
 	idct8x8_c.c \
-	imdct32_f32.c
+	imdct32_f32.c \
+	idct8x8theora_ref.c
 
 libdct_la_SOURCES = \
 	$(c_sources) \

@@ -1,3 +1,15 @@
+2005-04-29  David Schleef  <ds@schleef.org>
+
+	* examples/Makefile.am: add oil-test
+	* examples/oil-test.c: A copy of work.c modified for displaying
+	test results for any class.
+	* liboil/dct/Makefile.am:
+	* liboil/dct/idct8x8_i386.c: (idct8x8_s16_mmx), (fdct8x8s_s16_mmx):
+	Add mmx code for idct
+	* liboil/dct/idct8x8theora_ref.c: Add some classes for idct8x8
+	to the theora spec.
+	* liboil/liboilfuncs.h: update
+
 2005-04-28  David Schleef  <ds@schleef.org>
 
 	Add an example huffman (variable code length) decoder

@@ -375,6 +375,9 @@ typedef void (*_oil_type_fdct8x8s_s16)(int16_t * d_8x8, int ds, const int16_t * 
 extern OilFunctionClass *oil_function_class_ptr_idct8_f64;
 typedef void (*_oil_type_idct8_f64)(double * d_8, int dstr, const double * s_8, int sstr);
 #define oil_idct8_f64 ((_oil_type_idct8_f64)(*(void **)oil_function_class_ptr_idct8_f64))
+extern OilFunctionClass *oil_function_class_ptr_idct8theora_s16;
+typedef void (*_oil_type_idct8theora_s16)(int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr);
+#define oil_idct8theora_s16 ((_oil_type_idct8theora_s16)(*(void **)oil_function_class_ptr_idct8theora_s16))
 extern OilFunctionClass *oil_function_class_ptr_idct8x8_f64;
 typedef void (*_oil_type_idct8x8_f64)(double * d_8x8, int dstr, const double * s_8x8, int sstr);
 #define oil_idct8x8_f64 ((_oil_type_idct8x8_f64)(*(void **)oil_function_class_ptr_idct8x8_f64))
@@ -387,6 +390,9 @@ typedef void (*_oil_type_idct8x8lim10_f64)(double * d_8x8, int dstr, const doubl
 extern OilFunctionClass *oil_function_class_ptr_idct8x8lim10_s16;
 typedef void (*_oil_type_idct8x8lim10_s16)(int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr);
 #define oil_idct8x8lim10_s16 ((_oil_type_idct8x8lim10_s16)(*(void **)oil_function_class_ptr_idct8x8lim10_s16))
+extern OilFunctionClass *oil_function_class_ptr_idct8x8theora_s16;
+typedef void (*_oil_type_idct8x8theora_s16)(int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr);
+#define oil_idct8x8theora_s16 ((_oil_type_idct8x8theora_s16)(*(void **)oil_function_class_ptr_idct8x8theora_s16))
 extern OilFunctionClass *oil_function_class_ptr_imdct12_f64;
 typedef void (*_oil_type_imdct12_f64)(double * d_12, const double * s_6);
 #define oil_imdct12_f64 ((_oil_type_imdct12_f64)(*(void **)oil_function_class_ptr_imdct12_f64))
