@@ -1,5 +1,12 @@
 2005-05-02  David Schleef  <ds@schleef.org>
 
+	* examples/Makefile.am: add report
+	* examples/report.c: Create report of classes and speedups.
+	* liboil/conv/conv_3dnow.c: (conv_f32_s16_3dnow),
+	(conv_s32_f32_3dnow): reindent
+
+2005-05-02  David Schleef  <ds@schleef.org>
+
 	* liboil/utf8/Makefile.am:
 	* liboil/utf8/utf8_fast.c: Some implementations.
 
