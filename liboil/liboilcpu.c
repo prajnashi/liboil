@@ -333,8 +333,12 @@ _strndup (const char *s, int n)
 #endif
 
 static jmp_buf jump_env;
+#ifdef HAVE_SIGACTION
 static struct sigaction action;
 static struct sigaction oldaction;
+#else
+static void * oldhandler;
+#endif
 static int in_try_block;
 
 static void
@@ -350,9 +354,12 @@ illegal_instruction_handler (int num)
 void
 oil_cpu_fault_check_enable (void)
 {
+#ifdef HAVE_SIGACTION
   memset (&action, 0, sizeof(action));
   action.sa_handler = &illegal_instruction_handler;
   sigaction (SIGILL, &action, &oldaction);
+#endif
+  signal (SIGILL, illegal_instruction_handler);
   in_try_block = 0;
 }
 
@@ -374,6 +381,10 @@ oil_cpu_fault_check_try (void (*func) (void *), void *priv)
 void
 oil_cpu_fault_check_disable (void)
 {
+#ifdef HAVE_SIGACTION
   sigaction (SIGILL, &oldaction, NULL);
+#else
+  signal (SIGILL, oldhandler);
+#endif
 }
 

@@ -29,14 +29,17 @@ liboilfunctions_la_LIBADD = \
 	md5/libmd5.la \
 	simdpack/libsimdpack.la \
 	utf8/libutf8.la \
-	-lm
+	$(LIBM)
+liboilfunctions_la_LDFLAGS = \
+	-no-undefined
 
 liboiltmp1_la_SOURCES =
 liboiltmp1_la_LDFLAGS = \
+	-no-undefined \
 	-export-symbols-regex 'oil_'
 liboiltmp1_la_LIBADD = \
 	liboilfunctions.la \
-	-lm
+	$(LIBM)
 
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil.h \
@@ -56,9 +59,10 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilmarshal.c
 liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboilfunctions.la \
-	-lm
+	$(LIBM)
 liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = \
+	-no-undefined \
 	-version-info $(LIBOIL_LIBVERSION) \
 	-export-symbols-regex '^oil_'
 

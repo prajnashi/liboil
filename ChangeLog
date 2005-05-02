@@ -1,3 +1,18 @@
+2005-05-02  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Check for gettimeofday and sigaction.  Define
+	LIBM for linking with libm.
+	* liboil/Makefile.am: Fixes for win32 building
+	* liboil/conv/Makefile.am: same
+	* liboil/dct/idct8x8_i386.c: (fdct8x8s_s16_mmx): save ebx properly
+	* liboil/liboilcpu.c: (oil_cpu_fault_check_enable),
+	(oil_cpu_fault_check_disable): conditionally use sigaction
+	* liboil/liboilfunction.c: (oil_class_register_impl),
+	(oil_class_register_impl_full): Add function
+	* liboil/liboilfunction.h: same
+	* liboil/liboilprofile.c: (oil_profile_stamp_gtod): make use
+	of gettimeofday conditional.
+
 2005-04-30  David Schleef  <ds@schleef.org>
 
 	* liboil/copy/Makefile.am: Some cool new implementations.

@@ -432,10 +432,10 @@ static void
 fdct8x8s_s16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 {
   int32_t tmp[32];
+  int32_t save_ebx;
 
   asm volatile (
-      /* Note: this asm is unclean with %ebx, but it's not an issue
-       * in this particular case. */
+      "  movl %%ebx, %6 \n"
       /* first half */
       "  movl %1, %%eax \n" // src
       "  movl %3, %%ebx \n" // sstr
@@ -731,11 +731,11 @@ fdct8x8s_s16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
       LOOP
 
       "  emms \n"
+      "  movl %6, %%ebx \n"
       :
-      : "m" (dest), "m" (src), "m" (dstr), "m" (sstr), "r" (tmp), "r" (dct_mmx_constants)
+      : "m" (dest), "m" (src), "m" (dstr), "m" (sstr), "r" (tmp), "r" (dct_mmx_constants), "m" (save_ebx)
       : "eax", "ecx", "edx");
 
 }
 OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_SSE);
-
 

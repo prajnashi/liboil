@@ -34,6 +34,5 @@ libconv_la_SOURCES = \
 	$(powerpc_sources) \
 	$(i386_sources)
 libconv_la_CFLAGS = $(LIBOIL_CFLAGS)
-libconv_la_LDFLAGS = -lm
 libconv_la_LIBADD = $(opt_libs)
 

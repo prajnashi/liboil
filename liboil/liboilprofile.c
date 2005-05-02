@@ -38,9 +38,13 @@
 
 unsigned long oil_profile_stamp_gtod (void)
 {
-	struct timeval tv;
-	gettimeofday(&tv,NULL);
-	return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
+#ifdef HAVE_GETTIMEOFDAY
+  struct timeval tv;
+  gettimeofday(&tv,NULL);
+  return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
+#else
+  return 0;
+#endif
 }
 
 void

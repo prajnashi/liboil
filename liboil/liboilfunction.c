@@ -353,7 +353,7 @@ oil_class_register_impl_by_name (const char *klass_name, OilFunctionImpl *impl)
 }
 
 /**
- * oil_class_register_impl_by_name:
+ * oil_class_register_impl:
  * @klass: the class
  * @impl: an implementation
  *
@@ -371,5 +371,31 @@ oil_class_register_impl (OilFunctionClass *klass, OilFunctionImpl *impl)
     impl->klass->chosen_impl = impl;
     impl->klass->func = impl->func;
   }
+}
+
+/**
+ * oil_class_register_impl_full:
+ * @klass: the class
+ * @func: the function
+ * @name: name of the function
+ * @flags: CPU flags
+ *
+ * Adds @func to the list of implementations associated with
+ * the function class given by @klass.
+ */
+void
+oil_class_register_impl_full (OilFunctionClass *klass,
+    void (*func)(void), const char *name, unsigned int flags)
+{
+  OilFunctionImpl *impl;
+
+  impl = malloc(sizeof(OilFunctionImpl));
+  memset (impl, 0, sizeof(OilFunctionImpl));
+
+  impl->func = func;
+  impl->flags = flags;
+  impl->name = strdup(name);
+
+  oil_class_register_impl(klass,impl);
 }
 
