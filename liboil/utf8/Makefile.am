@@ -9,7 +9,7 @@ noinst_LTLIBRARIES = libutf8.la $(opt_libs)
 
 noinst_HEADERS = utf8.h
 
-c_sources = utf8.c
+c_sources = utf8.c utf8_fast.c
 
 if HAVE_CPU_I386
 #i386_sources = utf8_i386.c

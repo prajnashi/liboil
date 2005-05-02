@@ -1,5 +1,10 @@
 2005-05-02  David Schleef  <ds@schleef.org>
 
+	* liboil/utf8/Makefile.am:
+	* liboil/utf8/utf8_fast.c: Some implementations.
+
+2005-05-02  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Check for gettimeofday and sigaction.  Define
 	LIBM for linking with libm.
 	* liboil/Makefile.am: Fixes for win32 building
