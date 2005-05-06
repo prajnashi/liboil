@@ -1,3 +1,20 @@
+2005-05-06  David Schleef  <ds@schleef.org>
+
+	* doc/xml/liboilfunction.xml: update
+	* examples/report.c: (oil_print_class): print whether fastest
+	implementation is due to alternate optimization flags
+	* liboil/copy/splat_ref.c: (splat_u8_ns_ref), (splat_u32_ns_ref),
+	(splat_u32_ns_unroll2), (splat_u8_ns_memset), (splat_u8_ns_int):
+	Add new splat classes
+	* liboil/copy/trans8x8_c.c: make static
+	* liboil/copy/trans8x8_i386.c: make functions static
+	* liboil/utf8/utf8_fast.c: make functions static
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags_cpuid),
+	(oil_cpu_fault_check_enable), (oil_cpu_fault_check_disable):
+	fix up signal() fallback.  Allow nested calls to check_enable().
+	* liboil/liboilfunction.c: (oil_optimize_all): wrap in fault
+	check
+
 2005-05-02  David Schleef  <ds@schleef.org>
 
 	* examples/Makefile.am: add report

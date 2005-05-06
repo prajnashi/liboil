@@ -29,9 +29,12 @@
 #include "config.h"
 #endif
 #include <liboil/liboilfunction.h>
+#include <string.h>
 
 OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *s1_1, int n");
 OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u8_ns,"uint8_t *dest, uint8_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u32_ns,"uint32_t *dest, uint32_t *s1_1, int n");
 
 
 static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)
@@ -53,6 +56,26 @@ static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
 OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32);
 
 
+static void splat_u8_ns_ref (uint8_t *dest, uint8_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u8_ns_ref, splat_u8_ns);
+
+static void splat_u32_ns_ref (uint32_t *dest, uint32_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u32_ns_ref, splat_u32_ns);
+
+
+
 
 static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
 {
@@ -70,4 +93,45 @@ static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
   }
 }
 OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32);
+
+static void splat_u32_ns_unroll2 (uint32_t *dest, uint32_t *param, int n)
+{
+  int i;
+  if (n&1) {
+    *dest = *param;
+    dest++;
+  }
+  n >>= 1;
+  for(i=0;i<n;i++){
+    *dest = *param;
+    dest++;
+    *dest = *param;
+    dest++;
+  }
+}
+OIL_DEFINE_IMPL(splat_u32_ns_unroll2, splat_u32_ns);
+
+static void splat_u8_ns_memset (uint8_t *dest, uint8_t *param, int n)
+{
+  memset (dest, *param, n);
+}
+OIL_DEFINE_IMPL(splat_u8_ns_memset, splat_u8_ns);
+
+static void splat_u8_ns_int (uint8_t *dest, uint8_t *param, int n)
+{
+  int p;
+  while(n&3) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  n >>= 4;
+  p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
+  while(n>0){
+    *(uint32_t *)param = p;
+    n--;
+  }
+}
+OIL_DEFINE_IMPL(splat_u8_ns_int, splat_u8_ns);
+
 

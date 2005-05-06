@@ -33,7 +33,7 @@
 #include "liboil/utf8/utf8.h"
 
 
-void
+static void
 utf8_validate_fast (int32_t *d_1, uint8_t *s, int n)
 {
   int i;
@@ -75,7 +75,7 @@ error:
 }
 OIL_DEFINE_IMPL (utf8_validate_fast, utf8_validate);
 
-void
+static void
 utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
 {
   int i;
@@ -124,7 +124,7 @@ error:
 OIL_DEFINE_IMPL (utf8_validate_fast2, utf8_validate);
 
 #if 0
-void
+static void
 utf8_validate_asm1 (int32_t *d_1, uint8_t *s, int n)
 {
   uint8_t *tmp = s;
@@ -148,7 +148,7 @@ utf8_validate_asm1 (int32_t *d_1, uint8_t *s, int n)
 }
 OIL_DEFINE_IMPL (utf8_validate_asm1, utf8_validate);
 
-void
+static void
 utf8_validate_asm2 (int32_t *d_1, uint8_t *s, int n)
 {
   uint8_t *tmp = s;

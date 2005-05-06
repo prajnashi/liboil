@@ -89,11 +89,13 @@ oil_optimize_all (void)
   OilFunctionClass *klass;
   int i;
 
+  oil_cpu_fault_check_enable ();
   for (i = 0; i < _oil_n_function_classes; i++) {
     klass = oil_class_get_by_index (i);
 
     oil_class_optimize (klass);
   }
+  oil_cpu_fault_check_disable ();
 }
 
 /**

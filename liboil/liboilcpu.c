@@ -145,8 +145,8 @@ static void
 oil_cpu_i386_getflags_cpuid (void)
 {
   uint32_t eax, ebx, ecx, edx;
-  int level;
-  char vendor[13];
+  uint32_t level;
+  char vendor[13] = { 0 };
   int ret;
 
   oil_cpu_fault_check_enable ();
@@ -340,6 +340,7 @@ static struct sigaction oldaction;
 static void * oldhandler;
 #endif
 static int in_try_block;
+static int enable_level;
 
 static void
 illegal_instruction_handler (int num)
@@ -354,13 +355,17 @@ illegal_instruction_handler (int num)
 void
 oil_cpu_fault_check_enable (void)
 {
+  if (enable_level == 0) {
 #ifdef HAVE_SIGACTION
-  memset (&action, 0, sizeof(action));
-  action.sa_handler = &illegal_instruction_handler;
-  sigaction (SIGILL, &action, &oldaction);
+    memset (&action, 0, sizeof(action));
+    action.sa_handler = &illegal_instruction_handler;
+    sigaction (SIGILL, &action, &oldaction);
+#else
+    signal (SIGILL, illegal_instruction_handler);
 #endif
-  signal (SIGILL, illegal_instruction_handler);
-  in_try_block = 0;
+    in_try_block = 0;
+  }
+  enable_level++;
 }
 
 int
@@ -381,10 +386,13 @@ oil_cpu_fault_check_try (void (*func) (void *), void *priv)
 void
 oil_cpu_fault_check_disable (void)
 {
+  enable_level--;
+  if (enable_level == 0) {
 #ifdef HAVE_SIGACTION
-  sigaction (SIGILL, &oldaction, NULL);
+    sigaction (SIGILL, &oldaction, NULL);
 #else
-  signal (SIGILL, oldhandler);
+    signal (SIGILL, oldhandler);
 #endif
+  }
 }
 

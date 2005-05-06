@@ -136,7 +136,7 @@ trans8x8_u16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 }
 OIL_DEFINE_IMPL (trans8x8_u16_mmx, trans8x8_u16);
 
-void
+static void
 trans8x8_u16_asm1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 {
   int saved_ebx = 0;
@@ -184,7 +184,7 @@ trans8x8_u16_asm1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 }
 OIL_DEFINE_IMPL (trans8x8_u16_asm1, trans8x8_u16);
 
-void
+static void
 trans8x8_u16_asm2 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 {
   int i;

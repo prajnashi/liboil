@@ -544,12 +544,12 @@ not changed.</para>
                                              <link linkend="OilFunctionImpl">OilFunctionImpl</link> *impl);</programlisting>
 <para>
 Adds <parameter>impl</parameter> to the list of implementations associated with
-the function class given by <parameter>klass</parameter>.</para>
+the function class given by <parameter>klass_name</parameter>.</para>
 <para>
 
 </para><variablelist role="params">
 <varlistentry><term><parameter>klass_name</parameter>&nbsp;:</term>
-<listitem><simpara>
+<listitem><simpara> the name of the class
 </simpara></listitem></varlistentry>
 <varlistentry><term><parameter>impl</parameter>&nbsp;:</term>
 <listitem><simpara> an implementation
