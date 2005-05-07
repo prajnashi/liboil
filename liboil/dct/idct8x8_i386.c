@@ -81,8 +81,10 @@ static void
 idct8x8_s16_mmx (int16_t *dest, int dstr, int16_t *src, int sstr)
 {
   int32_t tmp[32];
+  int32_t save_ebx;
 
   asm volatile (
+      "  movl %%ebx, %6 \n"
       /* left half */
       "  movl %1, %%eax \n" // src
       "  movl %3, %%ebx \n" // sstr
@@ -380,10 +382,11 @@ idct8x8_s16_mmx (int16_t *dest, int dstr, int16_t *src, int sstr)
       LOOP
 #undef LOOP
 
+      "  movl %6, %%ebx \n"
       "  emms \n"
       :
-      : "m" (dest), "m" (src), "m" (dstr), "m" (sstr), "r" (tmp), "r" (dct_mmx_constants)
-      : "eax", "ebx", "ecx", "edx");
+      : "m" (dest), "m" (src), "m" (dstr), "m" (sstr), "r" (tmp), "r" (dct_mmx_constants), "m" (save_ebx)
+      : "eax", "ecx", "edx");
 }
 OIL_DEFINE_IMPL_FULL (idct8x8_s16_mmx, idct8x8_s16, OIL_IMPL_FLAG_MMX);
 

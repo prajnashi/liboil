@@ -42,6 +42,8 @@
   (w += f(x,y,z) + in, w = (w<<s | w>>(32-s)) + x)
 
 
+#ifdef ENABLE_BROKEN_IMPLS
+/* GCC-4.0 doesn't like this one */
 static void
 md5_asm1(uint32_t *state, uint32_t *src)
 {
@@ -192,10 +194,11 @@ md5_asm1(uint32_t *state, uint32_t *src)
 #undef STEP2
 #undef STEP3
 #undef STEP4
-
-
 OIL_DEFINE_IMPL_ASM (md5_asm1, md5);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
+/* FIXME GCC-4.0 doesn't like this one */
 static void
 md5_asm2(uint32_t *state, uint32_t *src)
 {
@@ -350,10 +353,14 @@ md5_asm2(uint32_t *state, uint32_t *src)
 #undef STEP3
 #undef STEP4
 }
-
-
 OIL_DEFINE_IMPL_ASM (md5_asm2, md5);
+#endif
 
+
+
+#ifdef ENABLE_BROKEN_IMPLS
+/* FIXME this is way too clever.  Using %esp as a general purpose
+ * register?  NOT a brilliant idea. */
 static void
 md5_asm3(uint32_t *state, uint32_t *src)
 {
@@ -518,4 +525,5 @@ md5_asm3(uint32_t *state, uint32_t *src)
 
 
 OIL_DEFINE_IMPL_ASM (md5_asm3, md5);
+#endif
 

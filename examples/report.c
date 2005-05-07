@@ -147,11 +147,12 @@ static void
 oil_print_class (OilFunctionClass *klass, int verbose)
 {
   
-  printf ("%-20s %-10g %-10g %-10.3g %s\n", klass->name,
+  printf ("%-20s %-10g %-10g %-10.3g %s %s\n", klass->name,
       klass->reference_impl->profile_ave,
       klass->chosen_impl->profile_ave,
       klass->reference_impl->profile_ave/klass->chosen_impl->profile_ave,
-      (klass->chosen_impl->flags & OIL_IMPL_FLAG_OPT)?"*":" "
+      (klass->chosen_impl->flags & OIL_IMPL_FLAG_OPT)?"*":" ",
+      klass->chosen_impl->name
       );
 
 }

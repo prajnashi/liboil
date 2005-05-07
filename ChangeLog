@@ -1,5 +1,17 @@
 2005-05-06  David Schleef  <ds@schleef.org>
 
+	* examples/jpeg/jpeg.c: (jpeg_decoder_decode_entropy_segment):
+	Fix gcc-4.0 warning.
+	* examples/report.c: (oil_print_class): print the chosen impl name
+	* liboil/conv/conv_ref.c: remove some cruft, add scaleconv classes
+	* liboil/dct/idct8x8_i386.c: (idct8x8_s16_mmx): Fix usage of ebx
+	* liboil/liboil.h: add macro for trans8x8_s16
+	* liboil/liboilfuncs.h: update
+	* liboil/md5/md5_i386.c: disable some stuff that gcc-4.0 doesn't
+	like.
+
+2005-05-06  David Schleef  <ds@schleef.org>
+
 	* doc/xml/liboilfunction.xml: update
 	* examples/report.c: (oil_print_class): print whether fastest
 	implementation is due to alternate optimization flags

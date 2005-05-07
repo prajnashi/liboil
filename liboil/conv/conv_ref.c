@@ -279,93 +279,71 @@ CLIPCONV_DEFINE_FLOAT_REF(u32,f64);
 
 
 
+#define SCALECONV_DEFINE_REF_RINT(desttype,srctype) \
+static void scaleconv_ ## desttype ## _ ## srctype ## _ref ( \
+	type_ ## desttype *dest,	\
+	type_ ## srctype *src,		\
+	int n, double *offset, double *multiplier) \
+{					\
+	int i;				\
+        double x;                       \
+	for(i=0;i<n;i++){		\
+		x = *offset + *multiplier * src[i];	\
+		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
+		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
+		dest[i] = rint(x);	\
+	}				\
+}					\
+OIL_DEFINE_CLASS(scaleconv_ ## desttype ## _ ## srctype,	\
+	"type_" #desttype " *dest, "	\
+	"type_" #srctype " *src, "	\
+	"int n, double *s2_1, double *s3_1"); \
+OIL_DEFINE_IMPL_REF(scaleconv_ ## desttype ## _ ## srctype ## _ref,	\
+	scaleconv_ ## desttype ## _ ## srctype)
 
-#if 0
-void conv_double_float_dstr(double *dest, float *src, int n, int dstr)
-{
-	int i;
-	void *d = dest;
-	for(i=0;i<n;i++){
-		(*(double *)d)=*src++;
-		d += dstr;
-	}
-}
+#define SCALECONV_DEFINE_REF_CAST(desttype,srctype) \
+static void scaleconv_ ## desttype ## _ ## srctype ## _ref ( \
+	type_ ## desttype *dest,	\
+	type_ ## srctype *src,		\
+	int n, double *offset, double *multiplier) \
+{					\
+	int i;				\
+	for(i=0;i<n;i++){		\
+		dest[i] = *offset + *multiplier * src[i];	\
+	}				\
+}					\
+OIL_DEFINE_CLASS(scaleconv_ ## desttype ## _ ## srctype,	\
+	"type_" #desttype " *dest, "	\
+	"type_" #srctype " *src, "	\
+	"int n, double *s2_1, double *s3_1"); \
+OIL_DEFINE_IMPL_REF(scaleconv_ ## desttype ## _ ## srctype ## _ref,	\
+	scaleconv_ ## desttype ## _ ## srctype)
 
-void conv_float_double_sstr(float *dest, double *src, int n, int sstr)
-{
-	int i;
-	void *s = src;
+SCALECONV_DEFINE_REF_RINT(s8,f32);
+SCALECONV_DEFINE_REF_RINT(u8,f32);
+SCALECONV_DEFINE_REF_RINT(s16,f32);
+SCALECONV_DEFINE_REF_RINT(u16,f32);
+SCALECONV_DEFINE_REF_RINT(s32,f32);
+SCALECONV_DEFINE_REF_RINT(u32,f32);
 
-	for(i=0;i<n;i++){
-		*dest++ = *(double *)s;
-		s += sstr;
-	}
-}
-#endif
+SCALECONV_DEFINE_REF_RINT(s8,f64);
+SCALECONV_DEFINE_REF_RINT(u8,f64);
+SCALECONV_DEFINE_REF_RINT(s16,f64);
+SCALECONV_DEFINE_REF_RINT(u16,f64);
+SCALECONV_DEFINE_REF_RINT(s32,f64);
+SCALECONV_DEFINE_REF_RINT(u32,f64);
 
-#ifdef unused
-static int get_type(const char *s)
-{
-	static const char *typenames[8] = { "_s8", "_u8", "_s16", "_u16",
-		"_s32", "_u32", "_f32", "_f64" };
-	int i;
+SCALECONV_DEFINE_REF_CAST(f32,s8);
+SCALECONV_DEFINE_REF_CAST(f32,u8);
+SCALECONV_DEFINE_REF_CAST(f32,s16);
+SCALECONV_DEFINE_REF_CAST(f32,u16);
+SCALECONV_DEFINE_REF_CAST(f32,s32);
+SCALECONV_DEFINE_REF_CAST(f32,u32);
 
-	for(i=0;i<8;i++){
-		if(strncmp(s, typenames[i], strlen(typenames[i]))==0){
-			return i;
-		}
-	}
-
-	return 0;
-}
-#endif
-
-#ifdef unused
-static void conv_test(OilFunctionClass *klass, OilFunctionImpl *impl)
-{
-	int n_iter = 100;
-	int length = 100;
-	int typesizes[8] = { 1, 1, 2, 2, 4, 4, 4, 8 };
-	const char *s;
-	int type1, type2;
-	void *src;
-	void *dest;
-	OilProfile prof;
-	int n;
-
-	//printf("  testing %s\n", klass->name);
-
-	s = strchr(klass->name, '_');
-	type1 = get_type(s);
-
-	s = strchr(s+1, '_');
-	type2 = get_type(s);
-
-	//printf("  types %d %d\n", type1, type2);
-
-	dest = malloc(n_iter * typesizes[type1]);
-	src = malloc(n_iter * typesizes[type2]);
-
-	memset(src,0,n_iter * typesizes[type2]);
-#if 0
-	dest = malloc(n_iter * 8);
-	src = malloc(n_iter * 8);
-#endif
-
-	oil_profile_init(prof);
-	for(n=0;n<n_iter;n++){
-		oil_profile_start(prof);
-		((void (*)(void *, int, void *, int, int))impl->func)
-			(dest, typesizes[type1], src, typesizes[type2], length);
-		oil_profile_stop(prof);
-	}
-
-	//oil_profile_print(prof);
-
-	impl->prof = prof.tmin;
-
-	free(dest);
-	free(src);
-}
-#endif
+SCALECONV_DEFINE_REF_CAST(f64,s8);
+SCALECONV_DEFINE_REF_CAST(f64,u8);
+SCALECONV_DEFINE_REF_CAST(f64,s16);
+SCALECONV_DEFINE_REF_CAST(f64,u16);
+SCALECONV_DEFINE_REF_CAST(f64,s32);
+SCALECONV_DEFINE_REF_CAST(f64,u32);
 
