@@ -1,5 +1,9 @@
 2005-05-08  David Schleef  <ds@schleef.org>
 
+	* configure.ac: version bump
+
+2005-05-08  David Schleef  <ds@schleef.org>
+
 	Rearrangement of docs
 	* doc/liboil-docs.sgml:
 	* doc/liboil-sections.txt:

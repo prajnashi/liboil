@@ -1,5 +1,5 @@
 AC_PREREQ([2.58])
-AC_INIT(liboil,0.3.1.1)
+AC_INIT(liboil,0.3.2)
 
 AS_NANO(LIBOIL_CVS=no,LIBOIL_CVS=yes)
 
@@ -17,7 +17,7 @@ dnl - library source changed -> increment REVISION
 dnl - interfaces added/removed/changed -> increment CURRENT, REVISION = 0
 dnl - interfaces added -> increment AGE
 dnl - interfaces removed -> AGE = 0
-LIBOIL_LIBVERSION="0:0:0"
+LIBOIL_LIBVERSION="1:0:1"
 AC_SUBST(LIBOIL_LIBVERSION)
 AM_PROG_LIBTOOL
 
