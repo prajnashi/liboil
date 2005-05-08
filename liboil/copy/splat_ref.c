@@ -128,7 +128,8 @@ static void splat_u8_ns_int (uint8_t *dest, uint8_t *param, int n)
   n >>= 4;
   p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
   while(n>0){
-    *(uint32_t *)param = p;
+    *(uint32_t *)dest = p;
+    dest+=4;
     n--;
   }
 }

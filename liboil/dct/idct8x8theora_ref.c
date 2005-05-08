@@ -194,7 +194,7 @@ idct8theora_s16_float (int16_t *dest, int dstr, int16_t *src, int sstr)
   }
   oil_conv_s16_f64 (dest, sizeof(int16_t), tmp2, sizeof(double), 8);
 }
-OIL_DEFINE_IMPL_REF (idct8theora_s16_float, idct8theora_s16);
+OIL_DEFINE_IMPL (idct8theora_s16_float, idct8theora_s16);
 #endif
 
 

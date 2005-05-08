@@ -1,3 +1,12 @@
+2005-05-07  David Schleef  <ds@schleef.org>
+
+	* liboil/copy/splat_ref.c: (splat_u8_ns_int): Stupid monkey! make
+	the function actually do what it's supposed to do.
+	* liboil/copy/trans8x8_i386.c: (trans8x8_u16_asm2): Remove ebx
+	clobbering
+	* liboil/dct/idct8x8theora_ref.c: remove _REF flag for non-ref
+	function.
+
 2005-05-06  David Schleef  <ds@schleef.org>
 
 	* examples/jpeg/jpeg.c: (jpeg_decoder_decode_entropy_segment):

@@ -230,7 +230,7 @@ trans8x8_u16_asm2 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
       "  movl %5, %%ebx \n"
       :
       : "m" (dest), "m" (dstr), "m" (src), "m" (sstr), "m" (i), "m" (saved_ebx)
-      : "eax", "ebx", "ecx", "edx", "esi", "edi");
+      : "eax", "ecx", "edx", "esi", "edi");
 }
 OIL_DEFINE_IMPL (trans8x8_u16_asm2, trans8x8_u16);
 
