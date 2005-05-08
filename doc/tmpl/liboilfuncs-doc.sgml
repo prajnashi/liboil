@@ -53,7 +53,7 @@ array, the rows of the array are contiguous.
 
 <!-- ##### FUNCTION oil_abs_f32_f32 ##### -->
 <para>
-
+Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -62,12 +62,11 @@ array, the rows of the array are contiguous.
 @sstr: 
 @n: 
 
-Calculates the absolute value of each element.
 
 
 <!-- ##### FUNCTION oil_abs_f64_f64 ##### -->
 <para>
-
+Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -76,12 +75,13 @@ Calculates the absolute value of each element.
 @sstr: 
 @n: 
 
-Calculates the absolute value of each element.
+
 
 
 <!-- ##### FUNCTION oil_abs_u16_s16 ##### -->
 <para>
 
+Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -90,12 +90,12 @@ Calculates the absolute value of each element.
 @sstr: 
 @n: 
 
-Calculates the absolute value of each element.
 
 
 <!-- ##### FUNCTION oil_abs_u32_s32 ##### -->
 <para>
 
+Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -104,12 +104,12 @@ Calculates the absolute value of each element.
 @sstr: 
 @n: 
 
-Calculates the absolute value of each element.
 
 
 <!-- ##### FUNCTION oil_abs_u8_s8 ##### -->
 <para>
 
+Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -118,7 +118,6 @@ Calculates the absolute value of each element.
 @sstr: 
 @n: 
 
-Calculates the absolute value of each element.
 
 
 <!-- ##### FUNCTION oil_argb_paint_u8 ##### -->
@@ -135,6 +134,7 @@ Calculates the absolute value of each element.
 <!-- ##### FUNCTION oil_average2_u8 ##### -->
 <para>
 
+Calculates the average of each element in the source arrays.
 </para>
 
 @dest: 
@@ -145,24 +145,24 @@ Calculates the absolute value of each element.
 @sstr2: 
 @n: 
 
-Calculates the average of each element in the source arrays.
 
 
 <!-- ##### FUNCTION oil_ayuv2argb_u8 ##### -->
 <para>
 
+Converts an array of AYUV pixels to ARGB.
 </para>
 
 @d_4xn: 
 @s_4xn: 
 @n: 
 
-Converts an array of AYUV pixels to ARGB.
 
 
 <!-- ##### FUNCTION oil_clip_f32 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -173,12 +173,12 @@ Converts an array of AYUV pixels to ARGB.
 @s2_1: minumum
 @s3_1: maximum
 
-Clips each element in the first source array.
 
 
 <!-- ##### FUNCTION oil_clip_f64 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -189,12 +189,12 @@ Clips each element in the first source array.
 @s2_1: minumum
 @s3_1: maximum
 
-Clips each element in the first source array.
 
 
 <!-- ##### FUNCTION oil_clip_s16 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -205,12 +205,12 @@ Clips each element in the first source array.
 @s2_1: minumum
 @s3_1: maximum
 
-Clips each element in the first source array.
 
 
 <!-- ##### FUNCTION oil_clip_s32 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -218,13 +218,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: 
-@s3_1: 
+@s2_1: minimum
+@s3_1: maximum
+
 
 
 <!-- ##### FUNCTION oil_clip_s8 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -232,13 +234,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: 
-@s3_1: 
+@s2_1: minimum
+@s3_1: maximum
+
 
 
 <!-- ##### FUNCTION oil_clip_u16 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -246,13 +250,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: 
-@s3_1: 
+@s2_1: minimum
+@s3_1: maximum
+
 
 
 <!-- ##### FUNCTION oil_clip_u32 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -260,13 +266,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: 
-@s3_1: 
+@s2_1: minimum
+@s3_1: maximum
+
 
 
 <!-- ##### FUNCTION oil_clip_u8 ##### -->
 <para>
 
+Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -274,24 +282,30 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: 
-@s3_1: 
+@s2_1: minimum
+@s3_1: maximum
+
 
 
 <!-- ##### FUNCTION oil_clipconv8x8_u8_s16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @d_8x8: 
 @dstr: 
 @s_8x8: 
 @sstr: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s16_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -299,11 +313,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s16_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -311,11 +328,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s16_s32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -323,11 +343,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s16_u16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -335,11 +358,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s16_u32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -347,11 +373,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s32_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -359,11 +388,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s32_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -371,11 +403,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s32_u32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -383,11 +418,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -395,11 +433,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -407,11 +448,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_s16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -419,11 +463,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_s32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -431,11 +478,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_u16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -443,11 +493,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_u32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -455,11 +508,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_s8_u8 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -467,11 +523,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u16_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -479,11 +538,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u16_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -491,11 +553,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u16_s16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -503,11 +568,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u16_s32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -515,11 +583,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u16_u32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -527,11 +598,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u32_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -539,11 +613,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u32_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -551,11 +628,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u32_s32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -563,11 +643,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_f32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -575,11 +658,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_f64 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -587,11 +673,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_s16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -599,11 +688,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_s32 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -611,11 +703,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_s8 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -623,11 +718,14 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_u16 ##### -->
 <para>
 
+Converts source array to type of destination array, clipping values
+to the range of the destination type.
 </para>
 
 @dest: 
@@ -635,11 +733,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_clipconv_u8_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -647,22 +749,30 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv8x8_f64_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @d_8x8: 
 @dstr: 
 @s_8x8: 
 @sstr: 
+
 
 
 <!-- ##### FUNCTION oil_conv8x8_s16_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @d_8x8: 
@@ -671,9 +781,13 @@ Clips each element in the first source array.
 @sstr: 
 
 
+
 <!-- ##### FUNCTION oil_conv_f32_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -681,11 +795,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -693,11 +811,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -705,11 +827,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -717,11 +843,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -729,11 +859,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -741,11 +875,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f32_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -753,11 +891,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -765,11 +907,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -777,11 +923,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -789,11 +939,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -801,11 +955,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -813,11 +971,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -825,11 +987,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_f64_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -837,11 +1003,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -849,11 +1019,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -861,11 +1035,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -873,11 +1051,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -885,11 +1067,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -897,11 +1083,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -909,11 +1099,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s16_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -921,11 +1115,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -933,11 +1131,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -945,11 +1147,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -957,11 +1163,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -969,11 +1179,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -981,11 +1195,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -993,11 +1211,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s32_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1005,11 +1227,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1017,11 +1243,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1029,11 +1259,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1041,11 +1275,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1053,11 +1291,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1065,11 +1307,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1077,11 +1323,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_s8_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1089,11 +1339,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1101,11 +1355,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1113,11 +1371,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1125,11 +1387,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1137,11 +1403,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1149,11 +1419,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1161,11 +1435,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u16_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1173,11 +1451,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1185,11 +1467,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1197,11 +1483,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1209,11 +1499,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1221,11 +1515,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1233,11 +1531,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1245,11 +1547,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u32_u8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1257,11 +1563,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_f32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1269,11 +1579,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_f64 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1281,11 +1595,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_s16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1293,11 +1611,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_s32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1305,11 +1627,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_s8 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1317,11 +1643,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_u16 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1329,11 +1659,15 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_conv_u8_u32 ##### -->
 <para>
 
+Converts each element in the source array to the type of destination
+array.  Destination values outside the range of the destination type
+are unspecified.
 </para>
 
 @dest: 
@@ -1343,14 +1677,18 @@ Clips each element in the first source array.
 @n: 
 
 
+
 <!-- ##### FUNCTION oil_copy_u8 ##### -->
 <para>
 
+Copies the source array to the destination array with no modification.
+This function is identical to memcpy().
 </para>
 
 @dest: 
 @src: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_dct36_f32 ##### -->
@@ -1367,6 +1705,9 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_dequantize8x8_s16 ##### -->
 <para>
 
+Multiplies each value in first source array with corresponding value
+in second source array, and places result in destination array.  This
+function would be more appropriately called oil_mult8x8_s16().
 </para>
 
 @d_8x8: 
@@ -1377,9 +1718,13 @@ Clips each element in the first source array.
 @sstr2: 
 
 
+
 <!-- ##### FUNCTION oil_diffsquaresum_f64 ##### -->
 <para>
 
+Subtracts each value in first source array with corresponding value
+in second source array, squares the result, and then sums the results
+over the entire array, placing the result in the destination.
 </para>
 
 @d_1: 
@@ -1390,9 +1735,11 @@ Clips each element in the first source array.
 @n: 
 
 
+
 <!-- ##### FUNCTION oil_fdct8_f64 ##### -->
 <para>
 
+Calculates the forward discrete cosine transform on the source array.
 </para>
 
 @d_8: 
@@ -1401,9 +1748,11 @@ Clips each element in the first source array.
 @sstr: 
 
 
+
 <!-- ##### FUNCTION oil_fdct8x8_f64 ##### -->
 <para>
 
+Calculates the 2-D forward discrete cosine transform on the source array.
 </para>
 
 @d_8x8: 
@@ -1412,9 +1761,13 @@ Clips each element in the first source array.
 @sstr: 
 
 
+
 <!-- ##### FUNCTION oil_fdct8x8s_s16 ##### -->
 <para>
 
+Calculates the 2-D forward discrete cosine transform on the source array,
+multiplying some values in the destination array by values interesting
+to the algorithm.  This function is not recommended.
 </para>
 
 @d_8x8: 
@@ -1423,9 +1776,11 @@ Clips each element in the first source array.
 @ss: 
 
 
+
 <!-- ##### FUNCTION oil_idct8_f64 ##### -->
 <para>
 
+Calculates the inverse discrete cosine transform on the source array.
 </para>
 
 @d_8: 
@@ -1434,20 +1789,26 @@ Clips each element in the first source array.
 @sstr: 
 
 
+
 <!-- ##### FUNCTION oil_idct8x8_f64 ##### -->
 <para>
 
+Calculates the 2-D inverse discrete cosine transform on the source array.
 </para>
 
 @d_8x8: 
 @dstr: 
 @s_8x8: 
 @sstr: 
+
 
 
 <!-- ##### FUNCTION oil_idct8x8_s16 ##### -->
 <para>
 
+Calculates the 2-D inverse discrete cosine transform on the source array,
+multiplying some values in the destination array by values interesting
+to the algorithm.  This function is not recommended.
 </para>
 
 @d_8x8: 
@@ -1456,58 +1817,77 @@ Clips each element in the first source array.
 @sstr: 
 
 
+
 <!-- ##### FUNCTION oil_imdct12_f64 ##### -->
 <para>
 
+Calculate the inverse modified discrete cosine transform of the source
+array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_12: 
 @s_6: 
 
 
+
 <!-- ##### FUNCTION oil_imdct32_f32 ##### -->
 <para>
 
+Calculate the inverse modified discrete cosine transform of the source
+array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_32: 
 @s_32: 
 
 
+
 <!-- ##### FUNCTION oil_imdct36_f64 ##### -->
 <para>
 
+Calculate the inverse modified discrete cosine transform of the source
+array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_36: 
 @s_18: 
 
 
+
 <!-- ##### FUNCTION oil_md5 ##### -->
 <para>
 
+Convolves the MD5 checksum using the given source data.  The complete
+algorithm for calculating MD5 checksums requires additional preparation
+of the data.  See the example in the examples/md5 directory in the
+source tree.
 </para>
 
 @i_4: 
 @s_16: 
 
 
+
 <!-- ##### FUNCTION oil_mdct12_f64 ##### -->
 <para>
 
+Calculates the modified discrete cosine transform of the source array.
 </para>
 
 @d_6: 
 @s_12: 
 
 
+
 <!-- ##### FUNCTION oil_mdct36_f64 ##### -->
 <para>
 
+Calculates the modified discrete cosine transform of the source array.
 </para>
 
 @d_18: 
 @s_36: 
+
 
 
 <!-- ##### FUNCTION oil_mix_u8 ##### -->
@@ -1564,7 +1944,9 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_null ##### -->
 <para>
 
+Does nothing, and does it surprisingly fast.
 </para>
+
 
 
 
@@ -1959,23 +2341,29 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_splat_u32 ##### -->
 <para>
 
+Copies the value in the source array to each element in the destination
+array.
 </para>
 
 @dest: 
 @dstr: 
 @s1_1: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_splat_u8 ##### -->
 <para>
 
+Copies the value in the source array to each element in the destination
+array.
 </para>
 
 @dest: 
 @dstr: 
 @s1_1: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_squaresum_f64 ##### -->
@@ -1991,12 +2379,15 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_sum_f64 ##### -->
 <para>
 
+Sums each element in the source array and places the result in
+the destination array.
 </para>
 
 @dest: 
 @src: 
 @sstr: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_tablelookup_u8 ##### -->
@@ -2016,45 +2407,53 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_trans8x8_f64 ##### -->
 <para>
 
+Transposes the source array.
 </para>
 
 @d_8x8: 
 @ds: 
 @s_8x8: 
 @ss: 
+
 
 
 <!-- ##### FUNCTION oil_trans8x8_u16 ##### -->
 <para>
 
+Transposes the source array.
 </para>
 
 @d_8x8: 
 @ds: 
 @s_8x8: 
 @ss: 
+
 
 
 <!-- ##### FUNCTION oil_trans8x8_u32 ##### -->
 <para>
 
+Transposes the source array.
 </para>
 
 @d_8x8: 
 @ds: 
 @s_8x8: 
 @ss: 
+
 
 
 <!-- ##### FUNCTION oil_trans8x8_u8 ##### -->
 <para>
 
+Transposes the source array.
 </para>
 
 @d_8x8: 
 @ds: 
 @s_8x8: 
 @ss: 
+
 
 
 <!-- ##### FUNCTION oil_unzigzag8x8_s16 ##### -->
@@ -2071,11 +2470,15 @@ Clips each element in the first source array.
 <!-- ##### FUNCTION oil_utf8_validate ##### -->
 <para>
 
+Checks the source array for valid UTF-8 characters.  Processing stops
+once an invalid character is found.  The number of bytes containing
+valid UTF-8 characters is placed in the destination.
 </para>
 
 @d_1: 
 @s: 
 @n: 
+
 
 
 <!-- ##### FUNCTION oil_vectoradd_f32 ##### -->
@@ -2251,5 +2654,438 @@ Clips each element in the first source array.
 @ds: 
 @s_8x8: 
 @ss: 
+
+
+<!-- ##### FUNCTION oil_idct8theora_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_8: 
+@dstr: 
+@s_8: 
+@sstr: 
+
+
+
+<!-- ##### FUNCTION oil_idct8x8lim10_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+
+
+<!-- ##### FUNCTION oil_idct8x8lim10_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+
+
+<!-- ##### FUNCTION oil_idct8x8theora_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_8x8: 
+@dstr: 
+@s_8x8: 
+@sstr: 
+
+
+
+<!-- ##### FUNCTION oil_sad8x8_f64_2 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_1: 
+@s1_8x8: 
+@ss1: 
+@s2_8x8: 
+@ss2: 
+
+
+
+<!-- ##### FUNCTION oil_sad8x8_s16_2 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_1: 
+@s1_8x8: 
+@ss1: 
+@s2_8x8: 
+@ss2: 
+
+
+
+<!-- ##### FUNCTION oil_sad8x8_u8 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@d_1: 
+@s1_8x8: 
+@ss1: 
+@s2_8x8: 
+@ss2: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_s32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_s8 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_u16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_u32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f32_u8 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_s32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_s8 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_u16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_u32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_f64_u8 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s16_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s16_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s32_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s32_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s8_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_s8_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u16_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u16_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u32_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u32_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u8_f32 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_scaleconv_u8_f64 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@src: 
+@n: 
+@s2_1: 
+@s3_1: 
+
+
+
+<!-- ##### FUNCTION oil_splat_u32_ns ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@s1_1: 
+@n: 
+
+
+
+<!-- ##### FUNCTION oil_splat_u8_ns ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@s1_1: 
+@n: 
+
+
+
+<!-- ##### MACRO oil_trans8x8_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+
 
 

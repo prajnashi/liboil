@@ -73,9 +73,6 @@ Random Ideas
 Why is trans8x8_f64 so slow on powerpc (compared to trans8x8_u16)?
 
 oil_restride_XXX() - copy with stride
-oil_scaleconv_s16_f32() - multiply by constant and convert
-oil_scaleclipconv_s16_f32() - multiply by constant, clip, and convert
-oil_splat_XXX()
 
 
 

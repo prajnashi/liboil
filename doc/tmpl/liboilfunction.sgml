@@ -163,6 +163,13 @@ OilFunction
 
 
 
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE3 ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### MACRO OIL_IMPL_FLAG_3DNOW ##### -->
 <para>
 
@@ -341,5 +348,25 @@ OilFunction
 
 @klass_name: 
 @impl: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl ##### -->
+<para>
+
+</para>
+
+@klass: 
+@impl: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl_full ##### -->
+<para>
+
+</para>
+
+@klass: 
+@func: 
+@name: 
+@flags: 
 
 
