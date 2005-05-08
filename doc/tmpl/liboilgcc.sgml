@@ -1,8 +1,8 @@
 <!-- ##### SECTION Title ##### -->
-Initialization
+liboilgcc
 
 <!-- ##### SECTION Short_Description ##### -->
-Functions for library initialization
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -13,11 +13,4 @@ Functions for library initialization
 <para>
 
 </para>
-
-<!-- ##### FUNCTION oil_init ##### -->
-<para>
-
-</para>
-
-
 

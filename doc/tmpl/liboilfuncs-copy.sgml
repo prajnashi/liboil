@@ -1,0 +1,292 @@
+<!-- ##### SECTION Title ##### -->
+Copying
+
+<!-- ##### SECTION Short_Description ##### -->
+Copy and rearrangement function classes
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+These functions copy data from source array to destination array,
+sometimes modifying position in the array.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION oil_copy_u8 ##### -->
+<para>
+
+Copies the source array to the destination array with no modification.
+This function is identical to memcpy().
+</para>
+
+@dest: 
+@src: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_permute_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_splat_u32 ##### -->
+<para>
+
+Copies the value in the source array to each element in the destination
+array.
+</para>
+
+@dest: 
+@dstr: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_splat_u8 ##### -->
+<para>
+
+Copies the value in the source array to each element in the destination
+array.
+</para>
+
+@dest: 
+@dstr: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_tablelookup_u8 ##### -->
+<para>
+
+</para>
+
+@d: 
+@ds: 
+@s1: 
+@ss1: 
+@s2_256: 
+@ss2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_trans8x8_f64 ##### -->
+<para>
+
+Transposes the source array.
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_trans8x8_u16 ##### -->
+<para>
+
+Transposes the source array.
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_trans8x8_u32 ##### -->
+<para>
+
+Transposes the source array.
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_trans8x8_u8 ##### -->
+<para>
+
+Transposes the source array.
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_unzigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_zigzag8x8_s16 ##### -->
+<para>
+
+</para>
+
+@d_8x8: 
+@ds: 
+@s_8x8: 
+@ss: 
+
+
+<!-- ##### FUNCTION oil_splat_u32_ns ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_splat_u8_ns ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### MACRO oil_trans8x8_s16 ##### -->
+<para>
+Requires version 0.3.2
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+
+
+<!-- ##### MACRO oil_memcpy ##### -->
+<para>
+Copies data from a source location to destination.  Similar to memcpy().
+</para>
+
+@dest: pointer to destination memory
+@src: pointer to source memory
+@n_bytes: number of bytes to copy
+
+

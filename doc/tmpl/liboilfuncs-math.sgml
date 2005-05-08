@@ -1,0 +1,478 @@
+<!-- ##### SECTION Title ##### -->
+Simple Math
+
+<!-- ##### SECTION Short_Description ##### -->
+Function Classes for Simple Arithmetic Operations
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION oil_abs_f32_f32 ##### -->
+<para>
+Calculates the absolute value of each element.
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_abs_f64_f64 ##### -->
+<para>
+Calculates the absolute value of each element.
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_abs_u16_s16 ##### -->
+<para>
+
+Calculates the absolute value of each element.
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_abs_u32_s32 ##### -->
+<para>
+
+Calculates the absolute value of each element.
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_abs_u8_s8 ##### -->
+<para>
+
+Calculates the absolute value of each element.
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_average2_u8 ##### -->
+<para>
+
+Calculates the average of each element in the source arrays.
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_multsum_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_multsum_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmult_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src: 
+@sstr: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+@s3_1: 
+@s4_1: 
+
+
+<!-- ##### FUNCTION oil_squaresum_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@src: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_sum_f64 ##### -->
+<para>
+
+Sums each element in the source array and places the result in
+the destination array.
+</para>
+
+@dest: 
+@src: 
+@sstr: 
+@n: 
+
+

@@ -1,3 +1,83 @@
+<!-- ##### SECTION ./tmpl/conv.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/conv.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/conv.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/conv.sgml:Title ##### -->
+conv
+
+
+<!-- ##### SECTION ./tmpl/convert.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/convert.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/convert.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/convert.sgml:Title ##### -->
+convert
+
+
+<!-- ##### SECTION ./tmpl/dct.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/dct.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/dct.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/dct.sgml:Title ##### -->
+dct
+
+
+<!-- ##### SECTION ./tmpl/jpeg.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/jpeg.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/jpeg.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/jpeg.sgml:Title ##### -->
+jpeg
+
+
 <!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Long_Description ##### -->
 <para>
 
@@ -16,6 +96,66 @@
 
 <!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Title ##### -->
 liboilfuncs
+
+
+<!-- ##### SECTION ./tmpl/md5.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/md5.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/md5.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/md5.sgml:Title ##### -->
+md5
+
+
+<!-- ##### SECTION ./tmpl/simdpack.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/simdpack.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/simdpack.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/simdpack.sgml:Title ##### -->
+simdpack
+
+
+<!-- ##### SECTION ./tmpl/utf8.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/utf8.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/utf8.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/utf8.sgml:Title ##### -->
+utf8
 
 
 <!-- ##### USER_FUNCTION _oil_type_abs_f32_f32 ##### -->

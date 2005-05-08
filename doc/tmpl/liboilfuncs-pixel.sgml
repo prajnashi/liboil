@@ -1,0 +1,93 @@
+<!-- ##### SECTION Title ##### -->
+Pixel Operations
+
+<!-- ##### SECTION Short_Description ##### -->
+Pixel Operation Function Classes
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION oil_argb_paint_u8 ##### -->
+<para>
+
+</para>
+
+@i_4xn: 
+@s1_4: 
+@s2_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_ayuv2argb_u8 ##### -->
+<para>
+
+Converts an array of AYUV pixels to ARGB.
+</para>
+
+@d_4xn: 
+@s_4xn: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_rgb2bgr ##### -->
+<para>
+
+</para>
+
+@d_3xn: 
+@s_3xn: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_rgb2rgba ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@s_3xn: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_yuv2rgbx_sub2_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_yuv2rgbx_sub4_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_yuv2rgbx_u8 ##### -->
+<para>
+
+</para>
+
+@d_4xn: 
+@src1: 
+@src2: 
+@src3: 
+@n: 
+
+

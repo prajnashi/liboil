@@ -16,6 +16,12 @@
     </para>
 
     <xi:include href="xml/liboil.xml"/>
+    <xi:include href="xml/liboilfuncs-conv.xml"/>
+    <xi:include href="xml/liboilfuncs-copy.xml"/>
+    <xi:include href="xml/liboilfuncs-math.xml"/>
+    <xi:include href="xml/liboilfuncs-math8x8.xml"/>
+    <xi:include href="xml/liboilfuncs-dct.xml"/>
+    <xi:include href="xml/liboilfuncs-pixel.xml"/>
     <xi:include href="xml/liboilfuncs-doc.xml"/>
 
   </chapter>
