@@ -1,5 +1,11 @@
 2005-05-08  David Schleef  <ds@schleef.org>
 
+	* patches/patch-remove-indirection: Some patches that might get
+	applied in 0.4 transition.
+	* patches/patch-small-lib:
+
+2005-05-08  David Schleef  <ds@schleef.org>
+
 	* configure.ac: version bump
 	* liboil/liboilprofile.h: disable broken MIPS code
 

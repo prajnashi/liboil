@@ -1,0 +1,62 @@
+
+An idea.  Don't remember if it works or helps.  Enabling
+-ffunction-sections could be a good first step to implementing
+library peeling.
+
+Index: configure.ac
+===================================================================
+RCS file: /var/cvs/liboil/configure.ac,v
+retrieving revision 1.33
+diff -u -r1.33 configure.ac
+--- configure.ac	11 Jan 2005 08:03:08 -0000	1.33
++++ configure.ac	13 Jan 2005 06:41:40 -0000
+@@ -128,7 +128,7 @@
+     true)
+ fi
+ 
+-LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir) -O2"
++LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir) -O2 -ffunction-sections -fdata-sections"
+ AC_SUBST(LIBOIL_CFLAGS)
+ 
+ LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
+Index: liboil/Makefile.am
+===================================================================
+RCS file: /var/cvs/liboil/liboil/Makefile.am,v
+retrieving revision 1.26
+diff -u -r1.26 Makefile.am
+--- liboil/Makefile.am	10 Jan 2005 04:51:51 -0000	1.26
++++ liboil/Makefile.am	13 Jan 2005 06:41:40 -0000
+@@ -30,7 +30,8 @@
+ 
+ liboiltmp1_la_SOURCES =
+ liboiltmp1_la_LDFLAGS = -lm \
+-	-export-symbols-regex 'oil_'
++	-export-symbols-regex 'oil_' \
++	-Wl,--gc-sections
+ liboiltmp1_la_LIBADD = \
+ 	liboilfunctions.la
+ 
+@@ -55,7 +56,8 @@
+ liboil_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS)
+ liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = -lm \
+ 	-version-info $(LIBOIL_LIBVERSION) \
+-	-export-symbols-regex '^oil_'
++	-export-symbols-regex '^oil_' \
++	-Wl,--gc-sections
+ 
+ # This is required to use 'make -j2'. Automake doesn't seem to notice
+ # that one of the dependencies is in this directory.
+@@ -85,11 +87,11 @@
+ 	echo '  NULL' >>liboilarray.c
+ 	echo '};' >>liboilarray.c
+ 	echo >>liboilarray.c
+-	grep '^_oil_function_impl_' .libs/liboiltmp1.exp | \
++	grep '^_oil_function_impl_.*ref' .libs/liboiltmp1.exp | \
+ 	  sed 's/.*/extern OilFunctionImpl &;/' >>liboilarray.c
+ 	echo >>liboilarray.c
+ 	echo 'OilFunctionImpl *_oil_function_impl_array[] = {' >>liboilarray.c
+-	grep '^_oil_function_impl_' .libs/liboiltmp1.exp | \
++	grep '^_oil_function_impl_.*ref' .libs/liboiltmp1.exp | \
+ 	  sed 's/.*/  \&&,/' >>liboilarray.c
+ 	echo '  NULL' >>liboilarray.c
+ 	echo '};' >>liboilarray.c
