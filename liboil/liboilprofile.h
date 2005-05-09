@@ -91,9 +91,9 @@ static inline unsigned long oil_profile_stamp(void)
 	return ts;
 }
 
-#elif defined(__mips__)
+#elif defined(__mips__) && 0
 
-/* untested */
+/* broken */
 static inline unsigned long oil_profile_stamp(void)
 {
 	unsigned int ts;

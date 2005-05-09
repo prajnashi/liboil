@@ -1,5 +1,5 @@
 AC_PREREQ([2.58])
-AC_INIT(liboil,0.3.2)
+AC_INIT(liboil,0.3.2.1)
 
 AS_NANO(LIBOIL_CVS=no,LIBOIL_CVS=yes)
 
