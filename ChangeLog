@@ -1,3 +1,20 @@
+2005-05-26  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/argb_paint_i386.c: (argb_paint_u8_mmx):
+	  fix asm contraints that gcc-4.0 doesn't like
+	* liboil/conv/conv_3dnow.c: (conv_f32_s16_3dnow),
+	(conv_s32_f32_3dnow): remove mm0 constraint, it's irrelevant
+	* liboil/conv/conv_sse.c: (conv_f32_s32_sse), (conv_s32_f64_sse):
+	* liboil/copy/splat_ref.c: (splat_u32_ns_unroll4): add another
+	  unroll
+	* liboil/liboilfunction.h: parentheses are good
+
+	* liboil/sse/Makefile.am: add a separate directory for SSE
+	  intrinsics, since they need to be compiled with special flags.
+	* liboil/sse/conv_sse.c: (conv_f32_s32_sse):
+	* liboil/Makefile.am: add sse directory
+	* configure.ac: cleanup
+
 2005-05-08  David Schleef  <ds@schleef.org>
 
 	* patches/patch-remove-indirection: Some patches that might get

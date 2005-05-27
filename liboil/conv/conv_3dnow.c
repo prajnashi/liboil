@@ -42,8 +42,9 @@ conv_f32_s16_3dnow (float *dst, int dst_stride, int16_t * src, int src_stride,
   for (i = 0; i < n; i++) {
     asm volatile ("  movswl 0(%0), %%eax \n"
         "  movd %%eax, %%mm0 \n"
-        "  pi2fd %%mm0, %%mm0 \n" "  movd %%mm0, 0(%1) \n"::"r" (src), "r" (dst)
-        :"eax", "mm0");
+        "  pi2fd %%mm0, %%mm0 \n" "  movd %%mm0, 0(%1) \n"
+        ::"r" (src), "r" (dst)
+        :"eax");
 
     dst = OIL_OFFSET (dst, dst_stride);
     src = OIL_OFFSET (src, src_stride);
@@ -74,7 +75,7 @@ conv_s32_f32_3dnow (int32_t * dst, int dst_stride, float *src, int src_stride,
         "  movd %%mm1, 0(%1) \n"
         :
         :"r" (src), "r" (dst), "r" (constants)
-        :"mm0");
+        );
 
     dst = OIL_OFFSET (dst, dst_stride);
     src = OIL_OFFSET (src, src_stride);

@@ -83,7 +83,7 @@ argb_paint_u8_mmx (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
       "  decl %3\n"
       "  jne 1b\n"
       "  emms\n"
-      : "+r" (dest), "+%%eax" (color), "+r" (alpha), "+r" (n)
+      : "+r" (dest), "+a" (color), "+r" (alpha), "+r" (n)
       : "r" (&constants));
 }
 OIL_DEFINE_IMPL_FULL (argb_paint_u8_mmx, argb_paint_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_SSE);

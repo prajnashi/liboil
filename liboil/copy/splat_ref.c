@@ -111,6 +111,25 @@ static void splat_u32_ns_unroll2 (uint32_t *dest, uint32_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u32_ns_unroll2, splat_u32_ns);
 
+static void splat_u32_ns_unroll4 (uint32_t *dest, uint32_t *param, int n)
+{
+  int i;
+  while (n&3) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  n >>= 2;
+  for(i=0;i<n;i++){
+    dest[0] = *param;
+    dest[1] = *param;
+    dest[2] = *param;
+    dest[3] = *param;
+    dest+=4;
+  }
+}
+OIL_DEFINE_IMPL(splat_u32_ns_unroll4, splat_u32_ns);
+
 static void splat_u8_ns_memset (uint8_t *dest, uint8_t *param, int n)
 {
   memset (dest, *param, n);

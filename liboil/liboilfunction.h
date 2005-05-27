@@ -72,9 +72,9 @@ struct _OilFunctionImpl {
         double profile_std;
 };
 
-#define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + offset) )
-#define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + offset) )
-#define OIL_INCREMENT(ptr, offset) (ptr = (void *)((uint8_t *)ptr + offset) )
+#define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + (offset)) )
+#define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + (offset)) )
+#define OIL_INCREMENT(ptr, offset) (ptr = (void *)((uint8_t *)ptr + (offset)) )
 
 #define OIL_IMPL_FLAG_REF	(1<<0)
 #define OIL_IMPL_FLAG_OPT	(1<<1)

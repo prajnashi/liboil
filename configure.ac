@@ -136,6 +136,7 @@ AM_CONDITIONAL(HAVE_CPU_IA64, test "x$HAVE_CPU_IA64" = "xyes")
 
 AC_C_BIGENDIAN
 
+
 AC_FUNC_MMAP()
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
@@ -169,6 +170,19 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
     true)
 fi
 
+if test x$HAVE_CPU_I386 = xyes ; then
+  AS_COMPILER_FLAG(["-mmmx"], [MMX_CFLAGS="-mmmx"], true)
+  AS_COMPILER_FLAG(["-msse"], [SSE_CFLAGS="-msse"], true)
+  AS_COMPILER_FLAG(["-msse2"], [SSE2_CFLAGS="-msse2"], true)
+  AS_COMPILER_FLAG(["-msse3"], [SSE3_CFLAGS="-msse3"], true)
+  AS_COMPILER_FLAG(["-m3dnow"], [_3DNOW_CFLAGS="-m3dnow"], true)
+fi
+AC_SUBST(MMX_CFLAGS)
+AC_SUBST(SSE_CFLAGS)
+AC_SUBST(SSE2_CFLAGS)
+AC_SUBST(SSE3_CFLAGS)
+AC_SUBST(_3DNOW_CFLAGS)
+
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -I\$(top_srcdir) -O2"
 AC_SUBST(LIBOIL_CFLAGS)
 
@@ -179,7 +193,7 @@ pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
 
 #CFLAGS=`echo "$CFLAGS" | sed -e 's/-O[0-9*]//g'`
-CFLAGS="-g"
+#CFLAGS="-g"
 
 AC_CONFIG_FILES([
 Makefile 
@@ -192,6 +206,7 @@ liboil/dct/Makefile
 liboil/md5/Makefile
 liboil/jpeg/Makefile
 liboil/simdpack/Makefile
+liboil/sse/Makefile
 liboil/utf8/Makefile
 testsuite/Makefile
 examples/Makefile
