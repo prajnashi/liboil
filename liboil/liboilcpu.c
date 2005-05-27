@@ -396,3 +396,28 @@ oil_cpu_fault_check_disable (void)
   }
 }
 
+void oil_memory_prefetch_local (void *ptr, int n_bytes)
+{
+#ifdef __i386__
+  if (oil_cpu_flags & OIL_IMPL_FLAG_MMX) {
+    asm volatile (
+        "prefetcht0 %0\n"
+        :: "m" (ptr));
+  }
+#endif
+
+}
+
+void oil_memory_prefetch_transient (void *ptr, int n_bytes)
+{
+#ifdef __i386__
+  if (oil_cpu_flags & OIL_IMPL_FLAG_MMX) {
+    asm volatile (
+        "prefetchnta %0\n"
+        :: "m" (ptr));
+  }
+#endif
+
+}
+
+

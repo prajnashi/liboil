@@ -1,5 +1,11 @@
 2005-05-26  David Schleef  <ds@schleef.org>
 
+	* liboil/liboil.h:
+	* liboil/liboilcpu.c: (oil_memory_prefetch_local),
+	(oil_memory_prefetch_transient): Add prefetch functions.
+
+2005-05-26  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/argb_paint_i386.c: (argb_paint_u8_mmx):
 	  fix asm contraints that gcc-4.0 doesn't like
 	* liboil/conv/conv_3dnow.c: (conv_f32_s16_3dnow),
