@@ -1,7 +1,7 @@
 
 SUBDIRS = jpeg md5 uberopt work huffman
 
-noinst_PROGRAMS = example1 oil-inspect oil-test report
+noinst_PROGRAMS = example1 oil-inspect oil-test report memcpy-speed
 
 
 example1_SOURCES = example1.c
@@ -19,4 +19,8 @@ oil_test_LDADD = $(LIBOIL_LIBS)
 report_SOURCES = report.c
 report_CFLAGS = $(LIBOIL_CFLAGS)
 report_LDADD = $(LIBOIL_LIBS)
+
+memcpy_speed_SOURCES = memcpy-speed.c
+memcpy_speed_CFLAGS = $(LIBOIL_CFLAGS)
+memcpy_speed_LDADD = $(LIBOIL_LIBS)
 

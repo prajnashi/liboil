@@ -1,3 +1,16 @@
+2005-06-02  David Schleef  <ds@schleef.org>
+
+	* examples/Makefile.am:
+	* examples/memcpy-speed.c: (main):
+	  New memory speed test program
+	* examples/oil-test.c: (main):
+	  Use n=100 for test.
+	* liboil/copy/Makefile.am:
+	* liboil/copy/copy_i386.c: (copy_u8_mmx3):
+	  movntq based copy
+	* liboil/copy/splat_i386.c: (splat_u32_ns_mmx):
+	  movntq based splat
+
 2005-05-26  David Schleef  <ds@schleef.org>
 
 	* liboil/liboil.h:

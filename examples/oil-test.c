@@ -173,7 +173,7 @@ int main (int argc, char *argv[])
 
   test = oil_test_new(klass);
   oil_test_set_iterations(test, 1);
-  test->n = 10;
+  test->n = 100;
   test->m = 10;
 
   impl = klass->reference_impl;
@@ -184,6 +184,7 @@ int main (int argc, char *argv[])
   dump_source(test);
   printf ("reference impl %s\n", impl->name);
   printf("  ave=%g std=%g\n", ave, std);
+  printf("  (this test) ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
   dump_test(test);
 
   for (impl = klass->first_impl; impl; impl = impl->next) {
@@ -192,6 +193,7 @@ int main (int argc, char *argv[])
     if (oil_impl_is_runnable (impl)) {
       printf("  ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
       oil_test_check_impl (test, impl);
+      printf("  (this test) ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
       dump_test(test);
     }
   }

@@ -92,11 +92,40 @@ copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx2, copy_u8, OIL_IMPL_FLAG_MMX);
 
-
-
-
-
-
+static void
+copy_u8_mmx3 (uint8_t *dest, uint8_t *src, int n)
+{
+  while(n&0x3) {
+    *dest++ = *src++;
+    n--;
+  }
+  while (n&0x3c) {
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+    n-=4;
+  }
+  if (n) asm volatile (
+      "  mov $0, %%eax\n"
+      "1:\n"
+      //"  prefetchnta 128(%1,%%eax)\n"
+      "  pxor (%1,%%eax), %%mm0\n"
+      "  pxor 8(%1,%%eax), %%mm1\n"
+      "  pxor 16(%1,%%eax), %%mm2\n"
+      "  pxor 24(%1,%%eax), %%mm3\n"
+      "  movntq %%mm0, (%0,%%eax)\n"
+      "  movntq %%mm1, 8(%0,%%eax)\n"
+      "  movntq %%mm2, 16(%0,%%eax)\n"
+      "  movntq %%mm3, 24(%0,%%eax)\n"
+      "  add $32, %%eax\n"
+      "  decl %%ecx\n"
+      "  jne 1b\n"
+      "  emms\n"
+      : "+r" (dest), "+r" (src)
+      : "c" (n/32)
+      : "eax");
+}
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx3, copy_u8, OIL_IMPL_FLAG_MMX);
 
 
 
