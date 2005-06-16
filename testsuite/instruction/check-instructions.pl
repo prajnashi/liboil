@@ -378,7 +378,68 @@ sub check
 	"unpckhpd",
 	"unpcklpd",
 	"xorpd",
+	"movd", # xmm regs
+	"movdqa",
+	"movdqu",
+	"movq2dq",
+	"movdq2q",
+	"movq", # xmm regs
+	"packssdw",
+	"packsswb",
+	"packuswb",
+	"paddq",
+	"padd",
+	"padds",
+	"paddus",
+	"pand", # xmm regs
+	"pandn", # xmm regs
+	"pavgb", # xmm regs
+	"pavgw",
+	"pcmpeq",
+	"pcmpgt",
+	"pextrw",
+	"pinsrw",
+	"pmaddwd",
+	"pmaxsw",
+	"pmaxub",
+	"pminsw",
+	"pminub",
+	"pmovmskb",
+	"pmulhuw",
+	"pmulhw",
+	"pmullw",
+	"pmuludq",
+	"por",
+	"psadbw",
+	"pshuflw",
+	"pshufhw",
+	"pshufd",
+	"pslldq",
+	"psll",
+	"psra",
+	"psrldq",
+	"psrl",
+	"psubq",
+	"psub",
+	"psubs",
+	"psubus",
+	"punpckh",
+	"punpckhqdq",
+	"punpckl",
+	"punpcklqdq",
+	"pxor",
+	"maskmovdqu",
+	"movntpd",
+	"movntdq",
+	"movnti",
+	"pause",
+	"lfence",
+	"mfence",
 );
+
+#@clflush_list = (
+#	"clflush",
+#);
 
 $funcs = {};
 
