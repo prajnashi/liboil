@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,59 +28,56 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+
+#include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <conv.h>
+#include <liboil/liboilcpu.h>
+#include <liboil/liboiltest.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
 
-/* suboptimal */
-static void
-conv_f32_s16_3dnow (float *dst, int dst_stride, int16_t * src, int src_stride,
-    int n)
+int
+main (int argc, char *argv[])
 {
+  int n;
   int i;
 
-  for (i = 0; i < n; i++) {
-    asm volatile ("  movswl 0(%0), %%eax \n"
-        "  movd %%eax, %%mm0 \n"
-        "  pi2fd %%mm0, %%mm0 \n" "  movd %%mm0, 0(%1) \n"
-        ::"r" (src), "r" (dst)
-        :"eax");
+  oil_init();
 
-    dst = OIL_OFFSET (dst, dst_stride);
-    src = OIL_OFFSET (src, src_stride);
+  n = oil_class_get_n_classes ();
+  for (i = 0; i < n; i++){
+    OilFunctionClass *klass = oil_class_get_by_index (i);
+    OilFunctionImpl *impl;
+    
+    for (impl = klass->first_impl; impl; impl = impl->next) {
+      printf("%s:", impl->name);
+#ifdef HAVE_CPU_I386
+      if (impl->flags & OIL_IMPL_FLAG_3DNOW) 
+        printf(" 3dnow");
+      if (impl->flags & OIL_IMPL_FLAG_3DNOWEXT) 
+        printf(" 3dnowext");
+      if (impl->flags & OIL_IMPL_FLAG_CMOV) 
+        printf(" cmov");
+      if (impl->flags & OIL_IMPL_FLAG_MMX) 
+        printf(" mmx");
+      if (impl->flags & OIL_IMPL_FLAG_MMXEXT) 
+        printf(" mmxext");
+      if (impl->flags & OIL_IMPL_FLAG_SSE) 
+        printf(" sse");
+      if (impl->flags & OIL_IMPL_FLAG_SSE2) 
+        printf(" sse2");
+#endif
+#ifdef HAVE_CPU_PPC
+      if (impl->flags & OIL_IMPL_FLAG_ALTIVEC) 
+        printf(" altivec");
+#endif
+      printf("\n");
+    }
   }
-  asm volatile ("emms");
+
+  return 0;
 }
 
-OIL_DEFINE_IMPL_FULL (conv_f32_s16_3dnow, conv_f32_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_3DNOW);
-
-/* suboptimal */
-static void
-conv_s32_f32_3dnow (int32_t * dst, int dst_stride, float *src, int src_stride,
-    int n)
-{
-  int i;
-  const float constants[][2] = {
-    {-0.5, -0.5},
-    {-1.0, -1.0}
-  };
-
-  for (i = 0; i < n; i++) {
-    asm volatile (
-        "  movq 0(%0), %%mm0 \n"
-        "  pfadd 0(%2), %%mm0 \n"
-        "  pf2id %%mm0, %%mm1 \n"
-        "  pfcmpgt 0(%2), %%mm0 \n"
-        "  psubd %%mm0, %%mm1 \n"
-        "  movd %%mm1, 0(%1) \n"
-        :
-        :"r" (src), "r" (dst), "r" (constants)
-        );
-
-    dst = OIL_OFFSET (dst, dst_stride);
-    src = OIL_OFFSET (src, src_stride);
-  }
-  asm volatile ("emms");
-}
-
-OIL_DEFINE_IMPL_FULL (conv_s32_f32_3dnow, conv_s32_f32, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_3DNOW);

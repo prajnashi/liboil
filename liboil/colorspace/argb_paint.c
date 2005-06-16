@@ -33,6 +33,8 @@
 #include <liboil/liboilfunction.h>
 
 OIL_DEFINE_CLASS (argb_paint_u8, "uint8_t *i_4xn, uint8_t *s1_4, uint8_t *s2_n, int n");
+OIL_DEFINE_CLASS (argb_splat_u8, "uint8_t *i_4xn, uint8_t *s1_4, int n");
+OIL_DEFINE_CLASS (rgba_splat_u8, "uint8_t *i_4xn, uint8_t *s1_4, int n");
 
 
 #define div255(x) (((x + 128) + ((x + 128)>>8))>>8)
@@ -54,6 +56,39 @@ argb_paint_u8_ref (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
 
 }
 OIL_DEFINE_IMPL_REF (argb_paint_u8_ref, argb_paint_u8);
+
+static void
+argb_splat_u8_ref (uint8_t *dest, uint8_t *color, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[0] = blend(color[0],dest[0],color[0]);
+    dest[1] = blend(color[1],dest[1],color[0]);
+    dest[2] = blend(color[2],dest[2],color[0]);
+    dest[3] = blend(color[3],dest[3],color[0]);
+    dest+=4;
+  }
+
+}
+OIL_DEFINE_IMPL_REF (argb_splat_u8_ref, argb_splat_u8);
+
+static void
+rgba_splat_u8_ref (uint8_t *dest, uint8_t *color, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[0] = blend(color[0],dest[0],color[3]);
+    dest[1] = blend(color[1],dest[1],color[3]);
+    dest[2] = blend(color[2],dest[2],color[3]);
+    dest[3] = blend(color[3],dest[3],color[3]);
+    dest+=4;
+  }
+
+}
+OIL_DEFINE_IMPL_REF (rgba_splat_u8_ref, rgba_splat_u8);
+
 
 static void
 argb_paint_u8_fast (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)

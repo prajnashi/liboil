@@ -95,24 +95,98 @@ OIL_DEFINE_IMPL_FULL (copy_u8_mmx2, copy_u8, OIL_IMPL_FLAG_MMX);
 static void
 copy_u8_mmx3 (uint8_t *dest, uint8_t *src, int n)
 {
-  while(n&0x3) {
+  /* make sure destination is cache-line aligned for output */
+  if (n < 64) {
+    while (n>0) {
+      *dest++ = *src++;
+      n--;
+    }
+    return;
+  }
+  while (((unsigned long)dest) & 0x3) {
     *dest++ = *src++;
     n--;
   }
-  while (n&0x3c) {
+  while (((unsigned long)dest) & 0x3f) {
     *(uint32_t *)dest = *(uint32_t *)src;
     dest += 4;
     src += 4;
     n-=4;
   }
-  if (n) asm volatile (
+  if (n > 64) asm volatile (
       "  mov $0, %%eax\n"
       "1:\n"
       //"  prefetchnta 128(%1,%%eax)\n"
-      "  pxor (%1,%%eax), %%mm0\n"
-      "  pxor 8(%1,%%eax), %%mm1\n"
-      "  pxor 16(%1,%%eax), %%mm2\n"
-      "  pxor 24(%1,%%eax), %%mm3\n"
+      "  movq (%1,%%eax), %%mm0\n"
+      "  movq 8(%1,%%eax), %%mm1\n"
+      "  movq 16(%1,%%eax), %%mm2\n"
+      "  movq 24(%1,%%eax), %%mm3\n"
+      "  movq 32(%1,%%eax), %%mm4\n"
+      "  movq 40(%1,%%eax), %%mm5\n"
+      "  movq 48(%1,%%eax), %%mm6\n"
+      "  movq 56(%1,%%eax), %%mm7\n"
+      "  movntq %%mm0, (%0,%%eax)\n"
+      "  movntq %%mm1, 8(%0,%%eax)\n"
+      "  movntq %%mm2, 16(%0,%%eax)\n"
+      "  movntq %%mm3, 24(%0,%%eax)\n"
+      "  movntq %%mm4, 32(%0,%%eax)\n"
+      "  movntq %%mm5, 40(%0,%%eax)\n"
+      "  movntq %%mm6, 48(%0,%%eax)\n"
+      "  movntq %%mm7, 56(%0,%%eax)\n"
+      "  add $64, %%eax\n"
+      "  decl %%ecx\n"
+      "  jne 1b\n"
+      "  sfence\n"
+      "  emms\n"
+      : "+r" (dest), "+r" (src)
+      : "c" (n>>6)
+      : "eax");
+
+  dest += n&(~(0x3f));
+  src += n&(~(0x3f));
+  n &= 0x3f;
+  while (n > 3) {
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+    n-=4;
+  }
+  while (n > 0) {
+    *dest++ = *src++;
+    n--;
+  }
+}
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx3, copy_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+copy_u8_mmx4 (uint8_t *dest, uint8_t *src, int n)
+{
+  /* make sure destination is cache-line aligned for output */
+  if (n < 32) {
+    while (n>0) {
+      *dest++ = *src++;
+      n--;
+    }
+    return;
+  }
+  while (((unsigned long)dest) & 0x3) {
+    *dest++ = *src++;
+    n--;
+  }
+  while (((unsigned long)dest) & 0x1f) {
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+    n-=4;
+  }
+  if (n > 32) asm volatile (
+      "  mov $0, %%eax\n"
+      "1:\n"
+      //"  prefetchnta 128(%1,%%eax)\n"
+      "  movq (%1,%%eax), %%mm0\n"
+      "  movq 8(%1,%%eax), %%mm1\n"
+      "  movq 16(%1,%%eax), %%mm2\n"
+      "  movq 24(%1,%%eax), %%mm3\n"
       "  movntq %%mm0, (%0,%%eax)\n"
       "  movntq %%mm1, 8(%0,%%eax)\n"
       "  movntq %%mm2, 16(%0,%%eax)\n"
@@ -120,12 +194,55 @@ copy_u8_mmx3 (uint8_t *dest, uint8_t *src, int n)
       "  add $32, %%eax\n"
       "  decl %%ecx\n"
       "  jne 1b\n"
+      "  sfence\n"
       "  emms\n"
       : "+r" (dest), "+r" (src)
-      : "c" (n/32)
+      : "c" (n>>5)
+      : "eax");
+
+  dest += n&(~(0x1f));
+  src += n&(~(0x1f));
+  n &= 0x1f;
+  while (n > 3) {
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+    n-=4;
+  }
+  while (n > 0) {
+    *dest++ = *src++;
+    n--;
+  }
+}
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx4, copy_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+copy_u8_mmx5 (uint8_t *dest, uint8_t *src, int n)
+{
+  while (n&0xc) {
+    *(uint32_t *)dest = *(uint32_t *)src;
+    dest += 4;
+    src += 4;
+    n-=4;
+  }
+  while(n&0xf) {
+    *dest++ = *src++;
+    n--;
+  }
+  if (n) asm volatile (
+      "  mov $0, %%eax\n"
+      "1:\n"
+      "  movq (%1,%%eax), %%mm0\n"
+      "  movq 8(%1,%%eax), %%mm1\n"
+      "  movq %%mm0, (%0,%%eax)\n"
+      "  movq %%mm1, 8(%0,%%eax)\n"
+      "  add $16, %%eax\n"
+      "  decl %%ecx\n"
+      "  jne 1b\n"
+      "  emms\n"
+      : "+r" (dest), "+r" (src)
+      : "c" (n/16)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_mmx3, copy_u8, OIL_IMPL_FLAG_MMX);
-
-
+OIL_DEFINE_IMPL_FULL (copy_u8_mmx5, copy_u8, OIL_IMPL_FLAG_MMX);
 

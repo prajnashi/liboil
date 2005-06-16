@@ -79,7 +79,7 @@ oil_test_new (OilFunctionClass *klass)
   }
 
   test->iterations = 10;
-  test->n = 100;
+  test->n = 1000;
   test->m = 100;
 
   return test;
@@ -172,6 +172,16 @@ oil_test_check_function (void * priv)
 
   oil_profile_init (&test->prof);
   for(i=0;i<test->iterations;i++){
+    int k;
+
+    for(k=0;k<test->proto->n_params;k++){
+      OilParameter *p;
+      j = test->proto->params[k].parameter_type;
+      p = &test->params[j];
+      if (p->direction == 'i') {
+        memcpy (p->test_data, p->src_data, p->size);
+      }
+    }
     _oil_test_marshal_function (test->impl->func, args, test->proto->n_params,
         pointer_mask, &test->prof);
   }

@@ -209,6 +209,7 @@ liboil/simdpack/Makefile
 liboil/sse/Makefile
 liboil/utf8/Makefile
 testsuite/Makefile
+testsuite/instruction/Makefile
 examples/Makefile
 examples/huffman/Makefile
 examples/jpeg/Makefile

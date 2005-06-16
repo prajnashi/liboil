@@ -44,7 +44,7 @@ main(int argc, char *argv[])
 
     oil_class_choose_by_name (klass, impl->name);
 
-    for(i=10;i<26;i++){
+    for(i=10;i<24;i++){
       oil_profile_init (&prof);
       for(j=0;j<10;j++){
         if (use_memset) {

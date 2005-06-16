@@ -52,16 +52,16 @@ _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
         ((void *)args[0],(void *)args[1],(void *)args[2],(int)args[3]);
       oil_profile_stop (prof);
       break;
-    case 0x00d4:
-      oil_profile_start (prof);
-      ((void (*)(void *,int,void *,int,void *,int,int))func)
-        ((void *)args[0],(int)args[1],(void *)args[2],(int)args[3],(void *)args[4],(int)args[5],(int)args[6]);
-      oil_profile_stop (prof);
-      break;
     case 0x000e:
       oil_profile_start (prof);
       ((void (*)(void *,void *,int))func)
         ((void *)args[0],(void *)args[1],(int)args[2]);
+      oil_profile_stop (prof);
+      break;
+    case 0x00d4:
+      oil_profile_start (prof);
+      ((void (*)(void *,int,void *,int,void *,int,int))func)
+        ((void *)args[0],(int)args[1],(void *)args[2],(int)args[3],(void *)args[4],(int)args[5],(int)args[6]);
       oil_profile_stop (prof);
       break;
     case 0x00d3:
@@ -116,6 +116,12 @@ _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
       oil_profile_start (prof);
       ((void (*)(void))func)
         ();
+      oil_profile_stop (prof);
+      break;
+    case 0x001d:
+      oil_profile_start (prof);
+      ((void (*)(void *,void *,int,void *))func)
+        ((void *)args[0],(void *)args[1],(int)args[2],(void *)args[3]);
       oil_profile_stop (prof);
       break;
     case 0x003a:

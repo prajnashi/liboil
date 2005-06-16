@@ -388,7 +388,7 @@ idct8x8_s16_mmx (int16_t *dest, int dstr, int16_t *src, int sstr)
       : "m" (dest), "m" (src), "m" (dstr), "m" (sstr), "r" (tmp), "r" (dct_mmx_constants), "m" (save_ebx)
       : "eax", "ecx", "edx");
 }
-OIL_DEFINE_IMPL_FULL (idct8x8_s16_mmx, idct8x8_s16, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (idct8x8_s16_mmx, idct8x8_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 #if 0
 #define CONST(x) (32768.0*(x) + 0.5)
@@ -740,5 +740,5 @@ fdct8x8s_s16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
       : "eax", "ecx", "edx");
 
 }
-OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 

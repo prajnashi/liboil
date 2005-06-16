@@ -45,7 +45,7 @@ average2_u8_ref (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
   int i;
 
   for (i = 0; i < n; i++) {
-    dest[i] = (src1[sstr1 * i] + src2[sstr2 * i]) >> 1;
+    dest[dstr * i] = (src1[sstr1 * i] + src2[sstr2 * i]) >> 1;
   }
 }
 
@@ -57,7 +57,8 @@ average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 {
   unsigned int x, y, d;
 
-  if (sstr1 == 1 && sstr2 == 1) {
+#if 0
+  if (sstr1 == 1 && sstr2 == 1 && dstr == 1) {
     while (n > 0) {
       x = *(unsigned int *) src1;
       y = *(unsigned int *) src2;
@@ -67,8 +68,9 @@ average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
       dest += 4;
       n -= 4;
     }
-  }
-  else {
+  } else
+#endif
+  {
     while (n > 0) {
       x = (src1[0] << 24) | (src1[sstr1] << 16) | (src1[2 *
 	      sstr1] << 8) | (src1[3 * sstr1]);
@@ -76,12 +78,12 @@ average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 	      sstr2] << 8) | (src2[3 * sstr2]);
       d = (((x ^ y) & 0xfefefefe) >> 1) + (x & y);
       dest[0] = (d >> 24);
-      dest[1] = (d >> 16);
-      dest[2] = (d >> 8);
-      dest[3] = (d >> 0);
+      dest[1*dstr] = (d >> 16);
+      dest[2*dstr] = (d >> 8);
+      dest[3*dstr] = (d >> 0);
       src1 += 4 * sstr1;
       src2 += 4 * sstr2;
-      dest += 4;
+      dest += 4 * dstr;
       n -= 4;
     }
   }
@@ -94,9 +96,10 @@ average2_u8_fast (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
     uint8_t *src2, int sstr2, int n)
 {
   while (n > 0) {
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
     src1 += sstr1;
     src2 += sstr2;
+    dest += dstr;
     n--;
   }
 }
@@ -108,22 +111,26 @@ average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
     uint8_t *src2, int sstr2, int n)
 {
   while (n & 0x3) {
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
     src1 += sstr1;
     src2 += sstr2;
     n--;
   }
   while (n > 0) {
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
+    dest += dstr;
     src1 += sstr1;
     src2 += sstr2;
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
+    dest += dstr;
     src1 += sstr1;
     src2 += sstr2;
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
+    dest += dstr;
     src1 += sstr1;
     src2 += sstr2;
-    *dest++ = (*src1 + *src2) >> 1;
+    *dest = (*src1 + *src2) >> 1;
+    dest += dstr;
     src1 += sstr1;
     src2 += sstr2;
     n -= 4;

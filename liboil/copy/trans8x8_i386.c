@@ -134,7 +134,7 @@ trans8x8_u16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
       : "eax");
 
 }
-OIL_DEFINE_IMPL (trans8x8_u16_mmx, trans8x8_u16);
+OIL_DEFINE_IMPL_FULL (trans8x8_u16_mmx, trans8x8_u16, OIL_IMPL_FLAG_MMX);
 
 static void
 trans8x8_u16_asm1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)

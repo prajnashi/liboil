@@ -1,4 +1,6 @@
 
+SUBDIRS = instruction
+
 if HAVE_GLIB
 glib_programs = abs md5 md5_profile trans copy
 else

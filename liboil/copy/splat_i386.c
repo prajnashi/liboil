@@ -37,7 +37,7 @@ OIL_DECLARE_CLASS(splat_u32_ns);
 static void
 splat_u32_ns_mmx (uint32_t *dest, uint32_t *src, int n)
 {
-  while(n&0xf) {
+  while(n&0x7) {
     *dest++ = *src;
     n--;
   }
@@ -50,19 +50,16 @@ splat_u32_ns_mmx (uint32_t *dest, uint32_t *src, int n)
       "  movntq %%mm0, 8(%0,%%eax)\n"
       "  movntq %%mm0, 16(%0,%%eax)\n"
       "  movntq %%mm0, 24(%0,%%eax)\n"
-      "  movntq %%mm0, 32(%0,%%eax)\n"
-      "  movntq %%mm0, 40(%0,%%eax)\n"
-      "  movntq %%mm0, 48(%0,%%eax)\n"
-      "  movntq %%mm0, 56(%0,%%eax)\n"
-      "  add $64, %%eax\n"
+      "  add $32, %%eax\n"
       "  decl %%ecx\n"
       "  jne 1b\n"
+      "  sfence\n"
       "  emms\n"
       : "+r" (dest), "+r" (src)
-      : "c" (n/16)
+      : "c" (n/8)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 
 

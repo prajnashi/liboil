@@ -1,3 +1,38 @@
+2005-06-15  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Add instruction checker
+	* testsuite/Makefile.am:
+	* testsuite/instruction/Makefile.am:
+	* testsuite/instruction/check-instructions.pl:
+	* testsuite/instruction/list-impls.c: (main):
+
+	* liboil/colorspace/argb_paint_i386.c: Fix flags based on advice of
+	the instruction checker
+	* liboil/colorspace/ayuv2argb_i386.c:
+	* liboil/conv/conv_3dnow.c:
+	* liboil/conv/conv_sse.c:
+	* liboil/copy/trans8x8_i386.c:
+	* liboil/dct/idct8x8_i386.c:
+	* liboil/sse/conv_sse.c:
+
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilmarshal.c: (_oil_test_marshal_function): update
+	* liboil/liboiltest.c: (oil_test_new), (oil_test_check_function):
+	regenerate inplace data for every test iteration.  Bump default
+	n to 1000 to force memcpy to choose a good function. (lame hack)
+	* liboil/copy/copy_i386.c: (copy_u8_mmx3), (copy_u8_mmx4),
+	(copy_u8_mmx5): new implementation, fix others
+	* liboil/copy/splat_i386.c: (splat_u32_ns_mmx): make faster
+	* liboil/copy/splat_ref.c: (splat_u8_ns_int): fix bug
+	* liboil/colorspace/argb_paint.c: (argb_splat_u8_ref),
+	(rgba_splat_u8_ref): New functions
+	* liboil/simdpack/average2_u8.c: (average2_u8_ref),
+	(average2_u8_trick), (average2_u8_fast), (average2_u8_unroll4):
+	Implementations really need to follow stride rules.
+	* liboil/Makefile.am: Don't use SSE flags, because people on
+	powerpc don't appreciate it.
+	* examples/memcpy-speed.c: (main): only go to 1<<24 bytes
+
 2005-06-02  David Schleef  <ds@schleef.org>
 
 	* examples/Makefile.am:
