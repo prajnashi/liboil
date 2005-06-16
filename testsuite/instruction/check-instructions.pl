@@ -12,28 +12,40 @@ sub get_flags
 
 	$debug && print "function: $func\n";
 	foreach $insn (@list) {
-		if (grep { /^$insn$/ } @normal_list) {
-			$debug && print "  $insn: normal\n";
-		}elsif (grep { /^$insn$/ } @mmx_list) {
+		#$debug && print "checking instruction \"$insn\"\n";
+		$insn =~ m/^(\w+)\s+(.*)$/;
+		$opcode = $1;
+		$regs = $2;
+		if (grep { /^$opcode$/ } @normal_list) {
+			$debug && print "  $opcode: normal\n";
+		}elsif (grep { /^$opcode$/ } @mmxsse_list) {
+			if (grep { /\%xmm/ } $regs) {
+				$exts->{"sse2"} = 1;
+				$debug && print "  $opcode: sse2\n";
+			} else {
+				$exts->{"mmx"} = 1;
+				$debug && print "  $opcode: mmx\n";
+			}
+		}elsif (grep { /^$opcode$/ } @mmx_list) {
 			$exts->{"mmx"} = 1;
-			$debug && print "  $insn: mmx\n";
-		}elsif (grep { /^$insn$/ } @mmx_ext_list) {
+			$debug && print "  $opcode: mmx\n";
+		}elsif (grep { /^$opcode$/ } @mmx_ext_list) {
 			$exts->{"mmxext"} = 1;
-			$debug && print "  $insn: mmxext\n";
-		}elsif (grep { /^$insn$/ } @_3dnow_list) {
+			$debug && print "  $opcode: mmxext\n";
+		}elsif (grep { /^$opcode$/ } @_3dnow_list) {
 			$exts->{"3dnow"} = 1;
-			$debug && print "  $insn: 3dnow\n";
-		}elsif (grep { /^$insn$/ } @_3dnow_ext_list) {
+			$debug && print "  $opcode: 3dnow\n";
+		}elsif (grep { /^$opcode$/ } @_3dnow_ext_list) {
 			$exts->{"3dnowext"} = 1;
-			$debug && print "  $insn: 3dnowext\n";
-		}elsif (grep { /^$insn$/ } @sse_list) {
+			$debug && print "  $opcode: 3dnowext\n";
+		}elsif (grep { /^$opcode$/ } @sse_list) {
 			$exts->{"sse"} = 1;
-			$debug && print "  $insn: sse\n";
-		}elsif (grep { /^$insn$/ } @sse2_list) {
+			$debug && print "  $opcode: sse\n";
+		}elsif (grep { /^$opcode$/ } @sse2_list) {
 			$exts->{"sse2"} = 1;
-			$debug && print "  $insn: sse2\n";
+			$debug && print "  $opcode: sse2\n";
 		}else {
-			print "FIXME:\t\"$insn\",\n";
+			print "FIXME:\t\"$opcode\",\n";
 			$error = 1;
 		}
 	}
@@ -67,6 +79,7 @@ sub check
 	}
 }
 
+# this list is not complete
 @normal_list = (
 	"add", 
 	"addl", 
@@ -94,6 +107,7 @@ sub check
 	"fistp", 
 	"fistpl", 
 	"fistpll", 
+	"fld",
 	"fldcw", 
 	"fldl", 
 	"flds", 
@@ -175,11 +189,11 @@ sub check
 # verified
 @mmx_list = (
 	"emms",
-	"movd",
-	"movq",
-	"packssdw",
-	"packsswb",
-	"packuswb",
+	#"movd",
+	#"movq",
+	#"packssdw",
+	#"packsswb",
+	#"packuswb",
 	"paddb",
 	"paddd",
 	"paddsb",
@@ -187,17 +201,17 @@ sub check
 	"paddusb",
 	"paddusw",
 	"paddw",
-	"pand",
-	"pandn",
+	#"pand",
+	#"pandn",
 	"pcmpeqb",
 	"pcmpeqd",
 	"pcmpgtb",
 	"pcmpgtd",
 	"pcmpgtw",
-	"pmaddwd",
-	"pmulhw",
-	"pmullw",
-	"por",
+	#"pmaddwd",
+	#"pmulhw",
+	#"pmullw",
+	#"por",
 	"pslld",
 	"psllq",
 	"psllw",
@@ -219,7 +233,7 @@ sub check
 	"punpcklbw",
 	"punpckldq",
 	"punpcklwd",
-	"pxor"
+	#"pxor",
 );
 
 # verified
@@ -331,6 +345,22 @@ sub check
 	"xorps"
 );
 
+@mmxsse_list = (
+	"movd",
+	"movq",
+	"packssdw",
+	"packsswb",
+	"packuswb",
+	"pand",
+	"pandn",
+	"pmaddwd",
+	"pmulhw",
+	"pmullw",
+	"por",
+	"pxor",
+);
+
+# verified
 @sse2_list = (
 	"addpd",
 	"addsd",
@@ -378,38 +408,38 @@ sub check
 	"unpckhpd",
 	"unpcklpd",
 	"xorpd",
-	"movd", # xmm regs
+	#"movd",
 	"movdqa",
 	"movdqu",
 	"movq2dq",
 	"movdq2q",
-	"movq", # xmm regs
-	"packssdw",
-	"packsswb",
-	"packuswb",
+	#"movq",
+	#"packssdw",
+	#"packsswb",
+	#"packuswb",
 	"paddq",
 	"padd",
 	"padds",
 	"paddus",
-	"pand", # xmm regs
-	"pandn", # xmm regs
-	"pavgb", # xmm regs
+	#"pand",
+	#"pandn",
+	"pavgb",
 	"pavgw",
 	"pcmpeq",
 	"pcmpgt",
 	"pextrw",
 	"pinsrw",
-	"pmaddwd",
+	#"pmaddwd",
 	"pmaxsw",
 	"pmaxub",
 	"pminsw",
 	"pminub",
 	"pmovmskb",
 	"pmulhuw",
-	"pmulhw",
-	"pmullw",
+	#"pmulhw",
+	#"pmullw",
 	"pmuludq",
-	"por",
+	#"por",
 	"psadbw",
 	"pshuflw",
 	"pshufhw",
@@ -427,7 +457,7 @@ sub check
 	"punpckhqdq",
 	"punpckl",
 	"punpcklqdq",
-	"pxor",
+	#"pxor",
 	"maskmovdqu",
 	"movntpd",
 	"movntdq",
@@ -465,10 +495,8 @@ while($_=shift @output){
 		@insns = ();
 		$debug && print "$func:\n";
 
-	} elsif(m/^[\s0-9a-f]+:\s[\s0-9a-f]+\s([a-z0-9]+)\s/){
-		if (!grep { /$1/ } @insns) {
-			push @insns, $1;
-		}
+	} elsif(m/^[\s0-9a-f]+:\s[\s0-9a-f]{20}\s+([\w]+\s.*)$/){
+		push @insns, $1;
 		#print "  $1\n";
 	} elsif (m/^$/) {
 	} elsif (m/^Disassembly of section/) {

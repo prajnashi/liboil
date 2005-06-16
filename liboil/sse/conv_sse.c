@@ -81,8 +81,6 @@ conv_f32_s32_sse (float *dst, int dst_stride, int32_t * src, int src_stride,
   for (i=0;i<n;i++){
     OIL_GET(dst, dst_stride * i, int32_t) = tmp_dest[i];
   }
-
-  _m_empty();
 }
-OIL_DEFINE_IMPL_FULL (conv_f32_s32_sse, conv_f32_s32, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (conv_f32_s32_sse, conv_f32_s32, OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2);
 

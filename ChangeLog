@@ -1,5 +1,16 @@
 2005-06-16  David Schleef  <ds@schleef.org>
 
+	* liboil/conv/conv_sse.c:
+	* liboil/sse/Makefile.am: Fix flags
+	* liboil/sse/conv_sse.c: (conv_f32_s32_sse): Remove emms, since it's
+	not MMX code, and remove MMX flag.
+	* testsuite/instruction/Makefile.am: convert to check program
+	* testsuite/instruction/check-instructions.pl: add list of
+	instructions that are both mmx and sse2, and differentiate based
+	on usage of %xmm registers.
+
+2005-06-16  David Schleef  <ds@schleef.org>
+
 	* testsuite/instruction/Makefile.am:
 	* testsuite/instruction/check-instructions.pl: Add sse2 instructions
 

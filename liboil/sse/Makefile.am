@@ -12,11 +12,8 @@ c_sources = \
 endif
 
 libsse_la_SOURCES = $(c_sources)
-libsse_la_CFLAGS = $(MMX_CFLAGS) $(SSE_CFLAGS) $(SSE2_CFLAGS) $(LIBOIL_CFLAGS)
+libsse_la_CFLAGS = $(SSE_CFLAGS) $(SSE2_CFLAGS) $(LIBOIL_CFLAGS)
 
 libsse_opt_la_SOURCES = $(c_sources)
 libsse_opt_la_CFLAGS = $(LIBOIL_CFLAGS) $(LIBOIL_OPT_CFLAGS) $(MMX_CFLAGS) $(SSE_CFLAGS) $(SSE2_CFLAGS)
-
-libsse_la_SOURCES = \
-	$(c_sources)
 
