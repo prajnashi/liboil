@@ -1,5 +1,21 @@
 2005-06-17  David Schleef  <ds@schleef.org>
 
+	* configure.ac: snarf LIBMOTOVEC because it has a compatible
+	license.
+	* COPYING:
+	* liboil/Makefile.am:
+	* liboil/motovec/Makefile.am:
+	* liboil/motovec/README:
+	* liboil/motovec/checksum_vec.S:
+	* liboil/motovec/string_vec.S:
+	* liboil/motovec/vec_csum.S:
+	* liboil/motovec/vec_memcmp.S:
+	* liboil/motovec/vec_memcpy.S:
+	* liboil/motovec/vec_memset.S:
+	* liboil/motovec/vec_strcpy.S:
+
+2005-06-17  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/Makefile.am: new files
 	* liboil/colorspace/argb_paint.c: remove temporary classes
 	* liboil/colorspace/composite.c: new
