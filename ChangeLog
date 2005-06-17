@@ -1,3 +1,12 @@
+2005-06-17  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/Makefile.am: new files
+	* liboil/colorspace/argb_paint.c: remove temporary classes
+	* liboil/colorspace/composite.c: new
+	* liboil/colorspace/resample.c: new
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilmarshal.c: (_oil_test_marshal_function): update
+
 2005-06-16  David Schleef  <ds@schleef.org>
 
 	* liboil/conv/conv_sse.c:

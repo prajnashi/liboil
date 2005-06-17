@@ -10,7 +10,9 @@ c_sources = \
 	rgb2bgr.c 		\
 	rgb2rgba.c \
 	ayuv2argb.c \
-	argb_paint.c
+	argb_paint.c \
+	composite.c \
+	resample.c
 
 if HAVE_CPU_POWERPC
 powerpc_sources = \

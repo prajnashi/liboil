@@ -54,9 +54,6 @@ typedef void (*_oil_type_abs_u8_s8)(uint8_t * dest, int dstr, const int8_t * src
 extern OilFunctionClass *oil_function_class_ptr_argb_paint_u8;
 typedef void (*_oil_type_argb_paint_u8)(uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n);
 #define oil_argb_paint_u8 ((_oil_type_argb_paint_u8)(*(void **)oil_function_class_ptr_argb_paint_u8))
-extern OilFunctionClass *oil_function_class_ptr_argb_splat_u8;
-typedef void (*_oil_type_argb_splat_u8)(uint8_t * i_4xn, const uint8_t * s1_4, int n);
-#define oil_argb_splat_u8 ((_oil_type_argb_splat_u8)(*(void **)oil_function_class_ptr_argb_splat_u8))
 extern OilFunctionClass *oil_function_class_ptr_average2_u8;
 typedef void (*_oil_type_average2_u8)(uint8_t * dest, int dstr, const uint8_t * src1, int sstr1, const uint8_t * src2, int sstr2, int n);
 #define oil_average2_u8 ((_oil_type_average2_u8)(*(void **)oil_function_class_ptr_average2_u8))
@@ -180,6 +177,36 @@ typedef void (*_oil_type_clipconv_u8_u16)(uint8_t * dest, int dstr, const uint16
 extern OilFunctionClass *oil_function_class_ptr_clipconv_u8_u32;
 typedef void (*_oil_type_clipconv_u8_u32)(uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n);
 #define oil_clipconv_u8_u32 ((_oil_type_clipconv_u8_u32)(*(void **)oil_function_class_ptr_clipconv_u8_u32))
+extern OilFunctionClass *oil_function_class_ptr_composite_add_argb;
+typedef void (*_oil_type_composite_add_argb)(uint32_t * i_n, const uint32_t * s1_n, int n);
+#define oil_composite_add_argb ((_oil_type_composite_add_argb)(*(void **)oil_function_class_ptr_composite_add_argb))
+extern OilFunctionClass *oil_function_class_ptr_composite_add_argb_const_src;
+typedef void (*_oil_type_composite_add_argb_const_src)(uint32_t * i_n, const uint32_t * s1_1, int n);
+#define oil_composite_add_argb_const_src ((_oil_type_composite_add_argb_const_src)(*(void **)oil_function_class_ptr_composite_add_argb_const_src))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_argb;
+typedef void (*_oil_type_composite_in_argb)(uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_n, int n);
+#define oil_composite_in_argb ((_oil_type_composite_in_argb)(*(void **)oil_function_class_ptr_composite_in_argb))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_argb_const_mask;
+typedef void (*_oil_type_composite_in_argb_const_mask)(uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_1, int n);
+#define oil_composite_in_argb_const_mask ((_oil_type_composite_in_argb_const_mask)(*(void **)oil_function_class_ptr_composite_in_argb_const_mask))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_argb_const_src;
+typedef void (*_oil_type_composite_in_argb_const_src)(uint32_t * d_n, const uint32_t * s1_1, const uint8_t * s2_n, int n);
+#define oil_composite_in_argb_const_src ((_oil_type_composite_in_argb_const_src)(*(void **)oil_function_class_ptr_composite_in_argb_const_src))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_over_argb;
+typedef void (*_oil_type_composite_in_over_argb)(uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_n, int n);
+#define oil_composite_in_over_argb ((_oil_type_composite_in_over_argb)(*(void **)oil_function_class_ptr_composite_in_over_argb))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_over_argb_const_mask;
+typedef void (*_oil_type_composite_in_over_argb_const_mask)(uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_1, int n);
+#define oil_composite_in_over_argb_const_mask ((_oil_type_composite_in_over_argb_const_mask)(*(void **)oil_function_class_ptr_composite_in_over_argb_const_mask))
+extern OilFunctionClass *oil_function_class_ptr_composite_in_over_argb_const_src;
+typedef void (*_oil_type_composite_in_over_argb_const_src)(uint32_t * i_n, const uint32_t * s1_1, const uint8_t * s2_n, int n);
+#define oil_composite_in_over_argb_const_src ((_oil_type_composite_in_over_argb_const_src)(*(void **)oil_function_class_ptr_composite_in_over_argb_const_src))
+extern OilFunctionClass *oil_function_class_ptr_composite_over_argb;
+typedef void (*_oil_type_composite_over_argb)(uint32_t * i_n, const uint32_t * s1_n, int n);
+#define oil_composite_over_argb ((_oil_type_composite_over_argb)(*(void **)oil_function_class_ptr_composite_over_argb))
+extern OilFunctionClass *oil_function_class_ptr_composite_over_argb_const_src;
+typedef void (*_oil_type_composite_over_argb_const_src)(uint32_t * i_n, const uint32_t * s1_1, int n);
+#define oil_composite_over_argb_const_src ((_oil_type_composite_over_argb_const_src)(*(void **)oil_function_class_ptr_composite_over_argb_const_src))
 extern OilFunctionClass *oil_function_class_ptr_conv8x8_f64_s16;
 typedef void (*_oil_type_conv8x8_f64_s16)(double * d_8x8, int dstr, const int16_t * s_8x8, int sstr);
 #define oil_conv8x8_f64_s16 ((_oil_type_conv8x8_f64_s16)(*(void **)oil_function_class_ptr_conv8x8_f64_s16))
@@ -414,6 +441,9 @@ typedef void (*_oil_type_mdct12_f64)(double * d_6, const double * s_12);
 extern OilFunctionClass *oil_function_class_ptr_mdct36_f64;
 typedef void (*_oil_type_mdct36_f64)(double * d_18, const double * s_36);
 #define oil_mdct36_f64 ((_oil_type_mdct36_f64)(*(void **)oil_function_class_ptr_mdct36_f64))
+extern OilFunctionClass *oil_function_class_ptr_merge_linear_argb;
+typedef void (*_oil_type_merge_linear_argb)(uint32_t * d_n, const uint32_t * s_n, const uint32_t * s2_n, const uint32_t * s3_1, int n);
+#define oil_merge_linear_argb ((_oil_type_merge_linear_argb)(*(void **)oil_function_class_ptr_merge_linear_argb))
 extern OilFunctionClass *oil_function_class_ptr_mix_u8;
 typedef void (*_oil_type_mix_u8)(uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n);
 #define oil_mix_u8 ((_oil_type_mix_u8)(*(void **)oil_function_class_ptr_mix_u8))
@@ -453,9 +483,9 @@ typedef void (*_oil_type_permute_u32)(uint32_t * dest, int dstr, const uint32_t 
 extern OilFunctionClass *oil_function_class_ptr_permute_u8;
 typedef void (*_oil_type_permute_u8)(uint8_t * dest, int dstr, const uint8_t * src1, int sstr1, const int32_t * src2, int sstr2, int n);
 #define oil_permute_u8 ((_oil_type_permute_u8)(*(void **)oil_function_class_ptr_permute_u8))
-extern OilFunctionClass *oil_function_class_ptr_resample_linear_argb_u8;
-typedef void (*_oil_type_resample_linear_argb_u8)(uint8_t * d_4xn, const uint8_t * s_8xn, int n, uint32_t * i_2);
-#define oil_resample_linear_argb_u8 ((_oil_type_resample_linear_argb_u8)(*(void **)oil_function_class_ptr_resample_linear_argb_u8))
+extern OilFunctionClass *oil_function_class_ptr_resample_linear_argb;
+typedef void (*_oil_type_resample_linear_argb)(uint32_t * d_n, const uint32_t * s_2xn, int n, uint32_t * i_2);
+#define oil_resample_linear_argb ((_oil_type_resample_linear_argb)(*(void **)oil_function_class_ptr_resample_linear_argb))
 extern OilFunctionClass *oil_function_class_ptr_resample_linear_u8;
 typedef void (*_oil_type_resample_linear_u8)(uint8_t * d_n, const uint8_t * s_2xn, int n, uint32_t * i_2);
 #define oil_resample_linear_u8 ((_oil_type_resample_linear_u8)(*(void **)oil_function_class_ptr_resample_linear_u8))
@@ -465,9 +495,6 @@ typedef void (*_oil_type_rgb2bgr)(uint8_t * d_3xn, const uint8_t * s_3xn, int n)
 extern OilFunctionClass *oil_function_class_ptr_rgb2rgba;
 typedef void (*_oil_type_rgb2rgba)(uint8_t * d_4xn, const uint8_t * s_3xn, int n);
 #define oil_rgb2rgba ((_oil_type_rgb2rgba)(*(void **)oil_function_class_ptr_rgb2rgba))
-extern OilFunctionClass *oil_function_class_ptr_rgba_splat_u8;
-typedef void (*_oil_type_rgba_splat_u8)(uint8_t * i_4xn, const uint8_t * s1_4, int n);
-#define oil_rgba_splat_u8 ((_oil_type_rgba_splat_u8)(*(void **)oil_function_class_ptr_rgba_splat_u8))
 extern OilFunctionClass *oil_function_class_ptr_sad8x8_f64;
 typedef void (*_oil_type_sad8x8_f64)(double * d_8x8, int ds, const double * s1_8x8, int ss1, const double * s2_8x8, int ss2);
 #define oil_sad8x8_f64 ((_oil_type_sad8x8_f64)(*(void **)oil_function_class_ptr_sad8x8_f64))
