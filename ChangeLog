@@ -1,5 +1,13 @@
 2005-06-17  David Schleef  <ds@schleef.org>
 
+	* liboil/copy/copy_powerpc.c: (copy_u8_altivec),
+	(copy_u8_altivec2): Rewrite so that they actually work.
+	* liboil/motovec/Makefile.am: Fix up motovec stuff
+	* liboil/motovec/motovec.c: (copy_u8_motovec),
+	(splat_u8_ns_motovec): same
+
+2005-06-17  David Schleef  <ds@schleef.org>
+
 	* configure.ac: snarf LIBMOTOVEC because it has a compatible
 	license.
 	* COPYING:
