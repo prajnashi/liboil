@@ -32,6 +32,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 #include <liboil/liboiltest.h>
+#include <liboil/liboilrandom.h>
 
 
 static void
@@ -109,8 +110,17 @@ resample_linear_argb_ref (uint32_t *d, uint32_t *s, int n, uint32_t *in)
 OIL_DEFINE_IMPL_REF (resample_linear_argb_ref, resample_linear_argb);
 
 
-OIL_DEFINE_CLASS (merge_linear_argb,
-    "uint32_t *d_n, uint32_t *s_n, uint32_t *s2_n, uint32_t *s3_1, int n");
+static void
+merge_linear_argb_test (OilTest *test)
+{
+  uint32_t *src3 = (uint32_t *)(test->params[OIL_ARG_SRC3].src_data +
+    OIL_TEST_HEADER);
+
+  src3[0] = oil_rand_u8();
+}
+OIL_DEFINE_CLASS_FULL (merge_linear_argb,
+    "uint32_t *d_n, uint32_t *s_n, uint32_t *s2_n, uint32_t *s3_1, int n",
+    merge_linear_argb_test);
 
 static void
 merge_linear_argb_ref (uint32_t *d, uint32_t *s1, uint32_t *s2,

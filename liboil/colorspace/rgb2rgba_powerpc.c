@@ -34,13 +34,13 @@
 OIL_DECLARE_CLASS (rgb2rgba);
 
 static void
-rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
+rgb2rgba_powerpcasm (uint8_t *dest, uint8_t* src, int n)
 {
+  src -= 3;
   dest -= 4;
   asm volatile (
 	"	mtctr %2		\n"
-	"1:	lswi r10, %1, 3		\n"
-	"	addi %1, %1, 3		\n"
+	"1:	lwzu r10, 3(%1)		\n"
 	"	ori r10, r10, 0xFF	\n"
 	"	stwu r10, 4(%0)		\n"
 	"	bdnz 1b			\n"
@@ -48,5 +48,5 @@ rgb2rgba_ppc (uint8_t *dest, uint8_t* src, int n)
       : "b" (n)
       : "10", "ctr");
 }
+OIL_DEFINE_IMPL_ASM (rgb2rgba_powerpcasm, rgb2rgba);
 
-OIL_DEFINE_IMPL_ASM (rgb2rgba_ppc, rgb2rgba);

@@ -9,7 +9,8 @@ noinst_LTLIBRARIES = libcopy.la $(opt_libs)
 
 if HAVE_CPU_POWERPC
 powerpc_sources = \
-	copy_powerpc.c
+	copy_powerpc.c \
+	splat_powerpc.c
 else
 powerpc_sources =
 endif

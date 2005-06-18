@@ -17,7 +17,8 @@ c_sources = \
 if HAVE_CPU_POWERPC
 powerpc_sources = \
 	rgb2bgr_powerpc.c \
-	rgb2rgba_powerpc.c
+	rgb2rgba_powerpc.c \
+	resample_powerpc.c
 else
 powerpc_sources =
 endif

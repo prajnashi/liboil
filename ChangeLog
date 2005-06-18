@@ -1,5 +1,20 @@
 2005-06-17  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: create a tmpfile for liboilarray.c to
+	  avoid unnecessary building of liboil-0.3.la
+	* liboil/colorspace/Makefile.am: add resample_powerpc.c
+	* liboil/colorspace/resample.c: (merge_linear_argb_test): add test
+	  function, since one parameter needs to be in the range [0,256]
+	* liboil/colorspace/resample_powerpc.c: (merge_linear_argb_powerpc):
+	  altivec impl
+	* liboil/colorspace/rgb2rgba_powerpc.c: (rgb2rgba_powerpcasm):
+	  Improve the asm
+	* liboil/copy/Makefile.am: new file
+	* liboil/copy/splat_powerpc.c: (splat_u8_ns_altivec),
+	(splat_u8_ns_altivec2), (splat_u32_ns_altivec): some altivec impls
+
+2005-06-17  David Schleef  <ds@schleef.org>
+
 	* liboil/copy/copy_powerpc.c: (copy_u8_altivec),
 	(copy_u8_altivec2): Rewrite so that they actually work.
 	* liboil/motovec/Makefile.am: Fix up motovec stuff
