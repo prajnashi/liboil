@@ -164,10 +164,11 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
   AS_COMPILER_FLAG(["-Wa,-mregnames"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)
-fi
-if test x$HAVE_CPU_POWERPC = xyes ; then
   AS_COMPILER_FLAG(["-Wa,-maltivec"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-maltivec"],
+    true)
+  AS_COMPILER_FLAG(["-force_cpusubtype_ALL"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -force_cpusubtype_ALL"],
     true)
 fi
 

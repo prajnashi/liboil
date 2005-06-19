@@ -34,6 +34,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 extern OilFunctionClass *_oil_function_class_array[];
 extern OilFunctionImpl *_oil_function_impl_array[];

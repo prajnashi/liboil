@@ -138,11 +138,11 @@
 #endif
 
 #ifdef LIBMOTOVEC
-	.global	memset     
+	.globl	memset     
 memset:
 #else
-	.global	vec_memset     
-vec_memset:
+	.globl	_vec_memset     
+_vec_memset:
 #endif
 
 	cmpi	cr7,0,BC,MIN_VEC	// IU1 Check for minimum byte count
@@ -343,10 +343,10 @@ One_even_QW:
 #endif
 
 #ifdef LIBMOTOVEC
-	.global	bzero     
+	.globl	bzero     
 bzero:
 #else
-	.global	vec_bzero     
+	.globl	vec_bzero     
 vec_bzero:
 #endif
 
@@ -355,7 +355,7 @@ vec_bzero:
 #ifdef LIBMOTOVEC
 	b	memset     
 #else
-	b	vec_memset     
+	b	_vec_memset     
 #endif
 
 // cacheable_memzero will employ dcbz to clear 32 bytes at a time
@@ -370,10 +370,10 @@ vec_bzero:
 #endif
 
 #ifdef LIBMOTOVEC
-	.global	cacheable_memzero     
+	.globl	cacheable_memzero     
 cacheable_memzero:
 #else
-	.global	vec_cacheable_memzero     
+	.globl	vec_cacheable_memzero     
 vec_cacheable_memzero:
 #endif
 

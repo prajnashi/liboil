@@ -242,17 +242,17 @@
 #endif
 
 #ifdef LIBMOTOVEC
-	.global	memmove     
+	.globl	memmove     
 memmove:
 	nop			// IU1 Compilers forget first label
-	.global	memcpy     
+	.globl	memcpy     
 memcpy:
 #else
-	.global	vec_memmove     
+	.globl	vec_memmove     
 vec_memmove:
 	nop			// IU1 Only way I know to preserve both labels
-	.global	vec_memcpy     
-vec_memcpy:
+	.globl	_vec_memcpy     
+_vec_memcpy:
 #endif
 	subf.	DMS,SRC,DST	// IU1 Compute dst-src difference
 	cmpi	cr1,0,BC,0	// IU1 Eliminate zero byte count moves
@@ -859,10 +859,10 @@ Loop_of_128B:	// Come here with QW>=10 and next store even; VS0 last load
 // Following will just reverse the operands and branch to memcpy.
 
 #ifdef LIBMOTOVEC
-	.global	bcopy     
+	.globl	bcopy     
 bcopy:
 #else
-	.global	vec_bcopy     
+	.globl	vec_bcopy     
 vec_bcopy:
 #endif
 	mr	Rt,DST		// temp storage for what is really source address (r3)
@@ -871,6 +871,6 @@ vec_bcopy:
 #ifdef LIBMOTOVEC
 	b	memcpy		// b to memcpy with correct args in r3 and r4	
 #else
-	b	vec_memcpy	// b to vec_memcpy with correct args in r3 and r4	
+	b	_vec_memcpy	// b to vec_memcpy with correct args in r3 and r4	
 #endif
 // End of bcopy in AltiVec

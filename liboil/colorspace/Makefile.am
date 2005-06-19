@@ -12,7 +12,8 @@ c_sources = \
 	ayuv2argb.c \
 	argb_paint.c \
 	composite.c \
-	resample.c
+	resample.c \
+	yuv.c
 
 if HAVE_CPU_POWERPC
 powerpc_sources = \

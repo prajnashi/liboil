@@ -26,7 +26,7 @@ main(int argc, char *argv[])
 
   oil_init ();
 
-  cpufreq = 1788.699e6;
+  cpufreq = 400e6/16;
 
   s = malloc(1024*1024*64+1024);
   d = malloc(1024*1024*64+1024);
@@ -41,6 +41,11 @@ main(int argc, char *argv[])
 
   for(impl=klass->first_impl;impl;impl=impl->next) {
     printf("impl %s\n", impl->name);
+
+    if (!oil_impl_is_runnable(impl)) {
+      printf("  not runnable\n");
+      continue;
+    }
 
     oil_class_choose_by_name (klass, impl->name);
 

@@ -1,3 +1,18 @@
+2005-06-18  David Schleef  <ds@schleef.org>
+
+	* configure.ac: add compiler flag for powerpc
+	* examples/memcpy-speed.c: (main): only run runnable functions
+	* liboil/colorspace/Makefile.am: add yuv.c
+	* liboil/colorspace/yuv.c: (yuyv2ayuv_ref), (yvyu2ayuv_ref),
+	(uyvy2ayuv_ref), (ayuv2yuyv_ref), (ayuv2yvyu_ref), (ayuv2uyvy_ref):
+	New classes
+	* liboil/liboilfunction.c: include stdlib for malloc
+	* liboil/motovec/vec_memcpy.S: change .global to .globl, add
+	  initial underscore
+	* liboil/motovec/vec_memset.S: same
+	* liboil/sse/Makefile.am: compile empty.c if nothing else is
+	  available
+
 2005-06-17  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: create a tmpfile for liboilarray.c to
