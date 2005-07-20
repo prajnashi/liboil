@@ -1,3 +1,13 @@
+2005-07-20  Andy Wingo  <wingo@pobox.com>
+
+	* liboil/liboilprototype.c: (oil_arg_type_name): Implement.
+
+	* liboil/liboilfunction.c: (oil_class_optimize): Log what
+	implementation we chose.
+
+	* liboil/liboildebug.h: (OIL_FUNCTION): Make sure we get
+	PRETTY_FUNCTION with gcc.
+
 2005-06-18  David Schleef  <ds@schleef.org>
 
 	* configure.ac: add compiler flag for powerpc

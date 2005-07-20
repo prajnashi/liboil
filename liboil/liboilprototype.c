@@ -401,7 +401,50 @@ static OilType oil_type_from_string (const char *s, int ptr)
 
 const char * oil_arg_type_name (OilArgType type)
 {
-  return "FIXME";
+  switch (type) {
+    case OIL_ARG_N:
+      return "n";
+    case OIL_ARG_M:
+      return "m";
+    case OIL_ARG_DEST1:
+      return "dest1";
+    case OIL_ARG_DSTR1:
+      return "dstr1";
+    case OIL_ARG_DEST2:
+      return "dest2";
+    case OIL_ARG_DSTR2:
+      return "dstr2";
+    case OIL_ARG_SRC1:
+      return "src1";
+    case OIL_ARG_SSTR1:
+      return "sstr1";
+    case OIL_ARG_SRC2:
+      return "src2";
+    case OIL_ARG_SSTR2:
+      return "sstr2";
+    case OIL_ARG_SRC3:
+      return "src3";
+    case OIL_ARG_SSTR3:
+      return "sstr3";
+    case OIL_ARG_SRC4:
+      return "src4";
+    case OIL_ARG_SSTR4:
+      return "sstr4";
+    case OIL_ARG_SRC5:
+      return "src5";
+    case OIL_ARG_SSTR5:
+      return "sstr5";
+    case OIL_ARG_INPLACE1:
+      return "inplace1";
+    case OIL_ARG_ISTR1:
+      return "istr1";
+    case OIL_ARG_INPLACE2:
+      return "inplace2";
+    case OIL_ARG_ISTR2:
+      return "istr2";
+    default:
+      return "INVALID";
+  }
 }
 
 static const

@@ -48,7 +48,7 @@ typedef enum {
 #define OIL_DEBUG(...) OIL_DEBUG_PRINT(OIL_DEBUG_DEBUG, __VA_ARGS__)
 #define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
 
-#ifdef __PRETTY_FUNCTION__
+#if defined (__GNUC__) || defined (__PRETTY_FUNCTION__)
 #define OIL_FUNCTION __PRETTY_FUNCTION__
 #elif defined(__func__)
 #define OIL_FUNCTION __func__

@@ -290,6 +290,8 @@ oil_class_optimize (OilFunctionClass * klass)
         klass->name);
     return;
   }
+
+  OIL_DEBUG("chose implementation %s", min_impl->name);
   klass->chosen_impl = min_impl;
   klass->func = min_impl->func;
 
