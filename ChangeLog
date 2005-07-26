@@ -1,5 +1,12 @@
 2005-07-26  David Schleef  <ds@schleef.org>
 
+	* CVS_HAS_MOVED:  Revert last change in new repository
+	* autogen.sh:
+	* configure.ac:
+	* cvs-changeroot:
+
+2005-07-26  David Schleef  <ds@schleef.org>
+
 	* CVS_HAS_MOVED: disable CVS, pointing to new location
 	* autogen.sh:
 	* configure.ac:
