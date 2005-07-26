@@ -1,3 +1,10 @@
+2005-07-26  David Schleef  <ds@schleef.org>
+
+	* CVS_HAS_MOVED: disable CVS, pointing to new location
+	* autogen.sh:
+	* configure.ac:
+	* cvs-changeroot:
+
 2005-07-20  Andy Wingo  <wingo@pobox.com>
 
 	* liboil/liboilprototype.c: (oil_arg_type_name): Implement.
