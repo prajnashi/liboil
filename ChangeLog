@@ -1,5 +1,9 @@
 2005-07-26  David Schleef  <ds@schleef.org>
 
+	* configure.ac: oops, compile fix
+
+2005-07-26  David Schleef  <ds@schleef.org>
+
 	* doc/liboil-sections.txt: Add some recent new prototypes.
 	* doc/tmpl/liboilfuncs-math.sgml:
 	* doc/tmpl/liboilfuncs-pixel.sgml:
