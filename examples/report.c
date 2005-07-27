@@ -143,11 +143,27 @@ impl_compare (const void *a, const void *b)
 }
 #endif
 
+static int
+get_n_impls(OilFunctionClass *klass)
+{
+  OilFunctionImpl *impl;
+  int n;
+
+  n = 0;
+  for(impl=klass->first_impl;impl;impl=impl->next)n++;
+
+  return n;
+}
+
 static void
 oil_print_class (OilFunctionClass *klass, int verbose)
 {
+  int n_impls;
+
+  n_impls = get_n_impls(klass);
   
-  printf ("%-20s %-10g %-10g %-10.3g %s %s\n", klass->name,
+  printf ("%-20s,%d,%-10g,%-10g,%-10.3g,%s,%s\n", klass->name,
+      n_impls,
       klass->reference_impl->profile_ave,
       klass->chosen_impl->profile_ave,
       klass->reference_impl->profile_ave/klass->chosen_impl->profile_ave,

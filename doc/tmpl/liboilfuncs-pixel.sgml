@@ -35,6 +35,176 @@ Converts an array of AYUV pixels to ARGB.
 @n: 
 
 
+<!-- ##### FUNCTION oil_ayuv2uyvy ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_ayuv2yuyv ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_ayuv2yvyu ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_add_argb ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_add_argb_const_src ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_argb ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s1_n: 
+@s2_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_argb_const_mask ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s1_n: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_argb_const_src ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s1_1: 
+@s2_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_over_argb ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_n: 
+@s2_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_over_argb_const_mask ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_n: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_in_over_argb_const_src ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_1: 
+@s2_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_over_argb ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_composite_over_argb_const_src ##### -->
+<para>
+
+</para>
+
+@i_n: 
+@s1_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_merge_linear_argb ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@s2_n: 
+@s3_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_resample_linear_argb ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_2xn: 
+@n: 
+@i_2: 
+
+
+<!-- ##### FUNCTION oil_resample_linear_u8 ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_2xn: 
+@n: 
+@i_2: 
+
+
 <!-- ##### FUNCTION oil_rgb2bgr ##### -->
 <para>
 
@@ -88,6 +258,36 @@ Converts an array of AYUV pixels to ARGB.
 @src1: 
 @src2: 
 @src3: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_uyvy2ayuv ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_yuyv2ayuv ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_yvyu2ayuv ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
 @n: 
 
 

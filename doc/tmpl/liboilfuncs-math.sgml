@@ -476,3 +476,131 @@ the destination array.
 @n: 
 
 
+<!-- ##### FUNCTION oil_add_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_divide_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_floor_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_inverse_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_maximum_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_minimum_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_multiply_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_negative_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalaradd_f32_ns ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_scalarmultiply_f32_ns ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2_1: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_sign_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_subtract_f32 ##### -->
+<para>
+
+</para>
+
+@d: 
+@s1: 
+@s2: 
+@n: 
+
+

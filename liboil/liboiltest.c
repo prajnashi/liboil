@@ -79,7 +79,7 @@ oil_test_new (OilFunctionClass *klass)
   }
 
   test->iterations = 10;
-  test->n = 1000;
+  test->n = 100;
   test->m = 100;
 
   return test;

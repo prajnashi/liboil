@@ -1,5 +1,26 @@
 2005-07-26  David Schleef  <ds@schleef.org>
 
+	* doc/liboil-sections.txt: Add some recent new prototypes.
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* doc/tmpl/liboilfuncs-pixel.sgml:
+	* examples/report.c: (get_n_impls), (oil_print_class):
+	* liboil/Makefile.am: add math subdir
+	* liboil/colorspace/composite.c: (composite_in_argb_ref),
+	(composite_in_argb_const_src_ref),
+	(composite_in_argb_const_mask_ref), (composite_over_argb_ref),
+	(composite_over_argb_const_src_ref), (composite_add_argb_ref),
+	(composite_add_argb_const_src_ref), (composite_in_over_argb_ref),
+	(composite_in_over_argb_const_src_ref),
+	(composite_in_over_argb_const_mask_ref): Fix OVER operator, and
+	rename compose to composite everywhere.
+	* liboil/liboilfuncs.h: new math functions
+	* liboil/liboiltest.c: (oil_test_new): change size of test array
+	back to 100, because 1000 is wrong and slow
+	* liboil/math/Makefile.am: new math code
+	* liboil/math/math.c: 
+
+2005-07-26  David Schleef  <ds@schleef.org>
+
 	* CVS_HAS_MOVED:  Revert last change in new repository
 	* autogen.sh:
 	* configure.ac:
