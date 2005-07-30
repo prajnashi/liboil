@@ -39,6 +39,7 @@
 #include <stdio.h>
 #include <math.h>
 
+static void oil_test_init_params (OilTest *test);
 static void fill_array (void *ptr, OilType type, int pre_n, int stride,
     int post_n);
 static double check_array (void *data, void *ref, OilType type, int pre_n,
@@ -121,6 +122,24 @@ oil_test_set_iterations (OilTest *test, int iterations)
   test->iterations = iterations;
 }
 
+void
+oil_test_init (OilTest *test)
+{
+  if (test->inited) {
+    return;
+  }
+
+  oil_test_init_params(test);
+
+  test->params[OIL_ARG_N].value = test->n;
+  
+  test->inited = 1;
+
+  if (test->klass->test_func) {
+    test->klass->test_func (test);
+  }
+}
+
 static void
 oil_test_check_function (void * priv)
 {
@@ -130,17 +149,7 @@ oil_test_check_function (void * priv)
   unsigned long args[10];
   unsigned int pointer_mask;
 
-  if (!test->inited) {
-    oil_test_init_params(test);
-
-    test->params[OIL_ARG_N].value = test->n;
-    
-    test->inited = 1;
-
-    if (test->klass->test_func) {
-      test->klass->test_func (test);
-    }
-  }
+  oil_test_init (test);
 
   OIL_LOG("calling function %s", test->impl->name);
 
@@ -404,7 +413,7 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
   }
 }
 
-void
+static void
 oil_test_init_params (OilTest *test)
 {
   init_parameter (test, &test->params[OIL_ARG_DEST1],

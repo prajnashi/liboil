@@ -162,7 +162,7 @@ oil_print_class (OilFunctionClass *klass, int verbose)
 
   n_impls = get_n_impls(klass);
   
-  printf ("%-20s,%d,%-10g,%-10g,%-10.3g,%s,%s\n", klass->name,
+  printf ("%-20s %d %-10g %-10g %-10.3g %s %s\n", klass->name,
       n_impls,
       klass->reference_impl->profile_ave,
       klass->chosen_impl->profile_ave,

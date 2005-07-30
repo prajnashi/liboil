@@ -36,5 +36,7 @@ void oil_cpu_fault_check_disable (void);
 
 int oil_cpu_fault_check_try (void (*func)(void *), void *priv);
 
+double oil_cpu_get_ticks_per_second (void);
+
 #endif
 

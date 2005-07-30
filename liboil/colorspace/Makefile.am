@@ -27,7 +27,8 @@ endif
 if HAVE_CPU_I386
 i386_sources = \
 	ayuv2argb_i386.c \
-	argb_paint_i386.c
+	argb_paint_i386.c \
+	composite_i386.c
 else
 i386_sources =
 endif

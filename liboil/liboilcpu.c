@@ -396,6 +396,7 @@ oil_cpu_fault_check_disable (void)
   }
 }
 
+#if 0
 void oil_memory_prefetch_local (void *ptr, int n_bytes)
 {
 #ifdef __i386__
@@ -419,5 +420,13 @@ void oil_memory_prefetch_transient (void *ptr, int n_bytes)
 #endif
 
 }
+#endif
 
+#if 0
+double
+oil_cpu_get_ticks_per_second (void)
+{
+  return _oil_ticks_per_second;
+}
+#endif
 

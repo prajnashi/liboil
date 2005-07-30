@@ -34,9 +34,6 @@
 
 void oil_init (void);
 
-void oil_memory_prefetch_transient (void *ptr, int n_bytes);
-void oil_memory_prefetch_local (void *ptr, int n_bytes);
-
 #define oil_memcpy(dest,src,n_bytes) \
   oil_copy_u8((void *)(dest),(void *)(src),(n_bytes))
 

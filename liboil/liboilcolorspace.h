@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2005 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,48 +25,39 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _LIBOIL_TEST_H_
-#define _LIBOIL_TEST_H_
+#ifndef _LIBOIL_COLORSPACE_H_
+#define _LIBOIL_COLORSPACE_H_
 
-#include <liboil/liboil.h>
-#include <liboil/liboilprototype.h>
-#include <liboil/liboilprofile.h>
+#include <liboil/liboilrandom.h>
 
-//typedef struct _OilTest OilTest;
-struct _OilTest {
-  OilFunctionClass *klass;
-  OilFunctionImpl *impl;
-  OilPrototype *proto;
-  OilParameter params[OIL_ARG_LAST];
-  OilProfile prof;
+#define oil_max(x,y) ((x)>(y)?(x):(y))
+#define oil_min(x,y) ((x)<(y)?(x):(y))
 
-  int iterations;
-  int n;
-  int m;
-  
-  int inited;
-  int tested_ref;
+#define oil_clamp_255(x) oil_max(0,oil_min((x),255))
 
-  double sum_abs_diff;
-  int n_points;
-};
+#define oil_argb(a,r,g,b) \
+    ((oil_clamp_255(a)<<24) | \
+     (oil_clamp_255(r)<<16) | \
+     (oil_clamp_255(g)<<8) | \
+     (oil_clamp_255(b)<<0))
 
-#define OIL_TEST_HEADER 256
-#define OIL_TEST_FOOTER 256
+#define oil_argb_noclamp(a,r,g,b) \
+    (((a)<<24) | ((r)<<16) | ((g)<<8) | ((b)<<0))
 
-OilTest *oil_test_new (OilFunctionClass *klass);
-void oil_test_free (OilTest *test);
+#define oil_argb_A(color) (((color)>>24)&0xff)
+#define oil_argb_R(color) (((color)>>16)&0xff)
+#define oil_argb_G(color) (((color)>>8)&0xff)
+#define oil_argb_B(color) (((color)>>0)&0xff)
 
-void oil_test_set_iterations (OilTest *test, int iterations);
+#define oil_divide_255(x) ((((x)+128) + (((x)+128)>>8))>>8)
+#define oil_muldiv_255(a,b) oil_divide_255((a)*(b))
 
-void oil_test_check_ref (OilTest *test);
-int oil_test_check_impl (OilTest *test, OilFunctionImpl *impl);
-
-void oil_test_cleanup (OilTest *test);
-void oil_test_init (OilTest *test);
-
-void _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
-    unsigned int pointer_mask, OilProfile *prof);
+#define oil_rand_rgba(a) \
+    oil_argb_noclamp((a), \
+      oil_muldiv_255((a),oil_rand_u8()), \
+      oil_muldiv_255((a),oil_rand_u8()), \
+      oil_muldiv_255((a),oil_rand_u8()))
 
 #endif
+
 

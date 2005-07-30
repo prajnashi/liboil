@@ -1,3 +1,17 @@
+2005-07-30  David Schleef  <ds@schleef.org>
+
+	* examples/report.c: (oil_print_class): Fix printing
+	* liboil/colorspace/Makefile.am:
+	* liboil/colorspace/composite.c: use colorspace header
+	* liboil/colorspace/composite_i386.c: new
+	* liboil/liboil.h: remove prefetch, it was a bad idea
+	* liboil/liboilcolorspace.h: new header
+	* liboil/liboilcpu.c: (oil_cpu_get_ticks_per_second):
+	* liboil/liboilcpu.h:
+	* liboil/liboiltest.c: (oil_test_init), (oil_test_check_function):
+	  add oil_test_init() and reshuffle code
+	* liboil/liboiltest.h: ditto
+
 2005-07-26  David Schleef  <ds@schleef.org>
 
 	* configure.ac: oops, compile fix
