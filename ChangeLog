@@ -1,5 +1,12 @@
 2005-07-30  David Schleef  <ds@schleef.org>
 
+	* liboil/colorspace/composite_i386.c: (composite_over_argb_mmx),
+	(composite_over_argb_mmx_2), (composite_over_argb_mmx_3),
+	(composite_over_argb_mmx_4), (composite_over_argb_sse2): some
+	new implementations
+
+2005-07-30  David Schleef  <ds@schleef.org>
+
 	* examples/report.c: (oil_print_class): Fix printing
 	* liboil/colorspace/Makefile.am:
 	* liboil/colorspace/composite.c: use colorspace header

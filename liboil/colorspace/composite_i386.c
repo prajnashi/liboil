@@ -105,25 +105,24 @@ composite_over_argb_mmx (uint32_t *dest, uint32_t *src, int n)
       "  testl $0xff000000, %%eax\n"
       "  jz 2f\n"
 
-      "  movd %%eax, %%mm1\n"
-      "  punpcklbw %%mm7, %%mm1\n"
-      "  pshufw $0xff, %%mm1, %%mm0\n"
-      "  pxor %%mm5, %%mm0\n"
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0xff, %%mm0, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
 
-      "  movd (%0), %%mm3\n"
-      "  punpcklbw %%mm7, %%mm3\n"
-      "  pmullw %%mm0, %%mm3\n"
-      "  paddw %%mm6, %%mm3\n"
-      "  movq %%mm3, %%mm2\n"
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw %%mm1, %%mm2\n"
+      "  paddw %%mm6, %%mm2\n"
+      "  movq %%mm2, %%mm1\n"
+      "  psrlw $8, %%mm1\n"
+      "  paddw %%mm1, %%mm2\n"
       "  psrlw $8, %%mm2\n"
-      "  paddw %%mm2, %%mm3\n"
-      "  psrlw $8, %%mm3\n"
 
-      "  paddw %%mm1, %%mm3\n"
-      "  packuswb %%mm3, %%mm3\n"
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
 
-      "  movd %%mm3, %%eax\n"
-      "  movl %%eax, (%0)\n"
+      "  movd %%mm2, (%0)\n"
       "2:\n"
       "  addl $4, %0\n"
       "  addl $4, %1\n"
@@ -137,6 +136,212 @@ composite_over_argb_mmx (uint32_t *dest, uint32_t *src, int n)
 }
 OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx, composite_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
+/* unroll 2 */
+static void
+composite_over_argb_mmx_2 (uint32_t *dest, uint32_t *src, int n)
+{
+  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
+      "  movl $0x80808080, %%eax\n"
+      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
+      "  punpcklbw %%mm7, %%mm6\n"
+      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
+      "  movd %%eax, %%mm5\n"
+      "  punpcklbw %%mm7, %%mm5\n"
+
+      "  testl $0x1, %2\n"
+      "  jz 2f\n"
+
+      "  movl (%1), %%eax\n"
+      "  testl $0xff000000, %%eax\n"
+      "  jz 1f\n"
+
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0xff, %%mm0, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw %%mm1, %%mm2\n"
+      "  paddw %%mm6, %%mm2\n"
+      "  movq %%mm2, %%mm1\n"
+      "  psrlw $8, %%mm1\n"
+      "  paddw %%mm1, %%mm2\n"
+      "  psrlw $8, %%mm2\n"
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+
+      "1:\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+
+      "2:\n"
+      "  shr $1, %2\n"
+      "  jz 5f\n"
+      "3:\n"
+      "  movl (%1), %%eax\n"
+      "  orl 4(%1), %%eax\n"
+      "  testl $0xff000000, %%eax\n"
+      "  jz 4f\n"
+
+      "  movd (%1), %%mm0\n"
+      "  movd (%0), %%mm2\n"
+
+      "  punpcklbw %%mm7, %%mm0\n"
+      "   movd 4(%1), %%mm3\n"
+
+      "  pshufw $0xff, %%mm0, %%mm1\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+
+      "  pxor %%mm5, %%mm1\n"
+      "   movd 4(%0), %%mm4\n"
+
+      "  pmullw %%mm1, %%mm2\n"
+      "   punpcklbw %%mm7, %%mm3\n"
+
+      "  paddw %%mm6, %%mm2\n"
+      "   punpcklbw %%mm7, %%mm4\n"
+
+      "  movq %%mm2, %%mm1\n"
+      "   pshufw $0xff, %%mm3, %%mm7\n"
+
+      "  psrlw $8, %%mm1\n"
+      "   pxor %%mm5, %%mm7\n"
+
+      "  paddw %%mm1, %%mm2\n"
+      "   pmullw %%mm7, %%mm4\n"
+
+      "  psrlw $8, %%mm2\n"
+      "   paddw %%mm6, %%mm4\n"
+
+      "  paddw %%mm0, %%mm2\n"
+      "   movq %%mm4, %%mm7\n"
+
+      "  packuswb %%mm2, %%mm2\n"
+      "   psrlw $8, %%mm7\n"
+
+      "  movd %%mm2, (%0)\n"
+      "   paddw %%mm7, %%mm4\n"
+
+      "   psrlw $8, %%mm4\n"
+      "   paddw %%mm3, %%mm4\n"
+      "   packuswb %%mm4, %%mm4\n"
+      "   movd %%mm4, 4(%0)\n"
+
+      "  pxor %%mm7, %%mm7\n"
+      "4:\n"
+      "  addl $8, %0\n"
+      "  addl $8, %1\n"
+      "  decl %2\n"
+      "  jnz 3b\n"
+      "5:\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_2, composite_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+/* replace pshufw with punpck */
+static void
+composite_over_argb_mmx_3 (uint32_t *dest, uint32_t *src, int n)
+{
+  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
+      "  movl $0x80808080, %%eax\n"
+      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
+      "  punpcklbw %%mm7, %%mm6\n"
+      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
+      "  movd %%eax, %%mm5\n"
+      "  punpcklbw %%mm7, %%mm5\n"
+      "1:\n"
+      "  movl (%1), %%eax\n"
+      "  testl $0xff000000, %%eax\n"
+      "  jz 2f\n"
+
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  movq %%mm0, %%mm1\n"
+      "  punpckhwd %%mm1, %%mm1\n"
+      "  punpckhdq %%mm1, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw %%mm1, %%mm2\n"
+      "  paddw %%mm6, %%mm2\n"
+      "  movq %%mm2, %%mm1\n"
+      "  psrlw $8, %%mm1\n"
+      "  paddw %%mm1, %%mm2\n"
+      "  psrlw $8, %%mm2\n"
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+
+      "2:\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  decl %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_3, composite_over_argb, OIL_IMPL_FLAG_MMX);
+
+static void
+composite_over_argb_mmx_4 (uint32_t *dest, uint32_t *src, int n)
+{
+  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
+      "  movl $0x80808080, %%eax\n"
+      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
+      "  punpcklbw %%mm7, %%mm6\n"
+      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
+      "  movd %%eax, %%mm5\n"
+      "  punpcklbw %%mm7, %%mm5\n"
+      "  movl $0x02020202, %%eax\n"
+      "  movd %%eax, %%mm4\n"
+      "  punpcklbw %%mm7, %%mm4\n"
+      "  paddw %%mm5, %%mm4\n" // mm5 = { 257, 257, 257, 257 }
+      "1:\n"
+      "  movl (%1), %%eax\n"
+      "  testl $0xff000000, %%eax\n"
+      "  jz 2f\n"
+
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0xff, %%mm0, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw %%mm1, %%mm2\n"
+      "  paddw %%mm6, %%mm2\n"
+      "  pmulhuw %%mm4, %%mm2\n"
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "2:\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  decl %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_4, composite_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
 static void
 composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
 {
@@ -147,6 +352,10 @@ composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
       "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
       "  movd %%eax, %%xmm5\n"
       "  punpcklbw %%xmm7, %%xmm5\n"
+      "  movl $0x02020202, %%eax\n"
+      "  movd %%eax, %%xmm4\n"
+      "  punpcklbw %%xmm7, %%xmm4\n"
+      "  paddw %%xmm5, %%xmm4\n" // mm4 = { 255, 255, 255, 255 }
       "1:\n"
       "  movl (%1), %%eax\n"
       "  testl $0xff000000, %%eax\n"
@@ -155,25 +364,17 @@ composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
       "  movd %%eax, %%xmm1\n"
       "  punpcklbw %%xmm7, %%xmm1\n"
       "  pshuflw $0xff, %%xmm1, %%xmm0\n"
-#if 1
       "  pxor %%xmm5, %%xmm0\n"
 
       "  movd (%0), %%xmm3\n"
       "  punpcklbw %%xmm7, %%xmm3\n"
       "  pmullw %%xmm0, %%xmm3\n"
       "  paddw %%xmm6, %%xmm3\n"
-      "  movq %%xmm3, %%xmm2\n"
-      "  psrlw $8, %%xmm2\n"
-      "  paddw %%xmm2, %%xmm3\n"
-      "  psrlw $8, %%xmm3\n"
+      "  pmulhuw %%xmm4, %%xmm3\n"
 
       "  paddw %%xmm1, %%xmm3\n"
       "  packuswb %%xmm3, %%xmm3\n"
       "  movd %%xmm3, %%eax\n"
-#else
-      "  packuswb %%xmm1, %%xmm1\n"
-      "  movd %%xmm1, %%eax\n"
-#endif
 
       "  movl %%eax, (%0)\n"
       "2:\n"
