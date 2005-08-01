@@ -1,5 +1,10 @@
 2005-08-01  David Schleef  <ds@schleef.org>
 
+	* configure.ac: use BSD_SOURCE instead of POSIX_C_SOURCE, because
+	POSIX_C_SOURCE causes symbols that we'd like to use to be hidden.
+
+2005-08-01  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Changes to make amd64 not suck
 	* liboil/colorspace/Makefile.am:
 	* liboil/conv/Makefile.am:
