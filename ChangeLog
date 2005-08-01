@@ -1,5 +1,9 @@
 2005-08-01  David Schleef  <ds@schleef.org>
 
+	* configure.ac: add -D_BSD_SOURCE
+
+2005-08-01  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/composite_i386.c: (composite_over_argb_sse2_3):
 	minor improvement
 
