@@ -105,7 +105,9 @@ oil_print_impl (OilFunctionImpl *impl, OilTest *test, char* prefix)
   char *c;
   unsigned int cpu_flags = oil_cpu_get_flags();
 
-  oil_test_check_impl (test, impl);
+  if (oil_impl_is_runnable (impl)) {
+    oil_test_check_impl (test, impl);
+  }
 
   printf ("%s%s\n", prefix, impl->name);
   c = oil_flags_to_string (impl->flags);

@@ -1,5 +1,25 @@
 2005-08-01  David Schleef  <ds@schleef.org>
 
+	* Makefile.am: add 'foreign' to automake flags
+	* configure.ac: add some dirs
+	* examples/Makefile.am: same
+	* examples/memcpy-speed.c: (main): change back to gromit's cpu
+	* examples/oil-inspect.c: (oil_print_impl): Don't run non-runnable
+	implementations.
+	* examples/oil-test.c: (dump_array), (main): minor fixes
+	* examples/taylor/Makefile.am: new
+	* examples/taylor/example1.c: new
+	* liboil/Makefile.am: add dirs
+	* liboil/colorspace/composite.c: (composite_over_argb_noclamp_2):
+	alternate clamping version
+	* liboil/simdpack/scalarmult.c: add unrolled impls
+	* testsuite/instruction/check-instructions.pl: fixes
+	* liboil/fb/Makefile.am: new
+	* liboil/fb/fbmmx.h: new
+	* liboil/fb/fbmmx.c: new
+
+2005-08-01  David Schleef  <ds@schleef.org>
+
 	* liboil/colorspace/composite_i386.c: (composite_over_argb_sse2_2),
 	(composite_over_argb_sse2_3): hacking
 	* liboil/liboilcpu.c: (oil_cpu_i386_getflags_cpuid): Intel's SSE2

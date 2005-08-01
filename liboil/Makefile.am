@@ -1,7 +1,7 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = colorspace conv copy dct jpeg math md5 motovec simdpack sse utf8
+SUBDIRS = colorspace conv copy dct fb jpeg math md5 motovec simdpack sse utf8
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 
@@ -25,6 +25,7 @@ liboilfunctions_la_LIBADD = \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
+	fb/libfb.la \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \

@@ -316,3 +316,25 @@ composite_over_argb_noclamp (uint32_t *dest, uint32_t *src, int n)
 }
 OIL_DEFINE_IMPL (composite_over_argb_noclamp, composite_over_argb);
 
+#define oil_divide_255_2(x)  ((((x)+128)*257)>>24)
+#define oil_muldiv_255_2(a,b) oil_divide_255_2((a)*(b))
+#define COMPOSITE_OVER_2(d,s,m) ((d) + (s) - oil_muldiv_255((d),(m)))
+
+static void
+composite_over_argb_noclamp_2 (uint32_t *dest, uint32_t *src, int n)
+{
+  int i;
+  uint8_t a;
+
+  for(i=0;i<n;i++){
+    a = oil_argb_A(src[i]);
+    dest[i] = oil_argb_noclamp(
+        COMPOSITE_OVER_2(oil_argb_A(dest[i]),oil_argb_A(src[i]),a),
+        COMPOSITE_OVER_2(oil_argb_R(dest[i]),oil_argb_R(src[i]),a),
+        COMPOSITE_OVER_2(oil_argb_G(dest[i]),oil_argb_G(src[i]),a),
+        COMPOSITE_OVER_2(oil_argb_B(dest[i]),oil_argb_B(src[i]),a));
+  }
+
+}
+OIL_DEFINE_IMPL (composite_over_argb_noclamp_2, composite_over_argb);
+

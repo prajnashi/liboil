@@ -26,7 +26,7 @@ main(int argc, char *argv[])
 
   oil_init ();
 
-  cpufreq = 400e6/16;
+  cpufreq = 1788e6;
 
   s = malloc(1024*1024*64+1024);
   d = malloc(1024*1024*64+1024);
