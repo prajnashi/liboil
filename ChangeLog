@@ -1,5 +1,10 @@
 2005-08-01  David Schleef  <ds@schleef.org>
 
+	* liboil/colorspace/composite_i386.c: (composite_over_argb_sse2_3):
+	minor improvement
+
+2005-08-01  David Schleef  <ds@schleef.org>
+
 	* Makefile.am: add 'foreign' to automake flags
 	* configure.ac: add some dirs
 	* examples/Makefile.am: same
