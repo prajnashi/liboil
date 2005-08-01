@@ -180,6 +180,7 @@ oil_cpu_i386_getflags_cpuid (void)
   }
   if (edx & (1<<26)) {
     oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+    oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
   }
   if (ecx & (1<<0)) {
     oil_cpu_flags |= OIL_IMPL_FLAG_SSE3;

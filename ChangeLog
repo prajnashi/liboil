@@ -1,3 +1,10 @@
+2005-08-01  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/composite_i386.c: (composite_over_argb_sse2_2),
+	(composite_over_argb_sse2_3): hacking
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags_cpuid): Intel's SSE2
+	implies MMXEXT
+
 2005-07-31  David Schleef  <ds@schleef.org>
 
 	* liboil/colorspace/composite_i386.c: (composite_over_argb_mmx_4),
