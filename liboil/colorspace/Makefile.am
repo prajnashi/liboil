@@ -33,10 +33,20 @@ else
 i386_sources =
 endif
 
+if HAVE_CPU_AMD64
+amd64_sources = \
+	ayuv2argb_i386.c \
+	argb_paint_i386.c \
+	composite_i386.c
+else
+amd64_sources =
+endif
+
 libcolorspace_la_SOURCES = 	\
 	$(c_sources) \
 	$(powerpc_sources) \
-	$(i386_sources)
+	$(i386_sources) \
+	$(amd64_sources)
 libcolorspace_la_LIBADD = $(opt_libs)
 libcolorspace_la_CFLAGS = $(LIBOIL_CFLAGS)
 

@@ -1,5 +1,20 @@
 2005-08-01  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Changes to make amd64 not suck
+	* liboil/colorspace/Makefile.am:
+	* liboil/conv/Makefile.am:
+	* liboil/copy/Makefile.am:
+	* liboil/dct/Makefile.am:
+	* liboil/fb/Makefile.am:
+	* liboil/liboilprofile.h:
+	* liboil/md5/Makefile.am:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/sse/Makefile.am:
+	* liboil/utf8/Makefile.am:
+
+2005-08-01  David Schleef  <ds@schleef.org>
+
 	* m4/gtk-doc.m4: this is useful
 
 2005-08-01  David Schleef  <ds@schleef.org>

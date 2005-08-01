@@ -24,6 +24,15 @@ else
 i386_sources =
 endif
 
+if HAVE_CPU_AMD64
+amd64_sources = \
+	copy_i386.c \
+	splat_i386.c \
+	trans8x8_i386.c
+else
+amd64_sources =
+endif
+
 c_sources = \
 	copy.c \
 	permute.c \
@@ -35,7 +44,8 @@ c_sources = \
 libcopy_la_SOURCES = \
 	$(c_sources) \
 	$(powerpc_sources) \
-	$(i386_sources)
+	$(i386_sources) \
+	$(amd64_sources)
 libcopy_la_LIBADD = $(opt_libs)
 
 libcopy_la_CFLAGS = $(LIBOIL_CFLAGS)

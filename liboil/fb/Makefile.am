@@ -12,8 +12,13 @@ if HAVE_CPU_I386
 c_sources = \
 	fbmmx.c
 else
+if HAVE_CPU_AMD64
+c_sources = \
+	fbmmx.c
+else
 c_sources = \
 	empty.c
+endif
 endif
 
 libfb_la_SOURCES = $(c_sources)

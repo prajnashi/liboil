@@ -35,6 +35,15 @@ else
 i386_sources =
 endif
 
+if HAVE_CPU_AMD64
+amd64_sources = \
+	abs_i386.c \
+	mult8x8_i386.c \
+	scalarmult_i386.c
+else
+amd64_sources =
+endif
+
 if HAVE_CPU_POWERPC
 powerpc_sources = \
 	abs_powerpc.c \
@@ -47,7 +56,7 @@ powerpc_sources =
 endif
 
 libsimdpack_la_SOURCES = \
-	$(c_sources) $(i386_sources) $(powerpc_sources)
+	$(c_sources) $(i386_sources) $(powerpc_sources) $(amd64_sources)
 libsimdpack_la_LIBADD = \
 	$(opt_libs)
 libsimdpack_la_CFLAGS = $(LIBOIL_CFLAGS)

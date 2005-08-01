@@ -172,7 +172,7 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
     true)
 fi
 
-if test x$HAVE_CPU_I386 = xyes ; then
+if test x$HAVE_CPU_I386 = xyes -o x$HAVE_CPU_AMD64 = xyes ; then
   AS_COMPILER_FLAG(["-mmmx"], [MMX_CFLAGS="-mmmx"], true)
   AS_COMPILER_FLAG(["-msse"], [SSE_CFLAGS="-msse"], true)
   AS_COMPILER_FLAG(["-msse2"], [SSE2_CFLAGS="-msse2"], true)

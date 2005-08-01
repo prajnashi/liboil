@@ -55,6 +55,15 @@ static inline unsigned long oil_profile_stamp(void)
 	return ts;
 }
 
+#elif defined(__amd64__)
+
+static inline unsigned long oil_profile_stamp(void)
+{
+	unsigned long ts;
+	__asm__ __volatile__("rdtsc\n" : "=a" (ts) : : "edx");
+	return ts;
+}
+
 #elif defined(__powerpc__)
 
 static inline unsigned long oil_profile_stamp(void)

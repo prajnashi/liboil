@@ -17,6 +17,12 @@ else
 #i386_sources =
 endif
 
+if HAVE_CPU_AMD64
+#amd64_sources = utf8_i386.c
+else
+#amd64_sources =
+endif
+
 if HAVE_CPU_POWERPC
 #powerpc_sources = utf8_powerpc.c
 else
@@ -24,7 +30,7 @@ else
 endif
 
 libutf8_la_SOURCES = \
-	$(c_sources) $(i386_sources) $(powerpc_sources)
+	$(c_sources) $(i386_sources) $(powerpc_sources) $(amd64_sources)
 libutf8_la_LIBADD = $(opt_libs)
 libutf8_la_CFLAGS = $(LIBOIL_CFLAGS)
 

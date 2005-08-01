@@ -17,6 +17,13 @@ else
 i386_sources =
 endif
 
+if HAVE_CPU_AMD64
+amd64_sources = \
+	idct8x8_i386.c
+else
+amd64_sources =
+endif
+
 c_sources = \
 	dct12_f32.c \
 	dct36_f32.c \
@@ -30,7 +37,8 @@ c_sources = \
 
 libdct_la_SOURCES = \
 	$(c_sources) \
-	$(i386_sources)
+	$(i386_sources) \
+	$(amd64_sources)
 
 libdct_la_CFLAGS = $(LIBOIL_CFLAGS)
 libdct_la_LIBADD = $(opt_libs)
