@@ -332,7 +332,7 @@ composite_over_argb_mmx_4 (uint32_t *dest, uint32_t *src, int n)
       "2:\n"
       "  addl $4, %0\n"
       "  addl $4, %1\n"
-      "  decl %2\n"
+      "  subl $1, %2\n"
       "  jnz 1b\n"
       "  emms\n"
       :"+r" (dest), "+r" (src), "+r" (n)
@@ -341,6 +341,59 @@ composite_over_argb_mmx_4 (uint32_t *dest, uint32_t *src, int n)
 
 }
 OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_4, composite_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+composite_over_argb_mmx_5 (uint32_t *dest, uint32_t *src, int n)
+{
+  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
+      "  movl $0x80808080, %%eax\n"
+      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
+      "  punpcklbw %%mm7, %%mm6\n"
+#if 0
+      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
+      "  movd %%eax, %%mm5\n"
+      "  punpcklbw %%mm7, %%mm5\n"
+#else
+      "  pcmpeqw %%mm5, %%mm5\n"
+      "  psrlw $8, %%mm5\n" // mm5 = { 255, 255, 255, 255 }
+#endif
+      "  movl $0x02020202, %%eax\n"
+      "  movd %%eax, %%mm4\n"
+      "  punpcklbw %%mm7, %%mm4\n"
+      "  paddw %%mm5, %%mm4\n" // mm5 = { 257, 257, 257, 257 }
+      "1:\n"
+      "  movd (%1), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  xor %%eax, %%eax\n"
+      "  pextrw $3, %%mm0, %%eax\n"
+      "  test %%eax, %%eax\n"
+      "  jz 2f\n"
+
+      "  pshufw $0xff, %%mm0, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw %%mm1, %%mm2\n"
+      "  paddw %%mm6, %%mm2\n"
+      "  pmulhuw %%mm4, %%mm2\n"
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "2:\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  subl $1, %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_5, composite_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
@@ -361,7 +414,7 @@ composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
       "  testl $0xff000000, %%eax\n"
       "  jz 2f\n"
 
-      "  movd %%eax, %%xmm1\n"
+      "  movd (%1), %%xmm1\n"
       "  punpcklbw %%xmm7, %%xmm1\n"
       "  pshuflw $0xff, %%xmm1, %%xmm0\n"
       "  pxor %%xmm5, %%xmm0\n"
@@ -374,9 +427,7 @@ composite_over_argb_sse2 (uint32_t *dest, uint32_t *src, int n)
 
       "  paddw %%xmm1, %%xmm3\n"
       "  packuswb %%xmm3, %%xmm3\n"
-      "  movd %%xmm3, %%eax\n"
-
-      "  movl %%eax, (%0)\n"
+      "  movd %%xmm3, (%0)\n"
       "2:\n"
       "  addl $4, %0\n"
       "  addl $4, %1\n"
