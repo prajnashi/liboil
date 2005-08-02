@@ -34,8 +34,15 @@
 OIL_DECLARE_CLASS(copy_u8);
 OIL_DECLARE_CLASS(splat_u8_ns);
 
+#ifdef HAVE_LD_UNDERSCORE
 void *vec_memcpy(void *dest, void *src, int n);
 void *vec_memset(void *dest, int val, int n);
+#else
+void *_vec_memcpy(void *dest, void *src, int n);
+void *_vec_memset(void *dest, int val, int n);
+#define vec_memcpy _vec_memcpy
+#define vec_memset _vec_memset
+#endif
 
 static void
 copy_u8_motovec (uint8_t *dest, uint8_t *src, int n)

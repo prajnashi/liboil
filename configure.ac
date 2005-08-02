@@ -137,6 +137,12 @@ AM_CONDITIONAL(HAVE_CPU_IA64, test "x$HAVE_CPU_IA64" = "xyes")
 
 AC_C_BIGENDIAN
 
+AC_LTDL_SYMBOL_USCORE
+if test x${ac_cv_sys_symbol_underscore} = xyes ; then
+  AC_DEFINE(HAVE_SYMBOL_UNDERSCORE, 1, [Define if C symbols have leading underscore])
+fi
+
+
 
 AC_FUNC_MMAP()
 AC_CHECK_LIB(m, rintf,

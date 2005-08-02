@@ -1,3 +1,9 @@
+2005-08-02  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Define HAVE_LD_UNDERSCORE to indicate whether
+	or not an underscore is prepended to C symbols.
+	* liboil/motovec/motovec.c:
+
 2005-08-01  David Schleef  <ds@schleef.org>
 
 	* configure.ac: use BSD_SOURCE instead of POSIX_C_SOURCE, because
