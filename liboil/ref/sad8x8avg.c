@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,51 +29,38 @@
 #include "config.h"
 #endif
 
-#include <string.h>
-
 #include <liboil/liboilfunction.h>
+#include <math.h>
 
-OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
+#define ABS(x) ((x)>0 ? (x) : -(x))
+
+OIL_DEFINE_CLASS (sad8x8_u8_avg,
+    "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, uint8_t *s3_8x8, int ss2");
 
 static void
-copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
+sad8x8_u8_avg_ref (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uint8_t *src3, int ss2)
 {
   int i;
-  for(i=0;i<n;i++){
-    dest[i] = src[i];
-  }
-}
-OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
+  uint32_t diff = 0;
 
-static void
-copy_u8_libc (uint8_t *dest, uint8_t *src, int n)
-{
-  memcpy (dest, src, n);
-}
-OIL_DEFINE_IMPL (copy_u8_libc, copy_u8);
+  for (i=0; i<8;i++){
+    diff += ABS(((int)src1[0]) - (((int)src2[0] + (int)src3[0]) / 2));
+    diff += ABS(((int)src1[1]) - (((int)src2[1] + (int)src3[1]) / 2));
+    diff += ABS(((int)src1[2]) - (((int)src2[2] + (int)src3[2]) / 2));
+    diff += ABS(((int)src1[3]) - (((int)src2[3] + (int)src3[3]) / 2));
+    diff += ABS(((int)src1[4]) - (((int)src2[4] + (int)src3[4]) / 2));
+    diff += ABS(((int)src1[5]) - (((int)src2[5] + (int)src3[5]) / 2));
+    diff += ABS(((int)src1[6]) - (((int)src2[6] + (int)src3[6]) / 2));
+    diff += ABS(((int)src1[7]) - (((int)src2[7] + (int)src3[7]) / 2));
 
-static void
-copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
-{
-  while(n--) {
-    *dest++ = *src++;
+    /* Step to next row of block. */
+    src1 += ss1;
+    src2 += ss2;
+    src3 += ss2;
   }
+  *dest = diff;
 }
-OIL_DEFINE_IMPL (copy_u8_ptr, copy_u8);
 
-static void
-copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
-{
-  int i;
-  for(i=0;i<(n&3);i++){
-    *dest++ = *src++;
-  }
-  n >>= 2;
-  for(i=0;i<n;i++){
-    *(uint32_t *)dest = *(uint32_t *)src;
-    dest += 4;
-    src += 4;
-  }
-}
-OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
+OIL_DEFINE_IMPL_REF (sad8x8_u8_avg_ref, sad8x8_u8_avg);
+
 

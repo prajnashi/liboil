@@ -29,51 +29,48 @@
 #include "config.h"
 #endif
 
-#include <string.h>
-
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
+OIL_DECLARE_CLASS(copy8x8_u8);
 
 static void
-copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
+copy8x8_u8_mmx (uint8_t *dest, int dstr, uint8_t *src, int sstr)
 {
-  int i;
-  for(i=0;i<n;i++){
-    dest[i] = src[i];
-  }
-}
-OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
+  __asm__ __volatile__ (
+    "  .balign 16                      \n\t"
 
-static void
-copy_u8_libc (uint8_t *dest, uint8_t *src, int n)
-{
-  memcpy (dest, src, n);
-}
-OIL_DEFINE_IMPL (copy_u8_libc, copy_u8);
+    "  lea         (%2, %2, 2), %%edi  \n\t"
 
-static void
-copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
-{
-  while(n--) {
-    *dest++ = *src++;
-  }
-}
-OIL_DEFINE_IMPL (copy_u8_ptr, copy_u8);
+    "  movq        (%1), %%mm0         \n\t"
+    "  movq        (%1, %2), %%mm1     \n\t"
+    "  movq        (%1, %2, 2), %%mm2  \n\t"
+    "  movq        (%1, %%edi), %%mm3  \n\t"
 
-static void
-copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
-{
-  int i;
-  for(i=0;i<(n&3);i++){
-    *dest++ = *src++;
-  }
-  n >>= 2;
-  for(i=0;i<n;i++){
-    *(uint32_t *)dest = *(uint32_t *)src;
-    dest += 4;
-    src += 4;
-  }
+    "  lea         (%1, %2, 4), %1     \n\t" 
+
+    "  movq        %%mm0, (%0)         \n\t"
+    "  movq        %%mm1, (%0, %2)     \n\t"
+    "  movq        %%mm2, (%0, %2, 2)  \n\t"
+    "  movq        %%mm3, (%0, %%edi)  \n\t"
+
+    "  lea         (%0, %2, 4), %0     \n\t" 
+
+    "  movq        (%1), %%mm0         \n\t"
+    "  movq        (%1, %2), %%mm1     \n\t"
+    "  movq        (%1, %2, 2), %%mm2  \n\t"
+    "  movq        (%1, %%edi), %%mm3  \n\t"
+
+    "  movq        %%mm0, (%0)         \n\t"
+    "  movq        %%mm1, (%0, %2)     \n\t"
+    "  movq        %%mm2, (%0, %2, 2)  \n\t"
+    "  movq        %%mm3, (%0, %%edi)  \n\t"
+    "  emms			       \n\t"
+      : "+a" (dest)
+      : "c" (src),
+        "r" (sstr),
+        "r" (dstr)
+      : "memory", "edi"
+  ); 
 }
-OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
+OIL_DEFINE_IMPL_FULL (copy8x8_u8_mmx, copy8x8_u8, OIL_IMPL_FLAG_MMX);
 

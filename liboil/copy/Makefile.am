@@ -18,6 +18,7 @@ endif
 if HAVE_CPU_I386
 i386_sources = \
 	copy_i386.c \
+	copy8x8_i386.c \
 	splat_i386.c \
 	trans8x8_i386.c
 else
@@ -35,6 +36,7 @@ endif
 
 c_sources = \
 	copy.c \
+	copy8x8.c \
 	permute.c \
 	splat_ref.c \
 	tablelookup_ref.c \

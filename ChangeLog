@@ -1,5 +1,32 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	Patch from Wim Taymans adding a bunch of classes and MMX
+	implementations for libtheora.  Heavily modified by ds.
+	* Makefile.am:
+	* liboil-uninstalled.pc.in:
+	* liboil/copy/Makefile.am:
+	* liboil/copy/copy.c:
+	* liboil/copy/copy8x8.c:
+	* liboil/copy/copy8x8_i386.c:
+	* liboil/dct/Makefile.am:
+	* liboil/dct/fdct8x8theora.c:
+	* liboil/dct/fdct8x8theora_i386.c:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/diff8x8_i386.c:
+	* liboil/i386/error8x8_i386.c:
+	* liboil/i386/recon8x8_i386.c:
+	* liboil/i386/rowcolsad8x8_i386.c:
+	* liboil/i386/sad8x8_i386.c:
+	* liboil/i386/sad8x8avg_i386.c:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/diff8x8.c:
+	* liboil/ref/error8x8.c:
+	* liboil/ref/recon8x8.c:
+	* liboil/ref/rowcolsad8x8.c:
+	* liboil/ref/sad8x8avg.c:
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: add libcolorspace.h
 	* liboil/build_marshal.c: (main): use oil_init_no_optimize() to
 	save us from horrible build problems (like what happened today)
