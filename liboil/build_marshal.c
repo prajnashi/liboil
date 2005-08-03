@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
   int n;
   unsigned int pointer_mask;
 
-  oil_init ();
+  oil_init_no_optimize ();
 
   print_header ();
 

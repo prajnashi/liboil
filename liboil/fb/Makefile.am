@@ -21,6 +21,10 @@ c_sources = \
 endif
 endif
 
+noinst_HEADERS = \
+	fbmmx.h \
+	fbpict.h
+
 libfb_la_SOURCES = $(c_sources)
 libfb_la_CFLAGS = $(MMX_CFLAGS) $(SSE_CFLAGS) $(LIBOIL_CFLAGS)
 

@@ -160,6 +160,7 @@ void oil_class_register_impl (OilFunctionClass * klass, OilFunctionImpl *impl);
 void oil_class_register_impl_by_name (const char *klass_name,
     OilFunctionImpl *impl);
 
+void oil_init_no_optimize(void);
 
 #endif
 

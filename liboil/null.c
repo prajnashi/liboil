@@ -39,4 +39,15 @@ null_ref (void)
 }
 OIL_DEFINE_IMPL_REF (null_ref, null);
 
+static void
+null_mmx (void)
+{
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm1, %%mm0\n"
+      "  emms\n"
+      :::"eax");
+}
+OIL_DEFINE_IMPL_FULL (null_mmx, null, OIL_IMPL_FLAG_MMX);
+
+
 

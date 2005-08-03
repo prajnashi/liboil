@@ -37,7 +37,7 @@
 OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
 
 static void
-rgb2bgr_ref (uint8_t *dest, uint8_t* src, int n)
+rgb2bgr_ref (uint8_t *dest, const uint8_t* src, int n)
 {
   int i;
   uint8_t tmp;

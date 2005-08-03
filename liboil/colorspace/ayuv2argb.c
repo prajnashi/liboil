@@ -49,7 +49,7 @@ OIL_DEFINE_CLASS (ayuv2argb_u8, "uint8_t *d_4xn, uint8_t *s_4xn, int n");
 
 
 static void
-ayuv2argb_u8_ref (uint8_t *argb, uint8_t *ayuv, int n)
+ayuv2argb_u8_ref (uint8_t *argb, const uint8_t *ayuv, int n)
 {
   int i;
 
@@ -66,7 +66,7 @@ ayuv2argb_u8_ref (uint8_t *argb, uint8_t *ayuv, int n)
 OIL_DEFINE_IMPL_REF (ayuv2argb_u8_ref, ayuv2argb_u8);
 
 static void
-ayuv2argb_u8_int (uint8_t *argb, uint8_t *ayuv, int n)
+ayuv2argb_u8_int (uint8_t *argb, const uint8_t *ayuv, int n)
 {
   int i;
 

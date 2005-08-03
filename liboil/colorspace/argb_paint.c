@@ -39,7 +39,7 @@ OIL_DEFINE_CLASS (argb_paint_u8, "uint8_t *i_4xn, uint8_t *s1_4, uint8_t *s2_n, 
 #define blend(x,y,a) div255((x)*(a) + (y)*(255-(a)))
 
 static void
-argb_paint_u8_ref (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
+argb_paint_u8_ref (uint8_t *dest, const uint8_t *color, const uint8_t *alpha, int n)
 {
   int i;
 

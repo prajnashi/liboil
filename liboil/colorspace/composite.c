@@ -110,9 +110,15 @@ OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_src,
 OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_mask,
     "uint32_t *i_n, uint32_t *s1_n, uint8_t *s2_1, int n",
     composite_test);
+OIL_DEFINE_CLASS_FULL (composite_over_u8,
+    "uint8_t *i_n, uint8_t *s1_n, int n",
+    composite_test);
+OIL_DEFINE_CLASS_FULL (composite_add_u8,
+    "uint8_t *i_n, uint8_t *s1_n, int n",
+    composite_test);
 
 static void
-composite_in_argb_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_argb_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
 
@@ -127,7 +133,7 @@ composite_in_argb_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
 OIL_DEFINE_IMPL_REF (composite_in_argb_ref, composite_in_argb);
 
 static void
-composite_in_argb_const_src_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_argb_const_src_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
 
@@ -142,7 +148,7 @@ composite_in_argb_const_src_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, i
 OIL_DEFINE_IMPL_REF (composite_in_argb_const_src_ref, composite_in_argb_const_src);
 
 static void
-composite_in_argb_const_mask_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_argb_const_mask_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
 
@@ -157,7 +163,7 @@ composite_in_argb_const_mask_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, 
 OIL_DEFINE_IMPL_REF (composite_in_argb_const_mask_ref, composite_in_argb_const_mask);
 
 static void
-composite_over_argb_ref (uint32_t *dest, uint32_t *src, int n)
+composite_over_argb_ref (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
   uint8_t a;
@@ -175,7 +181,7 @@ composite_over_argb_ref (uint32_t *dest, uint32_t *src, int n)
 OIL_DEFINE_IMPL_REF (composite_over_argb_ref, composite_over_argb);
 
 static void
-composite_over_argb_const_src_ref (uint32_t *dest, uint32_t *src, int n)
+composite_over_argb_const_src_ref (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
   uint8_t a;
@@ -193,7 +199,7 @@ composite_over_argb_const_src_ref (uint32_t *dest, uint32_t *src, int n)
 OIL_DEFINE_IMPL_REF (composite_over_argb_const_src_ref, composite_over_argb_const_src);
 
 static void
-composite_add_argb_ref (uint32_t *dest, uint32_t *src, int n)
+composite_add_argb_ref (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
 
@@ -209,7 +215,7 @@ composite_add_argb_ref (uint32_t *dest, uint32_t *src, int n)
 OIL_DEFINE_IMPL_REF (composite_add_argb_ref, composite_add_argb);
 
 static void
-composite_add_argb_const_src_ref (uint32_t *dest, uint32_t *src, int n)
+composite_add_argb_const_src_ref (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
 
@@ -225,7 +231,7 @@ composite_add_argb_const_src_ref (uint32_t *dest, uint32_t *src, int n)
 OIL_DEFINE_IMPL_REF (composite_add_argb_const_src_ref, composite_add_argb_const_src);
 
 static void
-composite_in_over_argb_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_over_argb_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
   uint8_t a;
@@ -249,7 +255,7 @@ composite_in_over_argb_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
 OIL_DEFINE_IMPL_REF (composite_in_over_argb_ref, composite_in_over_argb);
 
 static void
-composite_in_over_argb_const_src_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_over_argb_const_src_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
   uint8_t a;
@@ -273,7 +279,7 @@ composite_in_over_argb_const_src_ref (uint32_t *dest, uint32_t *src, uint8_t *ma
 OIL_DEFINE_IMPL_REF (composite_in_over_argb_const_src_ref, composite_in_over_argb_const_src);
 
 static void
-composite_in_over_argb_const_mask_ref (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
+composite_in_over_argb_const_mask_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
 {
   int i;
   uint8_t a;
@@ -296,10 +302,36 @@ composite_in_over_argb_const_mask_ref (uint32_t *dest, uint32_t *src, uint8_t *m
 }
 OIL_DEFINE_IMPL_REF (composite_in_over_argb_const_mask_ref, composite_in_over_argb_const_mask);
 
+static void
+composite_add_u8_ref (uint8_t *dest, const uint8_t *src, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = COMPOSITE_ADD(dest[i],src[i]);
+  }
+
+}
+OIL_DEFINE_IMPL_REF (composite_add_u8_ref, composite_add_u8);
+
+static void
+composite_over_u8_ref (uint8_t *dest, const uint8_t *src, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = COMPOSITE_OVER(dest[i],src[i],src[i]);
+  }
+
+}
+OIL_DEFINE_IMPL_REF (composite_over_u8_ref, composite_over_u8);
+
+
+
 
 
 static void
-composite_over_argb_noclamp (uint32_t *dest, uint32_t *src, int n)
+composite_over_argb_noclamp (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
   uint8_t a;
@@ -321,7 +353,7 @@ OIL_DEFINE_IMPL (composite_over_argb_noclamp, composite_over_argb);
 #define COMPOSITE_OVER_2(d,s,m) ((d) + (s) - oil_muldiv_255((d),(m)))
 
 static void
-composite_over_argb_noclamp_2 (uint32_t *dest, uint32_t *src, int n)
+composite_over_argb_noclamp_2 (uint32_t *dest, const uint32_t *src, int n)
 {
   int i;
   uint8_t a;

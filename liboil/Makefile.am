@@ -52,6 +52,7 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilfunction.h \
 	liboilprofile.h \
 	liboiltypes.h \
+	liboilcolorspace.h \
 	liboilfunction.c \
 	liboildebug.c \
 	liboilcpu.c \

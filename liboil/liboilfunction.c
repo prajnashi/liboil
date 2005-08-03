@@ -80,6 +80,33 @@ oil_init (void)
 }
 
 /**
+ * oil_init_no_optimize:
+ *
+ * Identical to @oil_init(), except that the profiling stage is not
+ * done.  This function is mainly useful for internal programs.
+ */
+void
+oil_init_no_optimize (void)
+{
+  static int inited = 0;
+  unsigned long start, stop;
+
+  if (inited) return;
+  inited = 1;
+
+  start = oil_profile_stamp_gtod ();
+
+  _oil_debug_init ();
+  _oil_cpu_init ();
+  oil_init_pointers ();
+  oil_init_structs ();
+
+  stop = oil_profile_stamp_gtod ();
+
+  OIL_INFO ("initialization completed in %ld usec", stop-start);
+}
+
+/**
  * oil_optimize_all:
  *
  * Optimizes all function classes.

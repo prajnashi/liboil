@@ -1,5 +1,26 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: add libcolorspace.h
+	* liboil/build_marshal.c: (main): use oil_init_no_optimize() to
+	save us from horrible build problems (like what happened today)
+	* liboil/build_prototypes.c: (main): same
+	* liboil/build_prototypes_doc.c: (main): same
+	* liboil/liboilfunction.h: same
+	* liboil/liboilfunction.c: (oil_init_no_optimize): same
+	* liboil/liboilmarshal.c: (_oil_test_marshal_function): some new
+	marshal cases needed by wim's code.
+	* liboil/null.c: (null_mmx): add mmx impl
+	* liboil/colorspace/argb_paint.c: prototype fixes
+	* liboil/colorspace/ayuv2argb.c:
+	* liboil/colorspace/composite.c:
+	* liboil/colorspace/rgb2bgr.c:
+	* liboil/colorspace/rgb2rgba.c:
+	* liboil/fb/Makefile.am: add headers
+	* liboil/fb/fbmmx.c: hacking
+	* liboil/liboilfuncs.h: update
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Define HAVE_LD_UNDERSCORE to indicate whether
 	or not an underscore is prepended to C symbols.
 	* liboil/motovec/motovec.c:
