@@ -1,5 +1,9 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	* liboil/fb/fbpict.h: oops, need this
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	* liboil/simdpack/scalarmult.c:  Readd some implementations,
 	since they're unbroken now.  (They still suck.)
 
