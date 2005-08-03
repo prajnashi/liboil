@@ -1,5 +1,22 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	* HACKING: some notes
+	* configure.ac: readd _GNU_SOURCE
+	* liboil/Makefile.am: add new dirs, create decls header
+	* liboil/build_class_decls.c: create decls header
+	* liboil/liboilclasses.h: new decls header
+	* liboil/liboilinternal.h: general internal header
+	* liboil/fb/.cvsignore: cvsignore
+	* liboil/i386/.cvsignore:
+	* liboil/math/.cvsignore:
+	* liboil/motovec/.cvsignore:
+	* liboil/ref/.cvsignore:
+	* liboil/sse/.cvsignore:
+	* liboil/utf8/.cvsignore:
+	* testsuite/instruction/check-instructions.pl: minor opcode fixes
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	Patch from Wim Taymans adding a bunch of classes and MMX
 	implementations for libtheora.  Heavily modified by ds.
 	* Makefile.am:

@@ -191,7 +191,7 @@ AC_SUBST(SSE2_CFLAGS)
 AC_SUBST(SSE3_CFLAGS)
 AC_SUBST(_3DNOW_CFLAGS)
 
-LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -I\$(top_srcdir) -O2"
+LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir) -O2"
 AC_SUBST(LIBOIL_CFLAGS)
 
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
@@ -212,10 +212,12 @@ liboil/conv/Makefile
 liboil/copy/Makefile
 liboil/dct/Makefile
 liboil/fb/Makefile
+liboil/i386/Makefile
+liboil/jpeg/Makefile
 liboil/math/Makefile
 liboil/md5/Makefile
 liboil/motovec/Makefile
-liboil/jpeg/Makefile
+liboil/ref/Makefile
 liboil/simdpack/Makefile
 liboil/sse/Makefile
 liboil/utf8/Makefile
@@ -228,6 +230,7 @@ examples/md5/Makefile
 examples/taylor/Makefile
 examples/uberopt/Makefile
 examples/work/Makefile
+liboil-uninstalled.pc
 liboil.pc
 ])
 AC_OUTPUT

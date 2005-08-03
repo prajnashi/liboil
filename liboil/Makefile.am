@@ -1,17 +1,19 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = colorspace conv copy dct fb jpeg math md5 motovec simdpack sse utf8
+SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec ref simdpack sse utf8
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 
 noinst_LTLIBRARIES = liboilfunctions.la
 
-noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal
+noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal \
+	build_class_decls
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
-	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h
+	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h \
+	liboilinternal.h liboilclasses.h
 
 nodist_noinst_HEADERS = liboilfuncs-doc.h
 
@@ -26,10 +28,12 @@ liboilfunctions_la_LIBADD = \
 	copy/libcopy.la \
 	dct/libdct.la \
 	fb/libfb.la \
+	i386/libi386.la \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \
 	motovec/libmotovec.la \
+	ref/libref.la \
 	simdpack/libsimdpack.la \
 	sse/libsse.la \
 	utf8/libutf8.la \
@@ -74,10 +78,14 @@ liboil_@LIBOIL_MAJORMINOR@_la_LDFLAGS = \
 # This is required to use 'make -j2'. Automake doesn't seem to notice
 # that one of the dependencies is in this directory.
 build_prototypes_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
-
 build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
 build_prototypes_LDADD = $(LIBOIL_LIBS)
+
+build_class_decls_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
+build_class_decls_SOURCES = build_class_decls.c
+build_class_decls_CFLAGS = $(LIBOIL_CFLAGS)
+build_class_decls_LDADD = $(LIBOIL_LIBS)
 
 build_prototypes_doc_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
 build_prototypes_doc_SOURCES = build_prototypes_doc.c
@@ -85,7 +93,6 @@ build_prototypes_doc_CFLAGS = $(LIBOIL_CFLAGS)
 build_prototypes_doc_LDADD = $(LIBOIL_LIBS)
 
 build_marshal_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
-
 build_marshal_SOURCES = build_marshal.c
 build_marshal_CFLAGS = $(LIBOIL_CFLAGS)
 build_marshal_LDADD = $(LIBOIL_LIBS)
@@ -128,4 +135,5 @@ update:
 	./build_prototypes >liboilfuncs.h
 	./build_marshal >liboilmarshal.c
 	./build_prototypes_doc >liboilfuncs-doc.h
+	./build_class_decls >liboilclasses.h
 

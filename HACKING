@@ -1,0 +1,87 @@
+
+Hacking on liboil
+=================
+
+
+New Implementations
+-------------------
+
+  New implementations using gcc inline assembly code should go in
+  liboil/${arch}.  New implementations that are written in C should
+  go in liboil/c.  New implementations written in MMX/SSE/Altivec
+  instrinsics should go in liboil/mmx, liboil/sse, or liboil/altivec.
+
+  Implementations copied from other projects should generally be
+  given a separate directory under liboil/, similar to liboil/motovec.
+
+  Checklist for implementations:
+
+    - handle the n==0 case correctly
+
+    - handle various array alignments correctly if the vectorized
+      code has trouble loading misaligned data.  Sometimes this is
+      only a problem on certain CPUs.
+
+    - unrolled loops and vectorized code needs to handle any extra
+      array elements at the end of array.
+
+    - if a class has strides, they must be followed.
+
+  Things implementations can assume:
+
+    - n will never be negative
+
+    - alignment of individual array members.  For example, if the
+      type is "u32", you can assume that pointers and strides are
+      multiples of 4.
+
+  In general, if your implementation is enabled on the current CPU
+  and 'make check' passes, it's probably a clean implementation.
+
+  Broken implementations (i.e., code that is a work-in-progress)
+  are still allowed, as long as the broken code is wrapped in
+  #ifdef ENABLE_BROKEN_IMPLS/#endif.
+
+
+New Classes
+-----------
+
+  Reference implementations for new classes should go in liboil/ref.
+
+  The naming of new classes is a tricky business.  The goal is to
+  make the name short, easy to remember and type, but descriptive
+  enough to differentiate it from alternatives.  This policy has
+  not always been followed in the past, so don't follow that lead.
+
+  Try to:
+  
+    - Use full names instead of abbreviations.  Some abbreviations
+      however are common and acceptable, such as "diff", "avg", or
+      "abs".
+
+    - Use a name that makes sense independent of the application
+      that you may be copying it from.
+
+    - Use nouns instead of verbs (thus, "difference" instead of
+      "subtract", or "sum" instead of "add").
+
+  Class names are made up of a base part that describes what the
+  function does, appended with modifiers.  Common modifiers are
+  for the type ("_f64", "_u8"), or to indicate inaccuracies or
+  limitations in implementations ("_i10", "_l10").
+
+  Use of underscores in the base part of the class name is arbitrary.
+  This may change in the future.
+
+  New classes should not use the modifier "_ns", since non-strided
+  arrays are the default.  
+
+  Parameters should generally follow the order:
+
+    i1, is1, i2, is2, ..., d1, ds1, ..., s1, ss1, ..., n, m
+
+  After you add a new class, it's necessary to run 'make update' in
+  the liboil/ directory to regenerate some built headers.
+
+
+
