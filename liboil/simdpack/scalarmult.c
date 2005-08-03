@@ -178,4 +178,34 @@ SCALARMULT_DEFINE_UNROLL4 (f64);
 
 
 
+#define SCALARMULT_DEFINE_X(type)		\
+static void scalarmult_ ## type ## _x(	\
+    type_ ## type *dest, int dstr,		\
+    type_ ## type *src, int sstr,		\
+    type_ ## type *val, int n)			\
+{						\
+  int i;					\
+  for(i=0;i+1<n;i+=2){				\
+    OIL_GET(dest, i*dstr,type_ ## type) =        \
+      OIL_GET(src, i*sstr,type_ ## type) * *val; \
+    OIL_GET(dest,(i+1)*dstr,type_ ## type) =        \
+      OIL_GET(src,(i+1)*sstr,type_ ## type) * *val; \
+  }						\
+  if (n&1) {                                    \
+    OIL_GET(dest,i*dstr,type_ ## type) =        \
+      OIL_GET(src,i*sstr,type_ ## type) * *val; \
+  }                                             \
+}						\
+OIL_DEFINE_IMPL (scalarmult_ ## type ## _x, scalarmult_ ## type);
+
+
+SCALARMULT_DEFINE_X (s8);
+SCALARMULT_DEFINE_X (u8);
+SCALARMULT_DEFINE_X (s16);
+SCALARMULT_DEFINE_X (u16);
+SCALARMULT_DEFINE_X (s32);
+SCALARMULT_DEFINE_X (u32);
+SCALARMULT_DEFINE_X (f32);
+SCALARMULT_DEFINE_X (f64);
+
 

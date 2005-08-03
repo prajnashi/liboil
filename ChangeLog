@@ -1,5 +1,10 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	* liboil/simdpack/scalarmult.c:  Readd some implementations,
+	since they're unbroken now.  (They still suck.)
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	* HACKING: some notes
 	* configure.ac: readd _GNU_SOURCE
 	* liboil/Makefile.am: add new dirs, create decls header
