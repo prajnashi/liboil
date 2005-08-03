@@ -43,5 +43,6 @@
     <xi:include href="xml/liboilprototype.xml"/>
     <xi:include href="xml/liboilrandom.xml"/>
     <xi:include href="xml/liboiltest.xml"/>
+    <xi:include href="xml/liboilmacros.xml"/>
   </chapter>
 </book>

@@ -46,3 +46,11 @@ liboilcpu
 @Returns: 
 
 
+<!-- ##### FUNCTION oil_cpu_get_ticks_per_second ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

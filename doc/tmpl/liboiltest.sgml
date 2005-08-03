@@ -55,6 +55,14 @@ liboiltest
 @Returns: 
 
 
+<!-- ##### FUNCTION oil_test_init ##### -->
+<para>
+
+</para>
+
+@test: 
+
+
 <!-- ##### FUNCTION oil_test_free ##### -->
 <para>
 
@@ -91,30 +99,6 @@ liboiltest
 
 
 <!-- ##### FUNCTION oil_test_cleanup ##### -->
-<para>
-
-</para>
-
-@test: 
-
-
-<!-- ##### FUNCTION oil_test_init_src_arrays ##### -->
-<para>
-
-</para>
-
-@test: 
-
-
-<!-- ##### FUNCTION oil_test_init_dest_arrays ##### -->
-<para>
-
-</para>
-
-@test: 
-
-
-<!-- ##### FUNCTION oil_test_init_params ##### -->
 <para>
 
 </para>

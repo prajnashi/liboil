@@ -78,6 +78,26 @@ dct
 jpeg
 
 
+<!-- ##### SECTION ./tmpl/liboilfuncs-macros.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs-macros.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs-macros.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboilfuncs-macros.sgml:Title ##### -->
+liboilfuncs-macros
+
+
 <!-- ##### SECTION ./tmpl/liboilfuncs.sgml:Long_Description ##### -->
 <para>
 
@@ -3348,6 +3368,27 @@ utf8
 
 </para>
 
+
+<!-- ##### FUNCTION oil_test_init_dest_arrays ##### -->
+<para>
+
+</para>
+
+@test: 
+
+<!-- ##### FUNCTION oil_test_init_params ##### -->
+<para>
+
+</para>
+
+@test: 
+
+<!-- ##### FUNCTION oil_test_init_src_arrays ##### -->
+<para>
+
+</para>
+
+@test: 
 
 <!-- ##### FUNCTION oil_vectoradd_s_f32 ##### -->
 <para>

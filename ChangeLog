@@ -1,5 +1,17 @@
 2005-08-02  David Schleef  <ds@schleef.org>
 
+	* doc/Makefile.am: updates
+	* doc/liboil-docs.sgml:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilcpu.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* testsuite/instruction/check-instructions.pl: minor opcode fixes
+
+2005-08-02  David Schleef  <ds@schleef.org>
+
 	* liboil/fb/fbpict.h: oops, need this
 
 2005-08-02  David Schleef  <ds@schleef.org>

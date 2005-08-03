@@ -9,6 +9,7 @@ oil_cpu_get_flags
 oil_cpu_fault_check_enable
 oil_cpu_fault_check_disable
 oil_cpu_fault_check_try
+oil_cpu_get_ticks_per_second
 </SECTION>
 
 <SECTION>
@@ -73,6 +74,7 @@ oil_class_choose_by_name
 oil_class_register_impl_by_name
 oil_class_register_impl
 oil_class_register_impl_full
+oil_init_no_optimize
 </SECTION>
 
 <SECTION>
@@ -173,6 +175,7 @@ OilTest
 OIL_TEST_HEADER
 OIL_TEST_FOOTER
 oil_test_new
+oil_test_init
 oil_test_free
 oil_test_set_iterations
 oil_test_check_ref
@@ -458,5 +461,37 @@ oil_null
 oil_scanlinescale2_u8
 oil_sincos_f64
 oil_utf8_validate
+oil_diff8x8_s16_u8
+oil_diff8x8_average_s16_u8
+oil_err_inter8x8_u8_avg
+oil_recon8x8_inter
+oil_err_intra8x8_u8
+oil_recon8x8_intra
+oil_colsad8x8_u8
+oil_composite_over_u8
+oil_diff8x8_const128_s16_u8
+oil_copy8x8_u8
+oil_err_inter8x8_u8
+oil_fdct8x8theora
+oil_rowsad8x8_u8
+oil_recon8x8_inter2
+oil_composite_add_u8
+oil_sad8x8_u8_avg
+</SECTION>
+
+<SECTION>
+<FILE>liboilmacros</FILE>
+oil_min
+oil_max
+oil_divide_255
+oil_rand_rgba
+oil_argb
+oil_argb_noclamp
+oil_argb_A
+oil_argb_G
+oil_argb_B
+oil_argb_R
+oil_muldiv_255
+oil_clamp_255
 </SECTION>
 

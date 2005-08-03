@@ -39,11 +39,11 @@ FIXXREF_OPTIONS=
 # e.g. HFILE_GLOB=$(top_srcdir)/gtk/*.h
 # e.g. CFILE_GLOB=$(top_srcdir)/gtk/*.c
 HFILE_GLOB=$(top_srcdir)/liboil/*.h
-CFILE_GLOB=
+CFILE_GLOB=$(top_srcdir)/liboil/*.c
 
 # Header files to ignore when scanning.
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
-IGNORE_HFILES=liboilfuncs.h
+IGNORE_HFILES=liboilfuncs.h fb/fbmmx.h fb/fbpict.h
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
