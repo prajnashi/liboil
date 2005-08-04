@@ -26,10 +26,7 @@ i386_sources =
 endif
 
 if HAVE_CPU_AMD64
-amd64_sources = \
-	copy_i386.c \
-	splat_i386.c \
-	trans8x8_i386.c
+amd64_sources = 
 else
 amd64_sources =
 endif

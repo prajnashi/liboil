@@ -1,3 +1,9 @@
+2005-08-04  David Schleef  <ds@schleef.org>
+
+	* liboil/colorspace/Makefile.am: Disable some code on amd64.
+	* liboil/copy/Makefile.am:
+	* liboil/dct/Makefile.am:
+
 2005-08-02  David Schleef  <ds@schleef.org>
 
 	* doc/Makefile.am: updates

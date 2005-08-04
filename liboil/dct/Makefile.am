@@ -19,8 +19,7 @@ i386_sources =
 endif
 
 if HAVE_CPU_AMD64
-amd64_sources = \
-	idct8x8_i386.c
+amd64_sources = 
 else
 amd64_sources =
 endif

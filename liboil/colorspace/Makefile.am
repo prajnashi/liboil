@@ -35,9 +35,7 @@ endif
 
 if HAVE_CPU_AMD64
 amd64_sources = \
-	ayuv2argb_i386.c \
-	argb_paint_i386.c \
-	composite_i386.c
+	ayuv2argb_i386.c 
 else
 amd64_sources =
 endif
