@@ -1,3 +1,29 @@
+2005-08-08  David Schleef  <ds@schleef.org>
+
+	* liboil/null.c: MMX isn't really portable
+
+2005-08-08  David Schleef  <ds@schleef.org>
+
+	reviewed by: <delete if not using a buddy>
+
+	* autogen.sh:
+	* configure.ac:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilfuncs-conv.sgml:
+	* doc/tmpl/liboilfuncs-copy.sgml:
+	* doc/tmpl/liboilfuncs-dct.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* doc/tmpl/liboilfuncs-math8x8.sgml:
+	* doc/tmpl/liboilfuncs-pixel.sgml:
+	* examples/Makefile.am:
+	* examples/oil-test.c: (dump_array):
+	* liboil/Makefile.am:
+	* liboil/build_prototypes.c: (main):
+	* liboil/dct/fdct8x8theora_i386.c:
+	* liboil/liboilfunction.h:
+	* testsuite/stride.c: (main):
+
 2005-08-04  David Schleef  <ds@schleef.org>
 
 	* liboil/colorspace/Makefile.am: Disable some code on amd64.
