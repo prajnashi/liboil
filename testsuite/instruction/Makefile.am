@@ -4,9 +4,9 @@ EXTRA_DIST = check-instructions.pl
 check_PROGRAMS = list-impls
 
 if HAVE_CPU_I386
-check_DATA = report
+#check_DATA = report
 else
-check_DATA = 
+#check_DATA = 
 endif
 
 AM_LDFLAGS = $(LIBOIL_LIBS)

@@ -19,7 +19,7 @@ AC_DEFUN([GTK_DOC_CHECK],
   AC_ARG_ENABLE(gtk-doc,
     AC_HELP_STRING([--enable-gtk-doc],
                    [use gtk-doc to build documentation [default=no]]),,
-    enable_gtk_doc=no)
+    enable_gtk_doc=yes)
 
   have_gtk_doc=no
   if test x$enable_gtk_doc = xyes; then

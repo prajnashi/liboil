@@ -37,7 +37,6 @@ endif
 
 if HAVE_CPU_AMD64
 amd64_sources = \
-	abs_i386.c \
 	mult8x8_i386.c \
 	scalarmult_i386.c
 else

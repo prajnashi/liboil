@@ -36,8 +36,12 @@
 #include <liboil/liboilprototype.h>
 #include <liboil/liboiltest.h>
 #include <liboil/liboilcpu.h>
+#include <liboil/liboilrandom.h>
 
 void hist(OilTest *Test);
+
+int verbose = 0;
+int fail = 0;
 
 int main (int argc, char *argv[])
 {
@@ -49,7 +53,10 @@ int main (int argc, char *argv[])
   int j;
   int ret;
   unsigned int cpu_flags;
-  int fail = 0;
+
+  if (argc > 1 && strcmp(argv[2],"-v") == 0) {
+    verbose = 1;
+  }
 
   oil_init ();
 
@@ -62,7 +69,8 @@ int main (int argc, char *argv[])
 
     test = oil_test_new (klass);
     if (test == NULL) {
-      printf("  bad prototype\n");
+      printf("class \"%s\" has  bad prototype\n", klass->name);
+      fail = 1;
       continue;
     }
     oil_test_set_iterations (test, 1);
@@ -70,7 +78,8 @@ int main (int argc, char *argv[])
     oil_test_check_impl (test, klass->reference_impl);
     for(j=0;j<OIL_ARG_LAST;j++){
       if (test->params[j].is_stride) {
-        test->params[j].value *= 2;
+        test->params[j].value += oil_type_sizeof(test->params[j].type) *
+          (oil_rand_u8()&0xf);
       }
     }
     test->inited = 0;
