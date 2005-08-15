@@ -1,3 +1,8 @@
+2005-08-15  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: (oil_cpu_i386_getflags_cpuinfo): SSE2
+	implies MMXEXT in both codepaths.
+
 2005-08-13  David Schleef  <ds@schleef.org>
 
 	* configure.ac: use macro for gtk-doc checking

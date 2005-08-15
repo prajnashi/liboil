@@ -104,6 +104,7 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
     if (strcmp (*f, "sse2") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
     }
     if (strcmp (*f, "3dnow") == 0) {
       OIL_DEBUG ("cpu flag %s", *f);
