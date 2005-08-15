@@ -28,7 +28,8 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <glib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void test(void)
 {
@@ -36,8 +37,8 @@ void test(void)
   float *src;
   float *dest;
 
-  src = g_malloc(100*sizeof(float));
-  dest = g_malloc(100*sizeof(float));
+  src = malloc(100*sizeof(float));
+  dest = malloc(100*sizeof(float));
 
   for(i=0;i<100;i++){
     src[i] = (i-50)*100;
@@ -46,7 +47,7 @@ void test(void)
   oil_abs_f32_f32 (dest, 4, src, 4, 100);
 
   for (i=0; i<100; i++) {
-    g_print("%d %g %g\n", i, src[i], dest[i]);
+    printf("%d %g %g\n", i, src[i], dest[i]);
   }
 }
 
@@ -60,18 +61,18 @@ int main (int argc, char *argv[])
   klass = oil_class_get ("abs_f32_f32");
   oil_class_optimize(klass);
 
-  g_print("class=%s\n", klass->name);
+  printf("class=%s\n", klass->name);
   for (impl = klass->first_impl; impl; impl=impl->next) {
-    g_print("impl=%p\n", impl);
-    g_print("  func=%p\n", impl->func);
-    g_print("  name=%s\n", impl->name);
-    g_print("  flags=%08x\n", impl->flags);
+    printf("impl=%p\n", impl);
+    printf("  func=%p\n", impl->func);
+    printf("  name=%s\n", impl->name);
+    printf("  flags=%08x\n", impl->flags);
 
   }
   impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
+  printf("chosen=%p\n", impl);
   impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
+  printf("ref=%p\n", impl);
 
   test();
 

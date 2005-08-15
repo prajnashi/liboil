@@ -5,7 +5,7 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <glib.h>
+#include <stdio.h>
 #include <string.h>
 
 uint8_t dest[200];
@@ -24,7 +24,7 @@ void test(void)
   oil_copy_u8 (dest + 8, src + 0, 64);
 
   for(i=0;i<100;i++){
-    g_print("%d\n",dest[i]);
+    printf("%d\n",dest[i]);
   }
 }
 
@@ -41,9 +41,9 @@ int main (int argc, char *argv[])
   oil_class_choose_by_name (klass, "copy_u8_altivec");
   impl = klass->chosen_impl;
   if (oil_impl_is_runnable (impl)) {
-    g_print("chosen=%p\n", impl);
+    printf("chosen=%p\n", impl);
     impl = klass->reference_impl;
-    g_print("ref=%p\n", impl);
+    printf("ref=%p\n", impl);
     test();
   }
 

@@ -1,5 +1,13 @@
 2005-08-15  David Schleef  <ds@schleef.org>
 
+	* testsuite/abs.c: (test), (main): remove glib usage in testsuite
+	* testsuite/copy.c: (test), (main):
+	* testsuite/md5.c: (test), (main):
+	* testsuite/md5_profile.c: (test), (main):
+	* testsuite/trans.c: (test), (main):
+
+2005-08-15  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Add some altivec theora code
 	* liboil/Makefile.am:
 	* liboil/powerpc/Makefile.am:

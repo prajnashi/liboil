@@ -32,7 +32,7 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <glib.h>
+#include <stdio.h>
 #include <string.h>
 
 char *message = "liboil md5 test\n";
@@ -65,7 +65,7 @@ void test(void)
 
   oil_md5 (state, src);
 
-  g_print("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+  printf("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
       state[0]&0xff, (state[0]>>8)&0xff, (state[0]>>16)&0xff,
       (state[0]>>24)&0xff,
       state[1]&0xff, (state[1]>>8)&0xff, (state[1]>>16)&0xff,
@@ -86,33 +86,33 @@ int main (int argc, char *argv[])
   klass = oil_class_get ("md5");
   oil_class_optimize(klass);
 
-  g_print("class=%s\n", klass->name);
+  printf("class=%s\n", klass->name);
   for (impl = klass->first_impl; impl; impl=impl->next) {
-    g_print("impl=%p\n", impl);
-    g_print("  func=%p\n", impl->func);
-    g_print("  name=%s\n", impl->name);
-    g_print("  flags=%08x\n", impl->flags);
+    printf("impl=%p\n", impl);
+    printf("  func=%p\n", impl->func);
+    printf("  name=%s\n", impl->name);
+    printf("  flags=%08x\n", impl->flags);
   }
 
   oil_class_choose_by_name (klass, "md5_c");
   impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
+  printf("chosen=%p\n", impl);
   impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
+  printf("ref=%p\n", impl);
   test();
 
   oil_class_choose_by_name (klass, "md5_asm1");
   impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
+  printf("chosen=%p\n", impl);
   impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
+  printf("ref=%p\n", impl);
   test();
 
   oil_class_choose_by_name (klass, "md5_asm2");
   impl = klass->chosen_impl;
-  g_print("chosen=%p\n", impl);
+  printf("chosen=%p\n", impl);
   impl = klass->reference_impl;
-  g_print("ref=%p\n", impl);
+  printf("ref=%p\n", impl);
   test();
 
   return 0;
