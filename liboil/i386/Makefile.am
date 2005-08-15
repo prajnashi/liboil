@@ -1,4 +1,6 @@
 
+CLEANFILES = empty.c
+
 noinst_LTLIBRARIES = libi386.la
 
 sources = \
@@ -12,16 +14,19 @@ sources = \
 if HAVE_CPU_I386
 i386_sources = $(sources)
 else
-i386_sources =
+i386_sources = empty.c
 endif
 
 if HAVE_CPU_AMD64
 amd64_sources = $(sources)
 else
-amd64_sources =
+amd64_sources = empty.c
 endif
 
 libi386_la_SOURCES = \
 	$(i386_sources)
 libi386_la_CFLAGS = $(LIBOIL_CFLAGS)
+
+empty.c:
+	echo >empty.c
 

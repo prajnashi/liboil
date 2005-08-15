@@ -34,7 +34,7 @@
 OIL_DECLARE_CLASS(copy_u8);
 OIL_DECLARE_CLASS(splat_u8_ns);
 
-#ifdef HAVE_LD_UNDERSCORE
+#ifdef HAVE_SYMBOL_UNDERSCORE
 void *vec_memcpy(void *dest, void *src, int n);
 void *vec_memset(void *dest, int val, int n);
 #else

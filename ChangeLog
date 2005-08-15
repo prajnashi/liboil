@@ -1,5 +1,10 @@
 2005-08-15  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/Makefile.am: compile empty file on non-i386
+	* liboil/motovec/motovec.c: get underscore conditional correctly
+
+2005-08-15  David Schleef  <ds@schleef.org>
+
 	* testsuite/abs.c: (test), (main): remove glib usage in testsuite
 	* testsuite/copy.c: (test), (main):
 	* testsuite/md5.c: (test), (main):
