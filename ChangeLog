@@ -1,5 +1,16 @@
 2005-08-15  David Schleef  <ds@schleef.org>
 
+	* liboil/powerpc/Makefile.am: disable fdct8x8theora_altivec.c,
+	because it doesn't compile.
+	* liboil/powerpc/recon8x8_ppc.c: (recon8x8_inter_ppc),
+	(recon8x8_inter2_ppc): disable functions, because they cause
+	bus errors.
+	* liboil/simdpack/clip_fast.c: (clip_s16_fast2): Fix endpoint
+	problem.
+	* testsuite/Makefile.am: remove unused GLIB flags
+
+2005-08-15  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/Makefile.am: compile empty file on non-i386
 	* liboil/motovec/motovec.c: get underscore conditional correctly
 

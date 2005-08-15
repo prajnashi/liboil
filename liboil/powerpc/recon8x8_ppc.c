@@ -42,6 +42,7 @@ OIL_DECLARE_CLASS (recon8x8_inter2);
 
 static const __attribute__ ((aligned(8),used)) uint64_t V128 = 0x8080808080808080LL;
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
                     /*       r3,            r4,         r5 */
 recon8x8_intra_ppc (uint8_t *dest, int16_t *change, int ds)
@@ -174,7 +175,9 @@ L8:
 }
 
 OIL_DEFINE_IMPL_FULL (recon8x8_intra_ppc, recon8x8_intra, OIL_IMPL_FLAG_ASM);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void          /*      r3,            r4,           r5,         r6 */
 recon8x8_inter_ppc (uint8_t *dest, uint8_t *src, int16_t *change, int dss)
 {
@@ -326,9 +329,10 @@ L8:
 
 	}
 }
-
 OIL_DEFINE_IMPL_FULL (recon8x8_inter_ppc, recon8x8_inter, OIL_IMPL_FLAG_ASM);
+#endif
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void          /*      r3,             r4,       r5,             r6,         r7 */
 recon8x8_inter2_ppc (uint8_t *dest, uint8_t *s1, uint8_t *s2, int16_t *change, int dsss)
 {
@@ -345,7 +349,8 @@ recon8x8_inter2_ppc (uint8_t *dest, uint8_t *s1, uint8_t *s2, int16_t *change, i
 		mr		r5,r7					;//same reg usage as intra
 		
 		li		r24,0x0101
-		li		r23,0xfefe
+		//li		r23,0xfefe
+		li		r23,-258
 		
 		insrwi	r23,r23,16,0			;//0xfefefefe
 		insrwi	r24,r24,16,0			;//0x01010101
@@ -524,3 +529,5 @@ L8:
 }
 
 OIL_DEFINE_IMPL_FULL (recon8x8_inter2_ppc, recon8x8_inter2, OIL_IMPL_FLAG_ASM);
+#endif
+

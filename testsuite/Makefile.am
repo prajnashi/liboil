@@ -1,18 +1,13 @@
 
 SUBDIRS = instruction
 
-if HAVE_GLIB
-glib_programs = abs md5 md5_profile trans copy
-else
-glib_programs =
-endif
+programs = moo introspect proto1 proto2 test1 proto3 proto4 stride \
+	dso_check abs md5 md5_profile trans copy
 
-programs = moo introspect proto1 proto2 test1 proto3 proto4 stride dso_check
+check_PROGRAMS = $(programs)
 
-check_PROGRAMS = $(programs) $(glib_programs)
+TESTS = $(programs)
 
-TESTS = $(programs) $(glib_programs)
-
-AM_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
-AM_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
+AM_LDFLAGS = $(LIBOIL_LIBS)
+AM_CFLAGS = $(LIBOIL_CFLAGS)
 

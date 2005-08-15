@@ -64,6 +64,7 @@ clip_s16_fast2 (int16_t *dest, int dstr, int16_t *src, int sstr, int n,
 		x1 -= (((x1-*low)>>31)&(x1-*low));
 		*dest = x1 + (((*hi-x1)>>31)&(*hi-x1));
 		OIL_INCREMENT(dest,dstr);
+		n--;
         }
 	while(n>0){
 		x1 = *src;
