@@ -45,6 +45,7 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
+/* FIXME this causes problems on old gcc */
 static const __attribute__ ((aligned(8),used)) int64_t xC1S7 = 0x0fb15fb15fb15fb15LL;
 static const __attribute__ ((aligned(8),used)) int64_t xC2S6 = 0x0ec83ec83ec83ec83LL;
 static const __attribute__ ((aligned(8),used)) int64_t xC3S5 = 0x0d4dbd4dbd4dbd4dbLL;

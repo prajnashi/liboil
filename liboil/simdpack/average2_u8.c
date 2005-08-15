@@ -57,35 +57,27 @@ average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 {
   unsigned int x, y, d;
 
-#if 0
-  if (sstr1 == 1 && sstr2 == 1 && dstr == 1) {
-    while (n > 0) {
-      x = *(unsigned int *) src1;
-      y = *(unsigned int *) src2;
-      *(unsigned int *) dest = (((x ^ y) & 0xfefefefe) >> 1) + (x & y);
-      src1 += 4;
-      src2 += 4;
-      dest += 4;
-      n -= 4;
-    }
-  } else
-#endif
-  {
-    while (n > 0) {
-      x = (src1[0] << 24) | (src1[sstr1] << 16) | (src1[2 *
-	      sstr1] << 8) | (src1[3 * sstr1]);
-      y = (src2[0] << 24) | (src2[sstr2] << 16) | (src2[2 *
-	      sstr2] << 8) | (src2[3 * sstr2]);
-      d = (((x ^ y) & 0xfefefefe) >> 1) + (x & y);
-      dest[0] = (d >> 24);
-      dest[1*dstr] = (d >> 16);
-      dest[2*dstr] = (d >> 8);
-      dest[3*dstr] = (d >> 0);
-      src1 += 4 * sstr1;
-      src2 += 4 * sstr2;
-      dest += 4 * dstr;
-      n -= 4;
-    }
+  while (n&3) {
+    *dest = (*src1 + *src2) >> 1;
+    src1 += sstr1;
+    src2 += sstr2;
+    dest += dstr;
+    n--;
+  }
+  while (n > 0) {
+    x = (src1[0] << 24) | (src1[sstr1] << 16) | (src1[2 *
+            sstr1] << 8) | (src1[3 * sstr1]);
+    y = (src2[0] << 24) | (src2[sstr2] << 16) | (src2[2 *
+            sstr2] << 8) | (src2[3 * sstr2]);
+    d = (((x ^ y) & 0xfefefefe) >> 1) + (x & y);
+    dest[0] = (d >> 24);
+    dest[1*dstr] = (d >> 16);
+    dest[2*dstr] = (d >> 8);
+    dest[3*dstr] = (d >> 0);
+    src1 += 4 * sstr1;
+    src2 += 4 * sstr2;
+    dest += 4 * dstr;
+    n -= 4;
   }
 }
 
@@ -112,6 +104,7 @@ average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 {
   while (n & 0x3) {
     *dest = (*src1 + *src2) >> 1;
+    dest += dstr;
     src1 += sstr1;
     src2 += sstr2;
     n--;
@@ -138,33 +131,4 @@ average2_u8_unroll4 (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
 }
 
 OIL_DEFINE_IMPL (average2_u8_unroll4, average2_u8);
-
-#if 0 /* doesn't compile */
-#ifdef HAVE_CPU_I386
-/* This doesn't work with sstr!=2 or dstr!=2 */
-static void
-average2_u8_i386asm (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
-    uint8_t *src2, int sstr2, int n)
-{
-  __asm__ __volatile__ ("\n"
-      "	.p2align 4,,15			\n"
-      "1:	movzbl	(%%ebx), %%eax		\n"
-      "	addl	$2, %%ebx		\n"
-      "	movzbl	(%%ecx), %%edx		\n"
-      "	addl	$2, %%ecx		\n"
-      "	leal	1(%%edx, %%eax), %%eax	\n"
-      "	sarl	$1, %%eax		\n"
-      "	movb	%%al, 0(%%esi)		\n"
-      "	incl	%%esi			\n"
-      "	decl	%%edi			\n"
-      "	jg	1b			\n":"+b"
-      (src1), "+c" (src2), "+D" (n), "+S" (dest)
-      ::"eax", "edx");
-
-}
-
-OIL_DEFINE_IMPL (average2_u8_i386asm, average2_u8);
-#endif
-#endif
-
 

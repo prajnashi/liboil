@@ -184,6 +184,7 @@ liboil/jpeg/Makefile
 liboil/math/Makefile
 liboil/md5/Makefile
 liboil/motovec/Makefile
+liboil/powerpc/Makefile
 liboil/ref/Makefile
 liboil/simdpack/Makefile
 liboil/sse/Makefile

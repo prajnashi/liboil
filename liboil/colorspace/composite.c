@@ -36,7 +36,7 @@
 #include <liboil/liboildebug.h>
 
 #define COMPOSITE_OVER(d,s,m) ((d) + (s) - oil_muldiv_255((d),(m)))
-#define COMPOSITE_ADD(d,s) ((d) + (s))
+#define COMPOSITE_ADD(d,s) oil_clamp_255((d) + (s))
 #define COMPOSITE_IN(s,m) oil_muldiv_255((s),(m))
 
 static void

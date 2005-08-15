@@ -48,7 +48,7 @@ scalarmult_f32_sse (float *dest, int dstr, float *src, int sstr,
       "  movss (%0), %%xmm1 \n"
       : 
       : "r" (t));
-  for(i=0;i<n;i+=4) {
+  for(i=0;i<n-3;i+=4) {
     t[0] = OIL_GET(src,sstr*(i + 0), float);
     t[1] = OIL_GET(src,sstr*(i + 1), float);
     t[2] = OIL_GET(src,sstr*(i + 2), float);
@@ -64,7 +64,9 @@ scalarmult_f32_sse (float *dest, int dstr, float *src, int sstr,
     OIL_GET(dest,dstr*(i + 2), float) = t[2];
     OIL_GET(dest,dstr*(i + 3), float) = t[3];
   }
-
+  for(;i<n;i++){
+    OIL_GET(dest,dstr*i, float) = *val * OIL_GET(src,sstr*i, float);
+  }
 }
 OIL_DEFINE_IMPL_FULL (scalarmult_f32_sse, scalarmult_f32, OIL_IMPL_FLAG_SSE);
 

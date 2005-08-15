@@ -74,6 +74,8 @@ int main (int argc, char *argv[])
       continue;
     }
     oil_test_set_iterations (test, 1);
+    test->n = 1 + oil_rand_u8();
+    test->m = 1 + oil_rand_u8();
 
     oil_test_check_impl (test, klass->reference_impl);
     for(j=0;j<OIL_ARG_LAST;j++){

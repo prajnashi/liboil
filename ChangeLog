@@ -1,5 +1,25 @@
 2005-08-15  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Add some altivec theora code
+	* liboil/Makefile.am:
+	* liboil/powerpc/Makefile.am:
+	* liboil/powerpc/fdct8x8theora_altivec.c: (fdct8x8theora_altivec):
+	* liboil/powerpc/recon8x8_altivec.c: (recon8x8_intra_altivec),
+	(recon8x8_inter_altivec), (recon8x8_inter2_altivec):
+	* liboil/powerpc/recon8x8_ppc.c: (recon8x8_intra_ppc),
+	(recon8x8_inter_ppc), (recon8x8_inter2_ppc):
+
+	* liboil/colorspace/composite.c: Fix bug in ADD operator.
+	* liboil/dct/fdct8x8theora_i386.c:
+	* liboil/simdpack/average2_u8.c: (average2_u8_trick),
+	(average2_u8_unroll4): Fix n%4!=0 problems noticed by thomasvs.
+	* liboil/simdpack/scalarmult_i386.c: (scalarmult_f32_sse): Fix
+	n%4!=0 problems.
+	* testsuite/stride.c: (main): use a random n to test possible
+	endpoint problems.
+
+2005-08-15  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilcpu.c: (oil_cpu_i386_getflags_cpuinfo): SSE2
 	implies MMXEXT in both codepaths.
 
