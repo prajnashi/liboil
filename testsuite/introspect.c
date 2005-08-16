@@ -108,7 +108,7 @@ static int parse_type (char *s, char **endptr)
 {
   int i;
 
-  while(isspace(*s))s++;
+  while(isspace((int)*s))s++;
 
   for(i=0;i<8;i++){
     if(strncmp(typenames[i],s,strlen(typenames[i]))==0){
@@ -122,13 +122,13 @@ static int parse_type (char *s, char **endptr)
 
 static int parse_size (const char *s, char **endptr)
 {
-  while(isspace(*s))s++;
+  while(isspace((int)*s))s++;
 
   if(s[0] == 'n'){
     *endptr = (char *)(s + 1);
     return 0;
   }
-  if(isdigit(s[0])){
+  if(isdigit((int)s[0])){
     return strtol(s,endptr,0);
   }
 
@@ -156,7 +156,7 @@ static char * parse_string (const char *s, const char **endptr)
   const char *s0;
 
   s0 = s;
-  while(isalnum(*s) || *s=='_') {
+  while(isalnum((int)*s) || *s=='_') {
     s++;
   }
   *endptr = s;
@@ -170,25 +170,25 @@ void parse_prototype (const char *s)
   char *name;
   int ptr = 0;
 
-  while (isspace(*s))s++;
+  while (isspace((int)*s))s++;
   while (*s) {
     type = parse_string (s, &s);
 
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     if(s[0] == '*'){
       ptr = 1;
       s++;
     }
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
     name = parse_string (s, &s);
 
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     if(s[0] == ','){
       s++;
     }
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     printf("%s %s\n", type, name);
   }

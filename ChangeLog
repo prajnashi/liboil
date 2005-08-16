@@ -1,5 +1,16 @@
 2005-08-15  David Schleef  <ds@schleef.org>
 
+	GCC complains on solaris when isspace() is called with a
+	char argument.  Rather than argue about such stupidity,
+	I'll play along.
+	* liboil/liboilprototype.c: (oil_prototype_from_string),
+	(parse_string), (oil_param_from_string):
+	* testsuite/introspect.c: (parse_type), (parse_size),
+	(parse_string), (parse_prototype):
+	* testsuite/proto3.c: (check_param):
+
+2005-08-15  David Schleef  <ds@schleef.org>
+
 	* liboil/powerpc/Makefile.am: disable fdct8x8theora_altivec.c,
 	because it doesn't compile.
 	* liboil/powerpc/recon8x8_ppc.c: (recon8x8_inter_ppc),

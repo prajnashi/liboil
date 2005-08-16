@@ -129,7 +129,7 @@ int check_param (Param *p, char *s)
     p->is_stride = 0;
   }
 
-  if (isdigit (*s)) {
+  if (isdigit ((int)*s)) {
     p->index = *s - '0';
     s++;
   } else {
@@ -142,7 +142,7 @@ int check_param (Param *p, char *s)
 
     s++;
 
-    if (isdigit (*s)) {
+    if (isdigit ((int)*s)) {
       length = strtoul (s, &s, 10);
       var = 0;
     } else if (*s == 'n') {
@@ -163,7 +163,7 @@ int check_param (Param *p, char *s)
       p->prestride_length = length;
       p->prestride_var = var;
 
-      if (isdigit (*s)) {
+      if (isdigit ((int)*s)) {
         p->poststride_length = strtoul (s, &s, 10);
         p->poststride_var = 0;
       } else if (*s == 'n') {

@@ -119,26 +119,26 @@ OilPrototype *oil_prototype_from_string (const char *s)
   proto = malloc (sizeof(OilPrototype));
   memset (proto, 0, sizeof(OilPrototype));
 
-  while (isspace(*s))s++;
+  while (isspace((int)*s))s++;
   while (*s) {
     type_name = parse_string (s, &s);
 
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     ptr = FALSE;
     if(s[0] == '*'){
       ptr = TRUE;
       s++;
     }
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
     parameter_name = parse_string (s, &s);
 
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     if(s[0] == ','){
       s++;
     }
-    while (isspace(*s))s++;
+    while (isspace((int)*s))s++;
 
     param.type = oil_type_from_string (type_name, ptr);
     param.type_name = type_name;
@@ -200,7 +200,7 @@ static char * parse_string (const char *s, const char **endptr)
   const char *s0;
 
   s0 = s;
-  while(isalnum(*s) || *s=='_') {
+  while(isalnum((int)*s) || *s=='_') {
     s++;
   }
   *endptr = s;
@@ -550,7 +550,7 @@ oil_param_from_string (OilParameter *p, char *s)
     p->is_pointer = 1;
   }
 
-  if (isdigit (*s)) {
+  if (isdigit ((int)*s)) {
     p->index = *s - '0';
     s++;
   } else {
@@ -563,7 +563,7 @@ oil_param_from_string (OilParameter *p, char *s)
 
     s++;
 
-    if (isdigit (*s)) {
+    if (isdigit ((int)*s)) {
       length = strtoul (s, &s, 10);
       var = 0;
     } else if (*s == 'n') {
@@ -583,7 +583,7 @@ oil_param_from_string (OilParameter *p, char *s)
       p->prestride_length = length;
       p->prestride_var = var;
 
-      if (isdigit (*s)) {
+      if (isdigit ((int)*s)) {
         p->poststride_length = strtoul (s, &s, 10);
         p->poststride_var = 0;
       } else if (*s == 'n') {
