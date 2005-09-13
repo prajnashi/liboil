@@ -69,4 +69,17 @@ sincos_f64_i20_fast(double *dest_sin, double *dest_cos, int n, double *offset,
 }
 OIL_DEFINE_IMPL (sincos_f64_i20_fast, sincos_f64);
 
+#ifdef _GNU_SOURCE
+static void
+sincos_f64_sincos (double *dest_sin, double *dest_cos, int n, double *offset,
+    double *interval)
+{
+	int i;
+
+	for(i=0;i<n;i++){
+          sincos (*offset + *interval * i, dest_sin + i, dest_cos + i);
+	}
+}
+OIL_DEFINE_IMPL (sincos_f64_sincos, sincos_f64);
+#endif
 
