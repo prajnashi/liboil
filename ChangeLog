@@ -1,3 +1,13 @@
+2005-09-15  David Schleef  <ds@schleef.org>
+
+	* examples/oil-test.c: Add 64-bit types
+	* liboil/liboilparameter.h: same
+	* liboil/liboilprototype.c: same
+	* liboil/liboilrandom.h: same
+	* liboil/liboiltest.c: same
+	* liboil/Makefile.am: fix windows build
+	* liboil/simdpack/sincos_f64.c: minor change
+
 2005-09-13  David Schleef  <ds@schleef.org>
 
 	* liboil/simdpack/sincos_f64.c: (sincos_f64_sincos): Add impl

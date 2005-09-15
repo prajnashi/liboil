@@ -76,7 +76,7 @@ dump_array (void *data, void *ref_data, OilType type, int pre_n, int stride,
     for(j=0;j<pre_n;j++){ \
       x = fabs(OIL_GET(data, i*stride + j*s2, type) - \
           OIL_GET(ref_data, i*stride + j*s2, type)); \
-      if (x >= 1.0) { \
+      if (x >= 0.00001) { \
         printf("*" format "* ", OIL_GET(data, i*stride + j*s2, type)); \
       } else { \
         printf(format " ", OIL_GET(data, i*stride + j*s2, type)); \
@@ -105,6 +105,12 @@ dump_array (void *data, void *ref_data, OilType type, int pre_n, int stride,
     case OIL_TYPE_u32p:
       DUMP(uint32_t, "%u");
       //DUMP(uint32_t, "%08x");
+      break;
+    case OIL_TYPE_s64p:
+      DUMP(int64_t, "%lld");
+      break;
+    case OIL_TYPE_u64p:
+      DUMP(uint64_t, "%llu");
       break;
     case OIL_TYPE_f32p:
       DUMP(float, "%g");

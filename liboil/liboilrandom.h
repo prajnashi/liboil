@@ -35,6 +35,8 @@
 #define oil_rand_s32() ((rand()&0xffff)<<16 | (rand()&0xffff))
 #define oil_rand_s32_l31() (((int32_t)rand())-0x40000000)
 
+#define oil_rand_s64() ((int64_t)(oil_rand_s32())<<32 | oil_rand_s32())
+
 #define oil_rand_s16() ((int16_t)(rand()&0xffff))
 #define oil_rand_s16_l15() (oil_rand_s16()>>1)
 #define oil_rand_s16_l9() (oil_rand_s16()>>7)
@@ -43,8 +45,10 @@
 
 #define oil_rand_s8() ((int8_t)(rand()&0xffff))
 
-#define oil_rand_u32() ((rand()&0xffff)<<16 | (rand()&0xffff))
+#define oil_rand_u32() ((uint32_t)((rand()&0xffff)<<16 | (rand()&0xffff)))
 #define oil_rand_u32_l31() ((uint32_t)rand())
+
+#define oil_rand_u64() ((uint64_t)(oil_rand_u32())<<32 | oil_rand_u32())
 
 #define oil_rand_u16() ((uint16_t)(rand()&0xffff))
 

@@ -472,6 +472,12 @@ fill_array (void *data, OilType type, int pre_n, int stride, int post_n)
     case OIL_TYPE_u32p:
       FILL(uint32_t,oil_rand_u32());
       break;
+    case OIL_TYPE_s64p:
+      FILL(int64_t,oil_rand_s64());
+      break;
+    case OIL_TYPE_u64p:
+      FILL(uint64_t,oil_rand_u64());
+      break;
     case OIL_TYPE_f32p:
       FILL(float,oil_rand_f32_0_1());
       break;
@@ -520,6 +526,12 @@ check_array (void *data, void *ref, OilType type, int pre_n, int stride, int pos
       break;
     case OIL_TYPE_u32p:
       CHECK(uint32_t);
+      break;
+    case OIL_TYPE_s64p:
+      CHECK(int64_t);
+      break;
+    case OIL_TYPE_u64p:
+      CHECK(uint64_t);
       break;
     case OIL_TYPE_f32p:
       CHECK(float);

@@ -15,7 +15,11 @@ pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h \
 	liboilinternal.h liboilclasses.h
 
+if ENABLE_GTK_DOC
 nodist_noinst_HEADERS = liboilfuncs-doc.h
+else
+nodist_noinst_HEADERS = 
+endif
 
 CLEANFILES = liboilarray.c liboilfuncs-doc.h
 
@@ -37,8 +41,7 @@ liboilfunctions_la_LIBADD = \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	sse/libsse.la \
-	utf8/libutf8.la \
-	$(LIBM)
+	utf8/libutf8.la
 liboilfunctions_la_LDFLAGS = \
 	-no-undefined
 
@@ -124,17 +127,17 @@ liboilarray.c: liboiltmp1.la Makefile
 	cmp liboilarray.c.tmp liboilarray.c || mv liboilarray.c.tmp liboilarray.c
 
 liboilfuncs.h:
-	./build_prototypes >liboilfuncs.h
+	./build_prototypes$(EXEEXT) >liboilfuncs.h
 
 liboilmarshal.c:
-	./build_marshal >liboilmarshal.c
+	./build_marshal$(EXEEXT) >liboilmarshal.c
 
 liboilfuncs-doc.h:
-	./build_prototypes_doc >liboilfuncs-doc.h
+	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 
 update:
-	./build_prototypes >liboilfuncs.h
-	./build_marshal >liboilmarshal.c
-	./build_prototypes_doc >liboilfuncs-doc.h
-	./build_class_decls >liboilclasses.h
+	./build_prototypes$(EXEEXT) >liboilfuncs.h
+	./build_marshal$(EXEEXT) >liboilmarshal.c
+	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
+	./build_class_decls$(EXEEXT) >liboilclasses.h
 

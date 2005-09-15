@@ -39,6 +39,8 @@ typedef enum {
   OIL_TYPE_u16,
   OIL_TYPE_s32,
   OIL_TYPE_u32,
+  OIL_TYPE_s64,
+  OIL_TYPE_u64,
   OIL_TYPE_f32,
   OIL_TYPE_f64,
   OIL_TYPE_s8p,
@@ -47,6 +49,8 @@ typedef enum {
   OIL_TYPE_u16p,
   OIL_TYPE_s32p,
   OIL_TYPE_u32p,
+  OIL_TYPE_s64p,
+  OIL_TYPE_u64p,
   OIL_TYPE_f32p,
   OIL_TYPE_f64p,
 } OilType;

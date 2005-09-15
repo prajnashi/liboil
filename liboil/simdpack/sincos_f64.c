@@ -40,10 +40,12 @@ sincos_f64_ref (double *dest_sin, double *dest_cos, int n, double *offset,
     double *interval)
 {
 	int i;
+        double x;
 
 	for(i=0;i<n;i++){
-		dest_sin[i] = sin(*offset + *interval*i);
-		dest_cos[i] = cos(*offset + *interval*i);
+          x = *offset + *interval * i;
+		dest_sin[i] = sin(x);
+		dest_cos[i] = cos(x);
 	}
 }
 OIL_DEFINE_IMPL_REF (sincos_f64_ref, sincos_f64);

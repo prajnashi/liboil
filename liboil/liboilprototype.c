@@ -308,7 +308,11 @@ int oil_type_sizeof (OilType type)
     case OIL_TYPE_u32p:
     case OIL_TYPE_f32p:
       return 4;
+    case OIL_TYPE_s64:
+    case OIL_TYPE_u64:
     case OIL_TYPE_f64:
+    case OIL_TYPE_s64p:
+    case OIL_TYPE_u64p:
     case OIL_TYPE_f64p:
       return 8;
   }
@@ -324,6 +328,8 @@ static const char *oil_type_names [] = {
   "uint16_t",
   "int32_t",
   "uint32_t",
+  "int64_t",
+  "uint64_t",
   "float",
   "double",
   "int8_t *",
@@ -332,6 +338,8 @@ static const char *oil_type_names [] = {
   "uint16_t *",
   "int32_t *",
   "uint32_t *",
+  "int64_t *",
+  "uint64_t *",
   "float *",
   "double *"
 };
@@ -342,6 +350,8 @@ static const char *oil_type_names_2 [] = {
   "uint16_t",
   "int32_t",
   "uint32_t",
+  "int64_t",
+  "uint64_t",
   "float",
   "double"
 };
@@ -352,6 +362,8 @@ static const char *oil_type_names_3 [] = {
   "type_u16",
   "type_s32",
   "type_u32",
+  "type_s64",
+  "type_u64",
   "type_f32",
   "type_f64"
 };
