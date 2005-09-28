@@ -1,3 +1,26 @@
+2005-09-28  David Schleef  <ds@schleef.org>
+
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboil.sgml:
+	* doc/tmpl/liboilcpu.sgml:
+	* doc/tmpl/liboildebug.sgml:
+	* doc/tmpl/liboilfuncs-conv.sgml:
+	* doc/tmpl/liboilfuncs-copy.sgml:
+	* doc/tmpl/liboilfuncs-dct.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* doc/tmpl/liboilfuncs-math8x8.sgml:
+	* doc/tmpl/liboilfuncs-pixel.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboilgcc.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprofile.sgml:
+	* doc/tmpl/liboilprototype.sgml:
+	* doc/tmpl/liboilrandom.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	  documentation update.
+
 2005-09-15  David Schleef  <ds@schleef.org>
 
 	* examples/oil-test.c: Add 64-bit types
