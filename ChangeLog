@@ -1,3 +1,10 @@
+2005-09-30  David Schleef  <ds@schleef.org>
+
+	* configure.ac: version bump
+	* doc/liboil-overrides.txt: doc fixes
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboilrandom.sgml:
+
 2005-09-29  David Schleef  <ds@schleef.org>
 
 	* liboil/colorspace/rgb2bgr_powerpc.c: Fix impl

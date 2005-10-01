@@ -167,6 +167,8 @@ oil_rand_f32_s8
 oil_rand_f32_u32
 oil_rand_f32_u16
 oil_rand_f32_u8
+oil_rand_s64
+oil_rand_u64
 </SECTION>
 
 <SECTION>
