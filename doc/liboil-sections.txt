@@ -183,9 +183,6 @@ oil_test_set_iterations
 oil_test_check_ref
 oil_test_check_impl
 oil_test_cleanup
-oil_test_init_src_arrays
-oil_test_init_dest_arrays
-oil_test_init_params
 </SECTION>
 
 <SECTION>

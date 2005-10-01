@@ -1,5 +1,9 @@
 2005-09-30  David Schleef  <ds@schleef.org>
 
+	* doc/liboil-sections.txt: remove old functions
+
+2005-09-30  David Schleef  <ds@schleef.org>
+
 	* configure.ac: version bump
 	* doc/liboil-overrides.txt: doc fixes
 	* doc/liboil-sections.txt:
