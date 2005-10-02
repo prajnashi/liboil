@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2001,2003,2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,46 +28,51 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-
 #include <liboil/liboilfunction.h>
-#include <liboil/simdpack/simdpack.h>
+#include <string.h>
 
-static void
-scalarmult_f32_sse (float *dest, int dstr, float *src, int sstr,
-    float *val, int n)
+OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u8_ns,"uint8_t *dest, uint8_t *s1_1, int n");
+OIL_DEFINE_CLASS(splat_u32_ns,"uint32_t *dest, uint32_t *s1_1, int n");
+
+
+static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)
 {
-  float tmp[8];
-  float *t = (void *)(((unsigned long)tmp & ~0xf) + 16);
   int i;
-
-  t[0] = *val;
-  t[1] = *val;
-  t[2] = *val;
-  t[3] = *val;
-  asm volatile (
-      "  movss (%0), %%xmm1 \n"
-      : 
-      : "r" (t));
-  for(i=0;i<n-3;i+=4) {
-    t[0] = OIL_GET(src,sstr*(i + 0), float);
-    t[1] = OIL_GET(src,sstr*(i + 1), float);
-    t[2] = OIL_GET(src,sstr*(i + 2), float);
-    t[3] = OIL_GET(src,sstr*(i + 3), float);
-    asm volatile (
-        "  movss (%0), %%xmm0 \n"
-        "  mulps %%xmm1, %%xmm0 \n"
-        "  movss %%xmm0, (%0) \n"
-        : 
-        : "r" (t));
-    OIL_GET(dest,dstr*(i + 0), float) = t[0];
-    OIL_GET(dest,dstr*(i + 1), float) = t[1];
-    OIL_GET(dest,dstr*(i + 2), float) = t[2];
-    OIL_GET(dest,dstr*(i + 3), float) = t[3];
-  }
-  for(;i<n;i++){
-    OIL_GET(dest,dstr*i, float) = *val * OIL_GET(src,sstr*i, float);
+  for(i=0;i<n;i++){
+    OIL_GET(dest,i*dstr, uint8_t) = *param;
   }
 }
-OIL_DEFINE_IMPL_FULL (scalarmult_f32_sse, scalarmult_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_REF(splat_u8_ref, splat_u8);
+
+static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    OIL_GET(dest,i*dstr, uint32_t) = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32);
+
+
+static void splat_u8_ns_ref (uint8_t *dest, uint8_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u8_ns_ref, splat_u8_ns);
+
+static void splat_u32_ns_ref (uint32_t *dest, uint32_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u32_ns_ref, splat_u32_ns);
+
 
 

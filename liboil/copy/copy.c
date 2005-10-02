@@ -33,17 +33,7 @@
 
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
-
-static void
-copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    dest[i] = src[i];
-  }
-}
-OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
+OIL_DECLARE_CLASS (copy_u8);
 
 static void
 copy_u8_libc (uint8_t *dest, uint8_t *src, int n)

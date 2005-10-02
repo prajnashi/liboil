@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,24 +29,19 @@
 #include "config.h"
 #endif
 
+#include <string.h>
+
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS (rgb2rgba, "uint8_t *d_4xn, uint8_t* s_3xn, int n");
+OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
 
 static void
-rgb2rgba_ref (uint8_t *dest, const uint8_t* src, int n)
+copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
 {
   int i;
-  
-  for (i = 0; i < n; i++) {
-    dest[0] = src[0];
-    dest[1] = src[1];
-    dest[2] = src[2];
-    dest[3] = 0xFF;
-    dest += 4;
-    src += 3;
+  for(i=0;i<n;i++){
+    dest[i] = src[i];
   }
 }
-
-OIL_DEFINE_IMPL_REF (rgb2rgba_ref, rgb2rgba);
+OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
 

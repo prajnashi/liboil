@@ -11,24 +11,6 @@ noinst_HEADERS = md5.h
 
 c_sources = md5.c
 
-if HAVE_CPU_I386
-i386_sources = md5_i386.c
-else
-i386_sources =
-endif
-
-if HAVE_CPU_AMD64
-amd64_sources = md5_i386.c
-else
-amd64_sources =
-endif
-
-if HAVE_CPU_POWERPC
-powerpc_sources = md5_powerpc.c
-else
-powerpc_sources =
-endif
-
 libmd5_la_SOURCES = \
 	$(c_sources) $(i386_sources) $(powerpc_sources) $(amd64_sources)
 libmd5_la_LIBADD = $(opt_libs)

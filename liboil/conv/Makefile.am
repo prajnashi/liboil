@@ -7,16 +7,9 @@ endif
 noinst_LTLIBRARIES = libconv.la $(opt_libs)
 
 c_sources = \
-	conv_ref.c \
 	conv_c.c \
 	conv_bitstuff.c \
 	conv_misc.c
-
-if HAVE_CPU_POWERPC
-powerpc_sources = conv_powerpc.c
-else
-powerpc_sources = 
-endif
 
 if HAVE_CPU_I386
 i386_sources = conv_sse.c conv_3dnow.c

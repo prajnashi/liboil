@@ -10,20 +10,6 @@ noinst_LTLIBRARIES = libdct.la $(opt_libs)
 noinst_HEADERS = \
 	dct.h
 
-if HAVE_CPU_I386
-i386_sources = \
-	idct8x8_i386.c \
-	fdct8x8theora_i386.c
-else
-i386_sources =
-endif
-
-if HAVE_CPU_AMD64
-amd64_sources = 
-else
-amd64_sources =
-endif
-
 c_sources = \
 	dct12_f32.c \
 	dct36_f32.c \

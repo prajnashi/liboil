@@ -32,60 +32,36 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 
-OIL_DECLARE_CLASS (argb_paint_u8);
+OIL_DEFINE_CLASS (ayuv2argb_u8, "uint8_t *d_4xn, uint8_t *s_4xn, int n");
 
+#define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)
+#define clamp_lower(x,a) ((x<a)?(a):(x))
+#define clamp_upper(x,b) ((x>b)?(b):(x))
 
-#define div255(x) (((x + 128) + ((x + 128)>>8))>>8)
-#define blend(x,y,a) div255((x)*(a) + (y)*(255-(a)))
+/* from the JFIF spec */
+#define YUV_TO_R(y,u,v) clamp((y) + 1.402*((v)-128.0),0,255)
+#define YUV_TO_G(y,u,v) clamp((y) - 0.34414*((u)-128.0) - 0.71414*((v)-128.0),0,255)
+#define YUV_TO_B(y,u,v) clamp((y) + 1.772*((u)-128.0),0,255)
 
-static short constants[][4] = {
-  { 255, 255, 255, 255 },
-  { 128, 128, 128, 128 }
-};
+#define YUV_TO_R_INT(y,u,v) clamp(((y)*256 + 358*((v)-128))>>8,0,255)
+#define YUV_TO_G_INT(y,u,v) clamp(((y)*256 - 88*((u)-128) - 183*((v)-128))>>8,0,255)
+#define YUV_TO_B_INT(y,u,v) clamp(((y)*256 + 454*((u)-128))>>8,0,255)
+
 
 static void
-argb_paint_u8_mmx (uint8_t *dest, uint8_t *color, uint8_t *alpha, int n)
+ayuv2argb_u8_ref (uint8_t *argb, const uint8_t *ayuv, int n)
 {
-  if (n<1)return;
-  asm volatile (
-      "  pxor %%mm0, %%mm0\n"
-      "  movq (%1), %%mm3\n"
-      "  punpcklbw %%mm0, %%mm3\n"
-      "  movl $0, %1\n"
-      "1:\n"
-      "  movq (%0), %%mm1\n"
-      "  punpcklbw %%mm0, %%mm1\n"
-      "  movb (%2), %%al\n"
-      "  je 4f\n"
-      "  cmpl $255, %1\n"
-      "  jne 2f\n"
-      "  movq %%mm3, %%mm2\n"
-      "  jmp 3f\n"
-      "2:\n"
-      "  movd %1, %%mm2\n"
-      "  pshufw $0x00, %%mm2, %%mm2\n"
-      "  movq 0(%4), %%mm4\n"
-      "  psubw %%mm2, %%mm4\n"
-      "  pmullw %%mm1, %%mm4\n"
-      "  pmullw %%mm3, %%mm2\n"
-      "  paddw %%mm4, %%mm2\n"
-      "  paddw 8(%4), %%mm2\n"
-      "  movq %%mm2, %%mm1\n"
-      "  psrlw $8, %%mm1\n"
-      "  paddw %%mm1, %%mm2\n"
-      "  psrlw $8, %%mm2\n"
-      "3: \n"
-      "  packuswb %%mm0, %%mm2\n"
-      "  movd %%mm2, (%0)\n"
-      "4:\n"
-      "  add $4, %0\n"
-      "  add $1, %2\n"
-      "  decl %3\n"
-      "  jne 1b\n"
-      "  emms\n"
-      : "+r" (dest), "+a" (color), "+r" (alpha), "+r" (n)
-      : "r" (&constants));
-}
-OIL_DEFINE_IMPL_FULL (argb_paint_u8_mmx, argb_paint_u8, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
+  int i;
 
+  for(i=0;i<n;i++){
+    argb[0] = ayuv[0];
+    argb[1] = YUV_TO_R(ayuv[1], ayuv[2], ayuv[3]);
+    argb[2] = YUV_TO_G(ayuv[1], ayuv[2], ayuv[3]);
+    argb[3] = YUV_TO_B(ayuv[1], ayuv[2], ayuv[3]);
+    argb+=4;
+    ayuv+=4;
+  }
+
+}
+OIL_DEFINE_IMPL_REF (ayuv2argb_u8_ref, ayuv2argb_u8);
 

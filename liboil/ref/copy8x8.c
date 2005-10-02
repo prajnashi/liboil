@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,26 +31,19 @@
 
 #include <liboil/liboilfunction.h>
 
-/* important: 
- * this function is supposed to work if dest == src 
- * if dest and src overlap in another way, the behaviour is undefined */
-OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
+OIL_DEFINE_CLASS (copy8x8_u8, "uint8_t *d_8x8, int ds, uint8_t *s_8x8, int ss");
 
 static void
-rgb2bgr_ref (uint8_t *dest, const uint8_t* src, int n)
+copy8x8_u8_ref (uint8_t *d1, int ds, uint8_t *s1, int ss)
 {
-  int i;
-  uint8_t tmp;
-  
-  for (i = 0; i < n; i++) {
-    tmp = src[2];
-    dest[1] = src[1];
-    dest[2] = src[0];
-    dest[0] = tmp;
-    dest += 3;
-    src += 3;
+  int i,j;
+  for (i=0;i<8;i++){
+    for (j=0;j<8;j++){
+      d1[j] = s1[j];
+    }
+    d1 += ds;
+    s1 += ss;
   }
 }
-
-OIL_DEFINE_IMPL_REF (rgb2bgr_ref, rgb2bgr);
+OIL_DEFINE_IMPL_REF (copy8x8_u8_ref, copy8x8_u8);
 

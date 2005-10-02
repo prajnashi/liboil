@@ -8,11 +8,24 @@ endif
 noinst_LTLIBRARIES = libref.la $(opt_libs)
 
 c_sources = \
+	argb_paint.c \
+	ayuv2argb.c \
+	composite.c \
+	conv.c \
+	copy.c \
+	copy8x8.c \
 	diff8x8.c \
 	error8x8.c \
+	permute.c \
 	recon8x8.c \
+	resample.c \
+	rgb.c \
 	rowcolsad8x8.c \
-	sad8x8avg.c
+	sad8x8avg.c \
+	splat.c \
+	tablelookup.c \
+	trans8x8.c \
+	yuv.c
 
 libref_la_SOURCES = \
 	$(c_sources)

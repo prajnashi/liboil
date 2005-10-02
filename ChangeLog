@@ -1,5 +1,108 @@
 2005-10-01  David Schleef  <ds@schleef.org>
 
+	What have I done?!?  Move files around.
+	* liboil/colorspace/Makefile.am:
+	* liboil/colorspace/argb_paint.c:
+	* liboil/colorspace/argb_paint_i386.c:
+	* liboil/colorspace/ayuv2argb.c:
+	* liboil/colorspace/ayuv2argb_i386.c:
+	* liboil/colorspace/composite.c:
+	* liboil/colorspace/composite_i386.c:
+	* liboil/colorspace/resample.c:
+	* liboil/colorspace/resample_powerpc.c:
+	* liboil/colorspace/rgb2bgr.c:
+	* liboil/colorspace/rgb2bgr_powerpc.c:
+	* liboil/colorspace/rgb2rgba.c:
+	* liboil/colorspace/rgb2rgba_powerpc.c:
+	* liboil/colorspace/yuv.c:
+	* liboil/conv/Makefile.am:
+	* liboil/conv/conv_powerpc.c:
+	* liboil/conv/conv_ref.c:
+	* liboil/copy/Makefile.am:
+	* liboil/copy/copy.c:
+	* liboil/copy/copy8x8.c:
+	* liboil/copy/copy8x8_i386.c:
+	* liboil/copy/copy_i386.c:
+	* liboil/copy/copy_powerpc.c:
+	* liboil/copy/permute.c:
+	* liboil/copy/splat_i386.c:
+	* liboil/copy/splat_powerpc.c:
+	* liboil/copy/splat_ref.c:
+	* liboil/copy/tablelookup_ref.c:
+	* liboil/copy/trans8x8.c:
+	* liboil/copy/trans8x8_i386.c:
+	* liboil/dct/Makefile.am:
+	* liboil/dct/fdct8x8theora_i386.c:
+	* liboil/dct/idct8x8_i386.c:
+	* liboil/i386/Makefile.am:
+	* liboil/jpeg/Makefile.am:
+	* liboil/jpeg/zigzag8x8_powerpc.c:
+	* liboil/md5/Makefile.am:
+	* liboil/md5/md5_i386.c:
+	* liboil/md5/md5_powerpc.c:
+	* liboil/powerpc/Makefile.am:
+	* liboil/powerpc/abs.c: (abs_u16_s16_a16_altivec):
+	* liboil/powerpc/clip.c: (clip_s16_ppcasm), (clip_s16_ppcasm2),
+	(clip_s16_ppcasm3):
+	* liboil/powerpc/conv.c: (_sl_clipconv_S8_F32__powerpc_altivec),
+	(_sl_clipconv_S16_F32__powerpc_altivec),
+	(_sl_clipconvert_S32_F32__powerpc_altivec),
+	(convert_s16_f64__powerpc), (_sl_convert_S16_F32__powerpc),
+	(conv_f64_s16_altivec), (clipconv_s16_f64_ppcasm):
+	* liboil/powerpc/copy.c: (copy_u8_altivec), (copy_u8_altivec2):
+	* liboil/powerpc/md5.c: (md5_asm1), (md5_asm2), (md5_asm3):
+	* liboil/powerpc/mix.c: (mix_u8_a16_altivec):
+	* liboil/powerpc/multsum.c: (multsum_f32_ppcasm):
+	* liboil/powerpc/resample.c: (__attribute__),
+	(merge_linear_argb_powerpc):
+	* liboil/powerpc/rgb2bgr.c: (rgb2bgr_ppc), (rgb2bgr_ppc2),
+	(rgb2bgr_ppc3), (rgb2bgr_ppc4):
+	* liboil/powerpc/rgb2rgba.c: (rgb2rgba_powerpcasm):
+	* liboil/powerpc/sad8x8.c: (sad8x8_s16_a16_altivec),
+	(sad8x8_s16_l15_a16_altivec):
+	* liboil/powerpc/splat.c: (splat_u8_ns_altivec),
+	(splat_u8_ns_altivec2), (splat_u32_ns_altivec):
+	* liboil/powerpc/zigzag8x8.c: (__attribute__),
+	(zigzag8x8_s16_a16_altivec):
+	* liboil/ref/Makefile.am:
+	* liboil/ref/argb_paint.c: (argb_paint_u8_ref):
+	* liboil/ref/ayuv2argb.c: (ayuv2argb_u8_ref):
+	* liboil/ref/composite.c: (composite_test),
+	(composite_in_argb_ref), (composite_in_argb_const_src_ref),
+	(composite_in_argb_const_mask_ref), (composite_over_argb_ref),
+	(composite_over_argb_const_src_ref), (composite_add_argb_ref),
+	(composite_add_argb_const_src_ref), (composite_in_over_argb_ref),
+	(composite_in_over_argb_const_src_ref),
+	(composite_in_over_argb_const_mask_ref), (composite_add_u8_ref),
+	(composite_over_u8_ref):
+	* liboil/ref/conv.c:
+	* liboil/ref/copy.c: (copy_u8_ref):
+	* liboil/ref/copy8x8.c: (copy8x8_u8_ref):
+	* liboil/ref/permute.c: (permute_test):
+	* liboil/ref/resample.c: (resample_linear_u8_test),
+	(resample_linear_argb_test), (resample_linear_u8_ref),
+	(resample_linear_argb_ref), (merge_linear_argb_test),
+	(merge_linear_argb_ref):
+	* liboil/ref/rgb.c: (rgb2bgr_ref), (rgb2rgba_ref):
+	* liboil/ref/splat.c: (splat_u8_ref), (splat_u32_ref),
+	(splat_u8_ns_ref), (splat_u32_ns_ref):
+	* liboil/ref/tablelookup.c: (tablelookup_u8_ref):
+	* liboil/ref/trans8x8.c:
+	* liboil/ref/yuv.c: (yuyv2ayuv_ref), (yvyu2ayuv_ref),
+	(uyvy2ayuv_ref), (ayuv2yuyv_ref), (ayuv2yvyu_ref), (ayuv2uyvy_ref):
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/abs_i386.c:
+	* liboil/simdpack/abs_powerpc.c:
+	* liboil/simdpack/clip_powerpc.c:
+	* liboil/simdpack/mix_powerpc.c:
+	* liboil/simdpack/mult8x8_i386.c:
+	* liboil/simdpack/multsum_powerpc.c:
+	* liboil/simdpack/sad8x8_powerpc.c:
+	* liboil/simdpack/scalarmult_i386.c:
+	* liboil/simdpack/vectoradd_s_i386.c:
+
+2005-10-01  David Schleef  <ds@schleef.org>
+
 	* configure.ac: nano back to 1
 
 === 0.3.3 ===

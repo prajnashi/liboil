@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,36 +30,43 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/liboilfunction.h>
 
-OIL_DECLARE_CLASS(splat_u32_ns);
+OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
+OIL_DEFINE_CLASS (rgb2rgba, "uint8_t *d_4xn, uint8_t* s_3xn, int n");
 
 static void
-splat_u32_ns_mmx (uint32_t *dest, uint32_t *src, int n)
+rgb2bgr_ref (uint8_t *dest, const uint8_t* src, int n)
 {
-  while(n&0x7) {
-    *dest++ = *src;
-    n--;
+  int i;
+  uint8_t tmp;
+  
+  for (i = 0; i < n; i++) {
+    tmp = src[2];
+    dest[1] = src[1];
+    dest[2] = src[0];
+    dest[0] = tmp;
+    dest += 3;
+    src += 3;
   }
-  if (n) asm volatile (
-      "  mov $0, %%eax\n"
-      "  movq (%1), %%mm0\n"
-      "  punpckldq (%1), %%mm0\n"
-      "1:\n"
-      "  movntq %%mm0, (%0,%%eax)\n"
-      "  movntq %%mm0, 8(%0,%%eax)\n"
-      "  movntq %%mm0, 16(%0,%%eax)\n"
-      "  movntq %%mm0, 24(%0,%%eax)\n"
-      "  add $32, %%eax\n"
-      "  decl %%ecx\n"
-      "  jne 1b\n"
-      "  sfence\n"
-      "  emms\n"
-      : "+r" (dest), "+r" (src)
-      : "c" (n/8)
-      : "eax");
 }
-OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+OIL_DEFINE_IMPL_REF (rgb2bgr_ref, rgb2bgr);
 
 
+static void
+rgb2rgba_ref (uint8_t *dest, const uint8_t* src, int n)
+{
+  int i;
+  
+  for (i = 0; i < n; i++) {
+    dest[0] = src[0];
+    dest[1] = src[1];
+    dest[2] = src[2];
+    dest[3] = 0xFF;
+    dest += 4;
+    src += 3;
+  }
+}
+
+OIL_DEFINE_IMPL_REF (rgb2rgba_ref, rgb2rgba);
 

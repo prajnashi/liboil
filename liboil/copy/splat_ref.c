@@ -31,48 +31,10 @@
 #include <liboil/liboilfunction.h>
 #include <string.h>
 
-OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *s1_1, int n");
-OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
-OIL_DEFINE_CLASS(splat_u8_ns,"uint8_t *dest, uint8_t *s1_1, int n");
-OIL_DEFINE_CLASS(splat_u32_ns,"uint32_t *dest, uint32_t *s1_1, int n");
-
-
-static void splat_u8_ref (uint8_t *dest, int dstr, uint8_t *param, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    OIL_GET(dest,i*dstr, uint8_t) = *param;
-  }
-}
-OIL_DEFINE_IMPL_REF(splat_u8_ref, splat_u8);
-
-static void splat_u32_ref (uint32_t *dest, int dstr, uint32_t *param, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    OIL_GET(dest,i*dstr, uint32_t) = *param;
-  }
-}
-OIL_DEFINE_IMPL_REF(splat_u32_ref, splat_u32);
-
-
-static void splat_u8_ns_ref (uint8_t *dest, uint8_t *param, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    dest[i] = *param;
-  }
-}
-OIL_DEFINE_IMPL_REF(splat_u8_ns_ref, splat_u8_ns);
-
-static void splat_u32_ns_ref (uint32_t *dest, uint32_t *param, int n)
-{
-  int i;
-  for(i=0;i<n;i++){
-    dest[i] = *param;
-  }
-}
-OIL_DEFINE_IMPL_REF(splat_u32_ns_ref, splat_u32_ns);
+OIL_DECLARE_CLASS(splat_u8);
+OIL_DECLARE_CLASS(splat_u32);
+OIL_DECLARE_CLASS(splat_u8_ns);
+OIL_DECLARE_CLASS(splat_u32_ns);
 
 
 

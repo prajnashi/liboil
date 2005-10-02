@@ -26,34 +26,6 @@ c_sources = \
 	sum_f64.c \
 	vectoradd_f64.c
 
-if HAVE_CPU_I386
-i386_sources = \
-	abs_i386.c \
-	mult8x8_i386.c \
-	scalarmult_i386.c
-else
-i386_sources =
-endif
-
-if HAVE_CPU_AMD64
-amd64_sources = \
-	mult8x8_i386.c \
-	scalarmult_i386.c
-else
-amd64_sources =
-endif
-
-if HAVE_CPU_POWERPC
-powerpc_sources = \
-	abs_powerpc.c \
-	clip_powerpc.c \
-	mix_powerpc.c \
-	multsum_powerpc.c \
-	sad8x8_powerpc.c
-else
-powerpc_sources =
-endif
-
 libsimdpack_la_SOURCES = \
 	$(c_sources) $(i386_sources) $(powerpc_sources) $(amd64_sources)
 libsimdpack_la_LIBADD = \

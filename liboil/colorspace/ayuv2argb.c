@@ -32,7 +32,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 
-OIL_DEFINE_CLASS (ayuv2argb_u8, "uint8_t *d_4xn, uint8_t *s_4xn, int n");
+OIL_DECLARE_CLASS (ayuv2argb_u8);
 
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)
 #define clamp_lower(x,a) ((x<a)?(a):(x))
@@ -47,23 +47,6 @@ OIL_DEFINE_CLASS (ayuv2argb_u8, "uint8_t *d_4xn, uint8_t *s_4xn, int n");
 #define YUV_TO_G_INT(y,u,v) clamp(((y)*256 - 88*((u)-128) - 183*((v)-128))>>8,0,255)
 #define YUV_TO_B_INT(y,u,v) clamp(((y)*256 + 454*((u)-128))>>8,0,255)
 
-
-static void
-ayuv2argb_u8_ref (uint8_t *argb, const uint8_t *ayuv, int n)
-{
-  int i;
-
-  for(i=0;i<n;i++){
-    argb[0] = ayuv[0];
-    argb[1] = YUV_TO_R(ayuv[1], ayuv[2], ayuv[3]);
-    argb[2] = YUV_TO_G(ayuv[1], ayuv[2], ayuv[3]);
-    argb[3] = YUV_TO_B(ayuv[1], ayuv[2], ayuv[3]);
-    argb+=4;
-    ayuv+=4;
-  }
-
-}
-OIL_DEFINE_IMPL_REF (ayuv2argb_u8_ref, ayuv2argb_u8);
 
 static void
 ayuv2argb_u8_int (uint8_t *argb, const uint8_t *ayuv, int n)
