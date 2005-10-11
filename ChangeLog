@@ -1,5 +1,43 @@
 2005-10-10  David Schleef  <ds@schleef.org>
 
+	* liboil/powerpc/clip.c: Move more files around
+	* liboil/ref/Makefile.am:
+	* liboil/ref/abs.c:
+	* liboil/ref/average2_u8.c:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/diffsquaresum_f64.c:
+	* liboil/ref/mix_u8.c:
+	* liboil/ref/mult8x8_s16.c:
+	* liboil/ref/multsum.c:
+	* liboil/ref/sad8x8.c:
+	* liboil/ref/sad8x8_broken.c:
+	* liboil/ref/scalaradd.c:
+	* liboil/ref/scalarmult.c:
+	* liboil/ref/sincos_f64.c:
+	* liboil/ref/squaresum_f64.c:
+	* liboil/ref/sum_f64.c:
+	* liboil/ref/vectoradd_f64.c:
+	* liboil/ref/vectoradd_s.c:
+	* liboil/simdpack/Makefile.am:
+	* liboil/simdpack/abs.c:
+	* liboil/simdpack/average2_u8.c:
+	* liboil/simdpack/clip_ref.c:
+	* liboil/simdpack/diffsquaresum_f64.c:
+	* liboil/simdpack/mix_u8.c:
+	* liboil/simdpack/mult8x8_s16.c:
+	* liboil/simdpack/multsum.c:
+	* liboil/simdpack/sad8x8.c:
+	* liboil/simdpack/sad8x8_broken.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+	* liboil/simdpack/sincos_f64.c:
+	* liboil/simdpack/squaresum_f64.c:
+	* liboil/simdpack/sum_f64.c:
+	* liboil/simdpack/vectoradd_f64.c:
+	* liboil/simdpack/vectoradd_s.c:
+
+2005-10-10  David Schleef  <ds@schleef.org>
+
 	* m4/ltdl.m4:  Seems Debian's new libtool package doesn't
 	  have a good definition of AC_LTDL_SYMBOL_USCORE
 

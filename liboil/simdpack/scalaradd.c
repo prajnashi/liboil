@@ -32,34 +32,6 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
-#define SCALARADD_DEFINE_REF(type)		\
-static void scalaradd_ ## type ## _ref(		\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
-{						\
-  int i;					\
-  for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i, type_ ## type) =       \
-      OIL_GET(src,sstr*i, type_ ## type) + *val; \
-  }						\
-}						\
-OIL_DEFINE_CLASS (scalaradd_ ## type,         \
-    "type_" #type " *dest, int dstr, "		\
-    "type_" #type " *src, int sstr, "		\
-    "type_" #type " *s2_1 int n");		\
-OIL_DEFINE_IMPL_REF (scalaradd_ ## type ## _ref, scalaradd_ ## type);
-
-
-SCALARADD_DEFINE_REF (s8);
-SCALARADD_DEFINE_REF (u8);
-SCALARADD_DEFINE_REF (s16);
-SCALARADD_DEFINE_REF (u16);
-SCALARADD_DEFINE_REF (s32);
-SCALARADD_DEFINE_REF (u32);
-SCALARADD_DEFINE_REF (f32);
-SCALARADD_DEFINE_REF (f64);
-
 #define SCALARADD_DEFINE_UNROLL2(type)		\
 static void scalaradd_ ## type ## _unroll2(	\
     type_ ## type *dest, int dstr,		\

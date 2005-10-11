@@ -30,25 +30,8 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilclasses.h>
 #include <math.h>
-
-OIL_DEFINE_CLASS (sincos_f64,
-    "double *dest1, double *dest2, int n, double *s1_1, double *s2_1");
-
-static void
-sincos_f64_ref (double *dest_sin, double *dest_cos, int n, double *offset,
-    double *interval)
-{
-	int i;
-        double x;
-
-	for(i=0;i<n;i++){
-          x = *offset + *interval * i;
-		dest_sin[i] = sin(x);
-		dest_cos[i] = cos(x);
-	}
-}
-OIL_DEFINE_IMPL_REF (sincos_f64_ref, sincos_f64);
 
 /* XXX This gets more inaccurate as N increases */
 static void
@@ -71,7 +54,7 @@ sincos_f64_i20_fast(double *dest_sin, double *dest_cos, int n, double *offset,
 }
 OIL_DEFINE_IMPL (sincos_f64_i20_fast, sincos_f64);
 
-#ifdef _GNU_SOURCE
+#ifdef HAVE_SINCOS
 static void
 sincos_f64_sincos (double *dest_sin, double *dest_cos, int n, double *offset,
     double *interval)

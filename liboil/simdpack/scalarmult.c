@@ -32,33 +32,6 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
-#define SCALARMULT_DEFINE_REF(type)		\
-static void scalarmult_ ## type ## _ref(	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
-{						\
-  int i;					\
-  for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * *val; \
-  }						\
-}						\
-OIL_DEFINE_CLASS(scalarmult_ ## type,           \
-    "type_" #type " *dest, int dstr, "          \
-    "type_" #type " *src, int sstr, "           \
-    "type_" #type " *s2_1, int n");            \
-OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
-
-
-SCALARMULT_DEFINE_REF (s8);
-SCALARMULT_DEFINE_REF (u8);
-SCALARMULT_DEFINE_REF (s16);
-SCALARMULT_DEFINE_REF (u16);
-SCALARMULT_DEFINE_REF (s32);
-SCALARMULT_DEFINE_REF (u32);
-SCALARMULT_DEFINE_REF (f32);
-SCALARMULT_DEFINE_REF (f64);
-
 #define SCALARMULT_DEFINE_UNROLL2(type)		\
 static void scalarmult_ ## type ## _unroll2(	\
     type_ ## type *dest, int dstr,		\

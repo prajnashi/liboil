@@ -31,45 +31,23 @@
 
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
+
 #include <math.h>
 
-static void
-sum_f64_i10_simple (double *dest, double *src, int sstr, int n)
-{
-	double sum = 0;
-	int i;
-
-	for(i=0;i<n;i++){
-		sum += OIL_GET(src, sstr*i, double);
-	}
-
-	*dest = sum;
-}
-OIL_DEFINE_IMPL (sum_f64_i10_simple, sum_f64);
+OIL_DEFINE_CLASS (average2_u8, 
+    "uint8_t * dest, int dstr, uint8_t *src1, int sstr1, "
+    "uint8_t *src2, int sstr2, int n");
 
 static void
-sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
+average2_u8_ref (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
+    uint8_t *src2, int sstr2, int n)
 {
-	double sum1 = 0;
-	double sum2 = 0;
-	double sum3 = 0;
-	double sum4 = 0;
-	int i;
+  int i;
 
-	while (n&3) {
-		sum1 += *src;
-		OIL_INCREMENT (src, sstr);
-		n--;
-	}
-	for(i=0;i<n;i+=4){
-		sum1 += OIL_GET(src, sstr*i, double);
-		sum2 += OIL_GET(src, sstr*(i+1), double);
-		sum3 += OIL_GET(src, sstr*(i+2), double);
-		sum4 += OIL_GET(src, sstr*(i+3), double);
-	}
-
-	*dest = sum1 + sum2 + sum3 + sum4;
+  for (i = 0; i < n; i++) {
+    dest[dstr * i] = (src1[sstr1 * i] + src2[sstr2 * i]) >> 1;
+  }
 }
-OIL_DEFINE_IMPL (sum_f64_i10_unroll4, sum_f64);
 
+OIL_DEFINE_IMPL_REF (average2_u8_ref, average2_u8);
 

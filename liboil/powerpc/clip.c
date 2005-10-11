@@ -129,3 +129,27 @@ OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm3, clip_s16);
 #endif
 
 
+#ifdef ENABLE_BROKEN_IMPLS
+static void
+clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
+{
+	f64 ftmp;
+
+	dest--;
+	src--;
+	__asm__ __volatile__("\n"
+		"1:	lfdu 0,8(%1)\n"
+		"	addic. %2,%2,-1\n"
+		"	fsub 1,0,%3\n"
+		"	fsel 0,1,0,%3\n"
+		"	fsub 1,0,%4\n"
+		"	fsel 0,1,%4,0\n"
+		"	stfdu 0,8(%0)\n"
+		"	bge 1b\n"
+	: "+b" (dest), "+b" (src), "+r" (n)
+	: "f" (low), "f" (hi), "b" (&ftmp)
+	: "32", "33", "11" );
+}
+#endif
+
+

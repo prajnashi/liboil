@@ -34,23 +34,6 @@
 
 #include <math.h>
 
-OIL_DEFINE_CLASS (average2_u8, 
-    "uint8_t * dest, int dstr, uint8_t *src1, int sstr1, "
-    "uint8_t *src2, int sstr2, int n");
-
-static void
-average2_u8_ref (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
-    uint8_t *src2, int sstr2, int n)
-{
-  int i;
-
-  for (i = 0; i < n; i++) {
-    dest[dstr * i] = (src1[sstr1 * i] + src2[sstr2 * i]) >> 1;
-  }
-}
-
-OIL_DEFINE_IMPL_REF (average2_u8_ref, average2_u8);
-
 static void
 average2_u8_trick (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,
     uint8_t *src2, int sstr2, int n)

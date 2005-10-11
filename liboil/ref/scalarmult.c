@@ -31,45 +31,31 @@
 
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
-#include <math.h>
 
-static void
-sum_f64_i10_simple (double *dest, double *src, int sstr, int n)
-{
-	double sum = 0;
-	int i;
+#define SCALARMULT_DEFINE_REF(type)		\
+static void scalarmult_ ## type ## _ref(	\
+    type_ ## type *dest, int dstr,		\
+    type_ ## type *src, int sstr,		\
+    type_ ## type *val, int n)			\
+{						\
+  int i;					\
+  for(i=0;i<n;i++){				\
+    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * *val; \
+  }						\
+}						\
+OIL_DEFINE_CLASS(scalarmult_ ## type,           \
+    "type_" #type " *dest, int dstr, "          \
+    "type_" #type " *src, int sstr, "           \
+    "type_" #type " *s2_1, int n");            \
+OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
 
-	for(i=0;i<n;i++){
-		sum += OIL_GET(src, sstr*i, double);
-	}
 
-	*dest = sum;
-}
-OIL_DEFINE_IMPL (sum_f64_i10_simple, sum_f64);
-
-static void
-sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
-{
-	double sum1 = 0;
-	double sum2 = 0;
-	double sum3 = 0;
-	double sum4 = 0;
-	int i;
-
-	while (n&3) {
-		sum1 += *src;
-		OIL_INCREMENT (src, sstr);
-		n--;
-	}
-	for(i=0;i<n;i+=4){
-		sum1 += OIL_GET(src, sstr*i, double);
-		sum2 += OIL_GET(src, sstr*(i+1), double);
-		sum3 += OIL_GET(src, sstr*(i+2), double);
-		sum4 += OIL_GET(src, sstr*(i+3), double);
-	}
-
-	*dest = sum1 + sum2 + sum3 + sum4;
-}
-OIL_DEFINE_IMPL (sum_f64_i10_unroll4, sum_f64);
-
+SCALARMULT_DEFINE_REF (s8);
+SCALARMULT_DEFINE_REF (u8);
+SCALARMULT_DEFINE_REF (s16);
+SCALARMULT_DEFINE_REF (u16);
+SCALARMULT_DEFINE_REF (s32);
+SCALARMULT_DEFINE_REF (u32);
+SCALARMULT_DEFINE_REF (f32);
+SCALARMULT_DEFINE_REF (f64);
 

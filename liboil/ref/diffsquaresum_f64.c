@@ -33,43 +33,31 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+OIL_DEFINE_CLASS (diffsquaresum_f64,
+    "double *d_1, double *src1, int sstr1, double *src2, int sstr2, int n");
+
 static void
-sum_f64_i10_simple (double *dest, double *src, int sstr, int n)
+diffsquaresum_f64_ref(double *dest, double *src1, int sstr1, double *src2,
+    int sstr2, int n)
 {
 	double sum = 0;
+	double errsum = 0;
+	double tmp;
+	double x;
 	int i;
 
 	for(i=0;i<n;i++){
-		sum += OIL_GET(src, sstr*i, double);
+		x = OIL_GET(src1, i*sstr1, double) -
+                  OIL_GET(src2, i*sstr2, double);
+		x = x*x;
+		tmp = sum;
+		sum += x;
+		errsum += (tmp - sum) + x;
 	}
 
-	*dest = sum;
+	*dest = sum + errsum;
 }
-OIL_DEFINE_IMPL (sum_f64_i10_simple, sum_f64);
 
-static void
-sum_f64_i10_unroll4 (double *dest, double *src, int sstr, int n)
-{
-	double sum1 = 0;
-	double sum2 = 0;
-	double sum3 = 0;
-	double sum4 = 0;
-	int i;
-
-	while (n&3) {
-		sum1 += *src;
-		OIL_INCREMENT (src, sstr);
-		n--;
-	}
-	for(i=0;i<n;i+=4){
-		sum1 += OIL_GET(src, sstr*i, double);
-		sum2 += OIL_GET(src, sstr*(i+1), double);
-		sum3 += OIL_GET(src, sstr*(i+2), double);
-		sum4 += OIL_GET(src, sstr*(i+3), double);
-	}
-
-	*dest = sum1 + sum2 + sum3 + sum4;
-}
-OIL_DEFINE_IMPL (sum_f64_i10_unroll4, sum_f64);
+OIL_DEFINE_IMPL_REF (diffsquaresum_f64_ref, diffsquaresum_f64);
 
 

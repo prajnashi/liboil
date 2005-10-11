@@ -33,29 +33,6 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-
-OIL_DEFINE_CLASS (squaresum_f64, "double *dest, double *src, int n");
-
-static void
-squaresum_f64_ref(double *dest, double *src, int n)
-{
-	double sum2 = 0;
-	double errsum = 0;
-	double tmp;
-	double x;
-	int i;
-
-	for(i=0;i<n;i++){
-		tmp = sum2;
-		x = src[i]*src[i];
-		sum2 += x;
-		errsum += (tmp - sum2) + x;
-	}
-
-	*dest = sum2 + errsum;
-}
-OIL_DEFINE_IMPL_REF (squaresum_f64_ref, squaresum_f64);
-
 static void
 squaresum_f64_i10_simple(double *dest, double *src, int n)
 {
