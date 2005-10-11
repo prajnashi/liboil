@@ -1,3 +1,20 @@
+2005-10-10  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/abs_i386.c: Move more files.
+	* liboil/i386/argb_paint_i386.c:
+	* liboil/i386/ayuv2argb_i386.c:
+	* liboil/i386/composite_i386.c:
+	* liboil/i386/copy8x8_i386.c:
+	* liboil/i386/copy_i386.c:
+	* liboil/i386/fdct8x8theora_i386.c:
+	* liboil/i386/idct8x8_i386.c:
+	* liboil/i386/md5_i386.c:
+	* liboil/i386/mult8x8_i386.c:
+	* liboil/i386/scalarmult_i386.c:
+	* liboil/i386/splat_i386.c:
+	* liboil/i386/trans8x8_i386.c:
+	* liboil/i386/vectoradd_s_i386.c:
+
 2005-10-01  David Schleef  <ds@schleef.org>
 
 	What have I done?!?  Move files around.
