@@ -1,5 +1,10 @@
 2005-10-10  David Schleef  <ds@schleef.org>
 
+	* m4/ltdl.m4:  Seems Debian's new libtool package doesn't
+	  have a good definition of AC_LTDL_SYMBOL_USCORE
+
+2005-10-10  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/abs_i386.c: Move more files.
 	* liboil/i386/argb_paint_i386.c:
 	* liboil/i386/ayuv2argb_i386.c:
