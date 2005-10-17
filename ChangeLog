@@ -1,3 +1,8 @@
+2005-10-17  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Check for -masm-blocks before using the feature
+	* liboil/powerpc/Makefile.am:
+
 2005-10-10  David Schleef  <ds@schleef.org>
 
 	* liboil/powerpc/clip.c: Move more files around

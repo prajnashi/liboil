@@ -145,6 +145,13 @@ if test x$HAVE_CPU_POWERPC = xyes ; then
     true)
 fi
 
+AS_COMPILER_FLAG(["-fasm-blocks"], HAVE_ASM_BLOCKS=yes, HAVE_ASM_BLOCKS=no)
+if test "x$HAVE_ASM_BLOCKS" = "xyes"
+then
+  LIBOIL_CFLAGS="$LIBOIL_CFLAGS -fasm-blocks"
+fi
+AM_CONDITIONAL(HAVE_ASM_BLOCKS, test "x$HAVE_ASM_BLOCKS" = "xyes")
+
 if test x$HAVE_CPU_I386 = xyes -o x$HAVE_CPU_AMD64 = xyes ; then
   AS_COMPILER_FLAG(["-mmmx"], [MMX_CFLAGS="-mmmx"], true)
   AS_COMPILER_FLAG(["-msse"], [SSE_CFLAGS="-msse"], true)
