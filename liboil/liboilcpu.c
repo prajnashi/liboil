@@ -40,6 +40,11 @@
 #include <setjmp.h>
 #include <signal.h>
 
+#if defined(__FreeBSD__)
+#include <sys/types.h>
+#include <sys/sysctl.h>
+#endif
+
 #if defined(__i386__)
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
@@ -203,6 +208,37 @@ oil_cpu_i386_getflags_cpuid (void)
   }
 }
 
+/* Reduce the set of CPU capabilities detected by whatever detection mechanism
+ * was chosen, according to kernel limitations.  SSE requires kernel support for
+ * use.
+ *
+ * This function might also want to grow a check for the old RedHat + Linux 2.2
+ * unmasked SSE FPU exception bug.  Other than that, if /proc/cpuinfo reported
+ * SSE, then it's safe.
+ */
+static void
+oil_cpu_i386_kernel_restrict_flags(void)
+{
+#ifdef __FreeBSD__
+  int ret, enabled;
+  unsigned int len;
+
+  len = sizeof(enabled);
+  ret = sysctlbyname("hw.instruction_sse", &enabled, &len, NULL, 0);
+  if (ret || !enabled) {
+    oil_cpu_flags &= ~(OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2 |
+		       OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
+  }
+#endif
+#if !defined(__linux__) && !defined(__FreeBSD__)
+  /* If we don't know that the operating system supports SSE, don't trust that
+   * it will properly support it.
+   */
+  oil_cpu_flags &= ~(OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2 |
+		     OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
+#endif
+}
+
 static void
 oil_cpu_i386_getflags(void)
 {
@@ -214,6 +250,8 @@ oil_cpu_i386_getflags(void)
   } else {
     oil_cpu_i386_getflags_cpuid();
   }
+
+  oil_cpu_i386_kernel_restrict_flags();
 }
 
 #endif

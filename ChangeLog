@@ -1,5 +1,13 @@
 2005-10-17  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/liboilcpu.c: (oil_cpu_i386_kernel_restrict_flags),
+	(oil_cpu_i386_getflags):
+	Disable SSE on versions of FreeBSD with no kernel support for it.  On
+	non-FreeBSD, non-Linux kernels, disable it until we learn to check
+	whether the operating system supports SSE.
+
+2005-10-17  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/powerpc/Makefile.am:
 	Don't attempt to build powerpc files on non-powerpcs, where the altivec
 	flags break the compile.
