@@ -1,3 +1,9 @@
+2005-10-17  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/powerpc/Makefile.am:
+	Don't attempt to build powerpc files on non-powerpcs, where the altivec
+	flags break the compile.
+
 2005-10-17  David Schleef  <ds@schleef.org>
 
 	* configure.ac: Check for -masm-blocks before using the feature

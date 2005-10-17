@@ -27,8 +27,15 @@ sources = \
 	splat.c \
 	zigzag8x8.c
 
+if HAVE_CPU_POWERPC
 libpowerpc_la_SOURCES = \
 	$(asm_block_sources)
 	$(sources)
 libpowerpc_la_CFLAGS = $(LIBOIL_CFLAGS) -maltivec -mabi=altivec -fasm-blocks
+else
+libpowerpc_la_SOURCES = \
+	empty.c
+endif
 
+empty.c:
+	echo >empty.c
