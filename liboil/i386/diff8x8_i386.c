@@ -35,13 +35,6 @@ OIL_DECLARE_CLASS (diff8x8_s16_u8);
 OIL_DECLARE_CLASS (diff8x8_const128_s16_u8);
 OIL_DECLARE_CLASS (diff8x8_average_s16_u8);
 
-static const __attribute__ ((aligned(8),used)) int64_t V128w = 0x0080008000800080LL;
-
-#ifdef HAVE_LD_UNDERSCORE
-# define M(a) "_" #a
-#else
-# define M(a) #a
-#endif
 
 static void
 diff8x8_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss2)
@@ -86,11 +79,13 @@ OIL_DEFINE_IMPL_FULL (diff8x8_s16_u8_mmx, diff8x8_s16_u8, OIL_IMPL_FLAG_MMX);
 static void
 diff8x8_const128_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1)
 {
+  const int16_t tmp[4] = { 0x0080, 0x0080, 0x0080, 0x0080 };
+
   __asm__ __volatile__ (
     "  .balign 16                   \n\t"
 
     "  pxor        %%mm7, %%mm7     \n\t" 
-    "  movq      "M(V128w)", %%mm1  \n\t"
+    "  movq        (%3), %%mm1  \n\t"
 
     ".rept 8                        \n\t"
     "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */
@@ -111,7 +106,8 @@ diff8x8_const128_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1)
 
      : "+r" (src1),
        "+r" (dest)
-     : "r" (ss1)
+     : "r" (ss1),
+       "r" (tmp)
      : "memory"
   );
 }

@@ -1,3 +1,8 @@
+2005-10-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/diff8x8_i386.c: (diff8x8_const128_s16_u8_mmx):
+	  Fix problem pulling in global constant.
+
 2005-10-27  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: Fixups from conflicts in previous commit.
