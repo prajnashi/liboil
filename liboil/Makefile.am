@@ -1,7 +1,25 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc ref simdpack sse utf8 
+if HAVE_GCC_I386
+subdir_i386 = i386
+libs_i386 = i386/libi386.la
+else
+subdir_i386 =
+libs_i386 =
+endif
+
+if HAVE_GCC_POWERPC
+subdir_powerpc = powerpc motovec
+libs_powerpc = powerpc/libpowerpc.la motovec/libmotovec.la
+else
+subdir_powerpc =
+libs_powerpc = 
+endif
+
+
+DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc ref simdpack sse utf8 
+SUBDIRS = colorspace conv copy dct fb $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack sse utf8 
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 
@@ -32,12 +50,11 @@ liboilfunctions_la_LIBADD = \
 	copy/libcopy.la \
 	dct/libdct.la \
 	fb/libfb.la \
-	i386/libi386.la \
+	$(i386_libs) \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \
-	motovec/libmotovec.la \
-	powerpc/libpowerpc.la \
+	$(powerpc_libs)
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	sse/libsse.la \

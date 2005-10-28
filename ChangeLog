@@ -1,3 +1,23 @@
+2005-10-27  David Schleef  <ds@schleef.org>
+
+	* autogen.sh: Refactor how we check for intrinsics and flags.
+	  Remove hard-coded CFLAGS that don't work on Forte.  This is
+	  not complete, specifically, some of the makefiles aren't up
+	  to the new order.
+	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/conv/Makefile.am:
+	* liboil/fb/Makefile.am:
+	* liboil/i386/Makefile.am:
+	* liboil/math/Makefile.am:
+	* liboil/motovec/Makefile.am:
+	* liboil/powerpc/Makefile.am:
+	* liboil/sse/Makefile.am:
+	* liboil/utf8/Makefile.am:
+	* m4/as-gcc-inline-assembly.m4:
+	* m4/as-intrinsics.m4:
+	* testsuite/instruction/Makefile.am:
+
 2005-10-17  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/liboilcpu.c: (oil_cpu_i386_kernel_restrict_flags),

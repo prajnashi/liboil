@@ -11,13 +11,13 @@ c_sources = \
 	conv_bitstuff.c \
 	conv_misc.c
 
-if HAVE_CPU_I386
+if HAVE_GCC_I386
 i386_sources = conv_sse.c conv_3dnow.c
 else
 i386_sources = 
 endif
 
-if HAVE_CPU_AMD64
+if HAVE_GCC_AMD64
 amd64_sources = conv_sse.c conv_3dnow.c
 else
 amd64_sources = 

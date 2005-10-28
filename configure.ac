@@ -46,11 +46,13 @@ if test "x$enable_proto_check" = xyes ; then
   AC_DEFINE(LIBOIL_STRICT_PROTOTYPES,1,[Defined if prototype checking enabled])
 fi
 
-AC_ARG_ENABLE(alternate-optimization,
-  AC_HELP_STRING([--enable-alternate-optimization],[compile with alternate optimization flags]),
-  enable_alt_opt=$enableval,enable_alt_opt=no)
+AC_ARG_WITH(alternate-optimization,
+  AC_HELP_STRING([--with-alternate-optimization=CFLAGS],[compile with alternate optimization flags]),
+  [enable_alt_opt=yes; LIBOIL_OPT_CFLAGS=$withval],enable_alt_opt=no)
+if test "x$enable_alt_opt" = xyes ; then
+  LIBOIL_OPT_CFLAGS="$LIBOIL_OPT_CFLAGS -D'OIL_OPT_MANGLE(a)=a\#\#_alt' -D'OIL_OPT_SUFFIX=\"_alt\"'"
+fi
 AM_CONDITIONAL(USE_ALT_OPT, test "x$enable_alt_opt" = xyes)
-LIBOIL_OPT_CFLAGS="-O3 -fomit-frame-pointer -funroll-all-loops -Wno-unused-function -D'OIL_OPT_MANGLE(a)=a\#\#_O3' -D'OIL_OPT_SUFFIX=\"_O3\"'"
 AC_SUBST(LIBOIL_OPT_CFLAGS)
 
 AC_ARG_ENABLE(broken-implementations,
@@ -64,43 +66,42 @@ fi
 # Check for gtk-doc.
 ##################################################
 
+if test "x$cross_compiling" = "xyes" ; then
+  enable_gtk_doc=no
+fi
 GTK_DOC_CHECK([1.0])
 
 
-dnl Set up conditionals for (target) architecture:
-dnl ==============================================
+AS_GCC_INLINE_ASSEMBLY([HAVE_GCC_INLINE_ASSEMBLY=yes],
+  [HAVE_GCC_INLINE_ASSEMBLY=no])
+if test x$HAVE_GCC_INLINE_ASSEMBLY = xyes ; then
+  AC_DEFINE(HAVE_GCC_INLINE_ASSEMBLY, 1,
+    [Define if compiler supports gcc inline assembly for powerpc])
+fi
+AM_CONDITIONAL(HAVE_GCC_INLINE_ASSEMBLY,
+  test "x$HAVE_GCC_INLINE_ASSEMBLY" = "xyes")
 
 dnl Determine CPU
-case "x${target_cpu}" in
-  xi?86 | k?) HAVE_CPU_I386=yes
-              AC_DEFINE(HAVE_CPU_I386, 1, [Define if the target CPU is an x86]) ;;
-  xx86_64)    HAVE_CPU_AMD64=yes
-              AC_DEFINE(HAVE_CPU_AMD64, 1, [Define if the target CPU is an amd64]) ;;
-  xpowerpc)   HAVE_CPU_POWERPC=yes
-              AC_DEFINE(HAVE_CPU_POWERPC, 1, [Define if the target CPU is a powerpc]) ;;
-  xalpha)     HAVE_CPU_ALPHA=yes
-              AC_DEFINE(HAVE_CPU_ALPHA, 1, [Define if the target CPU is an Alpha]) ;;
-  xarm*)      HAVE_CPU_ARM=yes
-              AC_DEFINE(HAVE_CPU_ARM, 1, [Define if the target CPU is an ARM]) ;;
-  xsparc*)    HAVE_CPU_SPARC=yes
-              AC_DEFINE(HAVE_CPU_SPARC, 1, [Define if the target CPU is a Sparc]) ;;
-  xmips*)     HAVE_CPU_MIPS=yes
-              AC_DEFINE(HAVE_CPU_MIPS, 1, [Define if the target CPU is a MIPS]) ;;
-  xhppa*)     HAVE_CPU_HPPA=yes
-              AC_DEFINE(HAVE_CPU_HPPA, 1, [Define if the target CPU is a HPPA]) ;;
-  xia64*)     HAVE_CPU_IA64=yes
-              AC_DEFINE(HAVE_CPU_IA64, 1, [Define if the target CPU is a IA64]) ;;
-esac
+if test "x$HAVE_GCC_INLINE_ASSEMBLY" = xyes ; then
+  case "x${host_cpu}" in
+    xi?86 | k?)
+      HAVE_GCC_I386=yes
+      AC_DEFINE(HAVE_GCC_I386, 1, [Define if compiler supports gcc inline assembly for i386])
+      ;;
+    xx86_64)
+      HAVE_GCC_AMD64=yes
+      AC_DEFINE(HAVE_GCC_AMD64, 1, [Define if compiler supports gcc inline assembly for amd64])
+      ;;
+    xpowerpc)
+      HAVE_GCC_POWERPC=yes
+      AC_DEFINE(HAVE_GCC_POWERPC, 1, [Define if compiler supports gcc inline assembly for powerpc])
+      ;;
+  esac
+fi
 
-AM_CONDITIONAL(HAVE_CPU_I386, test "x$HAVE_CPU_I386" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_AMD64, test "x$HAVE_CPU_AMD64" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_POWERPC, test "x$HAVE_CPU_POWERPC" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_ALPHA, test "x$HAVE_CPU_ALPHA" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_ARM, test "x$HAVE_CPU_ARM" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_SPARC, test "x$HAVE_CPU_SPARC" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_MIPS, test "x$HAVE_CPU_MIPS" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_HPPA, test "x$HAVE_CPU_HPPA" = "xyes")
-AM_CONDITIONAL(HAVE_CPU_IA64, test "x$HAVE_CPU_IA64" = "xyes")
+AM_CONDITIONAL(HAVE_GCC_I386, test "x$HAVE_GCC_I386" = "xyes")
+AM_CONDITIONAL(HAVE_GCC_AMD64, test "x$HAVE_GCC_AMD64" = "xyes")
+AM_CONDITIONAL(HAVE_GCC_POWERPC, test "x$HAVE_GCC_POWERPC" = "xyes")
 
 AC_C_BIGENDIAN
 
@@ -110,7 +111,6 @@ if test x${ac_cv_sys_symbol_underscore} = xyes ; then
 fi
 
 
-
 AC_FUNC_MMAP()
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
@@ -118,6 +118,8 @@ AC_CHECK_LIB(m, lrint,
   AC_DEFINE(HAVE_LRINT, 1, [Define if lrint() is available]))
 AC_CHECK_LIB(m, lrintf,
   AC_DEFINE(HAVE_LRINTF, 1, [Define if lrintf() is available]))
+AC_CHECK_LIB(m, sincos,
+  AC_DEFINE(HAVE_SINCOS, 1, [Define if sincos() is available]))
 
 AC_CHECK_HEADER(ieee754.h,
   AC_DEFINE(HAVE_IEEE754_H, 1, [Define if ieee754.h exists]))
@@ -133,12 +135,9 @@ if test "x$LIBOIL_CVS" = "xyes"
 then
   AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
 fi
-if test x$HAVE_CPU_POWERPC = xyes ; then
-  AS_COMPILER_FLAG(["-Wa,-mregnames"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
-    true)
-  AS_COMPILER_FLAG(["-Wa,-maltivec"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-maltivec"],
+if test x$HAVE_GCC_POWERPC = xyes ; then
+  AS_COMPILER_FLAG(["-mregnames"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mregnames"],
     true)
   AS_COMPILER_FLAG(["-force_cpusubtype_ALL"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -force_cpusubtype_ALL"],
@@ -152,18 +151,29 @@ then
 fi
 AM_CONDITIONAL(HAVE_ASM_BLOCKS, test "x$HAVE_ASM_BLOCKS" = "xyes")
 
-if test x$HAVE_CPU_I386 = xyes -o x$HAVE_CPU_AMD64 = xyes ; then
-  AS_COMPILER_FLAG(["-mmmx"], [MMX_CFLAGS="-mmmx"], true)
-  AS_COMPILER_FLAG(["-msse"], [SSE_CFLAGS="-msse"], true)
-  AS_COMPILER_FLAG(["-msse2"], [SSE2_CFLAGS="-msse2"], true)
-  AS_COMPILER_FLAG(["-msse3"], [SSE3_CFLAGS="-msse3"], true)
-  AS_COMPILER_FLAG(["-m3dnow"], [_3DNOW_CFLAGS="-m3dnow"], true)
-fi
+AS_MMX_INTRINSICS(MMX_CFLAGS, HAVE_MMX_INTRINSICS=yes, HAVE_MMX_INTRINSICS=no)
+AS_SSE_INTRINSICS(SSE_CFLAGS, HAVE_SSE_INTRINSICS=yes, HAVE_SSE_INTRINSICS=no)
+AS_SSE2_INTRINSICS(SSE2_CFLAGS, HAVE_SSE2_INTRINSICS=yes, HAVE_SSE2_INTRINSICS=no)
+AS_SSE3_INTRINSICS(SSE3_CFLAGS, HAVE_SSE3_INTRINSICS=yes, HAVE_SSE3_INTRINSICS=no)
+AS_3DNOW_INTRINSICS(_3DNOW_CFLAGS, HAVE_3DNOW_INTRINSICS=yes, HAVE_3DNOW_INTRINSICS=no)
+AS_3DNOWEXT_INTRINSICS(_3DNOWEXT_CFLAGS, HAVE_3DNOWEXT_INTRINSICS=yes, HAVE_3DNOWEXT_INTRINSICS=no)
+AS_ALTIVEC_INTRINSICS(ALTIVEC_CFLAGS, HAVE_ALTIVEC_INTRINSICS=yes, HAVE_ALTIVEC_INTRINSICS=no)
+
+AM_CONDITIONAL(HAVE_MMX_INTRINSICS, test "x$HAVE_MMX_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_SSE_INTRINSICS, test "x$HAVE_SSE_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_SSE2_INTRINSICS, test "x$HAVE_SSE2_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_SSE3_INTRINSICS, test "x$HAVE_SSE3_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_3DNOW_INTRINSICS, test "x$HAVE_3DNOW_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_3DNOWEXT_INTRINSICS, test "x$HAVE_3DNOWEXT_INTRINSICS" = "xyes")
+AM_CONDITIONAL(HAVE_ALTIVEC_INTRINSICS, test "x$HAVE_ALTIVEC_INTRINSICS" = "xyes")
+
 AC_SUBST(MMX_CFLAGS)
 AC_SUBST(SSE_CFLAGS)
 AC_SUBST(SSE2_CFLAGS)
 AC_SUBST(SSE3_CFLAGS)
 AC_SUBST(_3DNOW_CFLAGS)
+AC_SUBST(_3DNOWEXT_CFLAGS)
+AC_SUBST(ALTIVEC_CFLAGS)
 
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir) -O2"
 AC_SUBST(LIBOIL_CFLAGS)
@@ -173,9 +183,6 @@ AC_SUBST(LIBOIL_LIBS)
 
 pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
-
-#CFLAGS=`echo "$CFLAGS" | sed -e 's/-O[0-9*]//g'`
-#CFLAGS="-g"
 
 AC_CONFIG_FILES([
 Makefile 

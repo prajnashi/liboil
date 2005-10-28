@@ -24,13 +24,13 @@ sources = \
 	splat_i386.c \
 	trans8x8_i386.c
 
-if HAVE_CPU_I386
+if HAVE_GCC_I386
 i386_sources = $(sources)
 else
 i386_sources = empty.c
 endif
 
-if HAVE_CPU_AMD64
+if HAVE_GCC_AMD64
 amd64_sources = $(sources)
 else
 amd64_sources = empty.c

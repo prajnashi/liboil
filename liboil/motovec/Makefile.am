@@ -3,7 +3,7 @@ noinst_LTLIBRARIES = libmotovec.la
 
 c_sources = 
 
-if HAVE_CPU_POWERPC
+if HAVE_GCC_POWERPC
 powerpc_sources = \
 	motovec.c \
 	vec_memcpy.S \

@@ -8,11 +8,11 @@ opt_libs =
 endif
 noinst_LTLIBRARIES = libsse.la $(opt_libs)
 
-if HAVE_CPU_I386
+if HAVE_GCC_I386
 c_sources = \
 	conv_sse.c
 else
-if HAVE_CPU_AMD64
+if HAVE_GCC_AMD64
 c_sources = \
 	conv_sse.c
 else

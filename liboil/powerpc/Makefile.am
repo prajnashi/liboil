@@ -1,14 +1,6 @@
 
 noinst_LTLIBRARIES = libpowerpc.la
 
-if HAVE_ASM_BLOCKS
-asm_block_sources = \
-	recon8x8_ppc.c  \
-	recon8x8_altivec.c  
-else
-asm_block_sources =
-endif
-
 sources = \
 	abs.c \
 	clip.c \
@@ -27,15 +19,7 @@ sources = \
 	splat.c \
 	zigzag8x8.c
 
-if HAVE_CPU_POWERPC
 libpowerpc_la_SOURCES = \
-	$(asm_block_sources)
 	$(sources)
-libpowerpc_la_CFLAGS = $(LIBOIL_CFLAGS) -maltivec -mabi=altivec -fasm-blocks
-else
-libpowerpc_la_SOURCES = \
-	empty.c
-endif
+libpowerpc_la_CFLAGS = $(LIBOIL_CFLAGS)
 
-empty.c:
-	echo >empty.c
