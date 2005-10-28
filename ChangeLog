@@ -1,5 +1,17 @@
 2005-10-27  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: Fixups from conflicts in previous commit.
+	* liboil/conv/Makefile.am:
+	* liboil/powerpc/recon8x8_altivec.c:
+	* liboil/powerpc/recon8x8_ppc.c:
+
+	* liboil/powerpc_asm_blocks/Makefile.am: Move asm-blocks stuff
+	  to a separate directory, since it requires different CPU flags.
+	* liboil/powerpc_asm_blocks/recon8x8_altivec.c:
+	* liboil/powerpc_asm_blocks/recon8x8_ppc.c:
+
+2005-10-27  David Schleef  <ds@schleef.org>
+
 	* autogen.sh: Refactor how we check for intrinsics and flags.
 	  Remove hard-coded CFLAGS that don't work on Forte.  This is
 	  not complete, specifically, some of the makefiles aren't up

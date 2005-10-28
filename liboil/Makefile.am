@@ -12,13 +12,17 @@ endif
 if HAVE_GCC_POWERPC
 subdir_powerpc = powerpc motovec
 libs_powerpc = powerpc/libpowerpc.la motovec/libmotovec.la
+if HAVE_ASM_BLOCKS
+subdir_powerpc += powerpc_asm_blocks
+libs_powerpc += powerpc/libpowerpc_asm_blocks.la
+endif
 else
 subdir_powerpc =
 libs_powerpc = 
 endif
 
 
-DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc ref simdpack sse utf8 
+DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
 SUBDIRS = colorspace conv copy dct fb $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack sse utf8 
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
@@ -54,7 +58,7 @@ liboilfunctions_la_LIBADD = \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \
-	$(powerpc_libs)
+	$(powerpc_libs) \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	sse/libsse.la \

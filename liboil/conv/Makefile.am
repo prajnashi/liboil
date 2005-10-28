@@ -30,7 +30,6 @@ noinst_HEADERS = conv.h
 
 libconv_la_SOURCES = \
 	$(c_sources) \
-	$(powerpc_sources) \
 	$(i386_sources) \
 	$(amd64_sources)
 libconv_la_CFLAGS = $(LIBOIL_CFLAGS)
