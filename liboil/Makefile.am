@@ -4,6 +4,10 @@ pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 if HAVE_GCC_I386
 subdir_i386 = i386
 libs_i386 = i386/libi386.la
+if HAVE_SSE_INTRINSICS
+subdir_i386 += fb sse
+libs_i386 += fb/libfb.la sse/libsse.la
+endif
 else
 subdir_i386 =
 libs_i386 =
@@ -23,7 +27,7 @@ endif
 
 
 DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
-SUBDIRS = colorspace conv copy dct fb $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack sse utf8 
+SUBDIRS = colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
 
 lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
 
@@ -53,7 +57,6 @@ liboilfunctions_la_LIBADD = \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
-	fb/libfb.la \
 	$(i386_libs) \
 	jpeg/libjpeg.la \
 	math/libmath.la \
@@ -61,7 +64,6 @@ liboilfunctions_la_LIBADD = \
 	$(powerpc_libs) \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
-	sse/libsse.la \
 	utf8/libutf8.la
 liboilfunctions_la_LDFLAGS = \
 	-no-undefined
@@ -128,20 +130,20 @@ liboilarray.c: liboiltmp1.la Makefile
 	echo '#include <liboil/liboilfunction.h>' >>liboilarray.c.tmp
 	echo >>liboilarray.c.tmp
 	grep '^_oil_function_class_' .libs/liboiltmp1.exp | \
-	  sed 's/.*/extern OilFunctionClass &;/' >>liboilarray.c.tmp
+	  sed -e 's/ .*//' -e 's/.*/extern OilFunctionClass &;/' >>liboilarray.c.tmp
 	echo >>liboilarray.c.tmp
 	echo 'OilFunctionClass *_oil_function_class_array[] = {' >>liboilarray.c.tmp
 	grep '^_oil_function_class_' .libs/liboiltmp1.exp | \
-	  sed 's/.*/  \&&,/' >>liboilarray.c.tmp
+	  sed -e 's/ .*//' -e 's/.*/  \&&,/' >>liboilarray.c.tmp
 	echo '  NULL' >>liboilarray.c.tmp
 	echo '};' >>liboilarray.c.tmp
 	echo >>liboilarray.c.tmp
 	grep '^_oil_function_impl_' .libs/liboiltmp1.exp | \
-	  sed 's/.*/extern OilFunctionImpl &;/' >>liboilarray.c.tmp
+	  sed -e 's/ .*//' -e 's/.*/extern OilFunctionImpl &;/' >>liboilarray.c.tmp
 	echo >>liboilarray.c.tmp
 	echo 'OilFunctionImpl *_oil_function_impl_array[] = {' >>liboilarray.c.tmp
 	grep '^_oil_function_impl_' .libs/liboiltmp1.exp | \
-	  sed 's/.*/  \&&,/' >>liboilarray.c.tmp
+	  sed -e 's/ .*//' -e 's/.*/  \&&,/' >>liboilarray.c.tmp
 	echo '  NULL' >>liboilarray.c.tmp
 	echo '};' >>liboilarray.c.tmp
 	echo >>liboilarray.c.tmp

@@ -32,7 +32,6 @@
 #include <liboil/liboilprototype.h>
 #include <liboil/liboilprofile.h>
 
-//typedef struct _OilTest OilTest;
 struct _OilTest {
   OilFunctionClass *klass;
   OilFunctionImpl *impl;

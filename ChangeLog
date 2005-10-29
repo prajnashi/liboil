@@ -1,5 +1,16 @@
 2005-10-28  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Use AC_LIBTOOL_WIN32_DLL
+	* liboil/Makefile.am: Fix sed patterns for extracting symbols
+	  from libtool .exp files to handle different format on windows
+	  targets.  Move sse directory to a conditional.
+	* liboil/README: new file
+	* liboil/liboiltest.h: remove // comment
+	* liboil/powerpc_asm_blocks/Makefile.am: name ltlibrary correctly
+	* m4/as-intrinsics.m4: Fix SSE2 test
+
+2005-10-28  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/diff8x8_i386.c: (diff8x8_const128_s16_u8_mmx):
 	  Fix problem pulling in global constant.
 

@@ -1,5 +1,5 @@
 
-noinst_LTLIBRARIES = libpowerpc.la
+noinst_LTLIBRARIES = libpowerpc_asm_blocks.la
 
 sources = \
 	recon8x8_ppc.c  \

@@ -4,7 +4,7 @@ dnl autostars m4 macro for detection of gcc inline assembly
 
 dnl David Schleef <ds@schleef.org>
 
-dnl $Id: as-intrinsics.m4,v 1.1 2005-10-28 03:12:05 ds Exp $
+dnl $Id: as-intrinsics.m4,v 1.2 2005-10-29 02:32:33 ds Exp $
 
 dnl AS_MMX_INTRINSICS(CFLAGS, ACTION-IF-ACCEPTED, [ACTION-IF-NOT-ACCEPTED])
 dnl Tries to compile with the given CFLAGS.
@@ -69,7 +69,7 @@ AC_DEFUN([AS_SSE2_INTRINSICS],
 
   save_CFLAGS="$CFLAGS"
   CFLAGS="$CFLAGS -msse2"
-  AC_TRY_COMPILE([#include <emmintrin.h>], [__m128 a; a = _mm_setzero_pd()], [flag_ok=yes], [flag_ok=no])
+  AC_TRY_COMPILE([#include <emmintrin.h>], [__m128d a; a = _mm_setzero_pd()], [flag_ok=yes], [flag_ok=no])
   CFLAGS="$save_CFLAGS"
 
   $1="-msse2"

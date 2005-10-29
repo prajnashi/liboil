@@ -19,7 +19,8 @@ dnl - interfaces added -> increment AGE
 dnl - interfaces removed -> AGE = 0
 LIBOIL_LIBVERSION="1:0:1"
 AC_SUBST(LIBOIL_LIBVERSION)
-AM_PROG_LIBTOOL
+AC_LIBTOOL_WIN32_DLL
+AC_PROG_LIBTOOL
 AM_PROG_AS
 
 AC_CONFIG_SRCDIR([liboil/liboil.h])
@@ -199,6 +200,7 @@ liboil/math/Makefile
 liboil/md5/Makefile
 liboil/motovec/Makefile
 liboil/powerpc/Makefile
+liboil/powerpc_asm_blocks/Makefile
 liboil/ref/Makefile
 liboil/simdpack/Makefile
 liboil/sse/Makefile
