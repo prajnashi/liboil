@@ -145,7 +145,8 @@ if test x$HAVE_GCC_POWERPC = xyes ; then
     true)
 fi
 
-AS_COMPILER_FLAG(["-fasm-blocks"], HAVE_ASM_BLOCKS=yes, HAVE_ASM_BLOCKS=no)
+#AS_COMPILER_FLAG(["-fasm-blocks"], HAVE_ASM_BLOCKS=yes, HAVE_ASM_BLOCKS=no)
+HAVE_ASM_BLOCKS=no
 if test "x$HAVE_ASM_BLOCKS" = "xyes"
 then
   LIBOIL_CFLAGS="$LIBOIL_CFLAGS -fasm-blocks"
