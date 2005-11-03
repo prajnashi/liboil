@@ -1,3 +1,8 @@
+2005-11-02  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Use AC_CANONICAL_HOST
+	* liboil/powerpc/Makefile.am: fix dist
+
 2005-10-28  David Schleef  <ds@schleef.org>
 
 	* configure.ac: Use AC_LIBTOOL_WIN32_DLL

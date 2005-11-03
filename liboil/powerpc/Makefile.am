@@ -10,8 +10,6 @@ sources = \
 	md5.c \
 	mix.c \
 	multsum.c \
-	recon8x8_altivec.c \
-	recon8x8_ppc.c \
 	resample.c \
 	rgb2bgr.c \
 	rgb2rgba.c \
