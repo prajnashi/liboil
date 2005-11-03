@@ -4,7 +4,7 @@ dnl autostars m4 macro for detection of gcc inline assembly
 
 dnl David Schleef <ds@schleef.org>
 
-dnl $Id: as-intrinsics.m4,v 1.2 2005-10-29 02:32:33 ds Exp $
+dnl $Id: as-intrinsics.m4,v 1.3 2005-11-03 07:00:23 ds Exp $
 
 dnl AS_MMX_INTRINSICS(CFLAGS, ACTION-IF-ACCEPTED, [ACTION-IF-NOT-ACCEPTED])
 dnl Tries to compile with the given CFLAGS.
@@ -173,7 +173,7 @@ AC_DEFUN([AS_ALTIVEC_INTRINSICS],
 
   save_CFLAGS="$CFLAGS"
   CFLAGS="$CFLAGS -maltivec"
-  AC_TRY_COMPILE([#include <altivec.h>], [__vector_float a; a = vec_or(a,a)], [flag_ok=yes], [flag_ok=no])
+  AC_TRY_COMPILE([#include <altivec.h>], [__vector a; a = vec_or(a,a)], [flag_ok=yes], [flag_ok=no])
   CFLAGS="$save_CFLAGS"
 
   $1="-maltivec"

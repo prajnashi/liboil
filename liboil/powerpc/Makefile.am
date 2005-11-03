@@ -6,7 +6,6 @@ sources = \
 	clip.c \
 	conv.c \
 	copy.c \
-	fdct8x8theora_altivec.c \
 	md5.c \
 	mix.c \
 	multsum.c \

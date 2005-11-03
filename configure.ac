@@ -137,8 +137,8 @@ then
   AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
 fi
 if test x$HAVE_GCC_POWERPC = xyes ; then
-  AS_COMPILER_FLAG(["-mregnames"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mregnames"],
+  AS_COMPILER_FLAG(["-Wa,-mregnames"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)
   AS_COMPILER_FLAG(["-force_cpusubtype_ALL"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -force_cpusubtype_ALL"],

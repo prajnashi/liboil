@@ -29,8 +29,7 @@
 #include "config.h"
 #endif
 
-#include <liboil/liboil.h>
-#include "md5.h"
+#include <liboil/liboilfunction.h>
 
 #define F1(x, y, z) (z ^ (x & (y ^ z)))
 #define F2(x, y, z) F1(z, x, y)
@@ -40,6 +39,7 @@
 #define MD5STEP(f,w,x,y,z,in,s) \
   (w += f(x,y,z) + in, w = (w<<s | w>>(32-s)) + x)
 
+OIL_DECLARE_CLASS (md5);
 
 static void
 md5_asm1 (uint32_t *state, uint32_t *src)

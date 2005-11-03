@@ -1,5 +1,16 @@
 2005-11-02  David Schleef  <ds@schleef.org>
 
+	* configure.ac: revert to -Wa,-mregnames
+	* liboil/powerpc/md5.c: fixes
+	* liboil/powerpc/zigzag8x8.c: fixes
+	* liboil/powerpc/Makefile.am: move fdct8x8theora_altivec.c
+	* liboil/powerpc/fdct8x8theora_altivec.c: from here
+	* liboil/powerpc_asm_blocks/fdct8x8theora_altivec.c: to here
+	* liboil/powerpc_asm_blocks/Makefile.am:
+	* m4/as-intrinsics.m4: fix altivec test
+
+2005-11-02  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Use AC_CANONICAL_HOST
 	* liboil/powerpc/Makefile.am: fix dist
 

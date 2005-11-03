@@ -30,7 +30,6 @@
 #endif
 
 #include <liboil/liboil.h>
-#include "jpeg.h"
 
 
 /* Derivation:
