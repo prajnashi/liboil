@@ -1,5 +1,9 @@
 2005-11-03  David Schleef  <ds@schleef.org>
 
+	* liboil/sse/Makefile.am: Clean up sse building
+
+2005-11-03  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Turn of asm-blocks, becuase it doesn't compile
 	  on OS/X.
 
