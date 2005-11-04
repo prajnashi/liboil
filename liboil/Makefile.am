@@ -29,7 +29,10 @@ endif
 DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
 SUBDIRS = colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
 
-lib_LTLIBRARIES = liboiltmp1.la liboil-@LIBOIL_MAJORMINOR@.la
+lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
+
+buildnoinstdir = $(libdir)
+buildnoinst_LTLIBRARIES = liboiltmp1.la
 
 noinst_LTLIBRARIES = liboilfunctions.la
 
@@ -163,4 +166,6 @@ update:
 	./build_marshal$(EXEEXT) >liboilmarshal.c
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 	./build_class_decls$(EXEEXT) >liboilclasses.h
+
+install-buildnoinstLTLIBRARIES:
 
