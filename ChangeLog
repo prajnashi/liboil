@@ -1,6 +1,10 @@
 2005-11-04  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version bump
+
+2005-11-04  David Schleef  <ds@schleef.org>
+
+	* configure.ac: version bump
 	* liboil/Makefile.am: Don't install liboiltmp1.la.  This change
 	  actually made it into the release.
 
