@@ -11,27 +11,13 @@ c_sources = \
 	conv_bitstuff.c \
 	conv_misc.c
 
-if HAVE_GCC_I386
-i386_sources = conv_sse.c conv_3dnow.c
-else
-i386_sources = 
-endif
-
-if HAVE_GCC_AMD64
-amd64_sources = conv_sse.c conv_3dnow.c
-else
-amd64_sources = 
-endif
-
 libconv_opt_la_SOURCES = $(c_sources)
 libconv_opt_la_CFLAGS = $(LIBOIL_CFLAGS) $(LIBOIL_OPT_CFLAGS)
 
 noinst_HEADERS = conv.h
 
 libconv_la_SOURCES = \
-	$(c_sources) \
-	$(i386_sources) \
-	$(amd64_sources)
+	$(c_sources)
 libconv_la_CFLAGS = $(LIBOIL_CFLAGS)
 libconv_la_LIBADD = $(opt_libs)
 

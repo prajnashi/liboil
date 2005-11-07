@@ -1,3 +1,14 @@
+2005-11-06  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am: Fix more stuff and reenable MMX
+	* liboil/conv/Makefile.am:
+	* liboil/conv/conv_3dnow.c: move
+	* liboil/conv/conv_sse.c: move
+	* liboil/fb/Makefile.am:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/conv_3dnow.c: move
+	* liboil/i386/conv_sse.c: move
+
 2005-11-04  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version bump

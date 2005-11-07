@@ -4,9 +4,13 @@ pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 if HAVE_GCC_I386
 subdir_i386 = i386
 libs_i386 = i386/libi386.la
+if HAVE_MMX_INTRINSICS
+subdir_i386 += fb
+libs_i386 += fb/libfb.la
+endif
 if HAVE_SSE_INTRINSICS
-subdir_i386 += fb sse
-libs_i386 += fb/libfb.la sse/libsse.la
+subdir_i386 += sse
+libs_i386 += sse/libsse.la
 endif
 else
 subdir_i386 =
@@ -60,11 +64,11 @@ liboilfunctions_la_LIBADD = \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
-	$(i386_libs) \
+	$(libs_i386) \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \
-	$(powerpc_libs) \
+	$(libs_powerpc) \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	utf8/libutf8.la

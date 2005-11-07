@@ -1,13 +1,13 @@
 
-CLEANFILES = empty.c
-
 noinst_LTLIBRARIES = libi386.la
 
-sources = \
+libi386_la_SOURCES = \
 	abs_i386.c \
 	argb_paint_i386.c \
 	ayuv2argb_i386.c \
 	composite_i386.c \
+	conv_sse.c \
+	conv_3dnow.c \
 	copy8x8_i386.c \
 	copy_i386.c \
 	diff8x8_i386.c \
@@ -24,22 +24,5 @@ sources = \
 	splat_i386.c \
 	trans8x8_i386.c
 
-if HAVE_GCC_I386
-i386_sources = $(sources)
-else
-i386_sources = empty.c
-endif
-
-if HAVE_GCC_AMD64
-amd64_sources = $(sources)
-else
-amd64_sources = empty.c
-endif
-
-libi386_la_SOURCES = \
-	$(i386_sources)
 libi386_la_CFLAGS = $(LIBOIL_CFLAGS)
-
-empty.c:
-	echo >empty.c
 
