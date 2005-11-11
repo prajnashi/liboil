@@ -44,15 +44,17 @@ OIL_DEFINE_CLASS (abs_f64_f64, "double *dest, int dstr, double *src, int sstr, i
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
 
-#if 0
-static void
-abs_test (OilFunctionClass *klass, OilFunctionImpl *impl)
-{
-
-
-}
-#endif
-
+/**
+ * oil_abs_u8_s8:
+ * @dest: destination array
+ * @dstr: stride of destination elements
+ * @src: source array
+ * @sstr: stride of source elements
+ * @n: number of elements in arrays
+ *
+ * Calculates the absolute value of each element in the source array
+ * and writes it into the destination array.
+ */
 static void
 abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
 {
@@ -67,6 +69,17 @@ abs_u8_s8_ref (uint8_t *dest, int dstr, int8_t *src, int sstr, int n)
 }
 OIL_DEFINE_IMPL_REF (abs_u8_s8_ref, abs_u8_s8);
 
+/**
+ * oil_abs_u16_s16:
+ * @dest: destination array
+ * @dstr: stride of destination elements
+ * @src: source array
+ * @sstr: stride of source elements
+ * @n: number of elements in arrays
+ *
+ * Calculates the absolute value of each element in the source array
+ * and writes it into the destination array.
+ */
 static void
 abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)
 {
@@ -81,6 +94,17 @@ abs_u16_s16_ref (uint16_t *dest, int dstr, int16_t *src, int sstr, int n)
 }
 OIL_DEFINE_IMPL_REF (abs_u16_s16_ref, abs_u16_s16);
 
+/**
+ * oil_abs_u32_s32:
+ * @dest: destination array
+ * @dstr: stride of destination elements
+ * @src: source array
+ * @sstr: stride of source elements
+ * @n: number of elements in arrays
+ *
+ * Calculates the absolute value of each element in the source array
+ * and writes it into the destination array.
+ */
 static void
 abs_u32_s32_ref (uint32_t *dest, int dstr, int32_t *src, int sstr, int n)
 {
@@ -95,6 +119,17 @@ abs_u32_s32_ref (uint32_t *dest, int dstr, int32_t *src, int sstr, int n)
 }
 OIL_DEFINE_IMPL_REF (abs_u32_s32_ref, abs_u32_s32);
 
+/**
+ * oil_abs_f32_f32:
+ * @dest: destination array
+ * @dstr: stride of destination elements
+ * @src: source array
+ * @sstr: stride of source elements
+ * @n: number of elements in arrays
+ *
+ * Calculates the absolute value of each element in the source array
+ * and writes it into the destination array.
+ */
 static void
 abs_f32_f32_ref (float *dest, int dstr, float *src, int sstr, int n)
 {
@@ -107,6 +142,17 @@ abs_f32_f32_ref (float *dest, int dstr, float *src, int sstr, int n)
 
 OIL_DEFINE_IMPL_REF (abs_f32_f32_ref, abs_f32_f32);
 
+/**
+ * oil_abs_f64_f64:
+ * @dest: destination array
+ * @dstr: stride of destination elements
+ * @src: source array
+ * @sstr: stride of source elements
+ * @n: number of elements in arrays
+ *
+ * Calculates the absolute value of each element in the source array
+ * and writes it into the destination array.
+ */
 static void
 abs_f64_f64_ref (double *dest, int dstr, double *src, int sstr, int n)
 {

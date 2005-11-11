@@ -41,12 +41,66 @@
 #define AYUV_V(color) (((color)>>0)&0xff)
 
 
+/**
+ * oil_yuyv2ayuv:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in YUYV format to AYUV.  Note that only approximately
+ * half of the source array is used.  Alpha values are set to 255.
+ */
 OIL_DEFINE_CLASS (yuyv2ayuv, "uint32_t *d_n, uint32_t *s_n, int n");
+/**
+ * oil_yvyu2ayuv:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in YVYU format to AYUV.  Note that only approximately
+ * half of the source array is used.  Alpha values are set to 255.
+ */
 OIL_DEFINE_CLASS (yvyu2ayuv, "uint32_t *d_n, uint32_t *s_n, int n");
+/**
+ * oil_uyvy2ayuv:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in UYVY format to AYUV.  Note that only approximately
+ * half of the source array is used.  Alpha values are set to 255.
+ */
 OIL_DEFINE_CLASS (uyvy2ayuv, "uint32_t *d_n, uint32_t *s_n, int n");
 
+/**
+ * oil_ayuv2yuyv:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in AYUV format to YUYV.  Note that only approximately
+ * half of the destination array is written.  Alpha values are ignored.
+ */
 OIL_DEFINE_CLASS (ayuv2yuyv, "uint32_t *d_n, uint32_t *s_n, int n");
+/**
+ * oil_ayuv2yvyu:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in AYUV format to YVYU.  Note that only approximately
+ * half of the destination array is written.  Alpha values are ignored.
+ */
 OIL_DEFINE_CLASS (ayuv2yvyu, "uint32_t *d_n, uint32_t *s_n, int n");
+/**
+ * oil_ayuv2uyvy:
+ * @d_n:
+ * @s_n:
+ * n:
+ *
+ * Converts pixels in AYUV format to UYVY.  Note that only approximately
+ * half of the destination array is written.  Alpha values are ignored.
+ */
 OIL_DEFINE_CLASS (ayuv2uyvy, "uint32_t *d_n, uint32_t *s_n, int n");
 
 

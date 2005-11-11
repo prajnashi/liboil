@@ -32,6 +32,19 @@
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_ayuv2argb_u8:
+ * @d_4xn:
+ * @s_4xn:
+ * @n:
+ *
+ * Converts AYUV pixels to ARGB pixels.  AYUV pixels are in the
+ * JPEG colorspace.  Note that this function doesn't follow normal
+ * liboil pixel conventions.
+ *
+ * (This function should be replaced by one that handles other
+ * conversion factors.)
+ */
 OIL_DEFINE_CLASS (ayuv2argb_u8, "uint8_t *d_4xn, uint8_t *s_4xn, int n");
 
 #define clamp(x,a,b) clamp_lower(clamp_upper(x,b),a)

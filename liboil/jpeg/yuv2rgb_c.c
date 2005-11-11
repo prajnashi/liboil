@@ -33,10 +33,53 @@
 #include <liboil/liboiltest.h>
 #include "jpeg.h"
 
+/**
+ * oil_yuv2rgbx_u8:
+ * @d_4xn:
+ * @src1: Y component
+ * @src2: U component
+ * @src3: V component
+ * @n:
+ *
+ * Converts YUV pixels to RGB pixels.  Each YUV component is in a
+ * separate source array, and are combined and converted to RGB.
+ *
+ * This function should be replaced by one that makes sense.
+ */
 OIL_DEFINE_CLASS (yuv2rgbx_u8,
     "uint8_t *d_4xn, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
+/**
+ * oil_yuv2rgbx_sub2_u8:
+ * @d_4xn:
+ * @src1: Y component
+ * @src2: U component
+ * @src3: V component
+ * @n:
+ *
+ * Converts YUV pixels to RGB pixels.  Each YUV component is in a
+ * separate source array, and are combined and converted to RGB.
+ * The U and V arrays are subsampled by a factor of 2, so only
+ * half of each array is used.
+ *
+ * This function should be replaced by one that makes sense.
+ */
 OIL_DEFINE_CLASS (yuv2rgbx_sub2_u8,
     "uint8_t *d_4xn, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
+/**
+ * oil_yuv2rgbx_sub4_u8:
+ * @d_4xn:
+ * @src1: Y component
+ * @src2: U component
+ * @src3: V component
+ * @n:
+ *
+ * Converts YUV pixels to RGB pixels.  Each YUV component is in a
+ * separate source array, and are combined and converted to RGB.
+ * The U and V arrays are subsampled by a factor of 4, so only
+ * a quarter of each array is used.
+ *
+ * This function should be replaced by one that makes sense.
+ */
 OIL_DEFINE_CLASS (yuv2rgbx_sub4_u8,
     "uint8_t *d_4xn, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 

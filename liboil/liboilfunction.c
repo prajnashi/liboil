@@ -50,9 +50,11 @@ void _oil_cpu_init (void);
 /**
  * oil_init:
  *
- * Initializes liboil.  This function must be called before any
+ * Initialize liboil.  This function must be called before any
  * other liboil function is used.  @oil_init may be called multiple
  * times.
+ *
+ * Since: 0.3.0
  */
 void
 oil_init (void)
@@ -82,8 +84,9 @@ oil_init (void)
 /**
  * oil_init_no_optimize:
  *
- * Identical to @oil_init(), except that the profiling stage is not
- * done.  This function is mainly useful for internal programs.
+ * Initialize liboil similar to @oil_init(), but do not run the
+ * profiling stage.  This function is mainly useful for internal
+ * programs.
  */
 void
 oil_init_no_optimize (void)
@@ -109,7 +112,7 @@ oil_init_no_optimize (void)
 /**
  * oil_optimize_all:
  *
- * Optimizes all function classes.
+ * Optimize all function classes.
  */
 void
 oil_optimize_all (void)
@@ -128,9 +131,9 @@ oil_optimize_all (void)
 
 /**
  * oil_optimize:
- * @class_name: name of function class to optimize
+ * @class_name: a string
  *
- * Optimizes function class given by @class_name.
+ * Optimize the function class that has the name specified by @class_name.
  */
 void
 oil_optimize (const char *class_name)
@@ -159,11 +162,11 @@ oil_class_get_n_classes (void)
 
 /**
  * oil_class_get_by_index:
- * @i: index of function class
+ * @i: index
  *
  * Returns a pointer to the function class with index @i.
  *
- * Returns: a pointer to a function class structure
+ * Returns: an @OilFunctionClass
  */
 OilFunctionClass *
 oil_class_get_by_index (int i)
@@ -175,7 +178,7 @@ oil_class_get_by_index (int i)
 
 /**
  * oil_impl_is_runnable:
- * @impl: a function implementation
+ * @impl: an @OilFunctionImpl
  *
  * Determines whether the function implementation given by @impl
  * can be executed by the current CPU.

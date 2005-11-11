@@ -1,3 +1,18 @@
+2005-11-11  David Schleef  <ds@schleef.org>
+
+	* doc/liboil-sections.txt: Documentation?  Is he MAD?
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* liboil/jpeg/yuv2rgb_c.c:
+	* liboil/liboilfunction.c:
+	* liboil/ref/abs.c:
+	* liboil/ref/argb_paint.c:
+	* liboil/ref/ayuv2argb.c:
+	* liboil/ref/composite.c:
+	* liboil/ref/resample.c:
+	* liboil/ref/rgb.c:
+	* liboil/ref/yuv.c:
+
 2005-11-06  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: Fix more stuff and reenable MMX

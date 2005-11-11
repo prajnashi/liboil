@@ -31,7 +31,25 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_rgb2bgr:
+ * @d_3xn:
+ * @s_3xn:
+ * @n:
+ *
+ * Converts arrays of 24-bit RGB pixels from RGBRGBRGB ordering to
+ * BGRBGRBGR ordering (and vice-versa).
+ */
 OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
+/**
+ * oil_rgb2rgba:
+ * @d_4xn:
+ * @s_3xn:
+ * @n:
+ *
+ * Converts arrays of 24-bit RGB pixels in RGBRGBRGB memory order
+ * to 32-bit RGBA pixels in RGBARGBA order.
+ */
 OIL_DEFINE_CLASS (rgb2rgba, "uint8_t *d_4xn, uint8_t* s_3xn, int n");
 
 static void

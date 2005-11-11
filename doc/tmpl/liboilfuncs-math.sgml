@@ -1,11 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-Simple Math
+liboilfuncs-math
 
 <!-- ##### SECTION Short_Description ##### -->
-Function Classes for Simple Arithmetic Operations
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -18,7 +19,7 @@ Function Classes for Simple Arithmetic Operations
 
 <!-- ##### FUNCTION oil_abs_f32_f32 ##### -->
 <para>
-Calculates the absolute value of each element.
+
 </para>
 
 @dest: 
@@ -30,7 +31,7 @@ Calculates the absolute value of each element.
 
 <!-- ##### FUNCTION oil_abs_f64_f64 ##### -->
 <para>
-Calculates the absolute value of each element.
+
 </para>
 
 @dest: 
@@ -43,7 +44,6 @@ Calculates the absolute value of each element.
 <!-- ##### FUNCTION oil_abs_u16_s16 ##### -->
 <para>
 
-Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -56,7 +56,6 @@ Calculates the absolute value of each element.
 <!-- ##### FUNCTION oil_abs_u32_s32 ##### -->
 <para>
 
-Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -69,7 +68,6 @@ Calculates the absolute value of each element.
 <!-- ##### FUNCTION oil_abs_u8_s8 ##### -->
 <para>
 
-Calculates the absolute value of each element.
 </para>
 
 @dest: 
@@ -82,7 +80,6 @@ Calculates the absolute value of each element.
 <!-- ##### FUNCTION oil_average2_u8 ##### -->
 <para>
 
-Calculates the average of each element in the source arrays.
 </para>
 
 @dest: 
@@ -456,6 +453,90 @@ Calculates the average of each element in the source arrays.
 @s4_1: 
 
 
+<!-- ##### FUNCTION oil_vectoradd_s_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_vectoradd_s_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@dstr: 
+@src1: 
+@sstr1: 
+@src2: 
+@sstr2: 
+@n: 
+
+
 <!-- ##### FUNCTION oil_squaresum_f64 ##### -->
 <para>
 
@@ -469,8 +550,6 @@ Calculates the average of each element in the source arrays.
 <!-- ##### FUNCTION oil_sum_f64 ##### -->
 <para>
 
-Sums each element in the source array and places the result in
-the destination array.
 </para>
 
 @dest: 

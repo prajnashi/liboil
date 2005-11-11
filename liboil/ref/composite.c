@@ -39,6 +39,20 @@
 #define COMPOSITE_ADD(d,s) oil_clamp_255((d) + (s))
 #define COMPOSITE_IN(s,m) oil_muldiv_255((s),(m))
 
+/**
+ * SECTION:liboilfuncs-pixel
+ * @short_description: Operations on pixels
+ *
+ * Pixels are 4-element arrays of type uint8_t.  The elements, in
+ * memory order, represent the alpha, red, green, and blue
+ * components respectively.  The color components are premultiplied
+ * with the alpha component.  Liboil functions represent pixels
+ * as the type uint32_t.
+ *
+ * The compositing operators IN, OVER, and ADD are defined the same
+ * as cairo.
+ *
+ */
 static void
 composite_test (OilTest *test)
 {
@@ -80,39 +94,147 @@ composite_test (OilTest *test)
 
 }
 
+/**
+ * oil_composite_in_argb:
+ * @d_n: DEST
+ * @s1_n: SRC
+ * @s2_n: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC IN MASK.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_argb,
     "uint32_t *d_n, uint32_t *s1_n, uint8_t *s2_n, int n",
     composite_test);
+/**
+ * oil_composite_in_argb_const_src:
+ * @d_n: DEST
+ * @s1_1: SRC
+ * @s2_n: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC IN MASK, for a constant
+ * SRC.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_argb_const_src,
     "uint32_t *d_n, uint32_t *s1_1, uint8_t *s2_n, int n",
     composite_test);
+/**
+ * oil_composite_in_argb_const_mask:
+ * @d_n: DEST
+ * @s1_n: SRC
+ * @s2_1: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC IN MASK, for a constant
+ * MASK.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_argb_const_mask,
     "uint32_t *d_n, uint32_t *s1_n, uint8_t *s2_1, int n",
     composite_test);
+/**
+ * oil_composite_over_argb:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC OVER DEST.
+ */
 OIL_DEFINE_CLASS_FULL (composite_over_argb,
     "uint32_t *i_n, uint32_t *s1_n, int n",
     composite_test);
+/**
+ * oil_composite_over_argb_const_src:
+ * @i_n: DEST
+ * @s1_1: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC OVER DEST, for a
+ * constant SRC.
+ */
 OIL_DEFINE_CLASS_FULL (composite_over_argb_const_src,
     "uint32_t *i_n, uint32_t *s1_1, int n",
     composite_test);
+/**
+ * oil_composite_add_argb:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC ADD DEST.
+ */
 OIL_DEFINE_CLASS_FULL (composite_add_argb,
     "uint32_t *i_n, uint32_t *s1_n, int n",
     composite_test);
+/**
+ * oil_composite_add_argb_const_src:
+ * @i_n: DEST
+ * @s1_1: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC ADD DEST, for a
+ * constant SRC.
+ */
 OIL_DEFINE_CLASS_FULL (composite_add_argb_const_src,
     "uint32_t *i_n, uint32_t *s1_1, int n",
     composite_test);
+/**
+ * oil_composite_in_over_argb:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @s2_n: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_over_argb,
     "uint32_t *i_n, uint32_t *s1_n, uint8_t *s2_n, int n",
     composite_test);
+/**
+ * oil_composite_in_over_argb_const_src:
+ * @i_n: DEST
+ * @s1_1: SRC
+ * @s2_n: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST,
+ * for a constant SRC.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_src,
     "uint32_t *i_n, uint32_t *s1_1, uint8_t *s2_n, int n",
     composite_test);
+/**
+ * oil_composite_in_over_argb_const_mask:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @s2_1: MASK
+ * @n:
+ *
+ * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST,
+ * for a constant MASK.
+ */
 OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_mask,
     "uint32_t *i_n, uint32_t *s1_n, uint8_t *s2_1, int n",
     composite_test);
+/**
+ * oil_composite_over_argb_u8:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC OVER DEST.
+ */
 OIL_DEFINE_CLASS_FULL (composite_over_u8,
     "uint8_t *i_n, uint8_t *s1_n, int n",
     composite_test);
+/**
+ * oil_composite_add_argb_u8:
+ * @i_n: DEST
+ * @s1_n: SRC
+ * @n:
+ *
+ * Performs the compositing operation DEST = SRC ADD DEST.
+ */
 OIL_DEFINE_CLASS_FULL (composite_add_u8,
     "uint8_t *i_n, uint8_t *s1_n, int n",
     composite_test);

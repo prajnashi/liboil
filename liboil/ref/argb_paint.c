@@ -38,6 +38,18 @@ OIL_DEFINE_CLASS (argb_paint_u8, "uint8_t *i_4xn, uint8_t *s1_4, uint8_t *s2_n, 
 #define div255(x) (((x + 128) + ((x + 128)>>8))>>8)
 #define blend(x,y,a) div255((x)*(a) + (y)*(255-(a)))
 
+/**
+ * oil_argb_paint_u8:
+ * @i_4xn: array
+ * @s1_4: source color
+ * @s2_n: source alpha array
+ * @n: number of elements
+ *
+ * Composites source color onto in-place array according to the alpha
+ * array.
+ *
+ * Deprecated.
+ */
 static void
 argb_paint_u8_ref (uint8_t *dest, const uint8_t *color, const uint8_t *alpha, int n)
 {

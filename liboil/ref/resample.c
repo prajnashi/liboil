@@ -35,6 +35,15 @@
 #include <liboil/liboilrandom.h>
 
 
+/**
+ * oil_resample_linear_u8:
+ * @d_n:
+ * @s_2xn:
+ * @n:
+ * @i_2:
+ *
+ * Linearly resamples a row of pixels.  FIXME.
+ */
 static void
 resample_linear_u8_test (OilTest *test)
 {
@@ -48,6 +57,15 @@ OIL_DEFINE_CLASS_FULL (resample_linear_u8,
     "uint8_t *d_n, uint8_t *s_2xn, int n, uint32_t *i_2",
     resample_linear_u8_test);
 
+/**
+ * oil_resample_linear_argb:
+ * @d_n:
+ * @s_2xn:
+ * @n:
+ * @i_2:
+ *
+ * Linearly resamples a row of pixels.  FIXME.
+ */
 static void
 resample_linear_argb_test (OilTest *test)
 {
@@ -110,6 +128,23 @@ resample_linear_argb_ref (uint32_t *d, uint32_t *s, int n, uint32_t *in)
 OIL_DEFINE_IMPL_REF (resample_linear_argb_ref, resample_linear_argb);
 
 
+/**
+ * oil_merge_linear_u8:
+ * @d_n:
+ * @s_n:
+ * @s2_n:
+ * @s3_1:
+ * @n:
+ *
+ * Linearly interpolate the @s_n and @s2_n arrays using the scale
+ * factor in @s3_1.  Valid values of @s3_1 range from 0 to 256
+ * inclusive.  A value of 0 indicates weights of 1.0 and 0.0 for
+ * the s_n and s2_n arrays respectively.  A value of 256 indicates
+ * weights of 0.0 and 1.0 respectively.
+ *
+ * This function is not intended for alpha blending; use one of the
+ * composite functions instead.
+ */
 static void
 merge_linear_argb_test (OilTest *test)
 {
