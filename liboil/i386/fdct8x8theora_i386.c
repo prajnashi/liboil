@@ -45,21 +45,24 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
-/* FIXME this causes problems on old gcc */
-static const __attribute__ ((aligned(8),used)) int64_t xC1S7 = 0x0fb15fb15fb15fb15LL;
-static const __attribute__ ((aligned(8),used)) int64_t xC2S6 = 0x0ec83ec83ec83ec83LL;
-static const __attribute__ ((aligned(8),used)) int64_t xC3S5 = 0x0d4dbd4dbd4dbd4dbLL;
-static const __attribute__ ((aligned(8),used)) int64_t xC4S4 = 0x0b505b505b505b505LL;
-static const __attribute__ ((aligned(8),used)) int64_t xC5S3 = 0x08e3a8e3a8e3a8e3aLL;
-static const __attribute__ ((aligned(8),used)) int64_t xC6S2 = 0x061f861f861f861f8LL;
-static const __attribute__ ((aligned(8),used)) int64_t xC7S1 = 0x031f131f131f131f1LL;
-
-#if defined(__MINGW32__) || defined(__CYGWIN__) || \
-    defined(__OS2__) || (defined (__OpenBSD__) && !defined(__ELF__))
-# define M(a) "_" #a
-#else
-# define M(a) #a
-#endif
+static const uint16_t constants[][4] = {
+  { 0xfb15, 0xfb15, 0xfb15, 0xfb15 },
+  { 0xec83, 0xec83, 0xec83, 0xec83 },
+  { 0xd4db, 0xd4db, 0xd4db, 0xd4db },
+  { 0xb505, 0xb505, 0xb505, 0xb505 },
+  { 0x8e3a, 0x8e3a, 0x8e3a, 0x8e3a },
+  { 0x61f8, 0x61f8, 0x61f8, 0x61f8 },
+  { 0x31f1, 0x31f1, 0x31f1, 0x31f1 }
+};
+#define xC1S7 0
+#define xC2S6 1
+#define xC3S5 2
+#define xC4S4 3
+#define xC5S3 4
+#define xC6S2 5
+#define xC7S1 6
+#define stringify(x) #x
+#define M(x) "(" stringify(x) "*8)(%2)"
 
 OIL_DECLARE_CLASS(fdct8x8theora);
 
@@ -349,7 +352,8 @@ fdct8x8theora_mmx(int16_t *src, int16_t *dest)
     
     : "+r" (src),
       "+r" (dest)
-    : "r" (temp)
+    : "r" (temp),
+      "r" (constants)
     : "memory"
   );
 }

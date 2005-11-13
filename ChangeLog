@@ -1,3 +1,10 @@
+2005-11-13  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/fdct8x8theora_i386.c: (fdct8x8theora_mmx):
+	* liboil/i386/recon8x8_i386.c: (recon8x8_intra_mmx):
+	  Fix some asm code that accesses global variables from asm
+	  code in a very incorrect manner.  (#5032)
+
 2005-11-12  David Schleef  <ds@schleef.org>
 
 	* liboil/math/math.c: split math.c into ref/ and math/ versions.

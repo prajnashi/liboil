@@ -36,13 +36,9 @@ OIL_DECLARE_CLASS (recon8x8_intra);
 OIL_DECLARE_CLASS (recon8x8_inter);
 OIL_DECLARE_CLASS (recon8x8_inter2);
 
-static const __attribute__ ((aligned(8),used)) uint64_t V128 = 0x8080808080808080LL;
-
-#ifdef HAVE_LD_UNDERSCORE
-# define M(a) "_" #a
-#else
-# define M(a) #a
-#endif
+const uint8_t c0x80[8] = {
+  0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80
+};
 
 static void
 recon8x8_intra_mmx (uint8_t *dest, int ds, int16_t *change)
@@ -50,7 +46,7 @@ recon8x8_intra_mmx (uint8_t *dest, int ds, int16_t *change)
   __asm__ __volatile__ (
     "  .balign 16                      \n\t"
 
-    "  movq     "M(V128)", %%mm0       \n\t" /* Set mm0 to 0x8080808080808080 */
+    "  movq        (%3), %%mm0       \n\t" /* Set mm0 to 0x8080808080808080 */
 
     "  lea         128(%1), %%edi      \n\t" /* Endpoint in input buffer */
     "1:                                \n\t" 
@@ -69,7 +65,8 @@ recon8x8_intra_mmx (uint8_t *dest, int ds, int16_t *change)
     "  emms                            \n\t"
       : "+r" (dest)
       : "r" (change),
-        "r" (ds)
+        "r" (ds),
+        "r" (c0x80)
       : "memory", "edi"
   );
 }
