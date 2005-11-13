@@ -20,6 +20,7 @@ c_sources = \
 	diff8x8.c \
 	diffsquaresum_f64.c \
 	error8x8.c \
+	math.c \
 	mix_u8.c \
 	mult8x8_s16.c \
 	multsum.c \
