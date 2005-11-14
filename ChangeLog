@@ -1,5 +1,11 @@
 2005-11-14  David Schleef  <ds@schleef.org>
 
+	* configure.ac: return version to nano=1
+
+=== 0.3.5 ===
+
+2005-11-14  David Schleef  <ds@schleef.org>
+
 	* configure.ac: version bump
 
 2005-11-13  David Schleef  <ds@schleef.org>
