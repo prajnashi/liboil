@@ -32,6 +32,11 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/liboiltest.h>
 
+/**
+ * SECTION:liboilfuncs-doc:
+ * @title: Miscellaneous
+ * @short_description: Miscellaneous functions
+ */
 #define CLIP_DEFINE_REF(type) \
 static void clip_ ## type ## _ref ( \
     type_ ## type *dest, \

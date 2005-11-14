@@ -33,6 +33,11 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
+/**
+ * SECTION:liboilfuncs-dct:
+ * @title: Direct Cosine Transform
+ * @short_description: DCT related functions
+ */
 
 #define BLOCK8x8_F64(ptr, stride, row, column) \
 	(*((double *)((void *)ptr + stride*row) + column))

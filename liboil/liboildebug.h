@@ -40,7 +40,7 @@
  * @varargs: varargs for the printf format
  *
  * Typedef describing functions that can be registered using
- * @oil_debug_set_print_function() so that it is called to
+ * oil_debug_set_print_function() so that it is called to
  * print debugging messages.
  */
 typedef void (*OilDebugPrintFunc) (int level, const char *file,
@@ -63,31 +63,31 @@ typedef enum {
 /**
  * OIL_ERROR:
  *
- * Macro to call @OIL_DEBUG_PRINT() with a level of @OIL_DEBUG_ERROR.
+ * Macro to call OIL_DEBUG_PRINT() with a level of #OIL_DEBUG_ERROR.
  */
 #define OIL_ERROR(...) OIL_DEBUG_PRINT(OIL_DEBUG_ERROR, __VA_ARGS__)
 /**
  * OIL_WARNING:
  *
- * Macro to call @OIL_DEBUG_PRINT() with a level of @OIL_DEBUG_WARNING.
+ * Macro to call OIL_DEBUG_PRINT() with a level of #OIL_DEBUG_WARNING.
  */
 #define OIL_WARNING(...) OIL_DEBUG_PRINT(OIL_DEBUG_WARNING, __VA_ARGS__)
 /**
  * OIL_INFO:
  *
- * Macro to call @OIL_DEBUG_PRINT() with a level of @OIL_DEBUG_INFO.
+ * Macro to call OIL_DEBUG_PRINT() with a level of #OIL_DEBUG_INFO.
  */
 #define OIL_INFO(...) OIL_DEBUG_PRINT(OIL_DEBUG_INFO, __VA_ARGS__)
 /**
  * OIL_DEBUG:
  *
- * Macro to call @OIL_DEBUG_PRINT() with a level of @OIL_DEBUG_DEBUG.
+ * Macro to call OIL_DEBUG_PRINT() with a level of #OIL_DEBUG_DEBUG.
  */
 #define OIL_DEBUG(...) OIL_DEBUG_PRINT(OIL_DEBUG_DEBUG, __VA_ARGS__)
 /**
  * OIL_LOG:
  *
- * Macro to call @OIL_DEBUG_PRINT() with a level of @OIL_DEBUG_LOG.
+ * Macro to call OIL_DEBUG_PRINT() with a level of #OIL_DEBUG_LOG.
  */
 #define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
 

@@ -35,7 +35,6 @@ OIL_OPT_MANGLE
 OIL_OPT_FLAG_MANGLE
 OIL_NO_CLASSES
 OIL_OPT_SUFFIX
-<TITLE>OilFunction</TITLE>
 OilFunctionImpl
 OIL_GET
 OIL_OFFSET
@@ -182,10 +181,6 @@ oil_test_set_iterations
 oil_test_check_ref
 oil_test_check_impl
 oil_test_cleanup
-</SECTION>
-
-<SECTION>
-<FILE>liboilgcc</FILE>
 </SECTION>
 
 <SECTION>

@@ -32,6 +32,7 @@
 
 /**
  * SECTION:liboilrandom
+ * @title: Random Number Generation
  * @short_description: Random number generation
  */
 

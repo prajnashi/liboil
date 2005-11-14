@@ -157,7 +157,7 @@ void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
  * oil_profile_start:
  * @x: a pointer to an OilProfile structure
  *
- * Starts a profiling run by obtaining a timestamp via @oil_profile_stamp()
+ * Starts a profiling run by obtaining a timestamp via oil_profile_stamp()
  * and writing it into @x.
  */
 #define oil_profile_start(x) do{ \
@@ -167,8 +167,8 @@ void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
  * oil_profile_stop:
  * @x: a pointer to an OilProfile structure
  *
- * Stops a profiling run by obtaining a timestamp via @oil_profile_stamp()
- * and writing it into @x.  It then calls @oil_profile_stop_handle() to
+ * Stops a profiling run by obtaining a timestamp via oil_profile_stamp()
+ * and writing it into @x.  It then calls oil_profile_stop_handle() to
  * handle post-processing of the profiling run.
  */
 #define oil_profile_stop(x) do{ \

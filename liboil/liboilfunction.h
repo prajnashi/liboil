@@ -115,6 +115,7 @@ struct _OilFunctionImpl {
 
 /**
  * SECTION:liboilmacros
+ * @title: Macros
  * @short_description: Macros
  */
 

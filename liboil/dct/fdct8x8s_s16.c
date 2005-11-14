@@ -46,9 +46,9 @@
 /**
  * oil_fdct8x8s_s16:
  * @d_8x8:
- * @dstr:
+ * @ds:
  * @s_8x8:
- * @sstr:
+ * @ss:
  *
  * Performs a 2-D Forward Discrete Cosine Transform on @s_8x8 and places
  * the result in @d_8x8.

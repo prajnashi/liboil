@@ -38,6 +38,7 @@
 
 /**
  * SECTION:liboildebug
+ * @title: Debug
  * @short_description: Printing and formatting debug information
  */
 

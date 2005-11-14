@@ -37,6 +37,7 @@
 
 /**
  * SECTION:liboilfuncs-conv
+ * @title: Type Conversion
  * @short_description: Type conversion
  *
  * The functions in this section perform type conversion.
@@ -377,6 +378,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -391,6 +393,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -405,6 +408,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -419,6 +423,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -433,6 +438,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -447,6 +453,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -461,6 +468,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -475,6 +483,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -489,6 +498,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -503,6 +513,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -517,6 +528,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -531,6 +543,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -545,6 +558,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -559,6 +573,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -573,6 +588,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -587,6 +603,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -601,6 +618,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -615,6 +633,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -629,6 +648,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -643,6 +663,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -657,6 +678,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -671,6 +693,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -685,6 +708,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -699,6 +723,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -713,6 +738,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -727,6 +753,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -741,6 +768,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -755,6 +783,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -769,6 +798,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -783,6 +813,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -797,6 +828,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -811,6 +843,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -825,6 +858,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -839,6 +873,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -853,6 +888,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -867,6 +903,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -881,6 +918,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -895,6 +933,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -909,6 +948,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -923,6 +963,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -937,6 +978,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -951,6 +993,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -965,6 +1008,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -979,6 +1023,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -993,6 +1038,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1007,6 +1053,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1021,6 +1068,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1035,6 +1083,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1049,6 +1098,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1063,6 +1113,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1077,6 +1128,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1091,6 +1143,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1105,6 +1158,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1119,6 +1173,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1133,6 +1188,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1147,6 +1203,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1161,6 +1218,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1175,6 +1233,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1189,6 +1248,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1203,6 +1263,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1217,6 +1278,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1231,6 +1293,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1245,6 +1308,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1259,6 +1323,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1273,6 +1338,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1287,6 +1353,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1301,6 +1368,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1315,6 +1383,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1329,6 +1398,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1343,6 +1413,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1357,6 +1428,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1371,6 +1443,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1385,6 +1458,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1399,6 +1473,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1413,6 +1488,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1427,6 +1503,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1441,6 +1518,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1455,6 +1533,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1469,6 +1548,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1483,6 +1563,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1497,6 +1578,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1511,6 +1593,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1525,6 +1608,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1539,6 +1623,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1553,6 +1638,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1567,6 +1653,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * @dstr:
  * @src:
  * @sstr:
+ * @n:
  * 
  * Converts elements in  from the source type
  * to the destination type and places the result in .
@@ -1579,6 +1666,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_s16:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1594,6 +1682,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_s32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1609,6 +1698,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_s8:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1624,6 +1714,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_u16:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1639,6 +1730,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_u32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1654,6 +1746,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f32_u8:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1669,6 +1762,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_s16:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1684,6 +1778,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_s32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1699,6 +1794,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_s8:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1714,6 +1810,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_u16:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1729,6 +1826,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_u32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1744,6 +1842,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_f64_u8:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1759,6 +1858,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s16_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1774,6 +1874,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s16_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1789,6 +1890,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s32_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1804,6 +1906,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s32_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1819,6 +1922,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s8_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1834,6 +1938,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_s8_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1849,6 +1954,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u16_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1864,6 +1970,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u16_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1879,6 +1986,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u32_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1894,6 +2002,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u32_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1909,6 +2018,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u8_f32:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 
@@ -1924,6 +2034,7 @@ SCALECONV_DEFINE_REF_CAST(f64,u32);
  * oil_scaleconv_u8_f64:
  * @dest:
  * @src:
+ * @n:
  # @s2_1:
  # @s3_1:
  * 

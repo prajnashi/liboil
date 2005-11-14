@@ -41,6 +41,7 @@
 
 /**
  * SECTION:liboiltest
+ * @title:OilTest
  * @short_description: Test and profile function implementations.
  *
  */

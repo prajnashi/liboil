@@ -1,5 +1,44 @@
 2005-11-13  David Schleef  <ds@schleef.org>
 
+	* doc/liboil-sections.txt: Clean up documentation.
+	* doc/tmpl/liboil.sgml:
+	* doc/tmpl/liboilcpu.sgml:
+	* doc/tmpl/liboildebug.sgml:
+	* doc/tmpl/liboilfuncs-conv.sgml:
+	* doc/tmpl/liboilfuncs-copy.sgml:
+	* doc/tmpl/liboilfuncs-dct.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* doc/tmpl/liboilfuncs-math8x8.sgml:
+	* doc/tmpl/liboilfuncs-pixel.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprofile.sgml:
+	* doc/tmpl/liboilprototype.sgml:
+	* doc/tmpl/liboilrandom.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	* liboil/dct/fdct8x8s_s16.c:
+	* liboil/dct/idct8x8_c.c:
+	* liboil/liboilcpu.c:
+	* liboil/liboildebug.c:
+	* liboil/liboildebug.h:
+	* liboil/liboilfunction.c:
+	* liboil/liboilfunction.h:
+	* liboil/liboilprofile.c:
+	* liboil/liboilprofile.h:
+	* liboil/liboilprototype.c:
+	* liboil/liboilrandom.h:
+	* liboil/liboiltest.c:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/composite.c:
+	* liboil/ref/conv.c:
+	* liboil/ref/copy.c:
+	* liboil/ref/generate-conv:
+	* liboil/ref/math.c:
+
+2005-11-13  David Schleef  <ds@schleef.org>
+
 	* doc/Makefile.am: Write a little bit of documentation.
 	* doc/liboil-overrides.txt:
 	* doc/liboil-sections.txt:

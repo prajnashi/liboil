@@ -47,7 +47,8 @@
 
 /**
  * SECTION:liboilcpu
- * @short_description: Checking the capabilities of the current CPU
+ * @title: CPU
+ * @short_description: Check the capabilities of the current CPU
  *
  */
 
@@ -410,7 +411,7 @@ illegal_instruction_handler (int num)
  *
  * Enables fault checking mode.  This function may be called multiple times.
  * Each call to this function must be paired with a corresponding call
- * to @oil_cpu_fault_check_disable.
+ * to oil_cpu_fault_check_disable().
  *
  * This function sets a signal handler for SIGILL.
  */
@@ -436,7 +437,7 @@ oil_cpu_fault_check_enable (void)
  * @priv: a value to pass to the function
  *
  * Calls to this
- * function must be preceded by a call to @oil_cpu_fault_check_enable
+ * function must be preceded by a call to oil_cpu_fault_check_enable()
  * to enable fault checking mode.  This function sets up recovery
  * information and then calls the function @func with the parameter
  * @priv.  If @func or any other functions it calls attempt to execute
@@ -463,7 +464,7 @@ oil_cpu_fault_check_try (void (*func) (void *), void *priv)
 /**
  * oil_cpu_fault_check_disable:
  *
- * Disables fault checking mode.  See @oil_cpu_fault_check_enable
+ * Disables fault checking mode.  See oil_cpu_fault_check_enable()
  * for details.
  */
 void

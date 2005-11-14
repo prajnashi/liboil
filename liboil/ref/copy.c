@@ -34,6 +34,13 @@
 #include <liboil/liboilfunction.h>
 
 /**
+ * SECTION:liboilfuncs-copy:
+ * @title: Copying
+ * @short_description: Functions for copying data
+ *
+ */
+
+/**
  * oil_copy_u8:
  * @dest: destination array
  * @src: source array

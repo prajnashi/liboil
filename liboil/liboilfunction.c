@@ -38,6 +38,7 @@
 
 /**
  * SECTION:liboilfunction
+ * @title:OilFunction
  * @short_description:
  * Functions for manipulating function classes and implementations.
  */
@@ -99,10 +100,15 @@ static void oil_init_structs (void);
 void _oil_cpu_init (void);
 
 /**
+ * SECTION:liboil
+ * @title: Intialization
+ * @short_description: Initialization functions
+ */
+/**
  * oil_init:
  *
  * Initialize liboil.  This function must be called before any
- * other liboil function is used.  @oil_init may be called multiple
+ * other liboil function is used.  oil_init() may be called multiple
  * times.
  *
  * Since: 0.3.0
@@ -135,7 +141,7 @@ oil_init (void)
 /**
  * oil_init_no_optimize:
  *
- * Initialize liboil similar to @oil_init(), but do not run the
+ * Initialize liboil similar to oil_init(), but do not run the
  * profiling stage.  This function is mainly useful for internal
  * programs.
  */

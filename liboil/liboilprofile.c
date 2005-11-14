@@ -38,6 +38,7 @@
 
 /**
  * SECTION:liboilprofile
+ * @title:OilProfile
  * @short_description:
  * Measuring the length of time needed to execute Liboil functions.
  *

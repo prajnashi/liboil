@@ -39,6 +39,7 @@
 
 /**
  * SECTION:liboilprototype
+ * @title:OilPrototype
  * @short_description:
  * Functions to manipulate prototype information.
  *
@@ -46,6 +47,7 @@
 
 /**
  * SECTION:liboilparameter
+ * @title: OilParameter
  * @short_description:
  * Functions to manipulate prototype parameter information.
  *
@@ -148,7 +150,7 @@ oil_prototype_to_string (OilPrototype *proto)
  * string cannot be converted, NULL is returned.
  *
  * Returns: the OilPrototype.  When it is no longer needed, free
- * the prototype using @oil_prototype_free.
+ * the prototype using oil_prototype_free().
  */
 OilPrototype *
 oil_prototype_from_string (const char *s)

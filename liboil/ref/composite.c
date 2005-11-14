@@ -41,6 +41,7 @@
 
 /**
  * SECTION:liboilfuncs-pixel
+ * @title: Pixel Operations
  * @short_description: Operations on pixels
  *
  * Pixels are 4-element arrays of type uint8_t.  The elements, in

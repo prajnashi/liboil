@@ -37,12 +37,14 @@
 
 /**
  * SECTION:liboilfuncs-math
+ * @title: Simple Arithmetic
  * @short_description: Aritmetic operations
  *
  */
 
 /**
  * SECTION:liboilfuncs-math8x8
+ * @title: Simple Arithmetic on Blocks
  * @short_description: Aritmetic operations on 8x8 blocks
  *
  */
