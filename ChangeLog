@@ -1,5 +1,16 @@
 2005-11-13  David Schleef  <ds@schleef.org>
 
+	* doc/tmpl/conv.sgml:  Remove old template files.
+	* doc/tmpl/convert.sgml:
+	* doc/tmpl/dct.sgml:
+	* doc/tmpl/jpeg.sgml:
+	* doc/tmpl/liboilgcc.sgml:
+	* doc/tmpl/md5.sgml:
+	* doc/tmpl/simdpack.sgml:
+	* doc/tmpl/utf8.sgml:
+
+2005-11-13  David Schleef  <ds@schleef.org>
+
 	* doc/liboil-docs.sgml: Clean up documentation, document
 	  remaining functions.  Up to 96% coverage, woohoo!
 	* doc/liboil-overrides.txt:
