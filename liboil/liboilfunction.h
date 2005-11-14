@@ -30,13 +30,44 @@
 
 #include <liboil/liboiltypes.h>
 
+/**
+ * OIL_CHECK_PROTOTYPE:
+ * @a:
+ *
+ * Macro used internally to implement the --enable-prototype-checking
+ * configure option.
+ */
 #ifdef LIBOIL_STRICT_PROTOTYPES
 #include <liboil/liboilfuncs.h>
-#define LIBOIL_CHECK_PROTOTYPE(a) a
+#define OIL_CHECK_PROTOTYPE(a) a
 #else
-#define LIBOIL_CHECK_PROTOTYPE(a)
+#define OIL_CHECK_PROTOTYPE(a)
 #endif
 
+/**
+ * OIL_OPT_MANGLE:
+ *
+ * Used internally to implement the --enable-alternate-optimizations
+ * configure option.
+ */
+/**
+ * OIL_OPT_FLAG_MANGLE:
+ *
+ * Used internally to implement the --enable-alternate-optimizations
+ * configure option.
+ */
+/**
+ * OIL_NO_CLASSES:
+ *
+ * Used internally to implement the --enable-alternate-optimizations
+ * configure option.
+ */
+/**
+ * OIL_OPT_SUFFIX:
+ *
+ * Used internally to implement the --enable-alternate-optimizations
+ * configure option.
+ */
 #ifndef OIL_OPT_MANGLE
 #define OIL_OPT_MANGLE(a) a
 #define OIL_OPT_FLAG_MANGLE(a) a
@@ -86,30 +117,85 @@ struct _OilFunctionImpl {
         double profile_std;
 };
 
+/**
+ * OIL_GET:
+ * @ptr:
+ * @offset:
+ * @type:
+ *
+ * Offsets @ptr by @offset number of bytes, and dereferences it
+ * as type @type.  Note that the offset is in bytes, and not in
+ * the size of the pointer type.
+ */
 #define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + (offset)) )
+/**
+ * OIL_OFFSET:
+ * @ptr:
+ * @offset:
+ *
+ * Add @offset bytes to the pointer @ptr.
+ */
 #define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + (offset)) )
+/**
+ * OIL_INCREMENT:
+ * @ptr:
+ * @offset:
+ *
+ * Increments the pointer @ptr by @offset number of bytes.
+ */
 #define OIL_INCREMENT(ptr, offset) (ptr = (void *)((uint8_t *)ptr + (offset)) )
 
-#define OIL_IMPL_FLAG_REF	(1<<0)
-#define OIL_IMPL_FLAG_OPT	(1<<1)
-#define OIL_IMPL_FLAG_ASM	(1<<2)
-#define OIL_IMPL_FLAG_DISABLED	(1<<3)
+/**
+ * OilImplFlag:
+ *
+ * Implementation flags independent of CPU type.
+ */
+typedef enum {
+  OIL_IMPL_FLAG_REF = (1<<0),
+  OIL_IMPL_FLAG_OPT = (1<<1),
+  OIL_IMPL_FLAG_ASM = (1<<2),
+  OIL_IMPL_FLAG_DISABLED = (1<<3)
+} OilImplFlag;
 
+/**
+ * OIL_CPU_FLAG_MASK:
+ *
+ * Mask describing which bits in #OilImplFlag depend on the current
+ * CPU.
+ */
 #define OIL_CPU_FLAG_MASK 0xffff0000
 
-/* i386 */
-#define OIL_IMPL_FLAG_CMOV              (1<<16)
-#define OIL_IMPL_FLAG_MMX               (1<<17)
-#define OIL_IMPL_FLAG_SSE               (1<<18)
-#define OIL_IMPL_FLAG_MMXEXT            (1<<19)
-#define OIL_IMPL_FLAG_SSE2              (1<<20)
-#define OIL_IMPL_FLAG_3DNOW             (1<<21)
-#define OIL_IMPL_FLAG_3DNOWEXT          (1<<22)
-#define OIL_IMPL_FLAG_SSE3              (1<<23)
+/**
+ * OilImplFlagI386:
+ *
+ * Implementation flags for CPU features on i386.
+ */
+typedef enum {
+  OIL_IMPL_FLAG_CMOV = (1<<16),
+  OIL_IMPL_FLAG_MMX = (1<<17),
+  OIL_IMPL_FLAG_SSE = (1<<18),
+  OIL_IMPL_FLAG_MMXEXT = (1<<19),
+  OIL_IMPL_FLAG_SSE2 = (1<<20),
+  OIL_IMPL_FLAG_3DNOW = (1<<21),
+  OIL_IMPL_FLAG_3DNOWEXT = (1<<22),
+  OIL_IMPL_FLAG_SSE3 = (1<<23)
+} OilImplFlagI386;
 
-/* powerpc */
-#define OIL_IMPL_FLAG_ALTIVEC       (1<<16)
+/**
+ * OilImplFlagPowerPC:
+ *
+ * Implementation flags for CPU features on PowerPC.
+ */
+typedef enum {
+  OIL_IMPL_FLAG_ALTIVEC = (1<<16)
+} OilImplFlagPowerPC;
 
+/**
+ * OIL_DECLARE_CLASS:
+ * @klass: the name of a function class (without the oil_ prefix)
+ *
+ * Declares the Liboil function class @klass.
+ */
 #define OIL_DECLARE_CLASS(klass) \
 	extern OilFunctionClass _oil_function_class_ ## klass
 
@@ -120,6 +206,16 @@ struct _OilFunctionImpl {
  */
 
 #ifndef OIL_NO_CLASSES
+/**
+ * OIL_DEFINE_CLASS_FULL:
+ * @klass: name of class to declare (without oil_ prefix)
+ * @string: prototype of class
+ * @test: test function
+ *
+ * Defines a #OilFunctionClass structure for @klass.  Classes
+ * defined this way will be automatically at Liboil initialization
+ * time.
+ */
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \
 OilFunctionClass _oil_function_class_ ## klass = { \
 	NULL, \
@@ -138,9 +234,28 @@ OilFunctionClass *oil_function_class_ptr_ ## klass = \
   OIL_DECLARE_CLASS(klass)
 #endif
 
+/**
+ * OIL_DEFINE_CLASS:
+ * @klass: name of class to declare (without oil_ prefix)
+ * @string: prototype of class
+ *
+ * Defines a #OilFunctionClass structure for @klass.  Classes
+ * defined this way will be automatically at Liboil initialization
+ * time.
+ */
 #define OIL_DEFINE_CLASS(klass, string) \
   OIL_DEFINE_CLASS_FULL (klass, string, NULL)
 
+/**
+ * OIL_DEFINE_IMPL_FULL:
+ * @function: name of function
+ * @klass: name of class to declare (without oil_ prefix)
+ * @flags: implementation flags and CPU requirements
+ *
+ * Defines a #OilFunctionImpl structure for the function @function
+ * and class @klass.  CPU-dependent flags in @flags will indicate
+ * that this implementation requires the given CPU flags.
+ */
 #define OIL_DEFINE_IMPL_FULL(function,klass,flags) \
 OilFunctionImpl OIL_OPT_MANGLE(_oil_function_impl_ ## function) = { \
 	NULL, \
@@ -149,14 +264,46 @@ OilFunctionImpl OIL_OPT_MANGLE(_oil_function_impl_ ## function) = { \
 	OIL_OPT_FLAG_MANGLE(flags), \
         #function OIL_OPT_SUFFIX \
 } \
-LIBOIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
+OIL_CHECK_PROTOTYPE(;_oil_type_ ## klass _ignore_me_ ## function = function)
 
+/**
+ * OIL_DEFINE_IMPL:
+ * @function: name of function
+ * @klass: name of class to declare (without oil_ prefix)
+ *
+ * Shorthand for defining a C implementation.  See OIL_DEFINE_IMPL_FULL().
+ */
 #define OIL_DEFINE_IMPL(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
+/**
+ * OIL_DEFINE_IMPL_REF:
+ * @function: name of function
+ * @klass: name of class to declare (without oil_ prefix)
+ *
+ * Shorthand for defining a reference implementation.  See OIL_DEFINE_IMPL_FULL().
+ */
 #define OIL_DEFINE_IMPL_REF(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_REF)
+/**
+ * OIL_DEFINE_IMPL_ASM:
+ * @function: name of function
+ * @klass: name of class to declare (without oil_ prefix)
+ *
+ * Shorthand for defining an implementation written in inline
+ * assembly code.  See OIL_DEFINE_IMPL_FULL().
+ */
 #define OIL_DEFINE_IMPL_ASM(function,klass) \
 	OIL_DEFINE_IMPL_FULL(function,klass,OIL_IMPL_FLAG_ASM)
+/**
+ * OIL_DEFINE_IMPL_DEPENDS
+ * @function: name of function
+ * @klass: name of class to declare (without oil_ prefix)
+ * @...: other classes this implementation uses
+ *
+ * Shorthand for defining an implementation that uses another Liboil
+ * function class.  This is not currently used.  See
+ * OIL_DEFINE_IMPL_FULL().
+ */
 #define OIL_DEFINE_IMPL_DEPENDS(function,klass,...) \
 	OIL_DEFINE_IMPL_FULL(function,klass,0)
 

@@ -91,6 +91,12 @@ typedef enum {
  */
 #define OIL_LOG(...) OIL_DEBUG_PRINT(OIL_DEBUG_LOG, __VA_ARGS__)
 
+/**
+ * OIL_FUNCTION:
+ *
+ * Internal macro that points to __PRETTY_FUNCTION__ or __func__
+ * if the former is not available.
+ */
 #if defined (__GNUC__) || defined (__PRETTY_FUNCTION__)
 #define OIL_FUNCTION __PRETTY_FUNCTION__
 #elif defined(__func__)

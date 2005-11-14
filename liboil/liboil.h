@@ -34,9 +34,29 @@
 
 void oil_init (void);
 
+/**
+ * oil_memcpy:
+ * @dest:
+ * @src:
+ * @n_bytes:
+ *
+ * Macro that uses oil_copy_u8() to provide an implementation of
+ * memcpy().  Note that oil_copy_u8() is optimized for short copies,
+ * and may be very slow for large copies compared to alternatives,
+ * including the system memcpy().
+ */
 #define oil_memcpy(dest,src,n_bytes) \
   oil_copy_u8((void *)(dest),(void *)(src),(n_bytes))
 
+/**
+ * oil_trans8x8_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ *
+ * Macro wrapping trans8x8_u16().
+ */
 #define oil_trans8x8_s16(dest, dstr, src, sstr) \
   oil_trans8x8_u16((uint16_t *)dest, dstr, (uint16_t *)src, sstr)
 

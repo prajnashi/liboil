@@ -1,0 +1,133 @@
+<!-- ##### SECTION ./tmpl/liboil.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboil.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboil.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboil.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboil.sgml:Title ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboilfunction.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfunction.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/liboilfunction.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboilfunction.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/liboilfunction.sgml:Title ##### -->
+
+
+
+<!-- ##### MACRO LIBOIL_CHECK_PROTOTYPE ##### -->
+<para>
+
+</para>
+
+@a: 
+
+<!-- ##### MACRO OIL_IMPL_FLAG_3DNOW ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_3DNOWEXT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_ALTIVEC ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_ASM ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_CMOV ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_DISABLED ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_MMX ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_MMXEXT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_OPT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_REF ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO OIL_IMPL_FLAG_SSE3 ##### -->
+<para>
+
+</para>
+
+

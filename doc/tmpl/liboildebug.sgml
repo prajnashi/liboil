@@ -42,6 +42,30 @@
 @OIL_DEBUG_DEBUG: 
 @OIL_DEBUG_LOG: 
 
+<!-- ##### FUNCTION oil_debug_set_print_function ##### -->
+<para>
+
+</para>
+
+@func: 
+
+
+<!-- ##### FUNCTION oil_debug_get_level ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_debug_set_level ##### -->
+<para>
+
+</para>
+
+@level: 
+
+
 <!-- ##### MACRO OIL_ERROR ##### -->
 <para>
 
@@ -96,29 +120,5 @@
 
 @level: 
 @...: 
-
-
-<!-- ##### FUNCTION oil_debug_set_print_function ##### -->
-<para>
-
-</para>
-
-@func: 
-
-
-<!-- ##### FUNCTION oil_debug_get_level ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_debug_set_level ##### -->
-<para>
-
-</para>
-
-@level: 
 
 

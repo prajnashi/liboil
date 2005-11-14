@@ -66,7 +66,17 @@ struct _OilTest {
  */
 //typedef void (*OilTestFunction) (OilTest *test);
 
+/**
+ * OIL_TEST_HEADER:
+ *
+ * Number of bytes that are prepended to the array test area.
+ */
 #define OIL_TEST_HEADER 256
+/**
+ * OIL_TEST_FOOTER:
+ *
+ * Number of bytes that are appended to the array test area.
+ */
 #define OIL_TEST_FOOTER 256
 
 OilTest *oil_test_new (OilFunctionClass *klass);

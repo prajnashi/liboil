@@ -17,9 +17,25 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT OilParameter ##### -->
+<!-- ##### FUNCTION oil_init_no_optimize ##### -->
 <para>
 
 </para>
+
+
+
+<!-- ##### FUNCTION oil_optimize_all ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION oil_optimize ##### -->
+<para>
+
+</para>
+
+@class_name: 
 
 

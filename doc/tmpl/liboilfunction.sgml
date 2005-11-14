@@ -17,42 +17,109 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### MACRO LIBOIL_CHECK_PROTOTYPE ##### -->
-<para>
-
-</para>
-
-@a: 
-
-
-<!-- ##### MACRO OIL_OPT_MANGLE ##### -->
-<para>
-
-</para>
-
-@a: 
-
-
-<!-- ##### MACRO OIL_OPT_FLAG_MANGLE ##### -->
-<para>
-
-</para>
-
-@a: 
-
-
-<!-- ##### MACRO OIL_NO_CLASSES ##### -->
+<!-- ##### STRUCT OilFunctionClass ##### -->
 <para>
 
 </para>
 
 
-
-<!-- ##### MACRO OIL_OPT_SUFFIX ##### -->
+<!-- ##### MACRO OIL_DECLARE_CLASS ##### -->
 <para>
 
 </para>
 
+@klass: 
+
+
+<!-- ##### MACRO OIL_DEFINE_CLASS_FULL ##### -->
+<para>
+
+</para>
+
+@klass: 
+@string: 
+@test: 
+
+
+<!-- ##### MACRO OIL_DEFINE_CLASS ##### -->
+<para>
+
+</para>
+
+@klass: 
+@string: 
+
+
+<!-- ##### FUNCTION oil_class_get_by_index ##### -->
+<para>
+
+</para>
+
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_get ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_optimize ##### -->
+<para>
+
+</para>
+
+@klass: 
+
+
+<!-- ##### FUNCTION oil_class_get_n_classes ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION oil_class_choose_by_name ##### -->
+<para>
+
+</para>
+
+@klass: 
+@name: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl_by_name ##### -->
+<para>
+
+</para>
+
+@klass_name: 
+@impl: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl ##### -->
+<para>
+
+</para>
+
+@klass: 
+@impl: 
+
+
+<!-- ##### FUNCTION oil_class_register_impl_full ##### -->
+<para>
+
+</para>
+
+@klass: 
+@func: 
+@name: 
+@flags: 
 
 
 <!-- ##### STRUCT OilFunctionImpl ##### -->
@@ -61,32 +128,29 @@
 </para>
 
 
-<!-- ##### MACRO OIL_GET ##### -->
+<!-- ##### FUNCTION oil_impl_get_by_index ##### -->
 <para>
 
 </para>
 
-@ptr: 
-@offset: 
-@type: 
+@i: 
+@Returns: 
 
 
-<!-- ##### MACRO OIL_OFFSET ##### -->
+<!-- ##### FUNCTION oil_impl_is_runnable ##### -->
 <para>
 
 </para>
 
-@ptr: 
-@offset: 
+@impl: 
+@Returns: 
 
 
-<!-- ##### MACRO OIL_INCREMENT ##### -->
+<!-- ##### MACRO OIL_CPU_FLAG_MASK ##### -->
 <para>
 
 </para>
 
-@ptr: 
-@offset: 
 
 
 <!-- ##### MACRO OIL_IMPL_FLAG_REF ##### -->
@@ -111,13 +175,6 @@
 
 
 <!-- ##### MACRO OIL_IMPL_FLAG_DISABLED ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO OIL_CPU_FLAG_MASK ##### -->
 <para>
 
 </para>
@@ -187,33 +244,6 @@
 
 
 
-<!-- ##### MACRO OIL_DECLARE_CLASS ##### -->
-<para>
-
-</para>
-
-@klass: 
-
-
-<!-- ##### MACRO OIL_DEFINE_CLASS_FULL ##### -->
-<para>
-
-</para>
-
-@klass: 
-@string: 
-@test: 
-
-
-<!-- ##### MACRO OIL_DEFINE_CLASS ##### -->
-<para>
-
-</para>
-
-@klass: 
-@string: 
-
-
 <!-- ##### MACRO OIL_DEFINE_IMPL_FULL ##### -->
 <para>
 
@@ -259,117 +289,5 @@
 @function: 
 @klass: 
 @...: 
-
-
-<!-- ##### FUNCTION oil_optimize_all ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### FUNCTION oil_optimize ##### -->
-<para>
-
-</para>
-
-@class_name: 
-
-
-<!-- ##### FUNCTION oil_class_get_by_index ##### -->
-<para>
-
-</para>
-
-@i: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_class_get ##### -->
-<para>
-
-</para>
-
-@class_name: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_class_optimize ##### -->
-<para>
-
-</para>
-
-@klass: 
-
-
-<!-- ##### FUNCTION oil_class_get_n_classes ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_impl_get_by_index ##### -->
-<para>
-
-</para>
-
-@i: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_impl_is_runnable ##### -->
-<para>
-
-</para>
-
-@impl: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_class_choose_by_name ##### -->
-<para>
-
-</para>
-
-@klass: 
-@name: 
-
-
-<!-- ##### FUNCTION oil_class_register_impl_by_name ##### -->
-<para>
-
-</para>
-
-@klass_name: 
-@impl: 
-
-
-<!-- ##### FUNCTION oil_class_register_impl ##### -->
-<para>
-
-</para>
-
-@klass: 
-@impl: 
-
-
-<!-- ##### FUNCTION oil_class_register_impl_full ##### -->
-<para>
-
-</para>
-
-@klass: 
-@func: 
-@name: 
-@flags: 
-
-
-<!-- ##### FUNCTION oil_init_no_optimize ##### -->
-<para>
-
-</para>
-
 
 

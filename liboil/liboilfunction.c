@@ -37,10 +37,15 @@
 #include <stdlib.h>
 
 /**
- * SECTION:liboilfunction
- * @title:OilFunction
- * @short_description:
- * Functions for manipulating function classes and implementations.
+ * SECTION:liboilclass-unstable
+ * @title:OilFunctionClass
+ * @short_description: Functions for manipulating function classes
+ */
+
+/**
+ * SECTION:liboilimpl-unstable
+ * @title:OilFunctionImpl
+ * @short_description: Functions for manipulating function implementations.
  */
 
 /**
@@ -100,7 +105,12 @@ static void oil_init_structs (void);
 void _oil_cpu_init (void);
 
 /**
- * SECTION:liboil
+ * SECTION:liboilinit
+ * @title: Intialization
+ * @short_description: Initialization functions
+ */
+/**
+ * SECTION:liboilinit-unstable
  * @title: Intialization
  * @short_description: Initialization functions
  */

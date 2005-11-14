@@ -1,5 +1,34 @@
 2005-11-13  David Schleef  <ds@schleef.org>
 
+	* doc/liboil-docs.sgml: Clean up documentation, document
+	  remaining functions.  Up to 96% coverage, woohoo!
+	* doc/liboil-overrides.txt:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilclass-unstable.sgml:
+	* doc/tmpl/liboildebug.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboilimpl-unstable.sgml:
+	* doc/tmpl/liboilinit-unstable.sgml:
+	* doc/tmpl/liboilinit.sgml:
+	* doc/tmpl/liboiljunk.sgml:
+	* doc/tmpl/liboilmacros.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprofile.sgml:
+	* doc/tmpl/liboilprototype.sgml:
+	* doc/tmpl/liboilrandom.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	* liboil/liboil.h:
+	* liboil/liboildebug.h:
+	* liboil/liboilfunction.c:
+	* liboil/liboilfunction.h:
+	* liboil/liboilprofile.h:
+	* liboil/liboiltest.h:
+	* liboil/liboiltypes.h:
+
+2005-11-13  David Schleef  <ds@schleef.org>
+
 	* doc/liboil-sections.txt: Clean up documentation.
 	* doc/tmpl/liboil.sgml:
 	* doc/tmpl/liboilcpu.sgml:

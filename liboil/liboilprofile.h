@@ -30,6 +30,11 @@
 
 #include <stdint.h>
 
+/**
+ * OIL_PROFILE_HIST_LENGTH
+ *
+ * Internal definition of the number of histogram entries in #OilProfile.
+ */
 #define OIL_PROFILE_HIST_LENGTH 10
 
 typedef struct _OilProfile OilProfile;

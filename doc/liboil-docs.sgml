@@ -15,7 +15,7 @@
       during the lifetime of the 0.3 series.
     </para>
 
-    <xi:include href="xml/liboil.xml"/>
+    <xi:include href="xml/liboilinit.xml"/>
     <xi:include href="xml/liboilfuncs-conv.xml"/>
     <xi:include href="xml/liboilfuncs-copy.xml"/>
     <xi:include href="xml/liboilfuncs-math.xml"/>
@@ -35,14 +35,18 @@
       may be moved to the stable API during the 0.3 series.
     </para>
 
+    <xi:include href="xml/liboilinit-unstable.xml"/>
     <xi:include href="xml/liboilcpu.xml"/>
     <xi:include href="xml/liboildebug.xml"/>
-    <xi:include href="xml/liboilfunction.xml"/>
+    <xi:include href="xml/liboilclass-unstable.xml"/>
+    <xi:include href="xml/liboilimpl-unstable.xml"/>
     <xi:include href="xml/liboilparameter.xml"/>
     <xi:include href="xml/liboilprofile.xml"/>
     <xi:include href="xml/liboilprototype.xml"/>
     <xi:include href="xml/liboilrandom.xml"/>
     <xi:include href="xml/liboiltest.xml"/>
+    <xi:include href="xml/liboiltypes.xml"/>
     <xi:include href="xml/liboilmacros.xml"/>
+    <xi:include href="xml/liboiljunk.xml"/>
   </chapter>
 </book>

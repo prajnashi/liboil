@@ -61,30 +61,3 @@
 @param: 
 
 
-<!-- ##### FUNCTION oil_type_sizeof ##### -->
-<para>
-
-</para>
-
-@type: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_type_name ##### -->
-<para>
-
-</para>
-
-@type: 
-@Returns: 
-
-
-<!-- ##### FUNCTION oil_arg_type_name ##### -->
-<para>
-
-</para>
-
-@type: 
-@Returns: 
-
-
