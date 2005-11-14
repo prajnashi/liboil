@@ -32,6 +32,18 @@
 #include <liboil/liboilfunction.h>
 #include <math.h>
 
+/**
+ * oil_sincos_f64:
+ * @dest1:
+ * @dest2:
+ * @n:
+ * @s1_1:
+ * @s2_1:
+ *
+ * Calculates sin(x) and cos(x) and places the results in @dest1 and
+ * @dest2 respectively.  Values for x start at @s1_1 and are incremented
+ * by @s2_1 for each destination element.
+ */
 OIL_DEFINE_CLASS (sincos_f64,
     "double *dest1, double *dest2, int n, double *s1_1, double *s2_1");
 

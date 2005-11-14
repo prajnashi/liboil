@@ -1,49 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-Other Function Classes
+liboilfuncs-doc
 
 <!-- ##### SECTION Short_Description ##### -->
-Other Function Classes
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-Functions operate on arrays of data.  The arrays can be either source
-arrays (input only), destination arrays (output only), or in-place
-arrays (both input and output).
-</para>
 
-<para>
-The interpretation of a parameter can usually be determined from its
-name.  Parameters for arrays are of the form d1_1xn, where the first
-character represents the direction (source, destination, or in-place),
-the second represents the index for that particular direction, and
-the characters after the underscore indicate the size of the array.
-In this case, "1xn" represents an array that is 1 by N.  Note that
-the index and the size can both be omitted, giving a default of 1
-for the index and 1xn for the size.
-</para>
-
-<para>
-Parameters that represent strides are of the form "d1s".  The
-interpretation is similar to above, except that the s indicates
-a stride parameter.
-</para>
-
-<para>
-The exceptions to the above rule are "dest", "src", "dstr", "sstr", etc.
-These are aliases for "d1", "s1", "d1s", and "s1s", respectively.  This
-form is deprecated and will be removed in the 0.4 series.
-</para>
-
-<para>
-Two special parameters are "n" and "m", which determine the size of
-the arrays in other parameters.
-</para>
-
-<para>
-Data arrays are laid out such that rows are separated by the number
-of bytes given by the corresponding stride.  Elements in each row
-are contiguous.  If there is no stride parameter corresponding to an
-array, the rows of the array are contiguous.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -57,7 +20,6 @@ array, the rows of the array are contiguous.
 <!-- ##### FUNCTION oil_clip_f32 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -65,14 +27,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minumum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_f64 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -80,14 +41,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minumum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_s16 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -95,14 +55,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minumum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_s32 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -110,14 +69,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minimum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_s8 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -125,14 +83,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minimum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_u16 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -140,14 +97,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minimum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_u32 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -155,14 +111,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minimum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_clip_u8 ##### -->
 <para>
 
-Clips each element in the first source array.
 </para>
 
 @dest: 
@@ -170,16 +125,13 @@ Clips each element in the first source array.
 @src: 
 @sstr: 
 @n: 
-@s2_1: minimum
-@s3_1: maximum
+@s2_1: 
+@s3_1: 
 
 
 <!-- ##### FUNCTION oil_dequantize8x8_s16 ##### -->
 <para>
 
-Multiplies each value in first source array with corresponding value
-in second source array, and places result in destination array.  This
-function would be more appropriately called oil_mult8x8_s16().
 </para>
 
 @d_8x8: 
@@ -193,9 +145,6 @@ function would be more appropriately called oil_mult8x8_s16().
 <!-- ##### FUNCTION oil_diffsquaresum_f64 ##### -->
 <para>
 
-Subtracts each value in first source array with corresponding value
-in second source array, squares the result, and then sums the results
-over the entire array, placing the result in the destination.
 </para>
 
 @d_1: 
@@ -209,10 +158,6 @@ over the entire array, placing the result in the destination.
 <!-- ##### FUNCTION oil_md5 ##### -->
 <para>
 
-Convolves the MD5 checksum using the given source data.  The complete
-algorithm for calculating MD5 checksums requires additional preparation
-of the data.  See the example in the examples/md5 directory in the
-source tree.
 </para>
 
 @i_4: 
@@ -234,7 +179,6 @@ source tree.
 <!-- ##### FUNCTION oil_null ##### -->
 <para>
 
-Does nothing, and does it surprisingly fast.
 </para>
 
 
@@ -244,8 +188,8 @@ Does nothing, and does it surprisingly fast.
 
 </para>
 
-@dest: 
-@src: 
+@d: 
+@s: 
 @n: 
 
 
@@ -264,9 +208,6 @@ Does nothing, and does it surprisingly fast.
 <!-- ##### FUNCTION oil_utf8_validate ##### -->
 <para>
 
-Checks the source array for valid UTF-8 characters.  Processing stops
-once an invalid character is found.  The number of bytes containing
-valid UTF-8 characters is placed in the destination.
 </para>
 
 @d_1: 
@@ -279,7 +220,7 @@ valid UTF-8 characters is placed in the destination.
 
 </para>
 
-@d_64: 
+@d_8x8: 
 @s1_8x8: 
 @ss1: 
 @s2_8x8: 
@@ -291,7 +232,7 @@ valid UTF-8 characters is placed in the destination.
 
 </para>
 
-@d_64: 
+@d_8x8: 
 @s1_8x8: 
 @ss1: 
 @s2_8x8: 
@@ -372,7 +313,7 @@ valid UTF-8 characters is placed in the destination.
 
 </para>
 
-@d_64: 
+@d_8x8: 
 @s1_8x8: 
 @ss1: 
 

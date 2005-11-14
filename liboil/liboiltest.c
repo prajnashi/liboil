@@ -39,6 +39,11 @@
 #include <stdio.h>
 #include <math.h>
 
+/**
+ * SECTION:liboiltest
+ * @short_description: Test and profile function implementations.
+ *
+ */
 static void oil_test_init_params (OilTest *test);
 static void fill_array (void *ptr, OilType type, int pre_n, int stride,
     int post_n);
@@ -47,6 +52,14 @@ static double check_array (void *data, void *ref, OilType type, int pre_n,
 static int check_holes (void *data, OilType type, int pre_n,
     int stride, int post_n, int guard);
 
+/**
+ * oil_test_new:
+ * @klass: an OilFunctionClass
+ *
+ * Creates a new OilTest for the OilFunctionClass represented by @klass.
+ *
+ * Returns: the new OilTest
+ */
 OilTest *
 oil_test_new (OilFunctionClass *klass)
 {
@@ -86,6 +99,12 @@ oil_test_new (OilFunctionClass *klass)
   return test;
 }
 
+/**
+ * oil_test_free:
+ * @test: the OilTest
+ *
+ * Frees memory associated with @test.
+ */
 void
 oil_test_free (OilTest *test)
 {
@@ -110,18 +129,40 @@ oil_test_free (OilTest *test)
   free(test);
 }
 
+/**
+ * oil_test_set_impl:
+ * @test: the OilTest
+ * @impl: an OilFunctionImpl to set
+ *
+ * Sets the current implementation of @test to @impl.
+ */
 void
 oil_test_set_impl (OilTest *test, OilFunctionImpl *impl)
 {
   test->impl = impl;
 }
 
+/**
+ * oil_test_set_iterations:
+ * @test: the OilTest
+ * @iterations: the number of iterations
+ *
+ * Sets the number of iterations of @test to @iterations.
+ */
 void
 oil_test_set_iterations (OilTest *test, int iterations)
 {
   test->iterations = iterations;
 }
 
+/**
+ * oil_test_init:
+ * @test: the OilTest
+ *
+ * Intializes @test.
+ * 
+ * FIXME: needs work
+ */
 void
 oil_test_init (OilTest *test)
 {
@@ -199,6 +240,13 @@ oil_test_check_function (void * priv)
       &test->impl->profile_std);
 }
 
+/**
+ * oil_test_check_ref:
+ * @test: the OilTest
+ *
+ * Runs the test specified by @test on the reference function of the
+ * class being tested.
+ */
 void
 oil_test_check_ref (OilTest *test)
 {
@@ -242,6 +290,16 @@ check_guard (uint8_t *data, int n, int guard)
   return 1;
 }
 
+/**
+ * oil_test_check_impl:
+ * @test: the OilTest
+ * @impl: an OilFunctionImpl
+ *
+ * Runs the testing procedure described by @test on the implementation
+ * @impl.
+ *
+ * Returns: 1 if @impl passes the test, 0 if it fails
+ */
 int
 oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
 {
@@ -313,7 +371,14 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   return 1;
 }
 
-
+/**
+ * oil_test_cleanup
+ * @test: the OilTest
+ *
+ * Cleans up @test.
+ *
+ * FIXME: needs work
+ */
 void
 oil_test_cleanup (OilTest *test)
 {

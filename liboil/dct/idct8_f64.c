@@ -33,6 +33,16 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
+/**
+ * oil_idct8_f64:
+ * @d_8:
+ * @dstr:
+ * @s_8:
+ * @sstr:
+ *
+ * Performs a Inverse Discrete Cosine Transform on @s_8 and places
+ * the result in @d_8.
+ */
 OIL_DEFINE_CLASS (idct8_f64, "double *d_8, int dstr, double *s_8, int sstr");
 
 #define C0_9808 0.980785280

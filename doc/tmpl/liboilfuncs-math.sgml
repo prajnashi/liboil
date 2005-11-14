@@ -82,11 +82,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -122,9 +122,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -135,9 +135,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -148,9 +148,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -161,9 +161,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -174,9 +174,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -187,9 +187,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -200,9 +200,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -213,9 +213,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -226,9 +226,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -239,9 +239,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -252,9 +252,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -265,9 +265,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -278,9 +278,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -291,9 +291,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -304,9 +304,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -317,9 +317,9 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src: 
+@s1: 
 @sstr: 
 @s2_1: 
 @n: 
@@ -330,11 +330,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -346,11 +346,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -362,11 +362,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -378,11 +378,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -394,11 +394,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -410,11 +410,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -426,11 +426,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -442,11 +442,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 @s3_1: 
@@ -458,11 +458,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -472,11 +472,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -486,11 +486,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -500,11 +500,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -514,11 +514,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -528,11 +528,11 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
+@d: 
 @dstr: 
-@src1: 
+@s1: 
 @sstr1: 
-@src2: 
+@s2: 
 @sstr2: 
 @n: 
 
@@ -542,8 +542,8 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
-@src: 
+@d: 
+@s: 
 @n: 
 
 
@@ -552,8 +552,8 @@ liboilfuncs-math
 
 </para>
 
-@dest: 
-@src: 
+@d_1: 
+@s: 
 @sstr: 
 @n: 
 

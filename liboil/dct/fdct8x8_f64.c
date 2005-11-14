@@ -35,6 +35,16 @@
 #include <math.h>
 
 
+/**
+ * oil_fdct8x8_f64:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a 2-D Forward Discrete Cosine Transform on @s_8x8 and places
+ * the result in @d_8x8.
+ */
 OIL_DEFINE_CLASS(fdct8x8_f64,
     "double *d_8x8, int dstr, double *s_8x8, int sstr");
 

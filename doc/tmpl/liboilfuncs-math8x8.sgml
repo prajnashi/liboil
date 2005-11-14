@@ -1,11 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-Simple Math on 8x8 Blocks
+liboilfuncs-math8x8
 
 <!-- ##### SECTION Short_Description ##### -->
-Arithmetic Operations on 8x8 Blocks
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -57,7 +58,7 @@ Arithmetic Operations on 8x8 Blocks
 
 <!-- ##### FUNCTION oil_sad8x8_f64_2 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_1: 
@@ -69,7 +70,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_sad8x8_s16_2 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_1: 
@@ -81,7 +82,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_sad8x8_u8 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_1: 

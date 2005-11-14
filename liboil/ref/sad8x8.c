@@ -34,10 +34,43 @@
 #include <math.h>
 
 
+/**
+ * oil_sad8x8_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * Calculates the sum of absolute differences between elements in @s1_8x8
+ * and @s2_8x8, and places the result in @d_1.
+ */
 OIL_DEFINE_CLASS (sad8x8_u8,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
+/**
+ * oil_sad8x8_s16_2:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * Calculates the sum of absolute differences between elements in @s1_8x8
+ * and @s2_8x8, and places the result in @d_1.
+ */
 OIL_DEFINE_CLASS (sad8x8_s16_2,
     "uint32_t *d_1, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
+/**
+ * oil_sad8x8_f64_2:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * Calculates the sum of absolute differences between elements in @s1_8x8
+ * and @s2_8x8, and places the result in @d_1.
+ */
 OIL_DEFINE_CLASS (sad8x8_f64_2,
     "double *d_1, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
 

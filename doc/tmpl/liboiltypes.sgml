@@ -17,85 +17,29 @@ liboiltypes
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### MACRO NULL ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### STRUCT OilFunctionClass ##### -->
 <para>
 
 </para>
 
-@func: 
-@name: 
-@desc: 
-@test_func: 
-@first_impl: 
-@reference_impl: 
-@chosen_impl: 
-@prototype: 
 
 <!-- ##### STRUCT OilFunctionImpl ##### -->
 <para>
 
 </para>
 
-@next: 
-@klass: 
-@func: 
-@flags: 
-@name: 
-@profile_ave: 
-@profile_std: 
 
 <!-- ##### STRUCT OilParameter ##### -->
 <para>
 
 </para>
 
-@type_name: 
-@parameter_name: 
-@order: 
-@type: 
-@direction: 
-@is_pointer: 
-@is_stride: 
-@index: 
-@prestride_length: 
-@prestride_var: 
-@poststride_length: 
-@poststride_var: 
-@parameter_type: 
-@src_data: 
-@ref_data: 
-@test_data: 
-@value: 
-@pre_n: 
-@post_n: 
-@stride: 
-@size: 
-@guard: 
 
 <!-- ##### STRUCT OilTest ##### -->
 <para>
 
 </para>
 
-@klass: 
-@impl: 
-@proto: 
-@params: 
-@prof: 
-@iterations: 
-@n: 
-@m: 
-@inited: 
-@tested_ref: 
-@sum_abs_diff: 
-@n_points: 
 
 <!-- ##### USER_FUNCTION OilTestFunction ##### -->
 <para>

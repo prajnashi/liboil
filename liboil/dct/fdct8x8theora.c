@@ -38,7 +38,7 @@
  ********************************************************************
 
   function:
-  last mod: $Id: fdct8x8theora.c,v 1.1 2005-08-03 03:31:18 ds Exp $
+  last mod: $Id: fdct8x8theora.c,v 1.2 2005-11-14 05:34:36 ds Exp $
 
  ********************************************************************/
 
@@ -62,6 +62,17 @@ static int32_t xC7S1 = 12785;
 #define SIGNBITDUPPED(X) ((signed )(((X) & 0x80000000)) >> 31)
 #define DOROUND(X) ( (SIGNBITDUPPED(X) & (0xffff)) + (X) )
 
+/**
+ * oil_fdct8x8theora:
+ * @s_8x8:
+ * @d_8x8:
+ *
+ * Calculates the FDCT transformation of @s_8x8 according to the Theora
+ * specification and places the result in @d_8x8.
+ *
+ * Note that the source and destination arrays are reversed compared
+ * to normal Liboil order.
+ */
 OIL_DEFINE_CLASS(fdct8x8theora, "int16_t *s_8x8, int16_t *d_8x8");
 
 static void

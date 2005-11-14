@@ -31,12 +31,49 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_diff8x8_s16_u8:
+ * @d_8x8:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * Calculates the difference of each value in @s1_8x8 and @s2_8x8
+ * and places the result in @d_8x8.  Note that the destination type
+ * is larger than the source type.
+ */
 OIL_DEFINE_CLASS (diff8x8_s16_u8,
-    "int16_t *d_64, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
+    "int16_t *d_8x8, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
+/**
+ * oil_diff8x8_const128_s16_u8:
+ * @d_8x8:
+ * @s1_8x8:
+ * @ss1:
+ *
+ * Subtracts 128 from each value in @s1_8x8
+ * and places the result in @d_8x8.  Note that the destination type
+ * is larger than the source type.
+ */
 OIL_DEFINE_CLASS (diff8x8_const128_s16_u8,
-    "int16_t *d_64, uint8_t *s1_8x8, int ss1");
+    "int16_t *d_8x8, uint8_t *s1_8x8, int ss1");
+/**
+ * oil_diff8x8_average_s16_u8:
+ * @d_8x8:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ * @s3_8x8:
+ * @ss3:
+ *
+ * Calculates the difference of each value in @s1_8x8 and the
+ * average of @s2_8x8 and @s3_8x8,
+ * and places the result in @d_8x8.  Note that the destination type
+ * is larger than the source type.
+ */
 OIL_DEFINE_CLASS (diff8x8_average_s16_u8,
-    "int16_t *d_64, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2, uint8_t *s3_8x8, int ss3");
+    "int16_t *d_8x8, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2, uint8_t *s3_8x8, int ss3");
 
 static void
 diff8x8_s16_u8_ref (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss2)

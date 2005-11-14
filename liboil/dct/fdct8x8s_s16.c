@@ -43,11 +43,18 @@
 #define C0_3827 0.382683432
 #define C0_1951 0.195090322
 
-/*
-Alternate scaling used by RTjpeg.
-*/
-
-
+/**
+ * oil_fdct8x8s_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a 2-D Forward Discrete Cosine Transform on @s_8x8 and places
+ * the result in @d_8x8.
+ *
+ * This function uses an alternate scaling used by RTjpeg.
+ */
 OIL_DEFINE_CLASS(fdct8x8s_s16,
     "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 

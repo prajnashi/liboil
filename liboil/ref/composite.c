@@ -99,7 +99,7 @@ composite_test (OilTest *test)
  * @d_n: DEST
  * @s1_n: SRC
  * @s2_n: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC IN MASK.
  */
@@ -111,7 +111,7 @@ OIL_DEFINE_CLASS_FULL (composite_in_argb,
  * @d_n: DEST
  * @s1_1: SRC
  * @s2_n: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC IN MASK, for a constant
  * SRC.
@@ -124,7 +124,7 @@ OIL_DEFINE_CLASS_FULL (composite_in_argb_const_src,
  * @d_n: DEST
  * @s1_n: SRC
  * @s2_1: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC IN MASK, for a constant
  * MASK.
@@ -136,7 +136,7 @@ OIL_DEFINE_CLASS_FULL (composite_in_argb_const_mask,
  * oil_composite_over_argb:
  * @i_n: DEST
  * @s1_n: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC OVER DEST.
  */
@@ -147,7 +147,7 @@ OIL_DEFINE_CLASS_FULL (composite_over_argb,
  * oil_composite_over_argb_const_src:
  * @i_n: DEST
  * @s1_1: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC OVER DEST, for a
  * constant SRC.
@@ -159,7 +159,7 @@ OIL_DEFINE_CLASS_FULL (composite_over_argb_const_src,
  * oil_composite_add_argb:
  * @i_n: DEST
  * @s1_n: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC ADD DEST.
  */
@@ -170,7 +170,7 @@ OIL_DEFINE_CLASS_FULL (composite_add_argb,
  * oil_composite_add_argb_const_src:
  * @i_n: DEST
  * @s1_1: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC ADD DEST, for a
  * constant SRC.
@@ -183,7 +183,7 @@ OIL_DEFINE_CLASS_FULL (composite_add_argb_const_src,
  * @i_n: DEST
  * @s1_n: SRC
  * @s2_n: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST.
  */
@@ -195,7 +195,7 @@ OIL_DEFINE_CLASS_FULL (composite_in_over_argb,
  * @i_n: DEST
  * @s1_1: SRC
  * @s2_n: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST,
  * for a constant SRC.
@@ -208,7 +208,7 @@ OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_src,
  * @i_n: DEST
  * @s1_n: SRC
  * @s2_1: MASK
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = (SRC IN MASK) OVER DEST,
  * for a constant MASK.
@@ -217,10 +217,10 @@ OIL_DEFINE_CLASS_FULL (composite_in_over_argb_const_mask,
     "uint32_t *i_n, uint32_t *s1_n, uint8_t *s2_1, int n",
     composite_test);
 /**
- * oil_composite_over_argb_u8:
+ * oil_composite_over_u8:
  * @i_n: DEST
  * @s1_n: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC OVER DEST.
  */
@@ -228,10 +228,10 @@ OIL_DEFINE_CLASS_FULL (composite_over_u8,
     "uint8_t *i_n, uint8_t *s1_n, int n",
     composite_test);
 /**
- * oil_composite_add_argb_u8:
+ * oil_composite_add_u8:
  * @i_n: DEST
  * @s1_n: SRC
- * @n:
+ * @n: number of elements
  *
  * Performs the compositing operation DEST = SRC ADD DEST.
  */

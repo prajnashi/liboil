@@ -47,21 +47,178 @@ static void vectoradd_ ## type ## _ref (	\
   }						\
 }						\
 OIL_DEFINE_CLASS (vectoradd_ ## type,         \
-    "type_" #type " *dest, int dstr, "		\
-    "type_" #type " *src1, int sstr1, "		\
-    "type_" #type " *src2, int sstr2, "		\
+    "type_" #type " *d, int dstr, "		\
+    "type_" #type " *s1, int sstr1, "		\
+    "type_" #type " *s2, int sstr2, "		\
     "int n, type_" #type " *s3_1, type_" #type " *s4_1");	\
 OIL_DEFINE_IMPL_REF (vectoradd_ ## type ## _ref, vectoradd_ ## type);
 
+/**
+ * oil_vectoradd_s8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (s8);
+/**
+ * oil_vectoradd_u8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (u8);
+/**
+ * oil_vectoradd_s16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (s16);
+/**
+ * oil_vectoradd_u16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (u16);
+/**
+ * oil_vectoradd_s32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (s32);
+/**
+ * oil_vectoradd_u32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (u32);
+/**
+ * oil_vectoradd_f32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (f32);
+/**
+ * oil_vectoradd_f64:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ * @s3_1:
+ * @s4_1:
+ *
+ * Multiplies the constant @s3_1 with each element of @s1 and
+ * multiplies the constant @s4_1 with each element of @s2 and
+ * adds the two results together and places the final result in
+ * @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_DEFINE (f64);
-
-
-
 

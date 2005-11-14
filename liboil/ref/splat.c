@@ -31,9 +31,43 @@
 #include <liboil/liboilfunction.h>
 #include <string.h>
 
+/**
+ * oil_splat_u8:
+ * @dest:
+ * @dstr:
+ * @s1_1:
+ * @n:
+ *
+ * Copies the constant source value @s1_1 to each element in @dest.
+ */
 OIL_DEFINE_CLASS(splat_u8,"uint8_t *dest, int dstr, uint8_t *s1_1, int n");
+/**
+ * oil_splat_u32:
+ * @dest:
+ * @dstr:
+ * @s1_1:
+ * @n:
+ *
+ * Copies the constant source value @s1_1 to each element in @dest.
+ */
 OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
+/**
+ * oil_splat_u8_ns:
+ * @dest:
+ * @s1_1:
+ * @n:
+ *
+ * Copies the constant source value @s1_1 to each element in @dest.
+ */
 OIL_DEFINE_CLASS(splat_u8_ns,"uint8_t *dest, uint8_t *s1_1, int n");
+/**
+ * oil_splat_u32_ns:
+ * @dest:
+ * @s1_1:
+ * @n:
+ *
+ * Copies the constant source value @s1_1 to each element in @dest.
+ */
 OIL_DEFINE_CLASS(splat_u32_ns,"uint32_t *dest, uint32_t *s1_1, int n");
 
 

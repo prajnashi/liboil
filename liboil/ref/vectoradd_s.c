@@ -52,18 +52,113 @@ static void vectoradd_s_ ## type ## _ref (	\
   }						\
 }						\
 OIL_DEFINE_CLASS (vectoradd_s_ ## type,         \
-    "type_" #type " *dest, int dstr, "		\
-    "type_" #type " *src1, int sstr1, "		\
-    "type_" #type " *src2, int sstr2, "		\
+    "type_" #type " *d, int dstr, "		\
+    "type_" #type " *s1, int sstr1, "		\
+    "type_" #type " *s2, int sstr2, "		\
     "int n");	\
 OIL_DEFINE_IMPL_REF (vectoradd_s_ ## type ## _ref, vectoradd_s_ ## type);
 
+
+/**
+ * oil_vectoradd_s_s8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * of the type and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (s8,s16);
+/**
+ * oil_vectoradd_s_u8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * of the type and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (u8,u16);
+/**
+ * oil_vectoradd_s_s16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * of the type and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (s16,s32);
+/**
+ * oil_vectoradd_s_u16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * of the type and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (u16,u32);
-//VECTORADD_S_DEFINE_IMPL (s32,s64);
-//VECTORADD_S_DEFINE_IMPL (u32,u64);
+/**
+ * oil_vectoradd_s_f32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * [-1,1] and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (f32,f32);
+/**
+ * oil_vectoradd_s_f64:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Adds each element of @s1 to @s2 and clamps the result to the range
+ * [-1,1] and places the result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 VECTORADD_S_DEFINE_IMPL (f64,f64);
 

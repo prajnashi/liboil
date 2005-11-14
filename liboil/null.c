@@ -31,6 +31,15 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_null:
+ *
+ * Does nothing, and does it fast.
+ *
+ * This function is useful for testing the overhead of calling
+ * a Liboil function.
+ *
+ */
 OIL_DEFINE_CLASS (null, "");
 
 static void

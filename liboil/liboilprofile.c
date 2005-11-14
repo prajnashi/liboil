@@ -36,6 +36,20 @@
 #include <string.h>
 #include <math.h>
 
+/**
+ * SECTION:liboilprofile
+ * @short_description:
+ * Measuring the length of time needed to execute Liboil functions.
+ *
+ */
+
+/**
+ * oil_profile_stamp_gtod:
+ *
+ * Creates a timestamp using the function gettimofday().
+ *
+ * Returns: a timestamp
+ */
 unsigned long oil_profile_stamp_gtod (void)
 {
 #ifdef HAVE_GETTIMEOFDAY
@@ -47,6 +61,12 @@ unsigned long oil_profile_stamp_gtod (void)
 #endif
 }
 
+/**
+ * oil_profile_init:
+ * @prof: the OilProfile structure
+ *
+ * Initializes a profiling structure.
+ */
 void
 oil_profile_init (OilProfile *prof)
 {
@@ -56,6 +76,14 @@ oil_profile_init (OilProfile *prof)
 
 }
 
+/**
+ * oil_profile_stop_handle:
+ * @prof: the OilProfile structure
+ *
+ * Handles post-processing of a single profiling run.
+ *
+ * FIXME: need more info
+ */
 void
 oil_profile_stop_handle (OilProfile *prof)
 {
@@ -81,6 +109,17 @@ oil_profile_stop_handle (OilProfile *prof)
   }
 }
 
+/**
+ * oil_profile_get_ave_std:
+ * @prof: the OilProfile structure
+ * @ave_p: pointer to average
+ * @std_p: pointer to standard deviation
+ *
+ * Calculates the average and standard deviation of a number of
+ * profiling runs, and places the results in the locations
+ * provided by @ave_p and @std_p.  Either @ave_p and @std_p may
+ * be NULL, in which case the values will not be written.
+ */
 void
 oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p)
 {

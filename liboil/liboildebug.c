@@ -36,6 +36,11 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+/**
+ * SECTION:liboildebug
+ * @short_description: Printing and formatting debug information
+ */
+
 static void oil_debug_print_valist (int level, const char *file,
     const char *func, int line, const char *format, va_list args);
 
@@ -92,18 +97,39 @@ _oil_debug_print (int level, const char *file, const char *func,
   va_end (var_args);
 }
 
+/**
+ * oil_debug_get_level:
+ *
+ * Gets the current debug level.
+ *
+ * Returns: the current debug level
+ */
 int
 oil_debug_get_level (void)
 {
   return _oil_debug_level;
 }
 
+/**
+ * oil_debug_set_level:
+ * @level: the new debug level
+ *
+ * Sets the current debug level.
+ */
 void
 oil_debug_set_level (int level)
 {
   _oil_debug_level = level;
 }
 
+/**
+ * oil_debug_set_print_function:
+ * @func:
+ *
+ * Sets the function to call when outputting debugging information.
+ * A value of NULL for @func will restore the default handler,
+ * which prints debugging information to stderr.
+ */
 void
 oil_debug_set_print_function (OilDebugPrintFunc func)
 {

@@ -32,7 +32,14 @@
 #include <liboil/liboilprototype.h>
 #include <liboil/liboilprofile.h>
 
+/**
+ * OilTest:
+ * 
+ * An opaque structure describing how to test an OilFunctionImpl
+ * for an OilFunctionClass.
+ */
 struct _OilTest {
+  /*< private >*/
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
   OilPrototype *proto;
@@ -49,6 +56,15 @@ struct _OilTest {
   double sum_abs_diff;
   int n_points;
 };
+
+/**
+ * OilTestFunction:
+ * @test: the @OilTest structure
+ *
+ * Typedef for functions that initialize special values
+ * in source arrays for a particular function class.
+ */
+//typedef void (*OilTestFunction) (OilTest *test);
 
 #define OIL_TEST_HEADER 256
 #define OIL_TEST_FOOTER 256

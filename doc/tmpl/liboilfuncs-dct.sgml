@@ -1,49 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-DCT
+liboilfuncs-dct
 
 <!-- ##### SECTION Short_Description ##### -->
-Discrete Cosine Transform Related Function Classes
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-Functions operate on arrays of data.  The arrays can be either source
-arrays (input only), destination arrays (output only), or in-place
-arrays (both input and output).
-</para>
 
-<para>
-The interpretation of a parameter can usually be determined from its
-name.  Parameters for arrays are of the form d1_1xn, where the first
-character represents the direction (source, destination, or in-place),
-the second represents the index for that particular direction, and
-the characters after the underscore indicate the size of the array.
-In this case, "1xn" represents an array that is 1 by N.  Note that
-the index and the size can both be omitted, giving a default of 1
-for the index and 1xn for the size.
-</para>
-
-<para>
-Parameters that represent strides are of the form "d1s".  The
-interpretation is similar to above, except that the s indicates
-a stride parameter.
-</para>
-
-<para>
-The exceptions to the above rule are "dest", "src", "dstr", "sstr", etc.
-These are aliases for "d1", "s1", "d1s", and "s1s", respectively.  This
-form is deprecated and will be removed in the 0.4 series.
-</para>
-
-<para>
-Two special parameters are "n" and "m", which determine the size of
-the arrays in other parameters.
-</para>
-
-<para>
-Data arrays are laid out such that rows are separated by the number
-of bytes given by the corresponding stride.  Elements in each row
-are contiguous.  If there is no stride parameter corresponding to an
-array, the rows of the array are contiguous.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -68,7 +31,6 @@ array, the rows of the array are contiguous.
 <!-- ##### FUNCTION oil_fdct8_f64 ##### -->
 <para>
 
-Calculates the forward discrete cosine transform on the source array.
 </para>
 
 @d_8: 
@@ -80,7 +42,6 @@ Calculates the forward discrete cosine transform on the source array.
 <!-- ##### FUNCTION oil_fdct8x8_f64 ##### -->
 <para>
 
-Calculates the 2-D forward discrete cosine transform on the source array.
 </para>
 
 @d_8x8: 
@@ -92,9 +53,6 @@ Calculates the 2-D forward discrete cosine transform on the source array.
 <!-- ##### FUNCTION oil_fdct8x8s_s16 ##### -->
 <para>
 
-Calculates the 2-D forward discrete cosine transform on the source array,
-multiplying some values in the destination array by values interesting
-to the algorithm.  This function is not recommended.
 </para>
 
 @d_8x8: 
@@ -106,7 +64,6 @@ to the algorithm.  This function is not recommended.
 <!-- ##### FUNCTION oil_idct8_f64 ##### -->
 <para>
 
-Calculates the inverse discrete cosine transform on the source array.
 </para>
 
 @d_8: 
@@ -118,7 +75,6 @@ Calculates the inverse discrete cosine transform on the source array.
 <!-- ##### FUNCTION oil_idct8x8_f64 ##### -->
 <para>
 
-Calculates the 2-D inverse discrete cosine transform on the source array.
 </para>
 
 @d_8x8: 
@@ -130,9 +86,6 @@ Calculates the 2-D inverse discrete cosine transform on the source array.
 <!-- ##### FUNCTION oil_idct8x8_s16 ##### -->
 <para>
 
-Calculates the 2-D inverse discrete cosine transform on the source array,
-multiplying some values in the destination array by values interesting
-to the algorithm.  This function is not recommended.
 </para>
 
 @d_8x8: 
@@ -144,8 +97,6 @@ to the algorithm.  This function is not recommended.
 <!-- ##### FUNCTION oil_imdct12_f64 ##### -->
 <para>
 
-Calculate the inverse modified discrete cosine transform of the source
-array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_12: 
@@ -155,8 +106,6 @@ array.  This function is interesting in mp3 decoding.
 <!-- ##### FUNCTION oil_imdct32_f32 ##### -->
 <para>
 
-Calculate the inverse modified discrete cosine transform of the source
-array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_32: 
@@ -166,8 +115,6 @@ array.  This function is interesting in mp3 decoding.
 <!-- ##### FUNCTION oil_imdct36_f64 ##### -->
 <para>
 
-Calculate the inverse modified discrete cosine transform of the source
-array.  This function is interesting in mp3 decoding.
 </para>
 
 @d_36: 
@@ -177,7 +124,6 @@ array.  This function is interesting in mp3 decoding.
 <!-- ##### FUNCTION oil_mdct12_f64 ##### -->
 <para>
 
-Calculates the modified discrete cosine transform of the source array.
 </para>
 
 @d_6: 
@@ -187,7 +133,6 @@ Calculates the modified discrete cosine transform of the source array.
 <!-- ##### FUNCTION oil_mdct36_f64 ##### -->
 <para>
 
-Calculates the modified discrete cosine transform of the source array.
 </para>
 
 @d_18: 
@@ -196,7 +141,7 @@ Calculates the modified discrete cosine transform of the source array.
 
 <!-- ##### FUNCTION oil_idct8theora_s16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_8: 
@@ -207,7 +152,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_idct8x8lim10_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_8x8: 
@@ -218,7 +163,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_idct8x8lim10_s16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_8x8: 
@@ -229,7 +174,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_idct8x8theora_s16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @d_8x8: 

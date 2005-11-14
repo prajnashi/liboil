@@ -54,4 +54,54 @@ TRANS8x8_DEFINE_REF(u16);
 TRANS8x8_DEFINE_REF(u32);
 TRANS8x8_DEFINE_REF(f64);
 
+/**
+ * oil_trans8x8_u8:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Performs a matrix transpose the 8x8 block represented by @s_8x8
+ * and places the
+ * result in @d_8x8.  Note that this function can also be used for
+ * any type of this size.
+ */
+
+/**
+ * oil_trans8x8_u16:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Performs a matrix transpose the 8x8 block represented by @s_8x8
+ * and places the
+ * result in @d_8x8.  Note that this function can also be used for
+ * any type of this size.
+ */
+
+/**
+ * oil_trans8x8_u32:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Performs a matrix transpose the 8x8 block represented by @s_8x8
+ * and places the
+ * result in @d_8x8.  Note that this function can also be used for
+ * any type of this size.
+ */
+
+/**
+ * oil_trans8x8_f64:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Performs a matrix transpose the 8x8 block represented by @s_8x8
+ * and places the
+ * result in @d_8x8.
+ */
 

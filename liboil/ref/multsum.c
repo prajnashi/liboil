@@ -61,6 +61,30 @@ OIL_DEFINE_CLASS (multsum_ ## type, \
     "type_" #type " *src2, int sstr2, "	\
     "int n")
 
+/**
+ * oil_multsum_f32:
+ * @dest:
+ * @src1:
+ * @sstr1:
+ * @src2:
+ * @sstr2:
+ * @n:
+ *
+ * Multiplies each element in @src1 and @src2 and sums the results
+ * over the entire array, and places the sum into @dest.
+ */
 MULTSUM_DEFINE_REF(f32);
+/**
+ * oil_multsum_f64:
+ * @dest:
+ * @src1:
+ * @sstr1:
+ * @src2:
+ * @sstr2:
+ * @n:
+ *
+ * Multiplies each element in @src1 and @src2 and sums the results
+ * over the entire array, and places the sum into @dest.
+ */
 MULTSUM_DEFINE_REF(f64);
 

@@ -33,10 +33,43 @@
 
 #include <math.h>
 
+/**
+ * oil_conv8x8_s16_f64:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Converts elements in source array @s_8x8 to the destination
+ * type, placing the results in @d_8x8.
+ */
 OIL_DEFINE_CLASS (conv8x8_s16_f64,
     "int16_t * d_8x8, int dstr, double *s_8x8, int sstr");
+/**
+ * oil_conv8x8_f64_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Converts elements in source array @s_8x8 to the destination
+ * type, placing the results in @d_8x8.  The conversion of source
+ * values outside the destination range are undefined and
+ * implementation dependent.
+ */
 OIL_DEFINE_CLASS (conv8x8_f64_s16,
     "double *d_8x8, int dstr, int16_t * s_8x8, int sstr");
+/**
+ * oil_clipconv8x8_u8_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Converts elements in source array @s_8x8 to the destination
+ * type, placing the results in @d_8x8.  Source values outside
+ * the destination range are clipped to the destination range.
+ */
 OIL_DEFINE_CLASS (clipconv8x8_u8_s16,
     "uint8_t * d_8x8, int dstr, int16_t * s_8x8, int sstr");
 

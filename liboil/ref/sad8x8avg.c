@@ -34,6 +34,21 @@
 
 #define ABS(x) ((x)>0 ? (x) : -(x))
 
+/**
+ * oil_sad8x8_u8_avg:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @s3_8x8:
+ * @ss2:
+ *
+ * Calculates the sum of absolute differences between @s1_8x8 and
+ * the average of @s2_8x8 and @s3_8x8.
+ *
+ * FIXME: This function is broken because the reference function assumes
+ * the stride for @s3_8x8 is @ss2.
+ */
 OIL_DEFINE_CLASS (sad8x8_u8_avg,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, uint8_t *s3_8x8, int ss2");
 

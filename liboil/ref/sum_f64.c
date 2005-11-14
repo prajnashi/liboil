@@ -33,7 +33,17 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
-OIL_DEFINE_CLASS (sum_f64, "double *dest, double *src, int sstr, int n");
+/**
+ * oil_sum_f64:
+ * @d_1: destination
+ * @s: source array
+ * @sstr: stride of source elements
+ * @n: number of elements
+ *
+ * Sums the elements in the source array and places the result in
+ * @d.
+ */
+OIL_DEFINE_CLASS (sum_f64, "double *d_1, double *s, int sstr, int n");
 //OIL_DEFINE_CLASS (sum_f64_i10, "double *dest, double *src, int sstr, int n");
 
 static void

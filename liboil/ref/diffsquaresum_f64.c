@@ -33,6 +33,18 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+/**
+ * oil_diffsquaresum_f64:
+ * @d_1:
+ * @src1:
+ * @sstr1:
+ * @src2:
+ * @sstr2:
+ * @n:
+ *
+ * Calculates the sum of squared differences between @src1 and @src2
+ * and places the result in @d_1.
+ */
 OIL_DEFINE_CLASS (diffsquaresum_f64,
     "double *d_1, double *src1, int sstr1, double *src2, int sstr2, int n");
 

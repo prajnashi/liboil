@@ -137,13 +137,13 @@ OIL_DEFINE_IMPL_REF (resample_linear_argb_ref, resample_linear_argb);
  * @n:
  *
  * Linearly interpolate the @s_n and @s2_n arrays using the scale
- * factor in @s3_1.  Valid values of @s3_1 range from 0 to 256
- * inclusive.  A value of 0 indicates weights of 1.0 and 0.0 for
+ * factor in @s3_1.  The value @s3_1 must be in the range [0, 256]
+ * A value of 0 indicates weights of 1.0 and 0.0 for
  * the s_n and s2_n arrays respectively.  A value of 256 indicates
  * weights of 0.0 and 1.0 respectively.
  *
  * This function is not intended for alpha blending; use one of the
- * composite functions instead.
+ * compositing functions instead.
  */
 static void
 merge_linear_argb_test (OilTest *test)
@@ -157,6 +157,23 @@ OIL_DEFINE_CLASS_FULL (merge_linear_argb,
     "uint32_t *d_n, uint32_t *s_n, uint32_t *s2_n, uint32_t *s3_1, int n",
     merge_linear_argb_test);
 
+/**
+ * oil_merge_linear_argb:
+ * @d_n:
+ * @s_n:
+ * @s2_n:
+ * @s3_1:
+ * @n:
+ *
+ * Linearly interpolate the @s_n and @s2_n arrays using the scale
+ * factor in @s3_1.  The value @s3_1 must be in the range [0, 256]
+ * A value of 0 indicates weights of 1.0 and 0.0 for
+ * the s_n and s2_n arrays respectively.  A value of 256 indicates
+ * weights of 0.0 and 1.0 respectively.
+ *
+ * This function is not intended for alpha blending; use one of the
+ * compositing functions instead.
+ */
 static void
 merge_linear_argb_ref (uint32_t *d, uint32_t *s1, uint32_t *s2,
     uint32_t *src3, int n)

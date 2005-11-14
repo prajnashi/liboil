@@ -49,6 +49,17 @@ utf8_validate_test (OilTest *test)
 
 }
 
+/**
+ * oil_utf8_validate:
+ * @d_1:
+ * @s:
+ * @n:
+ *
+ * Checks @s for valid UTF-8 characters.  If the entire @s array
+ * represents valid UTF-8 characters, @n is written to @d_1.
+ * Otherwise, the index in the array of the beginning of the first
+ * invalid UTF-8 character is written to @d_1.
+ */
 OIL_DEFINE_CLASS_FULL (utf8_validate, "int32_t *d_1, uint8_t *s, int n",
     utf8_validate_test);
 

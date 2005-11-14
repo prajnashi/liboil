@@ -35,6 +35,30 @@
 #include <stdlib.h>
 
 
+/**
+ * SECTION:liboilfuncs-conv
+ * @short_description: Type conversion
+ *
+ * The functions in this section perform type conversion.
+ *
+ * The <i>conv</i> functions convert value from the source type to
+ * the destination type.  Conversion of values outside the destination
+ * range is undefined and may vary between implementations.
+ *
+ * The <i>clipconv</i> functions convert values from the source
+ * type to the destination type.  Conversion of values outside the
+ * destination range are saturated to the destination range.
+ *
+ * The <i>scaleconv</i> functions multiply the source values by a
+ * constant factor before converting to the destination type.  Conversion
+ * of values outside the destination range is undefined and may vary
+ * between implementations.
+ * 
+ * Conversion of values from floating point types to integer types
+ * is done using a round-to-nearest policy.  Rounding of half-integers
+ * is undefined and may vary between implementations.
+ */
+
 
 #define CONV_DEFINE_REF_CAST(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -346,4 +370,1568 @@ SCALECONV_DEFINE_REF_CAST(f64,s16);
 SCALECONV_DEFINE_REF_CAST(f64,u16);
 SCALECONV_DEFINE_REF_CAST(f64,s32);
 SCALECONV_DEFINE_REF_CAST(f64,u32);
+
+/**
+ * oil_conv_f32_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f32_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_f64_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s16_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s32_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_s8_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u16_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u32_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_conv_u8_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined
+ * and implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s16_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s16_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s16_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s16_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s16_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s32_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s32_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s32_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_s8_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u16_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u16_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u16_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u16_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u16_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u32_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u32_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u32_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_clipconv_u8_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * 
+ * Converts elements in  from the source type
+ * to the destination type and places the result in .
+ * Values outside the destination range are clipped to
+ * the destination range.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_s16:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_s32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_s8:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_u16:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_u32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f32_u8:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_s16:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_s32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_s8:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_u16:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_u32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_f64_u8:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s16_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s16_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s32_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s32_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s8_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_s8_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u16_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u16_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u32_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u32_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u8_f32:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
+
+/**
+ * oil_scaleconv_u8_f64:
+ * @dest:
+ * @src:
+ # @s2_1:
+ # @s3_1:
+ * 
+ * Multiplies elements in  by  and adds  and then
+ * converts the result
+ * to the destination type and places the result in .
+ * Values outside the destination range are undefined and
+ * implementation dependent.
+ * See the comments at the beginning of this section.
+ */
 

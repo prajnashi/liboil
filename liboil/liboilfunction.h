@@ -48,7 +48,14 @@
 #define OIL_OPT_SUFFIX
 #endif
 
+/**
+ * OilFunctionClass:
+ *
+ * An opaque structure representing a function class.
+ *
+ */
 struct _OilFunctionClass {
+  /*< private >*/
 	void *func;
 	const char *name;
 	const char *desc;
@@ -62,7 +69,14 @@ struct _OilFunctionClass {
 	const char *prototype;
 };
 
+/**
+ * OilFunctionImpl:
+ *
+ * An opaque structure representing a function implementation.
+ *
+ */
 struct _OilFunctionImpl {
+  /*< private >*/
 	void *next;
 	OilFunctionClass *klass;
 	void *func;
@@ -99,6 +113,10 @@ struct _OilFunctionImpl {
 #define OIL_DECLARE_CLASS(klass) \
 	extern OilFunctionClass _oil_function_class_ ## klass
 
+/**
+ * SECTION:liboilmacros
+ * @short_description: Macros
+ */
 
 #ifndef OIL_NO_CLASSES
 #define OIL_DEFINE_CLASS_FULL(klass, string, test) \

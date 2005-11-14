@@ -34,9 +34,24 @@
 
 #include <math.h>
 
+/**
+ * oil_average2_u8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr1:
+ * @s2:
+ * @sstr2:
+ * @n:
+ *
+ * Averages each element in @s1 and @s2 and places the result in @d.
+ *
+ * FIXME: This class is difficult to optimize and will likely be
+ * replaced.
+ */
 OIL_DEFINE_CLASS (average2_u8, 
-    "uint8_t * dest, int dstr, uint8_t *src1, int sstr1, "
-    "uint8_t *src2, int sstr2, int n");
+    "uint8_t *d, int dstr, uint8_t *s1, int sstr1, "
+    "uint8_t *s2, int sstr2, int n");
 
 static void
 average2_u8_ref (uint8_t * dest, int dstr, uint8_t *src1, int sstr1,

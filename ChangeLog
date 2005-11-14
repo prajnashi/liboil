@@ -1,5 +1,90 @@
 2005-11-13  David Schleef  <ds@schleef.org>
 
+	* doc/Makefile.am: Write a little bit of documentation.
+	* doc/liboil-overrides.txt:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboil.sgml:
+	* doc/tmpl/liboilfuncs-conv.sgml:
+	* doc/tmpl/liboilfuncs-copy.sgml:
+	* doc/tmpl/liboilfuncs-dct.sgml:
+	* doc/tmpl/liboilfuncs-doc.sgml:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* doc/tmpl/liboilfuncs-math8x8.sgml:
+	* doc/tmpl/liboilfuncs-pixel.sgml:
+	* doc/tmpl/liboilfunction.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprofile.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	* liboil/dct/dct12_f32.c:
+	* liboil/dct/dct36_f32.c:
+	* liboil/dct/fdct8_f64.c:
+	* liboil/dct/fdct8x8_f64.c:
+	* liboil/dct/fdct8x8s_s16.c:
+	* liboil/dct/fdct8x8theora.c:
+	* liboil/dct/idct8_f64.c:
+	* liboil/dct/idct8x8_c.c:
+	* liboil/dct/idct8x8theora_ref.c:
+	* liboil/dct/imdct32_f32.c:
+	* liboil/jpeg/convert8x8_c.c:
+	* liboil/jpeg/jpeg_rgb_decoder.c:
+	* liboil/jpeg/quantize8x8_c.c:
+	* liboil/jpeg/zigzag8x8_c.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilcolorspace.h:
+	* liboil/liboilcpu.c: (oil_cpu_fault_check_enable):
+	* liboil/liboildebug.c:
+	* liboil/liboildebug.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilfunction.c:
+	* liboil/liboilfunction.h:
+	* liboil/liboilparameter.h:
+	* liboil/liboilprofile.c:
+	* liboil/liboilprofile.h:
+	* liboil/liboilprototype.c: (oil_prototype_to_string),
+	(oil_prototype_from_string):
+	* liboil/liboilprototype.h:
+	* liboil/liboilrandom.h:
+	* liboil/liboiltest.c:
+	* liboil/liboiltest.h:
+	* liboil/liboiltypes.h:
+	* liboil/md5/md5.c:
+	* liboil/null.c:
+	* liboil/ref/average2_u8.c:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/composite.c:
+	* liboil/ref/conv.c:
+	* liboil/ref/copy.c:
+	* liboil/ref/copy8x8.c:
+	* liboil/ref/diff8x8.c:
+	* liboil/ref/diffsquaresum_f64.c:
+	* liboil/ref/error8x8.c:
+	* liboil/ref/math.c:
+	* liboil/ref/mix_u8.c:
+	* liboil/ref/mult8x8_s16.c:
+	* liboil/ref/multsum.c:
+	* liboil/ref/permute.c:
+	* liboil/ref/recon8x8.c:
+	* liboil/ref/resample.c:
+	* liboil/ref/rowcolsad8x8.c:
+	* liboil/ref/sad8x8.c:
+	* liboil/ref/sad8x8_broken.c:
+	* liboil/ref/sad8x8avg.c:
+	* liboil/ref/scalaradd.c:
+	* liboil/ref/scalarmult.c:
+	* liboil/ref/sincos_f64.c:
+	* liboil/ref/splat.c:
+	* liboil/ref/squaresum_f64.c:
+	* liboil/ref/sum_f64.c:
+	* liboil/ref/tablelookup.c:
+	* liboil/ref/trans8x8.c:
+	* liboil/ref/vectoradd_f64.c:
+	* liboil/ref/vectoradd_s.c:
+	* liboil/utf8/utf8.c:
+
+2005-11-13  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/fdct8x8theora_i386.c: (fdct8x8theora_mmx):
 	* liboil/i386/recon8x8_i386.c: (recon8x8_intra_mmx):
 	  Fix some asm code that accesses global variables from asm

@@ -45,6 +45,12 @@
 #include <sys/sysctl.h>
 #endif
 
+/**
+ * SECTION:liboilcpu
+ * @short_description: Checking the capabilities of the current CPU
+ *
+ */
+
 #if defined(__i386__)
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
@@ -308,6 +314,13 @@ _oil_cpu_init (void)
   OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
 }
 
+/**
+ * oil_cpu_get_flags:
+ *
+ * Returns a bitmask containing the available CPU features.
+ *
+ * Returns: the CPU features.
+ */
 unsigned int
 oil_cpu_get_flags (void)
 {
@@ -392,6 +405,15 @@ illegal_instruction_handler (int num)
   }
 }
 
+/**
+ * oil_cpu_fault_check_enable:
+ *
+ * Enables fault checking mode.  This function may be called multiple times.
+ * Each call to this function must be paired with a corresponding call
+ * to @oil_cpu_fault_check_disable.
+ *
+ * This function sets a signal handler for SIGILL.
+ */
 void
 oil_cpu_fault_check_enable (void)
 {
@@ -401,13 +423,28 @@ oil_cpu_fault_check_enable (void)
     action.sa_handler = &illegal_instruction_handler;
     sigaction (SIGILL, &action, &oldaction);
 #else
-    signal (SIGILL, illegal_instruction_handler);
+    oldhandler = signal (SIGILL, illegal_instruction_handler);
 #endif
     in_try_block = 0;
   }
   enable_level++;
 }
 
+/**
+ * oil_cpu_fault_check_try:
+ * @func: the function to attempt
+ * @priv: a value to pass to the function
+ *
+ * Calls to this
+ * function must be preceded by a call to @oil_cpu_fault_check_enable
+ * to enable fault checking mode.  This function sets up recovery
+ * information and then calls the function @func with the parameter
+ * @priv.  If @func or any other functions it calls attempt to execute
+ * an illegal instruction, the exception will be caught and recovered from.
+ *
+ * Returns: 1 if the function was executed sucessfully, 0 if the
+ * function attempted to execute an illegal instruction.
+ */
 int
 oil_cpu_fault_check_try (void (*func) (void *), void *priv)
 {
@@ -423,6 +460,12 @@ oil_cpu_fault_check_try (void (*func) (void *), void *priv)
   return (ret == 0);
 }
 
+/**
+ * oil_cpu_fault_check_disable:
+ *
+ * Disables fault checking mode.  See @oil_cpu_fault_check_enable
+ * for details.
+ */
 void
 oil_cpu_fault_check_disable (void)
 {
@@ -437,32 +480,21 @@ oil_cpu_fault_check_disable (void)
 }
 
 #if 0
-void oil_memory_prefetch_local (void *ptr, int n_bytes)
-{
-#ifdef __i386__
-  if (oil_cpu_flags & OIL_IMPL_FLAG_MMX) {
-    asm volatile (
-        "prefetcht0 %0\n"
-        :: "m" (ptr));
-  }
-#endif
-
-}
-
-void oil_memory_prefetch_transient (void *ptr, int n_bytes)
-{
-#ifdef __i386__
-  if (oil_cpu_flags & OIL_IMPL_FLAG_MMX) {
-    asm volatile (
-        "prefetchnta %0\n"
-        :: "m" (ptr));
-  }
-#endif
-
-}
-#endif
-
-#if 0
+/**
+ * oil_cpu_get_ticks_per_second:
+ *
+ * Returns the estimated number of ticks per second.  This feature
+ * is currently unimplemented.
+ *
+ * This function may take several milliseconds or more to execute
+ * in order to calculate a good estimate of the number of ticks (as
+ * measured by the profiling functions) per second.  Note that the
+ * number of ticks per second is often dependent on the CPU frequency,
+ * which can change dynamically.  Thus the value returned by this
+ * function may be incorrect as soon as it is returned.
+ *
+ * Returns: a double
+ */
 double
 oil_cpu_get_ticks_per_second (void)
 {

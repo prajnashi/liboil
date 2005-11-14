@@ -33,6 +33,22 @@
 #include "md5.h"
 
 
+/**
+ * oil_md5:
+ * @i_4:
+ * @s_16:
+ *
+ * Performs an MD5 checksum iteration.  The iteration operates on
+ * the 64 bytes contained in @s_16, and changes the hash contained
+ * in @i_4.  This only implements a portion of the MD5 algorithm.
+ * The full MD5 algorithm requires initializing the hash
+ * with a specific value and additional handling of bytes at the
+ * end of the stream.
+ *
+ * See also the md5 example in the Liboil source code.
+ *
+ * FIXME: need a reference here
+ */
 OIL_DEFINE_CLASS (md5, "uint32_t *i_4, uint32_t *s_16");
 
 #ifdef WORDS_BIGENDIAN

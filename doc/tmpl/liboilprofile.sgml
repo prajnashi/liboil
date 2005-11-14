@@ -29,15 +29,6 @@ liboilprofile
 
 </para>
 
-@start: 
-@stop: 
-@min: 
-@last: 
-@total: 
-@n: 
-@hist_n: 
-@hist_time: 
-@hist_count: 
 
 <!-- ##### MACRO oil_profile_stamp ##### -->
 <para>

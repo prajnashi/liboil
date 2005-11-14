@@ -34,6 +34,11 @@
 #define NULL ((void *)0)
 #endif
 
+/**
+ * SECTION:liboiltypes
+ * @short_description: Internal Liboil types
+ */
+
 typedef struct _OilFunctionClass OilFunctionClass;
 typedef struct _OilFunctionImpl OilFunctionImpl;
 typedef struct _OilParameter OilParameter;

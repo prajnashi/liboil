@@ -35,20 +35,140 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/liboiltest.h>
 
+/**
+ * SECTION:liboilfuncs-math
+ * @short_description: Aritmetic operations
+ *
+ */
 
+/**
+ * SECTION:liboilfuncs-math8x8
+ * @short_description: Aritmetic operations on 8x8 blocks
+ *
+ */
+
+/**
+ * oil_add_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Adds elements in @s2 and @s1 and places the result in @d.
+ */
 OIL_DEFINE_CLASS (add_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_subtract_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Subtracts elements in @s2 from @s1 and places the result in @d.
+ */
 OIL_DEFINE_CLASS (subtract_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_multiply_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Multiplies elements in @s1 and @s2 and places the result in @d.
+ */
 OIL_DEFINE_CLASS (multiply_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_divide_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Divides elements in @s1 by @s2 and places the result in @d.
+ */
 OIL_DEFINE_CLASS (divide_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_minimum_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Places the lesser of @s1 and @s2 in @d.
+ */
 OIL_DEFINE_CLASS (minimum_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_maximum_f32:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Places the greater of @s1 and @s2 in @d.
+ */
 OIL_DEFINE_CLASS (maximum_f32, "float *d, float *s1, float *s2, int n");
 
+/**
+ * oil_negative_f32:
+ * @d: destination
+ * @s: source
+ * @n: number of elements
+ *
+ * Negates each element in @s and places the result in @d.
+ */
 OIL_DEFINE_CLASS (negative_f32, "float *d, float *s, int n");
+/**
+ * oil_inverse_f32:
+ * @d: destination
+ * @s: source
+ * @n: number of elements
+ *
+ * Calculates the multiplicative inverse of each element in @s and
+ * places the result in @d.
+ */
 OIL_DEFINE_CLASS (inverse_f32, "float *d, float *s, int n");
+/**
+ * oil_sign_f32:
+ * @d: destination
+ * @s: source
+ * @n: number of elements
+ *
+ * Calculates the sign of each element in @s and
+ * places the result in @d.
+ */
 OIL_DEFINE_CLASS (sign_f32, "float *d, float *s, int n");
+/**
+ * oil_floor_f32:
+ * @d: destination
+ * @s: source
+ * @n: number of elements
+ *
+ * Calculates the greatest integer less than or equal to each element
+ * in @s and places the result in @d.
+ */
 OIL_DEFINE_CLASS (floor_f32, "float *d, float *s, int n");
 
+/**
+ * oil_scalaradd_f32_ns:
+ * @d: destination
+ * @s1: source
+ * @s2_1: source
+ * @n: number of elements
+ *
+ * Adds the constant value @s2_1 to each source element and places
+ * the result in @d.
+ */
 OIL_DEFINE_CLASS (scalaradd_f32_ns, "float *d, float *s1, float *s2_1, int n");
+/**
+ * oil_scalarmultiply_f32_ns:
+ * @d: destination
+ * @s1: source
+ * @s2_1: source
+ * @n: number of elements
+ *
+ * Multiplies the constant value @s2_1 and each source element and places
+ * the result in @d.
+ */
 OIL_DEFINE_CLASS (scalarmultiply_f32_ns, "float *d, float *s1, float *s2_1, int n");
 
 static void

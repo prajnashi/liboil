@@ -43,9 +43,51 @@
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
 
+/**
+ * oil_idct8x8_f64:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a 2-D Inverse Discrete Cosine Transform on @s_8x8 and places
+ * the result in @d_8x8.
+ */
 OIL_DEFINE_CLASS (idct8x8_f64, "double *d_8x8, int dstr, double *s_8x8, int sstr");
+/**
+ * oil_idct8x8lim10_f64:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a 2-D Inverse Discrete Cosine Transform on @s_8x8 and places
+ * the result in @d_8x8.
+ */
 OIL_DEFINE_CLASS (idct8x8lim10_f64, "double *d_8x8, int dstr, double *s_8x8, int sstr");
+/**
+ * oil_idct8x8_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a limited 2-D Inverse Discrete Cosine Transform on @s_8x8
+ * and places the result in @d_8x8.  The source 8x8 block must be non-zero
+ * only in the 10 lowest-order components.
+ */
 OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr");
+/**
+ * oil_idct8x8lim10_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a limited 2-D Inverse Discrete Cosine Transform on @s_8x8
+ * and places the result in @d_8x8.  The source 8x8 block must be non-zero
+ * only in the 10 lowest-order components.
+ */
 OIL_DEFINE_CLASS (idct8x8lim10_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr");
 
 static void

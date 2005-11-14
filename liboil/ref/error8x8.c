@@ -32,10 +32,55 @@
 #include <liboil/liboilfunction.h>
 
 
+/**
+ * oil_err_intra8x8_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ *
+ * Calculates the sum of squared differences from the mean over
+ * @s1_8x8 and places the result in @d_1.  This result is 64 times
+ * the variance of the mean of @s1_8x8.
+ */
 OIL_DEFINE_CLASS (err_intra8x8_u8,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1");
+/**
+ * oil_err_inter8x8_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * Calculates an intermediate 8x8 block where each element is the
+ * difference between @s1_8x8 and @s2_8x8.
+ * The sum of squares of the difference of each element in the 
+ * intermediate block and the mean of the intermediate block is
+ * placed into @d_1.  This result is
+ * equal to 64 times the variance of the mean of the intermediate block.
+ */
 OIL_DEFINE_CLASS (err_inter8x8_u8,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
+/**
+ * oil_err_inter8x8_u8_avg:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @s3_8x8:
+ * @ss2:
+ *
+ * Calculates an intermediate 8x8 block where each element is the
+ * difference between @s1_8x8 and the average of @s2_8x8 and @s3_8x8.
+ * The sum of squares of the difference of each element in the 
+ * intermediate block and the mean of the intermediate block is
+ * placed into @d_1.
+ * This result is 64 times the variance of the mean of the intermediate
+ * block.
+ *
+ * FIXME: This function is broken, since the reference function uses
+ * @ss2 as the stride for both @s2_8x8 and @s3_8x8.
+ */
 OIL_DEFINE_CLASS (err_inter8x8_u8_avg,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, uint8_t *s3_8x8, int ss2");
 

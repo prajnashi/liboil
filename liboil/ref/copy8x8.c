@@ -31,6 +31,15 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_copy8x8_u8:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Copies an 8x8 block.
+ */
 OIL_DEFINE_CLASS (copy8x8_u8, "uint8_t *d_8x8, int ds, uint8_t *s_8x8, int ss");
 
 static void

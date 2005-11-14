@@ -104,7 +104,6 @@ oil_arg_type_name
 
 <SECTION>
 <FILE>liboiltypes</FILE>
-NULL
 OilFunctionClass
 OilFunctionImpl
 OilParameter

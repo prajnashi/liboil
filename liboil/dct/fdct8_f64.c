@@ -33,6 +33,16 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
+/**
+ * oil_fdct8_f64:
+ * @d_8:
+ * @s_8:
+ * @dstr:
+ * @sstr:
+ *
+ * Performs a Forward Discrete Cosine Transform on @s_8 and places
+ * the result in @d_8.
+ */
 OIL_DEFINE_CLASS (fdct8_f64, "double *d_8, double *s_8, int dstr, int sstr");
 
 #define C0_9808 0.980785280

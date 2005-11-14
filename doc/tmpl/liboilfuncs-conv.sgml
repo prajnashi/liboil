@@ -1,13 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-Type conversion
+liboilfuncs-conv
 
 <!-- ##### SECTION Short_Description ##### -->
-Type conversion function classes
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-These functions convert values in the source array from the source
-type to the destination type.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -21,8 +20,6 @@ type to the destination type.
 <!-- ##### FUNCTION oil_clipconv8x8_u8_s16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @d_8x8: 
@@ -34,8 +31,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s16_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -48,8 +43,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s16_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -62,8 +55,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s16_s32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -76,8 +67,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s16_u16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -90,8 +79,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s16_u32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -104,8 +91,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s32_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -118,8 +103,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s32_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -132,8 +115,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s32_u32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -146,8 +127,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -160,8 +139,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -174,8 +151,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_s16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -188,8 +163,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_s32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -202,8 +175,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_u16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -216,8 +187,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_u32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -230,8 +199,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_s8_u8 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -244,8 +211,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u16_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -258,8 +223,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u16_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -272,8 +235,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u16_s16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -286,8 +247,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u16_s32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -300,8 +259,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u16_u32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -314,8 +271,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u32_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -328,8 +283,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u32_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -342,8 +295,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u32_s32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -356,8 +307,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_f32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -370,8 +319,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_f64 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -384,8 +331,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_s16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -398,8 +343,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_s32 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -412,8 +355,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_s8 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -426,8 +367,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_u16 ##### -->
 <para>
 
-Converts source array to type of destination array, clipping values
-to the range of the destination type.
 </para>
 
 @dest: 
@@ -440,9 +379,6 @@ to the range of the destination type.
 <!-- ##### FUNCTION oil_clipconv_u8_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -455,9 +391,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv8x8_f64_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @d_8x8: 
@@ -469,9 +402,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv8x8_s16_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @d_8x8: 
@@ -483,9 +413,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -498,9 +425,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -513,9 +437,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -528,9 +449,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -543,9 +461,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -558,9 +473,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -573,9 +485,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f32_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -588,9 +497,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -603,9 +509,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -618,9 +521,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -633,9 +533,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -648,9 +545,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -663,9 +557,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -678,9 +569,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_f64_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -693,9 +581,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -708,9 +593,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -723,9 +605,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -738,9 +617,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -753,9 +629,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -768,9 +641,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -783,9 +653,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s16_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -798,9 +665,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -813,9 +677,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -828,9 +689,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -843,9 +701,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -858,9 +713,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -873,9 +725,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -888,9 +737,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s32_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -903,9 +749,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -918,9 +761,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -933,9 +773,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -948,9 +785,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -963,9 +797,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -978,9 +809,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -993,9 +821,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_s8_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1008,9 +833,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1023,9 +845,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1038,9 +857,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1053,9 +869,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1068,9 +881,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1083,9 +893,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1098,9 +905,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u16_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1113,9 +917,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1128,9 +929,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1143,9 +941,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1158,9 +953,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1173,9 +965,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1188,9 +977,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1203,9 +989,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u32_u8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1218,9 +1001,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_f32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1233,9 +1013,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_f64 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1248,9 +1025,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_s16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1263,9 +1037,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_s32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1278,9 +1049,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_s8 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1293,9 +1061,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_u16 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1308,9 +1073,6 @@ are unspecified.
 <!-- ##### FUNCTION oil_conv_u8_u32 ##### -->
 <para>
 
-Converts each element in the source array to the type of destination
-array.  Destination values outside the range of the destination type
-are unspecified.
 </para>
 
 @dest: 
@@ -1322,7 +1084,7 @@ are unspecified.
 
 <!-- ##### FUNCTION oil_scaleconv_f32_s16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1334,7 +1096,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f32_s32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1346,7 +1108,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f32_s8 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1358,7 +1120,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f32_u16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1370,7 +1132,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f32_u32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1382,7 +1144,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f32_u8 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1394,7 +1156,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_s16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1406,7 +1168,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_s32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1418,7 +1180,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_s8 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1430,7 +1192,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_u16 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1442,7 +1204,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_u32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1454,7 +1216,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_f64_u8 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1466,7 +1228,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s16_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1478,7 +1240,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s16_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1490,7 +1252,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s32_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1502,7 +1264,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s32_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1514,7 +1276,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s8_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1526,7 +1288,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_s8_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1538,7 +1300,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u16_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1550,7 +1312,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u16_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1562,7 +1324,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u32_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1574,7 +1336,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u32_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1586,7 +1348,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u8_f32 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 
@@ -1598,7 +1360,7 @@ Requires version 0.3.2
 
 <!-- ##### FUNCTION oil_scaleconv_u8_f64 ##### -->
 <para>
-Requires version 0.3.2
+
 </para>
 
 @dest: 

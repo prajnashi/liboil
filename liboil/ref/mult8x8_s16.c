@@ -35,6 +35,18 @@
 #include <math.h>
 
 
+/**
+ * oil_mult8x8_s16:
+ * @d_8x8:
+ * @s1_8x8:
+ * @s2_8x8:
+ * @ds:
+ * @ss1:
+ * @ss2:
+ *
+ * Multiplies each element in @s1_8x8 and @s2_8x8 and places the result
+ * in @d_8x8.
+ */
 OIL_DEFINE_CLASS (mult8x8_s16, 
     "int16_t *d_8x8, int16_t *s1_8x8, int16_t *s2_8x8, int ds, int ss1, int ss2");
 

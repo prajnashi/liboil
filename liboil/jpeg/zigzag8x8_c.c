@@ -32,8 +32,30 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
+/**
+ * oil_zigzag8x8_s16:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Reorders an 8x8 block using a zig-zag pattern.  The zig-zag pattern
+ * is described in the JPEG specification.
+ * 
+ * FIXME: describe zigzag pattern
+ */
 OIL_DEFINE_CLASS (zigzag8x8_s16,
     "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
+/**
+ * oil_unzigzag8x8_s16:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ * @ss:
+ *
+ * Reorders an 8x8 block to reverse the zig-zag reordering of
+ * @oil_zigzag8x8_s16.
+ */
 OIL_DEFINE_CLASS (unzigzag8x8_s16,
     "int16_t *d_8x8, int ds, int16_t *s_8x8, int ss");
 

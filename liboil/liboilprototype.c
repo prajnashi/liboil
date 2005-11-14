@@ -37,6 +37,20 @@
 #include <liboil/liboilprototype.h>
 #include <liboil/liboildebug.h>
 
+/**
+ * SECTION:liboilprototype
+ * @short_description:
+ * Functions to manipulate prototype information.
+ *
+ */
+
+/**
+ * SECTION:liboilparameter
+ * @short_description:
+ * Functions to manipulate prototype parameter information.
+ *
+ */
+
 #ifndef FALSE
 #define FALSE 0
 #endif
@@ -63,6 +77,14 @@ static int oil_param_from_string (OilParameter *p, char *s);
 
 static int oil_prototype_check_sanity (OilPrototype *proto);
 
+/**
+ * oil_prototype_append_param:
+ * @proto: the OilPrototype
+ * @param: an OilParameter
+ *
+ * Appends @param to the list of parameters contained in @proto.  The
+ * contents of @param are copied.
+ */
 void
 oil_prototype_append_param (OilPrototype *proto, OilParameter *param)
 {
@@ -72,7 +94,17 @@ oil_prototype_append_param (OilPrototype *proto, OilParameter *param)
   proto->params[proto->n_params - 1] = *param;
 }
 
-char *oil_prototype_to_string (OilPrototype *proto)
+/**
+ * oil_prototype_to_string:
+ * @proto: the OilPrototype
+ *
+ * Converts a prototype into the corresponding C style declaration.
+ *
+ * Returns: a string that should be freed using free() when it is no
+ * longer needed.
+ */
+char *
+oil_prototype_to_string (OilPrototype *proto)
 {
   OilString *string;
   OilParameter *param;
@@ -107,7 +139,19 @@ char *oil_prototype_to_string (OilPrototype *proto)
   return oil_string_free (string, FALSE);
 }
 
-OilPrototype *oil_prototype_from_string (const char *s)
+/**
+ * oil_prototype_from_string:
+ * @s: a string
+ *
+ * Converts the string @s containing C prototype that follows
+ * Liboil parameter naming rules into a OilPrototype.  If the
+ * string cannot be converted, NULL is returned.
+ *
+ * Returns: the OilPrototype.  When it is no longer needed, free
+ * the prototype using @oil_prototype_free.
+ */
+OilPrototype *
+oil_prototype_from_string (const char *s)
 {
   OilPrototype *proto;
   OilParameter param = { 0 };
@@ -208,6 +252,12 @@ static char * parse_string (const char *s, const char **endptr)
   return _strndup(s0, s - s0);
 }
 
+/**
+ * oil_prototype_free:
+ * @proto: the OilPrototype
+ *
+ * Frees memory associated with @proto.
+ */
 void
 oil_prototype_free (OilPrototype *proto)
 {
@@ -285,6 +335,14 @@ _strndup (const char *s, int n)
 }
 
 
+/**
+ * oil_type_sizeof:
+ * @type: the OilType
+ *
+ * Looks up the size of the OilType represented by @type.
+ *
+ * Returns: the size of @type
+ */
 int oil_type_sizeof (OilType type)
 {
   switch (type) {
@@ -369,6 +427,14 @@ static const char *oil_type_names_3 [] = {
 };
 #define ARRAY_LENGTH(x) (sizeof(x)/sizeof(x[0]))
 
+/**
+ * oil_type_name:
+ * @type: an OilType
+ *
+ * Looks up the name of the OilType given by @type.
+ *
+ * Returns: a string containing the name of the OilType @type.
+ */
 const char * oil_type_name (OilType type)
 {
 
@@ -411,6 +477,14 @@ static OilType oil_type_from_string (const char *s, int ptr)
   return OIL_TYPE_UNKNOWN;
 }
 
+/**
+ * oil_arg_type_name:
+ * @type: an OilArgType
+ *
+ * Looks up the name of the OilArgType specified by @type.
+ *
+ * Returns: a string containing the name
+ */
 const char * oil_arg_type_name (OilArgType type)
 {
   switch (type) {

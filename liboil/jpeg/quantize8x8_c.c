@@ -32,8 +32,20 @@
 #include <liboil/liboil.h>
 #include "jpeg.h"
 
+/**
+ * oil_dequantize8x8_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s1_8x8:
+ * @sstr1:
+ * @s2_8x8:
+ *
+ * Multiplies each element in @s1_8x8 by the corresponding element
+ * in @s2_8x8 and places the result in @d_8x8.
+ */
 OIL_DEFINE_CLASS (dequantize8x8_s16, 
-    "int16_t *d_8x8, int dstr, int16_t *s1_8x8, int sstr1, int16_t *s2_8x8, int sstr2");
+    "int16_t *d_8x8, int dstr, int16_t *s1_8x8, int sstr1, "
+    "int16_t *s2_8x8, int sstr2");
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))

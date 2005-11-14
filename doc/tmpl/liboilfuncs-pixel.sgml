@@ -1,11 +1,12 @@
 <!-- ##### SECTION Title ##### -->
-Pixel Operations
+liboilfuncs-pixel
 
 <!-- ##### SECTION Short_Description ##### -->
-Pixel Operation Function Classes
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -30,7 +31,6 @@ Pixel Operation Function Classes
 <!-- ##### FUNCTION oil_ayuv2argb_u8 ##### -->
 <para>
 
-Converts an array of AYUV pixels to ARGB.
 </para>
 
 @d_4xn: 

@@ -34,9 +34,41 @@
 #include <math.h>
 
 
+/**
+ * oil_mdct12_f64:
+ * @d_6:
+ * @s_12:
+ *
+ * Performs a Modified Discrete Cosine Transform (MDCT)
+ * on the source array @s_12 and places the result in @d_6.
+ */
 OIL_DEFINE_CLASS (mdct12_f64, "double *d_6, double *s_12");
+/**
+ * oil_imdct12_f64:
+ * @d_12:
+ * @s_6:
+ *
+ * Performs a Inverse Modified Discrete Cosine Transform (IMDCT)
+ * on the source array @s_6 and places the result in @d_12.
+ */
 OIL_DEFINE_CLASS (imdct12_f64, "double *d_12, double *s_6");
+/**
+ * oil_mdct36_f64:
+ * @d_18:
+ * @s_36:
+ *
+ * Performs a Modified Discrete Cosine Transform (MDCT)
+ * on the source array @s_36 and places the result in @d_18.
+ */
 OIL_DEFINE_CLASS (mdct36_f64, "double *d_18, double *s_36");
+/**
+ * oil_imdct36_f64:
+ * @d_36:
+ * @s_18:
+ *
+ * Performs a Inverse Modified Discrete Cosine Transform (IMDCT)
+ * on the source array @s_18 and places the result in @d_36.
+ */
 OIL_DEFINE_CLASS (imdct36_f64, "double *d_36, double *s_18");
 
 static void

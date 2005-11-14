@@ -33,7 +33,13 @@
 #define OIL_PROFILE_HIST_LENGTH 10
 
 typedef struct _OilProfile OilProfile;
+/**
+ * OilProfile:
+ *
+ * An opaque structure representing profiling information.
+ */
 struct _OilProfile {
+  /*< private >*/
   unsigned long start;
   unsigned long stop;
   unsigned long min;
@@ -46,6 +52,14 @@ struct _OilProfile {
   int hist_count[OIL_PROFILE_HIST_LENGTH];
 };
 
+/**
+ * oil_profile_stamp:
+ *
+ * Creates a timestamp based on a CPU-specific high-frequency
+ * counter, if available.
+ *
+ * Returns: a timestamp
+ */
 #if defined(__i386__)
 
 static inline unsigned long oil_profile_stamp(void)
@@ -139,9 +153,24 @@ void oil_profile_init(OilProfile *prof);
 void oil_profile_stop_handle(OilProfile *prof);
 void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
 
+/**
+ * oil_profile_start:
+ * @x: a pointer to an OilProfile structure
+ *
+ * Starts a profiling run by obtaining a timestamp via @oil_profile_stamp()
+ * and writing it into @x.
+ */
 #define oil_profile_start(x) do{ \
 	(x)->start = oil_profile_stamp(); \
 }while(0)
+/**
+ * oil_profile_stop:
+ * @x: a pointer to an OilProfile structure
+ *
+ * Stops a profiling run by obtaining a timestamp via @oil_profile_stamp()
+ * and writing it into @x.  It then calls @oil_profile_stop_handle() to
+ * handle post-processing of the profiling run.
+ */
 #define oil_profile_stop(x) do{ \
 	(x)->stop = oil_profile_stamp(); \
         oil_profile_stop_handle(x); \

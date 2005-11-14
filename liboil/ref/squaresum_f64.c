@@ -34,7 +34,16 @@
 #include <math.h>
 
 
-OIL_DEFINE_CLASS (squaresum_f64, "double *dest, double *src, int n");
+/**
+ * oil_squaresum_f64:
+ * @d:
+ * @s:
+ * @n:
+ *
+ * Sums the square of each element in @s and places the result in
+ * @dest.
+ */
+OIL_DEFINE_CLASS (squaresum_f64, "double *d, double *s, int n");
 
 static void
 squaresum_f64_ref(double *dest, double *src, int n)

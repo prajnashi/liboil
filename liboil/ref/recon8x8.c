@@ -34,10 +34,44 @@
 #include <liboil/liboilcolorspace.h>
 
 
+/**
+ * oil_recon8x8_intra:
+ * @d_8x8:
+ * @ds:
+ * @s_8x8:
+ *
+ * Adds 128 to each value in the source array, clamps to the range [0,255],
+ * and places the result in the destination array.
+ */
 OIL_DEFINE_CLASS (recon8x8_intra,
     "uint8_t *d_8x8, int ds, int16_t *s_8x8");
+/**
+ * oil_recon8x8_inter:
+ * @d_8x8:
+ * @ds:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ *
+ * Adds each element in @s1_8x8 and @s2_8x8, clamps to the range [0,255],
+ * and places the result in the destination array.
+ */
 OIL_DEFINE_CLASS (recon8x8_inter,
     "uint8_t *d_8x8, int ds, uint8_t *s1_8x8, int ss1, int16_t *s2_8x8");
+/**
+ * oil_recon8x8_inter2:
+ * @d_8x8:
+ * @ds:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ * @s3_8x8:
+ *
+ * Adds each element in @s1_8x8 and @s2_8x8, divides by 2, and adds
+ * to @s3_8x8, clamps to the range [0,255], and places the result in
+ * the destination array.
+ */
 OIL_DEFINE_CLASS (recon8x8_inter2,
     "uint8_t *d_8x8, int ds, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2, int16_t *s3_8x8");
 

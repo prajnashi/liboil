@@ -32,6 +32,12 @@
 #include <liboil/liboilparameter.h>
 
 typedef struct _OilPrototype OilPrototype;
+/**
+ * OilPrototype:
+ *
+ * An opaque structure describing the C function prototype of
+ * an @OilFunctionClass.
+ */
 struct _OilPrototype {
   int n_params;
   OilParameter *params;

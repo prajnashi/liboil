@@ -44,18 +44,138 @@ static void scalarmult_ ## type ## _ref(	\
   }						\
 }						\
 OIL_DEFINE_CLASS(scalarmult_ ## type,           \
-    "type_" #type " *dest, int dstr, "          \
-    "type_" #type " *src, int sstr, "           \
+    "type_" #type " *d, int dstr, "          \
+    "type_" #type " *s1, int sstr, "           \
     "type_" #type " *s2_1, int n");            \
 OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
 
 
+/**
+ * oil_scalarmult_s8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (s8);
+/**
+ * oil_scalarmult_u8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (u8);
+/**
+ * oil_scalarmult_s16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (s16);
+/**
+ * oil_scalarmult_u16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (u16);
+/**
+ * oil_scalarmult_s32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (s32);
+/**
+ * oil_scalarmult_u32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (u32);
+/**
+ * oil_scalarmult_f32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (f32);
+/**
+ * oil_scalarmult_f64:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Multiplies the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARMULT_DEFINE_REF (f64);
 

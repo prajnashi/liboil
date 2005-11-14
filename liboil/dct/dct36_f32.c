@@ -32,6 +32,15 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/dct/dct.h>
 
+/**
+ * oil_dct36_f32:
+ * @d_36:
+ * @dstr:
+ * @s_36:
+ * @sstr:
+ *
+ * FIXME: This function is broken.
+ */
 OIL_DEFINE_CLASS(dct36_f32, "float *d_36, int dstr, float *s_36, int sstr");
 
 static void

@@ -33,6 +33,15 @@
 #include <liboil/dct/dct.h>
 #include <math.h>
 
+
+/**
+ * oil_imdct32_f32:
+ * @d_32:
+ * @s_32:
+ *
+ * Performs a Inverse Modified Discrete Cosine Transform (IMDCT)
+ * on the source array @s_32 and places the result in @d_32.
+ */
 OIL_DEFINE_CLASS (imdct32_f32, "float *d_32, float *s_32");
 
 static void imdct32_f32_ref (float *dest, float *src)

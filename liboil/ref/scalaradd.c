@@ -45,19 +45,139 @@ static void scalaradd_ ## type ## _ref(		\
   }						\
 }						\
 OIL_DEFINE_CLASS (scalaradd_ ## type,         \
-    "type_" #type " *dest, int dstr, "		\
-    "type_" #type " *src, int sstr, "		\
+    "type_" #type " *d, int dstr, "		\
+    "type_" #type " *s1, int sstr, "		\
     "type_" #type " *s2_1 int n");		\
 OIL_DEFINE_IMPL_REF (scalaradd_ ## type ## _ref, scalaradd_ ## type);
 
 
+/**
+ * oil_scalaradd_s8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (s8);
+/**
+ * oil_scalaradd_u8:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (u8);
+/**
+ * oil_scalaradd_s16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (s16);
+/**
+ * oil_scalaradd_u16:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (u16);
+/**
+ * oil_scalaradd_s32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (s32);
+/**
+ * oil_scalaradd_u32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (u32);
+/**
+ * oil_scalaradd_f32:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (f32);
+/**
+ * oil_scalaradd_f64:
+ * @d:
+ * @dstr:
+ * @s1:
+ * @sstr:
+ * @s2_1:
+ * @n:
+ *
+ * Adds the constant value @s2_1 to each value in @s1 and places the
+ * result in @d.
+ *
+ * FIXME: This function is difficult to optimize and will likely be
+ * replaced.
+ */
 SCALARADD_DEFINE_REF (f64);
 
 

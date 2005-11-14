@@ -22,18 +22,6 @@ liboiltest
 
 </para>
 
-@klass: 
-@impl: 
-@proto: 
-@params: 
-@prof: 
-@iterations: 
-@n: 
-@m: 
-@inited: 
-@tested_ref: 
-@sum_abs_diff: 
-@n_points: 
 
 <!-- ##### MACRO OIL_TEST_HEADER ##### -->
 <para>

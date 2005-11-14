@@ -33,7 +33,18 @@
 
 #include "jpeg.h"
 
-OIL_DEFINE_CLASS (scanlinescale2_u8, "uint8_t *dest, uint8_t *src, int n");
+/**
+ * oil_scanlinescale2_u8:
+ * @d: destination array
+ * @s: source array
+ * @n: number of elements
+ *
+ * Upsamples the source array by a factor of two.  That is, if the
+ * values in @s are A,B,C,D,E, the values written to @d are
+ * A,A,B,B,C,C,D,D,E,E.  Note that @n is the number of elements
+ * written to @d, and that half of @s is not used.
+ */
+OIL_DEFINE_CLASS (scanlinescale2_u8, "uint8_t *d, uint8_t *s, int n");
 
 static void
 scanlinescale2_u8_ref (uint8_t *dest, uint8_t *src, int n)

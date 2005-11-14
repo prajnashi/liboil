@@ -31,6 +31,19 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_tablelookup_u8:
+ * @d:
+ * @ds:
+ * @s1:
+ * @ss1:
+ * @s2_256:
+ * @ss2:
+ * @n:
+ *
+ * Looks up each element in @s1 using the lookup table in @s2_256,
+ * and places the table value in @d.
+ */
 OIL_DEFINE_CLASS (tablelookup_u8,
     "uint8_t *d, int ds, uint8_t *s1, int ss1, "
     "uint8_t *s2_256, int ss2, int n");

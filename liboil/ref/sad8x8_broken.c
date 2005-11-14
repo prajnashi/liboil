@@ -34,8 +34,34 @@
 #include <math.h>
 
 
+/**
+ * oil_sad8x8_s16:
+ * @d_8x8:
+ * @ds:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * FIXME: This function is broken and has been replaced by
+ * @oil_sad8x8_s16_2() because the destination of this function
+ * is an 8x8 block instead of a single value.
+ */
 OIL_DEFINE_CLASS (sad8x8_s16,
     "uint32_t *d_8x8, int ds, int16_t *s1_8x8, int ss1, int16_t *s2_8x8, int ss2");
+/**
+ * oil_sad8x8_f64:
+ * @d_8x8:
+ * @ds:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8x8:
+ * @ss2:
+ *
+ * FIXME: This function is broken and has been replaced by
+ * @oil_sad8x8_f64_2() because the destination of this function
+ * is an 8x8 block instead of a single value.
+ */
 OIL_DEFINE_CLASS (sad8x8_f64,
     "double *d_8x8, int ds, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
 

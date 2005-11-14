@@ -36,8 +36,32 @@
 #define ABS(x) ((x)>0 ? (x) : -(x))
 #define DSP_OP_ABS_DIFF(a,b) ABS((((int)(a)) - ((int)(b))))
 
+/**
+ * oil_rowsad8x8_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @s2_8x8:
+ *
+ * Calculates the sum of absolute differences between @s1_8x8 and @s1_8s8
+ * for the first 4 elements of the first row, and the sum of absolute
+ * differences for the last 4 elements of the first row, and places the
+ * maximum of those values in @dest.
+ *
+ * FIXME: This function is declared incorrectly.
+ */
 OIL_DEFINE_CLASS (rowsad8x8_u8,
     "uint32_t *d_1, uint8_t *s1_8x8, uint8_t *s2_8x8");
+/**
+ * oil_colsad8x8_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @s2_8x8:
+ *
+ * Divides the 8x8 block into 16 1x4 regions, and calculates the
+ * sum of absolute differences between @s1_8x8 and @s2_8x8 for
+ * each region.  The maximum of the results in each region is
+ * placed in @d_1.
+ */
 OIL_DEFINE_CLASS (colsad8x8_u8,
     "uint32_t *d_1, uint8_t *s1_8x8, int ss1, uint8_t *s2_8x8, int ss2");
 

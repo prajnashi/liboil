@@ -81,30 +81,115 @@ CLIP_DEFINE_REF (f32);
 CLIP_DEFINE_REF (f64);
 
 
+/**
+ * oil_clip_s8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
 
-#if 0
-#ifdef HAVE_CPU_POWERPC
-static void
-clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
-{
-	f64 ftmp;
+/**
+ * oil_clip_u8:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
 
-	dest--;
-	src--;
-	__asm__ __volatile__("\n"
-		"1:	lfdu 0,8(%1)\n"
-		"	addic. %2,%2,-1\n"
-		"	fsub 1,0,%3\n"
-		"	fsel 0,1,0,%3\n"
-		"	fsub 1,0,%4\n"
-		"	fsel 0,1,%4,0\n"
-		"	stfdu 0,8(%0)\n"
-		"	bge 1b\n"
-	: "+b" (dest), "+b" (src), "+r" (n)
-	: "f" (low), "f" (hi), "b" (&ftmp)
-	: "32", "33", "11" );
-}
-#endif
-#endif
+/**
+ * oil_clip_s16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
 
+/**
+ * oil_clip_u16:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
+
+/**
+ * oil_clip_s32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
+
+/**
+ * oil_clip_u32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
+
+/**
+ * oil_clip_f32:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
+
+/**
+ * oil_clip_f64:
+ * @dest:
+ * @dstr:
+ * @src:
+ * @sstr:
+ * @n:
+ * @s2_1:
+ * @s3_1:
+ *
+ * Clips each value in @src to the range [@s2_1,@s3_1] and places
+ * the result in @dest.
+ */
 

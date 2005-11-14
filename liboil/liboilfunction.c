@@ -36,6 +36,57 @@
 #include <string.h>
 #include <stdlib.h>
 
+/**
+ * SECTION:liboilfunction
+ * @short_description:
+ * Functions for manipulating function classes and implementations.
+ */
+
+/**
+ * liboilfunction:long_description:
+ *
+ * <para>
+ * Functions operate on arrays of data.  The arrays can be either source
+ * arrays (input only), destination arrays (output only), or in-place
+ * arrays (both input and output).
+ * </para>
+ *
+ * <para>
+ * The interpretation of a parameter can usually be determined from its
+ * name.  Parameters for arrays are of the form d1_1xn, where the first
+ * character represents the direction (source, destination, or in-place),
+ * the second represents the index for that particular direction, and
+ * the characters after the underscore indicate the size of the array.
+ * In this case, "1xn" represents an array that is 1 by N.  Note that
+ * the index and the size can both be omitted, giving a default of 1
+ * for the index and 1xn for the size.
+ * </para>
+ *
+ * <para>
+ * Parameters that represent strides are of the form "d1s".  The
+ * interpretation is similar to above, except that the s indicates
+ * a stride parameter.
+ * </para>
+ *
+ * <para>
+ * The exceptions to the above rule are "dest", "src", "dstr", "sstr", etc.
+ * These are aliases for "d1", "s1", "d1s", and "s1s", respectively.  This
+ * form is deprecated and will be removed in the 0.4 series.
+ * </para>
+ *
+ * <para>
+ * Two special parameters are "n" and "m", which determine the size of
+ * the arrays in other parameters.
+ * </para>
+ *
+ * <para>
+ * Data arrays are laid out such that rows are separated by the number
+ * of bytes given by the corresponding stride.  Elements in each row
+ * are contiguous.  If there is no stride parameter corresponding to an
+ * array, the rows of the array are contiguous.
+ * </para>
+ */
+
 extern OilFunctionClass *_oil_function_class_array[];
 extern OilFunctionImpl *_oil_function_impl_array[];
 
@@ -151,6 +202,8 @@ oil_optimize (const char *class_name)
 
 /**
  * oil_class_get_n_classes:
+ *
+ * Returns the number of function classes.
  *
  * Returns: the number of function classes
  */

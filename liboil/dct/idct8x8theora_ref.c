@@ -68,7 +68,27 @@ idct8x8theora_s16_test (OilTest *test)
 
 }
 
+/**
+ * oil_idct8theora_s16:
+ * @d_8:
+ * @dstr:
+ * @s_8:
+ * @sstr:
+ *
+ * Performs a Inverse Discrete Cosine Transform on @s_8 and places
+ * the result in @d_8, as defined by the Theora specification.
+ */
 OIL_DEFINE_CLASS_FULL (idct8theora_s16, "int16_t *d_8, int dstr, int16_t *s_8, int sstr", idct8theora_s16_test);
+/**
+ * oil_idct8x8theora_s16:
+ * @d_8x8:
+ * @dstr:
+ * @s_8x8:
+ * @sstr:
+ *
+ * Performs a Inverse Discrete Cosine Transform on @s_8x8 and places
+ * the result in @d_8x8, as defined by the Theora specification.
+ */
 OIL_DEFINE_CLASS_FULL (idct8x8theora_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr", idct8x8theora_s16_test);
 
 

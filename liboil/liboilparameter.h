@@ -30,6 +30,11 @@
 
 #include <liboil/liboiltypes.h>
 
+/**
+ * OilType:
+ *
+ * Enumeration containing the data types understood by Liboil.
+ */
 typedef enum {
   OIL_TYPE_UNKNOWN = 0,
   OIL_TYPE_INT,
@@ -55,6 +60,12 @@ typedef enum {
   OIL_TYPE_f64p,
 } OilType;
 
+/**
+ * OilArgType:
+ *
+ * Enumeration containing the types of parameter types understood
+ * by Liboil.
+ */
 typedef enum {
   OIL_ARG_UNKNOWN = 0,
   OIL_ARG_N,
@@ -81,7 +92,14 @@ typedef enum {
   OIL_ARG_LAST
 } OilArgType;
 
+/**
+ * OilParameter:
+ * 
+ * An opaque structure representing a single parameter in the
+ * function prototype of an OilFunctionClass.
+ */
 struct _OilParameter {
+  /*< private >*/
   char *type_name;
   char *parameter_name;
 

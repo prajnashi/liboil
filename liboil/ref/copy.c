@@ -33,6 +33,14 @@
 
 #include <liboil/liboilfunction.h>
 
+/**
+ * oil_copy_u8:
+ * @dest: destination array
+ * @src: source array
+ * @n: number of elements
+ *
+ * Copies from source to destination.
+ */
 OIL_DEFINE_CLASS (copy_u8, "uint8_t *dest, uint8_t *src, int n");
 
 static void

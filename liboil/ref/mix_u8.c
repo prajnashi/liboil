@@ -33,6 +33,19 @@
 #include <liboil/simdpack/simdpack.h>
 #include <math.h>
 
+/**
+ * oil_mix_u8:
+ * @dest: DEST
+ * @src1: SRC1
+ * @src2: SRC2
+ * @src3: MASK
+ * @n:
+ *
+ * Performs the compisiting operation DEST = (SRC2 IN MASK) OVER SRC1,
+ * except it is done incorrectly, so this function should not be used.
+ *
+ * FIXME: This function is broken.
+ */
 OIL_DEFINE_CLASS (mix_u8,
     "uint8_t *dest, uint8_t *src1, uint8_t *src2, uint8_t *src3, int n");
 
