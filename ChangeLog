@@ -1,3 +1,9 @@
+2005-11-16  David Schleef  <ds@schleef.org>
+
+	* liboil/copy/copy.c: (copy_u8_llints), (copy_u8_llints_duff):
+	* liboil/copy/copy8x8.c: (copy8x8_u8_ints_unrolled):
+	  Some implementations from Adam Moss
+
 2005-11-14  David Schleef  <ds@schleef.org>
 
 	* configure.ac: return version to nano=1

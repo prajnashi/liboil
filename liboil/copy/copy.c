@@ -67,3 +67,60 @@ copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
 
+/* Submitted by Adam Moss */
+static void
+copy_u8_llints (uint8_t *dest, uint8_t *src, int n)
+{
+  int i;
+  for(i=0;i<(n&7);i++){
+    *dest++ = *src++;
+  }
+  n >>= 3;
+  for(i=0;i<n;i++){
+    *(uint64_t *)dest = *(uint64_t *)src;
+    dest += 8;
+    src += 8;
+  }
+}
+OIL_DEFINE_IMPL (copy_u8_llints, copy_u8);
+
+/* Submitted by Adam Moss */
+static void
+copy_u8_llints_duff (uint8_t *dest, uint8_t *src, int n)
+{
+  switch(n&7) {
+  case 7: *dest++ = *src++;
+  case 6: *dest++ = *src++;
+  case 5: *dest++ = *src++;
+  case 4: *dest++ = *src++;
+  case 3: *dest++ = *src++;
+  case 2: *dest++ = *src++;
+  case 1: *dest++ = *src++;
+  default: ;
+  }
+  n >>= 3;
+  while (n) {
+    switch (n & 15) {
+    default:
+    case 0: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 15: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 14: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 13: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 12: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 11: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 10: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 9: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 8: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 7: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 6: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 5: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 4: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 3: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 2: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    case 1: *(uint64_t *)dest = *(uint64_t *)src; dest += 8; src += 8;
+    }
+    n = (n - 1) & ~(int)15;
+  }
+}
+OIL_DEFINE_IMPL (copy_u8_llints_duff, copy_u8);
+
