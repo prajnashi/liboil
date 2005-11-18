@@ -36,6 +36,7 @@
 #include <liboil/liboilclasses.h>
 
 
+#if 0
 static void
 add_f32_unroll4 (float *dest, float *src1, float *src2, int n)
 {
@@ -52,7 +53,9 @@ add_f32_unroll4 (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL (add_f32_unroll4, add_f32);
+#endif
 
+#if 0
 static void
 add_f32_unroll4b (float *dest, float *src1, float *src2, int n)
 {
@@ -69,8 +72,10 @@ add_f32_unroll4b (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL (add_f32_unroll4b, add_f32);
+#endif
 
 
+#if 0
 static void
 multiply_f32_unroll4 (float *dest, float *src1, float *src2, int n)
 {
@@ -87,6 +92,7 @@ multiply_f32_unroll4 (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL (multiply_f32_unroll4, multiply_f32);
+#endif
 
 static void
 scalaradd_f32_ns_unroll4 (float *dest, float *src1, float *src2, int n)
