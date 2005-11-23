@@ -190,6 +190,8 @@ AC_CONFIG_FILES([
 Makefile 
 doc/Makefile
 liboil/Makefile
+liboil/3dnow/Makefile
+liboil/c/Makefile
 liboil/colorspace/Makefile
 liboil/conv/Makefile
 liboil/copy/Makefile
@@ -199,6 +201,7 @@ liboil/i386/Makefile
 liboil/jpeg/Makefile
 liboil/math/Makefile
 liboil/md5/Makefile
+liboil/mmx/Makefile
 liboil/motovec/Makefile
 liboil/powerpc/Makefile
 liboil/powerpc_asm_blocks/Makefile

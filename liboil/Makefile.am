@@ -8,9 +8,17 @@ if HAVE_MMX_INTRINSICS
 subdir_i386 += fb
 libs_i386 += fb/libfb.la
 endif
+if HAVE_MMX_INTRINSICS
+#subdir_i386 += mmx
+#libs_i386 += mmx/libmmx.la
+endif
 if HAVE_SSE_INTRINSICS
 subdir_i386 += sse
 libs_i386 += sse/libsse.la
+endif
+if HAVE_3DNOW_INTRINSICS
+#subdir_i386 += 3dnow
+#libs_i386 += 3dnow/lib3dnow.la
 endif
 else
 subdir_i386 =
@@ -30,8 +38,8 @@ libs_powerpc =
 endif
 
 
-DIST_SUBDIRS = colorspace conv copy dct fb i386 jpeg math md5 motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
-SUBDIRS = colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
+DIST_SUBDIRS = 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
+SUBDIRS = c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 
