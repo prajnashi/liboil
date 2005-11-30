@@ -365,6 +365,7 @@ oil_vectoradd_s_u16
 oil_vectoradd_s_f32
 oil_vectoradd_s_f64
 oil_squaresum_f64
+oil_squaresum_shifted_s16
 oil_sum_f64
 oil_add_f32
 oil_divide_f32

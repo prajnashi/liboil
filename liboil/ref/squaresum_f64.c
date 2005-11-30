@@ -65,3 +65,30 @@ squaresum_f64_ref(double *dest, double *src, int n)
 }
 OIL_DEFINE_IMPL_REF (squaresum_f64_ref, squaresum_f64);
 
+/**
+ * oil_squaresum_shifted_s16:
+ * @d:
+ * @s:
+ * @n:
+ *
+ * Square each element in @s and divide by (1<<15), and sum the
+ * results, placing the final result in @d.
+ */
+OIL_DEFINE_CLASS (squaresum_shifted_s16, "uint32_t *d, int16_t *s, int n");
+
+static void
+squaresum_shifted_s16_ref(uint32_t *dest, int16_t *src, int n)
+{
+	uint32_t sum2 = 0;
+        uint32_t x;
+	int i;
+
+	for(i=0;i<n;i++){
+		x = (src[i]*src[i] + (1<<14)) >> 15;
+		sum2 += x;
+	}
+
+	*dest = sum2;
+}
+OIL_DEFINE_IMPL_REF (squaresum_shifted_s16_ref, squaresum_shifted_s16);
+

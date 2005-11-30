@@ -741,6 +741,9 @@ typedef void (*_oil_type_splat_u8_ns)(uint8_t * dest, const uint8_t * s1_1, int 
 extern OilFunctionClass *oil_function_class_ptr_squaresum_f64;
 typedef void (*_oil_type_squaresum_f64)(double * d, const double * s, int n);
 #define oil_squaresum_f64 ((_oil_type_squaresum_f64)(*(void **)oil_function_class_ptr_squaresum_f64))
+extern OilFunctionClass *oil_function_class_ptr_squaresum_shifted_s16;
+typedef void (*_oil_type_squaresum_shifted_s16)(uint32_t * d, const int16_t * s, int n);
+#define oil_squaresum_shifted_s16 ((_oil_type_squaresum_shifted_s16)(*(void **)oil_function_class_ptr_squaresum_shifted_s16))
 extern OilFunctionClass *oil_function_class_ptr_subtract_f32;
 typedef void (*_oil_type_subtract_f32)(float * d, const float * s1, const float * s2, int n);
 #define oil_subtract_f32 ((_oil_type_subtract_f32)(*(void **)oil_function_class_ptr_subtract_f32))

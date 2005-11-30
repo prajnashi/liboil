@@ -271,6 +271,7 @@ OIL_DECLARE_CLASS(splat_u32_ns);
 OIL_DECLARE_CLASS(splat_u8);
 OIL_DECLARE_CLASS(splat_u8_ns);
 OIL_DECLARE_CLASS(squaresum_f64);
+OIL_DECLARE_CLASS(squaresum_shifted_s16);
 OIL_DECLARE_CLASS(subtract_f32);
 OIL_DECLARE_CLASS(sum_f64);
 OIL_DECLARE_CLASS(tablelookup_u8);

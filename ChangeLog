@@ -1,3 +1,12 @@
+2005-11-30  David Schleef  <ds@schleef.org>
+
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboilfuncs-math.sgml:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs.h:
+	* liboil/ref/squaresum_f64.c: (squaresum_shifted_s16_ref):
+	  New class for thomasvs.
+
 2005-11-23  David Schleef  <ds@schleef.org>
 
 	* configure.ac:
