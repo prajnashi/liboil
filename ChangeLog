@@ -1,3 +1,22 @@
+2005-12-04  David Schleef  <ds@schleef.org>
+
+	* doc/Makefile.am:
+	  Add a sync target to encourage me to upload docs.
+	* examples/Makefile.am:
+	* examples/oil-graph.c: (test), (main):
+	  New program to print out time v. N results easily graphable.
+	* liboil/liboilfunction.c: (oil_class_optimize):
+	* liboil/liboiltest.c: (oil_test_check_function),
+	(oil_test_check_impl):
+	* liboil/liboiltest.h:
+	  Add ave/std members to OilProfile and use them.
+	* liboil/fb/fbmmx.c:
+	  This requires MMXEXT.
+	* testsuite/instruction/check-instructions.pl:
+	  Fix regexp.
+	* testsuite/instruction/list-impls.c: (main):
+	  Architecture test switched to HAVE_GCC_I386.
+
 2005-11-30  David Schleef  <ds@schleef.org>
 
 	* doc/liboil-sections.txt:

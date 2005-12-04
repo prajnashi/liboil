@@ -1,12 +1,16 @@
 
 SUBDIRS = jpeg md5 uberopt work huffman taylor
 
-noinst_PROGRAMS = example1 oil-inspect oil-test report memcpy-speed
+noinst_PROGRAMS = example1 oil-graph oil-inspect oil-test report memcpy-speed
 
 
 example1_SOURCES = example1.c
 example1_CFLAGS = $(LIBOIL_CFLAGS)
 example1_LDADD = $(LIBOIL_LIBS)
+
+oil_graph_SOURCES = oil-graph.c
+oil_graph_CFLAGS = $(LIBOIL_CFLAGS)
+oil_graph_LDADD = $(LIBOIL_LIBS)
 
 oil_inspect_SOURCES = oil-inspect.c
 oil_inspect_CFLAGS = $(LIBOIL_CFLAGS)

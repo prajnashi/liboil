@@ -31,51 +31,80 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <liboil/liboilcpu.h>
 #include <liboil/liboiltest.h>
-
-#include <stdio.h>
-#include <stdlib.h>
+#include <liboil/liboilrandom.h>
+#include <liboil/liboilcpu.h>
 #include <string.h>
-#include <stdarg.h>
+#include <math.h>
+#include <stdio.h>
 
-int
-main (int argc, char *argv[])
+void register_impls(void);
+
+void test(void)
 {
-  int n;
+  int32_t dest[1];
+  uint8_t src[100];
   int i;
 
-  oil_init();
+  for(i=0;i<100;i++){
+    src[i] = oil_rand_u8() & 0x7f;
+  }
+  dest[0] = 0;
 
-  n = oil_class_get_n_classes ();
-  for (i = 0; i < n; i++){
-    OilFunctionClass *klass = oil_class_get_by_index (i);
-    OilFunctionImpl *impl;
-    
+  oil_utf8_validate (dest, src, 100);
+
+#if 0
+  for(i=0;i<100;i++){
+    printf("%d %d\n",dest[i],src[i]);
+  }
+#endif
+  printf("%d\n", dest[0]);
+
+}
+
+int main (int argc, char *argv[])
+{
+  OilFunctionClass *klass;
+  OilFunctionImpl *impl;
+  OilTest *test;
+  double ave, std;
+  int n;
+
+  oil_init ();
+
+  if (argc < 2) {
+    printf("oil-test <class_name>\n");
+    exit(0);
+  }
+
+  klass = oil_class_get (argv[1]);
+  if (klass == NULL) {
+    printf("class not found: %s\n", argv[1]);
+    exit(0);
+  }
+  oil_class_optimize (klass);
+
+  for (n = 0; n < 200; n+=1) {
+    printf("%d", n);
+
+    test = oil_test_new(klass);
+    oil_test_set_iterations(test, 10);
+    test->n = n;
+    test->m = 10;
+
+    impl = klass->reference_impl;
+    ave = impl->profile_ave;
+    std = impl->profile_std;
+    oil_test_check_impl (test, impl);
+
     for (impl = klass->first_impl; impl; impl = impl->next) {
-      printf("%s:", impl->name);
-#ifdef HAVE_GCC_I386
-      if (impl->flags & OIL_IMPL_FLAG_3DNOW) 
-        printf(" 3dnow");
-      if (impl->flags & OIL_IMPL_FLAG_3DNOWEXT) 
-        printf(" 3dnowext");
-      if (impl->flags & OIL_IMPL_FLAG_CMOV) 
-        printf(" cmov");
-      if (impl->flags & OIL_IMPL_FLAG_MMX) 
-        printf(" mmx");
-      if (impl->flags & OIL_IMPL_FLAG_MMXEXT) 
-        printf(" mmxext");
-      if (impl->flags & OIL_IMPL_FLAG_SSE) 
-        printf(" sse");
-      if (impl->flags & OIL_IMPL_FLAG_SSE2) 
-        printf(" sse2");
-#endif
-#ifdef HAVE_GCC_PPC
-      if (impl->flags & OIL_IMPL_FLAG_ALTIVEC) 
-        printf(" altivec");
-#endif
-      printf("\n");
+      if (oil_impl_is_runnable (impl)) {
+        oil_test_check_impl (test, impl);
+        //printf(" %g %g", test->profile_ave, test->profile_std);
+        printf(" %g", test->profile_ave);
+      }
     }
+    printf("\n");
   }
 
   return 0;

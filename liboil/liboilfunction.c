@@ -370,6 +370,8 @@ oil_class_optimize (OilFunctionClass * klass)
 
     ret = oil_test_check_impl (test, impl);
     if (ret) {
+      impl->profile_ave = test->profile_ave;
+      impl->profile_std = test->profile_std;
       OIL_LOG ("impl %s ave=%g std=%g", impl->name, impl->profile_ave,
           impl->profile_std);
       if (min_impl == NULL) {

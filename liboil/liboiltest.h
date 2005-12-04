@@ -55,6 +55,9 @@ struct _OilTest {
 
   double sum_abs_diff;
   int n_points;
+
+  double profile_ave;
+  double profile_std;
 };
 
 /**

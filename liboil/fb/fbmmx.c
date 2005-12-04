@@ -932,7 +932,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
     _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL(fbCompositeSolid_nx8888mmx, composite_over_argb_const_src,
-    OIL_IMPL_FLAG_MMX);
+    OIL_IMPL_FLAG_MMX| OIL_IMPL_FLAG_MMXEXT);
 
 #if 0
 void

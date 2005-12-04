@@ -512,7 +512,7 @@ $error = 0;
 @insns = ();
 while($_=shift @output){
 	chomp;
-	if(m/^0[0-9a-fA-F]+\s<[\.\w]+>:$/){
+	if(m/^0[0-9a-fA-F]+\s<[\.\w@]+>:$/){
 		$f = $_;
 		$f =~ s/^0[0-9a-fA-F]+\s<([\.\w]+)>:$/$1/;
 

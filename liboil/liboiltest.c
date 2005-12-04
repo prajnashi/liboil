@@ -237,8 +237,8 @@ oil_test_check_function (void * priv)
         pointer_mask, &test->prof);
   }
 
-  oil_profile_get_ave_std (&test->prof, &test->impl->profile_ave,
-      &test->impl->profile_std);
+  oil_profile_get_ave_std (&test->prof, &test->profile_ave,
+      &test->profile_std);
 }
 
 /**
@@ -323,8 +323,8 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   ret = oil_cpu_fault_check_try (oil_test_check_function, test);
   if (!ret) {
     OIL_ERROR ("illegal instruction in %s", test->impl->name);
-    test->impl->profile_ave = 0;
-    test->impl->profile_std = 0;
+    test->profile_ave = 0;
+    test->profile_std = 0;
 
     return 0;
   }
