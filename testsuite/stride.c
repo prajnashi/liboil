@@ -54,7 +54,7 @@ int main (int argc, char *argv[])
   int ret;
   unsigned int cpu_flags;
 
-  if (argc > 1 && strcmp(argv[2],"-v") == 0) {
+  if (argc > 1 && strcmp(argv[1],"-v") == 0) {
     verbose = 1;
   }
 

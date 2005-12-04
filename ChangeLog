@@ -1,5 +1,9 @@
 2005-12-04  David Schleef  <ds@schleef.org>
 
+	* testsuite/stride.c: (main):  Fix crash with -v. (Fixes: #5162)
+
+2005-12-04  David Schleef  <ds@schleef.org>
+
 	* configure.ac:
 	* m4/as-gcc-inline-assembly.m4:
 	* liboil/powerpc/clip.c:
