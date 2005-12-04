@@ -1,5 +1,14 @@
 2005-12-04  David Schleef  <ds@schleef.org>
 
+	* configure.ac:
+	* m4/as-gcc-inline-assembly.m4:
+	* liboil/powerpc/clip.c:
+	* liboil/powerpc/conv.c:
+	  Add HAVE_GCC_ASM_POWERPC_FPU and use it if -fsoft-float is
+	  specified.
+
+2005-12-04  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am:
 	* liboil/c/Makefile.am:
 	* liboil/c/swab.c:

@@ -129,6 +129,7 @@ OIL_DEFINE_IMPL_ASM (clip_s16_ppcasm3, clip_s16);
 #endif
 
 
+#ifdef HAVE_GCC_ASM_POWERPC_FPU
 #ifdef ENABLE_BROKEN_IMPLS
 static void
 clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
@@ -150,6 +151,7 @@ clip_f64_ppcasm(f64 *dest, f64 *src, f64 low, f64 hi, int n)
 	: "f" (low), "f" (hi), "b" (&ftmp)
 	: "32", "33", "11" );
 }
+#endif
 #endif
 
 

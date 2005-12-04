@@ -29,20 +29,8 @@
 #include "config.h"
 #endif
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilclasses.h>
 
-/* FIXME move these to a header */
-OIL_DECLARE_CLASS(clipconv_s8_f32);
-OIL_DECLARE_CLASS(clipconv_u8_f32);
-OIL_DECLARE_CLASS(clipconv_s16_f32);
-OIL_DECLARE_CLASS(clipconv_u16_f32);
-OIL_DECLARE_CLASS(clipconv_s32_f32);
-OIL_DECLARE_CLASS(clipconv_u32_f32);
-OIL_DECLARE_CLASS(clipconv_s8_f64);
-OIL_DECLARE_CLASS(clipconv_u8_f64);
-OIL_DECLARE_CLASS(clipconv_s16_f64);
-OIL_DECLARE_CLASS(clipconv_u16_f64);
-OIL_DECLARE_CLASS(clipconv_s32_f64);
-OIL_DECLARE_CLASS(clipconv_u32_f64);
 
 #define DEFINE_CLIPCONVERT_POWERPC(dsttype,srctype,minval,maxval,insn1,insn2)					\
 void clipconv_##dsttype##_##srctype##_powerpc(type_##dsttype *dst,	\
@@ -86,6 +74,7 @@ OIL_DEFINE_IMPL_ASM(clipconv_##dsttype##_##srctype##_powerpc, \
 		"	lwz r11,4(%5)		\n" \
 		"	stwux r11,%0,%7		\n"
 
+#ifdef HAVE_GCC_ASM_POWERPC_FPU
 DEFINE_CLIPCONVERT_POWERPC(s8,f32, -128.0, 127.0, LFSUX, LBZ_STBUX)
 DEFINE_CLIPCONVERT_POWERPC(u8,f32, 0.0, 255.0, LFSUX, LBZ_STBUX)
 DEFINE_CLIPCONVERT_POWERPC(s16,f32, -32768.0, 32767.0, LFSUX, LHZ_STHUX)
@@ -99,6 +88,7 @@ DEFINE_CLIPCONVERT_POWERPC(s16,f64, -32768.0, 32767.0, LFDUX, LHZ_STHUX)
 DEFINE_CLIPCONVERT_POWERPC(u16,f64, 0.0, 65535.0, LFDUX, LHZ_STHUX)
 DEFINE_CLIPCONVERT_POWERPC(s32,f64, -2147483648.0, 2147483647.0, LFDUX, LWZ_STWUX)
 DEFINE_CLIPCONVERT_POWERPC(u32,f64, 0.0, 4294967295.0, LFDUX, LWZ_STWUX)
+#endif
 
 
 #if 0
@@ -325,6 +315,7 @@ OIL_DEFINE_IMPL_ASM (conv_f64_s16_altivec, conv_f64_s16);
 
 /* FIXME wrong prototype */
 #if 0
+#ifdef HAVE_GCC_ASM_POWERPC_FPU
 void clipconv_s16_f64_ppcasm(short *dest, double *src, int n)
 {
 	int tmp[2];
@@ -358,6 +349,7 @@ void clipconv_s16_f64_ppcasm(short *dest, double *src, int n)
 	  "r5" );
 }
 OIL_DEFINE_IMPL_ASM (clipconv_s16_f64_ppcasm, clipconv_s16_f64);
+#endif
 #endif
 
 
