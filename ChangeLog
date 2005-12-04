@@ -1,5 +1,16 @@
 2005-12-04  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am:
+	* liboil/c/Makefile.am:
+	* liboil/c/swab.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs.h:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/swab.c: (swab_u16_ref), (swab_u32_ref):
+	  Add swabbing functions.
+
+2005-12-04  David Schleef  <ds@schleef.org>
+
 	* doc/Makefile.am:
 	  Add a sync target to encourage me to upload docs.
 	* examples/Makefile.am:

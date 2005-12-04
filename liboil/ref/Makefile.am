@@ -38,6 +38,7 @@ c_sources = \
 	splat.c \
 	squaresum_f64.c \
 	sum_f64.c \
+	swab.c \
 	tablelookup.c \
 	trans8x8.c \
 	vectoradd_f64.c \

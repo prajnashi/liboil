@@ -750,6 +750,12 @@ typedef void (*_oil_type_subtract_f32)(float * d, const float * s1, const float 
 extern OilFunctionClass *oil_function_class_ptr_sum_f64;
 typedef void (*_oil_type_sum_f64)(double * d_1, const double * s, int sstr, int n);
 #define oil_sum_f64 ((_oil_type_sum_f64)(*(void **)oil_function_class_ptr_sum_f64))
+extern OilFunctionClass *oil_function_class_ptr_swab_u16;
+typedef void (*_oil_type_swab_u16)(uint16_t * d_n, const uint16_t * s_n, int n);
+#define oil_swab_u16 ((_oil_type_swab_u16)(*(void **)oil_function_class_ptr_swab_u16))
+extern OilFunctionClass *oil_function_class_ptr_swab_u32;
+typedef void (*_oil_type_swab_u32)(uint32_t * d_n, const uint32_t * s_n, int n);
+#define oil_swab_u32 ((_oil_type_swab_u32)(*(void **)oil_function_class_ptr_swab_u32))
 extern OilFunctionClass *oil_function_class_ptr_tablelookup_u8;
 typedef void (*_oil_type_tablelookup_u8)(uint8_t * d, int ds, const uint8_t * s1, int ss1, const uint8_t * s2_256, int ss2, int n);
 #define oil_tablelookup_u8 ((_oil_type_tablelookup_u8)(*(void **)oil_function_class_ptr_tablelookup_u8))

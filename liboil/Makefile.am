@@ -68,6 +68,7 @@ liboilfunctions_la_SOURCES = \
 	null.c
 liboilfunctions_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboilfunctions_la_LIBADD = \
+	c/lib_c.la \
 	conv/libconv.la \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
