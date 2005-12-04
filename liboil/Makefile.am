@@ -174,7 +174,7 @@ liboilmarshal.c:
 liboilfuncs-doc.h:
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 
-update:
+update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(EXEEXT) build_class_decls$(EXEEXT)
 	./build_prototypes$(EXEEXT) >liboilfuncs.h
 	./build_marshal$(EXEEXT) >liboilmarshal.c
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h

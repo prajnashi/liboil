@@ -1,5 +1,10 @@
 2005-12-04  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: Fix build dependencies for update target
+	  (Fixes: #5121)
+
+2005-12-04  David Schleef  <ds@schleef.org>
+
 	* testsuite/stride.c: (main):  Fix crash with -v. (Fixes: #5162)
 
 2005-12-04  David Schleef  <ds@schleef.org>
