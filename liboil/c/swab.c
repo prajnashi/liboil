@@ -171,6 +171,7 @@ OIL_DEFINE_IMPL (swab_u32_char, swab_u32);
 
 
 
+#if 0
 static void
 swab_u32_asm (uint32_t *d, uint32_t *s, int n)
 {
@@ -188,4 +189,5 @@ swab_u32_asm (uint32_t *d, uint32_t *s, int n)
       : "eax");
 }
 OIL_DEFINE_IMPL (swab_u32_asm, swab_u32);
+#endif
 
