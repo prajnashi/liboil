@@ -30,6 +30,7 @@
 #endif
 #include <liboil/liboilfunction.h>
 #include <emmintrin.h>
+#include <string.h>
 
 #include <../conv/conv.h>
 
@@ -43,6 +44,9 @@ conv_f32_s32_sse (float *dst, int dst_stride, int32_t * src, int src_stride,
   int32_t tmp_src_array[68], *tmp_src;
   __m128 xmm0;
   __m128 xmm1;
+
+  memset (&xmm0, 0, sizeof(xmm0));
+  memset (&xmm1, 0, sizeof(xmm1));
 
   tmp_dest = (void *)(((unsigned long)(tmp_dest_array) + 0xf)&~0xf);
   tmp_src = (void *)(((unsigned long)(tmp_src_array) + 0xf)&~0xf);

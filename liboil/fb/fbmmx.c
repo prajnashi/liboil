@@ -662,46 +662,50 @@ void fbComposeSetupMMX(void)
 
 /* ------------------ MMX code paths called from fbpict.c ----------------------- */
 
+typedef union {
+  __m64 m64;
+  uint64_t ull;
+} m64_ull;
 
 typedef struct
 {
-    __m64 mmx_4x00ff;
-    __m64 mmx_4x0080;
-    __m64 mmx_565_rgb;
-    __m64 mmx_565_unpack_multiplier;
-    __m64 mmx_565_r;
-    __m64 mmx_565_g;
-    __m64 mmx_565_b;
-    __m64 mmx_mask_0;
-    __m64 mmx_mask_1;
-    __m64 mmx_mask_2;
-    __m64 mmx_mask_3;
-    __m64 mmx_full_alpha;
-    __m64 mmx_ffff0000ffff0000;
-    __m64 mmx_0000ffff00000000;
-    __m64 mmx_000000000000ffff;
+    m64_ull mmx_4x00ff;
+    m64_ull mmx_4x0080;
+    m64_ull mmx_565_rgb;
+    m64_ull mmx_565_unpack_multiplier;
+    m64_ull mmx_565_r;
+    m64_ull mmx_565_g;
+    m64_ull mmx_565_b;
+    m64_ull mmx_mask_0;
+    m64_ull mmx_mask_1;
+    m64_ull mmx_mask_2;
+    m64_ull mmx_mask_3;
+    m64_ull mmx_full_alpha;
+    m64_ull mmx_ffff0000ffff0000;
+    m64_ull mmx_0000ffff00000000;
+    m64_ull mmx_000000000000ffff;
 } MMXData;
 
 static const MMXData c =
 {
-    .mmx_4x00ff =			0x00ff00ff00ff00ffULL,
-    .mmx_4x0080 =			0x0080008000800080ULL,
-    .mmx_565_rgb =			0x000001f0003f001fULL,
-    .mmx_565_r =			0x000000f800000000ULL,
-    .mmx_565_g =			0x0000000000fc0000ULL,
-    .mmx_565_b =			0x00000000000000f8ULL,
-    .mmx_mask_0 =			0xffffffffffff0000ULL,
-    .mmx_mask_1 =			0xffffffff0000ffffULL,
-    .mmx_mask_2 =			0xffff0000ffffffffULL,
-    .mmx_mask_3 =			0x0000ffffffffffffULL,
-    .mmx_full_alpha =			0x00ff000000000000ULL,
-    .mmx_565_unpack_multiplier =	0x0000008404100840ULL,
-    .mmx_ffff0000ffff0000 =		0xffff0000ffff0000ULL,
-    .mmx_0000ffff00000000 =		0x0000ffff00000000ULL,
-    .mmx_000000000000ffff =		0x000000000000ffffULL,
+    .mmx_4x00ff.ull =			0x00ff00ff00ff00ffULL,
+    .mmx_4x0080.ull =			0x0080008000800080ULL,
+    .mmx_565_rgb.ull =			0x000001f0003f001fULL,
+    .mmx_565_r.ull =			0x000000f800000000ULL,
+    .mmx_565_g.ull =			0x0000000000fc0000ULL,
+    .mmx_565_b.ull =			0x00000000000000f8ULL,
+    .mmx_mask_0.ull =			0xffffffffffff0000ULL,
+    .mmx_mask_1.ull =			0xffffffff0000ffffULL,
+    .mmx_mask_2.ull =			0xffff0000ffffffffULL,
+    .mmx_mask_3.ull =			0x0000ffffffffffffULL,
+    .mmx_full_alpha.ull =			0x00ff000000000000ULL,
+    .mmx_565_unpack_multiplier.ull =	0x0000008404100840ULL,
+    .mmx_ffff0000ffff0000.ull =		0xffff0000ffff0000ULL,
+    .mmx_0000ffff00000000.ull =		0x0000ffff00000000ULL,
+    .mmx_000000000000ffff.ull =		0x000000000000ffffULL,
 };
 
-#define MC(x) ((__m64) c.mmx_##x)
+#define MC(x) ((__m64) c.mmx_##x.m64)
 
 static __inline__ __m64
 shift (__m64 v, int s)
