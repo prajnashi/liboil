@@ -1,5 +1,12 @@
 2005-12-06  David Schleef  <ds@schleef.org>
 
+	* liboil/fb/fbmmx.c:
+	* liboil/sse/conv_sse.c: Compilation fixes for icc.  configure
+	  still thinks it's ok to use -Werror with icc, which is a
+	  problem, so turn it off manually.
+
+2005-12-06  David Schleef  <ds@schleef.org>
+
 	* liboil/c/swab.c: Disable the i386 asm, 'cuz it's in the
 	  wrong place.
 

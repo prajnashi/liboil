@@ -665,21 +665,21 @@ void fbComposeSetupMMX(void)
 
 typedef struct
 {
-    ullong mmx_4x00ff;
-    ullong mmx_4x0080;
-    ullong mmx_565_rgb;
-    ullong mmx_565_unpack_multiplier;
-    ullong mmx_565_r;
-    ullong mmx_565_g;
-    ullong mmx_565_b;
-    ullong mmx_mask_0;
-    ullong mmx_mask_1;
-    ullong mmx_mask_2;
-    ullong mmx_mask_3;
-    ullong mmx_full_alpha;
-    ullong mmx_ffff0000ffff0000;
-    ullong mmx_0000ffff00000000;
-    ullong mmx_000000000000ffff;
+    __m64 mmx_4x00ff;
+    __m64 mmx_4x0080;
+    __m64 mmx_565_rgb;
+    __m64 mmx_565_unpack_multiplier;
+    __m64 mmx_565_r;
+    __m64 mmx_565_g;
+    __m64 mmx_565_b;
+    __m64 mmx_mask_0;
+    __m64 mmx_mask_1;
+    __m64 mmx_mask_2;
+    __m64 mmx_mask_3;
+    __m64 mmx_full_alpha;
+    __m64 mmx_ffff0000ffff0000;
+    __m64 mmx_0000ffff00000000;
+    __m64 mmx_000000000000ffff;
 } MMXData;
 
 static const MMXData c =
@@ -898,7 +898,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
 
     while (w && (unsigned long)dst & 7)
     {
-        *dst = (ullong) pack8888(over(vsrc, vsrca, load8888(*dst)),
+        *(__m64 *)dst = pack8888(over(vsrc, vsrca, load8888(*dst)),
                                  _mm_setzero_si64());
         
         w--;
@@ -923,7 +923,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
     
     while (w)
     {
-        *dst = (ullong) pack8888(over(vsrc, vsrca, load8888(*dst)), _mm_setzero_si64());
+        *(__m64 *)dst = pack8888(over(vsrc, vsrca, load8888(*dst)), _mm_setzero_si64());
         
         w--;
         dst++;
@@ -1910,7 +1910,7 @@ fbCompositeSrcAdd_8888x8888mmx (uint32_t *dst, uint32_t *src, int w)
     
     while (w >= 2)
     {
-        *(ullong*)dst = (ullong) _mm_adds_pu8(*(__m64*)src, *(__m64*)dst);
+        *(__m64 *)dst = _mm_adds_pu8(*(__m64*)src, *(__m64*)dst);
         dst += 2;
         src += 2;
         w -= 2;
