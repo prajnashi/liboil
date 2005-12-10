@@ -32,7 +32,7 @@
 #error liboilgcc.h should only be included if the compiler is GCC
 #endif
 
-#include <stdint.h>
+#include <liboil/liboil-stdint.h>
 
 typedef int8_t vec_s8 __attribute__ ((mode(V8QI)));
 typedef uint8_t vec_u8 __attribute__ ((mode(V8QI)));

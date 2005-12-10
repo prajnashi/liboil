@@ -28,7 +28,7 @@
 #ifndef _LIBOIL_TYPES_H_
 #define _LIBOIL_TYPES_H_
 
-#include <stdint.h>
+#include <liboil/liboil-stdint.h>
 
 /**
  * NULL:

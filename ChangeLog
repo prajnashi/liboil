@@ -1,3 +1,12 @@
+2005-12-10  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am:
+	* liboil/liboil.h:
+	* liboil/liboilgcc.h:
+	* liboil/liboilprofile.h:
+	* liboil/liboiltypes.h:
+	  Use generated stdint.h file.
+
 2005-12-09  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

@@ -28,7 +28,7 @@
 #ifndef _LIBOIL_H_
 #define _LIBOIL_H_
 
-#include <stdint.h>
+#include <liboil/liboil-stdint.h>
 
 #include <liboil/liboilfuncs.h>
 

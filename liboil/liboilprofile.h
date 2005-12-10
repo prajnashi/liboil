@@ -28,7 +28,7 @@
 #ifndef _LIBOIL_PROFILE_H_
 #define _LIBOIL_PROFILE_H_
 
-#include <stdint.h>
+#include <liboil/liboil-stdint.h>
 
 /**
  * OIL_PROFILE_HIST_LENGTH
