@@ -37,6 +37,26 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#endif
+
+#ifndef PRIx8
+#define PRIx8  "x"
+#define PRIx16 "x"
+#define PRIx32 "x"
+#define PRIx64 "llx"
+#define PRId8  "d"
+#define PRId16 "d"
+#define PRId32 "d"
+#define PRId64 "lld"
+#define PRIu8  "u"
+#define PRIu16 "u"
+#define PRIu32 "u"
+#define PRIu64 "llu"
+#endif
+
+int hex;
 
 void register_impls(void);
 
@@ -86,40 +106,64 @@ dump_array (void *data, void *ref_data, OilType type, int pre_n, int stride,
   } \
 } while(0)
 
-  switch(type) {
-    case OIL_TYPE_s8p:
-      DUMP(int8_t, "%d");
-      break;
-    case OIL_TYPE_u8p:
-      DUMP(uint8_t, "%d");
-      break;
-    case OIL_TYPE_s16p:
-      DUMP(int16_t, "%d");
-      break;
-    case OIL_TYPE_u16p:
-      DUMP(uint16_t, "%d");
-      break;
-    case OIL_TYPE_s32p:
-      DUMP(int32_t, "%d");
-      break;
-    case OIL_TYPE_u32p:
-      DUMP(uint32_t, "%u");
-      //DUMP(uint32_t, "%08x");
-      break;
-    case OIL_TYPE_s64p:
-      DUMP(int64_t, "%lld");
-      break;
-    case OIL_TYPE_u64p:
-      DUMP(uint64_t, "%llu");
-      break;
-    case OIL_TYPE_f32p:
-      DUMP(float, "%g");
-      break;
-    case OIL_TYPE_f64p:
-      DUMP(double, "%g");
-      break;
-    default:
-      break;
+  if (hex) {
+    switch(type) {
+      case OIL_TYPE_s8p:
+      case OIL_TYPE_u8p:
+        DUMP(int8_t, "%02" PRIx8);
+        break;
+      case OIL_TYPE_s16p:
+      case OIL_TYPE_u16p:
+        DUMP(uint16_t, "%04" PRIx16);
+        break;
+      case OIL_TYPE_s32p:
+      case OIL_TYPE_u32p:
+      case OIL_TYPE_f32p:
+        DUMP(uint32_t, "%08" PRIx32);
+        break;
+      case OIL_TYPE_s64p:
+      case OIL_TYPE_u64p:
+      case OIL_TYPE_f64p:
+        DUMP(uint64_t, "%016" PRIx64);
+        break;
+      default:
+        break;
+    }
+  } else {
+    switch(type) {
+      case OIL_TYPE_s8p:
+        DUMP(int8_t, "%" PRId8);
+        break;
+      case OIL_TYPE_u8p:
+        DUMP(uint8_t, "%" PRIu8);
+        break;
+      case OIL_TYPE_s16p:
+        DUMP(int16_t, "%" PRId16);
+        break;
+      case OIL_TYPE_u16p:
+        DUMP(uint16_t, "%" PRIu16);
+        break;
+      case OIL_TYPE_s32p:
+        DUMP(int32_t, "%" PRId32);
+        break;
+      case OIL_TYPE_u32p:
+        DUMP(uint32_t, "%" PRIu32);
+        break;
+      case OIL_TYPE_s64p:
+        DUMP(int64_t, "%" PRId64);
+        break;
+      case OIL_TYPE_u64p:
+        DUMP(uint64_t, "%" PRIu64);
+        break;
+      case OIL_TYPE_f32p:
+        DUMP(float, "%g");
+        break;
+      case OIL_TYPE_f64p:
+        DUMP(double, "%g");
+        break;
+      default:
+        break;
+    }
   }
 }
 
@@ -157,23 +201,41 @@ dump_source (OilTest *test)
   }
 }
 
+void
+help (void)
+{
+  printf("oil-test [-x] <class_name>\n");
+  exit(0);
+}
+
 int main (int argc, char *argv[])
 {
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
   OilTest *test;
   double ave, std;
+  char *class_name = NULL;
+  int i;
 
   oil_init ();
 
-  if (argc < 2) {
-    printf("oil-test <class_name>\n");
-    exit(0);
+  for (i=1;i<argc;i++){
+    if (!strcmp(argv[i],"-x")) {
+      hex = 1;
+    } else {
+      if (class_name != NULL) {
+        help();
+      }
+      class_name = argv[i];
+    }
+  }
+  if (class_name == NULL) {
+    help();
   }
 
-  klass = oil_class_get (argv[1]);
+  klass = oil_class_get (class_name);
   if (klass == NULL) {
-    printf("class not found: %s\n", argv[1]);
+    printf("class not found: %s\n", class_name);
     exit(0);
   }
   oil_class_optimize (klass);

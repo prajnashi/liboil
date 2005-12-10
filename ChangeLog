@@ -1,3 +1,12 @@
+2005-12-09  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	* examples/oil-test.c: (dump_array), (help), (main):
+	* m4/pkg.m4:
+	  Check for inttypes.h header.  Use PRIx8 and friends in
+	  oil-test.c to print stuff correctly on 64-bit platforms.
+	  Also add new -x option to print in hex.  (Fixes: #5042)
+
 2005-12-06  David Schleef  <ds@schleef.org>
 
 	* liboil/fb/fbmmx.c:

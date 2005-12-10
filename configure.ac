@@ -120,6 +120,7 @@ if test x${ac_cv_sys_symbol_underscore} = xyes ; then
   AC_DEFINE(HAVE_SYMBOL_UNDERSCORE, 1, [Define if C symbols have leading underscore])
 fi
 
+AX_CREATE_STDINT_H([liboil/liboil-stdint.h])
 
 AC_FUNC_MMAP()
 AC_CHECK_LIB(m, rintf,
@@ -133,6 +134,8 @@ AC_CHECK_LIB(m, sincos,
 
 AC_CHECK_HEADER(ieee754.h,
   AC_DEFINE(HAVE_IEEE754_H, 1, [Define if ieee754.h exists]))
+
+AC_CHECK_HEADERS([inttypes.h])
 
 AC_CHECK_FUNCS([gettimeofday])
 AC_CHECK_FUNCS([sigaction])
