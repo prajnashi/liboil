@@ -1,5 +1,9 @@
 2005-12-10  David Schleef  <ds@schleef.org>
 
+	* m4/ax_create_stdint_h.m4: New macro.
+
+2005-12-10  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am:
 	* liboil/liboil.h:
 	* liboil/liboilgcc.h:
