@@ -7,4 +7,9 @@ Makefile.in
 .libs
 .cvsignore
 build_prototypes
+build_prototypes_doc
+build_marshal
+build_class_decls
 liboilarray.c
+liboilfuncs-doc.h
+liboil-stdint.h

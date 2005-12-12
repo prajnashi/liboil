@@ -7,11 +7,17 @@ Makefile.in
 .libs
 .cvsignore
 abs
+copy
+dso_check
 introspect
+log
 md5
 md5_profile
 moo
 proto1
 proto2
 proto3
+proto4
+stride
 test1
+trans

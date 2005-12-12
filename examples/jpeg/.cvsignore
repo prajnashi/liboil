@@ -1,0 +1,8 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.la
+*.lo
+jpeg_test
+jpeg_rgb_test

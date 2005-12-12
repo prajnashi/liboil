@@ -7,4 +7,8 @@ Makefile.in
 .libs
 .cvsignore
 example1
+oil-graph
 oil-inspect
+oil-test
+report
+memcpy-speed
