@@ -52,7 +52,7 @@
  *
  */
 
-#if defined(__i386__)
+#if defined(__i386__) || defined(__amd64__)
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
@@ -60,7 +60,7 @@ static char * _strndup (const char *s, int n);
 
 static unsigned long oil_cpu_flags;
 
-#if defined(__i386__)
+#if defined(__i386__) || defined(__amd64__)
 static char *
 get_proc_cpuinfo (void)
 {
@@ -81,7 +81,7 @@ get_proc_cpuinfo (void)
 }
 #endif
 
-#ifdef __i386__
+#if defined(__i386__) || defined(__amd64__)
 static void
 oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 {
@@ -134,17 +134,32 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
   free (cpuinfo_flags);
 }
 
+#ifdef __i386__
 static void
 get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
 {
   __asm__ (
-      "  pushl %%ebx\n"
+      "  pushq %%rbx\n"
       "  cpuid\n"
       "  mov %%ebx, %%esi\n"
-      "  popl %%ebx\n"
+      "  popq %%rbx\n"
       : "=a" (*a), "=S" (*b), "=c" (*c), "=d" (*d)
       : "0" (op));
 }
+#endif
+#ifdef __amd64__
+static void
+get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
+{
+  __asm__ (
+      "  pushq %%rbx\n"
+      "  cpuid\n"
+      "  mov %%ebx, %%esi\n"
+      "  popq %%rbx\n"
+      : "=a" (*a), "=S" (*b), "=c" (*c), "=d" (*d)
+      : "0" (op));
+}
+#endif
 
 static void
 test_cpuid (void *ignored)
@@ -228,7 +243,7 @@ oil_cpu_i386_kernel_restrict_flags(void)
 {
 #ifdef __FreeBSD__
   int ret, enabled;
-  unsigned int len;
+  size_t len;
 
   len = sizeof(enabled);
   ret = sysctlbyname("hw.instruction_sse", &enabled, &len, NULL, 0);
@@ -305,7 +320,7 @@ _oil_cpu_init (void)
     return;
   }
 
-#ifdef __i386__
+#if defined(__i386__) || defined(__amd64__)
   oil_cpu_i386_getflags();
 #endif
 #ifdef __powerpc__
@@ -328,7 +343,7 @@ oil_cpu_get_flags (void)
   return oil_cpu_flags;
 }
 
-#if defined(__i386__)
+#if defined(__i386__) || defined(__amd64__)
 static char *
 get_cpuinfo_flags_string (char *cpuinfo)
 {

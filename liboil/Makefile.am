@@ -25,6 +25,22 @@ subdir_i386 =
 libs_i386 =
 endif
 
+if HAVE_GCC_AMD64
+subdir_amd64 = amd64
+libs_amd64 = amd64/libamd64.la
+if HAVE_MMX_INTRINSICS
+subdir_amd64 += fb
+libs_amd64 += fb/libfb.la
+endif
+if HAVE_SSE_INTRINSICS
+subdir_amd64 += sse
+libs_amd64 += sse/libsse.la
+endif
+else
+subdir_amd64 =
+libs_amd64 =
+endif
+
 if HAVE_GCC_POWERPC
 subdir_powerpc = powerpc motovec
 libs_powerpc = powerpc/libpowerpc.la motovec/libmotovec.la
@@ -38,8 +54,8 @@ libs_powerpc =
 endif
 
 
-DIST_SUBDIRS = 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
-SUBDIRS = c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
+DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
+SUBDIRS = $(subdir_amd64) c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 
@@ -73,6 +89,7 @@ liboilfunctions_la_LIBADD = \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
+	$(libs_amd64) \
 	$(libs_i386) \
 	jpeg/libjpeg.la \
 	math/libmath.la \

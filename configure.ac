@@ -89,7 +89,7 @@ if test "x$HAVE_GCC_INLINE_ASSEMBLY" = xyes ; then
       HAVE_GCC_I386=yes
       AC_DEFINE(HAVE_GCC_I386, 1, [Define if compiler supports gcc inline assembly for i386])
       ;;
-    xx86_64)
+    xx86_64|xamd64)
       HAVE_GCC_AMD64=yes
       AC_DEFINE(HAVE_GCC_AMD64, 1, [Define if compiler supports gcc inline assembly for amd64])
       ;;
@@ -202,6 +202,7 @@ AC_CONFIG_FILES([
 Makefile 
 doc/Makefile
 liboil/Makefile
+liboil/amd64/Makefile
 liboil/3dnow/Makefile
 liboil/c/Makefile
 liboil/colorspace/Makefile
