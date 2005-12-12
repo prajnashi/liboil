@@ -32,8 +32,6 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
-#if 0
-
 static void
 add_f32_sse (float *dest, float *src1, float *src2, int n)
 {
@@ -231,4 +229,3 @@ scalarmultiply_f32_ns_sse (float *dest, float *src1, float *val, int n)
   }
 }
 OIL_DEFINE_IMPL_FULL (scalarmultiply_f32_ns_sse, scalarmultiply_f32_ns, OIL_IMPL_FLAG_SSE);
-#endif

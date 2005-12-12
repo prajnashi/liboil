@@ -1,3 +1,25 @@
+2005-12-12  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/amd64/math_amd64.c:
+	Note: New code doesn't work well if you leave in the #if 0 you used for
+	turning it off for final performance tests.
+
+2005-12-12  Eric Anholt  <anholt@FreeBSD.org>
+
+	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/amd64/Makefile.am:
+	* liboil/amd64/math_amd64.c: (add_f32_sse), (subtract_f32_sse),
+	(multiply_f32_sse), (divide_f32_sse), (negative_f32_sse),
+	(scalaradd_f32_ns_sse), (scalarmultiply_f32_ns_sse):
+	* liboil/amd64/scalarmult_amd64.c: (scalarmult_f32_sse):
+	* liboil/liboilcpu.c: (get_cpuid),
+	(oil_cpu_i386_kernel_restrict_flags), (_oil_cpu_init):
+	Add support for detecting amd64 capabilities, and add the existing SSE
+	intrinsics and fbmmx code for it.  Add a set of simple math
+	implementations using SSE that could use some tuning, but have provided
+	my app a 10.5% +/- 1.0% performance improvement in the case I'm testing.
+
 2005-12-10  David Schleef  <ds@schleef.org>
 
 	* m4/ax_create_stdint_h.m4: New macro.
