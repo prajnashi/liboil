@@ -1,3 +1,10 @@
+2005-12-13  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/simdpack/multsum.c: (multsum_f32_unroll2):
+	Implement multsum_f32_unroll2 as I think it was meant to be implemented
+	(previous implementation looked bogus).  Fixes a make check failure
+	for me.
+
 2005-12-12  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/amd64/math_amd64.c: (add_f32_amd64), (subtract_f32_amd64),
