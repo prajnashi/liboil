@@ -1,3 +1,30 @@
+2005-12-12  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/amd64/math_amd64.c: (add_f32_amd64), (subtract_f32_amd64),
+	(multiply_f32_amd64), (divide_f32_amd64), (negative_f32_amd64),
+	(scalaradd_f32_ns_amd64), (scalarmultiply_f32_ns_amd64):
+	* liboil/sse/Makefile.am:
+	* liboil/sse/math_sse.c: (add_f32_sse), (subtract_f32_sse),
+	(multiply_f32_sse), (divide_f32_sse), (minimum_f32_sse),
+	(maximum_f32_sse), (inverse_f32_sse), (negative_f32_sse),
+	(scalaradd_f32_ns_sse), (scalarmultiply_f32_ns_sse):
+	* liboil/sse/math_sse_unroll2.c: (add_f32_sse_unroll2),
+	(subtract_f32_sse_unroll2), (multiply_f32_sse_unroll2),
+	(divide_f32_sse_unroll2), (minimum_f32_sse_unroll2),
+	(maximum_f32_sse_unroll2), (inverse_f32_sse_unroll2),
+	(negative_f32_sse_unroll2), (scalaradd_f32_ns_sse_unroll2),
+	(scalarmultiply_f32_ns_sse_unroll2):
+	* testsuite/.cvsignore:
+	* testsuite/Makefile.am:
+	* testsuite/math.c: (dump_array), (dump_source), (test_difference),
+	(check_test), (check_class), (main):
+	Add SSE intrinsics code doing what math_amd64.c does, but working for
+	both amd64 and i386, and with a couple more functions.  Performance is
+	generally equivalent to math_amd64.c but better in some cases.  Renames
+	math_amd64.c functions to avoid clashes with intrinsics code.  Also add
+	an unrolled-once version of this code that's around a 2-10% improvement
+	in the tests I've done with oil-test.
+
 2005-12-12  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: (get_cpuid): Revert the broken change to

@@ -33,7 +33,7 @@
 #include <liboil/simdpack/simdpack.h>
 
 static void
-add_f32_sse (float *dest, float *src1, float *src2, int n)
+add_f32_amd64 (float *dest, float *src1, float *src2, int n)
 {
   int i;
 
@@ -57,10 +57,10 @@ add_f32_sse (float *dest, float *src1, float *src2, int n)
     *dest++ = *src1++ + *src2++;
   }
 }
-OIL_DEFINE_IMPL_FULL (add_f32_sse, add_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (add_f32_amd64, add_f32, OIL_IMPL_FLAG_SSE);
 
 static void
-subtract_f32_sse (float *dest, float *src1, float *src2, int n)
+subtract_f32_amd64 (float *dest, float *src1, float *src2, int n)
 {
   int i;
 
@@ -84,10 +84,10 @@ subtract_f32_sse (float *dest, float *src1, float *src2, int n)
     *dest++ = *src1++ - *src2++;
   }
 }
-OIL_DEFINE_IMPL_FULL (subtract_f32_sse, subtract_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (subtract_f32_amd64, subtract_f32, OIL_IMPL_FLAG_SSE);
 
 static void
-multiply_f32_sse (float *dest, float *src1, float *src2, int n)
+multiply_f32_amd64 (float *dest, float *src1, float *src2, int n)
 {
   int i;
 
@@ -111,10 +111,10 @@ multiply_f32_sse (float *dest, float *src1, float *src2, int n)
     *dest++ = *src1++ * *src2++;
   }
 }
-OIL_DEFINE_IMPL_FULL (multiply_f32_sse, multiply_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (multiply_f32_amd64, multiply_f32, OIL_IMPL_FLAG_SSE);
 
 static void
-divide_f32_sse (float *dest, float *src1, float *src2, int n)
+divide_f32_amd64 (float *dest, float *src1, float *src2, int n)
 {
   int i;
 
@@ -138,10 +138,10 @@ divide_f32_sse (float *dest, float *src1, float *src2, int n)
     *dest++ = *src1++ / *src2++;
   }
 }
-OIL_DEFINE_IMPL_FULL (divide_f32_sse, divide_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (divide_f32_amd64, divide_f32, OIL_IMPL_FLAG_SSE);
 
 static void
-negative_f32_sse (float *dest, float *src1, int n)
+negative_f32_amd64 (float *dest, float *src1, int n)
 {
   int i;
 
@@ -164,10 +164,10 @@ negative_f32_sse (float *dest, float *src1, int n)
     *dest++ = -(*src1++);
   }
 }
-OIL_DEFINE_IMPL_FULL (negative_f32_sse, negative_f32, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (negative_f32_amd64, negative_f32, OIL_IMPL_FLAG_SSE);
 
 static void
-scalaradd_f32_ns_sse (float *dest, float *src1, float *val, int n)
+scalaradd_f32_ns_amd64 (float *dest, float *src1, float *val, int n)
 {
   float tmp[8];
   float *valtmp = (void *)(((unsigned long)tmp & ~0xf) + 16);
@@ -196,10 +196,10 @@ scalaradd_f32_ns_sse (float *dest, float *src1, float *val, int n)
     *dest++ = *src1++ + *val;
   }
 }
-OIL_DEFINE_IMPL_FULL (scalaradd_f32_ns_sse, scalaradd_f32_ns, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (scalaradd_f32_ns_amd64, scalaradd_f32_ns, OIL_IMPL_FLAG_SSE);
 
 static void
-scalarmultiply_f32_ns_sse (float *dest, float *src1, float *val, int n)
+scalarmultiply_f32_ns_amd64 (float *dest, float *src1, float *val, int n)
 {
   float tmp[8];
   float *valtmp = (void *)(((unsigned long)tmp & ~0xf) + 16);
@@ -228,4 +228,4 @@ scalarmultiply_f32_ns_sse (float *dest, float *src1, float *val, int n)
     *dest++ = *src1++ * *val;
   }
 }
-OIL_DEFINE_IMPL_FULL (scalarmultiply_f32_ns_sse, scalarmultiply_f32_ns, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (scalarmultiply_f32_ns_amd64, scalarmultiply_f32_ns, OIL_IMPL_FLAG_SSE);
