@@ -1,3 +1,8 @@
+2005-12-12  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: (get_cpuid): Revert the broken change to
+	i386 cpu detection. (oops)
+
 2005-12-12  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/amd64/math_amd64.c:

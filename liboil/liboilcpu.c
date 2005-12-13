@@ -139,14 +139,15 @@ static void
 get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
 {
   __asm__ (
-      "  pushq %%rbx\n"
+      "  pushl %%ebx\n"
       "  cpuid\n"
       "  mov %%ebx, %%esi\n"
-      "  popq %%rbx\n"
+      "  popl %%ebx\n"
       : "=a" (*a), "=S" (*b), "=c" (*c), "=d" (*d)
       : "0" (op));
 }
 #endif
+
 #ifdef __amd64__
 static void
 get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
