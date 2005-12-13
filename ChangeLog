@@ -1,5 +1,25 @@
 2005-12-13  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/amd64/Makefile.am:
+	* liboil/amd64/math_amd64.c:
+	* liboil/sse/math_sse.c: (add_f32_sse), (subtract_f32_sse),
+	(multiply_f32_sse), (divide_f32_sse), (minimum_f32_sse),
+	(maximum_f32_sse), (inverse_f32_sse), (negative_f32_sse),
+	(scalaradd_f32_ns_sse), (scalarmultiply_f32_ns_sse):
+	* liboil/sse/math_sse_unroll2.c: (add_f32_sse_unroll2),
+	(subtract_f32_sse_unroll2), (multiply_f32_sse_unroll2),
+	(divide_f32_sse_unroll2), (minimum_f32_sse_unroll2),
+	(maximum_f32_sse_unroll2), (inverse_f32_sse_unroll2),
+	(negative_f32_sse_unroll2), (scalaradd_f32_ns_sse_unroll2),
+	(scalarmultiply_f32_ns_sse_unroll2):
+	Fix SSE intrinsics code in the presence of un-SSE-alignment of the dest
+	pointer, detected by hardcoding a new value of OIL_TEST_HEADER.  Remove
+	the AMD64 SSE inline asm code for being broken in the same way but not
+	caring enough to fix it (inline asm version might be useful for older
+	GCC on i386, but probably not on amd64 where we'll have intrinsics).
+
+2005-12-13  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/simdpack/multsum.c: (multsum_f32_unroll2):
 	Implement multsum_f32_unroll2 as I think it was meant to be implemented
 	(previous implementation looked bogus).  Fixes a make check failure

@@ -35,13 +35,11 @@
 static void
 add_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ + *src2++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -55,7 +53,7 @@ add_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ + *src2++;
   }
 }
@@ -64,13 +62,11 @@ OIL_DEFINE_IMPL_FULL (add_f32_sse_unroll2, add_f32, OIL_IMPL_FLAG_SSE);
 static void
 subtract_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ - *src2++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -84,7 +80,7 @@ subtract_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ - *src2++;
   }
 }
@@ -93,13 +89,11 @@ OIL_DEFINE_IMPL_FULL (subtract_f32_sse_unroll2, subtract_f32, OIL_IMPL_FLAG_SSE)
 static void
 multiply_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ * *src2++;
   }
-  for (i = 0; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -113,7 +107,7 @@ multiply_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ * *src2++;
   }
 }
@@ -122,13 +116,11 @@ OIL_DEFINE_IMPL_FULL (multiply_f32_sse_unroll2, multiply_f32, OIL_IMPL_FLAG_SSE)
 static void
 divide_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ / *src2++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -142,7 +134,7 @@ divide_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ / *src2++;
   }
 }
@@ -151,15 +143,13 @@ OIL_DEFINE_IMPL_FULL (divide_f32_sse_unroll2, divide_f32, OIL_IMPL_FLAG_SSE);
 static void
 minimum_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1 < *src2 ? *src1 : *src2;
     src1++;
     src2++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -173,7 +163,7 @@ minimum_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1 < *src2 ? *src1 : *src2;
     src1++;
     src2++;
@@ -184,15 +174,13 @@ OIL_DEFINE_IMPL_FULL (minimum_f32_sse_unroll2, minimum_f32, OIL_IMPL_FLAG_SSE);
 static void
 maximum_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1 > *src2 ? *src1 : *src2;
     src1++;
     src2++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_loadu_ps(src1);
     xmm1 = _mm_loadu_ps(src2);
@@ -206,7 +194,7 @@ maximum_f32_sse_unroll2 (float *dest, float *src1, float *src2, int n)
     src1 += 8;
     src2 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1 > *src2 ? *src1 : *src2;
     src1++;
     src2++;
@@ -217,13 +205,11 @@ OIL_DEFINE_IMPL_FULL (maximum_f32_sse_unroll2, maximum_f32, OIL_IMPL_FLAG_SSE);
 static void
 inverse_f32_sse_unroll2 (float *dest, float *src1, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = 1.0 / *src1++;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     /* While _mm_rcp_ps sounds promising, the results it gives are rather
      * different from the 1.0 / src1 reference implementation, so do that.
@@ -239,7 +225,7 @@ inverse_f32_sse_unroll2 (float *dest, float *src1, int n)
     dest += 8;
     src1 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = 1.0 / *src1++;
   }
 }
@@ -248,13 +234,11 @@ OIL_DEFINE_IMPL_FULL (inverse_f32_sse_unroll2, inverse_f32, OIL_IMPL_FLAG_SSE);
 static void
 negative_f32_sse_unroll2 (float *dest, float *src1, int n)
 {
-  int i;
-
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = -(*src1++);
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0, xmm1;
     xmm0 = _mm_setzero_ps();
     xmm1 = _mm_loadu_ps(src1);
@@ -267,7 +251,7 @@ negative_f32_sse_unroll2 (float *dest, float *src1, int n)
     dest += 8;
     src1 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = -(*src1++);
   }
 }
@@ -278,7 +262,6 @@ scalaradd_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
 {
   __m128 xmm1;
   float valtmp[4];
-  int i;
 
   valtmp[0] = *val;
   valtmp[1] = *val;
@@ -287,10 +270,10 @@ scalaradd_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
   xmm1 = _mm_loadu_ps(valtmp);
 
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ + *val;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0;
     xmm0 = _mm_loadu_ps(src1);
     xmm0 = _mm_add_ps(xmm0, xmm1);
@@ -301,7 +284,7 @@ scalaradd_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
     dest += 8;
     src1 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ + *val;
   }
 }
@@ -312,7 +295,6 @@ scalarmultiply_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
 {
   __m128 xmm1;
   float valtmp[4];
-  int i;
 
   valtmp[0] = *val;
   valtmp[1] = *val;
@@ -321,10 +303,10 @@ scalarmultiply_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
   xmm1 = _mm_loadu_ps(valtmp);
 
   /* Initial operations to align the destination pointer */
-  for (i = 0; i < ((long)dest & 15) >> 2; i++) {
+  for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ * *val;
   }
-  for (; i < n - 7; i += 8) {
+  for (; n >= 8; n -= 8) {
     __m128 xmm0;
     xmm0 = _mm_loadu_ps(src1);
     xmm0 = _mm_mul_ps(xmm0, xmm1);
@@ -335,7 +317,7 @@ scalarmultiply_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
     dest += 8;
     src1 += 8;
   }
-  for(;i<n;i++){
+  for (; n > 0; n--) {
     *dest++ = *src1++ * *val;
   }
 }
