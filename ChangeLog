@@ -1,3 +1,10 @@
+2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/utf8/utf8_fast.c: (utf8_validate_fast):
+	For (n % 4) != 0, utf8_validate_fast would read up to 3 bytes beyond the
+	end of the buffer and could return a value greater than n if the bytes
+	read happened to not have their highest bits set.
+
 2005-12-13  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/amd64/Makefile.am:

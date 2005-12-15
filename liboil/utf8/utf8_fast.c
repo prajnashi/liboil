@@ -42,7 +42,7 @@ utf8_validate_fast (int32_t *d_1, uint8_t *s, int n)
 
   i=0;
   while (i<n) {
-    if ((*(uint32_t *)(s+i) & 0x80808080) == 0) {
+    if (i < n-3 && (*(uint32_t *)(s+i) & 0x80808080) == 0) {
       i+=4;
       continue;
     }
