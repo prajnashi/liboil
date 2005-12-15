@@ -1,5 +1,15 @@
 2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/math_sse.c: (scalaradd_f32_ns_sse),
+	(scalarmultiply_f32_ns_sse):
+	* liboil/sse/math_sse_unroll2.c: (scalaradd_f32_ns_sse_unroll2),
+	(scalarmultiply_f32_ns_sse_unroll2):
+	Use _mm_load_ps1 to avoid manually expanding the constant fp value into
+	a temporary array and doing _mm_loadu_ps.  The resulting assembly also
+	looks a decent bit better.  Suggested by Stephane Fillod.
+
+2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/Makefile.am:
 	* liboil/amd64/Makefile.am:
 	* liboil/amd64/scalarmult_amd64.c:

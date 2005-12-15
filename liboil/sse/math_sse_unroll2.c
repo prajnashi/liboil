@@ -261,18 +261,12 @@ static void
 scalaradd_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
 {
   __m128 xmm1;
-  float valtmp[4];
-
-  valtmp[0] = *val;
-  valtmp[1] = *val;
-  valtmp[2] = *val;
-  valtmp[3] = *val;
-  xmm1 = _mm_loadu_ps(valtmp);
 
   /* Initial operations to align the destination pointer */
   for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ + *val;
   }
+  xmm1 = _mm_load_ps1(val);
   for (; n >= 8; n -= 8) {
     __m128 xmm0;
     xmm0 = _mm_loadu_ps(src1);
@@ -294,18 +288,12 @@ static void
 scalarmultiply_f32_ns_sse_unroll2 (float *dest, float *src1, float *val, int n)
 {
   __m128 xmm1;
-  float valtmp[4];
-
-  valtmp[0] = *val;
-  valtmp[1] = *val;
-  valtmp[2] = *val;
-  valtmp[3] = *val;
-  xmm1 = _mm_loadu_ps(valtmp);
 
   /* Initial operations to align the destination pointer */
   for (; ((long)dest & 15) && (n > 0); n--) {
     *dest++ = *src1++ * *val;
   }
+  xmm1 = _mm_load_ps1(val);
   for (; n >= 8; n -= 8) {
     __m128 xmm0;
     xmm0 = _mm_loadu_ps(src1);
