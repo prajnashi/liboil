@@ -819,6 +819,12 @@ pack8888 (__m64 lo, __m64 hi)
     return r;
 }
 
+static __inline__ CARD32
+store8888 (__m64 v)
+{
+    return _mm_cvtsi64_si32(pack8888(v, _mm_setzero_si64()));
+}
+
 /* Expand 16 bits positioned at @pos (0-3) of a mmx register into
  *
  *    00RR00GG00BB
@@ -902,8 +908,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
 
     while (w && (unsigned long)dst & 7)
     {
-        *(__m64 *)dst = pack8888(over(vsrc, vsrca, load8888(*dst)),
-                                 _mm_setzero_si64());
+        *dst = store8888(over(vsrc, vsrca, load8888(*dst)));
         
         w--;
         dst++;
@@ -927,7 +932,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
     
     while (w)
     {
-        *(__m64 *)dst = pack8888(over(vsrc, vsrca, load8888(*dst)), _mm_setzero_si64());
+        *dst = store8888(over(vsrc, vsrca, load8888(*dst)));
         
         w--;
         dst++;

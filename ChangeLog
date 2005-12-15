@@ -1,5 +1,45 @@
 2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/Makefile.am:
+	* liboil/amd64/Makefile.am:
+	* liboil/amd64/scalarmult_amd64.c:
+	* liboil/dct/idct8x8theora_ref.c: (idct8theora_s16_test),
+	(idct8x8theora_s16_test):
+	* liboil/fb/fbmmx.c: (store8888), (fbCompositeSolid_nx8888mmx):
+	* liboil/i386/Makefile.am:
+	* liboil/i386/scalarmult_i386.c:
+	* liboil/liboilparameter.h:
+	* liboil/liboiltest.c: (oil_test_new), (oil_test_set_test_header),
+	(oil_test_set_test_footer), (oil_test_check_function),
+	(oil_test_check_impl), (init_parameter):
+	* liboil/liboiltest.h:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/composite.c: (composite_test):
+	* liboil/ref/permute.c: (permute_test):
+	* liboil/ref/resample.c: (resample_linear_u8_test),
+	(resample_linear_argb_test), (merge_linear_argb_test):
+	* liboil/sse/math_sse.c: (scalaradd_f32_ns_sse),
+	(scalarmultiply_f32_ns_sse):
+	* liboil/utf8/utf8.c: (utf8_validate_test):
+	* testsuite/.cvsignore:
+	* testsuite/Makefile.am:
+	* testsuite/align.c: (dump_array), (dump_source), (dump_dest_ref),
+	(test_difference), (check_test), (check_class), (main):
+	Make the guard header/footer size configurable at test runtime.  Use
+	this to make a test of implementation invariance with respect to the
+	alignment of arguments (offsetting arguments by 0 to 3 times the size of
+	their type).  Remove scalarmult_f32_sse which is hopelessly broken (and
+	when fixed, much slower than ref).  Fix 
+
+2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/fb/fbmmx.c: (store8888), (fbCompositeSolid_nx8888mmx):
+	Fix a write past the end of the buffer when doing a short alignment
+	fixup or odd-length fixup in fbCompositeSolid_nx8888mmx.  Probably saves
+	some work, as well.
+
+2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/utf8/utf8_fast.c: (utf8_validate_fast):
 	For (n % 4) != 0, utf8_validate_fast would read up to 3 bytes beyond the
 	end of the buffer and could return a value greater than n if the bytes
