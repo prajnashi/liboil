@@ -127,6 +127,8 @@ struct _OilParameter {
   int stride;
   int size;
   int guard;
+  int test_header;
+  int test_footer;
 };
 
 #endif

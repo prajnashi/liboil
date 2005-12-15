@@ -72,13 +72,13 @@ struct _OilTest {
 /**
  * OIL_TEST_HEADER:
  *
- * Number of bytes that are prepended to the array test area.
+ * Default number of bytes that are prepended to the array test area.
  */
 #define OIL_TEST_HEADER 256
 /**
  * OIL_TEST_FOOTER:
  *
- * Number of bytes that are appended to the array test area.
+ * Default number of bytes that are appended to the array test area.
  */
 #define OIL_TEST_FOOTER 256
 
@@ -92,6 +92,9 @@ int oil_test_check_impl (OilTest *test, OilFunctionImpl *impl);
 
 void oil_test_cleanup (OilTest *test);
 void oil_test_init (OilTest *test);
+
+void oil_test_set_test_header (OilTest *test, OilParameter *p, int test_header);
+void oil_test_set_test_footer (OilTest *test, OilParameter *p, int test_footer);
 
 void _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
     unsigned int pointer_mask, OilProfile *prof);

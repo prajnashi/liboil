@@ -91,6 +91,8 @@ oil_test_new (OilFunctionClass *klass)
     test->params[i].src_data = NULL;
     test->params[i].ref_data = NULL;
     test->params[i].test_data = NULL;
+    test->params[i].test_header = OIL_TEST_HEADER;
+    test->params[i].test_footer = OIL_TEST_FOOTER;
   }
 
   test->iterations = 10;
@@ -157,6 +159,34 @@ oil_test_set_iterations (OilTest *test, int iterations)
 }
 
 /**
+ * oil_test_set_test_header:
+ * @test: the OilTest
+ * @p: the OilParameter to change the header for
+ * @test_header: the number of bytes of guard header
+ *
+ * Sets the number of bytes of guard header for @p to @test_header.
+ */
+void
+oil_test_set_test_header (OilTest *test, OilParameter *p, int test_header)
+{
+  p->test_header = test_header;
+}
+
+/**
+ * oil_test_set_test_footer:
+ * @test: the OilTest
+ * @p: the OilParameter to change the footer for
+ * @test_header: the number of bytes of guard footer
+ *
+ * Sets the number of bytes of guard footer for @p to @test_footer.
+ */
+void
+oil_test_set_test_footer (OilTest *test, OilParameter *p, int test_footer)
+{
+  p->test_footer = test_footer;
+}
+
+/**
  * oil_test_init:
  * @test: the OilTest
  *
@@ -206,13 +236,13 @@ oil_test_check_function (void * priv)
     if (p->is_pointer) {
       pointer_mask |= 1;
       if (p->direction == 's') {
-        args[i] = (unsigned long)p->src_data + OIL_TEST_HEADER;
+        args[i] = (unsigned long)p->src_data + p->test_header;
       } else if (p->direction == 'i') {
         memcpy (p->test_data, p->src_data, p->size);
-        args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
+        args[i] = (unsigned long)p->test_data + p->test_header;
       } else if (p->direction == 'd') {
         memset (p->test_data, p->guard, p->size);
-        args[i] = (unsigned long)p->test_data + OIL_TEST_HEADER;
+        args[i] = (unsigned long)p->test_data + p->test_header;
       } else {
         OIL_ERROR ("not reached");
       }
@@ -339,13 +369,13 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
         x += check_array (p->test_data, p->ref_data, p->type, p->pre_n,
             p->stride, p->post_n);
         n += p->pre_n * p->post_n;
-        if (!check_guard (p->test_data, OIL_TEST_HEADER, p->guard)) {
+        if (!check_guard (p->test_data, p->test_header, p->guard)) {
           fail = 1;
           OIL_ERROR("function %s wrote before area for parameter %s",
               test->impl->name, p->parameter_name);
         }
-        if (!check_guard ((uint8_t *)p->test_data + p->size - OIL_TEST_FOOTER,
-              OIL_TEST_FOOTER, p->guard)) {
+        if (!check_guard ((uint8_t *)p->test_data + p->size - p->test_footer,
+              p->test_footer, p->guard)) {
           fail = 1;
           OIL_ERROR("function %s wrote after area for parameter %s",
               test->impl->name, p->parameter_name);
@@ -364,7 +394,7 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   test->n_points = n;
 
   if (x > n || fail) {
-    OIL_ERROR ("function %s in class %s failed check (%g > %d) outside=%d",
+    OIL_ERROR ("function %s in class %s failed check (%g > %d) || (outside=%d)",
         test->impl->name, test->klass->name, x, n, fail);
     return 0;
   }
@@ -455,7 +485,7 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
     }
   }
 
-  p->size = p->stride * p->post_n + OIL_TEST_HEADER + OIL_TEST_FOOTER;
+  p->size = p->stride * p->post_n + p->test_header + p->test_footer;
   p->guard = oil_rand_u8();
 
   if (p->direction == 'i' || p->direction == 's') {
@@ -464,7 +494,7 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
     OIL_DEBUG("allocating %d bytes for src_data for %s", p->size, p->parameter_name);
     p->src_data = malloc (p->size);
     memset (p->src_data, p->guard, p->size);
-    fill_array (p->src_data + OIL_TEST_HEADER, p->type, p->pre_n, p->stride, p->post_n);
+    fill_array (p->src_data + p->test_header, p->type, p->pre_n, p->stride, p->post_n);
   }
 
   if (p->direction == 'i' || p->direction == 'd') {

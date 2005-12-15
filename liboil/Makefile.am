@@ -26,8 +26,8 @@ libs_i386 =
 endif
 
 if HAVE_GCC_AMD64
-subdir_amd64 = amd64
-libs_amd64 = amd64/libamd64.la
+subdir_amd64 = 
+libs_amd64 = 
 if HAVE_MMX_INTRINSICS
 subdir_amd64 += fb
 libs_amd64 += fb/libfb.la
