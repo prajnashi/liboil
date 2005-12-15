@@ -65,7 +65,7 @@ composite_test (OilTest *test)
 
   p = &test->params[OIL_ARG_SRC1];
   if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + OIL_TEST_HEADER);
+    ptr = (uint32_t *)(p->src_data + p->test_header);
     n = p->post_n;
     for(i=0;i<n;i++){
       a = oil_rand_u8();
@@ -75,7 +75,7 @@ composite_test (OilTest *test)
 
   p = &test->params[OIL_ARG_SRC2];
   if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + OIL_TEST_HEADER);
+    ptr = (uint32_t *)(p->src_data + p->test_header);
     n = p->post_n;
     for(i=0;i<n;i++){
       a = oil_rand_u8();
@@ -85,7 +85,7 @@ composite_test (OilTest *test)
 
   p = &test->params[OIL_ARG_INPLACE1];
   if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + OIL_TEST_HEADER);
+    ptr = (uint32_t *)(p->src_data + p->test_header);
     n = p->post_n;
     for(i=0;i<n;i++){
       a = oil_rand_u8();

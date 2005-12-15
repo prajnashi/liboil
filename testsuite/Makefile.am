@@ -1,7 +1,7 @@
 
 SUBDIRS = instruction
 
-programs = moo introspect proto1 proto2 test1 proto3 proto4 stride \
+programs = align moo introspect proto1 proto2 test1 proto3 proto4 stride \
 	dso_check abs md5 md5_profile trans copy
 
 check_PROGRAMS = $(programs)

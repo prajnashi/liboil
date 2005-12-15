@@ -20,7 +20,6 @@ libi386_la_SOURCES = \
 	rowcolsad8x8_i386.c \
 	sad8x8_i386.c \
 	sad8x8avg_i386.c \
-	scalarmult_i386.c \
 	splat_i386.c \
 	trans8x8_i386.c
 
