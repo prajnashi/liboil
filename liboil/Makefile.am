@@ -126,6 +126,12 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboiltest.h \
 	liboiltest.c \
 	liboilmarshal.c
+
+if USE_NEW_ABI
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += \
+	liboiltrampolines.c
+endif
+
 liboil_@LIBOIL_MAJORMINOR@_la_LIBADD = \
 	liboilfunctions.la \
 	$(LIBM)

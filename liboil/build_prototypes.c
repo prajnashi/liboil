@@ -25,6 +25,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <stdio.h>
 #include <liboil/liboil.h>
@@ -62,11 +65,15 @@ int main (int argc, char *argv[])
           string = strdup("void");
         }
 
+#ifdef ENABLE_NEW_ABI
+        printf ("void oil_%s (%s);\n",klass->name,string);
+#else
         printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
             klass->name);
         printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
         printf ("#define oil_%s ((_oil_type_%s)(*(void **)oil_function_class_ptr_%s))\n",
             klass->name, klass->name, klass->name);
+#endif
 
         oil_prototype_free (proto);
         free (string);

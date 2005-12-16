@@ -32,7 +32,7 @@
 #include <liboil/liboilfunction.h>
 
 void
-xoil_abs_f32_f32 (float * dest, int dstr, const float * src, int sstr, int n)
+oil_abs_f32_f32 (float * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_abs_f32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_abs_f32_f32);
@@ -41,7 +41,7 @@ xoil_abs_f32_f32 (float * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_abs_f64_f64 (double * dest, int dstr, const double * src, int sstr, int n)
+oil_abs_f64_f64 (double * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_abs_f64_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_abs_f64_f64);
@@ -50,7 +50,7 @@ xoil_abs_f64_f64 (double * dest, int dstr, const double * src, int sstr, int n)
 }
 
 void
-xoil_abs_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_abs_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_abs_u16_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_abs_u16_s16);
@@ -59,7 +59,7 @@ xoil_abs_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int 
 }
 
 void
-xoil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_abs_u32_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_abs_u32_s32);
@@ -68,7 +68,7 @@ xoil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int 
 }
 
 void
-xoil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_abs_u8_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_abs_u8_s8);
@@ -77,7 +77,7 @@ xoil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_add_f32 (float * d, const float * s1, const float * s2, int n)
+oil_add_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_add_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_add_f32);
@@ -86,7 +86,7 @@ xoil_add_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n)
+oil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_argb_paint_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_argb_paint_u8);
@@ -95,7 +95,7 @@ xoil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n,
 }
 
 void
-xoil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n)
+oil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n)
 {
   if (_oil_function_class_average2_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_average2_u8);
@@ -104,7 +104,7 @@ xoil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const ui
 }
 
 void
-xoil_ayuv2argb_u8 (uint8_t * d_4xn, const uint8_t * s_4xn, int n)
+oil_ayuv2argb_u8 (uint8_t * d_4xn, const uint8_t * s_4xn, int n)
 {
   if (_oil_function_class_ayuv2argb_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_ayuv2argb_u8);
@@ -113,7 +113,7 @@ xoil_ayuv2argb_u8 (uint8_t * d_4xn, const uint8_t * s_4xn, int n)
 }
 
 void
-xoil_ayuv2uyvy (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_ayuv2uyvy (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_ayuv2uyvy.func == NULL) {
     oil_class_optimize (&_oil_function_class_ayuv2uyvy);
@@ -122,7 +122,7 @@ xoil_ayuv2uyvy (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_ayuv2yuyv (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_ayuv2yuyv (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_ayuv2yuyv.func == NULL) {
     oil_class_optimize (&_oil_function_class_ayuv2yuyv);
@@ -131,7 +131,7 @@ xoil_ayuv2yuyv (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_ayuv2yvyu (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_ayuv2yvyu (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_ayuv2yvyu.func == NULL) {
     oil_class_optimize (&_oil_function_class_ayuv2yvyu);
@@ -140,7 +140,7 @@ xoil_ayuv2yvyu (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_clip_f32 (float * dest, int dstr, const float * src, int sstr, int n, const float * s2_1, const float * s3_1)
+oil_clip_f32 (float * dest, int dstr, const float * src, int sstr, int n, const float * s2_1, const float * s3_1)
 {
   if (_oil_function_class_clip_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_f32);
@@ -149,7 +149,7 @@ xoil_clip_f32 (float * dest, int dstr, const float * src, int sstr, int n, const
 }
 
 void
-xoil_clip_f64 (double * dest, int dstr, const double * src, int sstr, int n, const double * s2_1, const double * s3_1)
+oil_clip_f64 (double * dest, int dstr, const double * src, int sstr, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_clip_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_f64);
@@ -158,7 +158,7 @@ xoil_clip_f64 (double * dest, int dstr, const double * src, int sstr, int n, con
 }
 
 void
-xoil_clip_s16 (int16_t * dest, int dstr, const int16_t * src, int sstr, int n, const int16_t * s2_1, const int16_t * s3_1)
+oil_clip_s16 (int16_t * dest, int dstr, const int16_t * src, int sstr, int n, const int16_t * s2_1, const int16_t * s3_1)
 {
   if (_oil_function_class_clip_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_s16);
@@ -167,7 +167,7 @@ xoil_clip_s16 (int16_t * dest, int dstr, const int16_t * src, int sstr, int n, c
 }
 
 void
-xoil_clip_s32 (int32_t * dest, int dstr, const int32_t * src, int sstr, int n, const int32_t * s2_1, const int32_t * s3_1)
+oil_clip_s32 (int32_t * dest, int dstr, const int32_t * src, int sstr, int n, const int32_t * s2_1, const int32_t * s3_1)
 {
   if (_oil_function_class_clip_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_s32);
@@ -176,7 +176,7 @@ xoil_clip_s32 (int32_t * dest, int dstr, const int32_t * src, int sstr, int n, c
 }
 
 void
-xoil_clip_s8 (int8_t * dest, int dstr, const int8_t * src, int sstr, int n, const int8_t * s2_1, const int8_t * s3_1)
+oil_clip_s8 (int8_t * dest, int dstr, const int8_t * src, int sstr, int n, const int8_t * s2_1, const int8_t * s3_1)
 {
   if (_oil_function_class_clip_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_s8);
@@ -185,7 +185,7 @@ xoil_clip_s8 (int8_t * dest, int dstr, const int8_t * src, int sstr, int n, cons
 }
 
 void
-xoil_clip_u16 (uint16_t * dest, int dstr, const uint16_t * src, int sstr, int n, const uint16_t * s2_1, const uint16_t * s3_1)
+oil_clip_u16 (uint16_t * dest, int dstr, const uint16_t * src, int sstr, int n, const uint16_t * s2_1, const uint16_t * s3_1)
 {
   if (_oil_function_class_clip_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_u16);
@@ -194,7 +194,7 @@ xoil_clip_u16 (uint16_t * dest, int dstr, const uint16_t * src, int sstr, int n,
 }
 
 void
-xoil_clip_u32 (uint32_t * dest, int dstr, const uint32_t * src, int sstr, int n, const uint32_t * s2_1, const uint32_t * s3_1)
+oil_clip_u32 (uint32_t * dest, int dstr, const uint32_t * src, int sstr, int n, const uint32_t * s2_1, const uint32_t * s3_1)
 {
   if (_oil_function_class_clip_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_u32);
@@ -203,7 +203,7 @@ xoil_clip_u32 (uint32_t * dest, int dstr, const uint32_t * src, int sstr, int n,
 }
 
 void
-xoil_clip_u8 (uint8_t * dest, int dstr, const uint8_t * src, int sstr, int n, const uint8_t * s2_1, const uint8_t * s3_1)
+oil_clip_u8 (uint8_t * dest, int dstr, const uint8_t * src, int sstr, int n, const uint8_t * s2_1, const uint8_t * s3_1)
 {
   if (_oil_function_class_clip_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_clip_u8);
@@ -212,7 +212,7 @@ xoil_clip_u8 (uint8_t * dest, int dstr, const uint8_t * src, int sstr, int n, co
 }
 
 void
-xoil_clipconv8x8_u8_s16 (uint8_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
+oil_clipconv8x8_u8_s16 (uint8_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 {
   if (_oil_function_class_clipconv8x8_u8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv8x8_u8_s16);
@@ -221,7 +221,7 @@ xoil_clipconv8x8_u8_s16 (uint8_t * d_8x8, int dstr, const int16_t * s_8x8, int s
 }
 
 void
-xoil_clipconv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s16_f32);
@@ -230,7 +230,7 @@ xoil_clipconv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, in
 }
 
 void
-xoil_clipconv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s16_f64);
@@ -239,7 +239,7 @@ xoil_clipconv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, i
 }
 
 void
-xoil_clipconv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_clipconv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s16_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s16_s32);
@@ -248,7 +248,7 @@ xoil_clipconv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, 
 }
 
 void
-xoil_clipconv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_clipconv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s16_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s16_u16);
@@ -257,7 +257,7 @@ xoil_clipconv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr,
 }
 
 void
-xoil_clipconv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_clipconv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s16_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s16_u32);
@@ -266,7 +266,7 @@ xoil_clipconv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr,
 }
 
 void
-xoil_clipconv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s32_f32);
@@ -275,7 +275,7 @@ xoil_clipconv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, in
 }
 
 void
-xoil_clipconv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s32_f64);
@@ -284,7 +284,7 @@ xoil_clipconv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, i
 }
 
 void
-xoil_clipconv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_clipconv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s32_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s32_u32);
@@ -293,7 +293,7 @@ xoil_clipconv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr,
 }
 
 void
-xoil_clipconv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_f32);
@@ -302,7 +302,7 @@ xoil_clipconv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int 
 }
 
 void
-xoil_clipconv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_f64);
@@ -311,7 +311,7 @@ xoil_clipconv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int
 }
 
 void
-xoil_clipconv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_clipconv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_s16);
@@ -320,7 +320,7 @@ xoil_clipconv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, in
 }
 
 void
-xoil_clipconv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_clipconv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_s32);
@@ -329,7 +329,7 @@ xoil_clipconv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, in
 }
 
 void
-xoil_clipconv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_clipconv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_u16);
@@ -338,7 +338,7 @@ xoil_clipconv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, i
 }
 
 void
-xoil_clipconv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_clipconv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_u32);
@@ -347,7 +347,7 @@ xoil_clipconv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, i
 }
 
 void
-xoil_clipconv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_clipconv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_s8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_s8_u8);
@@ -356,7 +356,7 @@ xoil_clipconv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int
 }
 
 void
-xoil_clipconv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u16_f32);
@@ -365,7 +365,7 @@ xoil_clipconv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, i
 }
 
 void
-xoil_clipconv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u16_f64);
@@ -374,7 +374,7 @@ xoil_clipconv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, 
 }
 
 void
-xoil_clipconv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_clipconv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u16_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u16_s16);
@@ -383,7 +383,7 @@ xoil_clipconv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr,
 }
 
 void
-xoil_clipconv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_clipconv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u16_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u16_s32);
@@ -392,7 +392,7 @@ xoil_clipconv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr,
 }
 
 void
-xoil_clipconv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_clipconv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u16_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u16_u32);
@@ -401,7 +401,7 @@ xoil_clipconv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr
 }
 
 void
-xoil_clipconv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u32_f32);
@@ -410,7 +410,7 @@ xoil_clipconv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, i
 }
 
 void
-xoil_clipconv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u32_f64);
@@ -419,7 +419,7 @@ xoil_clipconv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, 
 }
 
 void
-xoil_clipconv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_clipconv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u32_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u32_s32);
@@ -428,7 +428,7 @@ xoil_clipconv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr,
 }
 
 void
-xoil_clipconv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int n)
+oil_clipconv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_f32);
@@ -437,7 +437,7 @@ xoil_clipconv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int
 }
 
 void
-xoil_clipconv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, int n)
+oil_clipconv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_f64);
@@ -446,7 +446,7 @@ xoil_clipconv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, in
 }
 
 void
-xoil_clipconv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_clipconv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_s16);
@@ -455,7 +455,7 @@ xoil_clipconv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, i
 }
 
 void
-xoil_clipconv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_clipconv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_s32);
@@ -464,7 +464,7 @@ xoil_clipconv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, i
 }
 
 void
-xoil_clipconv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_clipconv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_s8);
@@ -473,7 +473,7 @@ xoil_clipconv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int
 }
 
 void
-xoil_clipconv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_clipconv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_u16);
@@ -482,7 +482,7 @@ xoil_clipconv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, 
 }
 
 void
-xoil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_clipconv_u8_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_clipconv_u8_u32);
@@ -491,7 +491,7 @@ xoil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, 
 }
 
 void
-xoil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
+oil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_colsad8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_colsad8x8_u8);
@@ -500,7 +500,7 @@ xoil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_
 }
 
 void
-xoil_compare_u8 (uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n)
+oil_compare_u8 (uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n)
 {
   if (_oil_function_class_compare_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_compare_u8);
@@ -509,7 +509,7 @@ xoil_compare_u8 (uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n)
 }
 
 void
-xoil_composite_add_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
+oil_composite_add_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
 {
   if (_oil_function_class_composite_add_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_add_argb);
@@ -518,7 +518,7 @@ xoil_composite_add_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
 }
 
 void
-xoil_composite_add_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n)
+oil_composite_add_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n)
 {
   if (_oil_function_class_composite_add_argb_const_src.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_add_argb_const_src);
@@ -527,7 +527,7 @@ xoil_composite_add_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n)
 }
 
 void
-xoil_composite_add_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
+oil_composite_add_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
 {
   if (_oil_function_class_composite_add_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_add_u8);
@@ -536,7 +536,7 @@ xoil_composite_add_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
 }
 
 void
-xoil_composite_in_argb (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_n, int n)
+oil_composite_in_argb (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_composite_in_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_argb);
@@ -545,7 +545,7 @@ xoil_composite_in_argb (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s
 }
 
 void
-xoil_composite_in_argb_const_mask (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_1, int n)
+oil_composite_in_argb_const_mask (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_1, int n)
 {
   if (_oil_function_class_composite_in_argb_const_mask.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_argb_const_mask);
@@ -554,7 +554,7 @@ xoil_composite_in_argb_const_mask (uint32_t * d_n, const uint32_t * s1_n, const 
 }
 
 void
-xoil_composite_in_argb_const_src (uint32_t * d_n, const uint32_t * s1_1, const uint8_t * s2_n, int n)
+oil_composite_in_argb_const_src (uint32_t * d_n, const uint32_t * s1_1, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_composite_in_argb_const_src.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_argb_const_src);
@@ -563,7 +563,7 @@ xoil_composite_in_argb_const_src (uint32_t * d_n, const uint32_t * s1_1, const u
 }
 
 void
-xoil_composite_in_over_argb (uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_n, int n)
+oil_composite_in_over_argb (uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_composite_in_over_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_over_argb);
@@ -572,7 +572,7 @@ xoil_composite_in_over_argb (uint32_t * i_n, const uint32_t * s1_n, const uint8_
 }
 
 void
-xoil_composite_in_over_argb_const_mask (uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_1, int n)
+oil_composite_in_over_argb_const_mask (uint32_t * i_n, const uint32_t * s1_n, const uint8_t * s2_1, int n)
 {
   if (_oil_function_class_composite_in_over_argb_const_mask.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_over_argb_const_mask);
@@ -581,7 +581,7 @@ xoil_composite_in_over_argb_const_mask (uint32_t * i_n, const uint32_t * s1_n, c
 }
 
 void
-xoil_composite_in_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, const uint8_t * s2_n, int n)
+oil_composite_in_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_composite_in_over_argb_const_src.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_in_over_argb_const_src);
@@ -590,7 +590,7 @@ xoil_composite_in_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, co
 }
 
 void
-xoil_composite_over_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
+oil_composite_over_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
 {
   if (_oil_function_class_composite_over_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_over_argb);
@@ -599,7 +599,7 @@ xoil_composite_over_argb (uint32_t * i_n, const uint32_t * s1_n, int n)
 }
 
 void
-xoil_composite_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n)
+oil_composite_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n)
 {
   if (_oil_function_class_composite_over_argb_const_src.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_over_argb_const_src);
@@ -608,7 +608,7 @@ xoil_composite_over_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n
 }
 
 void
-xoil_composite_over_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
+oil_composite_over_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
 {
   if (_oil_function_class_composite_over_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_composite_over_u8);
@@ -617,7 +617,7 @@ xoil_composite_over_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
 }
 
 void
-xoil_conv8x8_f64_s16 (double * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
+oil_conv8x8_f64_s16 (double * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 {
   if (_oil_function_class_conv8x8_f64_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv8x8_f64_s16);
@@ -626,7 +626,7 @@ xoil_conv8x8_f64_s16 (double * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 }
 
 void
-xoil_conv8x8_s16_f64 (int16_t * d_8x8, int dstr, const double * s_8x8, int sstr)
+oil_conv8x8_s16_f64 (int16_t * d_8x8, int dstr, const double * s_8x8, int sstr)
 {
   if (_oil_function_class_conv8x8_s16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv8x8_s16_f64);
@@ -635,7 +635,7 @@ xoil_conv8x8_s16_f64 (int16_t * d_8x8, int dstr, const double * s_8x8, int sstr)
 }
 
 void
-xoil_conv_f32_f64 (float * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_f32_f64 (float * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_f64);
@@ -644,7 +644,7 @@ xoil_conv_f32_f64 (float * dest, int dstr, const double * src, int sstr, int n)
 }
 
 void
-xoil_conv_f32_s16 (float * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_f32_s16 (float * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_s16);
@@ -653,7 +653,7 @@ xoil_conv_f32_s16 (float * dest, int dstr, const int16_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_f32_s32 (float * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_f32_s32 (float * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_s32);
@@ -662,7 +662,7 @@ xoil_conv_f32_s32 (float * dest, int dstr, const int32_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_f32_s8 (float * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_f32_s8 (float * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_s8);
@@ -671,7 +671,7 @@ xoil_conv_f32_s8 (float * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_f32_u16 (float * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_f32_u16 (float * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_u16);
@@ -680,7 +680,7 @@ xoil_conv_f32_u16 (float * dest, int dstr, const uint16_t * src, int sstr, int n
 }
 
 void
-xoil_conv_f32_u32 (float * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_f32_u32 (float * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_u32);
@@ -689,7 +689,7 @@ xoil_conv_f32_u32 (float * dest, int dstr, const uint32_t * src, int sstr, int n
 }
 
 void
-xoil_conv_f32_u8 (float * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_f32_u8 (float * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f32_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f32_u8);
@@ -698,7 +698,7 @@ xoil_conv_f32_u8 (float * dest, int dstr, const uint8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_f64_f32 (double * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_f64_f32 (double * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_f32);
@@ -707,7 +707,7 @@ xoil_conv_f64_f32 (double * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_conv_f64_s16 (double * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_f64_s16 (double * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_s16);
@@ -716,7 +716,7 @@ xoil_conv_f64_s16 (double * dest, int dstr, const int16_t * src, int sstr, int n
 }
 
 void
-xoil_conv_f64_s32 (double * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_f64_s32 (double * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_s32);
@@ -725,7 +725,7 @@ xoil_conv_f64_s32 (double * dest, int dstr, const int32_t * src, int sstr, int n
 }
 
 void
-xoil_conv_f64_s8 (double * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_f64_s8 (double * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_s8);
@@ -734,7 +734,7 @@ xoil_conv_f64_s8 (double * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_f64_u16 (double * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_f64_u16 (double * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_u16);
@@ -743,7 +743,7 @@ xoil_conv_f64_u16 (double * dest, int dstr, const uint16_t * src, int sstr, int 
 }
 
 void
-xoil_conv_f64_u32 (double * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_f64_u32 (double * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_u32);
@@ -752,7 +752,7 @@ xoil_conv_f64_u32 (double * dest, int dstr, const uint32_t * src, int sstr, int 
 }
 
 void
-xoil_conv_f64_u8 (double * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_f64_u8 (double * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_f64_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_f64_u8);
@@ -761,7 +761,7 @@ xoil_conv_f64_u8 (double * dest, int dstr, const uint8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_f32);
@@ -770,7 +770,7 @@ xoil_conv_s16_f32 (int16_t * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_conv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_f64);
@@ -779,7 +779,7 @@ xoil_conv_s16_f64 (int16_t * dest, int dstr, const double * src, int sstr, int n
 }
 
 void
-xoil_conv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_s32);
@@ -788,7 +788,7 @@ xoil_conv_s16_s32 (int16_t * dest, int dstr, const int32_t * src, int sstr, int 
 }
 
 void
-xoil_conv_s16_s8 (int16_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_s16_s8 (int16_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_s8);
@@ -797,7 +797,7 @@ xoil_conv_s16_s8 (int16_t * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_u16);
@@ -806,7 +806,7 @@ xoil_conv_s16_u16 (int16_t * dest, int dstr, const uint16_t * src, int sstr, int
 }
 
 void
-xoil_conv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_u32);
@@ -815,7 +815,7 @@ xoil_conv_s16_u32 (int16_t * dest, int dstr, const uint32_t * src, int sstr, int
 }
 
 void
-xoil_conv_s16_u8 (int16_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_s16_u8 (int16_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s16_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s16_u8);
@@ -824,7 +824,7 @@ xoil_conv_s16_u8 (int16_t * dest, int dstr, const uint8_t * src, int sstr, int n
 }
 
 void
-xoil_conv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_f32);
@@ -833,7 +833,7 @@ xoil_conv_s32_f32 (int32_t * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_conv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_f64);
@@ -842,7 +842,7 @@ xoil_conv_s32_f64 (int32_t * dest, int dstr, const double * src, int sstr, int n
 }
 
 void
-xoil_conv_s32_s16 (int32_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_s32_s16 (int32_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_s16);
@@ -851,7 +851,7 @@ xoil_conv_s32_s16 (int32_t * dest, int dstr, const int16_t * src, int sstr, int 
 }
 
 void
-xoil_conv_s32_s8 (int32_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_s32_s8 (int32_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_s8);
@@ -860,7 +860,7 @@ xoil_conv_s32_s8 (int32_t * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_s32_u16 (int32_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_s32_u16 (int32_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_u16);
@@ -869,7 +869,7 @@ xoil_conv_s32_u16 (int32_t * dest, int dstr, const uint16_t * src, int sstr, int
 }
 
 void
-xoil_conv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_u32);
@@ -878,7 +878,7 @@ xoil_conv_s32_u32 (int32_t * dest, int dstr, const uint32_t * src, int sstr, int
 }
 
 void
-xoil_conv_s32_u8 (int32_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_s32_u8 (int32_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s32_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s32_u8);
@@ -887,7 +887,7 @@ xoil_conv_s32_u8 (int32_t * dest, int dstr, const uint8_t * src, int sstr, int n
 }
 
 void
-xoil_conv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_f32);
@@ -896,7 +896,7 @@ xoil_conv_s8_f32 (int8_t * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_conv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_f64);
@@ -905,7 +905,7 @@ xoil_conv_s8_f64 (int8_t * dest, int dstr, const double * src, int sstr, int n)
 }
 
 void
-xoil_conv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_s16);
@@ -914,7 +914,7 @@ xoil_conv_s8_s16 (int8_t * dest, int dstr, const int16_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_s32);
@@ -923,7 +923,7 @@ xoil_conv_s8_s32 (int8_t * dest, int dstr, const int32_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_u16);
@@ -932,7 +932,7 @@ xoil_conv_s8_u16 (int8_t * dest, int dstr, const uint16_t * src, int sstr, int n
 }
 
 void
-xoil_conv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_u32);
@@ -941,7 +941,7 @@ xoil_conv_s8_u32 (int8_t * dest, int dstr, const uint32_t * src, int sstr, int n
 }
 
 void
-xoil_conv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_s8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_s8_u8);
@@ -950,7 +950,7 @@ xoil_conv_s8_u8 (int8_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_f32);
@@ -959,7 +959,7 @@ xoil_conv_u16_f32 (uint16_t * dest, int dstr, const float * src, int sstr, int n
 }
 
 void
-xoil_conv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_f64);
@@ -968,7 +968,7 @@ xoil_conv_u16_f64 (uint16_t * dest, int dstr, const double * src, int sstr, int 
 }
 
 void
-xoil_conv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_s16);
@@ -977,7 +977,7 @@ xoil_conv_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int
 }
 
 void
-xoil_conv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_s32);
@@ -986,7 +986,7 @@ xoil_conv_u16_s32 (uint16_t * dest, int dstr, const int32_t * src, int sstr, int
 }
 
 void
-xoil_conv_u16_s8 (uint16_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_u16_s8 (uint16_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_s8);
@@ -995,7 +995,7 @@ xoil_conv_u16_s8 (uint16_t * dest, int dstr, const int8_t * src, int sstr, int n
 }
 
 void
-xoil_conv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_u32);
@@ -1004,7 +1004,7 @@ xoil_conv_u16_u32 (uint16_t * dest, int dstr, const uint32_t * src, int sstr, in
 }
 
 void
-xoil_conv_u16_u8 (uint16_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_u16_u8 (uint16_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u16_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u16_u8);
@@ -1013,7 +1013,7 @@ xoil_conv_u16_u8 (uint16_t * dest, int dstr, const uint8_t * src, int sstr, int 
 }
 
 void
-xoil_conv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_f32);
@@ -1022,7 +1022,7 @@ xoil_conv_u32_f32 (uint32_t * dest, int dstr, const float * src, int sstr, int n
 }
 
 void
-xoil_conv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_f64);
@@ -1031,7 +1031,7 @@ xoil_conv_u32_f64 (uint32_t * dest, int dstr, const double * src, int sstr, int 
 }
 
 void
-xoil_conv_u32_s16 (uint32_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_u32_s16 (uint32_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_s16);
@@ -1040,7 +1040,7 @@ xoil_conv_u32_s16 (uint32_t * dest, int dstr, const int16_t * src, int sstr, int
 }
 
 void
-xoil_conv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_s32);
@@ -1049,7 +1049,7 @@ xoil_conv_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int
 }
 
 void
-xoil_conv_u32_s8 (uint32_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_u32_s8 (uint32_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_s8);
@@ -1058,7 +1058,7 @@ xoil_conv_u32_s8 (uint32_t * dest, int dstr, const int8_t * src, int sstr, int n
 }
 
 void
-xoil_conv_u32_u16 (uint32_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_u32_u16 (uint32_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_u16);
@@ -1067,7 +1067,7 @@ xoil_conv_u32_u16 (uint32_t * dest, int dstr, const uint16_t * src, int sstr, in
 }
 
 void
-xoil_conv_u32_u8 (uint32_t * dest, int dstr, const uint8_t * src, int sstr, int n)
+oil_conv_u32_u8 (uint32_t * dest, int dstr, const uint8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u32_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u32_u8);
@@ -1076,7 +1076,7 @@ xoil_conv_u32_u8 (uint32_t * dest, int dstr, const uint8_t * src, int sstr, int 
 }
 
 void
-xoil_conv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int n)
+oil_conv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_f32);
@@ -1085,7 +1085,7 @@ xoil_conv_u8_f32 (uint8_t * dest, int dstr, const float * src, int sstr, int n)
 }
 
 void
-xoil_conv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, int n)
+oil_conv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_f64);
@@ -1094,7 +1094,7 @@ xoil_conv_u8_f64 (uint8_t * dest, int dstr, const double * src, int sstr, int n)
 }
 
 void
-xoil_conv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, int n)
+oil_conv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_s16);
@@ -1103,7 +1103,7 @@ xoil_conv_u8_s16 (uint8_t * dest, int dstr, const int16_t * src, int sstr, int n
 }
 
 void
-xoil_conv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, int n)
+oil_conv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_s32);
@@ -1112,7 +1112,7 @@ xoil_conv_u8_s32 (uint8_t * dest, int dstr, const int32_t * src, int sstr, int n
 }
 
 void
-xoil_conv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
+oil_conv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_s8);
@@ -1121,7 +1121,7 @@ xoil_conv_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n)
 }
 
 void
-xoil_conv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
+oil_conv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_u16);
@@ -1130,7 +1130,7 @@ xoil_conv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int sstr, int 
 }
 
 void
-xoil_conv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
+oil_conv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n)
 {
   if (_oil_function_class_conv_u8_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_conv_u8_u32);
@@ -1139,7 +1139,7 @@ xoil_conv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int 
 }
 
 void
-xoil_copy8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
+oil_copy8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
 {
   if (_oil_function_class_copy8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_copy8x8_u8);
@@ -1148,7 +1148,7 @@ xoil_copy8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
 }
 
 void
-xoil_copy_u8 (uint8_t * dest, const uint8_t * src, int n)
+oil_copy_u8 (uint8_t * dest, const uint8_t * src, int n)
 {
   if (_oil_function_class_copy_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_copy_u8);
@@ -1157,7 +1157,7 @@ xoil_copy_u8 (uint8_t * dest, const uint8_t * src, int n)
 }
 
 void
-xoil_dct36_f32 (float * d_36, int dstr, const float * s_36, int sstr)
+oil_dct36_f32 (float * d_36, int dstr, const float * s_36, int sstr)
 {
   if (_oil_function_class_dct36_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_dct36_f32);
@@ -1166,7 +1166,7 @@ xoil_dct36_f32 (float * d_36, int dstr, const float * s_36, int sstr)
 }
 
 void
-xoil_dequantize8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s1_8x8, int sstr1, const int16_t * s2_8x8, int sstr2)
+oil_dequantize8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s1_8x8, int sstr1, const int16_t * s2_8x8, int sstr2)
 {
   if (_oil_function_class_dequantize8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_dequantize8x8_s16);
@@ -1175,7 +1175,7 @@ xoil_dequantize8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s1_8x8, int s
 }
 
 void
-xoil_diff8x8_average_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2, const uint8_t * s3_8x8, int ss3)
+oil_diff8x8_average_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2, const uint8_t * s3_8x8, int ss3)
 {
   if (_oil_function_class_diff8x8_average_s16_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_diff8x8_average_s16_u8);
@@ -1184,7 +1184,7 @@ xoil_diff8x8_average_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, c
 }
 
 void
-xoil_diff8x8_const128_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1)
+oil_diff8x8_const128_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1)
 {
   if (_oil_function_class_diff8x8_const128_s16_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_diff8x8_const128_s16_u8);
@@ -1193,7 +1193,7 @@ xoil_diff8x8_const128_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1)
 }
 
 void
-xoil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
+oil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_diff8x8_s16_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_diff8x8_s16_u8);
@@ -1202,7 +1202,7 @@ xoil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uin
 }
 
 void
-xoil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n)
+oil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n)
 {
   if (_oil_function_class_diffsquaresum_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_diffsquaresum_f64);
@@ -1211,7 +1211,7 @@ xoil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const doub
 }
 
 void
-xoil_divide_f32 (float * d, const float * s1, const float * s2, int n)
+oil_divide_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_divide_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_divide_f32);
@@ -1220,7 +1220,7 @@ xoil_divide_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_err_inter8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
+oil_err_inter8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_err_inter8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_err_inter8x8_u8);
@@ -1229,7 +1229,7 @@ xoil_err_inter8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uin
 }
 
 void
-xoil_err_inter8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, const uint8_t * s3_8x8, int ss2)
+oil_err_inter8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, const uint8_t * s3_8x8, int ss2)
 {
   if (_oil_function_class_err_inter8x8_u8_avg.func == NULL) {
     oil_class_optimize (&_oil_function_class_err_inter8x8_u8_avg);
@@ -1238,7 +1238,7 @@ xoil_err_inter8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const
 }
 
 void
-xoil_err_intra8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1)
+oil_err_intra8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1)
 {
   if (_oil_function_class_err_intra8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_err_intra8x8_u8);
@@ -1247,7 +1247,7 @@ xoil_err_intra8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1)
 }
 
 void
-xoil_fdct8_f64 (double * d_8, const double * s_8, int dstr, int sstr)
+oil_fdct8_f64 (double * d_8, const double * s_8, int dstr, int sstr)
 {
   if (_oil_function_class_fdct8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_fdct8_f64);
@@ -1256,7 +1256,7 @@ xoil_fdct8_f64 (double * d_8, const double * s_8, int dstr, int sstr)
 }
 
 void
-xoil_fdct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
+oil_fdct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 {
   if (_oil_function_class_fdct8x8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_fdct8x8_f64);
@@ -1265,7 +1265,7 @@ xoil_fdct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 }
 
 void
-xoil_fdct8x8s_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
+oil_fdct8x8s_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
 {
   if (_oil_function_class_fdct8x8s_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_fdct8x8s_s16);
@@ -1274,7 +1274,7 @@ xoil_fdct8x8s_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
 }
 
 void
-xoil_fdct8x8theora (const int16_t * s_8x8, int16_t * d_8x8)
+oil_fdct8x8theora (const int16_t * s_8x8, int16_t * d_8x8)
 {
   if (_oil_function_class_fdct8x8theora.func == NULL) {
     oil_class_optimize (&_oil_function_class_fdct8x8theora);
@@ -1283,7 +1283,7 @@ xoil_fdct8x8theora (const int16_t * s_8x8, int16_t * d_8x8)
 }
 
 void
-xoil_floor_f32 (float * d, const float * s, int n)
+oil_floor_f32 (float * d, const float * s, int n)
 {
   if (_oil_function_class_floor_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_floor_f32);
@@ -1292,7 +1292,7 @@ xoil_floor_f32 (float * d, const float * s, int n)
 }
 
 void
-xoil_idct8_f64 (double * d_8, int dstr, const double * s_8, int sstr)
+oil_idct8_f64 (double * d_8, int dstr, const double * s_8, int sstr)
 {
   if (_oil_function_class_idct8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8_f64);
@@ -1301,7 +1301,7 @@ xoil_idct8_f64 (double * d_8, int dstr, const double * s_8, int sstr)
 }
 
 void
-xoil_idct8theora_s16 (int16_t * d_8, int dstr, const int16_t * s_8, int sstr)
+oil_idct8theora_s16 (int16_t * d_8, int dstr, const int16_t * s_8, int sstr)
 {
   if (_oil_function_class_idct8theora_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8theora_s16);
@@ -1310,7 +1310,7 @@ xoil_idct8theora_s16 (int16_t * d_8, int dstr, const int16_t * s_8, int sstr)
 }
 
 void
-xoil_idct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
+oil_idct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 {
   if (_oil_function_class_idct8x8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8x8_f64);
@@ -1319,7 +1319,7 @@ xoil_idct8x8_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 }
 
 void
-xoil_idct8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
+oil_idct8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 {
   if (_oil_function_class_idct8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8x8_s16);
@@ -1328,7 +1328,7 @@ xoil_idct8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 }
 
 void
-xoil_idct8x8lim10_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
+oil_idct8x8lim10_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 {
   if (_oil_function_class_idct8x8lim10_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8x8lim10_f64);
@@ -1337,7 +1337,7 @@ xoil_idct8x8lim10_f64 (double * d_8x8, int dstr, const double * s_8x8, int sstr)
 }
 
 void
-xoil_idct8x8lim10_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
+oil_idct8x8lim10_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 {
   if (_oil_function_class_idct8x8lim10_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8x8lim10_s16);
@@ -1346,7 +1346,7 @@ xoil_idct8x8lim10_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sst
 }
 
 void
-xoil_idct8x8theora_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
+oil_idct8x8theora_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int sstr)
 {
   if (_oil_function_class_idct8x8theora_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_idct8x8theora_s16);
@@ -1355,7 +1355,7 @@ xoil_idct8x8theora_s16 (int16_t * d_8x8, int dstr, const int16_t * s_8x8, int ss
 }
 
 void
-xoil_imdct12_f64 (double * d_12, const double * s_6)
+oil_imdct12_f64 (double * d_12, const double * s_6)
 {
   if (_oil_function_class_imdct12_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_imdct12_f64);
@@ -1364,7 +1364,7 @@ xoil_imdct12_f64 (double * d_12, const double * s_6)
 }
 
 void
-xoil_imdct32_f32 (float * d_32, const float * s_32)
+oil_imdct32_f32 (float * d_32, const float * s_32)
 {
   if (_oil_function_class_imdct32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_imdct32_f32);
@@ -1373,7 +1373,7 @@ xoil_imdct32_f32 (float * d_32, const float * s_32)
 }
 
 void
-xoil_imdct36_f64 (double * d_36, const double * s_18)
+oil_imdct36_f64 (double * d_36, const double * s_18)
 {
   if (_oil_function_class_imdct36_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_imdct36_f64);
@@ -1382,7 +1382,7 @@ xoil_imdct36_f64 (double * d_36, const double * s_18)
 }
 
 void
-xoil_inverse_f32 (float * d, const float * s, int n)
+oil_inverse_f32 (float * d, const float * s, int n)
 {
   if (_oil_function_class_inverse_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_inverse_f32);
@@ -1391,7 +1391,7 @@ xoil_inverse_f32 (float * d, const float * s, int n)
 }
 
 void
-xoil_maximum_f32 (float * d, const float * s1, const float * s2, int n)
+oil_maximum_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_maximum_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_maximum_f32);
@@ -1400,7 +1400,7 @@ xoil_maximum_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_md5 (uint32_t * i_4, const uint32_t * s_16)
+oil_md5 (uint32_t * i_4, const uint32_t * s_16)
 {
   if (_oil_function_class_md5.func == NULL) {
     oil_class_optimize (&_oil_function_class_md5);
@@ -1409,7 +1409,7 @@ xoil_md5 (uint32_t * i_4, const uint32_t * s_16)
 }
 
 void
-xoil_mdct12_f64 (double * d_6, const double * s_12)
+oil_mdct12_f64 (double * d_6, const double * s_12)
 {
   if (_oil_function_class_mdct12_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_mdct12_f64);
@@ -1418,7 +1418,7 @@ xoil_mdct12_f64 (double * d_6, const double * s_12)
 }
 
 void
-xoil_mdct36_f64 (double * d_18, const double * s_36)
+oil_mdct36_f64 (double * d_18, const double * s_36)
 {
   if (_oil_function_class_mdct36_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_mdct36_f64);
@@ -1427,7 +1427,7 @@ xoil_mdct36_f64 (double * d_18, const double * s_36)
 }
 
 void
-xoil_merge_linear_argb (uint32_t * d_n, const uint32_t * s_n, const uint32_t * s2_n, const uint32_t * s3_1, int n)
+oil_merge_linear_argb (uint32_t * d_n, const uint32_t * s_n, const uint32_t * s2_n, const uint32_t * s3_1, int n)
 {
   if (_oil_function_class_merge_linear_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_merge_linear_argb);
@@ -1436,7 +1436,7 @@ xoil_merge_linear_argb (uint32_t * d_n, const uint32_t * s_n, const uint32_t * s
 }
 
 void
-xoil_minimum_f32 (float * d, const float * s1, const float * s2, int n)
+oil_minimum_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_minimum_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_minimum_f32);
@@ -1445,7 +1445,7 @@ xoil_minimum_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_mix_u8 (uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
+oil_mix_u8 (uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
 {
   if (_oil_function_class_mix_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_mix_u8);
@@ -1454,7 +1454,7 @@ xoil_mix_u8 (uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const u
 }
 
 void
-xoil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2)
+oil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2)
 {
   if (_oil_function_class_mult8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_mult8x8_s16);
@@ -1463,7 +1463,7 @@ xoil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x
 }
 
 void
-xoil_multiply_f32 (float * d, const float * s1, const float * s2, int n)
+oil_multiply_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_multiply_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_multiply_f32);
@@ -1472,7 +1472,7 @@ xoil_multiply_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_multsum_f32 (float * dest, const float * src1, int sstr1, const float * src2, int sstr2, int n)
+oil_multsum_f32 (float * dest, const float * src1, int sstr1, const float * src2, int sstr2, int n)
 {
   if (_oil_function_class_multsum_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_multsum_f32);
@@ -1481,7 +1481,7 @@ xoil_multsum_f32 (float * dest, const float * src1, int sstr1, const float * src
 }
 
 void
-xoil_multsum_f64 (double * dest, const double * src1, int sstr1, const double * src2, int sstr2, int n)
+oil_multsum_f64 (double * dest, const double * src1, int sstr1, const double * src2, int sstr2, int n)
 {
   if (_oil_function_class_multsum_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_multsum_f64);
@@ -1490,7 +1490,7 @@ xoil_multsum_f64 (double * dest, const double * src1, int sstr1, const double * 
 }
 
 void
-xoil_negative_f32 (float * d, const float * s, int n)
+oil_negative_f32 (float * d, const float * s, int n)
 {
   if (_oil_function_class_negative_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_negative_f32);
@@ -1499,7 +1499,7 @@ xoil_negative_f32 (float * d, const float * s, int n)
 }
 
 void
-xoil_null (void)
+oil_null (void)
 {
   if (_oil_function_class_null.func == NULL) {
     oil_class_optimize (&_oil_function_class_null);
@@ -1508,7 +1508,7 @@ xoil_null (void)
 }
 
 void
-xoil_permute_f32 (float * dest, int dstr, const float * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_f32 (float * dest, int dstr, const float * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_f32);
@@ -1517,7 +1517,7 @@ xoil_permute_f32 (float * dest, int dstr, const float * src1, int sstr1, const i
 }
 
 void
-xoil_permute_f64 (double * dest, int dstr, const double * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_f64 (double * dest, int dstr, const double * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_f64);
@@ -1526,7 +1526,7 @@ xoil_permute_f64 (double * dest, int dstr, const double * src1, int sstr1, const
 }
 
 void
-xoil_permute_s16 (int16_t * dest, int dstr, const int16_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_s16 (int16_t * dest, int dstr, const int16_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_s16);
@@ -1535,7 +1535,7 @@ xoil_permute_s16 (int16_t * dest, int dstr, const int16_t * src1, int sstr1, con
 }
 
 void
-xoil_permute_s32 (int32_t * dest, int dstr, const int32_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_s32 (int32_t * dest, int dstr, const int32_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_s32);
@@ -1544,7 +1544,7 @@ xoil_permute_s32 (int32_t * dest, int dstr, const int32_t * src1, int sstr1, con
 }
 
 void
-xoil_permute_s8 (int8_t * dest, int dstr, const int8_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_s8 (int8_t * dest, int dstr, const int8_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_s8);
@@ -1553,7 +1553,7 @@ xoil_permute_s8 (int8_t * dest, int dstr, const int8_t * src1, int sstr1, const 
 }
 
 void
-xoil_permute_u16 (uint16_t * dest, int dstr, const uint16_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_u16 (uint16_t * dest, int dstr, const uint16_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_u16);
@@ -1562,7 +1562,7 @@ xoil_permute_u16 (uint16_t * dest, int dstr, const uint16_t * src1, int sstr1, c
 }
 
 void
-xoil_permute_u32 (uint32_t * dest, int dstr, const uint32_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_u32 (uint32_t * dest, int dstr, const uint32_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_u32);
@@ -1571,7 +1571,7 @@ xoil_permute_u32 (uint32_t * dest, int dstr, const uint32_t * src1, int sstr1, c
 }
 
 void
-xoil_permute_u8 (uint8_t * dest, int dstr, const uint8_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
+oil_permute_u8 (uint8_t * dest, int dstr, const uint8_t * src1, int sstr1, const int32_t * src2, int sstr2, int n)
 {
   if (_oil_function_class_permute_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_permute_u8);
@@ -1580,7 +1580,7 @@ xoil_permute_u8 (uint8_t * dest, int dstr, const uint8_t * src1, int sstr1, cons
 }
 
 void
-xoil_recon8x8_inter (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, const int16_t * s2_8x8)
+oil_recon8x8_inter (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, const int16_t * s2_8x8)
 {
   if (_oil_function_class_recon8x8_inter.func == NULL) {
     oil_class_optimize (&_oil_function_class_recon8x8_inter);
@@ -1589,7 +1589,7 @@ xoil_recon8x8_inter (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, c
 }
 
 void
-xoil_recon8x8_inter2 (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2, const int16_t * s3_8x8)
+oil_recon8x8_inter2 (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2, const int16_t * s3_8x8)
 {
   if (_oil_function_class_recon8x8_inter2.func == NULL) {
     oil_class_optimize (&_oil_function_class_recon8x8_inter2);
@@ -1598,7 +1598,7 @@ xoil_recon8x8_inter2 (uint8_t * d_8x8, int ds, const uint8_t * s1_8x8, int ss1, 
 }
 
 void
-xoil_recon8x8_intra (uint8_t * d_8x8, int ds, const int16_t * s_8x8)
+oil_recon8x8_intra (uint8_t * d_8x8, int ds, const int16_t * s_8x8)
 {
   if (_oil_function_class_recon8x8_intra.func == NULL) {
     oil_class_optimize (&_oil_function_class_recon8x8_intra);
@@ -1607,7 +1607,7 @@ xoil_recon8x8_intra (uint8_t * d_8x8, int ds, const int16_t * s_8x8)
 }
 
 void
-xoil_resample_linear_argb (uint32_t * d_n, const uint32_t * s_2xn, int n, uint32_t * i_2)
+oil_resample_linear_argb (uint32_t * d_n, const uint32_t * s_2xn, int n, uint32_t * i_2)
 {
   if (_oil_function_class_resample_linear_argb.func == NULL) {
     oil_class_optimize (&_oil_function_class_resample_linear_argb);
@@ -1616,7 +1616,7 @@ xoil_resample_linear_argb (uint32_t * d_n, const uint32_t * s_2xn, int n, uint32
 }
 
 void
-xoil_resample_linear_u8 (uint8_t * d_n, const uint8_t * s_2xn, int n, uint32_t * i_2)
+oil_resample_linear_u8 (uint8_t * d_n, const uint8_t * s_2xn, int n, uint32_t * i_2)
 {
   if (_oil_function_class_resample_linear_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_resample_linear_u8);
@@ -1625,7 +1625,7 @@ xoil_resample_linear_u8 (uint8_t * d_n, const uint8_t * s_2xn, int n, uint32_t *
 }
 
 void
-xoil_rgb2bgr (uint8_t * d_3xn, const uint8_t * s_3xn, int n)
+oil_rgb2bgr (uint8_t * d_3xn, const uint8_t * s_3xn, int n)
 {
   if (_oil_function_class_rgb2bgr.func == NULL) {
     oil_class_optimize (&_oil_function_class_rgb2bgr);
@@ -1634,7 +1634,7 @@ xoil_rgb2bgr (uint8_t * d_3xn, const uint8_t * s_3xn, int n)
 }
 
 void
-xoil_rgb2rgba (uint8_t * d_4xn, const uint8_t * s_3xn, int n)
+oil_rgb2rgba (uint8_t * d_4xn, const uint8_t * s_3xn, int n)
 {
   if (_oil_function_class_rgb2rgba.func == NULL) {
     oil_class_optimize (&_oil_function_class_rgb2rgba);
@@ -1643,7 +1643,7 @@ xoil_rgb2rgba (uint8_t * d_4xn, const uint8_t * s_3xn, int n)
 }
 
 void
-xoil_rowsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, const uint8_t * s2_8x8)
+oil_rowsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, const uint8_t * s2_8x8)
 {
   if (_oil_function_class_rowsad8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_rowsad8x8_u8);
@@ -1652,7 +1652,7 @@ xoil_rowsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, const uint8_t * s2_8x
 }
 
 void
-xoil_sad8x8_f64 (double * d_8x8, int ds, const double * s1_8x8, int ss1, const double * s2_8x8, int ss2)
+oil_sad8x8_f64 (double * d_8x8, int ds, const double * s1_8x8, int ss1, const double * s2_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_f64);
@@ -1661,7 +1661,7 @@ xoil_sad8x8_f64 (double * d_8x8, int ds, const double * s1_8x8, int ss1, const d
 }
 
 void
-xoil_sad8x8_f64_2 (double * d_1, const double * s1_8x8, int ss1, const double * s2_8x8, int ss2)
+oil_sad8x8_f64_2 (double * d_1, const double * s1_8x8, int ss1, const double * s2_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_f64_2.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_f64_2);
@@ -1670,7 +1670,7 @@ xoil_sad8x8_f64_2 (double * d_1, const double * s1_8x8, int ss1, const double * 
 }
 
 void
-xoil_sad8x8_s16 (uint32_t * d_8x8, int ds, const int16_t * s1_8x8, int ss1, const int16_t * s2_8x8, int ss2)
+oil_sad8x8_s16 (uint32_t * d_8x8, int ds, const int16_t * s1_8x8, int ss1, const int16_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_s16);
@@ -1679,7 +1679,7 @@ xoil_sad8x8_s16 (uint32_t * d_8x8, int ds, const int16_t * s1_8x8, int ss1, cons
 }
 
 void
-xoil_sad8x8_s16_2 (uint32_t * d_1, const int16_t * s1_8x8, int ss1, const int16_t * s2_8x8, int ss2)
+oil_sad8x8_s16_2 (uint32_t * d_1, const int16_t * s1_8x8, int ss1, const int16_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_s16_2.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_s16_2);
@@ -1688,7 +1688,7 @@ xoil_sad8x8_s16_2 (uint32_t * d_1, const int16_t * s1_8x8, int ss1, const int16_
 }
 
 void
-xoil_sad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
+oil_sad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_u8);
@@ -1697,7 +1697,7 @@ xoil_sad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t *
 }
 
 void
-xoil_sad8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, const uint8_t * s3_8x8, int ss2)
+oil_sad8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, const uint8_t * s3_8x8, int ss2)
 {
   if (_oil_function_class_sad8x8_u8_avg.func == NULL) {
     oil_class_optimize (&_oil_function_class_sad8x8_u8_avg);
@@ -1706,7 +1706,7 @@ xoil_sad8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8
 }
 
 void
-xoil_scalaradd_f32 (float * d, int dstr, const float * s1, int sstr, const float * s2_1, int n)
+oil_scalaradd_f32 (float * d, int dstr, const float * s1, int sstr, const float * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_f32);
@@ -1715,7 +1715,7 @@ xoil_scalaradd_f32 (float * d, int dstr, const float * s1, int sstr, const float
 }
 
 void
-xoil_scalaradd_f32_ns (float * d, const float * s1, const float * s2_1, int n)
+oil_scalaradd_f32_ns (float * d, const float * s1, const float * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_f32_ns.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_f32_ns);
@@ -1724,7 +1724,7 @@ xoil_scalaradd_f32_ns (float * d, const float * s1, const float * s2_1, int n)
 }
 
 void
-xoil_scalaradd_f64 (double * d, int dstr, const double * s1, int sstr, const double * s2_1, int n)
+oil_scalaradd_f64 (double * d, int dstr, const double * s1, int sstr, const double * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_f64);
@@ -1733,7 +1733,7 @@ xoil_scalaradd_f64 (double * d, int dstr, const double * s1, int sstr, const dou
 }
 
 void
-xoil_scalaradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const int16_t * s2_1, int n)
+oil_scalaradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const int16_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_s16);
@@ -1742,7 +1742,7 @@ xoil_scalaradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const i
 }
 
 void
-xoil_scalaradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const int32_t * s2_1, int n)
+oil_scalaradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const int32_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_s32);
@@ -1751,7 +1751,7 @@ xoil_scalaradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const i
 }
 
 void
-xoil_scalaradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int8_t * s2_1, int n)
+oil_scalaradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int8_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_s8);
@@ -1760,7 +1760,7 @@ xoil_scalaradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int8
 }
 
 void
-xoil_scalaradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, const uint16_t * s2_1, int n)
+oil_scalaradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, const uint16_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_u16);
@@ -1769,7 +1769,7 @@ xoil_scalaradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, const
 }
 
 void
-xoil_scalaradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const uint32_t * s2_1, int n)
+oil_scalaradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const uint32_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_u32);
@@ -1778,7 +1778,7 @@ xoil_scalaradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const
 }
 
 void
-xoil_scalaradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const uint8_t * s2_1, int n)
+oil_scalaradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const uint8_t * s2_1, int n)
 {
   if (_oil_function_class_scalaradd_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalaradd_u8);
@@ -1787,7 +1787,7 @@ xoil_scalaradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const ui
 }
 
 void
-xoil_scalarmult_f32 (float * d, int dstr, const float * s1, int sstr, const float * s2_1, int n)
+oil_scalarmult_f32 (float * d, int dstr, const float * s1, int sstr, const float * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_f32);
@@ -1796,7 +1796,7 @@ xoil_scalarmult_f32 (float * d, int dstr, const float * s1, int sstr, const floa
 }
 
 void
-xoil_scalarmult_f64 (double * d, int dstr, const double * s1, int sstr, const double * s2_1, int n)
+oil_scalarmult_f64 (double * d, int dstr, const double * s1, int sstr, const double * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_f64);
@@ -1805,7 +1805,7 @@ xoil_scalarmult_f64 (double * d, int dstr, const double * s1, int sstr, const do
 }
 
 void
-xoil_scalarmult_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const int16_t * s2_1, int n)
+oil_scalarmult_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const int16_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_s16);
@@ -1814,7 +1814,7 @@ xoil_scalarmult_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr, const 
 }
 
 void
-xoil_scalarmult_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const int32_t * s2_1, int n)
+oil_scalarmult_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const int32_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_s32);
@@ -1823,7 +1823,7 @@ xoil_scalarmult_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr, const 
 }
 
 void
-xoil_scalarmult_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int8_t * s2_1, int n)
+oil_scalarmult_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int8_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_s8);
@@ -1832,7 +1832,7 @@ xoil_scalarmult_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr, const int
 }
 
 void
-xoil_scalarmult_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, const uint16_t * s2_1, int n)
+oil_scalarmult_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, const uint16_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_u16);
@@ -1841,7 +1841,7 @@ xoil_scalarmult_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, cons
 }
 
 void
-xoil_scalarmult_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const uint32_t * s2_1, int n)
+oil_scalarmult_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const uint32_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_u32);
@@ -1850,7 +1850,7 @@ xoil_scalarmult_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, cons
 }
 
 void
-xoil_scalarmult_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const uint8_t * s2_1, int n)
+oil_scalarmult_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const uint8_t * s2_1, int n)
 {
   if (_oil_function_class_scalarmult_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmult_u8);
@@ -1859,7 +1859,7 @@ xoil_scalarmult_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const u
 }
 
 void
-xoil_scalarmultiply_f32_ns (float * d, const float * s1, const float * s2_1, int n)
+oil_scalarmultiply_f32_ns (float * d, const float * s1, const float * s2_1, int n)
 {
   if (_oil_function_class_scalarmultiply_f32_ns.func == NULL) {
     oil_class_optimize (&_oil_function_class_scalarmultiply_f32_ns);
@@ -1868,7 +1868,7 @@ xoil_scalarmultiply_f32_ns (float * d, const float * s1, const float * s2_1, int
 }
 
 void
-xoil_scaleconv_f32_s16 (float * dest, const int16_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_s16 (float * dest, const int16_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_s16);
@@ -1877,7 +1877,7 @@ xoil_scaleconv_f32_s16 (float * dest, const int16_t * src, int n, const double *
 }
 
 void
-xoil_scaleconv_f32_s32 (float * dest, const int32_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_s32 (float * dest, const int32_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_s32);
@@ -1886,7 +1886,7 @@ xoil_scaleconv_f32_s32 (float * dest, const int32_t * src, int n, const double *
 }
 
 void
-xoil_scaleconv_f32_s8 (float * dest, const int8_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_s8 (float * dest, const int8_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_s8);
@@ -1895,7 +1895,7 @@ xoil_scaleconv_f32_s8 (float * dest, const int8_t * src, int n, const double * s
 }
 
 void
-xoil_scaleconv_f32_u16 (float * dest, const uint16_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_u16 (float * dest, const uint16_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_u16);
@@ -1904,7 +1904,7 @@ xoil_scaleconv_f32_u16 (float * dest, const uint16_t * src, int n, const double 
 }
 
 void
-xoil_scaleconv_f32_u32 (float * dest, const uint32_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_u32 (float * dest, const uint32_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_u32);
@@ -1913,7 +1913,7 @@ xoil_scaleconv_f32_u32 (float * dest, const uint32_t * src, int n, const double 
 }
 
 void
-xoil_scaleconv_f32_u8 (float * dest, const uint8_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f32_u8 (float * dest, const uint8_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f32_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f32_u8);
@@ -1922,7 +1922,7 @@ xoil_scaleconv_f32_u8 (float * dest, const uint8_t * src, int n, const double * 
 }
 
 void
-xoil_scaleconv_f64_s16 (double * dest, const int16_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_s16 (double * dest, const int16_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_s16);
@@ -1931,7 +1931,7 @@ xoil_scaleconv_f64_s16 (double * dest, const int16_t * src, int n, const double 
 }
 
 void
-xoil_scaleconv_f64_s32 (double * dest, const int32_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_s32 (double * dest, const int32_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_s32);
@@ -1940,7 +1940,7 @@ xoil_scaleconv_f64_s32 (double * dest, const int32_t * src, int n, const double 
 }
 
 void
-xoil_scaleconv_f64_s8 (double * dest, const int8_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_s8 (double * dest, const int8_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_s8);
@@ -1949,7 +1949,7 @@ xoil_scaleconv_f64_s8 (double * dest, const int8_t * src, int n, const double * 
 }
 
 void
-xoil_scaleconv_f64_u16 (double * dest, const uint16_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_u16 (double * dest, const uint16_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_u16);
@@ -1958,7 +1958,7 @@ xoil_scaleconv_f64_u16 (double * dest, const uint16_t * src, int n, const double
 }
 
 void
-xoil_scaleconv_f64_u32 (double * dest, const uint32_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_u32 (double * dest, const uint32_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_u32);
@@ -1967,7 +1967,7 @@ xoil_scaleconv_f64_u32 (double * dest, const uint32_t * src, int n, const double
 }
 
 void
-xoil_scaleconv_f64_u8 (double * dest, const uint8_t * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_f64_u8 (double * dest, const uint8_t * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_f64_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_f64_u8);
@@ -1976,7 +1976,7 @@ xoil_scaleconv_f64_u8 (double * dest, const uint8_t * src, int n, const double *
 }
 
 void
-xoil_scaleconv_s16_f32 (int16_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s16_f32 (int16_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s16_f32);
@@ -1985,7 +1985,7 @@ xoil_scaleconv_s16_f32 (int16_t * dest, const float * src, int n, const double *
 }
 
 void
-xoil_scaleconv_s16_f64 (int16_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s16_f64 (int16_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s16_f64);
@@ -1994,7 +1994,7 @@ xoil_scaleconv_s16_f64 (int16_t * dest, const double * src, int n, const double 
 }
 
 void
-xoil_scaleconv_s32_f32 (int32_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s32_f32 (int32_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s32_f32);
@@ -2003,7 +2003,7 @@ xoil_scaleconv_s32_f32 (int32_t * dest, const float * src, int n, const double *
 }
 
 void
-xoil_scaleconv_s32_f64 (int32_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s32_f64 (int32_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s32_f64);
@@ -2012,7 +2012,7 @@ xoil_scaleconv_s32_f64 (int32_t * dest, const double * src, int n, const double 
 }
 
 void
-xoil_scaleconv_s8_f32 (int8_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s8_f32 (int8_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s8_f32);
@@ -2021,7 +2021,7 @@ xoil_scaleconv_s8_f32 (int8_t * dest, const float * src, int n, const double * s
 }
 
 void
-xoil_scaleconv_s8_f64 (int8_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_s8_f64 (int8_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_s8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_s8_f64);
@@ -2030,7 +2030,7 @@ xoil_scaleconv_s8_f64 (int8_t * dest, const double * src, int n, const double * 
 }
 
 void
-xoil_scaleconv_u16_f32 (uint16_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u16_f32 (uint16_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u16_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u16_f32);
@@ -2039,7 +2039,7 @@ xoil_scaleconv_u16_f32 (uint16_t * dest, const float * src, int n, const double 
 }
 
 void
-xoil_scaleconv_u16_f64 (uint16_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u16_f64 (uint16_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u16_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u16_f64);
@@ -2048,7 +2048,7 @@ xoil_scaleconv_u16_f64 (uint16_t * dest, const double * src, int n, const double
 }
 
 void
-xoil_scaleconv_u32_f32 (uint32_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u32_f32 (uint32_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u32_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u32_f32);
@@ -2057,7 +2057,7 @@ xoil_scaleconv_u32_f32 (uint32_t * dest, const float * src, int n, const double 
 }
 
 void
-xoil_scaleconv_u32_f64 (uint32_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u32_f64 (uint32_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u32_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u32_f64);
@@ -2066,7 +2066,7 @@ xoil_scaleconv_u32_f64 (uint32_t * dest, const double * src, int n, const double
 }
 
 void
-xoil_scaleconv_u8_f32 (uint8_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u8_f32 (uint8_t * dest, const float * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u8_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u8_f32);
@@ -2075,7 +2075,7 @@ xoil_scaleconv_u8_f32 (uint8_t * dest, const float * src, int n, const double * 
 }
 
 void
-xoil_scaleconv_u8_f64 (uint8_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+oil_scaleconv_u8_f64 (uint8_t * dest, const double * src, int n, const double * s2_1, const double * s3_1)
 {
   if (_oil_function_class_scaleconv_u8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_scaleconv_u8_f64);
@@ -2084,7 +2084,7 @@ xoil_scaleconv_u8_f64 (uint8_t * dest, const double * src, int n, const double *
 }
 
 void
-xoil_scanlinescale2_u8 (uint8_t * d, const uint8_t * s, int n)
+oil_scanlinescale2_u8 (uint8_t * d, const uint8_t * s, int n)
 {
   if (_oil_function_class_scanlinescale2_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_scanlinescale2_u8);
@@ -2093,7 +2093,7 @@ xoil_scanlinescale2_u8 (uint8_t * d, const uint8_t * s, int n)
 }
 
 void
-xoil_sign_f32 (float * d, const float * s, int n)
+oil_sign_f32 (float * d, const float * s, int n)
 {
   if (_oil_function_class_sign_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_sign_f32);
@@ -2102,7 +2102,7 @@ xoil_sign_f32 (float * d, const float * s, int n)
 }
 
 void
-xoil_sincos_f64 (double * dest1, double * dest2, int n, const double * s1_1, const double * s2_1)
+oil_sincos_f64 (double * dest1, double * dest2, int n, const double * s1_1, const double * s2_1)
 {
   if (_oil_function_class_sincos_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_sincos_f64);
@@ -2111,7 +2111,7 @@ xoil_sincos_f64 (double * dest1, double * dest2, int n, const double * s1_1, con
 }
 
 void
-xoil_splat_u32 (uint32_t * dest, int dstr, const uint32_t * s1_1, int n)
+oil_splat_u32 (uint32_t * dest, int dstr, const uint32_t * s1_1, int n)
 {
   if (_oil_function_class_splat_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_splat_u32);
@@ -2120,7 +2120,7 @@ xoil_splat_u32 (uint32_t * dest, int dstr, const uint32_t * s1_1, int n)
 }
 
 void
-xoil_splat_u32_ns (uint32_t * dest, const uint32_t * s1_1, int n)
+oil_splat_u32_ns (uint32_t * dest, const uint32_t * s1_1, int n)
 {
   if (_oil_function_class_splat_u32_ns.func == NULL) {
     oil_class_optimize (&_oil_function_class_splat_u32_ns);
@@ -2129,7 +2129,7 @@ xoil_splat_u32_ns (uint32_t * dest, const uint32_t * s1_1, int n)
 }
 
 void
-xoil_splat_u8 (uint8_t * dest, int dstr, const uint8_t * s1_1, int n)
+oil_splat_u8 (uint8_t * dest, int dstr, const uint8_t * s1_1, int n)
 {
   if (_oil_function_class_splat_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_splat_u8);
@@ -2138,7 +2138,7 @@ xoil_splat_u8 (uint8_t * dest, int dstr, const uint8_t * s1_1, int n)
 }
 
 void
-xoil_splat_u8_ns (uint8_t * dest, const uint8_t * s1_1, int n)
+oil_splat_u8_ns (uint8_t * dest, const uint8_t * s1_1, int n)
 {
   if (_oil_function_class_splat_u8_ns.func == NULL) {
     oil_class_optimize (&_oil_function_class_splat_u8_ns);
@@ -2147,7 +2147,7 @@ xoil_splat_u8_ns (uint8_t * dest, const uint8_t * s1_1, int n)
 }
 
 void
-xoil_squaresum_f64 (double * d, const double * s, int n)
+oil_squaresum_f64 (double * d, const double * s, int n)
 {
   if (_oil_function_class_squaresum_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_squaresum_f64);
@@ -2156,7 +2156,7 @@ xoil_squaresum_f64 (double * d, const double * s, int n)
 }
 
 void
-xoil_squaresum_shifted_s16 (uint32_t * d, const int16_t * s, int n)
+oil_squaresum_shifted_s16 (uint32_t * d, const int16_t * s, int n)
 {
   if (_oil_function_class_squaresum_shifted_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_squaresum_shifted_s16);
@@ -2165,7 +2165,7 @@ xoil_squaresum_shifted_s16 (uint32_t * d, const int16_t * s, int n)
 }
 
 void
-xoil_subtract_f32 (float * d, const float * s1, const float * s2, int n)
+oil_subtract_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_subtract_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_subtract_f32);
@@ -2174,7 +2174,7 @@ xoil_subtract_f32 (float * d, const float * s1, const float * s2, int n)
 }
 
 void
-xoil_sum_f64 (double * d_1, const double * s, int sstr, int n)
+oil_sum_f64 (double * d_1, const double * s, int sstr, int n)
 {
   if (_oil_function_class_sum_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_sum_f64);
@@ -2183,7 +2183,7 @@ xoil_sum_f64 (double * d_1, const double * s, int sstr, int n)
 }
 
 void
-xoil_swab_u16 (uint16_t * d_n, const uint16_t * s_n, int n)
+oil_swab_u16 (uint16_t * d_n, const uint16_t * s_n, int n)
 {
   if (_oil_function_class_swab_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_swab_u16);
@@ -2192,7 +2192,7 @@ xoil_swab_u16 (uint16_t * d_n, const uint16_t * s_n, int n)
 }
 
 void
-xoil_swab_u32 (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_swab_u32 (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_swab_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_swab_u32);
@@ -2201,7 +2201,7 @@ xoil_swab_u32 (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_tablelookup_u8 (uint8_t * d, int ds, const uint8_t * s1, int ss1, const uint8_t * s2_256, int ss2, int n)
+oil_tablelookup_u8 (uint8_t * d, int ds, const uint8_t * s1, int ss1, const uint8_t * s2_256, int ss2, int n)
 {
   if (_oil_function_class_tablelookup_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_tablelookup_u8);
@@ -2210,7 +2210,7 @@ xoil_tablelookup_u8 (uint8_t * d, int ds, const uint8_t * s1, int ss1, const uin
 }
 
 void
-xoil_testzero_u8 (uint32_t * d_1, const uint8_t * s, int n)
+oil_testzero_u8 (uint32_t * d_1, const uint8_t * s, int n)
 {
   if (_oil_function_class_testzero_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_testzero_u8);
@@ -2219,7 +2219,7 @@ xoil_testzero_u8 (uint32_t * d_1, const uint8_t * s, int n)
 }
 
 void
-xoil_trans8x8_f64 (double * d_8x8, int ds, const double * s_8x8, int ss)
+oil_trans8x8_f64 (double * d_8x8, int ds, const double * s_8x8, int ss)
 {
   if (_oil_function_class_trans8x8_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_trans8x8_f64);
@@ -2228,7 +2228,7 @@ xoil_trans8x8_f64 (double * d_8x8, int ds, const double * s_8x8, int ss)
 }
 
 void
-xoil_trans8x8_u16 (uint16_t * d_8x8, int ds, const uint16_t * s_8x8, int ss)
+oil_trans8x8_u16 (uint16_t * d_8x8, int ds, const uint16_t * s_8x8, int ss)
 {
   if (_oil_function_class_trans8x8_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_trans8x8_u16);
@@ -2237,7 +2237,7 @@ xoil_trans8x8_u16 (uint16_t * d_8x8, int ds, const uint16_t * s_8x8, int ss)
 }
 
 void
-xoil_trans8x8_u32 (uint32_t * d_8x8, int ds, const uint32_t * s_8x8, int ss)
+oil_trans8x8_u32 (uint32_t * d_8x8, int ds, const uint32_t * s_8x8, int ss)
 {
   if (_oil_function_class_trans8x8_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_trans8x8_u32);
@@ -2246,7 +2246,7 @@ xoil_trans8x8_u32 (uint32_t * d_8x8, int ds, const uint32_t * s_8x8, int ss)
 }
 
 void
-xoil_trans8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
+oil_trans8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
 {
   if (_oil_function_class_trans8x8_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_trans8x8_u8);
@@ -2255,7 +2255,7 @@ xoil_trans8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
 }
 
 void
-xoil_unzigzag8x8_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
+oil_unzigzag8x8_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
 {
   if (_oil_function_class_unzigzag8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_unzigzag8x8_s16);
@@ -2264,7 +2264,7 @@ xoil_unzigzag8x8_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
 }
 
 void
-xoil_utf8_validate (int32_t * d_1, const uint8_t * s, int n)
+oil_utf8_validate (int32_t * d_1, const uint8_t * s, int n)
 {
   if (_oil_function_class_utf8_validate.func == NULL) {
     oil_class_optimize (&_oil_function_class_utf8_validate);
@@ -2273,7 +2273,7 @@ xoil_utf8_validate (int32_t * d_1, const uint8_t * s, int n)
 }
 
 void
-xoil_uyvy2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_uyvy2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_uyvy2ayuv.func == NULL) {
     oil_class_optimize (&_oil_function_class_uyvy2ayuv);
@@ -2282,7 +2282,7 @@ xoil_uyvy2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_vectoradd_f32 (float * d, int dstr, const float * s1, int sstr1, const float * s2, int sstr2, int n, const float * s3_1, const float * s4_1)
+oil_vectoradd_f32 (float * d, int dstr, const float * s1, int sstr1, const float * s2, int sstr2, int n, const float * s3_1, const float * s4_1)
 {
   if (_oil_function_class_vectoradd_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_f32);
@@ -2291,7 +2291,7 @@ xoil_vectoradd_f32 (float * d, int dstr, const float * s1, int sstr1, const floa
 }
 
 void
-xoil_vectoradd_f64 (double * d, int dstr, const double * s1, int sstr1, const double * s2, int sstr2, int n, const double * s3_1, const double * s4_1)
+oil_vectoradd_f64 (double * d, int dstr, const double * s1, int sstr1, const double * s2, int sstr2, int n, const double * s3_1, const double * s4_1)
 {
   if (_oil_function_class_vectoradd_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_f64);
@@ -2300,7 +2300,7 @@ xoil_vectoradd_f64 (double * d, int dstr, const double * s1, int sstr1, const do
 }
 
 void
-xoil_vectoradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, const int16_t * s2, int sstr2, int n, const int16_t * s3_1, const int16_t * s4_1)
+oil_vectoradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, const int16_t * s2, int sstr2, int n, const int16_t * s3_1, const int16_t * s4_1)
 {
   if (_oil_function_class_vectoradd_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s16);
@@ -2309,7 +2309,7 @@ xoil_vectoradd_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, const 
 }
 
 void
-xoil_vectoradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr1, const int32_t * s2, int sstr2, int n, const int32_t * s3_1, const int32_t * s4_1)
+oil_vectoradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr1, const int32_t * s2, int sstr2, int n, const int32_t * s3_1, const int32_t * s4_1)
 {
   if (_oil_function_class_vectoradd_s32.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s32);
@@ -2318,7 +2318,7 @@ xoil_vectoradd_s32 (int32_t * d, int dstr, const int32_t * s1, int sstr1, const 
 }
 
 void
-xoil_vectoradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const int8_t * s2, int sstr2, int n, const int8_t * s3_1, const int8_t * s4_1)
+oil_vectoradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const int8_t * s2, int sstr2, int n, const int8_t * s3_1, const int8_t * s4_1)
 {
   if (_oil_function_class_vectoradd_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s8);
@@ -2327,7 +2327,7 @@ xoil_vectoradd_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const int
 }
 
 void
-xoil_vectoradd_s_f32 (float * d, int dstr, const float * s1, int sstr1, const float * s2, int sstr2, int n)
+oil_vectoradd_s_f32 (float * d, int dstr, const float * s1, int sstr1, const float * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_f32.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_f32);
@@ -2336,7 +2336,7 @@ xoil_vectoradd_s_f32 (float * d, int dstr, const float * s1, int sstr1, const fl
 }
 
 void
-xoil_vectoradd_s_f64 (double * d, int dstr, const double * s1, int sstr1, const double * s2, int sstr2, int n)
+oil_vectoradd_s_f64 (double * d, int dstr, const double * s1, int sstr1, const double * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_f64.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_f64);
@@ -2345,7 +2345,7 @@ xoil_vectoradd_s_f64 (double * d, int dstr, const double * s1, int sstr1, const 
 }
 
 void
-xoil_vectoradd_s_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, const int16_t * s2, int sstr2, int n)
+oil_vectoradd_s_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, const int16_t * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_s16);
@@ -2354,7 +2354,7 @@ xoil_vectoradd_s_s16 (int16_t * d, int dstr, const int16_t * s1, int sstr1, cons
 }
 
 void
-xoil_vectoradd_s_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const int8_t * s2, int sstr2, int n)
+oil_vectoradd_s_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const int8_t * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_s8.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_s8);
@@ -2363,7 +2363,7 @@ xoil_vectoradd_s_s8 (int8_t * d, int dstr, const int8_t * s1, int sstr1, const i
 }
 
 void
-xoil_vectoradd_s_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, const uint16_t * s2, int sstr2, int n)
+oil_vectoradd_s_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, const uint16_t * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_u16);
@@ -2372,7 +2372,7 @@ xoil_vectoradd_s_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, co
 }
 
 void
-xoil_vectoradd_s_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n)
+oil_vectoradd_s_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n)
 {
   if (_oil_function_class_vectoradd_s_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_s_u8);
@@ -2381,7 +2381,7 @@ xoil_vectoradd_s_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const
 }
 
 void
-xoil_vectoradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, const uint16_t * s2, int sstr2, int n, const uint16_t * s3_1, const uint16_t * s4_1)
+oil_vectoradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, const uint16_t * s2, int sstr2, int n, const uint16_t * s3_1, const uint16_t * s4_1)
 {
   if (_oil_function_class_vectoradd_u16.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_u16);
@@ -2390,7 +2390,7 @@ xoil_vectoradd_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr1, cons
 }
 
 void
-xoil_vectoradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr1, const uint32_t * s2, int sstr2, int n, const uint32_t * s3_1, const uint32_t * s4_1)
+oil_vectoradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr1, const uint32_t * s2, int sstr2, int n, const uint32_t * s3_1, const uint32_t * s4_1)
 {
   if (_oil_function_class_vectoradd_u32.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_u32);
@@ -2399,7 +2399,7 @@ xoil_vectoradd_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr1, cons
 }
 
 void
-xoil_vectoradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n, const uint8_t * s3_1, const uint8_t * s4_1)
+oil_vectoradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n, const uint8_t * s3_1, const uint8_t * s4_1)
 {
   if (_oil_function_class_vectoradd_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_vectoradd_u8);
@@ -2408,7 +2408,7 @@ xoil_vectoradd_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const u
 }
 
 void
-xoil_yuv2rgbx_sub2_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
+oil_yuv2rgbx_sub2_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
 {
   if (_oil_function_class_yuv2rgbx_sub2_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_yuv2rgbx_sub2_u8);
@@ -2417,7 +2417,7 @@ xoil_yuv2rgbx_sub2_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * sr
 }
 
 void
-xoil_yuv2rgbx_sub4_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
+oil_yuv2rgbx_sub4_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
 {
   if (_oil_function_class_yuv2rgbx_sub4_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_yuv2rgbx_sub4_u8);
@@ -2426,7 +2426,7 @@ xoil_yuv2rgbx_sub4_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * sr
 }
 
 void
-xoil_yuv2rgbx_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
+oil_yuv2rgbx_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n)
 {
   if (_oil_function_class_yuv2rgbx_u8.func == NULL) {
     oil_class_optimize (&_oil_function_class_yuv2rgbx_u8);
@@ -2435,7 +2435,7 @@ xoil_yuv2rgbx_u8 (uint8_t * d_4xn, const uint8_t * src1, const uint8_t * src2, c
 }
 
 void
-xoil_yuyv2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_yuyv2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_yuyv2ayuv.func == NULL) {
     oil_class_optimize (&_oil_function_class_yuyv2ayuv);
@@ -2444,7 +2444,7 @@ xoil_yuyv2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_yvyu2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
+oil_yvyu2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 {
   if (_oil_function_class_yvyu2ayuv.func == NULL) {
     oil_class_optimize (&_oil_function_class_yvyu2ayuv);
@@ -2453,7 +2453,7 @@ xoil_yvyu2ayuv (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
-xoil_zigzag8x8_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
+oil_zigzag8x8_s16 (int16_t * d_8x8, int ds, const int16_t * s_8x8, int ss)
 {
   if (_oil_function_class_zigzag8x8_s16.func == NULL) {
     oil_class_optimize (&_oil_function_class_zigzag8x8_s16);

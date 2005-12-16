@@ -65,7 +65,7 @@ int main (int argc, char *argv[])
         arg_string = oil_prototype_to_arg_string (proto);
 
         printf ("void\n");
-        printf ("xoil_%s (%s)\n", klass->name, string);
+        printf ("oil_%s (%s)\n", klass->name, string);
         printf ("{\n");
         printf ("  if (_oil_function_class_%s.func == NULL) {\n", klass->name);
         printf ("    oil_class_optimize (&_oil_function_class_%s);\n", klass->name);

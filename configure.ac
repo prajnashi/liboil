@@ -63,6 +63,14 @@ if test "x$enable_broken_implementations" = xyes ; then
   AC_DEFINE(ENABLE_BROKEN_IMPLS, 1, [Define if compiling broken implementations])
 fi
 
+AC_ARG_ENABLE(new-abi,
+  AC_HELP_STRING([--enable-new-abi],[enable experimental 0.4 ABI]),
+  enable_new_abi=$enableval,enable_new_abi=no)
+if test "x$enable_new_abi" = xyes ; then
+  AC_DEFINE(ENABLE_NEW_ABI, 1, [Define if compiling new ABI])
+fi
+AM_CONDITIONAL(USE_NEW_ABI, test "x$enable_new_abi" = xyes)
+
 ##################################################
 # Check for gtk-doc.
 ##################################################
