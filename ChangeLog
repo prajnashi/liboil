@@ -24,6 +24,7 @@
 	* liboil/ref/vectoradd_s.c:
 	* liboil/simdpack/scalaradd.c:
 	* liboil/simdpack/scalarmult.c:
+	  Global change from type_* to oil_type_*
 
 2005-12-15  Eric Anholt  <anholt@FreeBSD.org>
 
