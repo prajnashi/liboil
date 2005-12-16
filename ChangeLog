@@ -1,3 +1,11 @@
+2005-12-15  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/fb/fbmmx.c: (pix_multiply):
+	Fix an off-by-one reported by the align test (reported as a much larger
+	error, since the pixels get represented as ints) by fixing an ordering
+	issue of instructions in the rounding code.  This is also reflected in
+	current upstream sources.
+
 2005-12-15  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcolorspace.h:  Fix doc on oil_divide_255().
