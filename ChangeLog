@@ -1,5 +1,13 @@
 2005-12-15  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_unroll):
+	* testsuite/Makefile.am:
+	Fix an issue in the unrolled zigzag function where the src and dst
+	offsets were swapped.  Add a testsuite entry to check that the process
+	of zigzagging and unzigzagging results in the original data.
+
+2005-12-15  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/fb/fbmmx.c: (pix_multiply):
 	Fix an off-by-one reported by the align test (reported as a much larger
 	error, since the pixels get represented as ints) by fixing an ordering

@@ -135,8 +135,8 @@ static void
 zigzag8x8_s16_unroll (int16_t *dest, int dstr, int16_t *src, int sstr)
 {
 #define ACK(x,y) \
-        OIL_GET(dest, ((y)>>3) * dstr + ((y)&7) * sizeof(int16_t), int16_t) = \
-          OIL_GET(src, ((x)>>3) * sstr + ((x)&7) * sizeof(int16_t), int16_t);
+        OIL_GET(dest, ((x)>>3) * dstr + ((x)&7) * sizeof(int16_t), int16_t) = \
+          OIL_GET(src, ((y)>>3) * sstr + ((y)&7) * sizeof(int16_t), int16_t);
 
         ACK(0, 0);
         ACK(1, 8);
