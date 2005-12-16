@@ -37,14 +37,14 @@
 
 
 static void
-swab_u16_libc (uint16_t *d, uint16_t *s, int n)
+swab_u16_libc (uint16_t *d, const uint16_t *s, int n)
 {
   swab (s, d, n*2);
 }
 OIL_DEFINE_IMPL (swab_u16_libc, swab_u16);
 
 static void
-swab_u16_ptr (uint16_t *d, uint16_t *s, int n)
+swab_u16_ptr (uint16_t *d, const uint16_t *s, int n)
 {
   int i;
 
@@ -56,7 +56,7 @@ swab_u16_ptr (uint16_t *d, uint16_t *s, int n)
 OIL_DEFINE_IMPL (swab_u16_ptr, swab_u16);
 
 static void
-swab_u32_ptr (uint32_t *d, uint32_t *s, int n)
+swab_u32_ptr (uint32_t *d, const uint32_t *s, int n)
 {
   int i;
 
@@ -69,7 +69,7 @@ swab_u32_ptr (uint32_t *d, uint32_t *s, int n)
 OIL_DEFINE_IMPL (swab_u32_ptr, swab_u32);
 
 static void
-swab_u16_unroll2 (uint16_t *d, uint16_t *s, int n)
+swab_u16_unroll2 (uint16_t *d, const uint16_t *s, int n)
 {
   int i;
 
@@ -88,7 +88,7 @@ swab_u16_unroll2 (uint16_t *d, uint16_t *s, int n)
 OIL_DEFINE_IMPL (swab_u16_unroll2, swab_u16);
 
 static void
-swab_u16_unroll4 (uint16_t *d, uint16_t *s, int n)
+swab_u16_unroll4 (uint16_t *d, const uint16_t *s, int n)
 {
   int i;
 
@@ -112,7 +112,7 @@ swab_u16_unroll4 (uint16_t *d, uint16_t *s, int n)
 OIL_DEFINE_IMPL (swab_u16_unroll4, swab_u16);
 
 static void
-swab_u32_unroll2 (uint32_t *d, uint32_t *s, int n)
+swab_u32_unroll2 (uint32_t *d, const uint32_t *s, int n)
 {
   int i;
 
@@ -135,7 +135,7 @@ OIL_DEFINE_IMPL (swab_u32_unroll2, swab_u32);
 
 
 static void
-swab_u16_char (uint16_t *d, uint16_t *s, int n)
+swab_u16_char (uint16_t *d, const uint16_t *s, int n)
 {
   int i;
   uint8_t *bd = (uint8_t *)d;
@@ -153,7 +153,7 @@ swab_u16_char (uint16_t *d, uint16_t *s, int n)
 OIL_DEFINE_IMPL (swab_u16_char, swab_u16);
 
 static void
-swab_u32_char (uint32_t *d, uint32_t *s, int n)
+swab_u32_char (uint32_t *d, const uint32_t *s, int n)
 {
   int i;
 

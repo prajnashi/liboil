@@ -1,5 +1,12 @@
 2005-12-15  David Schleef  <ds@schleef.org>
 
+	* liboil/c/swab.c: swabbing functions
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs.h:
+	* liboil/ref/copy.c: some new classes.
+
+2005-12-15  David Schleef  <ds@schleef.org>
+
 	* doc/liboil-sections.txt:
 	* doc/tmpl/liboil-unused.sgml:
 	* doc/tmpl/liboiltypes.sgml:

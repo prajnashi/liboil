@@ -60,3 +60,62 @@ copy_u8_ref (uint8_t *dest, uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL_REF (copy_u8_ref, copy_u8);
 
+/**
+ * oil_compare_u8:
+ * @d_1: destination array
+ * @s1: source array
+ * @s2: source array
+ * @n: number of elements
+ *
+ * Compares two arrays.  The index of the first two elements that are
+ * unequal is written into dest.  If all elements are equal, @n is
+ * written into dest.
+ */
+OIL_DEFINE_CLASS (compare_u8, "uint32_t *d_1, uint8_t *s1, uint8_t *s2, int n");
+
+static void
+compare_u8_ref (uint32_t *dest, uint8_t *src1, uint8_t *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    if (src1[i] != src2[i]) {
+      dest[0] = i;
+      return;
+    }
+  }
+  dest[0] = n;
+}
+OIL_DEFINE_IMPL_REF (compare_u8_ref, compare_u8);
+
+/**
+ * oil_testzero_u8:
+ * @d_1: destination array
+ * @s: source array
+ * @n: number of elements
+ *
+ * Tests each element in the source array for equality with 0.  The
+ * index of the first zero element is written into dest.  If all
+ * elements are non-zero, @n is written into dest.
+ *
+ * This function is roughly equivalent to strnlen().  One notably
+ * difference is that implementations of this function may legally
+ * read past the end of the string.
+ */
+OIL_DEFINE_CLASS (testzero_u8, "uint32_t *d_1, uint8_t *s, int n");
+
+static void
+testzero_u8_ref (uint32_t *dest, uint8_t *src1, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    if (src1[i] == 0) {
+      dest[0] = i;
+      return;
+    }
+  }
+  dest[0] = n;
+}
+OIL_DEFINE_IMPL_REF (testzero_u8_ref, testzero_u8);
+

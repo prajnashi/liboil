@@ -192,6 +192,9 @@ typedef void (*_oil_type_clipconv_u8_u32)(uint8_t * dest, int dstr, const uint32
 extern OilFunctionClass *oil_function_class_ptr_colsad8x8_u8;
 typedef void (*_oil_type_colsad8x8_u8)(uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 #define oil_colsad8x8_u8 ((_oil_type_colsad8x8_u8)(*(void **)oil_function_class_ptr_colsad8x8_u8))
+extern OilFunctionClass *oil_function_class_ptr_compare_u8;
+typedef void (*_oil_type_compare_u8)(uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n);
+#define oil_compare_u8 ((_oil_type_compare_u8)(*(void **)oil_function_class_ptr_compare_u8))
 extern OilFunctionClass *oil_function_class_ptr_composite_add_argb;
 typedef void (*_oil_type_composite_add_argb)(uint32_t * i_n, const uint32_t * s1_n, int n);
 #define oil_composite_add_argb ((_oil_type_composite_add_argb)(*(void **)oil_function_class_ptr_composite_add_argb))
@@ -759,6 +762,9 @@ typedef void (*_oil_type_swab_u32)(uint32_t * d_n, const uint32_t * s_n, int n);
 extern OilFunctionClass *oil_function_class_ptr_tablelookup_u8;
 typedef void (*_oil_type_tablelookup_u8)(uint8_t * d, int ds, const uint8_t * s1, int ss1, const uint8_t * s2_256, int ss2, int n);
 #define oil_tablelookup_u8 ((_oil_type_tablelookup_u8)(*(void **)oil_function_class_ptr_tablelookup_u8))
+extern OilFunctionClass *oil_function_class_ptr_testzero_u8;
+typedef void (*_oil_type_testzero_u8)(uint32_t * d_1, const uint8_t * s, int n);
+#define oil_testzero_u8 ((_oil_type_testzero_u8)(*(void **)oil_function_class_ptr_testzero_u8))
 extern OilFunctionClass *oil_function_class_ptr_trans8x8_f64;
 typedef void (*_oil_type_trans8x8_f64)(double * d_8x8, int ds, const double * s_8x8, int ss);
 #define oil_trans8x8_f64 ((_oil_type_trans8x8_f64)(*(void **)oil_function_class_ptr_trans8x8_f64))
