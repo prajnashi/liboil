@@ -47,6 +47,7 @@ struct _OilPrototype {
 
 OilPrototype *oil_prototype_from_string (const char *s);
 char *oil_prototype_to_string (OilPrototype *proto);
+char *oil_prototype_to_arg_string (OilPrototype *proto);
 void oil_prototype_free (OilPrototype *proto);
 void oil_prototype_append_param (OilPrototype *proto, OilParameter *param);
 

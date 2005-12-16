@@ -142,6 +142,37 @@ oil_prototype_to_string (OilPrototype *proto)
 }
 
 /**
+ * oil_prototype_to_arg_string:
+ * @proto: the OilPrototype
+ *
+ * Converts a prototype into the corresponding C argument list.
+ *
+ * Returns: a string that should be freed using free() when it is no
+ * longer needed.
+ */
+char *
+oil_prototype_to_arg_string (OilPrototype *proto)
+{
+  OilString *string;
+  OilParameter *param;
+  int i;
+
+  string = oil_string_new ("");
+
+  for(i=0;i<proto->n_params;i++){
+    param = proto->params + i;
+
+    oil_string_append (string, param->parameter_name);
+
+    if(i<proto->n_params-1){
+      oil_string_append (string, ", ");
+    }
+  }
+
+  return oil_string_free (string, FALSE);
+}
+
+/**
  * oil_prototype_from_string:
  * @s: a string
  *

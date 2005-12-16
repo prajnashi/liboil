@@ -1,5 +1,15 @@
 2005-12-15  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am:
+	* liboil/build_trampolines.c:
+	* liboil/liboilprototype.c:
+	* liboil/liboilprototype.h:
+	* liboil/liboiltrampolines.c:
+	  Some C code to generate trampolines for every class in C.  For
+	  possible use in the 0.4 ABI.
+
+2005-12-15  David Schleef  <ds@schleef.org>
+
 	* liboil/sse/Makefile.am:
 	* liboil/sse/conv_sse.c: Remove this, since I'm not sure of its
 	  provenance and a bug (GNOME #324069) complained it's broken.
