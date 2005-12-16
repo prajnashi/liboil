@@ -35,7 +35,7 @@
 
 #include <ieee754.h>
 
-static void conv_f32_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
+static void conv_f32_u8_bitstuff(float *dst, int dest_stride, const uint8_t *src,
 	int src_stride, int n)
 {
 	const float offset = -65536;
@@ -52,7 +52,7 @@ static void conv_f32_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 }
 OIL_DEFINE_IMPL(conv_f32_u8_bitstuff, conv_f32_u8);
 
-static void conv_f32_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
+static void conv_f32_s8_bitstuff(float *dst, int dest_stride, const int8_t *src,
 	int src_stride, int n)
 {
 	const float offset = -384;
@@ -69,7 +69,7 @@ static void conv_f32_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 }
 OIL_DEFINE_IMPL(conv_f32_s8_bitstuff, conv_f32_s8);
 
-static void conv_f32_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
+static void conv_f32_u16_bitstuff(float *dst, int dest_stride, const uint16_t *src,
 	int src_stride, int n)
 {
 	const float offset = -65536;
@@ -86,7 +86,7 @@ static void conv_f32_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 }
 OIL_DEFINE_IMPL(conv_f32_u16_bitstuff, conv_f32_u16);
 
-static void conv_f32_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
+static void conv_f32_s16_bitstuff(float *dst, int dest_stride, const int16_t *src,
 	int src_stride, int n)
 {
 	const float offset = -98304;
@@ -109,7 +109,7 @@ OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16);
 #if 0
 /* broken */
 /* This implementation is slightly inaccurate */
-static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, float *src,
+static void conv_s16_f32_bitstuff(int16_t *dst, int dest_stride, const float *src,
 	int src_stride, int n)
 {
 	const float offset = 98304.5;
@@ -132,7 +132,7 @@ OIL_DEFINE_IMPL(conv_s16_f32_bitstuff, conv_s16_f32);
 
 
 #if 0
-static void conv_f64_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
+static void conv_f64_u8_bitstuff(float *dst, int dest_stride, const uint8_t *src,
 	int src_stride, int n)
 {
 	const float offset = -65536;
@@ -149,7 +149,7 @@ static void conv_f64_u8_bitstuff(float *dst, int dest_stride, uint8_t *src,
 }
 OIL_DEFINE_IMPL(conv_f64_u8_bitstuff, conv_f64_u8);
 
-static void conv_f64_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
+static void conv_f64_s8_bitstuff(float *dst, int dest_stride, const int8_t *src,
 	int src_stride, int n)
 {
 	const float offset = -384;
@@ -166,7 +166,7 @@ static void conv_f64_s8_bitstuff(float *dst, int dest_stride, int8_t *src,
 }
 OIL_DEFINE_IMPL(conv_f64_s8_bitstuff, conv_f64_s8);
 
-static void conv_f64_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
+static void conv_f64_u16_bitstuff(float *dst, int dest_stride, const uint16_t *src,
 	int src_stride, int n)
 {
 	const float offset = -65536;
@@ -183,7 +183,7 @@ static void conv_f64_u16_bitstuff(float *dst, int dest_stride, uint16_t *src,
 }
 OIL_DEFINE_IMPL(conv_f64_u16_bitstuff, conv_f64_u16);
 
-static void conv_f64_s16_bitstuff(float *dst, int dest_stride, int16_t *src,
+static void conv_f64_s16_bitstuff(float *dst, int dest_stride, const int16_t *src,
 	int src_stride, int n)
 {
 	const float offset = -98304;
@@ -204,7 +204,7 @@ OIL_DEFINE_IMPL(conv_f64_s16_bitstuff, conv_f64_s16);
 #if 0
 /* broken */
 /* This implementation is slightly inaccurate */
-static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, float *src,
+static void conv_s16_f64_bitstuff(int16_t *dst, int dest_stride, const float *src,
 	int src_stride, int n)
 {
 	const float offset = 98304.5;

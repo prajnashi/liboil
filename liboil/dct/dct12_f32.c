@@ -72,7 +72,7 @@ OIL_DEFINE_CLASS (mdct36_f64, "double *d_18, double *s_36");
 OIL_DEFINE_CLASS (imdct36_f64, "double *d_36, double *s_18");
 
 static void
-mdct12_f64_ref(double *dest, double *src)
+mdct12_f64_ref(double *dest, const double *src)
 {
   int j, k;
   double x;
@@ -90,7 +90,7 @@ OIL_DEFINE_IMPL_REF (mdct12_f64_ref, mdct12_f64);
 
 
 static void
-imdct12_f64_ref(double *dest, double *src)
+imdct12_f64_ref(double *dest, const double *src)
 {
   int j,k;
   double x;
@@ -107,7 +107,7 @@ imdct12_f64_ref(double *dest, double *src)
 OIL_DEFINE_IMPL_REF (imdct12_f64_ref, imdct12_f64);
 
 static void
-mdct36_f64_ref(double *dest, double *src)
+mdct36_f64_ref(double *dest, const double *src)
 {
   int j, k;
   double x;
@@ -125,7 +125,7 @@ OIL_DEFINE_IMPL_REF (mdct36_f64_ref, mdct36_f64);
 
 
 static void
-imdct36_f64_ref(double *dest, double *src)
+imdct36_f64_ref(double *dest, const double *src)
 {
   int j,k;
   double x;

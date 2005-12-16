@@ -44,7 +44,7 @@
  */
 OIL_DEFINE_CLASS (imdct32_f32, "float *d_32, float *s_32");
 
-static void imdct32_f32_ref (float *dest, float *src)
+static void imdct32_f32_ref (float *dest, const float *src)
 {
 	double x;
 	int i,j;

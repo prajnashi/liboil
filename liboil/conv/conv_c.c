@@ -39,7 +39,7 @@
 static void conv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src, \
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -56,7 +56,7 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _c,	\
 static void conv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src, \
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -140,7 +140,7 @@ CONV_DEFINE_CAST(f64,f32)
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -161,7 +161,7 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -181,7 +181,7 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -201,7 +201,7 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,	\
+	const oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -263,7 +263,7 @@ CLIPCONV_DEFINE_FLOAT(u32,f64);
 static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -289,7 +289,7 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll2,	\
 static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -381,7 +381,7 @@ CONV_DEFINE_CAST_UNROLL2(f64,f32)
 static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -421,7 +421,7 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll4,	\
 static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -528,7 +528,7 @@ CONV_DEFINE_CAST_UNROLL4(f64,f32)
 static void conv_ ## desttype ## _ ## srctype ## _rintf ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -556,7 +556,7 @@ CONV_DEFINE_FLOAT_RINTF(u32,f32);
 static void conv_ ## desttype ## _ ## srctype ## _lrint ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -595,7 +595,7 @@ CONV_DEFINE_FLOAT_LRINT(u32,f64);
 static void conv_ ## desttype ## _ ## srctype ## _lrintf ( \
 	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	oil_type_ ## srctype *src,		\
+	const oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\

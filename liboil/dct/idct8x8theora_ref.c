@@ -113,7 +113,7 @@ OIL_DEFINE_CLASS_FULL (idct8x8theora_s16, "int16_t *d_8x8, int dstr, int16_t *s_
 #define MULT(a,b) (((a)*(b))>>16)
 
 static void
-idct8theora_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+idct8theora_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
   int32_t t[10];
   int32_t r;
@@ -179,7 +179,7 @@ OIL_DEFINE_IMPL_REF (idct8theora_s16_ref, idct8theora_s16);
 
 #if defined(oil_idct8theora_s16)
 static void
-idct8x8theora_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+idct8x8theora_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
   int i;
   int16_t tmp[64];
@@ -201,7 +201,7 @@ OIL_DEFINE_IMPL_REF (idct8x8theora_s16_ref, idct8x8theora_s16);
 
 #if defined(oil_idct8_f64)
 static void
-idct8theora_s16_float (int16_t *dest, int dstr, int16_t *src, int sstr)
+idct8theora_s16_float (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
   int i;
   double tmp1[8];

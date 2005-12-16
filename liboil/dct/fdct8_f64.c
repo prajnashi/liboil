@@ -54,7 +54,7 @@ OIL_DEFINE_CLASS (fdct8_f64, "double *d_8, double *s_8, int dstr, int sstr");
 #define C0_1951 0.195090322
 
 static void
-fdct8_f64_ref (double *dest, double *src, int dstr, int sstr)
+fdct8_f64_ref (double *dest, const double *src, int dstr, int sstr)
 {
 	static double fdct_coeff[8][8];
 	static int fdct_coeff_init = 0;
@@ -129,7 +129,7 @@ OIL_DEFINE_IMPL_REF (fdct8_f64_ref, fdct8_f64);
  */
 
 static void
-fdct8_f64_fast(double *dest, double *src, int dstr, int sstr)
+fdct8_f64_fast(double *dest, const double *src, int dstr, int sstr)
 {
 	double s07, s16, s25, s34;
 	double d07, d16, d25, d34;

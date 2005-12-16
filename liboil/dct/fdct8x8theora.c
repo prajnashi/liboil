@@ -38,7 +38,7 @@
  ********************************************************************
 
   function:
-  last mod: $Id: fdct8x8theora.c,v 1.2 2005-11-14 05:34:36 ds Exp $
+  last mod: $Id: fdct8x8theora.c,v 1.3 2005-12-16 17:30:40 ds Exp $
 
  ********************************************************************/
 
@@ -76,7 +76,7 @@ static int32_t xC7S1 = 12785;
 OIL_DEFINE_CLASS(fdct8x8theora, "int16_t *s_8x8, int16_t *d_8x8");
 
 static void
-fdct8x8theora_ref(int16_t *src, int16_t *dest)
+fdct8x8theora_ref(const int16_t *src, int16_t *dest)
 {
   int loop;
 

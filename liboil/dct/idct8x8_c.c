@@ -96,7 +96,7 @@ OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int ss
 OIL_DEFINE_CLASS (idct8x8lim10_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr");
 
 static void
-idct8x8_f64_ref (double *dest, int dstr, double *src, int sstr)
+idct8x8_f64_ref (double *dest, int dstr, const double *src, int sstr)
 {
 	static double idct_coeff[8][8];
 	static int idct_coeff_init = 0;
@@ -134,7 +134,7 @@ idct8x8_f64_ref (double *dest, int dstr, double *src, int sstr)
 OIL_DEFINE_IMPL_REF (idct8x8_f64_ref, idct8x8_f64);
 
 static void
-idct8x8lim10_f64_ref (double *dest, int dstr, double *src, int sstr)
+idct8x8lim10_f64_ref (double *dest, int dstr, const double *src, int sstr)
 {
 	static double idct_coeff[8][8];
 	static int idct_coeff_init = 0;
@@ -173,7 +173,7 @@ OIL_DEFINE_IMPL_REF (idct8x8lim10_f64_ref, idct8x8lim10_f64);
 
 #if defined(oil_idct8_f64)
 static void
-idct8x8_f64_c (double *dest, int dstr, double *src, int sstr)
+idct8x8_f64_c (double *dest, int dstr, const double *src, int sstr)
 {
 	int i;
 	double tmp[64];
@@ -197,7 +197,7 @@ OIL_DEFINE_IMPL_DEPENDS (idct8x8_f64_c, idct8x8_f64, idct8_f64);
 #if defined(oil_conv8x8_f64_s16) && defined(oil_idct8x8_f64) && \
     defined(oil_conv8x8_s16_f64)
 static void
-idct8x8_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+idct8x8_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
 	double s[64], d[64];
 
@@ -216,7 +216,7 @@ OIL_DEFINE_IMPL_DEPENDS (idct8x8_s16_ref, idct8x8_s16,
 #if defined(oil_conv8x8_f64_s16) && defined(oil_idct8x8lim10_f64) && \
     defined(oil_conv8x8_s16_f64)
 static void
-idct8x8lim10_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+idct8x8lim10_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
 	double s[64], d[64];
 

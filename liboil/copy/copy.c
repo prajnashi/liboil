@@ -36,14 +36,14 @@
 OIL_DECLARE_CLASS (copy_u8);
 
 static void
-copy_u8_libc (uint8_t *dest, uint8_t *src, int n)
+copy_u8_libc (uint8_t *dest, const uint8_t *src, int n)
 {
   memcpy (dest, src, n);
 }
 OIL_DEFINE_IMPL (copy_u8_libc, copy_u8);
 
 static void
-copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
+copy_u8_ptr (uint8_t *dest, const uint8_t *src, int n)
 {
   while(n--) {
     *dest++ = *src++;
@@ -52,7 +52,7 @@ copy_u8_ptr (uint8_t *dest, uint8_t *src, int n)
 OIL_DEFINE_IMPL (copy_u8_ptr, copy_u8);
 
 static void
-copy_u8_ints (uint8_t *dest, uint8_t *src, int n)
+copy_u8_ints (uint8_t *dest, const uint8_t *src, int n)
 {
   int i;
   for(i=0;i<(n&3);i++){
@@ -69,7 +69,7 @@ OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
 
 /* Submitted by Adam Moss */
 static void
-copy_u8_llints (uint8_t *dest, uint8_t *src, int n)
+copy_u8_llints (uint8_t *dest, const uint8_t *src, int n)
 {
   int i;
   for(i=0;i<(n&7);i++){
@@ -86,7 +86,7 @@ OIL_DEFINE_IMPL (copy_u8_llints, copy_u8);
 
 /* Submitted by Adam Moss */
 static void
-copy_u8_llints_duff (uint8_t *dest, uint8_t *src, int n)
+copy_u8_llints_duff (uint8_t *dest, const uint8_t *src, int n)
 {
   switch(n&7) {
   case 7: *dest++ = *src++;

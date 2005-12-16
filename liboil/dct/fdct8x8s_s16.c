@@ -60,7 +60,7 @@ OIL_DEFINE_CLASS(fdct8x8s_s16,
 
 #if defined(oil_fdct8x8_f64) && defined(oil_conv8x8_s16_f64)
 static void
-fdct8x8s_s16_ref (int16_t *dest, int dstr, int16_t *src, int sstr)
+fdct8x8s_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
 	double s[64], d[64];
 	double scale[8] = {

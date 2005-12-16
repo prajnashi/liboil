@@ -39,7 +39,7 @@ OIL_DECLARE_CLASS(splat_u32_ns);
 
 
 
-static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
+static void splat_u32_unroll2 (uint32_t *dest, int dstr, const uint32_t *param, int n)
 {
   int i;
   if (n&1) {
@@ -56,7 +56,7 @@ static void splat_u32_unroll2 (uint32_t *dest, int dstr, uint32_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u32_unroll2, splat_u32);
 
-static void splat_u32_ns_unroll2 (uint32_t *dest, uint32_t *param, int n)
+static void splat_u32_ns_unroll2 (uint32_t *dest, const uint32_t *param, int n)
 {
   int i;
   if (n&1) {
@@ -73,7 +73,7 @@ static void splat_u32_ns_unroll2 (uint32_t *dest, uint32_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u32_ns_unroll2, splat_u32_ns);
 
-static void splat_u32_ns_unroll4 (uint32_t *dest, uint32_t *param, int n)
+static void splat_u32_ns_unroll4 (uint32_t *dest, const uint32_t *param, int n)
 {
   int i;
   while (n&3) {
@@ -92,13 +92,13 @@ static void splat_u32_ns_unroll4 (uint32_t *dest, uint32_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u32_ns_unroll4, splat_u32_ns);
 
-static void splat_u8_ns_memset (uint8_t *dest, uint8_t *param, int n)
+static void splat_u8_ns_memset (uint8_t *dest, const uint8_t *param, int n)
 {
   memset (dest, *param, n);
 }
 OIL_DEFINE_IMPL(splat_u8_ns_memset, splat_u8_ns);
 
-static void splat_u8_ns_int (uint8_t *dest, uint8_t *param, int n)
+static void splat_u8_ns_int (uint8_t *dest, const uint8_t *param, int n)
 {
   int p;
   while(n&3) {

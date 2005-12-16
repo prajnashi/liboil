@@ -35,7 +35,7 @@
 OIL_DECLARE_CLASS (trans8x8_u16);
 
 static void
-trans8x8_u16_c1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+trans8x8_u16_c1 (uint16_t *dest, int dstr, const uint16_t *src, int sstr)
 {
   int i;
   int j;
@@ -52,7 +52,7 @@ trans8x8_u16_c1 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 OIL_DEFINE_IMPL (trans8x8_u16_c1, trans8x8_u16);
 
 static void
-trans8x8_u16_c2 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+trans8x8_u16_c2 (uint16_t *dest, int dstr, const uint16_t *src, int sstr)
 {
   int i;
   uint16_t *d, *s;
@@ -73,7 +73,7 @@ trans8x8_u16_c2 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 OIL_DEFINE_IMPL (trans8x8_u16_c2, trans8x8_u16);
 
 static void
-trans8x8_u16_c3 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+trans8x8_u16_c3 (uint16_t *dest, int dstr, const uint16_t *src, int sstr)
 {
   int i;
   uint16_t *d, *s;
@@ -94,7 +94,7 @@ trans8x8_u16_c3 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 OIL_DEFINE_IMPL (trans8x8_u16_c3, trans8x8_u16);
 
 static void
-trans8x8_u16_c4 (uint16_t *dest, int dstr, uint16_t *src, int sstr)
+trans8x8_u16_c4 (uint16_t *dest, int dstr, const uint16_t *src, int sstr)
 {
   int i;
   uint16_t *d, *s;

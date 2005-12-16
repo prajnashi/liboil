@@ -50,7 +50,7 @@ OIL_DEFINE_CLASS(fdct8x8_f64,
 
 
 static void
-fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)
+fdct8x8_f64_ref(double *dest, int dstr, const double *src, int sstr)
 {
 	static double fdct_coeff[8][8];
 	static int fdct_coeff_init = 0;
@@ -91,7 +91,7 @@ fdct8x8_f64_ref(double *dest, int dstr, double *src, int sstr)
 OIL_DEFINE_IMPL_REF (fdct8x8_f64_ref, fdct8x8_f64);
 
 static void
-fdct8x8_f64_ref2(double *dest, int dstr, double *src, int sstr)
+fdct8x8_f64_ref2(double *dest, int dstr, const double *src, int sstr)
 {
 	static double fdct_coeff[8][8];
 	static int fdct_coeff_init = 0;
@@ -138,7 +138,7 @@ OIL_DEFINE_IMPL (fdct8x8_f64_ref2, fdct8x8_f64);
 
 #ifdef oil_fdct8_f64
 static void
-fdct8x8_f64_1d (double *dest, int dstr, double *src, int sstr)
+fdct8x8_f64_1d (double *dest, int dstr, const double *src, int sstr)
 {
 	int i;
 	double tmp[64];

@@ -35,7 +35,7 @@
 
 
 static void
-conv_f64_s16_table(double *dest, int dest_stride, short *src,
+conv_f64_s16_table(double *dest, int dest_stride, const short *src,
 	int src_stride, int n)
 {
 	static double ints_high[256];
@@ -72,7 +72,7 @@ conv_f64_s16_table(double *dest, int dest_stride, short *src,
 OIL_DEFINE_IMPL(conv_f64_s16_table, conv_f64_s16);
 
 static void
-conv_f32_s16_table(float *dest, int dest_stride, short *src,
+conv_f32_s16_table(float *dest, int dest_stride, const short *src,
 	int src_stride, int n)
 {
 	static float ints_high[256];
