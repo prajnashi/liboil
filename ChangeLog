@@ -1,3 +1,9 @@
+2005-12-15  David Schleef  <ds@schleef.org>
+
+	* liboil/sse/Makefile.am:
+	* liboil/sse/conv_sse.c: Remove this, since I'm not sure of its
+	  provenance and a bug (GNOME #324069) complained it's broken.
+
 2005-12-14  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/sse/math_sse.c: (scalaradd_f32_ns_sse),
