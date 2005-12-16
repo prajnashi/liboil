@@ -63,42 +63,42 @@
 
 #define CONV_DEFINE_REF_CAST(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)	 	\
 {					\
 	int i;				\
 	for(i=0;i<n;i++){		\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) = \
-			OIL_GET(src,i*src_stride, type_ ## srctype);	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) = \
+			OIL_GET(src,i*src_stride, oil_type_ ## srctype);	\
 	}				\
 }					\
 OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(conv_ ## desttype ## _ ## srctype ## _ref,	\
 	conv_ ## desttype ## _ ## srctype)
 
 #define CONV_DEFINE_FLOAT_REF(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n) 		\
 {					\
 	int i;				\
 	for(i=0;i<n;i++){		\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) =		\
-			rint(OIL_GET(src,i*src_stride, type_ ## srctype));	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) =		\
+			rint(OIL_GET(src,i*src_stride, oil_type_ ## srctype));	\
 	}				\
 }					\
 OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(conv_ ## desttype ## _ ## srctype ## _ref,	\
 	conv_ ## desttype ## _ ## srctype)
@@ -172,94 +172,94 @@ CONV_DEFINE_REF_CAST(f64,f32);
 
 #define CLIPCONV_DEFINE_BOTH_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
-		x = OIL_GET(src,i*src_stride, type_ ## srctype);			\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
+		x = OIL_GET(src,i*src_stride, oil_type_ ## srctype);			\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) = x;			\
 	}				\
 }					\
 OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
 	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_UPPER_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
-		x = OIL_GET(src,i*src_stride, type_ ## srctype);			\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
+		x = OIL_GET(src,i*src_stride, oil_type_ ## srctype);			\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) = x;			\
 	}				\
 }					\
 OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
 	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_LOWER_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
-		x = OIL_GET(src,i*src_stride, type_ ## srctype);			\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) = x;			\
+		x = OIL_GET(src,i*src_stride, oil_type_ ## srctype);			\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) = x;			\
 	}				\
 }					\
 OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
 	clipconv_ ## desttype ## _ ## srctype)
 
 #define CLIPCONV_DEFINE_FLOAT_REF(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
-		x = OIL_GET(src,i*src_stride, type_ ## srctype);			\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
-		OIL_GET(dest,i*dest_stride, type_ ## desttype) = rint(x);		\
+		x = OIL_GET(src,i*src_stride, oil_type_ ## srctype);			\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
+		OIL_GET(dest,i*dest_stride, oil_type_ ## desttype) = rint(x);		\
 	}				\
 }					\
 OIL_DEFINE_CLASS(clipconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
+	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int sstr, int n");	 	\
 OIL_DEFINE_IMPL_REF(clipconv_ ## desttype ## _ ## srctype ## _ref,	\
 	clipconv_ ## desttype ## _ ## srctype)
@@ -306,30 +306,30 @@ CLIPCONV_DEFINE_FLOAT_REF(u32,f64);
 
 #define SCALECONV_DEFINE_REF_RINT(desttype,srctype) \
 static void scaleconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
-	type_ ## srctype *src,		\
+	oil_type_ ## desttype *dest,	\
+	oil_type_ ## srctype *src,		\
 	int n, double *offset, double *multiplier) \
 {					\
 	int i;				\
         double x;                       \
 	for(i=0;i<n;i++){		\
 		x = *offset + *multiplier * src[i];	\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
 		dest[i] = rint(x);	\
 	}				\
 }					\
 OIL_DEFINE_CLASS(scaleconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #desttype " *dest, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int n, double *s2_1, double *s3_1"); \
 OIL_DEFINE_IMPL_REF(scaleconv_ ## desttype ## _ ## srctype ## _ref,	\
 	scaleconv_ ## desttype ## _ ## srctype)
 
 #define SCALECONV_DEFINE_REF_CAST(desttype,srctype) \
 static void scaleconv_ ## desttype ## _ ## srctype ## _ref ( \
-	type_ ## desttype *dest,	\
-	type_ ## srctype *src,		\
+	oil_type_ ## desttype *dest,	\
+	oil_type_ ## srctype *src,		\
 	int n, double *offset, double *multiplier) \
 {					\
 	int i;				\
@@ -338,8 +338,8 @@ static void scaleconv_ ## desttype ## _ ## srctype ## _ref ( \
 	}				\
 }					\
 OIL_DEFINE_CLASS(scaleconv_ ## desttype ## _ ## srctype,	\
-	"type_" #desttype " *dest, "	\
-	"type_" #srctype " *src, "	\
+	"oil_type_" #desttype " *dest, "	\
+	"oil_type_" #srctype " *src, "	\
 	"int n, double *s2_1, double *s3_1"); \
 OIL_DEFINE_IMPL_REF(scaleconv_ ## desttype ## _ ## srctype ## _ref,	\
 	scaleconv_ ## desttype ## _ ## srctype)

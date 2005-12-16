@@ -36,18 +36,18 @@
 
 #define MULTSUM_DEFINE_REF(type)	\
 static void multsum_ ## type ## _ref(	\
-    type_ ## type *dest,		\
-    type_ ## type *src1, int sstr1,	\
-    type_ ## type *src2, int sstr2,	\
+    oil_type_ ## type *dest,		\
+    oil_type_ ## type *src1, int sstr1,	\
+    oil_type_ ## type *src2, int sstr2,	\
     int n)				\
 {					\
   int i;				\
   double sum = 0;			\
   double errsum = 0;			\
   for(i=0;i<n;i++){			\
-    type_ ## type x;                    \
-    type_ ## type tmp;                  \
-    x = OIL_GET(src1,sstr1*i,type_ ## type) * OIL_GET(src2,sstr2*i,type_ ## type);		\
+    oil_type_ ## type x;                    \
+    oil_type_ ## type tmp;                  \
+    x = OIL_GET(src1,sstr1*i,oil_type_ ## type) * OIL_GET(src2,sstr2*i,oil_type_ ## type);		\
     tmp = sum;				\
     sum += x;				\
     errsum += (tmp - sum) + x;		\
@@ -56,9 +56,9 @@ static void multsum_ ## type ## _ref(	\
 }					\
 OIL_DEFINE_IMPL_REF (multsum_ ## type ## _ref, multsum_ ## type); \
 OIL_DEFINE_CLASS (multsum_ ## type, \
-    "type_" #type " *dest, "		\
-    "type_" #type " *src1, int sstr1, "	\
-    "type_" #type " *src2, int sstr2, "	\
+    "oil_type_" #type " *dest, "		\
+    "oil_type_" #type " *src1, int sstr1, "	\
+    "oil_type_" #type " *src2, int sstr2, "	\
     "int n")
 
 /**

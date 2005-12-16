@@ -1,3 +1,23 @@
+2005-12-15  David Schleef  <ds@schleef.org>
+
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	* liboil/conv/conv_c.c:
+	* liboil/liboilprototype.c:
+	* liboil/liboiltypes.h:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/conv.c:
+	* liboil/ref/multsum.c:
+	* liboil/ref/permute.c:
+	* liboil/ref/scalaradd.c:
+	* liboil/ref/scalarmult.c:
+	* liboil/ref/trans8x8.c:
+	* liboil/ref/vectoradd_f64.c:
+	* liboil/ref/vectoradd_s.c:
+	* liboil/simdpack/scalaradd.c:
+	* liboil/simdpack/scalarmult.c:
+
 2005-12-15  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/jpeg/zigzag8x8_c.c: (zigzag8x8_s16_unroll):

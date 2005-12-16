@@ -37,9 +37,9 @@
 
 #define CONV_DEFINE_CAST(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -54,9 +54,9 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _c,	\
 
 #define CONV_DEFINE_FLOAT(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -138,17 +138,17 @@ CONV_DEFINE_CAST(f64,f32)
 
 #define CLIPCONV_DEFINE_BOTH(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
 		x = *src;		\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
 		*dest = x;		\
 		dest = OIL_OFFSET(dest, dest_stride);	\
 		src = OIL_OFFSET(src, src_stride);	\
@@ -159,16 +159,16 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 
 #define CLIPCONV_DEFINE_UPPER(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
 		x = *src;		\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
 		*dest = x;		\
 		dest = OIL_OFFSET(dest, dest_stride);	\
 		src = OIL_OFFSET(src, src_stride);	\
@@ -179,16 +179,16 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 
 #define CLIPCONV_DEFINE_LOWER(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
 		x = *src;		\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
 		*dest = x;		\
 		dest = OIL_OFFSET(dest, dest_stride);	\
 		src = OIL_OFFSET(src, src_stride);	\
@@ -199,17 +199,17 @@ OIL_DEFINE_IMPL(clipconv_ ## desttype ## _ ## srctype ## _c,	\
 
 #define CLIPCONV_DEFINE_FLOAT(desttype,srctype) \
 static void clipconv_ ## desttype ## _ ## srctype ## _c ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,	\
 	int src_stride, int n)		\
 {					\
 	int i;				\
-	type_ ## srctype x;		\
+	oil_type_ ## srctype x;		\
 	for(i=0;i<n;i++){		\
 		x = *src;		\
-		if(x<type_min_ ## desttype) x=type_min_ ## desttype;	\
-		if(x>type_max_ ## desttype) x=type_max_ ## desttype;	\
+		if(x<oil_type_min_ ## desttype) x=oil_type_min_ ## desttype;	\
+		if(x>oil_type_max_ ## desttype) x=oil_type_max_ ## desttype;	\
 		*dest = rint(x);	\
 		dest = OIL_OFFSET(dest, dest_stride);	\
 		src = OIL_OFFSET(src, src_stride);	\
@@ -261,9 +261,9 @@ CLIPCONV_DEFINE_FLOAT(u32,f64);
 
 #define CONV_DEFINE_CAST_UNROLL2(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -287,9 +287,9 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll2,	\
 
 #define CONV_DEFINE_FLOAT_UNROLL2(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll2 ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -379,9 +379,9 @@ CONV_DEFINE_CAST_UNROLL2(f64,f32)
 
 #define CONV_DEFINE_CAST_UNROLL4(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -419,9 +419,9 @@ OIL_DEFINE_IMPL(conv_ ## desttype ## _ ## srctype ## _unroll4,	\
 
 #define CONV_DEFINE_FLOAT_UNROLL4(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _unroll4 ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -526,9 +526,9 @@ CONV_DEFINE_CAST_UNROLL4(f64,f32)
 
 #define CONV_DEFINE_FLOAT_RINTF(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _rintf ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -554,9 +554,9 @@ CONV_DEFINE_FLOAT_RINTF(u32,f32);
 
 #define CONV_DEFINE_FLOAT_LRINT(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _lrint ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\
@@ -593,9 +593,9 @@ CONV_DEFINE_FLOAT_LRINT(u32,f64);
 
 #define CONV_DEFINE_FLOAT_LRINTF(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _lrintf ( \
-	type_ ## desttype *dest,	\
+	oil_type_ ## desttype *dest,	\
 	int dest_stride,		\
-	type_ ## srctype *src,		\
+	oil_type_ ## srctype *src,		\
 	int src_stride, int n)		\
 {					\
 	int i;				\

@@ -34,19 +34,19 @@
 
 #define SCALARMULT_DEFINE_REF(type)		\
 static void scalarmult_ ## type ## _ref(	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src, int sstr,		\
+    oil_type_ ## type *val, int n)			\
 {						\
   int i;					\
   for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i,type_ ## type) = OIL_GET(src,sstr*i,type_ ## type) * *val; \
+    OIL_GET(dest,dstr*i,oil_type_ ## type) = OIL_GET(src,sstr*i,oil_type_ ## type) * *val; \
   }						\
 }						\
 OIL_DEFINE_CLASS(scalarmult_ ## type,           \
-    "type_" #type " *d, int dstr, "          \
-    "type_" #type " *s1, int sstr, "           \
-    "type_" #type " *s2_1, int n");            \
+    "oil_type_" #type " *d, int dstr, "          \
+    "oil_type_" #type " *s1, int sstr, "           \
+    "oil_type_" #type " *s2_1, int n");            \
 OIL_DEFINE_IMPL_REF (scalarmult_ ## type ## _ref, scalarmult_ ## type);
 
 

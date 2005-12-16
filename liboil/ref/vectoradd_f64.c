@@ -35,22 +35,22 @@
 
 #define VECTORADD_DEFINE(type)		\
 static void vectoradd_ ## type ## _ref (	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src1, int sstr1,		\
-    type_ ## type *src2, int sstr2,		\
-    int n, type_ ## type *v1, type_ ## type *v2) \
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src1, int sstr1,		\
+    oil_type_ ## type *src2, int sstr2,		\
+    int n, oil_type_ ## type *v1, oil_type_ ## type *v2) \
 {						\
   int i;					\
   for(i=0;i<n;i++) {				\
-    OIL_GET(dest,i*dstr, type_ ## type) = *v1 * OIL_GET(src1,i*sstr1, type_ ## type) +	\
-        *v2 * OIL_GET(src2,i*sstr2, type_ ## type);		\
+    OIL_GET(dest,i*dstr, oil_type_ ## type) = *v1 * OIL_GET(src1,i*sstr1, oil_type_ ## type) +	\
+        *v2 * OIL_GET(src2,i*sstr2, oil_type_ ## type);		\
   }						\
 }						\
 OIL_DEFINE_CLASS (vectoradd_ ## type,         \
-    "type_" #type " *d, int dstr, "		\
-    "type_" #type " *s1, int sstr1, "		\
-    "type_" #type " *s2, int sstr2, "		\
-    "int n, type_" #type " *s3_1, type_" #type " *s4_1");	\
+    "oil_type_" #type " *d, int dstr, "		\
+    "oil_type_" #type " *s1, int sstr1, "		\
+    "oil_type_" #type " *s2, int sstr2, "		\
+    "int n, oil_type_" #type " *s3_1, oil_type_" #type " *s4_1");	\
 OIL_DEFINE_IMPL_REF (vectoradd_ ## type ## _ref, vectoradd_ ## type);
 
 /**

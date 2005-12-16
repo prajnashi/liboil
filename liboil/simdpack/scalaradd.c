@@ -34,9 +34,9 @@
 
 #define SCALARADD_DEFINE_UNROLL2(type)		\
 static void scalaradd_ ## type ## _unroll2(	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src, int sstr,		\
+    oil_type_ ## type *val, int n)			\
 {						\
   if(n&1) {					\
     *dest = *src + *val;			\
@@ -67,12 +67,12 @@ SCALARADD_DEFINE_UNROLL2 (f64);
 
 #define SCALARADD_DEFINE_UNROLL2x(type)		\
 static void scalaradd_ ## type ## _unroll2x(	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src, int sstr,		\
+    oil_type_ ## type *val, int n)			\
 {						\
-  type_ ## type *dest2;				\
-  type_ ## type *src2;				\
+  oil_type_ ## type *dest2;				\
+  oil_type_ ## type *src2;				\
   int i;					\
   if(n&1) {					\
     *dest = *src + *val;			\
@@ -85,8 +85,8 @@ static void scalaradd_ ## type ## _unroll2x(	\
   sstr *= 2;					\
   dstr *= 2;					\
   for(i=0;i<n;i++){				\
-    OIL_GET(dest,dstr*i, type_ ## type) = OIL_GET(src,sstr*i, type_ ## type) + *val; \
-    OIL_GET(dest2,dstr*i, type_ ## type) = OIL_GET(src2,sstr*i, type_ ## type) + *val; \
+    OIL_GET(dest,dstr*i, oil_type_ ## type) = OIL_GET(src,sstr*i, oil_type_ ## type) + *val; \
+    OIL_GET(dest2,dstr*i, oil_type_ ## type) = OIL_GET(src2,sstr*i, oil_type_ ## type) + *val; \
   }						\
 }						\
 OIL_DEFINE_IMPL (scalaradd_ ## type ## _unroll2x, scalaradd_ ## type);
@@ -102,9 +102,9 @@ SCALARADD_DEFINE_UNROLL2x (f64);
 
 #define SCALARADD_DEFINE_UNROLL4(type)		\
 static void scalaradd_ ## type ## _unroll4(	\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr,		\
-    type_ ## type *val, int n)			\
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src, int sstr,		\
+    oil_type_ ## type *val, int n)			\
 {						\
   if(n&1) {					\
     *dest = *src + *val;			\

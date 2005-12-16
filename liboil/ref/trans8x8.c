@@ -34,19 +34,19 @@
 
 #define TRANS8x8_DEFINE_REF(type)		\
 static void trans8x8_ ## type ## _ref (		\
-    type_ ## type *dest, int dstr,		\
-    type_ ## type *src, int sstr)		\
+    oil_type_ ## type *dest, int dstr,		\
+    oil_type_ ## type *src, int sstr)		\
 {						\
   int i,j;					\
   for(i=0;i<8;i++){				\
     for(j=0;j<8;j++){				\
-      OIL_GET(dest,dstr*i+j*sizeof(type_ ## type),type_ ## type) = \
-        OIL_GET(src,sstr*j+i*sizeof(type_ ## type),type_ ## type); \
+      OIL_GET(dest,dstr*i+j*sizeof(oil_type_ ## type),oil_type_ ## type) = \
+        OIL_GET(src,sstr*j+i*sizeof(oil_type_ ## type),oil_type_ ## type); \
     }						\
   }						\
 }						\
-OIL_DEFINE_CLASS (trans8x8_ ## type, "type_" #type " *d_8x8, int ds,	" \
-    "type_" #type " *s_8x8, int ss"); \
+OIL_DEFINE_CLASS (trans8x8_ ## type, "oil_type_" #type " *d_8x8, int ds,	" \
+    "oil_type_" #type " *s_8x8, int ss"); \
 OIL_DEFINE_IMPL_REF (trans8x8_ ## type ## _ref, trans8x8_ ## type)
 
 TRANS8x8_DEFINE_REF(u8);

@@ -447,16 +447,16 @@ static const char *oil_type_names_2 [] = {
   "double"
 };
 static const char *oil_type_names_3 [] = {
-  "type_s8",
-  "type_u8",
-  "type_s16",
-  "type_u16",
-  "type_s32",
-  "type_u32",
-  "type_s64",
-  "type_u64",
-  "type_f32",
-  "type_f64"
+  "oil_type_s8",
+  "oil_type_u8",
+  "oil_type_s16",
+  "oil_type_u16",
+  "oil_type_s32",
+  "oil_type_u32",
+  "oil_type_s64",
+  "oil_type_u64",
+  "oil_type_f32",
+  "oil_type_f64"
 };
 #define ARRAY_LENGTH(x) (sizeof(x)/sizeof(x[0]))
 

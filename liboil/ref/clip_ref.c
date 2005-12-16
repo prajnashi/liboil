@@ -39,42 +39,42 @@
  */
 #define CLIP_DEFINE_REF(type) \
 static void clip_ ## type ## _ref ( \
-    type_ ## type *dest, \
+    oil_type_ ## type *dest, \
     int dstr, \
-    type_ ## type *src, \
+    oil_type_ ## type *src, \
     int sstr, int n, \
-    type_ ## type *min, type_ ## type *max) \
+    oil_type_ ## type *min, oil_type_ ## type *max) \
 { \
   int i; \
-  type_ ## type x; \
+  oil_type_ ## type x; \
   for(i=0;i<n;i++){ \
-    x = OIL_GET(src,i*sstr,type_ ## type); \
+    x = OIL_GET(src,i*sstr,oil_type_ ## type); \
     if (x<*min) x = *min; \
     if (x>*max) x = *max; \
-    OIL_GET(dest,i*dstr,type_ ## type) = x; \
+    OIL_GET(dest,i*dstr,oil_type_ ## type) = x; \
   } \
 } \
 static void clip_ ## type ## _test (OilTest *test) \
 { \
-  type_ ## type *lo = (type_ ## type *) \
+  oil_type_ ## type *lo = (oil_type_ ## type *) \
     (test->params[OIL_ARG_SRC2].src_data + \
      test->params[OIL_ARG_SRC2].test_header); \
-  type_ ## type *hi = (type_ ## type *) \
+  oil_type_ ## type *hi = (oil_type_ ## type *) \
     (test->params[OIL_ARG_SRC3].src_data + \
      test->params[OIL_ARG_SRC3].test_header); \
   if (*lo > *hi) { \
-    type_ ## type tmp; \
+    oil_type_ ## type tmp; \
     tmp = *lo; \
     *lo = *hi; \
     *hi = tmp; \
   } \
 } \
 OIL_DEFINE_CLASS_FULL(clip_ ## type, \
-    "type_" #type " *dest, " \
+    "oil_type_" #type " *dest, " \
     "int dstr, " \
-    "type_" #type " *src, " \
+    "oil_type_" #type " *src, " \
     "int sstr, int n, " \
-    "type_" #type " *s2_1, type_" #type " *s3_1", \
+    "oil_type_" #type " *s2_1, oil_type_" #type " *s3_1", \
     clip_ ## type ## _test); \
 OIL_DEFINE_IMPL_REF(clip_ ## type ## _ref, clip_ ## type)
 
