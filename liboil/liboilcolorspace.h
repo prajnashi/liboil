@@ -129,10 +129,10 @@
 
 /**
  * oil_divide_255:
- * @x: a value in the range [0,255]
+ * @x: a value in the range [0,65025]
  *
  * Divides @x by 255 in a way that is compatible with the pixel
- * operations in Liboil.
+ * operations in Liboil.  The number 65025 is 255*255.
  *
  * Evaluates to @x divided by 255.
  */

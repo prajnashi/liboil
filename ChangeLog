@@ -1,5 +1,9 @@
 2005-12-15  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilcolorspace.h:  Fix doc on oil_divide_255().
+
+2005-12-15  David Schleef  <ds@schleef.org>
+
 	* configure.ac:
 	* liboil/Makefile.am:
 	* liboil/build_prototypes.c:
