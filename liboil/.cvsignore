@@ -6,10 +6,11 @@ Makefile.in
 .deps
 .libs
 .cvsignore
+build_class_decls
+build_marshal
 build_prototypes
 build_prototypes_doc
-build_marshal
-build_class_decls
+build_trampolines
 liboilarray.c
 liboilfuncs-doc.h
 liboil-stdint.h
