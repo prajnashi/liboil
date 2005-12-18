@@ -538,47 +538,43 @@ static void
 fill_array (void *data, OilType type, int pre_n, int stride, int post_n)
 {
   int i;
-  int j;
-  int s2 = oil_type_sizeof (type);
 
 #define FILL(type,func) do {\
   for(i=0;i<post_n;i++){ \
-    for(j=0;j<pre_n;j++){ \
-      OIL_GET(data, i*stride + j*s2, type) = func ; \
-    } \
+    func (OIL_OFFSET(data, i*stride), pre_n); \
   } \
 }while(0)
 
   switch (type) {
     case OIL_TYPE_s8p:
-      FILL(int8_t,oil_rand_s8());
+      FILL(int8_t,oil_random_s8);
       break;
     case OIL_TYPE_u8p:
-      FILL(uint8_t,oil_rand_u8());
+      FILL(uint8_t,oil_random_u8);
       break;
     case OIL_TYPE_s16p:
-      FILL(int16_t,oil_rand_s16());
+      FILL(int16_t,oil_random_s16);
       break;
     case OIL_TYPE_u16p:
-      FILL(uint16_t,oil_rand_u16());
+      FILL(uint16_t,oil_random_u16);
       break;
     case OIL_TYPE_s32p:
-      FILL(int32_t,oil_rand_s32());
+      FILL(int32_t,oil_random_s32);
       break;
     case OIL_TYPE_u32p:
-      FILL(uint32_t,oil_rand_u32());
+      FILL(uint32_t,oil_random_u32);
       break;
     case OIL_TYPE_s64p:
-      FILL(int64_t,oil_rand_s64());
+      FILL(int64_t,oil_random_s64);
       break;
     case OIL_TYPE_u64p:
-      FILL(uint64_t,oil_rand_u64());
+      FILL(uint64_t,oil_random_u64);
       break;
     case OIL_TYPE_f32p:
-      FILL(float,oil_rand_f32_0_1());
+      FILL(float,oil_random_f32);
       break;
     case OIL_TYPE_f64p:
-      FILL(double,oil_rand_f64_0_1());
+      FILL(double,oil_random_f64);
       break;
     default:
       OIL_ERROR ("should not be reached (type == %d)", type);
@@ -664,5 +660,16 @@ check_holes (void *data, OilType type, int pre_n, int stride, int post_n,
   }
 
   return 1;
+}
+
+void *
+oil_test_get_source_data (OilTest *test, OilArgType arg_type)
+{
+  uint8_t *ptr;
+ 
+  ptr = test->params[arg_type].src_data;
+  ptr += test->params[arg_type].test_header;
+
+  return ptr;
 }
 

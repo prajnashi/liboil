@@ -58,48 +58,180 @@ composite_in_argb_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
   }
 }
 OIL_DEFINE_IMPL_FULL (composite_in_argb_mmx, composite_in_argb);
-
-static void
-composite_in_argb_const_src_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
-{
-  int i;
-
-  for(i=0;i<n;i++){
-    dest[i] = ARGB(
-        COMPOSITE_IN(ARGB_A(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_R(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_G(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_B(src[0]), mask[i]));
-  }
-}
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_src_mmx, composite_in_argb_const_src);
-
-static void
-composite_in_argb_const_mask_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
-{
-  int i;
-
-  for(i=0;i<n;i++){
-    dest[i] = ARGB(
-        COMPOSITE_IN(ARGB_A(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_R(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_G(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_B(src[i]), mask[0]));
-  }
-}
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_mask_mmx, composite_in_argb_const_mask);
 #endif
+
+/*
+ * This macro loads the constants:
+ * mm7 = { 0, 0, 0, 0 }
+ * mm6 = { 128, 128, 128, 128 }
+ * mm5 = { 255, 255, 255, 255 }
+ */
+#define MMX_LOAD_CONSTANTS \
+      "  pxor %%mm7, %%mm7\n" \
+      "  movl $0x80808080, %%eax\n" \
+      "  movd %%eax, %%mm6\n" \
+      "  punpcklbw %%mm7, %%mm6\n" \
+      "  movl $0xffffffff, %%eax\n" \
+      "  movd %%eax, %%mm5\n" \
+      "  punpcklbw %%mm7, %%mm5\n"
+
+/*
+ * a = muldiv255(a, b)
+ *   a, b are unpacked
+ *   destroys both registers
+ *   requires mm6 set up as above
+ */
+#define MMX_MULDIV255(a,b) \
+      "  pmullw %%" #b ", %%" #a "\n" \
+      "  paddw %%mm6, %%" #a "\n" \
+      "  movq %%" #a ", %%" #b "\n" \
+      "  psrlw $8, %%" #b "\n" \
+      "  paddw %%" #b ", %%" #a "\n" \
+      "  psrlw $8, %%" #a "\n"
+
+static void
+composite_in_argb_mmx (uint32_t *dest, uint32_t *src, const uint8_t *mask, int n)
+{
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "1:\n"
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm1\n"
+
+      "  movd (%1), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  addl $1, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_in_argb_mmx, composite_in_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+/* 
+ * This is a different style than the others.  Should be moved elsewhere.
+ */
+static void
+composite_in_argb_mmx2 (uint32_t *dest, uint32_t *src, const uint8_t *mask, int n)
+{
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "1:\n"
+      "  movl (%2), %%eax\n"
+      /* if alpha == 0, write a 0 */
+      "  testl $0x000000ff, %%eax\n"
+      "  je 2f\n"
+      /* if alpha == 0xff, write src value */
+      "  cmp $0xff, %%al\n"
+      "  je 3f\n"
+
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm1\n"
+
+      "  movd (%1), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  jmp 4f\n"
+      "2:\n"
+      "  movl $0, (%0)\n"
+      "  jmp 4f\n"
+      "3:\n"
+      "  movl (%1), %%eax\n"
+      "  movl %%eax, (%0)\n"
+      "4:\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  addl $1, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_in_argb_mmx2, composite_in_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+composite_in_argb_const_src_mmx (uint32_t *dest, uint32_t *src, const uint8_t *mask, int n)
+{
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "  movd (%1), %%mm3\n"
+      "  punpcklbw %%mm7, %%mm3\n"
+      "1:\n"
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm1\n"
+
+      "  movq %%mm3, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $1, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_in_argb_const_src_mmx, composite_in_argb_const_src, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+composite_in_argb_const_mask_mmx (uint32_t *dest, uint32_t *src, const uint8_t *mask, int n)
+{
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm3\n"
+      "1:\n"
+      "  movq %%mm3, %%mm1\n"
+      "  movd (%1), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
+
+}
+OIL_DEFINE_IMPL_FULL (composite_in_argb_const_mask_mmx, composite_in_argb_const_mask, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_over_argb_mmx (uint32_t *dest, uint32_t *src, int n)
 {
-  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
-      "  movl $0x80808080, %%eax\n"
-      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
-      "  punpcklbw %%mm7, %%mm6\n"
-      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
-      "  movd %%eax, %%mm5\n"
-      "  punpcklbw %%mm7, %%mm5\n"
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
       "1:\n"
       "  movl (%1), %%eax\n"
       "  testl $0xff000000, %%eax\n"
@@ -112,12 +244,8 @@ composite_over_argb_mmx (uint32_t *dest, uint32_t *src, int n)
 
       "  movd (%0), %%mm2\n"
       "  punpcklbw %%mm7, %%mm2\n"
-      "  pmullw %%mm1, %%mm2\n"
-      "  paddw %%mm6, %%mm2\n"
-      "  movq %%mm2, %%mm1\n"
-      "  psrlw $8, %%mm1\n"
-      "  paddw %%mm1, %%mm2\n"
-      "  psrlw $8, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
 
       "  paddw %%mm0, %%mm2\n"
       "  packuswb %%mm2, %%mm2\n"
@@ -140,13 +268,8 @@ OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx, composite_over_argb, OIL_IMPL_FLA
 static void
 composite_over_argb_mmx_2 (uint32_t *dest, uint32_t *src, int n)
 {
-  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
-      "  movl $0x80808080, %%eax\n"
-      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
-      "  punpcklbw %%mm7, %%mm6\n"
-      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
-      "  movd %%eax, %%mm5\n"
-      "  punpcklbw %%mm7, %%mm5\n"
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
 
       "  testl $0x1, %2\n"
       "  jz 2f\n"
@@ -250,13 +373,8 @@ OIL_DEFINE_IMPL_FULL (composite_over_argb_mmx_2, composite_over_argb, OIL_IMPL_F
 static void
 composite_over_argb_mmx_3 (uint32_t *dest, uint32_t *src, int n)
 {
-  __asm__ __volatile__ ("  pxor %%mm7, %%mm7\n"   // mm7 = { 0, 0, 0, 0 }
-      "  movl $0x80808080, %%eax\n"
-      "  movd %%eax, %%mm6\n"  // mm6 = { 128, 128, 128, 128 }
-      "  punpcklbw %%mm7, %%mm6\n"
-      "  movl $0xffffffff, %%eax\n" // mm5 = { 255, 255, 255, 255 }
-      "  movd %%eax, %%mm5\n"
-      "  punpcklbw %%mm7, %%mm5\n"
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
       "1:\n"
       "  movl (%1), %%eax\n"
       "  testl $0xff000000, %%eax\n"
@@ -708,127 +826,198 @@ composite_over_argb_sse2_3 (uint32_t *dest, uint32_t *src, int n)
 }
 OIL_DEFINE_IMPL_FULL (composite_over_argb_sse2_3, composite_over_argb, OIL_IMPL_FLAG_SSE2);
 
-#if 0
+
 static void
 composite_over_argb_const_src_mmx (uint32_t *dest, uint32_t *src, int n)
 {
-  int i;
-  uint8_t a;
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "  movl (%1), %%eax\n"
+      "  movd %%eax, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0xff, %%mm0, %%mm3\n"
+      "  pxor %%mm5, %%mm3\n"
+      "1:\n"
+      "  movq %%mm3, %%mm1\n"
+      "  movd (%0), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
 
-  a = ARGB_A(src[0]);
-  for(i=0;i<n;i++){
-    dest[i] = ARGB(
-        COMPOSITE_OVER(ARGB_A(dest[i]),ARGB_A(src[0]),a),
-        COMPOSITE_OVER(ARGB_R(dest[i]),ARGB_R(src[0]),a),
-        COMPOSITE_OVER(ARGB_G(dest[i]),ARGB_G(src[0]),a),
-        COMPOSITE_OVER(ARGB_B(dest[i]),ARGB_B(src[0]),a));
-  }
+      MMX_MULDIV255(mm2, mm1)
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  decl %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_over_argb_const_src_mmx, composite_over_argb_const_src);
+OIL_DEFINE_IMPL_FULL (composite_over_argb_const_src_mmx, composite_over_argb_const_src, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_add_argb_mmx (uint32_t *dest, uint32_t *src, int n)
 {
-  int i;
-
-  for(i=0;i<n;i++){
-    dest[i] = ARGB(
-        COMPOSITE_ADD(ARGB_A(dest[i]),ARGB_A(src[i])),
-        COMPOSITE_ADD(ARGB_R(dest[i]),ARGB_R(src[i])),
-        COMPOSITE_ADD(ARGB_G(dest[i]),ARGB_G(src[i])),
-        COMPOSITE_ADD(ARGB_B(dest[i]),ARGB_B(src[i])));
-  }
+  __asm__ __volatile__ (
+      "1:\n"
+      "  movd (%1), %%mm0\n"
+      "  movd (%0), %%mm2\n"
+      "  paddusb %%mm0, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  decl %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_add_argb_mmx, composite_add_argb);
+OIL_DEFINE_IMPL_FULL (composite_add_argb_mmx, composite_add_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_add_argb_const_src_mmx (uint32_t *dest, uint32_t *src, int n)
 {
-  int i;
-
-  for(i=0;i<n;i++){
-    dest[i] = ARGB(
-        COMPOSITE_ADD(ARGB_A(dest[i]),ARGB_A(src[0])),
-        COMPOSITE_ADD(ARGB_R(dest[i]),ARGB_R(src[0])),
-        COMPOSITE_ADD(ARGB_G(dest[i]),ARGB_G(src[0])),
-        COMPOSITE_ADD(ARGB_B(dest[i]),ARGB_B(src[0])));
-  }
+  __asm__ __volatile__ (
+      "  movd (%1), %%mm0\n"
+      "1:\n"
+      "  movd (%0), %%mm2\n"
+      "  paddusb %%mm0, %%mm2\n"
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  decl %2\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_add_argb_const_src_mmx, composite_add_argb_const_src);
+OIL_DEFINE_IMPL_FULL (composite_add_argb_const_src_mmx, composite_add_argb_const_src, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_in_over_argb_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
 {
-  int i;
-  uint8_t a;
-  uint32_t color;
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "1:\n"
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm1\n"
 
-  for(i=0;i<n;i++){
-    color = ARGB(
-        COMPOSITE_IN(ARGB_A(src[i]), mask[i]),
-        COMPOSITE_IN(ARGB_R(src[i]), mask[i]),
-        COMPOSITE_IN(ARGB_G(src[i]), mask[i]),
-        COMPOSITE_IN(ARGB_B(src[i]), mask[i]));
-    a = ARGB_A(color);
-    dest[i] = ARGB(
-        COMPOSITE_OVER(ARGB_A(dest[i]),ARGB_A(color),a),
-        COMPOSITE_OVER(ARGB_R(dest[i]),ARGB_R(color),a),
-        COMPOSITE_OVER(ARGB_G(dest[i]),ARGB_G(color),a),
-        COMPOSITE_OVER(ARGB_B(dest[i]),ARGB_B(color),a));
-  }
+      "  movd (%1), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  movd (%0), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+
+      "  pshufw $0xff, %%mm2, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      MMX_MULDIV255(mm0, mm1)
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  addl $1, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_mmx, composite_in_over_argb);
+OIL_DEFINE_IMPL_FULL (composite_in_over_argb_mmx, composite_in_over_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_in_over_argb_const_src_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
 {
-  int i;
-  uint8_t a;
-  uint32_t color;
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
 
-  for(i=0;i<n;i++){
-    color = ARGB(
-        COMPOSITE_IN(ARGB_A(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_R(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_G(src[0]), mask[i]),
-        COMPOSITE_IN(ARGB_B(src[0]), mask[i]));
-    a = ARGB_A(color);
-    dest[i] = ARGB(
-        COMPOSITE_OVER(ARGB_A(dest[i]),ARGB_A(color),a),
-        COMPOSITE_OVER(ARGB_R(dest[i]),ARGB_R(color),a),
-        COMPOSITE_OVER(ARGB_G(dest[i]),ARGB_G(color),a),
-        COMPOSITE_OVER(ARGB_B(dest[i]),ARGB_B(color),a));
-  }
+      "  movd (%1), %%mm3\n"
+      "  punpcklbw %%mm7, %%mm3\n"
+      "1:\n"
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm1\n"
+
+      "  movq %%mm3, %%mm2\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  movd (%0), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+
+      "  pshufw $0xff, %%mm2, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      MMX_MULDIV255(mm0, mm1)
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $1, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_src_mmx, composite_in_over_argb_const_src);
+OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_src_mmx, composite_in_over_argb_const_src, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 composite_in_over_argb_const_mask_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)
 {
-  int i;
-  uint8_t a;
-  uint32_t color;
+  __asm__ __volatile__ (
+      MMX_LOAD_CONSTANTS
+      "  movd (%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pshufw $0x00, %%mm0, %%mm3\n"
 
-  for(i=0;i<n;i++){
-    color = ARGB(
-        COMPOSITE_IN(ARGB_A(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_R(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_G(src[i]), mask[0]),
-        COMPOSITE_IN(ARGB_B(src[i]), mask[0]));
-    a = ARGB_A(color);
-    dest[i] = ARGB(
-        COMPOSITE_OVER(ARGB_A(dest[i]),ARGB_A(color),a),
-        COMPOSITE_OVER(ARGB_R(dest[i]),ARGB_R(color),a),
-        COMPOSITE_OVER(ARGB_G(dest[i]),ARGB_G(color),a),
-        COMPOSITE_OVER(ARGB_B(dest[i]),ARGB_B(color),a));
-  }
+      "1:\n"
+      "  movd (%1), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  movq %%mm3, %%mm1\n"
+
+      MMX_MULDIV255(mm2, mm1)
+
+      "  movd (%0), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+
+      "  pshufw $0xff, %%mm2, %%mm1\n"
+      "  pxor %%mm5, %%mm1\n"
+
+      MMX_MULDIV255(mm0, mm1)
+
+      "  paddw %%mm0, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+
+      "  movd %%mm2, (%0)\n"
+      "  addl $4, %0\n"
+      "  addl $4, %1\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      :"+r" (dest), "+r" (src), "+r" (mask), "+r" (n)
+      :
+      :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_mask_mmx, composite_in_over_argb_const_mask);
+OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_mask_mmx, composite_in_over_argb_const_mask, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
-#endif

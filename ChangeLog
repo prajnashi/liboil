@@ -1,3 +1,17 @@
+2005-12-17  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am: Add librandom.c
+	* liboil/liboilcolorspace.h:
+	* liboil/liboilrandom.c: Some C code to write arrays of random
+	  numbers.
+	* liboil/liboilrandom.h: Add prototypes from above, remove a
+	  bunch of macros that aren't used.
+	* liboil/liboiltest.c: Use array functions instead of macros.
+	* liboil/liboiltest.h: Add oil_test_get_source_data()
+	* liboil/liboiltypes.h: Add 64-bit types.
+	* liboil/i386/composite_i386.c: Add simple mmx implementations
+	  for all the composite functions.
+
 2005-12-16  David Schleef  <ds@schleef.org>
 
 	* liboil/conv/conv_bitstuff.c:

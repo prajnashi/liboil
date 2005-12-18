@@ -122,6 +122,7 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilcpu.c \
 	liboilprofile.c \
 	liboilprototype.c \
+	liboilrandom.c \
 	liboilarray.c \
 	liboiltest.h \
 	liboiltest.c \

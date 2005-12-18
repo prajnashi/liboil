@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2003,2004,2005 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,11 +30,25 @@
 
 #include <stdlib.h>
 
-/**
- * SECTION:liboilrandom
- * @title: Random Number Generation
- * @short_description: Random number generation
- */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <liboil/liboiltypes.h>
+#include <stdlib.h>
+
+void oil_random_s32(oil_type_s32 *dest, int n);
+void oil_random_s64 (oil_type_s64 *dest, int n);
+void oil_random_s16 (oil_type_s16 *dest, int n);
+void oil_random_s8 (oil_type_s8 *dest, int n);
+void oil_random_u32 (oil_type_u32 *dest, int n);
+void oil_random_u64 (oil_type_u64 *dest, int n);
+void oil_random_u16 (oil_type_u16 *dest, int n);
+void oil_random_u8 (oil_type_u8 *dest, int n);
+void oil_random_f64 (oil_type_f64 *dest, int n);
+void oil_random_f32 (oil_type_f32 *dest, int n);
+void oil_random_argb (oil_type_u32 *dest, int n);
+void oil_random_alpha (oil_type_u8 *dest, int n);
 
 /**
  * oil_rand_s32:
@@ -42,13 +56,6 @@
  * Evaluates to a random integer in the range [-(1<<31), (1<<31)-1].
  */
 #define oil_rand_s32() ((rand()&0xffff)<<16 | (rand()&0xffff))
-/**
- * oil_rand_s32_l31:
- *
- * Evaluates to a random integer in the range [-(1<<30), (1<<30)-1].
- */
-#define oil_rand_s32_l31() (((int32_t)rand())-0x40000000)
-
 /**
  * oil_rand_s64:
  *
@@ -62,30 +69,6 @@
  * Evaluates to a random integer in the range [-(1<<15), (1<<15)-1].
  */
 #define oil_rand_s16() ((int16_t)(rand()&0xffff))
-/**
- * oil_rand_s16_l15:
- *
- * Evaluates to a random integer in the range [-(1<<14), (1<<14)-1].
- */
-#define oil_rand_s16_l15() (oil_rand_s16()>>1)
-/**
- * oil_rand_s16_l9:
- *
- * Evaluates to a random integer in the range [-(1<<8), (1<<8)-1].
- */
-#define oil_rand_s16_l9() (oil_rand_s16()>>7)
-/**
- * oil_rand_s16_l8:
- *
- * Evaluates to a random integer in the range [-(1<<7), (1<<7)-1].
- */
-#define oil_rand_s16_l8() (oil_rand_s16()>>8)
-/**
- * oil_rand_s16_l4:
- *
- * Evaluates to a random integer in the range [-(1<<3), (1<<3)-1].
- */
-#define oil_rand_s16_l4() (oil_rand_s16()>>12)
 
 /**
  * oil_rand_s8:
@@ -100,12 +83,6 @@
  * Evaluates to a random integer in the range [0, (1<<32)-1].
  */
 #define oil_rand_u32() ((uint32_t)((rand()&0xffff)<<16 | (rand()&0xffff)))
-/**
- * oil_rand_u32_l31:
- *
- * Evaluates to a random integer in the range [0, (1<<31)-1].
- */
-#define oil_rand_u32_l31() ((uint32_t)rand())
 
 /**
  * oil_rand_u64:
@@ -130,120 +107,20 @@
 
 
 /**
- * oil_rand_f64_0_1:
+ * oil_rand_f64:
  *
  * Evaluates to a random double-precision floating point number
  * in the range [0, 1.0).
  */
-#define oil_rand_f64_0_1() (((rand()/(RAND_MAX+1.0))+rand())/(RAND_MAX+1.0))
+#define oil_rand_f64() (((rand()/(RAND_MAX+1.0))+rand())/(RAND_MAX+1.0))
 
 /**
- * oil_rand_f64_s32:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<31), (1<<31)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int32_t.
- */
-#define oil_rand_f64_s32() (oil_rand_f64_0_1()*4294967296.0-2147483648.0)
-/**
- * oil_rand_f64_s16:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<15), (1<<15)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int16_t.
- */
-#define oil_rand_f64_s16() (oil_rand_f64_0_1()*65536.0-32768.0)
-/**
- * oil_rand_f64_s8:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<7), (1<<7)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int8_t.
- */
-#define oil_rand_f64_s8() (oil_rand_f64_0_1()*256.0-128.0)
-
-/**
- * oil_rand_f64_u32:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<32)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint32_t.
- */
-#define oil_rand_f64_u32() (oil_rand_f64_0_1()*4294967296.0)
-/**
- * oil_rand_f64_u16:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<16)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint16_t.
- */
-#define oil_rand_f64_u16() (oil_rand_f64_0_1()*65536.0)
-/**
- * oil_rand_f64_u8:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<8)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint8_t.
- */
-#define oil_rand_f64_u8() (oil_rand_f64_0_1()*256.0)
-
-/**
- * oil_rand_f32_0_1:
+ * oil_rand_f32:
  *
  * Evaluates to a random single-precision floating point number
  * in the range [0, 1.0).
  */
-#define oil_rand_f32_0_1() (rand()/(RAND_MAX+1.0))
-
-/**
- * oil_rand_f32_s32:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<31), (1<<31)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int32_t.
- */
-#define oil_rand_f32_s32() (oil_rand_f64_0_1()*4294967296.0-2147483648.0)
-/**
- * oil_rand_f32_s16:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<15), (1<<15)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int16_t.
- */
-#define oil_rand_f32_s16() (oil_rand_f64_0_1()*65536.0-32768.0)
-/**
- * oil_rand_f32_s8:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [-(1<<7), (1<<7)).  Note that when rounded to the
- * nearest integer, this exceeds the range of int8_t.
- */
-#define oil_rand_f32_s8() (oil_rand_f64_0_1()*256.0-128.0)
-
-/**
- * oil_rand_f32_u32:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<32)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint32_t.
- */
-#define oil_rand_f32_u32() (oil_rand_f64_0_1()*4294967296.0)
-/**
- * oil_rand_f32_u16:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<16)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint16_t.
- */
-#define oil_rand_f32_u16() (oil_rand_f64_0_1()*65536.0)
-/**
- * oil_rand_f32_u8:
- *
- * Evaluates to a random double-precision floating point number
- * in the range [0, (1<<8)).  Note that when rounded to the
- * nearest integer, this exceeds the range of uint8_t.
- */
-#define oil_rand_f32_u8() (oil_rand_f64_0_1()*256.0)
+#define oil_rand_f32() (rand()/(RAND_MAX+1.0))
 
 #endif
 

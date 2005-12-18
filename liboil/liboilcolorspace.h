@@ -28,8 +28,6 @@
 #ifndef _LIBOIL_COLORSPACE_H_
 #define _LIBOIL_COLORSPACE_H_
 
-#include <liboil/liboilrandom.h>
-
 /**
  * oil_max:
  * @x: a value
@@ -148,21 +146,6 @@
  * Evaluates to the result.
  */
 #define oil_muldiv_255(a,b) oil_divide_255((a)*(b))
-
-/**
- * oil_rand_rgba:
- * @a: an alpha value
- *
- * Creates a valid random RGBA value with the alpha value @a.  Valid
- * input values for @a are [0,255].
- *
- * Evaluates to the result.
- */
-#define oil_rand_rgba(a) \
-    oil_argb_noclamp((a), \
-      oil_muldiv_255((a),oil_rand_u8()), \
-      oil_muldiv_255((a),oil_rand_u8()), \
-      oil_muldiv_255((a),oil_rand_u8()))
 
 #endif
 
