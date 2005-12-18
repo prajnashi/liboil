@@ -40,8 +40,7 @@ utf8_validate_test (OilTest *test)
 {
   int i;
   int n = test->n;
-  uint8_t *ptr = (uint8_t *)test->params[OIL_ARG_SRC1].src_data +
-    test->params[OIL_ARG_SRC1].test_header;
+  uint8_t *ptr = oil_test_get_source_data (test, OIL_ARG_SRC1);
 
   for (i=0;i<n;i++){
     OIL_GET(ptr, i, uint8_t) = oil_rand_u8() & 0x7f;

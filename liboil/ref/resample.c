@@ -47,8 +47,7 @@
 static void
 resample_linear_u8_test (OilTest *test)
 {
-  uint32_t *in = (uint32_t *)(test->params[OIL_ARG_INPLACE1].src_data +
-    test->params[OIL_ARG_INPLACE1].test_header);
+  uint32_t *in = (uint32_t *) oil_test_get_source_data (test, OIL_ARG_INPLACE1);
 
   in[0] = 0;
   in[1] = 65536;
@@ -69,8 +68,7 @@ OIL_DEFINE_CLASS_FULL (resample_linear_u8,
 static void
 resample_linear_argb_test (OilTest *test)
 {
-  uint32_t *in = (uint32_t *)(test->params[OIL_ARG_INPLACE1].src_data +
-    test->params[OIL_ARG_INPLACE1].test_header);
+  uint32_t *in = (uint32_t *) oil_test_get_source_data (test, OIL_ARG_INPLACE1);
 
   in[0] = 0;
   in[1] = 65536;
@@ -148,8 +146,7 @@ OIL_DEFINE_IMPL_REF (resample_linear_argb_ref, resample_linear_argb);
 static void
 merge_linear_argb_test (OilTest *test)
 {
-  uint32_t *src3 = (uint32_t *)(test->params[OIL_ARG_SRC3].src_data +
-    test->params[OIL_ARG_SRC3].test_header);
+  uint32_t *src3 = (uint32_t *) oil_test_get_source_data (test, OIL_ARG_SRC3);
 
   src3[0] = oil_rand_u8();
 }

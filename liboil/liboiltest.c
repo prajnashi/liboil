@@ -673,3 +673,8 @@ oil_test_get_source_data (OilTest *test, OilArgType arg_type)
   return ptr;
 }
 
+int
+oil_test_get_value (OilTest *test, OilArgType arg_type)
+{
+  return test->params[arg_type].value;
+}

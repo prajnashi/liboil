@@ -1,5 +1,20 @@
 2005-12-17  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilparameter.h:
+	* liboil/liboilprototype.c: (oil_param_get_source_data):
+	* liboil/liboiltest.c: (oil_test_get_value):
+	* liboil/liboiltest.h:
+	  New functions for getting values common in test setup functions.
+	* liboil/dct/idct8x8theora_ref.c:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/composite.c:
+	* liboil/ref/permute.c:
+	* liboil/ref/resample.c:
+	* liboil/utf8/utf8.c:
+	  Use new functions.
+
+2005-12-17  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: Add librandom.c
 	* liboil/liboilcolorspace.h:
 	* liboil/liboilrandom.c: Some C code to write arrays of random

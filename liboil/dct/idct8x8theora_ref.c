@@ -40,8 +40,7 @@ idct8theora_s16_test (OilTest *test)
 {
   int i;
   int stride = test->params[OIL_ARG_SSTR1].value;
-  uint16_t *ptr = (uint16_t *)(test->params[OIL_ARG_SRC1].src_data +
-      test->params[OIL_ARG_SRC1].test_header);
+  uint16_t *ptr = (uint16_t *)oil_test_get_source_data(test,OIL_ARG_SRC1);
 
   for(i=0;i<8;i++){
     OIL_GET(ptr, i*stride, int16_t) = oil_rand_s16() >> 3;
@@ -57,8 +56,7 @@ idct8x8theora_s16_test (OilTest *test)
   int i;
   int j;
   int stride = test->params[OIL_ARG_SSTR1].value;
-  uint16_t *ptr = (uint16_t *)(test->params[OIL_ARG_SRC1].src_data +
-      test->params[OIL_ARG_SRC1].test_header);
+  uint16_t *ptr = (uint16_t *)oil_test_get_source_data(test,OIL_ARG_SRC1);
 
   for(i=0;i<8;i++){
     for(j=0;j<8;j++){

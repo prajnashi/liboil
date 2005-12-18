@@ -751,4 +751,13 @@ oil_param_from_string (OilParameter *p, char *s)
   return 1;
 }
 
+void *oil_param_get_source_data (OilParameter *param)
+{
+  uint8_t *ptr;
+ 
+  ptr = param->src_data;
+  ptr += param->test_header;
+
+  return ptr;
+}
 

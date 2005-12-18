@@ -57,11 +57,9 @@ static void clip_ ## type ## _ref ( \
 static void clip_ ## type ## _test (OilTest *test) \
 { \
   oil_type_ ## type *lo = (oil_type_ ## type *) \
-    (test->params[OIL_ARG_SRC2].src_data + \
-     test->params[OIL_ARG_SRC2].test_header); \
+    oil_test_get_source_data (test, OIL_ARG_SRC2); \
   oil_type_ ## type *hi = (oil_type_ ## type *) \
-    (test->params[OIL_ARG_SRC3].src_data + \
-     test->params[OIL_ARG_SRC3].test_header); \
+    oil_test_get_source_data (test, OIL_ARG_SRC3); \
   if (*lo > *hi) { \
     oil_type_ ## type tmp; \
     tmp = *lo; \

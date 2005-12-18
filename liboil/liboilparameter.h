@@ -131,5 +131,7 @@ struct _OilParameter {
   int test_footer;
 };
 
+void *oil_param_get_source_data (OilParameter *param);
+
 #endif
 

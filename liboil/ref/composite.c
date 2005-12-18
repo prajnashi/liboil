@@ -31,6 +31,7 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilrandom.h>
 #include <liboil/liboilcolorspace.h>
 #include <liboil/liboiltest.h>
 #include <liboil/liboildebug.h>
@@ -55,44 +56,32 @@
  *
  */
 static void
+handle_param (OilParameter *p)
+{
+  int n;
+
+  if (p->src_data) {
+    if (p->type == OIL_TYPE_u32p) {
+      uint32_t *ptr;
+      ptr = (uint32_t *)oil_param_get_source_data (p);
+      n = p->post_n;
+      oil_random_argb (ptr, n);
+    }
+    if (p->type == OIL_TYPE_u8p) {
+      uint8_t *ptr;
+      ptr = (uint8_t *)oil_param_get_source_data (p);
+      n = p->post_n;
+      oil_random_alpha (ptr, n);
+    }
+  }
+}
+
+static void
 composite_test (OilTest *test)
 {
-  int i;
-  int n;
-  uint32_t *ptr;
-  int a;
-  OilParameter *p;
-
-  p = &test->params[OIL_ARG_SRC1];
-  if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + p->test_header);
-    n = p->post_n;
-    for(i=0;i<n;i++){
-      a = oil_rand_u8();
-      ptr[i] = oil_rand_rgba(a);
-    }
-  }
-
-  p = &test->params[OIL_ARG_SRC2];
-  if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + p->test_header);
-    n = p->post_n;
-    for(i=0;i<n;i++){
-      a = oil_rand_u8();
-      ptr[i] = oil_rand_rgba(a);
-    }
-  }
-
-  p = &test->params[OIL_ARG_INPLACE1];
-  if (p->src_data && p->type == OIL_TYPE_u32p) {
-    ptr = (uint32_t *)(p->src_data + p->test_header);
-    n = p->post_n;
-    for(i=0;i<n;i++){
-      a = oil_rand_u8();
-      ptr[i] = oil_rand_rgba(a);
-    }
-  }
-
+  handle_param(&test->params[OIL_ARG_SRC1]);
+  handle_param(&test->params[OIL_ARG_SRC2]);
+  handle_param(&test->params[OIL_ARG_INPLACE1]);
 }
 
 /**
