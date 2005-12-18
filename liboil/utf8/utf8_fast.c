@@ -64,8 +64,8 @@ utf8_validate_fast (int32_t *d_1, uint8_t *s, int n)
     }
     if (i + extra_bytes >= n) goto error;
     while(extra_bytes--) {
-      if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
     }
     i++;
   }
@@ -84,19 +84,23 @@ utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
   i=0;
   while (i<n) {
     x = s[i];
-    if (s[i] < 128) {
+    if (!(x & 0x80)) {
       i++;
       continue;
     }
     x <<= 1;
-    if (s[i] < 128) {
+    if (!(x & 0x80)) {
+      goto error;
+    }
+    x <<= 1;
+    if (!(x & 0x80)) {
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
       continue;
     }
     x <<= 1;
-    if (s[i] < 128) {
+    if (!(x & 0x80)) {
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -105,7 +109,7 @@ utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
       continue;
     }
     x <<= 1;
-    if (s[i] < 128) {
+    if (!(x & 0x80)) {
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -122,6 +126,102 @@ error:
   d_1[0] = i;
 }
 OIL_DEFINE_IMPL (utf8_validate_fast2, utf8_validate);
+
+static void
+utf8_validate_fast3 (int32_t *d_1, uint8_t *s, int n)
+{
+  int i;
+  uint8_t x;
+
+  i=0;
+  while (i<n) {
+    if (i < n-3 && (*(uint32_t *)(s+i) & 0x80808080) == 0) {
+      i+=4;
+      continue;
+    }
+    x = s[i];
+    if (!(x & 0x80)) {
+      i++;
+      continue;
+    }
+    if (!(x & 0x40)) {
+      goto error;
+    }
+    if (!(x & 0x20)) {
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      continue;
+    }
+    if (!(x & 0x10)) {
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      continue;
+    }
+    if (!(x & 0x08)) {
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      if ((s[i] & 0xc0) != 0x80) goto error;
+      i++;
+      continue;
+    }
+    goto error;
+  }
+
+error:
+  d_1[0] = i;
+}
+OIL_DEFINE_IMPL (utf8_validate_fast3, utf8_validate);
+
+static uint8_t utf8_table[256] = {
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+  3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8
+};
+  
+static void
+utf8_validate_lookup (int32_t *d_1, uint8_t *s, int n)
+{
+  int i;
+  uint8_t x;
+
+  i=0;
+  while (i<n) {
+    x = utf8_table[s[i]];
+    if (x > 0) {
+      if (x == 8) goto error;
+      while (x>0) {
+        i++;
+        if ((s[i] & 0xc0) != 0x80) goto error;
+        x--;
+      }
+    }
+    i++;
+  }
+
+error:
+  d_1[0] = i;
+}
+OIL_DEFINE_IMPL (utf8_validate_lookup, utf8_validate);
 
 #if 0
 static void

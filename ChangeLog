@@ -1,3 +1,11 @@
+2005-12-18  David Schleef  <ds@schleef.org>
+
+	* liboil/utf8/utf8.c: (utf8_validate_test), (utf8_validate_ref):
+	* liboil/utf8/utf8_fast.c: (utf8_validate_fast),
+	(utf8_validate_fast2), (utf8_validate_fast3),
+	(utf8_validate_lookup):
+	  Some utf8 hacking.  At least it works now.
+
 2005-12-17  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilparameter.h:
