@@ -24,42 +24,7 @@
 
 
 
-<!-- ##### MACRO oil_rand_s32_l31 ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### MACRO oil_rand_s16 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_s16_l15 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_s16_l9 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_s16_l8 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_s16_l4 ##### -->
 <para>
 
 </para>
@@ -80,13 +45,6 @@
 
 
 
-<!-- ##### MACRO oil_rand_u32_l31 ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### MACRO oil_rand_u16 ##### -->
 <para>
 
@@ -95,104 +53,6 @@
 
 
 <!-- ##### MACRO oil_rand_u8 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_0_1 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_s32 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_s16 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_s8 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_u32 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_u16 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f64_u8 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_0_1 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_s32 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_s16 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_s8 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_u32 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_u16 ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO oil_rand_f32_u8 ##### -->
 <para>
 
 </para>
@@ -213,11 +73,125 @@
 
 
 
-<!-- ##### MACRO oil_rand_rgba ##### -->
+<!-- ##### MACRO oil_rand_f32 ##### -->
 <para>
 
 </para>
 
-@a: 
+
+
+<!-- ##### MACRO oil_rand_f64 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION oil_random_alpha ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_argb ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_f32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_f64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_s16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_s32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_s64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_s8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_u16 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_u32 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_u64 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_random_u8 ##### -->
+<para>
+
+</para>
+
+@dest: 
+@n: 
 
 

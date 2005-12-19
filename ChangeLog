@@ -1,3 +1,37 @@
+2005-12-19  David Schleef  <ds@schleef.org>
+
+	* doc/Makefile.am:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilfuncs-copy.sgml:
+	* doc/tmpl/liboilparameter.sgml:
+	* doc/tmpl/liboilprototype.sgml:
+	* doc/tmpl/liboilrandom.sgml:
+	* doc/tmpl/liboiltest.sgml:
+	* doc/tmpl/liboiltypes.sgml:
+	  Documentation updates.
+	* examples/Makefile.am:
+	* examples/oil-test.c: Add an -n option and fix printing u8.
+	* examples/oil-suggest.c: A proggy for recommending stuff to
+	  work on.
+	* examples/taylor/example1.c: Random minor changes.
+	* liboil/conv/conv_c.c: Disable lrint stuff for u32, because it
+	  can't possibly work.
+	* liboil/i386/conv_3dnow.c: (conv_s32_f32_3dnow): Fix.
+	* liboil/i386/md5_i386.c: (md5_asm1), (md5_asm2): Fix.
+	* liboil/liboilparameter.h: Add oil_type_is_floating_point();
+	* liboil/liboiltest.c: Add OilTest::tolerance for setting the
+	  tolerance on dest arrays.
+	* liboil/liboiltest.h:
+	* liboil/ref/conv.c: (conv_test): Implement a test function for
+	  floating point to integer conversions (to test the entire range).
+	* testsuite/align.c: (check_class_with_alignment), (check_class):
+	  Rearrange some code here and rely on the internal testing stuff
+	  to work.
+	* testsuite/n_impls.c: (oil_class_get_n_impls), (main): New test
+	  to make sure we don't accidentally delete implementations between
+	  versions.
+
 2005-12-18  David Schleef  <ds@schleef.org>
 
 	* liboil/utf8/utf8.c: (utf8_validate_test), (utf8_validate_ref):

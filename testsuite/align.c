@@ -223,6 +223,47 @@ check_test (OilTest *test)
   return failed;
 }
 
+int check_class_with_alignment (OilFunctionClass *klass,
+    OilArgType arg, int n, int align)
+{
+  OilParameter *p;
+  int align_offset;
+  int test_failed = 0;
+  OilTest *test;
+  OilFunctionImpl *impl;
+
+  test = oil_test_new(klass);
+
+  p = &test->params[arg];
+  align_offset = align * oil_type_sizeof(p->type);
+  oil_test_set_test_header(test, p, OIL_TEST_HEADER + align_offset);
+
+  oil_test_set_iterations(test, 1);
+  test->n = n;
+  test->m = n;
+
+  impl = klass->reference_impl;
+  oil_test_check_impl (test, impl);
+
+  for (impl = klass->first_impl; impl; impl = impl->next) {
+    if (impl == klass->reference_impl)
+      continue;
+    if (oil_impl_is_runnable (impl)) {
+      if (!oil_test_check_impl (test, impl)) {
+        printf ("impl %s with arg %d offset %d, n=%d\n", impl->name, arg,
+            align_offset, n);
+        printf("dests for %s:\n", klass->name);
+        dump_dest_ref(test);
+        printf("sources for %s:\n", klass->name);
+        dump_source(test);
+      }
+    }
+  }
+  oil_test_free(test);
+
+  return test_failed;
+}
+
 /* Check a function class for all implementations matching the reference when
  * each parameter is varied in its offset from malloc's alignment by 0 - 3 units
  * times size of the type, and with the number of elements varying between 8 and
@@ -230,63 +271,31 @@ check_test (OilTest *test)
  */
 int check_class(OilFunctionClass *klass)
 {
-  OilFunctionImpl *impl;
   OilTest *test;
   int failed = 0;
   int i, n;
 
   oil_class_optimize (klass);
 
+  printf("checking class %s\n", klass->name);
+  
+  test = oil_test_new(klass);
   for (i=0; i < OIL_ARG_LAST; i++) {
+    OilParameter *p;
     int align;
+
+    p = &test->params[i];
+    if (!p->is_pointer) {
+      continue;
+    }
 
     for (n = 8; n <= 11; n++) {
       for (align = 0; align <= 3; align++) {
-	OilParameter *p;
-	int align_offset;
-	int test_failed = 0;
-
-	test = oil_test_new(klass);
-
-	p = &test->params[i];
-	if (!p->is_pointer) {
-	  /* Don't need to do anything to this parameter.  Bail out of this
-	   * loop, at least.
-	   */
-	  oil_test_free(test);
-          break;
-	}
-	align_offset = align * oil_type_sizeof(p->type);
-	oil_test_set_test_header(test, p, OIL_TEST_HEADER + align_offset);
-
-	oil_test_set_iterations(test, 1);
-	test->n = n;
-	test->m = n;
-
-	impl = klass->reference_impl;
-	oil_test_check_impl (test, impl);
-
-	for (impl = klass->first_impl; impl; impl = impl->next) {
-	  if (impl == klass->reference_impl)
-	    continue;
-	  printf ("impl %s with arg %d offset %d, n=%d\n", impl->name, i,
-	      align_offset, n);
-	  if (oil_impl_is_runnable (impl)) {
-	    oil_test_check_impl (test, impl);
-	    test_failed |= check_test(test);
-	  }
-	}
-	if (test_failed) {
-	  printf("dests for %s:\n", klass->name);
-	  dump_dest_ref(test);
-	  printf("sources for %s:\n", klass->name);
-	  dump_source(test);
-	  failed = 1;
-	}
-	oil_test_free(test);
+        failed |= check_class_with_alignment (klass, i, n, align);
       }
     }
   }
+  oil_test_free (test);
 
   return failed;
 }

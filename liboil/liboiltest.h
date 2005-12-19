@@ -58,6 +58,8 @@ struct _OilTest {
 
   double profile_ave;
   double profile_std;
+
+  double tolerance;
 };
 
 /**

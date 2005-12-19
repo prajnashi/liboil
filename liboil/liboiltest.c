@@ -79,10 +79,14 @@ oil_test_new (OilFunctionClass *klass)
   test->klass = klass;
   test->proto = proto;
   test->impl = klass->reference_impl;
+  test->tolerance = 0.0;
 
   for (i=0;i<proto->n_params;i++){
     if (proto->params[i].parameter_type == OIL_ARG_UNKNOWN) {
       return NULL;
+    }
+    if (oil_type_is_floating_point(proto->params[i].type)) {
+      test->tolerance = 0.001;
     }
     memcpy (&test->params[proto->params[i].parameter_type], &proto->params[i],
         sizeof(OilParameter));
@@ -393,9 +397,9 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   test->sum_abs_diff = x;
   test->n_points = n;
 
-  if (x > n || fail) {
-    OIL_ERROR ("function %s in class %s failed check (%g > %d) || (outside=%d)",
-        test->impl->name, test->klass->name, x, n, fail);
+  if (x > test->tolerance * n || fail) {
+    OIL_ERROR ("function %s in class %s failed check (%g > %g) || (outside=%d)",
+        test->impl->name, test->klass->name, x, test->tolerance * n, fail);
     return 0;
   }
 

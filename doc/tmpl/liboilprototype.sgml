@@ -44,6 +44,15 @@
 @Returns: 
 
 
+<!-- ##### FUNCTION oil_prototype_to_arg_string ##### -->
+<para>
+
+</para>
+
+@proto: 
+@Returns: 
+
+
 <!-- ##### FUNCTION oil_prototype_free ##### -->
 <para>
 

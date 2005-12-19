@@ -85,6 +85,7 @@ oil_profile_stop
 OilPrototype
 oil_prototype_from_string
 oil_prototype_to_string
+oil_prototype_to_arg_string
 oil_prototype_free
 oil_prototype_append_param
 </SECTION>
@@ -93,6 +94,7 @@ oil_prototype_append_param
 <FILE>liboiltypes</FILE>
 OilType
 oil_type_sizeof
+oil_type_is_floating_point
 oil_type_name
 OilArgType
 oil_arg_type_name
@@ -102,6 +104,8 @@ oil_type_s16
 oil_type_u16
 oil_type_s32
 oil_type_u32
+oil_type_s64
+oil_type_u64
 oil_type_f32
 oil_type_f64
 oil_type_min_s8
@@ -121,39 +125,34 @@ oil_type_max_u32
 <SECTION>
 <FILE>liboilparameter</FILE>
 OilParameter
+oil_param_get_source_data
 </SECTION>
 
 <SECTION>
 <FILE>liboilrandom</FILE>
 oil_rand_s32
-oil_rand_s32_l31
 oil_rand_s16
-oil_rand_s16_l15
-oil_rand_s16_l9
-oil_rand_s16_l8
-oil_rand_s16_l4
 oil_rand_s8
 oil_rand_u32
-oil_rand_u32_l31
 oil_rand_u16
 oil_rand_u8
-oil_rand_f64_0_1
-oil_rand_f64_s32
-oil_rand_f64_s16
-oil_rand_f64_s8
-oil_rand_f64_u32
-oil_rand_f64_u16
-oil_rand_f64_u8
-oil_rand_f32_0_1
-oil_rand_f32_s32
-oil_rand_f32_s16
-oil_rand_f32_s8
-oil_rand_f32_u32
-oil_rand_f32_u16
-oil_rand_f32_u8
 oil_rand_s64
 oil_rand_u64
 oil_rand_rgba
+oil_rand_f32
+oil_rand_f64
+oil_random_alpha
+oil_random_argb
+oil_random_f32
+oil_random_f64
+oil_random_s16
+oil_random_s32
+oil_random_s64
+oil_random_s8
+oil_random_u16
+oil_random_u32
+oil_random_u64
+oil_random_u8
 </SECTION>
 
 <SECTION>
@@ -169,6 +168,10 @@ oil_test_set_iterations
 oil_test_check_ref
 oil_test_check_impl
 oil_test_cleanup
+oil_test_get_source_data
+oil_test_get_value
+oil_test_set_test_footer
+oil_test_set_test_header
 </SECTION>
 
 <SECTION>
@@ -300,6 +303,7 @@ oil_scaleconv_u8_f64
 
 <SECTION>
 <FILE>liboilfuncs-copy</FILE>
+oil_compare_u8
 oil_copy_u8
 oil_permute_f32
 oil_permute_f64
@@ -311,7 +315,10 @@ oil_permute_u32
 oil_permute_u8
 oil_splat_u32
 oil_splat_u8
+oil_swab_u16
+oil_swab_u32
 oil_tablelookup_u8
+oil_testzero_u8
 oil_trans8x8_f64
 oil_trans8x8_u16
 oil_trans8x8_u32

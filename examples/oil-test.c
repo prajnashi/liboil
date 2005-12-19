@@ -37,6 +37,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
 #ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
 #endif
@@ -110,7 +111,7 @@ dump_array (void *data, void *ref_data, OilType type, int pre_n, int stride,
     switch(type) {
       case OIL_TYPE_s8p:
       case OIL_TYPE_u8p:
-        DUMP(int8_t, "%02" PRIx8);
+        DUMP(uint8_t, "%02" PRIx8);
         break;
       case OIL_TYPE_s16p:
       case OIL_TYPE_u16p:
@@ -216,12 +217,19 @@ int main (int argc, char *argv[])
   double ave, std;
   char *class_name = NULL;
   int i;
+  int n = 10;
 
+  srand(time(NULL));
   oil_init ();
 
   for (i=1;i<argc;i++){
     if (!strcmp(argv[i],"-x")) {
       hex = 1;
+    } else if (!strcmp(argv[i],"-n")) {
+      if (i + i < argc) {
+        n = strtol (argv[i+1], NULL, 0);
+        i++;
+      }
     } else {
       if (class_name != NULL) {
         help();
@@ -242,8 +250,8 @@ int main (int argc, char *argv[])
 
   test = oil_test_new(klass);
   oil_test_set_iterations(test, 1);
-  test->n = 10;
-  test->m = 10;
+  test->n = n;
+  test->m = n;
 
   impl = klass->reference_impl;
   ave = impl->profile_ave;

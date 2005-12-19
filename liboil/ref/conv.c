@@ -29,6 +29,8 @@
 #include "config.h"
 #endif
 #include <liboil/liboilfunction.h>
+#include <liboil/liboiltest.h>
+#include <liboil/liboilrandom.h>
 
 #include <math.h>
 #include <string.h>
@@ -60,6 +62,74 @@
  * is undefined and may vary between implementations.
  */
 
+
+static void
+conv_test (OilTest *test)
+{
+  int i;
+  int n;
+  double min = 0;
+  double max = 1;
+  int stride = test->params[OIL_ARG_SRC1].stride;
+  void *data = oil_test_get_source_data (test, OIL_ARG_SRC1);
+
+  n = test->params[OIL_ARG_SRC1].post_n;
+
+  switch(test->params[OIL_ARG_DEST1].type) {
+    case OIL_TYPE_s8p:
+      min = oil_type_min_s8;
+      max = oil_type_max_s8;
+      break;
+    case OIL_TYPE_u8p:
+      min = oil_type_min_u8;
+      max = oil_type_max_u8;
+      break;
+    case OIL_TYPE_s16p:
+      min = oil_type_min_s16;
+      max = oil_type_max_s16;
+      break;
+    case OIL_TYPE_u16p:
+      min = oil_type_min_u16;
+      max = oil_type_max_u16;
+      break;
+    case OIL_TYPE_s32p:
+      min = oil_type_min_s32;
+      max = oil_type_max_s32;
+      break;
+    case OIL_TYPE_u32p:
+      min = oil_type_min_u32;
+      max = oil_type_max_u32;
+      break;
+    default:
+      break;
+  }
+
+  switch (test->params[OIL_ARG_SRC1].type) {
+    case OIL_TYPE_f32p:
+      for(i=0;i<n;i++){
+        int x;
+        x = oil_rand_u8() & 0x1;
+        switch (x) {
+          case 0:
+            OIL_GET(data, stride * i, float) =
+              oil_rand_f32() * (max - min) + min;
+            break;
+          case 1:
+            OIL_GET(data, stride * i, float) =
+              (oil_rand_f32() - 0.5) * 10;
+            break;
+        }
+      }
+      break;
+    case OIL_TYPE_f64p:
+      for(i=0;i<n;i++){
+        OIL_GET(data, stride * i, double) = oil_rand_f64() * (max - min) + min;
+      }
+      break;
+    default:
+      break;
+  }
+}
 
 #define CONV_DEFINE_REF_CAST(desttype,srctype) \
 static void conv_ ## desttype ## _ ## srctype ## _ref ( \
@@ -95,11 +165,11 @@ static void conv_ ## desttype ## _ ## srctype ## _ref ( \
 			rint(OIL_GET(src,i*src_stride, oil_type_ ## srctype));	\
 	}				\
 }					\
-OIL_DEFINE_CLASS(conv_ ## desttype ## _ ## srctype,	\
+OIL_DEFINE_CLASS_FULL(conv_ ## desttype ## _ ## srctype,	\
 	"oil_type_" #desttype " *dest, "	\
 	"int dstr, "			\
 	"oil_type_" #srctype " *src, "	\
-	"int sstr, int n");	 	\
+	"int sstr, int n", conv_test);	\
 OIL_DEFINE_IMPL_REF(conv_ ## desttype ## _ ## srctype ## _ref,	\
 	conv_ ## desttype ## _ ## srctype)
 

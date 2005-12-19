@@ -17,6 +17,17 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### FUNCTION oil_compare_u8 ##### -->
+<para>
+
+</para>
+
+@d_1: 
+@s1: 
+@s2: 
+@n: 
+
+
 <!-- ##### FUNCTION oil_copy_u8 ##### -->
 <para>
 
@@ -161,6 +172,26 @@
 @n: 
 
 
+<!-- ##### FUNCTION oil_swab_u16 ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_swab_u32 ##### -->
+<para>
+
+</para>
+
+@d_n: 
+@s_n: 
+@n: 
+
+
 <!-- ##### FUNCTION oil_tablelookup_u8 ##### -->
 <para>
 
@@ -172,6 +203,16 @@
 @ss1: 
 @s2_256: 
 @ss2: 
+@n: 
+
+
+<!-- ##### FUNCTION oil_testzero_u8 ##### -->
+<para>
+
+</para>
+
+@d_1: 
+@s: 
 @n: 
 
 

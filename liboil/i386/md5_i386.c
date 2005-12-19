@@ -29,7 +29,8 @@
 #include "config.h"
 #endif
 
-#include <liboil/liboil.h>
+#include <liboil/liboilfunction.h>
+#include <liboil/liboilclasses.h>
 
 
 #define F1(x, y, z) (z ^ (x & (y ^ z)))
@@ -41,8 +42,6 @@
   (w += f(x,y,z) + in, w = (w<<s | w>>(32-s)) + x)
 
 
-#ifdef ENABLE_BROKEN_IMPLS
-/* GCC-4.0 doesn't like this one */
 static void
 md5_asm1(uint32_t *state, uint32_t *src)
 {
@@ -56,7 +55,7 @@ md5_asm1(uint32_t *state, uint32_t *src)
   tmp.state = state;
   tmp.src = src;
 
-  asm (
+  __asm__ __volatile__ (
       "  mov %%ebp, 0x8(%%eax)\n"
       "  mov %%ebx, 0xc(%%eax)\n"
       "  mov %%eax, %%ebp\n"
@@ -187,17 +186,14 @@ md5_asm1(uint32_t *state, uint32_t *src)
       "  mov 0x8(%%ebp), %%ebp\n"
       :
       : "a" (&tmp)
-      : "esi", "ecx", "edx", "edi");
+      : "esi", "ecx", "edx", "edi", "memory");
 }
 #undef STEP1
 #undef STEP2
 #undef STEP3
 #undef STEP4
-OIL_DEFINE_IMPL_ASM (md5_asm1, md5);
-#endif
+OIL_DEFINE_IMPL (md5_asm1, md5);
 
-#ifdef ENABLE_BROKEN_IMPLS
-/* FIXME GCC-4.0 doesn't like this one */
 static void
 md5_asm2(uint32_t *state, uint32_t *src)
 {
@@ -346,14 +342,13 @@ md5_asm2(uint32_t *state, uint32_t *src)
       "  mov 0x8(%%ebp), %%ebp\n"
       :
       : "a" (&tmp)
-      : "esi", "ecx", "edx", "edi");
+      : "esi", "ecx", "edx", "edi", "memory");
 #undef STEP1
 #undef STEP2
 #undef STEP3
 #undef STEP4
 }
 OIL_DEFINE_IMPL_ASM (md5_asm2, md5);
-#endif
 
 
 

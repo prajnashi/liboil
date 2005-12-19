@@ -54,6 +54,14 @@
 @Returns: 
 
 
+<!-- ##### MACRO oil_type_is_floating_point ##### -->
+<para>
+
+</para>
+
+@type: 
+
+
 <!-- ##### FUNCTION oil_type_name ##### -->
 <para>
 
@@ -136,6 +144,20 @@
 
 
 <!-- ##### MACRO oil_type_u32 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_type_s64 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO oil_type_u64 ##### -->
 <para>
 
 </para>

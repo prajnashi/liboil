@@ -43,7 +43,7 @@ CFILE_GLOB=$(top_srcdir)/liboil/*.c
 
 # Header files to ignore when scanning.
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
-IGNORE_HFILES=liboilfuncs.h fbmmx.h fbpict.h
+IGNORE_HFILES=liboilfuncs.h fbmmx.h fbpict.h liboil-stdint.h
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png

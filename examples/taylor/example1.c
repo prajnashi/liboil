@@ -33,13 +33,14 @@
 
 #define N 1000
 
-static void taylor4_f32_ref (float *dest, float *src, float *a, int n);
-static void taylor4_f32_oil (float *dest, float *src, float *a, int n);
+static void taylor4_f32_ref (float *dest, float *src, float *tmp, float *a, int n);
+static void taylor4_f32_oil (float *dest, float *src, float *tmp, float *a, int n);
 
 int main(int argc, char *argv[])
 {
   float *dest;
   float *src;
+  float *tmp;
   float a[4];
   int i;
   OilProfile prof;
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
 
   src = malloc(N*sizeof(float));
   dest = malloc(N*sizeof(float));
+  tmp = malloc(3*N*sizeof(float));
 
   for(i=0;i<N;i++){
     src[i] = i;
@@ -61,7 +63,7 @@ int main(int argc, char *argv[])
   oil_profile_init(&prof);
   for(i=0;i<10;i++){
     oil_profile_start(&prof);
-    taylor4_f32_ref (dest, src, a, N);
+    taylor4_f32_ref (dest, src, tmp, a, N);
     oil_profile_stop(&prof);
   }
   oil_profile_get_ave_std (&prof, &ave, &std);
@@ -73,7 +75,7 @@ int main(int argc, char *argv[])
   oil_profile_init(&prof);
   for(i=0;i<10;i++){
     oil_profile_start(&prof);
-    taylor4_f32_oil (dest, src, a, N);
+    taylor4_f32_oil (dest, src, tmp, a, N);
     oil_profile_stop(&prof);
   }
   oil_profile_get_ave_std (&prof, &ave, &std);
@@ -86,7 +88,7 @@ int main(int argc, char *argv[])
 }
 
 static void
-taylor4_f32_ref (float *dest, float *src, float *a, int n)
+taylor4_f32_ref (float *dest, float *src, float *tmp, float *a, int n)
 {
   int i;
   float x;
@@ -102,11 +104,15 @@ taylor4_f32_ref (float *dest, float *src, float *a, int n)
 
 
 static void
-taylor4_f32_oil (float *dest, float *src, float *a, int n)
+taylor4_f32_oil (float *dest, float *src, float *tmp, float *a, int n)
 {
-  float tmp1[N];
-  float tmp2[N];
-  float tmp3[N];
+  float *tmp1;
+  float *tmp2;
+  float *tmp3;
+
+  tmp1 = tmp;
+  tmp2 = tmp+N;
+  tmp3 = tmp+2*N;
 
   oil_scalarmultiply_f32_ns (tmp1, src, a+1, n);
 
