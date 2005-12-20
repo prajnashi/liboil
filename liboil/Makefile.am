@@ -9,8 +9,8 @@ subdir_i386 += fb
 libs_i386 += fb/libfb.la
 endif
 if HAVE_MMX_INTRINSICS
-#subdir_i386 += mmx
-#libs_i386 += mmx/libmmx.la
+subdir_i386 += mmx
+libs_i386 += mmx/libmmx.la
 endif
 if HAVE_SSE_INTRINSICS
 subdir_i386 += sse

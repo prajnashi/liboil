@@ -228,6 +228,17 @@ OIL_DEFINE_CLASS_FULL (composite_over_u8,
 OIL_DEFINE_CLASS_FULL (composite_add_u8,
     "uint8_t *i_n, uint8_t *s1_n, int n",
     composite_test);
+/**
+ * oil_composite_add_u8_const_src:
+ * @i_n: DEST
+ * @s1_1: SRC
+ * @n: number of elements
+ *
+ * Performs the compositing operation DEST = SRC ADD DEST.
+ */
+OIL_DEFINE_CLASS_FULL (composite_add_u8_const_src,
+    "uint8_t *i_n, uint8_t *s1_1, int n",
+    composite_test);
 
 static void
 composite_in_argb_ref (uint32_t *dest, const uint32_t *src, const uint8_t *mask, int n)
@@ -425,6 +436,18 @@ composite_add_u8_ref (uint8_t *dest, const uint8_t *src, int n)
 
 }
 OIL_DEFINE_IMPL_REF (composite_add_u8_ref, composite_add_u8);
+
+static void
+composite_add_u8_const_src_ref (uint8_t *dest, const uint8_t *src1_1, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = COMPOSITE_ADD(dest[i],src1_1[0]);
+  }
+
+}
+OIL_DEFINE_IMPL_REF (composite_add_u8_const_src_ref, composite_add_u8_const_src);
 
 static void
 composite_over_u8_ref (uint8_t *dest, const uint8_t *src, int n)

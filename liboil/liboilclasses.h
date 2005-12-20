@@ -92,6 +92,7 @@ OIL_DECLARE_CLASS(compare_u8);
 OIL_DECLARE_CLASS(composite_add_argb);
 OIL_DECLARE_CLASS(composite_add_argb_const_src);
 OIL_DECLARE_CLASS(composite_add_u8);
+OIL_DECLARE_CLASS(composite_add_u8_const_src);
 OIL_DECLARE_CLASS(composite_in_argb);
 OIL_DECLARE_CLASS(composite_in_argb_const_mask);
 OIL_DECLARE_CLASS(composite_in_argb_const_src);

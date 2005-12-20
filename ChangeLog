@@ -1,3 +1,17 @@
+2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/Makefile.am:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c: (oil_composite_add_u8_const_src):
+	* liboil/mmx/.cvsignore:
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/composite_mmx.c: (composite_add_u8_const_src_mmx):
+	* liboil/ref/composite.c: (composite_add_u8_const_src_ref):
+	Add a ref and mmx implementation of composite_add_u8_const_src, like
+	composite_add_argb_const_src.  This may prove useful for trapezoid
+	rasterization in cairo.
+
 2005-12-19  David Schleef  <ds@schleef.org>
 
 	* doc/Makefile.am:
@@ -69,7 +83,7 @@
 	* liboil/i386/composite_i386.c: Add simple mmx implementations
 	  for all the composite functions.
 
-2005-12-16  David Schleef  <ds@schleef.org>
+ 2005-12-16  David Schleef  <ds@schleef.org>
 
 	* liboil/conv/conv_bitstuff.c:
 	* liboil/conv/conv_c.c:

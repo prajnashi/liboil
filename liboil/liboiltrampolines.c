@@ -536,6 +536,15 @@ oil_composite_add_u8 (uint8_t * i_n, const uint8_t * s1_n, int n)
 }
 
 void
+oil_composite_add_u8_const_src (uint8_t * i_n, const uint8_t * s1_1, int n)
+{
+  if (_oil_function_class_composite_add_u8_const_src.func == NULL) {
+    oil_class_optimize (&_oil_function_class_composite_add_u8_const_src);
+  }
+  ((void (*)(uint8_t * i_n, const uint8_t * s1_1, int n))(_oil_function_class_composite_add_u8_const_src.func))(i_n, s1_1, n);
+}
+
+void
 oil_composite_in_argb (uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_n, int n)
 {
   if (_oil_function_class_composite_in_argb.func == NULL) {

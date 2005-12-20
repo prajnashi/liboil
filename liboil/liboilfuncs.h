@@ -204,6 +204,9 @@ typedef void (*_oil_type_composite_add_argb_const_src)(uint32_t * i_n, const uin
 extern OilFunctionClass *oil_function_class_ptr_composite_add_u8;
 typedef void (*_oil_type_composite_add_u8)(uint8_t * i_n, const uint8_t * s1_n, int n);
 #define oil_composite_add_u8 ((_oil_type_composite_add_u8)(*(void **)oil_function_class_ptr_composite_add_u8))
+extern OilFunctionClass *oil_function_class_ptr_composite_add_u8_const_src;
+typedef void (*_oil_type_composite_add_u8_const_src)(uint8_t * i_n, const uint8_t * s1_1, int n);
+#define oil_composite_add_u8_const_src ((_oil_type_composite_add_u8_const_src)(*(void **)oil_function_class_ptr_composite_add_u8_const_src))
 extern OilFunctionClass *oil_function_class_ptr_composite_in_argb;
 typedef void (*_oil_type_composite_in_argb)(uint32_t * d_n, const uint32_t * s1_n, const uint8_t * s2_n, int n);
 #define oil_composite_in_argb ((_oil_type_composite_in_argb)(*(void **)oil_function_class_ptr_composite_in_argb))
