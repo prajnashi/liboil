@@ -1,5 +1,10 @@
 2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/Makefile.am:
+	Enable building of mmx intrinsics code on amd64.
+
+2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/liboilclasses.h:
 	* liboil/liboilfuncs.h:
 	* liboil/liboilmarshal.c: (_oil_test_marshal_function):
