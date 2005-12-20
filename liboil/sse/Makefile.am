@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libsse.la
 
 libsse_la_SOURCES = \
 	clamp_sse.c \
+	composite_sse.c \
 	math_sse.c \
 	math_sse_unroll2.c
 

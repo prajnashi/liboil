@@ -1,5 +1,10 @@
 2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/Makefile.am:
+	Add an SSE2 implementation of composite_add_u8_const_src.
+
+2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/Makefile.am:
 	Enable building of mmx intrinsics code on amd64.
 
