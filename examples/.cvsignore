@@ -9,6 +9,7 @@ Makefile.in
 example1
 oil-graph
 oil-inspect
+oil-suggest
 oil-test
 report
 memcpy-speed
