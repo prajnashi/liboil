@@ -72,6 +72,78 @@ typedef void (*_oil_type_ayuv2yuyv)(uint32_t * d_n, const uint32_t * s_n, int n)
 extern OilFunctionClass *oil_function_class_ptr_ayuv2yvyu;
 typedef void (*_oil_type_ayuv2yvyu)(uint32_t * d_n, const uint32_t * s_n, int n);
 #define oil_ayuv2yvyu ((_oil_type_ayuv2yvyu)(*(void **)oil_function_class_ptr_ayuv2yvyu))
+extern OilFunctionClass *oil_function_class_ptr_clamp_f32;
+typedef void (*_oil_type_clamp_f32)(float * dest, const float * src, int n, const float * s2_1, const float * s3_1);
+#define oil_clamp_f32 ((_oil_type_clamp_f32)(*(void **)oil_function_class_ptr_clamp_f32))
+extern OilFunctionClass *oil_function_class_ptr_clamp_f64;
+typedef void (*_oil_type_clamp_f64)(double * dest, const double * src, int n, const double * s2_1, const double * s3_1);
+#define oil_clamp_f64 ((_oil_type_clamp_f64)(*(void **)oil_function_class_ptr_clamp_f64))
+extern OilFunctionClass *oil_function_class_ptr_clamp_s16;
+typedef void (*_oil_type_clamp_s16)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1, const int16_t * s3_1);
+#define oil_clamp_s16 ((_oil_type_clamp_s16)(*(void **)oil_function_class_ptr_clamp_s16))
+extern OilFunctionClass *oil_function_class_ptr_clamp_s32;
+typedef void (*_oil_type_clamp_s32)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1, const int32_t * s3_1);
+#define oil_clamp_s32 ((_oil_type_clamp_s32)(*(void **)oil_function_class_ptr_clamp_s32))
+extern OilFunctionClass *oil_function_class_ptr_clamp_s8;
+typedef void (*_oil_type_clamp_s8)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1, const int8_t * s3_1);
+#define oil_clamp_s8 ((_oil_type_clamp_s8)(*(void **)oil_function_class_ptr_clamp_s8))
+extern OilFunctionClass *oil_function_class_ptr_clamp_u16;
+typedef void (*_oil_type_clamp_u16)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1, const uint16_t * s3_1);
+#define oil_clamp_u16 ((_oil_type_clamp_u16)(*(void **)oil_function_class_ptr_clamp_u16))
+extern OilFunctionClass *oil_function_class_ptr_clamp_u32;
+typedef void (*_oil_type_clamp_u32)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1, const uint32_t * s3_1);
+#define oil_clamp_u32 ((_oil_type_clamp_u32)(*(void **)oil_function_class_ptr_clamp_u32))
+extern OilFunctionClass *oil_function_class_ptr_clamp_u8;
+typedef void (*_oil_type_clamp_u8)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1, const uint8_t * s3_1);
+#define oil_clamp_u8 ((_oil_type_clamp_u8)(*(void **)oil_function_class_ptr_clamp_u8))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_f32;
+typedef void (*_oil_type_clamphigh_f32)(float * dest, const float * src, int n, const float * s2_1);
+#define oil_clamphigh_f32 ((_oil_type_clamphigh_f32)(*(void **)oil_function_class_ptr_clamphigh_f32))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_f64;
+typedef void (*_oil_type_clamphigh_f64)(double * dest, const double * src, int n, const double * s2_1);
+#define oil_clamphigh_f64 ((_oil_type_clamphigh_f64)(*(void **)oil_function_class_ptr_clamphigh_f64))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_s16;
+typedef void (*_oil_type_clamphigh_s16)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1);
+#define oil_clamphigh_s16 ((_oil_type_clamphigh_s16)(*(void **)oil_function_class_ptr_clamphigh_s16))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_s32;
+typedef void (*_oil_type_clamphigh_s32)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1);
+#define oil_clamphigh_s32 ((_oil_type_clamphigh_s32)(*(void **)oil_function_class_ptr_clamphigh_s32))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_s8;
+typedef void (*_oil_type_clamphigh_s8)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1);
+#define oil_clamphigh_s8 ((_oil_type_clamphigh_s8)(*(void **)oil_function_class_ptr_clamphigh_s8))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_u16;
+typedef void (*_oil_type_clamphigh_u16)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1);
+#define oil_clamphigh_u16 ((_oil_type_clamphigh_u16)(*(void **)oil_function_class_ptr_clamphigh_u16))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_u32;
+typedef void (*_oil_type_clamphigh_u32)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1);
+#define oil_clamphigh_u32 ((_oil_type_clamphigh_u32)(*(void **)oil_function_class_ptr_clamphigh_u32))
+extern OilFunctionClass *oil_function_class_ptr_clamphigh_u8;
+typedef void (*_oil_type_clamphigh_u8)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1);
+#define oil_clamphigh_u8 ((_oil_type_clamphigh_u8)(*(void **)oil_function_class_ptr_clamphigh_u8))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_f32;
+typedef void (*_oil_type_clamplow_f32)(float * dest, const float * src, int n, const float * s2_1);
+#define oil_clamplow_f32 ((_oil_type_clamplow_f32)(*(void **)oil_function_class_ptr_clamplow_f32))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_f64;
+typedef void (*_oil_type_clamplow_f64)(double * dest, const double * src, int n, const double * s2_1);
+#define oil_clamplow_f64 ((_oil_type_clamplow_f64)(*(void **)oil_function_class_ptr_clamplow_f64))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_s16;
+typedef void (*_oil_type_clamplow_s16)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1);
+#define oil_clamplow_s16 ((_oil_type_clamplow_s16)(*(void **)oil_function_class_ptr_clamplow_s16))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_s32;
+typedef void (*_oil_type_clamplow_s32)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1);
+#define oil_clamplow_s32 ((_oil_type_clamplow_s32)(*(void **)oil_function_class_ptr_clamplow_s32))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_s8;
+typedef void (*_oil_type_clamplow_s8)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1);
+#define oil_clamplow_s8 ((_oil_type_clamplow_s8)(*(void **)oil_function_class_ptr_clamplow_s8))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_u16;
+typedef void (*_oil_type_clamplow_u16)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1);
+#define oil_clamplow_u16 ((_oil_type_clamplow_u16)(*(void **)oil_function_class_ptr_clamplow_u16))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_u32;
+typedef void (*_oil_type_clamplow_u32)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1);
+#define oil_clamplow_u32 ((_oil_type_clamplow_u32)(*(void **)oil_function_class_ptr_clamplow_u32))
+extern OilFunctionClass *oil_function_class_ptr_clamplow_u8;
+typedef void (*_oil_type_clamplow_u8)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1);
+#define oil_clamplow_u8 ((_oil_type_clamplow_u8)(*(void **)oil_function_class_ptr_clamplow_u8))
 extern OilFunctionClass *oil_function_class_ptr_clip_f32;
 typedef void (*_oil_type_clip_f32)(float * dest, int dstr, const float * src, int sstr, int n, const float * s2_1, const float * s3_1);
 #define oil_clip_f32 ((_oil_type_clip_f32)(*(void **)oil_function_class_ptr_clip_f32))

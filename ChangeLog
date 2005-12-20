@@ -1,5 +1,30 @@
 2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilmarshal.c: (_oil_test_marshal_function):
+	* liboil/liboiltrampolines.c: (oil_clamp_f32), (oil_clamp_f64),
+	(oil_clamp_s16), (oil_clamp_s32), (oil_clamp_s8), (oil_clamp_u16),
+	(oil_clamp_u32), (oil_clamp_u8), (oil_clamphigh_f32),
+	(oil_clamphigh_f64), (oil_clamphigh_s16), (oil_clamphigh_s32),
+	(oil_clamphigh_s8), (oil_clamphigh_u16), (oil_clamphigh_u32),
+	(oil_clamphigh_u8), (oil_clamplow_f32), (oil_clamplow_f64),
+	(oil_clamplow_s16), (oil_clamplow_s32), (oil_clamplow_s8),
+	(oil_clamplow_u16), (oil_clamplow_u32), (oil_clamplow_u8):
+	* liboil/ref/Makefile.am:
+	* liboil/ref/clamp.c:
+	* liboil/sse/Makefile.am:
+	* liboil/sse/clamp_sse.c: (clamp_f32_sse), (clamp_f64_sse),
+	(clamplow_f32_sse), (clamplow_f64_sse), (clamphigh_f32_sse),
+	(clamphigh_f64_sse):
+	Add a ref and sse implementation of a new group of "clamp" functions.
+	They behave like clip, but unstrided, and renamed to something people
+	might expect more than "clip".  Also offered are clamplow/high, which
+	perform clamping on only one side.  SSE implementations are about half
+	the ticks of the ref funtions on this amd64.
+
+2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/Makefile.am:
 	* liboil/liboilclasses.h:
 	* liboil/liboilfuncs.h:

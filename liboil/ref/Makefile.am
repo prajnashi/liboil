@@ -12,6 +12,7 @@ c_sources = \
 	argb_paint.c \
 	average2_u8.c \
 	ayuv2argb.c \
+	clamp.c \
 	clip_ref.c \
 	composite.c \
 	conv.c \

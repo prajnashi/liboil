@@ -140,6 +140,222 @@ oil_ayuv2yvyu (uint32_t * d_n, const uint32_t * s_n, int n)
 }
 
 void
+oil_clamp_f32 (float * dest, const float * src, int n, const float * s2_1, const float * s3_1)
+{
+  if (_oil_function_class_clamp_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_f32);
+  }
+  ((void (*)(float * dest, const float * src, int n, const float * s2_1, const float * s3_1))(_oil_function_class_clamp_f32.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_f64 (double * dest, const double * src, int n, const double * s2_1, const double * s3_1)
+{
+  if (_oil_function_class_clamp_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_f64);
+  }
+  ((void (*)(double * dest, const double * src, int n, const double * s2_1, const double * s3_1))(_oil_function_class_clamp_f64.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_s16 (int16_t * dest, const int16_t * src, int n, const int16_t * s2_1, const int16_t * s3_1)
+{
+  if (_oil_function_class_clamp_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_s16);
+  }
+  ((void (*)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1, const int16_t * s3_1))(_oil_function_class_clamp_s16.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_s32 (int32_t * dest, const int32_t * src, int n, const int32_t * s2_1, const int32_t * s3_1)
+{
+  if (_oil_function_class_clamp_s32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_s32);
+  }
+  ((void (*)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1, const int32_t * s3_1))(_oil_function_class_clamp_s32.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_s8 (int8_t * dest, const int8_t * src, int n, const int8_t * s2_1, const int8_t * s3_1)
+{
+  if (_oil_function_class_clamp_s8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_s8);
+  }
+  ((void (*)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1, const int8_t * s3_1))(_oil_function_class_clamp_s8.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_u16 (uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1, const uint16_t * s3_1)
+{
+  if (_oil_function_class_clamp_u16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_u16);
+  }
+  ((void (*)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1, const uint16_t * s3_1))(_oil_function_class_clamp_u16.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_u32 (uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1, const uint32_t * s3_1)
+{
+  if (_oil_function_class_clamp_u32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_u32);
+  }
+  ((void (*)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1, const uint32_t * s3_1))(_oil_function_class_clamp_u32.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamp_u8 (uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1, const uint8_t * s3_1)
+{
+  if (_oil_function_class_clamp_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamp_u8);
+  }
+  ((void (*)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1, const uint8_t * s3_1))(_oil_function_class_clamp_u8.func))(dest, src, n, s2_1, s3_1);
+}
+
+void
+oil_clamphigh_f32 (float * dest, const float * src, int n, const float * s2_1)
+{
+  if (_oil_function_class_clamphigh_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_f32);
+  }
+  ((void (*)(float * dest, const float * src, int n, const float * s2_1))(_oil_function_class_clamphigh_f32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_f64 (double * dest, const double * src, int n, const double * s2_1)
+{
+  if (_oil_function_class_clamphigh_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_f64);
+  }
+  ((void (*)(double * dest, const double * src, int n, const double * s2_1))(_oil_function_class_clamphigh_f64.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_s16 (int16_t * dest, const int16_t * src, int n, const int16_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_s16);
+  }
+  ((void (*)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1))(_oil_function_class_clamphigh_s16.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_s32 (int32_t * dest, const int32_t * src, int n, const int32_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_s32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_s32);
+  }
+  ((void (*)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1))(_oil_function_class_clamphigh_s32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_s8 (int8_t * dest, const int8_t * src, int n, const int8_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_s8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_s8);
+  }
+  ((void (*)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1))(_oil_function_class_clamphigh_s8.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_u16 (uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_u16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_u16);
+  }
+  ((void (*)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1))(_oil_function_class_clamphigh_u16.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_u32 (uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_u32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_u32);
+  }
+  ((void (*)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1))(_oil_function_class_clamphigh_u32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamphigh_u8 (uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1)
+{
+  if (_oil_function_class_clamphigh_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamphigh_u8);
+  }
+  ((void (*)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1))(_oil_function_class_clamphigh_u8.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_f32 (float * dest, const float * src, int n, const float * s2_1)
+{
+  if (_oil_function_class_clamplow_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_f32);
+  }
+  ((void (*)(float * dest, const float * src, int n, const float * s2_1))(_oil_function_class_clamplow_f32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_f64 (double * dest, const double * src, int n, const double * s2_1)
+{
+  if (_oil_function_class_clamplow_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_f64);
+  }
+  ((void (*)(double * dest, const double * src, int n, const double * s2_1))(_oil_function_class_clamplow_f64.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_s16 (int16_t * dest, const int16_t * src, int n, const int16_t * s2_1)
+{
+  if (_oil_function_class_clamplow_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_s16);
+  }
+  ((void (*)(int16_t * dest, const int16_t * src, int n, const int16_t * s2_1))(_oil_function_class_clamplow_s16.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_s32 (int32_t * dest, const int32_t * src, int n, const int32_t * s2_1)
+{
+  if (_oil_function_class_clamplow_s32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_s32);
+  }
+  ((void (*)(int32_t * dest, const int32_t * src, int n, const int32_t * s2_1))(_oil_function_class_clamplow_s32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_s8 (int8_t * dest, const int8_t * src, int n, const int8_t * s2_1)
+{
+  if (_oil_function_class_clamplow_s8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_s8);
+  }
+  ((void (*)(int8_t * dest, const int8_t * src, int n, const int8_t * s2_1))(_oil_function_class_clamplow_s8.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_u16 (uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1)
+{
+  if (_oil_function_class_clamplow_u16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_u16);
+  }
+  ((void (*)(uint16_t * dest, const uint16_t * src, int n, const uint16_t * s2_1))(_oil_function_class_clamplow_u16.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_u32 (uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1)
+{
+  if (_oil_function_class_clamplow_u32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_u32);
+  }
+  ((void (*)(uint32_t * dest, const uint32_t * src, int n, const uint32_t * s2_1))(_oil_function_class_clamplow_u32.func))(dest, src, n, s2_1);
+}
+
+void
+oil_clamplow_u8 (uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1)
+{
+  if (_oil_function_class_clamplow_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_clamplow_u8);
+  }
+  ((void (*)(uint8_t * dest, const uint8_t * src, int n, const uint8_t * s2_1))(_oil_function_class_clamplow_u8.func))(dest, src, n, s2_1);
+}
+
+void
 oil_clip_f32 (float * dest, int dstr, const float * src, int sstr, int n, const float * s2_1, const float * s3_1)
 {
   if (_oil_function_class_clip_f32.func == NULL) {
