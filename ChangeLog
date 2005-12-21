@@ -1,3 +1,39 @@
+2005-12-20  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/sse/Makefile.am:
+	* liboil/sse/composite_sse.c: (composite_add_argb_sse),
+	(composite_add_argb_const_src_sse), (composite_add_u8_sse),
+	(composite_add_u8_const_src_sse):
+	* liboil/sse/composite_sse_2pix.c: (argb_A_sse2),
+	(muldiv_255_sse2), (negate_argb_sse2), (load_argb_sse2),
+	(set1_argb_sse2), (load_u8_mask), (set1_u8_mask),
+	(store_argb_sse2), (over_argb_sse2), (composite_in_argb_sse_2pix),
+	(composite_in_argb_const_src_sse_2pix),
+	(composite_in_argb_const_mask_sse_2pix),
+	(composite_over_argb_sse_2pix),
+	(composite_over_argb_const_src_sse_2pix),
+	(composite_in_over_argb_sse_2pix),
+	(composite_in_over_argb_const_src_sse_2pix),
+	(composite_in_over_argb_const_mask_sse_2pix),
+	(composite_over_u8_sse_2pix):
+	* liboil/sse/composite_sse_4pix.c: (argb_A_sse2),
+	(inner_muldiv_255_sse2), (muldiv_255_sse2), (negate_argb_sse2),
+	(load_argb_sse2), (set1_argb_sse2), (load_u8_mask), (set1_u8_mask),
+	(store_argb_sse2), (over_argb_sse2), (composite_in_argb_sse),
+	(composite_in_argb_const_src_sse),
+	(composite_in_argb_const_mask_sse), (composite_over_argb_sse),
+	(composite_over_argb_const_src_sse), (composite_in_over_argb_sse),
+	(composite_in_over_argb_const_src_sse),
+	(composite_in_over_argb_const_mask_sse), (composite_over_u8_sse):
+	Add more SSE2-intrinsics composite code.  There are actually 2 copies,
+	unless we can figure out if 2pix is always slower.  The 4pix version
+	operates on registers with 4 packed pixels, and does unpacking for the
+	purposes of the muldiv stage.  On the other hand, the 2pix version works
+	on registers containing 2 unpacked pixels.  Speeds are similar, and
+	generally around 25 to 50% the ticks of _ref, according to oil-inspect.
+	It's not very pretty code, but I've been staring at it for too long and
+	want to get it committed.
+
 2005-12-19  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/sse/Makefile.am:
