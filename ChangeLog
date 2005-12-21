@@ -1,5 +1,10 @@
 2005-12-20  David Schleef  <ds@schleef.org>
 
+	* examples/oil-test.c: Print out the correct values for
+	  the test results.
+
+2005-12-20  David Schleef  <ds@schleef.org>
+
 	* liboil/dct/idct8x8_c.c: Add a test function.
 	* liboil/i386/fdct8x8theora_i386.c: Compile fix on gcc-4.1.
 	* liboil/liboilfunction.h: wrap a macro arg in ()

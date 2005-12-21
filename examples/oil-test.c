@@ -261,7 +261,7 @@ int main (int argc, char *argv[])
   dump_source(test);
   printf ("reference impl %s\n", impl->name);
   printf("  ave=%g std=%g\n", ave, std);
-  printf("  (this test) ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
+  printf("  (this test) ave=%g std=%g\n", test->profile_ave, test->profile_std);
   dump_test(test);
 
   for (impl = klass->first_impl; impl; impl = impl->next) {
@@ -270,7 +270,8 @@ int main (int argc, char *argv[])
     if (oil_impl_is_runnable (impl)) {
       printf("  ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
       oil_test_check_impl (test, impl);
-      printf("  (this test) ave=%g std=%g\n", impl->profile_ave, impl->profile_std);
+      printf("  (this test) ave=%g std=%g\n", test->profile_ave, test->profile_std);
+      printf("  abs diff=%g\n", test->sum_abs_diff);
       dump_test(test);
     }
   }
