@@ -127,7 +127,7 @@ struct _OilFunctionImpl {
  * as type @type.  Note that the offset is in bytes, and not in
  * the size of the pointer type.
  */
-#define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)ptr + (offset)) )
+#define OIL_GET(ptr, offset, type) (*(type *)((uint8_t *)(ptr) + (offset)) )
 /**
  * OIL_OFFSET:
  * @ptr:
@@ -135,7 +135,7 @@ struct _OilFunctionImpl {
  *
  * Add @offset bytes to the pointer @ptr.
  */
-#define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)ptr + (offset)) )
+#define OIL_OFFSET(ptr, offset) ((void *)((uint8_t *)(ptr) + (offset)) )
 /**
  * OIL_INCREMENT:
  * @ptr:

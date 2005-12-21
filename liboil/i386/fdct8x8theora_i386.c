@@ -323,8 +323,8 @@ OIL_DECLARE_CLASS(fdct8x8theora);
 static void
 fdct8x8theora_mmx(int16_t *src, int16_t *dest)
 {
-  int64_t __attribute__((aligned(8))) align_tmp[16];
-  int16_t *const temp= (int16_t*)align_tmp;
+  uint8_t align_tmp[8*8 + 16];
+  uint8_t *temp = (void *)(((unsigned long)align_tmp & ~0xf) + 0x10);
 
   __asm__ __volatile__ (
     "  .balign 16                   \n\t"

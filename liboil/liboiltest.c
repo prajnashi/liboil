@@ -370,8 +370,9 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
 
     if (p->is_pointer) {
       if (p->direction == 'i' || p->direction == 'd') {
-        x += check_array (p->test_data, p->ref_data, p->type, p->pre_n,
-            p->stride, p->post_n);
+        x += check_array (p->test_data + p->test_header,
+            p->ref_data + p->test_header, p->type, p->pre_n, p->stride,
+            p->post_n);
         n += p->pre_n * p->post_n;
         if (!check_guard (p->test_data, p->test_header, p->guard)) {
           fail = 1;
@@ -594,6 +595,11 @@ check_array (void *data, void *ref, OilType type, int pre_n, int stride, int pos
   int j;
   int s2 = oil_type_sizeof (type);
   double x = 0;
+
+#if 0
+  OIL_ERROR ("check array pre_n=%d stride=%d post_n=%d",
+      pre_n, stride, post_n);
+#endif
 
 #define CHECK(type) do {\
   for(i=0;i<post_n;i++){ \

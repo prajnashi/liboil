@@ -32,6 +32,9 @@
 #include <liboil/liboil.h>
 #include <liboil/dct/dct.h>
 #include <math.h>
+#include <liboil/liboiltest.h>
+#include <liboil/liboilparameter.h>
+#include <liboil/liboilrandom.h>
 
 /**
  * SECTION:liboilfuncs-dct:
@@ -47,6 +50,20 @@
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
 	(*((int16_t *)((void *)ptr + stride*row) + column))
+
+static void
+idct8x8_test (OilTest *test)
+{
+  int16_t *data = oil_test_get_source_data (test, OIL_ARG_SRC1);
+  int stride = oil_test_get_value (test, OIL_ARG_SSTR1);
+  int i, j;
+
+  for(j=0;j<8;j++){
+    for(i=0;i<8;i++){
+      OIL_GET(data, i*2 + j*stride, int16_t) = (oil_rand_s16() & 0xfff) - 2048;
+    }
+  }
+}
 
 /**
  * oil_idct8x8_f64:
@@ -78,10 +95,9 @@ OIL_DEFINE_CLASS (idct8x8lim10_f64, "double *d_8x8, int dstr, double *s_8x8, int
  * @sstr:
  *
  * Performs a limited 2-D Inverse Discrete Cosine Transform on @s_8x8
- * and places the result in @d_8x8.  The source 8x8 block must be non-zero
- * only in the 10 lowest-order components.
+ * and places the result in @d_8x8.
  */
-OIL_DEFINE_CLASS (idct8x8_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr");
+OIL_DEFINE_CLASS_FULL (idct8x8_s16, "int16_t *d_8x8, int dstr, int16_t *s_8x8, int sstr", idct8x8_test);
 /**
  * oil_idct8x8lim10_s16:
  * @d_8x8:
