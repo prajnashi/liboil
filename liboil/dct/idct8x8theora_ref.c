@@ -175,7 +175,6 @@ idct8theora_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 OIL_DEFINE_IMPL_REF (idct8theora_s16_ref, idct8theora_s16);
 
 
-#if defined(oil_idct8theora_s16)
 static void
 idct8x8theora_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
 {
@@ -183,36 +182,16 @@ idct8x8theora_s16_ref (int16_t *dest, int dstr, const int16_t *src, int sstr)
   int16_t tmp[64];
 
   for(i=0;i<8;i++){
-    oil_idct8theora_s16(
+    idct8theora_s16_ref(
         OIL_OFFSET(tmp, 8*sizeof(int16_t) * i), sizeof(int16_t),
         OIL_OFFSET(src, sstr * i), sizeof(int16_t));
   }
   for(i=0;i<8;i++){
-    oil_idct8theora_s16(
+    idct8theora_s16_ref(
         OIL_OFFSET(dest, sizeof(int16_t) * i), dstr,
-        OIL_OFFSET(tmp, sizeof(int16_t) * i), sizeof(int16_t) * i);
+        OIL_OFFSET(tmp, sizeof(int16_t) * i), sizeof(int16_t) * 8);
   }
 }
 OIL_DEFINE_IMPL_REF (idct8x8theora_s16_ref, idct8x8theora_s16);
-#endif
-
-
-#if defined(oil_idct8_f64)
-static void
-idct8theora_s16_float (int16_t *dest, int dstr, const int16_t *src, int sstr)
-{
-  int i;
-  double tmp1[8];
-  double tmp2[8];
-
-  oil_conv_f64_s16 (tmp1, sizeof(double), src, sizeof(int16_t), 8);
-  oil_idct8_f64 (tmp2, sizeof(double), tmp1, sizeof(double));
-  for(i=0;i<8;i++){
-    tmp2[i] *= 2.0;
-  }
-  oil_conv_s16_f64 (dest, sizeof(int16_t), tmp2, sizeof(double), 8);
-}
-OIL_DEFINE_IMPL (idct8theora_s16_float, idct8theora_s16);
-#endif
 
 
