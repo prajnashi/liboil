@@ -41,7 +41,7 @@ const uint8_t c0x80[8] = {
 };
 
 static void
-recon8x8_intra_mmx (uint8_t *dest, int ds, int16_t *change)
+recon8x8_intra_i386_mmx (uint8_t *dest, int ds, int16_t *change)
 {
   __asm__ __volatile__ (
     "  .balign 16                      \n\t"
@@ -71,10 +71,11 @@ recon8x8_intra_mmx (uint8_t *dest, int ds, int16_t *change)
   );
 }
 
-OIL_DEFINE_IMPL_FULL (recon8x8_intra_mmx, recon8x8_intra, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (recon8x8_intra_i386_mmx, recon8x8_intra, OIL_IMPL_FLAG_MMX);
 
+#if 0
 static void
-recon8x8_inter_mmx (uint8_t *dest, int ds, uint8_t *src, int ss, int16_t *change)
+recon8x8_inter_i386_mmx (uint8_t *dest, int ds, uint8_t *src, int ss, int16_t *change)
 {
   /* FIXME doesn't handle ss */
   __asm__ __volatile__ (
@@ -111,10 +112,10 @@ recon8x8_inter_mmx (uint8_t *dest, int ds, uint8_t *src, int ss, int16_t *change
   );
 }
 
-OIL_DEFINE_IMPL_FULL (recon8x8_inter_mmx, recon8x8_inter, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (recon8x8_inter_i386_mmx, recon8x8_inter, OIL_IMPL_FLAG_MMX);
 
 static void
-recon8x8_inter2_mmx (uint8_t *dest, int ds, uint8_t *s1, int ss1, uint8_t *s2, int ss2, int16_t *change)
+recon8x8_inter2_i386_mmx (uint8_t *dest, int ds, uint8_t *s1, int ss1, uint8_t *s2, int ss2, int16_t *change)
 {
   /* FIXME doesn't handle ss1, ss2 */
   __asm__ __volatile__ (
@@ -159,4 +160,5 @@ recon8x8_inter2_mmx (uint8_t *dest, int ds, uint8_t *s1, int ss1, uint8_t *s2, i
   );
 }
 
-OIL_DEFINE_IMPL_FULL (recon8x8_inter2_mmx, recon8x8_inter2, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (recon8x8_inter2_i386_mmx, recon8x8_inter2, OIL_IMPL_FLAG_MMX);
+#endif

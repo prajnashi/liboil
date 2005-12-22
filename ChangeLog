@@ -1,3 +1,14 @@
+2005-12-20  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/i386/recon8x8_i386.c: (recon8x8_intra_i386_mmx),
+	(recon8x8_inter_i386_mmx), (recon8x8_inter2_i386_mmx):
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/recon8x8_mmx.c: (recon8x8_intra_mmx),
+	(recon8x8_inter_mmx), (recon8x8_inter2_mmx):
+	Add a set of MMX-intrinsics implementations of recon8x8_*.  Disable the
+	two i386 recon8x8_inter* implementations that didn't respect the
+	strides.
+
 2005-12-21  David Schleef  <ds@schleef.org>
 
 	* m4/as-unaligned-access.m4: New macro.
