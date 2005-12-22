@@ -1,5 +1,9 @@
 2005-12-21  David Schleef  <ds@schleef.org>
 
+	* m4/as-unaligned-access.m4: New macro.
+
+2005-12-21  David Schleef  <ds@schleef.org>
+
 	* configure.ac: Check whether we can do unaligned access.
 	* liboil/c/Makefile.am: Add copy.c
 	* liboil/c/copy.c: Some impls
