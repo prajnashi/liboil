@@ -1,5 +1,13 @@
 2005-12-21  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/composite_sse.c: (composite_add_u8_sse),
+	(composite_add_u8_const_src_sse):
+	Don't forget to increment the source pointer in composite_add_u8_sse,
+	and also be careful about getting some types promoted, to prevent
+	overflow.  Fixes testsuite errors.
+
+2005-12-21  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/utf8/utf8_fast.c: (utf8_validate_fast2),
 	(utf8_validate_fast3), (utf8_validate_lookup):
 	Check for overflows in fast utf8 functions where truncated wide

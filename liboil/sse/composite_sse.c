@@ -108,7 +108,7 @@ composite_add_u8_sse (uint8_t *dest, const uint8_t *src, int n)
 {
   /* Initial operations to align the destination pointer */
   for (; ((long)dest & 15) && (n > 0); n--) {
-    int x = *dest + *src++;
+    int x = (int)*dest + *src++;
     if (x > 255) 
       x = 255;
     *dest++ = x;
@@ -118,10 +118,11 @@ composite_add_u8_sse (uint8_t *dest, const uint8_t *src, int n)
     s = _mm_loadu_si128((__m128i *)src);
     d = _mm_adds_epu8(s, *(__m128i *)dest);
     _mm_store_si128((__m128i *)dest, d);
+    src += 16;
     dest += 16;
   }
   for (; n > 0; n--) {
-    int x = *dest + *src++;
+    int x = (int)*dest + *src++;
     if (x > 255) 
       x = 255;
     *dest++ = x;
@@ -134,7 +135,7 @@ static void
 composite_add_u8_const_src_sse (uint8_t *dest, const uint8_t *src_1, int n)
 {
   __m128i s;
-  uint8_t val = *src_1;
+  int val = *src_1;
 
   /* Initial operations to align the destination pointer */
   for (; ((long)dest & 15) && (n > 0); n--) {
