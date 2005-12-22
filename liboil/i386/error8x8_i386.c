@@ -254,7 +254,8 @@ err_inter8x8_u8_avg_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, 
 }
 
 OIL_DEFINE_IMPL_FULL (err_inter8x8_u8_avg_mmx, err_inter8x8_u8_avg, OIL_IMPL_FLAG_MMX);
-
+ 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uint8_t *src3, int ss2)
 {
@@ -266,7 +267,9 @@ err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src
 
     "  pxor        %%mm4, %%mm4     \n\t"
     "  pxor        %%mm5, %%mm5     \n\t"
-    "  pxor        %%mm6, %%mm6     \n\t"
+    "  mov $0x01010101, %%edi \n\t"
+    "  movd %%edi, %%mm6 \n\t"
+    "  punpcklbw %%mm6, %%mm6 \n\t"
     "  pxor        %%mm7, %%mm7     \n\t"
     "  mov         $8, %%edi        \n\t"
     "1:                             \n\t"
@@ -274,14 +277,18 @@ err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src
 
     "  movq        (%3), %%mm2      \n\t"
     "  movq        (%4), %%mm1      \n\t"	/* take average of mm2 and mm1 */
+    "  movq        %%mm1, %%mm3     \n\t"
     "  pavgb       %%mm2, %%mm1     \n\t"
+    "  pxor        %%mm2, %%mm3     \n\t"
+    "  pand        %%mm6, %%mm3     \n\t"
+    "  psubb       %%mm3, %%mm1     \n\t"
 
     "  movq        %%mm0, %%mm2     \n\t"
     "  movq        %%mm1, %%mm3     \n\t"
 
-    "  punpcklbw   %%mm6, %%mm0     \n\t"
+    "  punpcklbw   %%mm4, %%mm0     \n\t"
     "  punpcklbw   %%mm4, %%mm1     \n\t"
-    "  punpckhbw   %%mm6, %%mm2     \n\t"
+    "  punpckhbw   %%mm4, %%mm2     \n\t"
     "  punpckhbw   %%mm4, %%mm3     \n\t"
 
     "  psubsw      %%mm1, %%mm0     \n\t"
@@ -334,4 +341,5 @@ err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src
 }
 
 OIL_DEFINE_IMPL_FULL (err_inter8x8_u8_avg_mmxext, err_inter8x8_u8_avg, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 

@@ -108,18 +108,27 @@ sad8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uin
   __asm__ __volatile__ (
     "  .balign 16                   \n\t"
     "  pxor %%mm7, %%mm7            \n\t" 	/* mm7 contains the result */
-    ".rept 8                        \n\t"
+    "  mov $0x01010101, %%eax       \n\t"
+    "  movd %%eax, %%mm6            \n\t"
+    "  punpcklbw %%mm6, %%mm6       \n\t"
+    "  mov $8, %%eax                \n\t"
+    "1:                             \n\t"
     "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
     "  movq (%2), %%mm1             \n\t"
     "  movq (%3), %%mm2             \n\t"
+    "  movq %%mm1, %%mm3            \n\t"
     "  pavgb %%mm2, %%mm1           \n\t"
+    "  pxor %%mm2, %%mm3            \n\t"
+    "  pand %%mm6, %%mm3            \n\t"
+    "  psubb %%mm3, %%mm1           \n\t"
     "  psadbw %%mm1, %%mm0          \n\t"
 
     "  add %4, %1                   \n\t"	/* Inc pointer into the new data */
     "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
     "  add %5, %2                   \n\t"	/* Inc pointer into ref data */
     "  add %5, %3                   \n\t"	/* Inc pointer into ref data */
-    ".endr                          \n\t"
+    "  decl %%eax                   \n\t"
+    "  jnz 1b                       \n\t"
 
     "  movd %%mm7, %0               \n\t"
     "  emms                         \n\t"
@@ -129,7 +138,7 @@ sad8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uin
        "+r" (src3) 
      : "m" (ss1),
        "m" (ss2)
-     : "memory"
+     : "eax", "memory"
   );
   *dest = diff;
 }

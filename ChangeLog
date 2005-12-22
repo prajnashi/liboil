@@ -1,5 +1,18 @@
 2005-12-21  David Schleef  <ds@schleef.org>
 
+	* configure.ac: Check whether we can do unaligned access.
+	* liboil/c/Makefile.am: Add copy.c
+	* liboil/c/copy.c: Some impls
+	* liboil/i386/Makefile.am: add swab.c
+	* liboil/i386/swab.c: Add some swabbing code.  asm, MMX, SSE2.
+	* liboil/i386/error8x8_i386.c: Fix impl.  pavgb sucks.
+	* liboil/i386/sad8x8avg_i386.c: same
+	* liboil/ref/copy.c: fix doc
+	* liboil/ref/swab.c: Doh! stupid mistake in reference function
+	* liboil/c/swab.c: same
+
+2005-12-21  David Schleef  <ds@schleef.org>
+
 	* liboil/dct/idct8x8theora_ref.c: Fix stupid bug in reference
 	  implementation.
 

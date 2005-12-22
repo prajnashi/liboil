@@ -8,6 +8,7 @@ endif
 noinst_LTLIBRARIES = lib_c.la $(opt_libs)
 
 c_sources = \
+	copy.c \
 	swab.c
 
 lib_c_la_SOURCES = \

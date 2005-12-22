@@ -31,53 +31,81 @@
 
 #include <liboil/liboil.h>
 #include <liboil/liboilfunction.h>
-#include <liboil/liboiltest.h>
+#include <liboil/liboilclasses.h>
 
+#include <unistd.h>
 
-/**
- * oil_swab_u16:
- * @d_n:
- * @s_n:
- * n:
- *
- * Swaps the endianness of values in the source array and places the
- * results in the destination array.  The arguments @s_n and @d_n may
- * be equal.
- */
-OIL_DEFINE_CLASS (swab_u16, "uint16_t *d_n, uint16_t *s_n, int n");
-
-/**
- * oil_swab_u32:
- * @d_n:
- * @s_n:
- * n:
- *
- * Swaps the endianness of values in the source array and places the
- * results in the destination array.  The arguments @s_n and @d_n may
- * be equal.
- */
-OIL_DEFINE_CLASS (swab_u32, "uint32_t *d_n, uint32_t *s_n, int n");
 
 static void
-swab_u16_ref (uint16_t *d, uint16_t *s, int n)
+testzero_u8_1 (uint32_t *dest, uint8_t *src1, int n)
+{
+  uint8_t *s = src1;
+
+  while(n>0 && (((unsigned long)s)&0x3)) {
+    if (*s == 0) {
+      goto foundzero;
+    }
+    s++;
+    n--;
+  }
+  while (n>3) {
+    uint32_t x;
+    x = *(uint32_t *)s;
+    if ((x ^ (x - 0x01010101))& 0x80808080) {
+      int i;
+      /* there's either a 0x00 or 0x80 byte */
+      for(i=0;i<4;i++){
+        if (s[i] == 0) {
+          s += i;
+          goto foundzero;
+        }
+      }
+    }
+    s += 4;
+    n -= 4;
+  }
+  while(n>0) {
+    if (*s == 0) {
+      goto foundzero;
+    }
+    s++;
+    n--;
+  }
+
+  dest[0] = n;
+foundzero:
+  dest[0] = s - src1;
+}
+OIL_DEFINE_IMPL (testzero_u8_1, testzero_u8);
+
+#ifdef HAVE_UNALIGNED_ACCESS
+static void
+testzero_u8_2 (uint32_t *dest, uint8_t *src1, int n)
 {
   int i;
 
-  for(i=0;i<n;i++){
-    d[i] = (s[i]<<8) | (s[i]>>8);
+  for(i=0;i<n-3;i+=4) {
+    uint32_t x;
+    x = *(uint32_t *)(src1 + i);
+    if ((x ^ (x - 0x01010101))& 0x80808080) {
+      int j;
+      /* there's either a 0x00 or 0x80 byte */
+      for(j=0;j<4;j++){
+        if (src1[i + j] == 0) {
+          dest[0] = i + j;
+          return ;
+        }
+      }
+    }
   }
-}
-OIL_DEFINE_IMPL_REF (swab_u16_ref, swab_u16);
-
-static void
-swab_u32_ref (uint32_t *d, uint32_t *s, int n)
-{
-  int i;
-
-  for(i=0;i<n;i++){
-    d[i] = (s[i]<<24) | ((s[i]&0x0000ff00)<<8) |
-      ((s[i]&0x00ff0000)>>8) | (s[i]>>24);
+  for(;i<n;i++){
+    if (src1[i] == 0) {
+      dest[0] = i;
+      return;
+    }
   }
+  dest[0] = n;
 }
-OIL_DEFINE_IMPL_REF (swab_u32_ref, swab_u32);
+OIL_DEFINE_IMPL (testzero_u8_2, testzero_u8);
+#endif
 

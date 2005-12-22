@@ -122,6 +122,7 @@ AM_CONDITIONAL(HAVE_GCC_ASM_POWERPC,
   test "x$HAVE_GCC_ASM_POWERPC" = "xyes")
 
 AC_C_BIGENDIAN
+AS_UNALIGNED_ACCESS
 
 AC_LTDL_SYMBOL_USCORE
 if test x${ac_cv_sys_symbol_underscore} = xyes ; then

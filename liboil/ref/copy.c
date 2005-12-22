@@ -98,9 +98,9 @@ OIL_DEFINE_IMPL_REF (compare_u8_ref, compare_u8);
  * index of the first zero element is written into dest.  If all
  * elements are non-zero, @n is written into dest.
  *
- * This function is roughly equivalent to strnlen().  One notably
+ * This function is roughly equivalent to strnlen().  One notable
  * difference is that implementations of this function may legally
- * read past the end of the string.
+ * read past the zero byte.
  */
 OIL_DEFINE_CLASS (testzero_u8, "uint32_t *d_1, uint8_t *s, int n");
 
