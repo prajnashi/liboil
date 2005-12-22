@@ -1,5 +1,23 @@
 2005-12-22  David Schleef  <ds@schleef.org>
 
+	* .cvsignore:
+	* BUGS:
+	* doc/.cvsignore:
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/fbmmx.c:
+	* patches/divide.c:
+	* patches/nr_mmx_R8G8B8A8_P_EMPTY_A8_RGBAP.S:
+	* patches/nr_mmx_R8G8B8A8_P_R8G8B8A8_P_A8_RGBAP.S:
+	* patches/nr_mmx_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N_TRANSFORM.S:
+	* patches/nr_mmx_R8G8B8_R8G8B8_R8G8B8A8_P.S:
+	* patches/patch-small-lib-2:
+	* testsuite/Makefile.am:
+	* testsuite/list_impls.c:
+	  Clean up local source tree.  Put spare files in the place where
+	  spare files go.
+
+2005-12-22  David Schleef  <ds@schleef.org>
+
 	* doc/tmpl/liboil-unused.sgml:
 	* doc/tmpl/liboilprofile.sgml:
 	* liboil/liboilfunction.c: init_no_optimize() should agree with
