@@ -116,4 +116,46 @@ static void splat_u8_ns_int (uint8_t *dest, const uint8_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u8_ns_int, splat_u8_ns);
 
+static void splat_u8_ns_int2 (uint8_t *dest, const uint8_t *param, int n)
+{
+  uint32_t p;
+  while(n&7) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  n >>= 3;
+  p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
+  while(n>0){
+    ((uint32_t *)dest)[0] = p;
+    ((uint32_t *)dest)[1] = p;
+    dest+=8;
+    n--;
+  }
+}
+OIL_DEFINE_IMPL(splat_u8_ns_int2, splat_u8_ns);
+
+static void splat_u8_ns_int4 (uint8_t *dest, const uint8_t *param, int n)
+{
+  uint32_t p;
+  while(n&15) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  n >>= 4;
+  p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
+  while(n>0){
+    ((uint32_t *)dest)[0] = p;
+    ((uint32_t *)dest)[1] = p;
+    ((uint32_t *)dest)[2] = p;
+    ((uint32_t *)dest)[3] = p;
+    dest+=16;
+    n--;
+  }
+}
+OIL_DEFINE_IMPL(splat_u8_ns_int4, splat_u8_ns);
+
+
+
 

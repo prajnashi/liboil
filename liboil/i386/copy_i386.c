@@ -30,9 +30,8 @@
 #endif
 
 #include <liboil/liboilfunction.h>
-#include <liboil/liboilfunction.h>
+#include <liboil/liboilclasses.h>
 
-OIL_DECLARE_CLASS(copy_u8);
 
 static void
 copy_u8_mmx (uint8_t *dest, uint8_t *src, int n)
@@ -245,4 +244,90 @@ copy_u8_mmx5 (uint8_t *dest, uint8_t *src, int n)
       : "eax");
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx5, copy_u8, OIL_IMPL_FLAG_MMX);
+
+
+static void splat_u8_ns_mmx (uint8_t *dest, const uint8_t *param, int n)
+{
+  uint32_t p;
+  while(n&7) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  if (n==0) return;
+  n >>= 3;
+  p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
+  asm volatile (
+    "  movd %2, %%mm0\n"
+    "  punpcklbw %%mm0, %%mm0\n"
+    "1:\n"
+    "  movq %%mm0, (%0)\n"
+    "  add $8, %0\n"
+    "  decl %1\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : "+r" (dest), "+r" (n), "+r" (p));
+}
+OIL_DEFINE_IMPL(splat_u8_ns_mmx, splat_u8_ns);
+
+static void splat_u8_ns_mmx2 (uint8_t *dest, const uint8_t *param, int n)
+{
+  uint32_t p;
+  while(n&15) {
+    *dest = *param;
+    dest++;
+    n--;
+  }
+  if (n==0) return;
+  n >>= 4;
+  p = (*param<<24) | (*param<<16) | (*param<<8) | (*param);
+  asm volatile (
+    "  movd %2, %%mm0\n"
+    "  punpcklbw %%mm0, %%mm0\n"
+    "1:\n"
+    "  movq %%mm0, (%0)\n"
+    "  movq %%mm0, 8(%0)\n"
+    "  add $16, %0\n"
+    "  decl %1\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : "+r" (dest), "+r" (n), "+r" (p));
+}
+OIL_DEFINE_IMPL(splat_u8_ns_mmx2, splat_u8_ns);
+
+static void splat_u8_ns_mmx2a (uint8_t *dest, const uint8_t *param, int n)
+{
+  uint32_t p;
+  p = *param;
+  p |= p<<8;
+  p |= p<<16;
+  if (n<16) {
+    while(n>0) {
+      *dest = *param;
+      dest++;
+      n--;
+    }
+    return;
+  }
+  asm volatile (
+    "  movd %2, %%mm0\n"
+    "  punpcklbw %%mm0, %%mm0\n"
+    "  movq %%mm0, (%0)\n"
+    "  movq %%mm0, 8(%0)\n"
+    "  movl %1, %%eax\n"
+    "  and $0xf, %%eax\n"
+    "  add %%eax, %0\n"
+    "  shr $4, %1\n"
+    "1:\n"
+    "  movq %%mm0, (%0)\n"
+    "  movq %%mm0, 8(%0)\n"
+    "  add $16, %0\n"
+    "  decl %1\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : "+r" (dest), "+r" (n), "+r" (p)
+    :
+    : "eax");
+}
+OIL_DEFINE_IMPL(splat_u8_ns_mmx2a, splat_u8_ns);
 

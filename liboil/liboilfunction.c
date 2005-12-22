@@ -103,6 +103,7 @@ static void oil_init_pointers (void);
 static void oil_init_structs (void);
 
 void _oil_cpu_init (void);
+void _oil_profile_init (void);
 
 /**
  * SECTION:liboilinit
@@ -123,29 +124,23 @@ void _oil_cpu_init (void);
  *
  * Since: 0.3.0
  */
+static int _oil_inited = 0;
 void
 oil_init (void)
 {
-  static int inited = 0;
-  unsigned long start, stop;
 
-  if (inited) return;
-  inited = 1;
-
-  start = oil_profile_stamp_gtod ();
+  if (_oil_inited) return;
+  _oil_inited = 1;
 
   _oil_debug_init ();
   _oil_cpu_init ();
+  _oil_profile_init ();
   oil_init_pointers ();
   oil_init_structs ();
 
   oil_cpu_fault_check_enable ();
   oil_optimize_all ();
   oil_cpu_fault_check_disable ();
-
-  stop = oil_profile_stamp_gtod ();
-
-  OIL_INFO ("initialization completed in %ld usec", stop-start);
 }
 
 /**
@@ -158,22 +153,14 @@ oil_init (void)
 void
 oil_init_no_optimize (void)
 {
-  static int inited = 0;
-  unsigned long start, stop;
-
-  if (inited) return;
-  inited = 1;
-
-  start = oil_profile_stamp_gtod ();
+  if (_oil_inited) return;
+  _oil_inited = 1;
 
   _oil_debug_init ();
   _oil_cpu_init ();
+  _oil_profile_init ();
   oil_init_pointers ();
   oil_init_structs ();
-
-  stop = oil_profile_stamp_gtod ();
-
-  OIL_INFO ("initialization completed in %ld usec", stop-start);
 }
 
 /**

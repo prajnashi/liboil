@@ -30,6 +30,7 @@
 #endif
 
 #include <liboil/liboilprofile.h>
+#include <liboil/liboildebug.h>
 
 #include <sys/time.h>
 #include <time.h>
@@ -43,24 +44,6 @@
  * Measuring the length of time needed to execute Liboil functions.
  *
  */
-
-/**
- * oil_profile_stamp_gtod:
- *
- * Creates a timestamp using the function gettimofday().
- *
- * Returns: a timestamp
- */
-unsigned long oil_profile_stamp_gtod (void)
-{
-#ifdef HAVE_GETTIMEOFDAY
-  struct timeval tv;
-  gettimeofday(&tv,NULL);
-  return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
-#else
-  return 0;
-#endif
-}
 
 /**
  * oil_profile_init:
@@ -163,4 +146,164 @@ oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p)
   if (std_p) *std_p = std;
 }
 
+
+
+#if defined(__i386__) || defined(__amd64__)
+static unsigned long
+oil_profile_stamp_tsc(void)
+{
+	unsigned long ts;
+	__asm__ __volatile__("rdtsc\n" : "=a" (ts) : : "edx");
+	return ts;
+}
+#endif
+
+#if defined(__powerpc__)
+static unsigned long
+oil_profile_stamp_tb(void)
+{
+	unsigned long ts;
+	__asm__ __volatile__("mftb %0\n" : "=r" (ts));
+	return ts;
+}
+#endif
+
+#if defined(__alpha__)
+static unsigned long
+oil_profile_stamp_counter(void)
+{
+	unsigned int ts;
+	__asm__ __volatile__ ("rpcc %0\n" : "=r"(ts));
+	return ts;
+}
+#endif
+
+#if defined(__ia64__)
+static unsigned long
+oil_profile_stamp_counter(void)
+{
+	unsigned int ts;
+	__asm__ __volatile__("mov %0=ar.itc\n" : "=r"(ts) :: "memory");
+	return ts;
+}
+#endif
+
+#if defined(__s390__)
+static unsigned long
+oil_profile_stamp_counter(void)
+{
+	uint64_t ts;
+	__asm__ __volatile__ ("STCK 0(%0)\n" : : "r" (&ts));
+	return ts;
+}
+#endif
+
+#if defined(__mips__) && 0
+/* broken */
+static unsigned long
+oil_profile_stamp_mips(void)
+{
+	unsigned int ts;
+	__asm__ __volatile__ (
+		"	.set	push		\n"
+		"	.set	reorder		\n"
+		"	mfc0	%0,$9		\n"
+		"	.set	pop		\n"
+	: "=m" (ts));
+	return ts;
+}
+#endif
+
+#if defined(__arm__)
+/* untested */
+static unsigned long
+oil_profile_stamp_xcale255(void)
+{
+  unsigned int ts;
+  /* this only works for XScale 255 */
+  __asm__ __volatile__ (
+      "  mrc p14, 0, %0, c0, c0, 0 \n"
+      : "=r" (ts));
+  return ts;
+}
+#endif
+
+#ifdef HAVE_GETTIMEOFDAY
+static unsigned long
+oil_profile_stamp_gtod (void)
+{
+  struct timeval tv;
+  gettimeofday(&tv,NULL);
+  return 1000000*(unsigned long)tv.tv_sec + (unsigned long)tv.tv_usec;
+}
+#endif
+
+static unsigned long
+oil_profile_stamp_zero (void)
+{
+  return 0;
+}
+
+static unsigned long (*_oil_profile_stamp)(void);
+
+/**
+ * oil_profile_stamp:
+ *
+ * Creates a timestamp based on a CPU-specific high-frequency
+ * counter, if available.
+ *
+ * Returns: a timestamp
+ */
+unsigned long
+oil_profile_stamp (void)
+{
+  return _oil_profile_stamp();
+}
+
+void
+_oil_profile_init (void)
+{
+#if defined(__i386__)
+#define have_tsc 1
+  if (have_tsc) {
+    _oil_profile_stamp = oil_profile_stamp_tsc;
+  }
+#endif
+#if defined(__amd64__)
+  _oil_profile_stamp = oil_profile_stamp_tsc;
+#endif
+#if defined(__powerpc__)
+  _oil_profile_stamp = oil_profile_stamp_tb;
+#endif
+#if defined(__alpha__)
+  _oil_profile_stamp = oil_profile_stamp_counter;
+#endif
+#if defined(__ia64__)
+  _oil_profile_stamp = oil_profile_stamp_counter;
+#endif
+#if defined(__s390__)
+  _oil_profile_stamp = oil_profile_stamp_counter;
+#endif
+#if defined(__mips__) && 0
+  _oil_profile_stamp = oil_profile_stamp_mips;
+#endif
+#if defined(__arm__)
+  if (0) {
+    /* need to detect XScale 255 */
+    _oil_profile_stamp = oil_profile_stamp_xscale255;
+  }
+#endif
+
+#ifdef HAVE_GETTIMEOFDAY
+  if (_oil_profile_stamp == NULL) {
+    _oil_profile_stamp = oil_profile_stamp_gtod;
+    OIL_ERROR("Using gettimeofday() as a timestamp function.  Please add a timestamp function for your platform.");
+  }
+#endif
+
+  if (_oil_profile_stamp == NULL) {
+    _oil_profile_stamp = oil_profile_stamp_zero;
+    OIL_ERROR("No timestamping function.  This is kinda bad.");
+  }
+}
 
