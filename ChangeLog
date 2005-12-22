@@ -7,7 +7,8 @@
 	  using oil_profile_stamp_gtod()
 	* liboil/liboilprofile.c:
 	* liboil/liboilprofile.h: Move all the inline profile functions
-	  to liboilprofile.c.  Remove oil_profile_stamp_gtod()
+	  to liboilprofile.c.  Remove oil_profile_stamp_gtod().  Also
+	  fix the s390 timestamp function.
 	* liboil/copy/splat_ref.c: More impls.
 	* liboil/i386/copy_i386.c: More impls.
 
