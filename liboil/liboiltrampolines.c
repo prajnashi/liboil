@@ -707,6 +707,15 @@ oil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, i
 }
 
 void
+oil_colorspace_argb (uint32_t * d, const uint32_t * s, const int16_t * s2_24, int n)
+{
+  if (_oil_function_class_colorspace_argb.func == NULL) {
+    oil_class_optimize (&_oil_function_class_colorspace_argb);
+  }
+  ((void (*)(uint32_t * d, const uint32_t * s, const int16_t * s2_24, int n))(_oil_function_class_colorspace_argb.func))(d, s, s2_24, n);
+}
+
+void
 oil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
 {
   if (_oil_function_class_colsad8x8_u8.func == NULL) {

@@ -1,3 +1,17 @@
+2005-12-22  David Schleef  <ds@schleef.org>
+
+	* examples/jpeg/jpeg_rgb_decoder.c: Use new colorspace_argb
+	  class.
+	* liboil/colorspace/Makefile.am: remove ayuv2argb.c (broken)
+	* liboil/colorspace/ayuv2argb.c: remove (broken)
+	* liboil/i386/ayuv2argb_i386.c: remove broken impls, add mmx
+	  for colorspace_argb
+	* liboil/jpeg/yuv2rgb_c.c: disable broken impls
+	* liboil/liboilclasses.h: new class
+	* liboil/liboilfuncs.h: new class
+	* liboil/liboiltrampolines.c: new class
+	* liboil/ref/ayuv2argb.c: add colorspace_argb reference
+
 2005-12-21  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/sse/composite_sse.c: (composite_add_u8_sse),

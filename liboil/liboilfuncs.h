@@ -261,6 +261,9 @@ typedef void (*_oil_type_clipconv_u8_u16)(uint8_t * dest, int dstr, const uint16
 extern OilFunctionClass *oil_function_class_ptr_clipconv_u8_u32;
 typedef void (*_oil_type_clipconv_u8_u32)(uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n);
 #define oil_clipconv_u8_u32 ((_oil_type_clipconv_u8_u32)(*(void **)oil_function_class_ptr_clipconv_u8_u32))
+extern OilFunctionClass *oil_function_class_ptr_colorspace_argb;
+typedef void (*_oil_type_colorspace_argb)(uint32_t * d, const uint32_t * s, const int16_t * s2_24, int n);
+#define oil_colorspace_argb ((_oil_type_colorspace_argb)(*(void **)oil_function_class_ptr_colorspace_argb))
 extern OilFunctionClass *oil_function_class_ptr_colsad8x8_u8;
 typedef void (*_oil_type_colsad8x8_u8)(uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 #define oil_colsad8x8_u8 ((_oil_type_colsad8x8_u8)(*(void **)oil_function_class_ptr_colsad8x8_u8))

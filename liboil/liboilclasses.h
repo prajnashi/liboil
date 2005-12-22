@@ -111,6 +111,7 @@ OIL_DECLARE_CLASS(clipconv_u8_s32);
 OIL_DECLARE_CLASS(clipconv_u8_s8);
 OIL_DECLARE_CLASS(clipconv_u8_u16);
 OIL_DECLARE_CLASS(clipconv_u8_u32);
+OIL_DECLARE_CLASS(colorspace_argb);
 OIL_DECLARE_CLASS(colsad8x8_u8);
 OIL_DECLARE_CLASS(compare_u8);
 OIL_DECLARE_CLASS(composite_add_argb);

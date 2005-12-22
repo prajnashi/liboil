@@ -6,6 +6,9 @@
 #include "jpeg_rgb_internal.h"
 #include "jpeg.h"
 
+#include <liboil/liboil.h>
+#include <liboil/liboilcolorspace.h>
+
 
 static void convert (JpegRGBDecoder * rgbdec);
 
@@ -126,6 +129,16 @@ jpeg_rgb_decoder_get_image (JpegRGBDecoder * rgbdec,
 #define YUV_TO_G(y,u,v) CLAMP((y) - 0.34414*((u)-128) - 0.71414*((v)-128),0,255)
 #define YUV_TO_B(y,u,v) CLAMP((y) + 1.772*((u)-128),0,255)
 
+static int16_t jfif_matrix[24] = {
+  0,      0,      -8192,   -8192,
+  16384,  0,      0,       0,
+  0,      16384,  16384,   16384,
+  0,      0,      -5638,   29032,
+  0,      22970,  -11700,  0,
+  0, 0, 0, 0
+};
+
+
 static void
 convert (JpegRGBDecoder * rgbdec)
 {
@@ -140,10 +153,16 @@ convert (JpegRGBDecoder * rgbdec)
   up = rgbdec->component[1].image;
   vp = rgbdec->component[2].image;
   for (y = 0; y < rgbdec->height; y++) {
+    uint32_t tmp1[1000];
+    uint32_t tmp2[1000];
     for (x = 0; x < rgbdec->width; x++) {
-      rgbp[0] = YUV_TO_B (yp[x], up[x], vp[x]);
-      rgbp[1] = YUV_TO_G (yp[x], up[x], vp[x]);
-      rgbp[2] = YUV_TO_R (yp[x], up[x], vp[x]);
+      tmp1[x] = oil_argb(255, yp[x], up[x], vp[x]);
+    }
+    oil_colorspace_argb(tmp2, tmp1, jfif_matrix, rgbdec->width);
+    for (x = 0; x < rgbdec->width; x++) {
+      rgbp[0] = oil_argb_B(tmp2[x]);
+      rgbp[1] = oil_argb_G(tmp2[x]);
+      rgbp[2] = oil_argb_R(tmp2[x]);
       rgbp[3] = 0;
       rgbp += 4;
     }

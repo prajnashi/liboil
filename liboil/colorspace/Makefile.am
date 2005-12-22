@@ -7,7 +7,6 @@ endif
 noinst_LTLIBRARIES = libcolorspace.la $(opt_libs)
 
 c_sources = \
-	ayuv2argb.c \
 	composite.c
 
 libcolorspace_la_SOURCES = 	\
