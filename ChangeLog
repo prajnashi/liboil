@@ -1,3 +1,11 @@
+2005-12-21  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/utf8/utf8_fast.c: (utf8_validate_fast2),
+	(utf8_validate_fast3), (utf8_validate_lookup):
+	Check for overflows in fast utf8 functions where truncated wide
+	characters would result in reads past the end of the buffer.  Fixes
+	testsuite failures.
+
 2005-12-20  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/i386/recon8x8_i386.c: (recon8x8_intra_i386_mmx),

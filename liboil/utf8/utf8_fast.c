@@ -94,6 +94,7 @@ utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
     }
     x <<= 1;
     if (!(x & 0x80)) {
+      if (i + 1 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -101,6 +102,7 @@ utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
     }
     x <<= 1;
     if (!(x & 0x80)) {
+      if (i + 2 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -110,6 +112,7 @@ utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
     }
     x <<= 1;
     if (!(x & 0x80)) {
+      if (i + 3 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -148,12 +151,14 @@ utf8_validate_fast3 (int32_t *d_1, uint8_t *s, int n)
       goto error;
     }
     if (!(x & 0x20)) {
+      if (i + 1 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
       continue;
     }
     if (!(x & 0x10)) {
+      if (i + 2 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -162,6 +167,7 @@ utf8_validate_fast3 (int32_t *d_1, uint8_t *s, int n)
       continue;
     }
     if (!(x & 0x08)) {
+      if (i + 3 >= n) goto error;
       i++;
       if ((s[i] & 0xc0) != 0x80) goto error;
       i++;
@@ -208,7 +214,7 @@ utf8_validate_lookup (int32_t *d_1, uint8_t *s, int n)
   while (i<n) {
     x = utf8_table[s[i]];
     if (x > 0) {
-      if (x == 8) goto error;
+      if (x == 8 || i + x >= n) goto error;
       while (x>0) {
         i++;
         if ((s[i] & 0xc0) != 0x80) goto error;
