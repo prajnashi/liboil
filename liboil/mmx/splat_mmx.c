@@ -45,6 +45,7 @@ splat_u32_ns_mmx (uint32_t *dest, const uint32_t *param, int n)
   for (; n > 0; n--) {
     *dest++ = *param;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX);
 
@@ -69,6 +70,7 @@ splat_u32_ns_mmx_unroll4 (uint32_t *dest, const uint32_t *param, int n)
   for (; n > 0; n--) {
     *dest++ = *param;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx_unroll4, splat_u32_ns, OIL_IMPL_FLAG_MMX);
 
@@ -86,6 +88,7 @@ splat_u8_ns_mmx (uint8_t *dest, const uint8_t *param, int n)
   for (; n > 0; n--) {
     *dest++ = *param;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (splat_u8_ns_mmx, splat_u8_ns, OIL_IMPL_FLAG_MMX);
 
@@ -110,5 +113,6 @@ splat_u8_ns_mmx_unroll4 (uint8_t *dest, const uint8_t *param, int n)
   for (; n > 0; n--) {
     *dest++ = *param;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (splat_u8_ns_mmx_unroll4, splat_u8_ns, OIL_IMPL_FLAG_MMX);

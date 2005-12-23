@@ -35,7 +35,7 @@
 OIL_DECLARE_CLASS(splat_u32_ns);
 
 static void
-splat_u32_ns_mmx (uint32_t *dest, uint32_t *src, int n)
+splat_u32_ns_i386_mmx (uint32_t *dest, uint32_t *src, int n)
 {
   while(n&0x7) {
     *dest++ = *src;
@@ -59,7 +59,7 @@ splat_u32_ns_mmx (uint32_t *dest, uint32_t *src, int n)
       : "c" (n/8)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (splat_u32_ns_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+OIL_DEFINE_IMPL_FULL (splat_u32_ns_i386_mmx, splat_u32_ns, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 
 

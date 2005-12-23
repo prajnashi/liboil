@@ -1,5 +1,17 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/i386/copy_i386.c: (copy_u8_i386_mmx),
+	(splat_u8_ns_i386_mmx):
+	* liboil/i386/splat_i386.c: (splat_u32_ns_i386_mmx):
+	* liboil/mmx/copy_mmx.c: (copy_u8_mmx), (copy_u8_mmx_unroll4):
+	* liboil/mmx/splat_mmx.c: (splat_u32_ns_mmx),
+	(splat_u32_ns_mmx_unroll4), (splat_u8_ns_mmx),
+	(splat_u8_ns_mmx_unroll4):
+	Rename some i386 mmx implementations to not collide with mmx intrinsics
+	implementations.  And don't forget the _mm_empty()s in the new mmx code.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/mmx/Makefile.am:
 	* liboil/mmx/copy_mmx.c: (copy_u8_mmx), (copy_u8_mmx_unroll4):
 	* liboil/sse/Makefile.am:

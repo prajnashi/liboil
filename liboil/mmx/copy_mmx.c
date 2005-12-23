@@ -42,6 +42,7 @@ copy_u8_mmx (uint8_t *dest, const uint8_t *src, int n)
   for (; n > 0; n--) {
     *dest++ = *src++;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx, copy_u8, OIL_IMPL_FLAG_MMX);
 
@@ -64,5 +65,6 @@ copy_u8_mmx_unroll4 (uint8_t *dest, const uint8_t *src, int n)
   for (; n > 0; n--) {
     *dest++ = *src++;
   }
+  _mm_empty();
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx_unroll4, copy_u8, OIL_IMPL_FLAG_MMX);

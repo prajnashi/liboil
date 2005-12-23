@@ -34,7 +34,7 @@
 
 
 static void
-copy_u8_mmx (uint8_t *dest, uint8_t *src, int n)
+copy_u8_i386_mmx (uint8_t *dest, uint8_t *src, int n)
 {
   if (n&4) {
     *(uint32_t *)dest = *(uint32_t *)src;
@@ -59,7 +59,7 @@ copy_u8_mmx (uint8_t *dest, uint8_t *src, int n)
       : "c" (n/8)
       : "eax");
 }
-OIL_DEFINE_IMPL_FULL (copy_u8_mmx, copy_u8, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (copy_u8_i386_mmx, copy_u8, OIL_IMPL_FLAG_MMX);
 
 static void
 copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
@@ -246,7 +246,7 @@ copy_u8_mmx5 (uint8_t *dest, uint8_t *src, int n)
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx5, copy_u8, OIL_IMPL_FLAG_MMX);
 
 
-static void splat_u8_ns_mmx (uint8_t *dest, const uint8_t *param, int n)
+static void splat_u8_ns_i386_mmx (uint8_t *dest, const uint8_t *param, int n)
 {
   uint32_t p;
   while(n&7) {
@@ -268,7 +268,7 @@ static void splat_u8_ns_mmx (uint8_t *dest, const uint8_t *param, int n)
     "  emms\n"
     : "+r" (dest), "+r" (n), "+r" (p));
 }
-OIL_DEFINE_IMPL(splat_u8_ns_mmx, splat_u8_ns);
+OIL_DEFINE_IMPL(splat_u8_ns_i386_mmx, splat_u8_ns);
 
 static void splat_u8_ns_mmx2 (uint8_t *dest, const uint8_t *param, int n)
 {
