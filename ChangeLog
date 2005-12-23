@@ -1,5 +1,11 @@
 2005-12-22  David Schleef  <ds@schleef.org>
 
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/fbmmx.c:
+	  Oops, duplicate of fb/fbmmx.c
+
+2005-12-22  David Schleef  <ds@schleef.org>
+
 	* .cvsignore:
 	* BUGS:
 	* doc/.cvsignore:
