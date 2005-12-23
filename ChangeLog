@@ -1,5 +1,11 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* testsuite/Makefile.am:
+	Move list_impls to a noinst_PROGRAMS variable, so that it gets build
+	rules that give it the usual cflags, fixing the build here.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/c/Makefile.am:
 	* liboil/c/composite.c: (composite_in_argb_fast),
 	(composite_in_argb_const_src_fast),
