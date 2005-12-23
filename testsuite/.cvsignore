@@ -11,6 +11,7 @@ align
 copy
 dso_check
 introspect
+list_impls
 log
 md5
 md5_profile
