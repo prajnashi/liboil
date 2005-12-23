@@ -1,5 +1,15 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/copy_mmx.c: (copy_u8_mmx), (copy_u8_mmx_unroll4):
+	* liboil/sse/Makefile.am:
+	* liboil/sse/copy_sse.c: (copy_u8_sse), (copy_u8_sse_unroll2):
+	Add MMX/SSE2 copy implementations.  MMX wins on my desktop, but I'm
+	leaving SSE2 in just in case (note: both of them beat out the previous
+	winner).
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/sse/Makefile.am:
 	Correct the splat_sse.c filename, which I botched at the last minute
 	while splitting up commits.

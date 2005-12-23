@@ -6,6 +6,7 @@ libsse_la_SOURCES = \
 	composite_sse.c \
 	composite_sse_2pix.c \
 	composite_sse_4pix.c \
+	copy_sse.c \
 	math_sse.c \
 	math_sse_unroll2.c \
 	sad8x8_sse.c \
