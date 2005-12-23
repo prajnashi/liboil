@@ -33,6 +33,84 @@
 #include <xmmintrin.h>
 
 static void
+clamp_u8_sse (uint8_t *dest, uint8_t *src1, int n, uint8_t *src2_1,
+    uint8_t *src3_1)
+{
+  __m128i xmm1, xmm2;
+  uint8_t min = *src2_1;
+  uint8_t max = *src3_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    uint8_t x = *src1++;
+    if (x < min)
+      x = min;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi8(min);
+  xmm2 = _mm_set1_epi8(max);
+  for (; n >= 16; n -= 16) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_max_epu8(xmm0, xmm1);
+    xmm0 = _mm_min_epu8(xmm0, xmm2);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 16;
+    src1 += 16;
+  }
+  for (; n > 0; n--) {
+    uint8_t x = *src1++;
+    if (x < min)
+      x = min;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamp_u8_sse, clamp_u8, OIL_IMPL_FLAG_SSE2);
+
+static void
+clamp_s16_sse (int16_t *dest, int16_t *src1, int n, int16_t *src2_1,
+    int16_t *src3_1)
+{
+  __m128i xmm1, xmm2;
+  int16_t min = *src2_1;
+  int16_t max = *src3_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    int16_t x = *src1++;
+    if (x < min)
+      x = min;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi16(min);
+  xmm2 = _mm_set1_epi16(max);
+  for (; n >= 8; n -= 8) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_max_epi16(xmm0, xmm1);
+    xmm0 = _mm_min_epi16(xmm0, xmm2);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 8;
+    src1 += 8;
+  }
+  for (; n > 0; n--) {
+    int16_t x = *src1++;
+    if (x < min)
+      x = min;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamp_s16_sse, clamp_s16, OIL_IMPL_FLAG_SSE2);
+
+static void
 clamp_f32_sse (float *dest, const float *src1, int n, const float *src2_1,
     const float *src3_1)
 {
@@ -112,6 +190,70 @@ OIL_DEFINE_IMPL_FULL (clamp_f64_sse, clamp_f64,
     OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2);
 
 static void
+clamplow_u8_sse (uint8_t *dest, const uint8_t *src1, int n,
+    const uint8_t *src2_1)
+{
+  __m128i xmm1;
+  uint8_t min = *src2_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    uint8_t x = *src1++;
+    if (x < min)
+      x = min;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi8(min);
+  for (; n >= 16; n -= 16) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_max_epu8(xmm0, xmm1);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 16;
+    src1 += 16;
+  }
+  for (; n > 0; n--) {
+    uint8_t x = *src1++;
+    if (x < min)
+      x = min;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamplow_u8_sse, clamplow_u8, OIL_IMPL_FLAG_SSE2);
+
+static void
+clamplow_s16_sse (int16_t *dest, const int16_t *src1, int n,
+    const int16_t *src2_1)
+{
+  __m128i xmm1;
+  int16_t min = *src2_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    int16_t x = *src1++;
+    if (x < min)
+      x = min;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi16(min);
+  for (; n >= 8; n -= 8) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_max_epi16(xmm0, xmm1);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 8;
+    src1 += 8;
+  }
+  for (; n > 0; n--) {
+    int16_t x = *src1++;
+    if (x < min)
+      x = min;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamplow_s16_sse, clamplow_s16, OIL_IMPL_FLAG_SSE2);
+
+static void
 clamplow_f32_sse (float *dest, const float *src1, int n, const float *src2_1)
 {
   __m128 xmm1;
@@ -173,6 +315,70 @@ clamplow_f64_sse (double *dest, const double *src1, int n, const double *src2_1)
 }
 OIL_DEFINE_IMPL_FULL (clamplow_f64_sse, clamplow_f64,
     OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2);
+
+static void
+clamphigh_u8_sse (uint8_t *dest, const uint8_t *src1, int n,
+    const uint8_t *src2_1)
+{
+  __m128i xmm1;
+  uint8_t max = *src2_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    uint8_t x = *src1++;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi8(max);
+  for (; n >= 16; n -= 16) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_min_epu8(xmm0, xmm1);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 16;
+    src1 += 16;
+  }
+  for (; n > 0; n--) {
+    uint8_t x = *src1++;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamphigh_u8_sse, clamphigh_u8, OIL_IMPL_FLAG_SSE2);
+
+static void
+clamphigh_s16_sse (int16_t *dest, const int16_t *src1, int n,
+    const int16_t *src2_1)
+{
+  __m128i xmm1;
+  int16_t max = *src2_1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    int16_t x = *src1++;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+  xmm1 = _mm_set1_epi16(max);
+  for (; n >= 8; n -= 8) {
+    __m128i xmm0;
+    xmm0 = _mm_loadu_si128((__m128i *)src1);
+    xmm0 = _mm_min_epi16(xmm0, xmm1);
+    _mm_store_si128((__m128i *)dest, xmm0);
+    dest += 8;
+    src1 += 8;
+  }
+  for (; n > 0; n--) {
+    int16_t x = *src1++;
+    if (x > max)
+      x = max;
+    *dest++ = x;
+  }
+}
+OIL_DEFINE_IMPL_FULL (clamphigh_s16_sse, clamphigh_s16, OIL_IMPL_FLAG_SSE2);
 
 static void
 clamphigh_f32_sse (float *dest, const float *src1, int n, const float *src2_1)

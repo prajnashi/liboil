@@ -1,5 +1,12 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/clamp_sse.c: (clamp_u8_sse), (clamp_s16_sse),
+	(clamplow_u8_sse), (clamplow_s16_sse), (clamphigh_u8_sse),
+	(clamphigh_s16_sse):
+	Add a few more easy-to-write clamp implementations for SSE2.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/sse/Makefile.am:
 	* liboil/sse/sad8x8_sse.c: (sad8x8_u8_sse):
 	Add an SSE2 sad8x8 implementation that's way faster than _ref.
