@@ -1,5 +1,23 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/Makefile.am:
+	Correct the splat_sse.c filename, which I botched at the last minute
+	while splitting up commits.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/mmx/Makefile.am:
+	* liboil/mmx/splat_mmx.c: (splat_u32_ns_mmx),
+	(splat_u32_ns_mmx_unroll4), (splat_u8_ns_mmx),
+	(splat_u8_ns_mmx_unroll4):
+	* liboil/sse/Makefile.am:
+	* liboil/sse/splat_sse.c: (splat_u32_ns_sse),
+	(splat_u32_ns_sse_unroll2), (splat_u8_ns_sse),
+	(splat_u8_ns_sse_unroll2):
+	Add some MMX/SSE2 splat_ns implementations.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/sse/clamp_sse.c: (clamp_u8_sse), (clamp_s16_sse),
 	(clamplow_u8_sse), (clamplow_s16_sse), (clamphigh_u8_sse),
 	(clamphigh_s16_sse):
