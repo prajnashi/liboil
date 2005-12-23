@@ -8,7 +8,8 @@ libsse_la_SOURCES = \
 	composite_sse_4pix.c \
 	math_sse.c \
 	math_sse_unroll2.c \
-	sad8x8_sse.c
+	sad8x8_sse.c \
+	splat8x8_sse.c
 
 libsse_la_CFLAGS = $(SSE_CFLAGS) $(SSE2_CFLAGS) $(LIBOIL_CFLAGS)
 
