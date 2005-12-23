@@ -1,3 +1,19 @@
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
+	* liboil/c/Makefile.am:
+	* liboil/c/composite.c: (composite_in_argb_fast),
+	(composite_in_argb_const_src_fast),
+	(composite_in_argb_const_mask_fast), (composite_over_argb_fast),
+	(composite_over_argb_const_src_fast), (composite_add_argb_fast),
+	(composite_add_argb_const_src_fast), (composite_in_over_argb_fast),
+	(composite_in_over_argb_const_src_fast),
+	(composite_in_over_argb_const_mask_fast), (composite_add_u8_fast),
+	(composite_add_u8_const_src_fast), (composite_over_u8_fast):
+	Add fast C implementations of composite classes, operating on two
+	channels at a time in a uint32_t.  Inspired by fbpict.h's FbByte*
+	macros.  oil-inspect says they generally take about 2/3 the cycles of
+	_ref.
+
 2005-12-22  David Schleef  <ds@schleef.org>
 
 	* liboil/mmx/Makefile.am:
