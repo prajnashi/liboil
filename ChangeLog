@@ -1,5 +1,11 @@
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/sse/Makefile.am:
+	* liboil/sse/sad8x8_sse.c: (sad8x8_u8_sse):
+	Add an SSE2 sad8x8 implementation that's way faster than _ref.
+
+2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/i386/Makefile.am:
 	Disable fdct8x8theora_mmx, since it produces garbage results for me.
 
