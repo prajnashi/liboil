@@ -12,7 +12,6 @@ libi386_la_SOURCES = \
 	copy_i386.c \
 	diff8x8_i386.c \
 	error8x8_i386.c \
-	fdct8x8theora_i386.c \
 	idct8x8_i386.c \
 	md5_i386.c \
 	mult8x8_i386.c \
