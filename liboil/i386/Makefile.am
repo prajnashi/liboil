@@ -16,6 +16,7 @@ libi386_la_SOURCES = \
 	md5_i386.c \
 	mult8x8_i386.c \
 	recon8x8_i386.c \
+	resample.c \
 	rowcolsad8x8_i386.c \
 	sad8x8_i386.c \
 	sad8x8avg_i386.c \

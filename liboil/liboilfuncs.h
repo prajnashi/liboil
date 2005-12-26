@@ -582,6 +582,9 @@ typedef void (*_oil_type_mdct36_f64)(double * d_18, const double * s_36);
 extern OilFunctionClass *oil_function_class_ptr_merge_linear_argb;
 typedef void (*_oil_type_merge_linear_argb)(uint32_t * d_n, const uint32_t * s_n, const uint32_t * s2_n, const uint32_t * s3_1, int n);
 #define oil_merge_linear_argb ((_oil_type_merge_linear_argb)(*(void **)oil_function_class_ptr_merge_linear_argb))
+extern OilFunctionClass *oil_function_class_ptr_merge_linear_u8;
+typedef void (*_oil_type_merge_linear_u8)(uint8_t * d_n, const uint8_t * s_n, const uint8_t * s2_n, const uint32_t * s3_1, int n);
+#define oil_merge_linear_u8 ((_oil_type_merge_linear_u8)(*(void **)oil_function_class_ptr_merge_linear_u8))
 extern OilFunctionClass *oil_function_class_ptr_minimum_f32;
 typedef void (*_oil_type_minimum_f32)(float * d, const float * s1, const float * s2, int n);
 #define oil_minimum_f32 ((_oil_type_minimum_f32)(*(void **)oil_function_class_ptr_minimum_f32))

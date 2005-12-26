@@ -272,7 +272,7 @@ swab_u16_sse2 (uint16_t *dest, uint16_t *src, int n)
       "  movdqu %%xmm1, 0(%0)\n"
       "  add $16, %0\n"
       "  add $16, %1\n"
-      "  sub $4, %2\n"
+      "  sub $8, %2\n"
       "  jnz 3b\n"
       "4:\n"
       : "+r" (dest), "+r" (src), "+r" (n)

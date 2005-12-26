@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2005 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,65 +28,58 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilclasses.h>
 
+#include <stdio.h>
 
-/* suboptimal */
-static void conv_f64_s32_sse(double *dst, int dst_stride, int32_t *src, int src_stride, int n)
+static void
+merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
+    uint32_t *src3, int n)
 {
-	int i;
-
-	for(i=0;i<n;i++){
-		asm volatile(
-			"	cvtsi2sd 0(%0), %%xmm0		\n"
-			"	movq %%xmm0, 0(%1)		\n"
-			:
-			: "a" (src), "c" (dst)
-			/* : "xmm0" */
-		);
-		dst = OIL_OFFSET(dst, dst_stride);
-		src = OIL_OFFSET(src, src_stride);
-	}
+  unsigned int x = src3[0];
+  while (n&3) {
+    dest[0] = (src1[0]*(256-x) + src2[0]*x) >> 8;
+    dest++;
+    src1++;
+    src2++;
+    n--;
+  }
+  n >>= 2;
+  if (n == 0) return;
+  x &= 0xff;
+  x |= (x<<8);
+  x |= (x<<16);
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movd %3, %%mm6\n"
+      "  punpcklbw %%mm7, %%mm6\n"
+      "  movl $0x01010101, %3\n"
+      "  movd %3, %%mm5\n"
+      "  punpcklbw %%mm7, %%mm5\n"
+      "  psllw $8, %%mm5\n"
+      "  psubw %%mm6, %%mm5\n"
+      "1:\n"
+      "  movd 0(%1), %%mm0\n"
+      "  movd 0(%2), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  pmullw %%mm5, %%mm0\n"
+      "  pmullw %%mm6, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  psrlw $8, %%mm0\n"
+      "  packuswb %%mm0, %%mm0\n"
+      "  movd %%mm0, 0(%0)\n"
+      "  add $4, %0\n"
+      "  add $4, %1\n"
+      "  add $4, %2\n"
+      "  decl %4\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (dest), "+r" (src1), "+r" (src2), "+r" (x), "+r" (n)
+      :
+      : "memory");
 }
-OIL_DEFINE_IMPL_FULL(conv_f64_s32_sse, conv_f64_s32, OIL_IMPL_FLAG_SSE2);
-
-/* suboptimal */
-static void conv_s32_f64_sse(int32_t *dst, int dst_stride, double *src, int src_stride, int n)
-{
-	int i;
-	int eax;
-
-	for(i=0;i<n;i++){
-		asm volatile(
-			"	cvtsd2si 0(%1), %0		\n"
-			: "=a" (eax)
-			: "c" (src)
-		);
-		*dst = eax;
-		dst = OIL_OFFSET(dst, dst_stride);
-		src = OIL_OFFSET(src, src_stride);
-	}
-}
-OIL_DEFINE_IMPL_FULL(conv_s32_f64_sse, conv_s32_f64, OIL_IMPL_FLAG_SSE2);
-
-/* suboptimal */
-static void conv_s32_f32_sse(int32_t *dst, int dst_stride, double *src, int src_stride, int n)
-{
-	int i;
-
-	for(i=0;i<n;i++){
-		asm volatile(
-                    "  movd 0(%1), %%xmm0\n"
-		    "  cvtps2pi %%xmm0, %%mm0\n"
-                    "  movd %%mm0, 0(%0)\n"
-			:
-                        : "r" (dst), "r" (src)
-		);
-		dst = OIL_OFFSET(dst, dst_stride);
-		src = OIL_OFFSET(src, src_stride);
-	}
-        asm volatile ("emms\n");
-}
-OIL_DEFINE_IMPL_FULL(conv_s32_f32_sse, conv_s32_f32, OIL_IMPL_FLAG_SSE2 | OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL (merge_linear_u8_mmx, merge_linear_u8);
 

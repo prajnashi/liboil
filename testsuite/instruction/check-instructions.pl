@@ -322,7 +322,7 @@ sub check
 	"cmpss",
 	"comiss",
 	"cvtpi2ps",
-	"cvtps2ps",
+	"cvtps2pi",
 	"cvtsi2ss",
 	"cvtss2si",
 	"cvttps2pi",

@@ -55,6 +55,8 @@ conv_f32_s16_3dnow (float *dst, int dst_stride, int16_t * src, int src_stride,
 OIL_DEFINE_IMPL_FULL (conv_f32_s16_3dnow, conv_f32_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_3DNOW);
 
 /* suboptimal */
+/* This appears to fail because of differences in rounding of half
+ * integers. */
 static void
 conv_s32_f32_3dnow (int32_t * dst, int dst_stride, float *src, int src_stride,
     int n)
@@ -70,11 +72,13 @@ conv_s32_f32_3dnow (int32_t * dst, int dst_stride, float *src, int src_stride,
         "  movq 0(%0), %%mm0 \n"
         "  pxor %%mm1, %%mm1 \n"
         "  pfcmpgt %%mm0, %%mm1 \n"
-        "  pand 8(%2), %%mm1\n"
+        "  movq %%mm0, %%mm2 \n"
         "  pfadd 0(%2), %%mm0 \n"
-        "  pfadd %%mm1, %%mm0 \n"
-        "  pf2id %%mm0, %%mm1 \n"
-        "  movd %%mm1, 0(%1) \n"
+        "  pfcmpeq %%mm0, %%mm2 \n"
+        "  pandn %%mm1, %%mm2 \n"
+        "  pf2id %%mm0, %%mm0 \n"
+        "  paddd %%mm2, %%mm0 \n"
+        "  movd %%mm0, 0(%1) \n"
         :
         :"r" (src), "r" (dst), "r" (constants)
         );

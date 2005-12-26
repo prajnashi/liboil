@@ -126,33 +126,21 @@ resample_linear_argb_ref (uint32_t *d, uint32_t *s, int n, uint32_t *in)
 OIL_DEFINE_IMPL_REF (resample_linear_argb_ref, resample_linear_argb);
 
 
-/**
- * oil_merge_linear_u8:
- * @d_n:
- * @s_n:
- * @s2_n:
- * @s3_1:
- * @n:
- *
- * Linearly interpolate the @s_n and @s2_n arrays using the scale
- * factor in @s3_1.  The value @s3_1 must be in the range [0, 256]
- * A value of 0 indicates weights of 1.0 and 0.0 for
- * the s_n and s2_n arrays respectively.  A value of 256 indicates
- * weights of 0.0 and 1.0 respectively.
- *
- * This function is not intended for alpha blending; use one of the
- * compositing functions instead.
- */
 static void
-merge_linear_argb_test (OilTest *test)
+merge_linear_test (OilTest *test)
 {
   uint32_t *src3 = (uint32_t *) oil_test_get_source_data (test, OIL_ARG_SRC3);
 
-  src3[0] = oil_rand_u8();
+  do {
+    src3[0] = oil_rand_u16() & 0x1ff;
+  } while (src3[0] > 256);
 }
 OIL_DEFINE_CLASS_FULL (merge_linear_argb,
     "uint32_t *d_n, uint32_t *s_n, uint32_t *s2_n, uint32_t *s3_1, int n",
-    merge_linear_argb_test);
+    merge_linear_test);
+OIL_DEFINE_CLASS_FULL (merge_linear_u8,
+    "uint8_t *d_n, uint8_t *s_n, uint8_t *s2_n, uint32_t *s3_1, int n",
+    merge_linear_test);
 
 /**
  * oil_merge_linear_argb:
@@ -189,5 +177,35 @@ merge_linear_argb_ref (uint32_t *d, uint32_t *s1, uint32_t *s2,
   }
 }
 OIL_DEFINE_IMPL_REF (merge_linear_argb_ref, merge_linear_argb);
+
+
+/**
+ * oil_merge_linear_u8:
+ * @d_n:
+ * @s_n:
+ * @s2_n:
+ * @s3_1:
+ * @n:
+ *
+ * Linearly interpolate the @s_n and @s2_n arrays using the scale
+ * factor in @s3_1.  The value @s3_1 must be in the range [0, 255].
+ * The value translates into weights of 1.0-(value/256.0) and
+ * (value/256.0) for the s_n and s2_n arrays respectively.
+ *
+ * This function is not intended for alpha blending; use one of the
+ * compositing functions instead.
+ */
+static void
+merge_linear_u8_ref (uint8_t *dest, uint8_t *src1, uint8_t *src2,
+    uint32_t *src3, int n)
+{
+  int i;
+  int x = src3[0];
+
+  for(i=0;i<n;i++){
+    dest[i] = (src1[i]*(256-x) + src2[i]*x) >> 8;
+  }
+}
+OIL_DEFINE_IMPL_REF (merge_linear_u8_ref, merge_linear_u8);
 
 

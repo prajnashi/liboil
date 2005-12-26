@@ -1,3 +1,19 @@
+2005-12-25  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/Makefile.am: add resample.c
+	* liboil/i386/conv_3dnow.c: Fix impl
+	* liboil/i386/conv_sse.c: New impl
+	* liboil/i386/idct8x8_i386.c: disable impls
+	* liboil/i386/swab.c: fix impl
+	* liboil/i386/resample.c: new impls
+	* liboil/liboilclasses.h: update
+	* liboil/liboilfuncs.h: update
+	* liboil/liboilfunction.c: Call srand() at startup.  At some
+	  point, we need a self-contained random number generator.
+	* liboil/liboiltrampolines.c: update
+	* liboil/ref/resample.c: add new class: merge_linear_u8
+	* testsuite/instruction/check-instructions.pl: fix misspelling
+
 2005-12-23  Eric Anholt  <anholt@FreeBSD.org>
 
 	* liboil/i386/copy_i386.c: (copy_u8_i386_mmx),

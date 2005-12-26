@@ -1670,6 +1670,15 @@ oil_merge_linear_argb (uint32_t * d_n, const uint32_t * s_n, const uint32_t * s2
 }
 
 void
+oil_merge_linear_u8 (uint8_t * d_n, const uint8_t * s_n, const uint8_t * s2_n, const uint32_t * s3_1, int n)
+{
+  if (_oil_function_class_merge_linear_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_merge_linear_u8);
+  }
+  ((void (*)(uint8_t * d_n, const uint8_t * s_n, const uint8_t * s2_n, const uint32_t * s3_1, int n))(_oil_function_class_merge_linear_u8.func))(d_n, s_n, s2_n, s3_1, n);
+}
+
+void
 oil_minimum_f32 (float * d, const float * s1, const float * s2, int n)
 {
   if (_oil_function_class_minimum_f32.func == NULL) {

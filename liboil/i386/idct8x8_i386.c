@@ -34,8 +34,7 @@
 #include <math.h>
 
 
-OIL_DECLARE_CLASS (idct8x8_s16);
-OIL_DECLARE_CLASS (dct8x8_s16);
+#ifdef ENABLE_BROKEN_IMPLS
 
 #define CONST(x) (32768.0*(x) + 0.5)
 
@@ -741,4 +740,5 @@ fdct8x8s_s16_mmx (uint16_t *dest, int dstr, uint16_t *src, int sstr)
 
 }
 OIL_DEFINE_IMPL_FULL (fdct8x8s_s16_mmx, fdct8x8s_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 

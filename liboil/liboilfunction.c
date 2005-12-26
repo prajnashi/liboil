@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 /**
  * SECTION:liboilclass-unstable
@@ -132,6 +133,8 @@ oil_init (void)
   if (_oil_inited) return;
   _oil_inited = 1;
 
+  srand(time(NULL));
+
   _oil_debug_init ();
   _oil_cpu_init ();
   _oil_profile_init ();
@@ -155,6 +158,8 @@ oil_init_no_optimize (void)
 {
   if (_oil_inited) return;
   _oil_inited = 1;
+
+  srand(time(NULL));
 
   _oil_debug_init ();
   _oil_cpu_init ();
