@@ -8,6 +8,7 @@ endif
 noinst_LTLIBRARIES = lib_c.la $(opt_libs)
 
 c_sources = \
+	ag_clamp.c \
 	composite.c \
 	copy.c \
 	swab.c
@@ -22,4 +23,7 @@ lib_c_opt1_la_SOURCES = $(c_sources)
 lib_c_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) \
         $(LIBOIL_OPT_CFLAGS)
 
+
+ag_clamp.c: generate_clamp.pl
+	./generate_clamp.pl >ag_clamp.c
 

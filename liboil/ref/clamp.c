@@ -68,9 +68,9 @@ static void clamp_ ## type ## _test (OilTest *test) \
 OIL_DEFINE_CLASS_FULL(clamp_ ## type, \
     "oil_type_" #type " *dest, " \
     "oil_type_" #type " *src, " \
-    "int n " \
+    "int n, " \
     "oil_type_" #type " *s2_1, " \
-    "oil_type_" #type " *s3_1, ", \
+    "oil_type_" #type " *s3_1", \
     clamp_ ## type ## _test); \
 OIL_DEFINE_IMPL_REF(clamp_ ## type ## _ref, clamp_ ## type)
 
@@ -198,8 +198,8 @@ static void clamplow_ ## type ## _ref ( \
 OIL_DEFINE_CLASS(clamplow_ ## type, \
     "oil_type_" #type " *dest, " \
     "oil_type_" #type " *src, " \
-    "int n " \
-    "oil_type_" #type " *s2_1, "); \
+    "int n, " \
+    "oil_type_" #type " *s2_1"); \
 OIL_DEFINE_IMPL_REF(clamplow_ ## type ## _ref, clamplow_ ## type)
 
 CLAMPLOW_DEFINE_REF (s8);
@@ -322,8 +322,8 @@ static void clamphigh_ ## type ## _ref ( \
 OIL_DEFINE_CLASS(clamphigh_ ## type, \
     "oil_type_" #type " *dest, " \
     "oil_type_" #type " *src, " \
-    "int n " \
-    "oil_type_" #type " *s2_1, "); \
+    "int n, " \
+    "oil_type_" #type " *s2_1"); \
 OIL_DEFINE_IMPL_REF(clamphigh_ ## type ## _ref, clamphigh_ ## type)
 
 CLAMPHIGH_DEFINE_REF (s8);

@@ -54,6 +54,7 @@ conv_f32_s16_3dnow (float *dst, int dst_stride, int16_t * src, int src_stride,
 
 OIL_DEFINE_IMPL_FULL (conv_f32_s16_3dnow, conv_f32_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_3DNOW);
 
+#ifdef ENABLE_BROKEN_IMPLS
 /* suboptimal */
 /* This appears to fail because of differences in rounding of half
  * integers. */
@@ -90,3 +91,5 @@ conv_s32_f32_3dnow (int32_t * dst, int dst_stride, float *src, int src_stride,
 }
 
 OIL_DEFINE_IMPL_FULL (conv_s32_f32_3dnow, conv_s32_f32, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_3DNOW);
+#endif
+

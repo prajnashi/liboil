@@ -5,6 +5,7 @@ libi386_la_SOURCES = \
 	abs_i386.c \
 	argb_paint_i386.c \
 	ayuv2argb_i386.c \
+	clamp.c \
 	composite_i386.c \
 	conv_sse.c \
 	conv_3dnow.c \
