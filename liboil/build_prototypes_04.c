@@ -65,11 +65,7 @@ int main (int argc, char *argv[])
           string = strdup("void");
         }
 
-        printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
-            klass->name);
-        printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
-        printf ("#define oil_%s ((_oil_type_%s)(*(void **)oil_function_class_ptr_%s))\n",
-            klass->name, klass->name, klass->name);
+        printf ("void oil_%s (%s);\n",klass->name,string);
 
         oil_prototype_free (proto);
         free (string);

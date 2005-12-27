@@ -2,13 +2,10 @@
 noinst_LTLIBRARIES = libi386.la
 
 libi386_la_SOURCES = \
-	abs_i386.c \
 	argb_paint_i386.c \
 	ayuv2argb_i386.c \
 	clamp.c \
 	composite_i386.c \
-	conv_sse.c \
-	conv_3dnow.c \
 	copy8x8_i386.c \
 	copy_i386.c \
 	diff8x8_i386.c \
@@ -24,6 +21,14 @@ libi386_la_SOURCES = \
 	splat_i386.c \
 	swab.c \
 	trans8x8_i386.c
+
+if USE_NEW_ABI
+else
+libi386_la_SOURCES += \
+	abs_i386.c \
+	conv_sse.c \
+	conv_3dnow.c
+endif
 
 libi386_la_CFLAGS = $(LIBOIL_CFLAGS)
 

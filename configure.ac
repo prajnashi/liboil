@@ -7,8 +7,8 @@ AC_CANONICAL_HOST([])
 AM_INIT_AUTOMAKE(1.6)
 AM_MAINTAINER_MODE
 
-LIBOIL_MAJORMINOR=0.3
-AC_SUBST(LIBOIL_MAJORMINOR)
+#LIBOIL_MAJORMINOR=0.3
+#AC_SUBST(LIBOIL_MAJORMINOR)
 
 AM_CONFIG_HEADER(config.h)
 
@@ -70,6 +70,12 @@ if test "x$enable_new_abi" = xyes ; then
   AC_DEFINE(ENABLE_NEW_ABI, 1, [Define if compiling new ABI])
 fi
 AM_CONDITIONAL(USE_NEW_ABI, test "x$enable_new_abi" = xyes)
+if test "x$enable_new_abi" = xyes ; then
+  LIBOIL_MAJORMINOR=0.4
+else 
+  LIBOIL_MAJORMINOR=0.3
+fi
+AC_SUBST(LIBOIL_MAJORMINOR)
 
 ##################################################
 # Check for gtk-doc.
@@ -218,6 +224,7 @@ liboil/colorspace/Makefile
 liboil/conv/Makefile
 liboil/copy/Makefile
 liboil/dct/Makefile
+liboil/deprecated/Makefile
 liboil/fb/Makefile
 liboil/i386/Makefile
 liboil/jpeg/Makefile

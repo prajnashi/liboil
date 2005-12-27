@@ -1,3 +1,45 @@
+2005-12-27  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	  If --enable-new-abi is selected, use 0.4
+	* liboil/Makefile.am:
+	* liboil/build_prototypes.c:
+	* liboil/build_prototypes_04.c:
+	* liboil/build_trampolines.c:
+	  Misc changes for making it easy to switch betwen 0.3 and 0.4
+	  ABIs.
+	* liboil/i386/Makefile.am:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/simdpack/Makefile.am:
+	  Disable impls for deprecated classes if --enable-new-abi is
+	  used.
+	* liboil/deprecated/.cvsignore:
+	* liboil/deprecated/Makefile.am:
+	* liboil/deprecated/abs.c:
+	* liboil/deprecated/average2_u8.c:
+	* liboil/deprecated/clip_ref.c:
+	* liboil/deprecated/conv.c:
+	* liboil/deprecated/permute.c:
+	* liboil/deprecated/scalaradd.c:
+	* liboil/deprecated/scalarmult.c:
+	* liboil/deprecated/tablelookup.c:
+	* liboil/deprecated/vectoradd_f64.c:
+	* liboil/deprecated/vectoradd_s.c:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/abs.c:
+	* liboil/ref/average2_u8.c:
+	* liboil/ref/clip_ref.c:
+	* liboil/ref/conv.c:
+	* liboil/ref/permute.c:
+	* liboil/ref/scalaradd.c:
+	* liboil/ref/scalarmult.c:
+	* liboil/ref/tablelookup.c:
+	* liboil/ref/vectoradd_f64.c:
+	* liboil/ref/vectoradd_s.c:
+	  Move a bunch of reference functions because they're now
+	  deprecated.
+
 2005-12-26  Eric Anholt  <anholt@FreeBSD.org>
 
 	* examples/.cvsignore:

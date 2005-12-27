@@ -54,10 +54,13 @@ libs_powerpc =
 endif
 
 
-DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 
-SUBDIRS = $(subdir_amd64) c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 
+DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
+SUBDIRS = $(subdir_amd64) c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 deprecated
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
+if USE_NEW_ABI
+lib_LTLIBRARIES += liboil-0.3.la
+endif
 
 buildnoinstdir = $(libdir)
 buildnoinst_LTLIBRARIES = liboiltmp1.la
@@ -65,7 +68,7 @@ buildnoinst_LTLIBRARIES = liboiltmp1.la
 noinst_LTLIBRARIES = liboilfunctions.la
 
 noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal \
-	build_class_decls build_trampolines
+	build_class_decls build_trampolines build_prototypes_04
 
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
@@ -85,7 +88,6 @@ liboilfunctions_la_SOURCES = \
 liboilfunctions_la_CFLAGS = $(LIBOIL_CFLAGS)
 liboilfunctions_la_LIBADD = \
 	c/lib_c.la \
-	conv/libconv.la \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
@@ -98,6 +100,12 @@ liboilfunctions_la_LIBADD = \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	utf8/libutf8.la
+if USE_NEW_ABI
+else
+liboilfunctions_la_LIBADD += \
+	conv/libconv.la \
+	deprecated/libdeprecated.la
+endif
 liboilfunctions_la_LDFLAGS = \
 	-no-undefined
 
@@ -111,6 +119,7 @@ liboiltmp1_la_LIBADD = \
 
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil.h \
+	liboilarray.c \
 	liboildebug.h \
 	liboilfuncs.h \
 	liboilfunction.h \
@@ -123,7 +132,6 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilprofile.c \
 	liboilprototype.c \
 	liboilrandom.c \
-	liboilarray.c \
 	liboiltest.h \
 	liboiltest.c \
 	liboilmarshal.c
@@ -148,6 +156,11 @@ build_prototypes_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
 build_prototypes_SOURCES = build_prototypes.c
 build_prototypes_CFLAGS = $(LIBOIL_CFLAGS)
 build_prototypes_LDADD = $(LIBOIL_LIBS)
+
+build_prototypes_04_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
+build_prototypes_04_SOURCES = build_prototypes_04.c
+build_prototypes_04_CFLAGS = $(LIBOIL_CFLAGS)
+build_prototypes_04_LDADD = $(LIBOIL_LIBS)
 
 build_class_decls_DEPENDENCIES = liboil-$(LIBOIL_MAJORMINOR).la
 build_class_decls_SOURCES = build_class_decls.c
@@ -209,6 +222,18 @@ update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(E
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 	./build_class_decls$(EXEEXT) >liboilclasses.h
 	./build_trampolines$(EXTEXT) >liboiltrampolines.c
+	./build_prototypes_04$(EXTEXT) >liboilfuncs-04.h
 
 install-buildnoinstLTLIBRARIES:
+
+if USE_NEW_ABI
+liboil_0_3_la_SOURCES =
+liboil_0_3_la_LIBADD = \
+	deprecated/libdeprecated.la \
+	liboil-@LIBOIL_MAJORMINOR@.la
+liboil_0_3_la_LDFLAGS = \
+	-no-undefined \
+	-version-info $(LIBOIL_LIBVERSION) \
+	-export-symbols-regex '^oil_'
+endif
 

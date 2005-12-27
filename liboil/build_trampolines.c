@@ -64,6 +64,7 @@ int main (int argc, char *argv[])
         }
         arg_string = oil_prototype_to_arg_string (proto);
 
+        printf ("#undef oil_%s\n", klass->name);
         printf ("void\n");
         printf ("oil_%s (%s)\n", klass->name, string);
         printf ("{\n");
