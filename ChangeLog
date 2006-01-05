@@ -1,3 +1,11 @@
+2006-01-05  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c:
+	  Fix a memleak if /proc/cpuinfo doesn't exist.  (Fixes
+	  #5513)  Also fix an fd leak.  Reenable SSE on OS's that
+	  don't support it, since there's no SSE detection for
+	  Windows, but Windows 2000+ does support it. 
+
 2005-12-27  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

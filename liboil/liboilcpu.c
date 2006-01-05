@@ -72,10 +72,20 @@ get_proc_cpuinfo (void)
   if (cpuinfo == NULL) return NULL;
 
   fd = open("/proc/cpuinfo", O_RDONLY);
-  if (fd < 0) return NULL;
+  if (fd < 0) {
+    free (cpuinfo);
+    return NULL;
+  }
 
   n = read(fd, cpuinfo, 4095);
+  if (n < 0) {
+    free (cpuinfo);
+    close (fd);
+    return NULL;
+  }
   cpuinfo[n] = 0;
+
+  close (fd);
 
   return cpuinfo;
 }
@@ -228,6 +238,17 @@ oil_cpu_i386_getflags_cpuid (void)
     if (edx & (1<<30)) {
       oil_cpu_flags |= OIL_IMPL_FLAG_3DNOWEXT;
     }
+
+    get_cpuid (0x80000005, &eax, &ebx, &ecx, &edx);
+
+    OIL_WARNING("L1 D-cache: %d kbytes, %d-way, %d lines/tag, %d line size\n",
+        (ecx>>24)&0xff, (ecx>>16)&0xff, (ecx>>8)&0xff, ecx&0xff);
+    OIL_WARNING("L1 I-cache: %d kbytes, %d-way, %d lines/tag, %d line size\n",
+        (edx>>24)&0xff, (edx>>16)&0xff, (edx>>8)&0xff, edx&0xff);
+
+    get_cpuid (0x80000006, &eax, &ebx, &ecx, &edx);
+    OIL_WARNING("L2 cache: %d kbytes, %d assoc, %d lines/tag, %d line size\n",
+        (ecx>>16)&0xffff, (ecx>>12)&0xf, (ecx>>8)&0xf, ecx&0xff);
   }
 }
 
@@ -257,8 +278,11 @@ oil_cpu_i386_kernel_restrict_flags(void)
   /* If we don't know that the operating system supports SSE, don't trust that
    * it will properly support it.
    */
+  OIL_ERROR("Operating system is not known to support SSE.  Assuming it does, which might cause problems");
+#if 0
   oil_cpu_flags &= ~(OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2 |
 		     OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
+#endif
 #endif
 }
 
@@ -267,12 +291,16 @@ oil_cpu_i386_getflags(void)
 {
   char *cpuinfo;
 
+#ifdef __linux__
   cpuinfo = get_proc_cpuinfo();
   if (cpuinfo) {
     oil_cpu_i386_getflags_cpuinfo(cpuinfo);
   } else {
     oil_cpu_i386_getflags_cpuid();
   }
+#else
+  oil_cpu_i386_getflags_cpuid();
+#endif
 
   oil_cpu_i386_kernel_restrict_flags();
 }
