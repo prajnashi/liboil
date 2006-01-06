@@ -103,6 +103,8 @@ static int _oil_n_function_classes;
 static void oil_init_pointers (void);
 static void oil_init_structs (void);
 
+static char * xstrdup (const char *s);
+
 void _oil_cpu_init (void);
 void _oil_profile_init (void);
 
@@ -492,8 +494,22 @@ oil_class_register_impl_full (OilFunctionClass *klass,
 
   impl->func = func;
   impl->flags = flags;
-  impl->name = strdup(name);
+  impl->name = xstrdup(name);
 
   oil_class_register_impl(klass,impl);
+}
+
+static char *
+xstrdup (const char *s)
+{
+  int n = strlen(s);
+  char *t;
+
+  n = strlen(s);
+  t = malloc(n + 1);
+  memcpy (t, s, n);
+  t[n] = 0;
+
+  return t;
 }
 

@@ -34,6 +34,8 @@
 
 #include <liboil/liboilprototype.h>
 
+static char * xstrdup (const char *s);
+
 void print_header (void);
 void print_footer (void);
 
@@ -60,7 +62,7 @@ int main (int argc, char *argv[])
         string = oil_prototype_to_string (proto);
         if (strlen (string) == 0) {
           free (string);
-          string = strdup("void");
+          string = xstrdup("void");
         }
         arg_string = oil_prototype_to_arg_string (proto);
 
@@ -130,5 +132,19 @@ void print_header (void)
 void print_footer (void)
 {
   printf ("\n");
+}
+
+static char *
+xstrdup (const char *s)
+{
+  int n = strlen(s);
+  char *t;
+
+  n = strlen(s);
+  t = malloc(n + 1);
+  memcpy (t, s, n);
+  t[n] = 0;
+
+  return t;
 }
 
