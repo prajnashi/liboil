@@ -17,5 +17,5 @@ libmath_opt1_la_CFLAGS = $(LIBOIL_CFLAGS) $(LIBOIL_OPT_CFLAGS)
 
 
 ag_math.c: generate_math.pl
-	./generate_math.pl >ag_math.c
+	$(srcdir)/generate_math.pl >ag_math.c
 
