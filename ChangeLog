@@ -1,5 +1,11 @@
 2006-01-05  Eric Anholt  <anholt@FreeBSD.org>
 
+	* liboil/jpeg/zigzag8x8_c.c: (unzigzag8x8_s16_unroll):
+	Add an unrolled unzigzag8x8_s16, just like zigzag8x8_s16 has.
+	Performance improvement is similar at over 6x.
+
+2006-01-05  Eric Anholt  <anholt@FreeBSD.org>
+
 	* liboil/math/Makefile.am:
 	Minor distcheck fix.
 
