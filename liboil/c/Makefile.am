@@ -5,6 +5,8 @@ else
 opt_libs =
 endif
 
+EXTRA_DIST = generate_clamp.pl
+
 noinst_LTLIBRARIES = lib_c.la $(opt_libs)
 
 c_sources = \

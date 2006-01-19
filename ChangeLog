@@ -1,3 +1,18 @@
+2006-01-18  David Schleef  <ds@schleef.org>
+
+	* liboil/ref/Makefile.am:
+	* liboil/ref/wavelet.c:
+	* liboil/c/Makefile.am:
+	* liboil/c/wavelet.c:
+	* liboil/i386/wavelet.c:
+	  add some new wavelet code
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilmarshal.c:
+	* liboil/liboiltrampolines.c:
+	  updates
+
 2006-01-06  David Schleef  <ds@schleef.org>
 
 	* liboil/build_prototypes.c:

@@ -12,6 +12,7 @@ c_sources = \
 	ayuv2argb.c \
 	clamp.c \
 	composite.c \
+	convert.c \
 	copy.c \
 	copy8x8.c \
 	diff8x8.c \
@@ -34,6 +35,7 @@ c_sources = \
 	sum_f64.c \
 	swab.c \
 	trans8x8.c \
+	wavelet.c \
 	yuv.c
 
 libref_la_SOURCES = \
