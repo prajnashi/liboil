@@ -166,8 +166,8 @@ clamp_f64_sse (double *dest, const double *src1, int n, const double *src2_1,
       x = max;
     *dest++ = x;
   }
-  xmm1 = _mm_set_pd1(min);
-  xmm2 = _mm_set_pd1(max);
+  xmm1 = _mm_set1_pd(min);
+  xmm2 = _mm_set1_pd(max);
   for (; n >= 2; n -= 2) {
     __m128d xmm0;
     xmm0 = _mm_loadu_pd(src1);
@@ -297,7 +297,7 @@ clamplow_f64_sse (double *dest, const double *src1, int n, const double *src2_1)
       x = min;
     *dest++ = x;
   }
-  xmm1 = _mm_set_pd1(min);
+  xmm1 = _mm_set1_pd(min);
   for (; n >= 2; n -= 2) {
     __m128d xmm0;
     xmm0 = _mm_loadu_pd(src1);
@@ -424,7 +424,7 @@ clamphigh_f64_sse (double *dest, const double *src1, int n, const double *src2_1
       x = max;
     *dest++ = x;
   }
-  xmm1 = _mm_set_pd1(max);
+  xmm1 = _mm_set1_pd(max);
   for (; n >= 2; n -= 2) {
     __m128d xmm0;
     xmm0 = _mm_loadu_pd(src1);

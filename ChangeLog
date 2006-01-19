@@ -1,5 +1,12 @@
 2006-01-18  David Schleef  <ds@schleef.org>
 
+	* liboil/ref/convert.c:
+	  new classes
+	* liboil/sse/clamp_sse.c:
+	  compile fix
+
+2006-01-18  David Schleef  <ds@schleef.org>
+
 	* liboil/ref/Makefile.am:
 	* liboil/ref/wavelet.c:
 	* liboil/c/Makefile.am:
