@@ -72,10 +72,13 @@ fi
 AM_CONDITIONAL(USE_NEW_ABI, test "x$enable_new_abi" = xyes)
 if test "x$enable_new_abi" = xyes ; then
   LIBOIL_MAJORMINOR=0.4
+  LIBOIL_OLD_MAJORMINOR=0.3
 else 
   LIBOIL_MAJORMINOR=0.3
+  LIBOIL_OLD_MAJORMINOR=0.2
 fi
 AC_SUBST(LIBOIL_MAJORMINOR)
+AC_SUBST(LIBOIL_OLD_MAJORMINOR)
 
 ##################################################
 # Check for gtk-doc.

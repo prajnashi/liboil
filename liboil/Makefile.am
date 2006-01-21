@@ -59,7 +59,7 @@ SUBDIRS = $(subdir_amd64) c colorspace conv copy dct $(subdir_i386) jpeg math md
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 if USE_NEW_ABI
-lib_LTLIBRARIES += liboil-0.3.la
+lib_LTLIBRARIES += liboil-@LIBOIL_OLD_MAJORMINOR@.la
 endif
 
 buildnoinstdir = $(libdir)
@@ -109,7 +109,8 @@ endif
 liboilfunctions_la_LDFLAGS = \
 	-no-undefined
 
-liboiltmp1_la_SOURCES =
+liboiltmp1_la_SOURCES = \
+	liboiltmp.c
 liboiltmp1_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex 'oil_'
@@ -120,21 +121,21 @@ liboiltmp1_la_LIBADD = \
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil.h \
 	liboilarray.c \
+	liboilcolorspace.h \
+	liboilcpu.c \
+	liboildebug.c \
 	liboildebug.h \
 	liboilfuncs.h \
-	liboilfunction.h \
-	liboilprofile.h \
-	liboiltypes.h \
-	liboilcolorspace.h \
 	liboilfunction.c \
-	liboildebug.c \
-	liboilcpu.c \
+	liboilfunction.h \
+	liboilmarshal.c \
 	liboilprofile.c \
+	liboilprofile.h \
 	liboilprototype.c \
 	liboilrandom.c \
-	liboiltest.h \
 	liboiltest.c \
-	liboilmarshal.c
+	liboiltest.h \
+	liboiltypes.h
 
 if USE_NEW_ABI
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += \
@@ -227,11 +228,11 @@ update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(E
 install-buildnoinstLTLIBRARIES:
 
 if USE_NEW_ABI
-liboil_0_3_la_SOURCES =
-liboil_0_3_la_LIBADD = \
+liboil_@LIBOIL_OLD_MAJORMINOR@_la_SOURCES =
+liboil_@LIBOIL_OLD_MAJORMINOR@_la_LIBADD = \
 	deprecated/libdeprecated.la \
 	liboil-@LIBOIL_MAJORMINOR@.la
-liboil_0_3_la_LDFLAGS = \
+liboil_@LIBOIL_OLD_MAJORMINOR@_la_LDFLAGS = \
 	-no-undefined \
 	-version-info $(LIBOIL_LIBVERSION) \
 	-export-symbols-regex '^oil_'

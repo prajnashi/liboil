@@ -1,3 +1,10 @@
+2006-01-20  David Schleef  <ds@schleef.org>
+
+	* configure.ac: Add LIBOIL_OLD_MAJORMINOR
+	* liboil/Makefile.am: Use LIBOIL_OLD_MAJORMINOR and link liboiltmp.c
+	  into liboiltmp, so that it doesn't have unresolved symbols.
+	* liboil/liboiltmp.c: new
+
 2006-01-18  David Schleef  <ds@schleef.org>
 
 	* liboil/ref/convert.c:
