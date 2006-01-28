@@ -3061,6 +3061,16 @@ oil_sincos_f64 (double * dest1, double * dest2, int n, const double * s1_1, cons
   ((void (*)(double * dest1, double * dest2, int n, const double * s1_1, const double * s2_1))(_oil_function_class_sincos_f64.func))(dest1, dest2, n, s1_1, s2_1);
 }
 
+#undef oil_splat_u16_ns
+void
+oil_splat_u16_ns (uint16_t * dest, const uint16_t * s1_1, int n)
+{
+  if (_oil_function_class_splat_u16_ns.func == NULL) {
+    oil_class_optimize (&_oil_function_class_splat_u16_ns);
+  }
+  ((void (*)(uint16_t * dest, const uint16_t * s1_1, int n))(_oil_function_class_splat_u16_ns.func))(dest, s1_1, n);
+}
+
 #undef oil_splat_u32
 void
 oil_splat_u32 (uint32_t * dest, int dstr, const uint32_t * s1_1, int n)

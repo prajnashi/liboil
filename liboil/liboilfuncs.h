@@ -945,6 +945,9 @@ typedef void (*_oil_type_sign_f32)(float * d, const float * s, int n);
 extern OilFunctionClass *oil_function_class_ptr_sincos_f64;
 typedef void (*_oil_type_sincos_f64)(double * dest1, double * dest2, int n, const double * s1_1, const double * s2_1);
 #define oil_sincos_f64 ((_oil_type_sincos_f64)(*(void **)oil_function_class_ptr_sincos_f64))
+extern OilFunctionClass *oil_function_class_ptr_splat_u16_ns;
+typedef void (*_oil_type_splat_u16_ns)(uint16_t * dest, const uint16_t * s1_1, int n);
+#define oil_splat_u16_ns ((_oil_type_splat_u16_ns)(*(void **)oil_function_class_ptr_splat_u16_ns))
 extern OilFunctionClass *oil_function_class_ptr_splat_u32;
 typedef void (*_oil_type_splat_u32)(uint32_t * dest, int dstr, const uint32_t * s1_1, int n);
 #define oil_splat_u32 ((_oil_type_splat_u32)(*(void **)oil_function_class_ptr_splat_u32))

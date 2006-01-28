@@ -1,3 +1,13 @@
+2006-01-28  David Schleef  <ds@schleef.org>
+
+	* examples/oil-suggest.c: cleanup
+	* liboil/Makefile.am: clean liboil-stdint.h
+	* liboil/liboilclasses.h: add splat_u16_ns
+	* liboil/ref/splat.c: same
+	* liboil/liboilfuncs-04.h: same
+	* liboil/liboilfuncs.h: same
+	* liboil/liboiltrampolines.c: same
+
 2006-01-20  David Schleef  <ds@schleef.org>
 
 	* configure.ac: Add LIBOIL_OLD_MAJORMINOR

@@ -339,6 +339,7 @@ void oil_scaleconv_u8_f64 (uint8_t * dest, const double * src, int n, const doub
 void oil_scanlinescale2_u8 (uint8_t * d, const uint8_t * s, int n);
 void oil_sign_f32 (float * d, const float * s, int n);
 void oil_sincos_f64 (double * dest1, double * dest2, int n, const double * s1_1, const double * s2_1);
+void oil_splat_u16_ns (uint16_t * dest, const uint16_t * s1_1, int n);
 void oil_splat_u32 (uint32_t * dest, int dstr, const uint32_t * s1_1, int n);
 void oil_splat_u32_ns (uint32_t * dest, const uint32_t * s1_1, int n);
 void oil_splat_u8 (uint8_t * dest, int dstr, const uint8_t * s1_1, int n);

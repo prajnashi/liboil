@@ -82,6 +82,7 @@ nodist_noinst_HEADERS =
 endif
 
 CLEANFILES = liboilarray.c liboilfuncs-doc.h
+DISTCLEANFILES = liboil-stdint.h
 
 liboilfunctions_la_SOURCES = \
 	null.c

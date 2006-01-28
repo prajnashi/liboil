@@ -61,6 +61,15 @@ OIL_DEFINE_CLASS(splat_u32,"uint32_t *dest, int dstr, uint32_t *s1_1, int n");
  */
 OIL_DEFINE_CLASS(splat_u8_ns,"uint8_t *dest, uint8_t *s1_1, int n");
 /**
+ * oil_splat_u16_ns:
+ * @dest:
+ * @s1_1:
+ * @n:
+ *
+ * Copies the constant source value @s1_1 to each element in @dest.
+ */
+OIL_DEFINE_CLASS(splat_u16_ns,"uint16_t *dest, uint16_t *s1_1, int n");
+/**
  * oil_splat_u32_ns:
  * @dest:
  * @s1_1:
@@ -98,6 +107,15 @@ static void splat_u8_ns_ref (uint8_t *dest, uint8_t *param, int n)
   }
 }
 OIL_DEFINE_IMPL_REF(splat_u8_ns_ref, splat_u8_ns);
+
+static void splat_u16_ns_ref (uint16_t *dest, uint16_t *param, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = *param;
+  }
+}
+OIL_DEFINE_IMPL_REF(splat_u16_ns_ref, splat_u16_ns);
 
 static void splat_u32_ns_ref (uint32_t *dest, uint32_t *param, int n)
 {
