@@ -95,7 +95,7 @@ merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
     src2++;
     n--;
   }
-  n >>= 2;
+  n >>= 3;
   if (n == 0) return;
   x &= 0xff;
   x |= (x<<8);
@@ -103,17 +103,17 @@ merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
   asm volatile ("\n"
       "  pxor %%xmm7, %%xmm7\n"
       "  movd %3, %%xmm6\n"
-      "  pshufd $0xbb, %%xmm6, %%xmm6\n"
+      "  pshufd $0x00, %%xmm6, %%xmm6\n"
       "  punpcklbw %%xmm7, %%xmm6\n"
       "  movl $0x01010101, %3\n"
       "  movd %3, %%xmm5\n"
-      "  pshufd $0xbb, %%xmm5, %%xmm5\n"
+      "  pshufd $0x00, %%xmm5, %%xmm5\n"
       "  punpcklbw %%xmm7, %%xmm5\n"
       "  psllw $8, %%xmm5\n"
       "  psubw %%xmm6, %%xmm5\n"
       "1:\n"
-      "  movdqu 0(%1), %%xmm0\n"
-      "  movdqu 0(%2), %%xmm1\n"
+      "  movq 0(%1), %%xmm0\n"
+      "  movq 0(%2), %%xmm1\n"
       "  punpcklbw %%xmm7, %%xmm0\n"
       "  punpcklbw %%xmm7, %%xmm1\n"
       "  pmullw %%xmm5, %%xmm0\n"
@@ -121,7 +121,7 @@ merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
       "  paddw %%xmm1, %%xmm0\n"
       "  psrlw $8, %%xmm0\n"
       "  packuswb %%xmm0, %%xmm0\n"
-      "  movdqu %%xmm0, 0(%0)\n"
+      "  movq %%xmm0, 0(%0)\n"
       "  add $8, %0\n"
       "  add $8, %1\n"
       "  add $8, %2\n"

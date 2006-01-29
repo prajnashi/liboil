@@ -563,8 +563,6 @@ OIL_DEFINE_IMPL_FULL (composite_over_argb_sse2, composite_over_argb, OIL_IMPL_FL
 static void
 composite_over_argb_sse2_2 (uint32_t *dest, uint32_t *src, int n)
 {
-  int end;
-
   __asm__ __volatile__ ("  pxor %%xmm7, %%xmm7\n"   // mm7 = { 0, 0, 0, 0 }
       "  movl $0x80808080, %%eax\n"
       "  movd %%eax, %%xmm6\n"  // mm6 = { 128, 128, 128, 128 }
@@ -583,7 +581,7 @@ composite_over_argb_sse2_2 (uint32_t *dest, uint32_t *src, int n)
       :
       :"eax");
 
-  if (n&1 && ((unsigned long)dest & 0xf)) {
+  if (n&1) {
     __asm__ __volatile__ (
       "  movl (%1), %%eax\n"
       "  testl $0xff000000, %%eax\n"
@@ -607,20 +605,21 @@ composite_over_argb_sse2_2 (uint32_t *dest, uint32_t *src, int n)
       "1:\n"
       "  addl $4, %0\n"
       "  addl $4, %1\n"
-      :"+r" (dest), "+r" (src), "+r" (n)
+      :"+r" (dest), "+r" (src)
       :
       :"eax");
   }
-  end = n&1;
   n>>=1;
 
   if (n>0){
     __asm__ __volatile__ ("\n"
       "3:\n"
+#if 0
       "  movl (%1), %%eax\n"
       "  orl 4(%1), %%eax\n"
       "  testl $0xff000000, %%eax\n"
       "  jz 4f\n"
+#endif
 
       "  movq (%1), %%xmm1\n"
       "  punpcklbw %%xmm7, %%xmm1\n"
@@ -645,35 +644,6 @@ composite_over_argb_sse2_2 (uint32_t *dest, uint32_t *src, int n)
       :
       :"eax");
   }
-  if (end) {
-    __asm__ __volatile__ (
-      "  movl (%1), %%eax\n"
-      "  testl $0xff000000, %%eax\n"
-      "  jz 1f\n"
-
-      "  movd (%1), %%xmm1\n"
-      "  punpcklbw %%xmm7, %%xmm1\n"
-      "  pshuflw $0xff, %%xmm1, %%xmm0\n"
-      "  pxor %%xmm5, %%xmm0\n"
-
-      "  movd (%0), %%xmm3\n"
-      "  punpcklbw %%xmm7, %%xmm3\n"
-      "  pmullw %%xmm0, %%xmm3\n"
-      "  paddw %%xmm6, %%xmm3\n"
-      "  pmulhuw %%xmm4, %%xmm3\n"
-
-      "  paddw %%xmm1, %%xmm3\n"
-      "  packuswb %%xmm3, %%xmm3\n"
-      "  movd %%xmm3, (%0)\n"
-
-      "1:\n"
-      "  addl $4, %0\n"
-      "  addl $4, %1\n"
-      :"+r" (dest), "+r" (src), "+r" (n)
-      :
-      :"eax");
-  }
-
 }
 OIL_DEFINE_IMPL_FULL (composite_over_argb_sse2_2, composite_over_argb, OIL_IMPL_FLAG_SSE2);
 

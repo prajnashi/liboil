@@ -1,6 +1,12 @@
 2006-01-28  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/composite_i386.c:
+	* liboil/i386/resample.c:
+	  Fixes for SSE2 code
+
+2006-01-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/composite_i386.c:
 	* liboil/i386/copy_i386.c:
 	* liboil/i386/resample.c:
 	* testsuite/instruction/check-instructions.pl:
