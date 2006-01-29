@@ -878,7 +878,7 @@ composite_add_argb_mmx (uint32_t *dest, uint32_t *src, int n)
       :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_add_argb_mmx, composite_add_argb, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+OIL_DEFINE_IMPL_FULL (composite_add_argb_mmx, composite_add_argb, OIL_IMPL_FLAG_MMX);
 
 static void
 composite_add_argb_const_src_mmx (uint32_t *dest, uint32_t *src, int n)
@@ -898,7 +898,7 @@ composite_add_argb_const_src_mmx (uint32_t *dest, uint32_t *src, int n)
       :"eax");
 
 }
-OIL_DEFINE_IMPL_FULL (composite_add_argb_const_src_mmx, composite_add_argb_const_src, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+OIL_DEFINE_IMPL_FULL (composite_add_argb_const_src_mmx, composite_add_argb_const_src, OIL_IMPL_FLAG_MMX);
 
 static void
 composite_in_over_argb_mmx (uint32_t *dest, uint32_t *src, uint8_t *mask, int n)

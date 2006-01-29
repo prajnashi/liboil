@@ -53,26 +53,26 @@ main (int argc, char *argv[])
     OilFunctionImpl *impl;
     
     for (impl = klass->first_impl; impl; impl = impl->next) {
+      unsigned int flags = impl->flags;
+
       printf("%s:", impl->name);
 #ifdef HAVE_GCC_I386
-      if (impl->flags & OIL_IMPL_FLAG_3DNOW) 
-        printf(" 3dnow");
-      if (impl->flags & OIL_IMPL_FLAG_3DNOWEXT) 
-        printf(" 3dnowext");
-      if (impl->flags & OIL_IMPL_FLAG_CMOV) 
-        printf(" cmov");
-      if (impl->flags & OIL_IMPL_FLAG_MMX) 
-        printf(" mmx");
-      if (impl->flags & OIL_IMPL_FLAG_MMXEXT) 
-        printf(" mmxext");
-      if (impl->flags & OIL_IMPL_FLAG_SSE) 
-        printf(" sse");
-      if (impl->flags & OIL_IMPL_FLAG_SSE2) 
-        printf(" sse2");
+      if (flags & OIL_IMPL_FLAG_SSE3) {
+        flags |= OIL_IMPL_FLAG_SSE2;
+      }
+      if (flags & OIL_IMPL_FLAG_SSE2) {
+        flags |= OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_MMXEXT;
+      }
+      if (flags & OIL_IMPL_FLAG_3DNOW) printf(" 3dnow");
+      if (flags & OIL_IMPL_FLAG_3DNOWEXT) printf(" 3dnowext");
+      if (flags & OIL_IMPL_FLAG_CMOV) printf(" cmov");
+      if (flags & OIL_IMPL_FLAG_MMX) printf(" mmx");
+      if (flags & OIL_IMPL_FLAG_MMXEXT) printf(" mmxext");
+      if (flags & OIL_IMPL_FLAG_SSE) printf(" sse");
+      if (flags & OIL_IMPL_FLAG_SSE2) printf(" sse2");
 #endif
 #ifdef HAVE_GCC_PPC
-      if (impl->flags & OIL_IMPL_FLAG_ALTIVEC) 
-        printf(" altivec");
+      if (flags & OIL_IMPL_FLAG_ALTIVEC) printf(" altivec");
 #endif
       printf("\n");
     }

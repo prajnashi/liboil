@@ -81,5 +81,55 @@ merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
       :
       : "memory");
 }
-OIL_DEFINE_IMPL (merge_linear_u8_mmx, merge_linear_u8);
+OIL_DEFINE_IMPL_FULL (merge_linear_u8_mmx, merge_linear_u8, OIL_IMPL_FLAG_MMX);
+
+static void
+merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
+    uint32_t *src3, int n)
+{
+  unsigned int x = src3[0];
+  while (n&7) {
+    dest[0] = (src1[0]*(256-x) + src2[0]*x) >> 8;
+    dest++;
+    src1++;
+    src2++;
+    n--;
+  }
+  n >>= 2;
+  if (n == 0) return;
+  x &= 0xff;
+  x |= (x<<8);
+  x |= (x<<16);
+  asm volatile ("\n"
+      "  pxor %%xmm7, %%xmm7\n"
+      "  movd %3, %%xmm6\n"
+      "  pshufd $0xbb, %%xmm6, %%xmm6\n"
+      "  punpcklbw %%xmm7, %%xmm6\n"
+      "  movl $0x01010101, %3\n"
+      "  movd %3, %%xmm5\n"
+      "  pshufd $0xbb, %%xmm5, %%xmm5\n"
+      "  punpcklbw %%xmm7, %%xmm5\n"
+      "  psllw $8, %%xmm5\n"
+      "  psubw %%xmm6, %%xmm5\n"
+      "1:\n"
+      "  movdqu 0(%1), %%xmm0\n"
+      "  movdqu 0(%2), %%xmm1\n"
+      "  punpcklbw %%xmm7, %%xmm0\n"
+      "  punpcklbw %%xmm7, %%xmm1\n"
+      "  pmullw %%xmm5, %%xmm0\n"
+      "  pmullw %%xmm6, %%xmm1\n"
+      "  paddw %%xmm1, %%xmm0\n"
+      "  psrlw $8, %%xmm0\n"
+      "  packuswb %%xmm0, %%xmm0\n"
+      "  movdqu %%xmm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %4\n"
+      "  jnz 1b\n"
+      : "+r" (dest), "+r" (src1), "+r" (src2), "+r" (x), "+r" (n)
+      :
+      : "memory");
+}
+OIL_DEFINE_IMPL_FULL (merge_linear_u8_sse2, merge_linear_u8, OIL_IMPL_FLAG_SSE2);
 

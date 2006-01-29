@@ -1,5 +1,15 @@
 2006-01-28  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/composite_i386.c:
+	* liboil/i386/copy_i386.c:
+	* liboil/i386/resample.c:
+	* testsuite/instruction/check-instructions.pl:
+	* testsuite/instruction/list-impls.c:
+	  Fix the instruction lists in check-instructions.pl and fix
+	  all the crap it found.
+
+2006-01-28  David Schleef  <ds@schleef.org>
+
 	* examples/oil-suggest.c: cleanup
 	* liboil/Makefile.am: clean liboil-stdint.h
 	* liboil/liboilclasses.h: add splat_u16_ns

@@ -3,6 +3,7 @@
 #
 
 $debug = 0;
+$pedantic = 0;
 
 sub get_flags
 {
@@ -18,6 +19,9 @@ sub get_flags
 		$regs = $2;
 		if (grep { /^$opcode$/ } @normal_list) {
 			$debug && print "  $opcode: normal\n";
+		}elsif (grep { /^$opcode$/ } @cmov_list) {
+			#$exts->{"cmov"} = 1;
+			$debug && print "  $opcode: cmov\n";
 		}elsif (grep { /^$opcode$/ } @mmxsse_list) {
 			if (grep { /\%xmm/ } $regs) {
 				$exts->{"sse2"} = 1;
@@ -49,6 +53,15 @@ sub get_flags
 			$error = 1;
 		}
 	}
+	if (!$pedantic) {
+        if ($exts->{"sse3"}) {
+            $exts->{"sse2"} = 1;
+        }
+        if ($exts->{"sse2"}) {
+            $exts->{"sse"} = 1;
+            $exts->{"mmxext"} = 1;
+        }
+    }
 	$s = join(" ",sort(keys(%$exts)));
 	$funcs->{"$func"} = $s;
 	$debug && print "  FLAGS: $s\n";
@@ -85,6 +98,7 @@ sub check
 	"addl", 
 	"and", 
 	"andl", 
+	"bswap",
 	"call", 
 	"cld", 
 	"cltd", 
@@ -108,6 +122,8 @@ sub check
 	"fdivrl", 
 	"fdivrs",
 	"fdivs",
+	"fiaddl",
+	"fimull",
 	"fild", 
 	"fildl", 
 	"fildll", 
@@ -144,6 +160,7 @@ sub check
 	"fsubrs",
 	"fsubs",
 	"fucom", 
+	"fucomi", 
 	"fucomp", 
 	"fucompp", 
 	"fxch", 
@@ -189,69 +206,35 @@ sub check
 	"repz", 
 	"ret", 
 	"rol", 
+	"ror", 
 	"sahf", 
 	"sar", 
 	"sarl", 
 	"shl", 
 	"shll",
 	"shr", 
+	"shrl", 
 	"sub", 
 	"subl", 
 	"test", 
 	"testb", 
 	"testl", 
+	"xchg",
 	"xor", 
+);
+
+@cmov_list = (
+	"cmova",
+	"cmovae",
+	"cmovb",
+	"cmovl",
+	"fcmovbe",
+	"fcmovnbe",
 );
 
 # verified
 @mmx_list = (
 	"emms",
-	#"movd",
-	#"movq",
-	#"packssdw",
-	#"packsswb",
-	#"packuswb",
-	"paddb",
-	"paddd",
-	"paddsb",
-	"paddsw",
-	"paddusb",
-	"paddusw",
-	#"paddw",
-	#"pand",
-	#"pandn",
-	"pcmpeqb",
-	"pcmpeqd",
-	"pcmpeqw",
-	"pcmpgtb",
-	"pcmpgtd",
-	"pcmpgtw",
-	#"pmaddwd",
-	#"pmulhw",
-	#"pmullw",
-	#"por",
-	"pslld",
-	"psllq",
-	"psllw",
-	"psrad",
-	"psraw",
-	#"psrld",
-	#"psrlq",
-	#"psrlw",
-	"psubb",
-	"psubd",
-	"psubsb",
-	"psubsw",
-	"psubusb",
-	"psubusw",
-	"psubw",
-	#"punpckhbw",
-	#"punpckhdq",
-	#"punpckhwd",
-	#"punpcklbw",
-	#"punpckldq",
-	#"punpcklwd",
-	#"pxor",
 );
 
 # verified
@@ -370,17 +353,40 @@ sub check
 	"packsswb",
 	"packuswb",
 	"paddb",
+	"paddd",
+	"paddsb",
+	"paddsw",
+	"paddusb",
+	"paddusw",
 	"paddw",
 	"pand",
 	"pandn",
+	"pcmpeqb",
+	"pcmpeqd",
+	"pcmpeqw",
+	"pcmpgtb",
+	"pcmpgtd",
+	"pcmpgtw",
 	"pmaddwd",
 	"pmulhw",
 	"pmullw",
 	"pmulhuw",
 	"por",
+	"pslld",
+	"psllq",
+	"psllw",
+	"psrad",
+	"psraw",
 	"psrld",
 	"psrlq",
 	"psrlw",
+	"psubb",
+	"psubd",
+	"psubsb",
+	"psubsw",
+	"psubusb",
+	"psubusw",
+	"psubw",
 	"punpckhbw",
 	"punpckhdq",
 	"punpckhwd",
@@ -419,6 +425,7 @@ sub check
 	"divsd",
 	"maxpd",
 	"maxsd",
+	"minpd",
 	"minsd",
 	"movapd",
 	"movhpd",
@@ -504,7 +511,7 @@ sub check
 $funcs = {};
 
 $ARGV=shift @ARGV;
-@output=`objdump -dr $ARGV`;
+@output=`objdump -j .text -dr $ARGV`;
 
 check();
 
@@ -528,6 +535,8 @@ while($_=shift @output){
 	} elsif(m/^[\s0-9a-f]+:\s[\s0-9a-f]{20}\s+([\w]+\s.*)$/){
 		push @insns, $1;
 		#print "  $1\n";
+	} elsif(m/^[\s0-9a-f]+:\s[\s0-9a-f]{2,20}\s$/){
+		# ignore
 	} elsif (m/^$/) {
 	} elsif (m/^Disassembly of section/) {
 	} elsif (m/\sfile format\s/) {

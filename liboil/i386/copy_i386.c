@@ -268,7 +268,7 @@ static void splat_u8_ns_i386_mmx (uint8_t *dest, const uint8_t *param, int n)
     "  emms\n"
     : "+r" (dest), "+r" (n), "+r" (p));
 }
-OIL_DEFINE_IMPL(splat_u8_ns_i386_mmx, splat_u8_ns);
+OIL_DEFINE_IMPL_FULL (splat_u8_ns_i386_mmx, splat_u8_ns, OIL_IMPL_FLAG_MMX);
 
 static void splat_u8_ns_mmx2 (uint8_t *dest, const uint8_t *param, int n)
 {
@@ -293,7 +293,7 @@ static void splat_u8_ns_mmx2 (uint8_t *dest, const uint8_t *param, int n)
     "  emms\n"
     : "+r" (dest), "+r" (n), "+r" (p));
 }
-OIL_DEFINE_IMPL(splat_u8_ns_mmx2, splat_u8_ns);
+OIL_DEFINE_IMPL_FULL(splat_u8_ns_mmx2, splat_u8_ns, OIL_IMPL_FLAG_MMX);
 
 static void splat_u8_ns_mmx2a (uint8_t *dest, const uint8_t *param, int n)
 {
@@ -329,5 +329,5 @@ static void splat_u8_ns_mmx2a (uint8_t *dest, const uint8_t *param, int n)
     :
     : "eax");
 }
-OIL_DEFINE_IMPL(splat_u8_ns_mmx2a, splat_u8_ns);
+OIL_DEFINE_IMPL_FULL(splat_u8_ns_mmx2a, splat_u8_ns, OIL_IMPL_FLAG_MMX);
 
