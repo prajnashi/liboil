@@ -12,6 +12,7 @@ libi386_la_SOURCES = \
 	error8x8_i386.c \
 	idct8x8_i386.c \
 	md5_i386.c \
+	mt19937.c \
 	mult8x8_i386.c \
 	recon8x8_i386.c \
 	resample.c \

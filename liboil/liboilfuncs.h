@@ -726,6 +726,9 @@ typedef void (*_oil_type_minimum_f32)(float * d, const float * s1, const float *
 extern OilFunctionClass *oil_function_class_ptr_mix_u8;
 typedef void (*_oil_type_mix_u8)(uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n);
 #define oil_mix_u8 ((_oil_type_mix_u8)(*(void **)oil_function_class_ptr_mix_u8))
+extern OilFunctionClass *oil_function_class_ptr_mt19937;
+typedef void (*_oil_type_mt19937)(uint32_t * d_624, uint32_t * i_624);
+#define oil_mt19937 ((_oil_type_mt19937)(*(void **)oil_function_class_ptr_mt19937))
 extern OilFunctionClass *oil_function_class_ptr_mult8x8_s16;
 typedef void (*_oil_type_mult8x8_s16)(int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2);
 #define oil_mult8x8_s16 ((_oil_type_mult8x8_s16)(*(void **)oil_function_class_ptr_mult8x8_s16))

@@ -131,6 +131,27 @@
 </para>
 
 
+<!-- ##### ENUM OilImplFlagI386 ##### -->
+<para>
+
+</para>
+
+@OIL_IMPL_FLAG_CMOV: 
+@OIL_IMPL_FLAG_MMX: 
+@OIL_IMPL_FLAG_SSE: 
+@OIL_IMPL_FLAG_MMXEXT: 
+@OIL_IMPL_FLAG_SSE2: 
+@OIL_IMPL_FLAG_3DNOW: 
+@OIL_IMPL_FLAG_3DNOWEXT: 
+@OIL_IMPL_FLAG_SSE3: 
+
+<!-- ##### ENUM OilImplFlagPowerPC ##### -->
+<para>
+
+</para>
+
+@OIL_IMPL_FLAG_ALTIVEC: 
+
 <!-- ##### FUNCTION oil_profile_stamp_gtod ##### -->
 <para>
 

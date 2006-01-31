@@ -50,12 +50,6 @@
 @OIL_IMPL_FLAG_OPT: 
 @OIL_IMPL_FLAG_ASM: 
 @OIL_IMPL_FLAG_DISABLED: 
-
-<!-- ##### ENUM OilImplFlagI386 ##### -->
-<para>
-
-</para>
-
 @OIL_IMPL_FLAG_CMOV: 
 @OIL_IMPL_FLAG_MMX: 
 @OIL_IMPL_FLAG_SSE: 
@@ -64,12 +58,6 @@
 @OIL_IMPL_FLAG_3DNOW: 
 @OIL_IMPL_FLAG_3DNOWEXT: 
 @OIL_IMPL_FLAG_SSE3: 
-
-<!-- ##### ENUM OilImplFlagPowerPC ##### -->
-<para>
-
-</para>
-
 @OIL_IMPL_FLAG_ALTIVEC: 
 
 <!-- ##### MACRO OIL_CPU_FLAG_MASK ##### -->

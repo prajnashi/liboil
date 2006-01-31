@@ -90,44 +90,22 @@ fi
 GTK_DOC_CHECK([1.0])
 
 
-AS_GCC_INLINE_ASSEMBLY([HAVE_GCC_INLINE_ASSEMBLY=yes],
-  [HAVE_GCC_INLINE_ASSEMBLY=no])
-if test x$HAVE_GCC_INLINE_ASSEMBLY = xyes ; then
-  AC_DEFINE(HAVE_GCC_INLINE_ASSEMBLY, 1,
-    [Define if compiler supports gcc inline assembly for powerpc])
+AS_GCC_INLINE_ASSEMBLY([HAVE_GCC_ASM=yes], [HAVE_GCC_ASM=no])
+if test x$HAVE_GCC_ASM = xyes ; then
+  AC_DEFINE(HAVE_GCC_ASM, 1,
+    [Define if compiler supports gcc inline assembly])
 fi
-AM_CONDITIONAL(HAVE_GCC_INLINE_ASSEMBLY,
-  test "x$HAVE_GCC_INLINE_ASSEMBLY" = "xyes")
+AM_CONDITIONAL(HAVE_GCC_ASM, test "x$HAVE_GCC_ASM" = "xyes")
 
-dnl Determine CPU
-if test "x$HAVE_GCC_INLINE_ASSEMBLY" = xyes ; then
-  case "x${host_cpu}" in
-    xi?86 | k?)
-      HAVE_GCC_I386=yes
-      AC_DEFINE(HAVE_GCC_I386, 1, [Define if compiler supports gcc inline assembly for i386])
-      ;;
-    xx86_64|xamd64)
-      HAVE_GCC_AMD64=yes
-      AC_DEFINE(HAVE_GCC_AMD64, 1, [Define if compiler supports gcc inline assembly for amd64])
-      ;;
-    xpowerpc)
-      HAVE_GCC_POWERPC=yes
-      AC_DEFINE(HAVE_GCC_POWERPC, 1, [Define if compiler supports gcc inline assembly for powerpc])
-      ;;
-  esac
-fi
-
-AM_CONDITIONAL(HAVE_GCC_I386, test "x$HAVE_GCC_I386" = "xyes")
-AM_CONDITIONAL(HAVE_GCC_AMD64, test "x$HAVE_GCC_AMD64" = "xyes")
-AM_CONDITIONAL(HAVE_GCC_POWERPC, test "x$HAVE_GCC_POWERPC" = "xyes")
+AS_HOST_DEFINES()
 
 AS_GCC_ASM_POWERPC_FPU([HAVE_GCC_ASM_POWERPC_FPU=yes],
   [HAVE_GCC_ASM_POWERPC_FPU=no])
-if test x$HAVE_GCC_ASM_POWERPC = xyes ; then
-  AC_DEFINE(HAVE_GCC_ASM_POWERPC, 1,
+if test x$HAVE_GCC_ASM_POWERPC_FPU = xyes ; then
+  AC_DEFINE(HAVE_GCC_ASM_POWERPC_FPU, 1,
     [Define if compiler supports PowerPC FPU instructions])
 fi
-AM_CONDITIONAL(HAVE_GCC_ASM_POWERPC,
+AM_CONDITIONAL(HAVE_GCC_ASM_POWERPC_FPU,
   test "x$HAVE_GCC_ASM_POWERPC" = "xyes")
 
 AC_C_BIGENDIAN
@@ -166,7 +144,7 @@ if test "x$LIBOIL_CVS" = "xyes"
 then
   AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
 fi
-if test x$HAVE_GCC_POWERPC = xyes ; then
+if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
   AS_COMPILER_FLAG(["-Wa,-mregnames"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)

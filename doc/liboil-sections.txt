@@ -57,8 +57,6 @@ OilFunctionImpl
 oil_impl_get_by_index
 oil_impl_is_runnable
 OilImplFlag
-OilImplFlagI386
-OilImplFlagPowerPC
 OIL_CPU_FLAG_MASK
 OIL_DEFINE_IMPL_FULL
 OIL_DEFINE_IMPL
@@ -72,7 +70,6 @@ OIL_DEFINE_IMPL_DEPENDS
 OilProfile
 OIL_PROFILE_HIST_LENGTH
 oil_profile_stamp
-oil_profile_stamp_gtod
 oil_profile_init
 oil_profile_stop_handle
 oil_profile_get_ave_std

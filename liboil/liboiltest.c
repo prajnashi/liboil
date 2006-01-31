@@ -180,7 +180,7 @@ oil_test_set_test_header (OilTest *test, OilParameter *p, int test_header)
  * oil_test_set_test_footer:
  * @test: the OilTest
  * @p: the OilParameter to change the footer for
- * @test_header: the number of bytes of guard footer
+ * @test_footer: the number of bytes of guard footer
  *
  * Sets the number of bytes of guard footer for @p to @test_footer.
  */

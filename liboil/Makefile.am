@@ -1,61 +1,49 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-if HAVE_GCC_I386
-subdir_i386 = i386
-libs_i386 = i386/libi386.la
+DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
+SUBDIRS = c colorspace conv copy dct jpeg math md5 ref simdpack utf8 deprecated
+
+libs =
+
+if HAVE_I386
+if HAVE_GCC_ASM
+SUBDIRS += i386
+libs += i386/libi386.la
+endif
+endif
+
 if HAVE_MMX_INTRINSICS
-subdir_i386 += fb
-libs_i386 += fb/libfb.la
-subdir_i386 += mmx
-libs_i386 += mmx/libmmx.la
+SUBDIRS += fb mmx
+libs += fb/libfb.la mmx/libmmx.la
 endif
 if HAVE_SSE_INTRINSICS
-subdir_i386 += sse
-libs_i386 += sse/libsse.la
+SUBDIRS += sse
+libs += sse/libsse.la
 endif
 if HAVE_3DNOW_INTRINSICS
 #subdir_i386 += 3dnow
 #libs_i386 += 3dnow/lib3dnow.la
 endif
-else
-subdir_i386 =
-libs_i386 =
+
+if HAVE_AMD64
+if HAVE_GCC_ASM
+SUBDIRS += 
+libs += 
+endif
 endif
 
-if HAVE_GCC_AMD64
-subdir_amd64 = 
-libs_amd64 = 
-if HAVE_MMX_INTRINSICS
-subdir_amd64 += fb
-libs_amd64 += fb/libfb.la
-subdir_amd64 += mmx
-libs_amd64 += mmx/libmmx.la
-endif
-if HAVE_SSE_INTRINSICS
-subdir_amd64 += sse
-libs_amd64 += sse/libsse.la
-endif
-else
-subdir_amd64 =
-libs_amd64 =
-endif
-
-if HAVE_GCC_POWERPC
-subdir_powerpc = powerpc motovec
-libs_powerpc = powerpc/libpowerpc.la motovec/libmotovec.la
+if HAVE_POWERPC
+if HAVE_GCC_ASM
+SUBDIRS += powerpc motovec
+libs += powerpc/libpowerpc.la motovec/libmotovec.la
 if HAVE_ASM_BLOCKS
-subdir_powerpc += powerpc_asm_blocks
-libs_powerpc += powerpc/libpowerpc_asm_blocks.la
+SUBDIRS += powerpc_asm_blocks
+libs += powerpc/libpowerpc_asm_blocks.la
 endif
-else
-subdir_powerpc =
-libs_powerpc = 
+endif
 endif
 
-
-DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
-SUBDIRS = $(subdir_amd64) c colorspace conv copy dct $(subdir_i386) jpeg math md5 $(subdir_powerpc) ref simdpack utf8 deprecated
 
 lib_LTLIBRARIES = liboil-@LIBOIL_MAJORMINOR@.la
 if USE_NEW_ABI
@@ -92,12 +80,10 @@ liboilfunctions_la_LIBADD = \
 	colorspace/libcolorspace.la \
 	copy/libcopy.la \
 	dct/libdct.la \
-	$(libs_amd64) \
-	$(libs_i386) \
+	$(libs) \
 	jpeg/libjpeg.la \
 	math/libmath.la \
 	md5/libmd5.la \
-	$(libs_powerpc) \
 	ref/libref.la \
 	simdpack/libsimdpack.la \
 	utf8/libutf8.la

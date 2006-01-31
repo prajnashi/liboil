@@ -266,6 +266,7 @@ void oil_merge_linear_argb (uint32_t * d_n, const uint32_t * s_n, const uint32_t
 void oil_merge_linear_u8 (uint8_t * d_n, const uint8_t * s_n, const uint8_t * s2_n, const uint32_t * s3_1, int n);
 void oil_minimum_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_mix_u8 (uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n);
+void oil_mt19937 (uint32_t * d_624, uint32_t * i_624);
 void oil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2);
 void oil_multiply_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_multsum_f32 (float * dest, const float * src1, int sstr1, const float * src2, int sstr2, int n);

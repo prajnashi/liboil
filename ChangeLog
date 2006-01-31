@@ -1,3 +1,46 @@
+2006-01-30  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	* m4/as-host-defines.m4:
+	* liboil/Makefile.am:
+	* liboil/motovec/Makefile.am:
+	* doc/liboil-sections.txt:
+	* doc/tmpl/liboil-unused.sgml:
+	* doc/tmpl/liboilimpl-unstable.sgml:
+	* examples/oil-inspect.c:
+	* testsuite/instruction/Makefile.am:
+	  Rewrite macros/defines for cpu selection.  HAVE_${arch} is
+	  the define for cpu architecture, HAVE_GCC_ASM is the define
+	  for GCC inline assembly.
+	* liboil/liboilfunction.h:
+	  Make implementation flags all part of the same enum, making
+	  flags unique across all architectures.  This makes it easier
+	  to turn flags into feature names platform-independently.
+
+	* liboil/liboilclasses.h: update
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+
+	* liboil/liboilrandom.c: Fix documentation.
+	* liboil/liboiltest.c: same
+	* liboil/liboilrandom.h: remove config.h
+
+	* license_block: new year
+
+	* COPYING: Add copyright for mt19937
+	* examples/Makefile.am:
+	* examples/oil-mt19937.c:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/mt19937ar.c:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/mt19937.c:
+	  Add mt19937 and example.
+
+	* testsuite/Makefile.am:
+	* testsuite/mmx_engine.c:
+	  A little thingy for testing the features of an MMX engine.
+
 2006-01-28  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/composite_i386.c:

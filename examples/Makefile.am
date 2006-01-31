@@ -2,7 +2,7 @@
 SUBDIRS = jpeg md5 uberopt work huffman taylor
 
 noinst_PROGRAMS = example1 oil-graph oil-inspect oil-test report memcpy-speed \
-	oil-suggest printcpu
+	oil-suggest printcpu oil-mt19937
 
 
 example1_SOURCES = example1.c
@@ -36,4 +36,8 @@ memcpy_speed_LDADD = $(LIBOIL_LIBS)
 printcpu_SOURCES = printcpu.c
 printcpu_CFLAGS = $(LIBOIL_CFLAGS)
 printcpu_LDADD = $(LIBOIL_LIBS)
+
+oil_mt19937_SOURCES = oil-mt19937.c
+oil_mt19937_CFLAGS = $(LIBOIL_CFLAGS)
+oil_mt19937_LDADD = $(LIBOIL_LIBS)
 

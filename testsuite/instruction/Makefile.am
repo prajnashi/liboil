@@ -3,12 +3,6 @@ EXTRA_DIST = check-instructions.pl
 
 check_PROGRAMS = list-impls
 
-if HAVE_GCC_I386
-#check_DATA = report
-else
-#check_DATA = 
-endif
-
 AM_LDFLAGS = $(LIBOIL_LIBS)
 AM_CFLAGS = $(LIBOIL_CFLAGS)
 	

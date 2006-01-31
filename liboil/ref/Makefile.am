@@ -20,6 +20,7 @@ c_sources = \
 	error8x8.c \
 	math.c \
 	mix_u8.c \
+	mt19937ar.c \
 	mult8x8_s16.c \
 	multsum.c \
 	recon8x8.c \

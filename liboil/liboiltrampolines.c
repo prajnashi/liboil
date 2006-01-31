@@ -2331,6 +2331,16 @@ oil_mix_u8 (uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const ui
   ((void (*)(uint8_t * dest, const uint8_t * src1, const uint8_t * src2, const uint8_t * src3, int n))(_oil_function_class_mix_u8.func))(dest, src1, src2, src3, n);
 }
 
+#undef oil_mt19937
+void
+oil_mt19937 (uint32_t * d_624, uint32_t * i_624)
+{
+  if (_oil_function_class_mt19937.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mt19937);
+  }
+  ((void (*)(uint32_t * d_624, uint32_t * i_624))(_oil_function_class_mt19937.func))(d_624, i_624);
+}
+
 #undef oil_mult8x8_s16
 void
 oil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2)

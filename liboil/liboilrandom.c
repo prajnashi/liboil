@@ -51,8 +51,11 @@ _oil_random_bits (void *dest, int n)
 
 /**
  * oil_random_s32:
+ * @dest:
+ * @n:
  *
- * Evaluates to a random integer in the range [-(1<<31), (1<<31)-1].
+ * Writes random values in the range [-(1<<31), (1<<31)-1] to the
+ * destination array.
  */
 void
 oil_random_s32(oil_type_s32 *dest, int n)
@@ -63,7 +66,8 @@ oil_random_s32(oil_type_s32 *dest, int n)
 /**
  * oil_random_s64:
  *
- * Evaluates to a random integer in the range [-(1<<63), (1<<63)-1].
+ * Writes random values in the range [-(1<<63), (1<<63)-1] to the
+ * destination array.
  */
 void
 oil_random_s64 (oil_type_s64 *dest, int n)
@@ -74,7 +78,8 @@ oil_random_s64 (oil_type_s64 *dest, int n)
 /**
  * oil_random_s16:
  *
- * Evaluates to a random integer in the range [-(1<<15), (1<<15)-1].
+ * Writes random values in the range [-(1<<15), (1<<15)-1] to the
+ * destination array.
  */
 void
 oil_random_s16 (oil_type_s16 *dest, int n)
@@ -85,7 +90,8 @@ oil_random_s16 (oil_type_s16 *dest, int n)
 /**
  * oil_random_s8:
  *
- * Evaluates to a random integer in the range [-(1<<7), (1<<7)-1].
+ * Writes random values in the range [-(1<<7), (1<<7)-1] to the
+ * destination array.
  */
 void
 oil_random_s8 (oil_type_s8 *dest, int n)
@@ -96,7 +102,8 @@ oil_random_s8 (oil_type_s8 *dest, int n)
 /**
  * oil_random_u32:
  *
- * Evaluates to a random integer in the range [0, (1<<32)-1].
+ * Writes random values in the range [0, (1<<32)-1] to the
+ * destination array.
  */
 void
 oil_random_u32 (oil_type_u32 *dest, int n)
@@ -107,7 +114,8 @@ oil_random_u32 (oil_type_u32 *dest, int n)
 /**
  * oil_random_u64:
  *
- * Evaluates to a random integer in the range [0, (1<<64)-1].
+ * Writes random values in the range [0, (1<<64)-1] to the
+ * destination array.
  */
 void
 oil_random_u64 (oil_type_u64 *dest, int n)
@@ -118,7 +126,8 @@ oil_random_u64 (oil_type_u64 *dest, int n)
 /**
  * oil_random_u16:
  *
- * Evaluates to a random integer in the range [0, (1<<16)-1].
+ * Writes random values in the range [0, (1<<16)-1] to the
+ * destination array.
  */
 void
 oil_random_u16 (oil_type_u16 *dest, int n)
@@ -129,7 +138,8 @@ oil_random_u16 (oil_type_u16 *dest, int n)
 /**
  * oil_random_u8:
  *
- * Evaluates to a random integer in the range [0, (1<<8)-1].
+ * Writes random values in the range [0, (1<<8)-1] to the
+ * destination array.
  */
 void
 oil_random_u8 (oil_type_u8 *dest, int n)
@@ -140,8 +150,8 @@ oil_random_u8 (oil_type_u8 *dest, int n)
 /**
  * oil_random_f64:
  *
- * Evaluates to a random double-precision floating point number
- * in the range [0, 1.0).
+ * Writes random double-precision floating point values in the
+ * range [0, 1.0) to the destination array.
  */
 void
 oil_random_f64 (oil_type_f64 *dest, int n)
@@ -155,8 +165,8 @@ oil_random_f64 (oil_type_f64 *dest, int n)
 /**
  * oil_random_f32:
  *
- * Evaluates to a random single-precision floating point number
- * in the range [0, 1.0).
+ * Writes random single-precision floating point values in the
+ * range [0, 1.0) to the destination array.
  */
 void
 oil_random_f32 (oil_type_f32 *dest, int n)
@@ -170,7 +180,8 @@ oil_random_f32 (oil_type_f32 *dest, int n)
 /**
  * oil_random_alpha:
  *
- * Evaluates a random alpha value.  This is similar to oil_random_u8(),
+ * Writes random values in the range [0, 255] to the destination
+ * array suitable for alpha values.  This is similar to oil_random_u8(),
  * except the values 0 and 255 are strongly favored.
  */
 void
@@ -188,12 +199,11 @@ oil_random_alpha(uint8_t *dest, int n)
 
 /**
  * oil_random_argb:
- * @a: an alpha value
+ * @dest: destination array.
+ * @n: number of values to write.
  *
- * Creates a valid random RGBA value with the alpha value @a.  Valid
- * input values for @a are [0,255].
- *
- * Evaluates to the result.
+ * Creates valid random RGBA values and places them in the destination
+ * array.
  */
 void
 oil_random_argb(uint32_t *dest, int n)
