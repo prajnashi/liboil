@@ -1,5 +1,9 @@
 2006-01-30  David Schleef  <ds@schleef.org>
 
+	* testsuite/mmx_engine.c: Add SSE2
+
+2006-01-30  David Schleef  <ds@schleef.org>
+
 	* configure.ac:
 	* m4/as-host-defines.m4:
 	* liboil/Makefile.am:
