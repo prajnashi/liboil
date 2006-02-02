@@ -321,3 +321,53 @@ interleave_c (int16_t *d_2xn, int16_t *s_2xn, int n)
 }
 OIL_DEFINE_IMPL (interleave_c, interleave);
 
+
+#ifdef ENABLE_BROKEN_IMPLS
+void
+lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
+    int16_t *s3, int16_t *s4, int n)
+{
+  uint32_t val = *s4;
+
+  while (n&3) {
+    d[0] = s1[0] + ((s4[0]*(s2[0] + s3[0]))>>12);
+    d++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  val = ((*(uint16_t *)s4)<<16) | (*(uint16_t *)s4);
+  n>>=2;
+  asm volatile ("\n"
+      "  mov %4, %%ecx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  punpcklwd %%mm7, %%mm7\n"
+      "  mov %5, %%ecx\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  paddsw 0(%3), %%mm0\n"
+      "  movq %%mm0, %%mm1\n"
+      "  pmullw %%mm7, %%mm0\n"
+      "  pmulhw %%mm7, %%mm1\n"
+      "  psrlw $12, %%mm0\n"
+      "  psllw $4, %%mm1\n"
+      "  por %%mm1, %%mm0\n"
+      "  paddsw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  decl %%ecx\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  add $8, %3\n"
+      "  jne 1b\n"
+      "  emms\n"
+      : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
+      : "m" (val), "m" (n)
+      : "ecx");
+}
+OIL_DEFINE_IMPL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12);
+#endif
+

@@ -347,10 +347,14 @@ OIL_DEFINE_CLASS_FULL (lift_add_shift2,
     "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n", lift_test);
 OIL_DEFINE_CLASS_FULL (lift_sub_shift2,
     "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n", lift_test);
-OIL_DEFINE_CLASS_FULL (lift_add_mult,
-    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4_2, int n", lift_test);
-OIL_DEFINE_CLASS_FULL (lift_sub_mult,
-    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4_2, int n", lift_test);
+OIL_DEFINE_CLASS_FULL (lift_add_mult_shift12,
+    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4_1, int n", lift_test);
+OIL_DEFINE_CLASS_FULL (lift_sub_mult_shift12,
+    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4_1, int n", lift_test);
+OIL_DEFINE_CLASS_FULL (lift_add_135,
+    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int16_t *s5, int n", lift_test);
+OIL_DEFINE_CLASS_FULL (lift_sub_135,
+    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int16_t *s5, int n", lift_test);
 
 
 void
@@ -394,22 +398,45 @@ lift_sub_shift2_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
 OIL_DEFINE_IMPL_REF (lift_sub_shift2_ref, lift_sub_shift2);
 
 void
-lift_add_mult_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int n)
+lift_add_mult_shift12_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int n)
 {
   int i;
   for(i=0;i<n;i++) {
-    d[i] = s1[i] + ((s4[0]*s2[i] + s4[1]*s3[i])>>16);
+    d[i] = s1[i] + ((s4[0]*(s2[i] + s3[i]))>>12);
   }
 }
-OIL_DEFINE_IMPL_REF (lift_add_mult_ref, lift_add_mult);
+OIL_DEFINE_IMPL_REF (lift_add_mult_shift12_ref, lift_add_mult_shift12);
 
 void
-lift_sub_mult_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int n)
+lift_sub_mult_shift12_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4, int n)
 {
   int i;
   for(i=0;i<n;i++) {
-    d[i] = s1[i] + ((s4[0]*s2[i] + s4[1]*s3[i])>>16);
+    d[i] = s1[i] - ((s4[0]*(s2[i] + s3[i]))>>12);
   }
 }
-OIL_DEFINE_IMPL_REF (lift_sub_mult_ref, lift_sub_mult);
+OIL_DEFINE_IMPL_REF (lift_sub_mult_shift12_ref, lift_sub_mult_shift12);
+
+void
+lift_add_135_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3,
+    int16_t *s4, int16_t *s5, int n)
+{
+  int i;
+  for(i=0;i<n;i++) {
+    d[i] = s1[i] + ((9*(s3[i-1] + s4[i+1]) - (s2[i-3] + s5[i+3])) >> 4);
+  }
+}
+OIL_DEFINE_IMPL_REF (lift_add_135_ref, lift_add_135);
+
+void
+lift_sub_135_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3,
+    int16_t *s4, int16_t *s5, int n)
+{
+  int i;
+  for(i=0;i<n;i++) {
+    d[i] = s1[i] - ((9*(s3[i-1] + s4[i+1]) - (s2[i-3] + s5[i+3])) >> 4);
+  }
+}
+OIL_DEFINE_IMPL_REF (lift_sub_135_ref, lift_sub_135);
+
 

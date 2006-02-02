@@ -56,7 +56,6 @@ main (int argc, char *argv[])
       unsigned int flags = impl->flags;
 
       printf("%s:", impl->name);
-#ifdef HAVE_GCC_I386
       if (flags & OIL_IMPL_FLAG_SSE3) {
         flags |= OIL_IMPL_FLAG_SSE2;
       }
@@ -70,10 +69,7 @@ main (int argc, char *argv[])
       if (flags & OIL_IMPL_FLAG_MMXEXT) printf(" mmxext");
       if (flags & OIL_IMPL_FLAG_SSE) printf(" sse");
       if (flags & OIL_IMPL_FLAG_SSE2) printf(" sse2");
-#endif
-#ifdef HAVE_GCC_PPC
       if (flags & OIL_IMPL_FLAG_ALTIVEC) printf(" altivec");
-#endif
       printf("\n");
     }
   }

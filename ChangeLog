@@ -1,3 +1,17 @@
+2006-02-02  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilmarshal.c:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/wavelet.c:
+	  Revert wavelet stuff for release.
+	* testsuite/instruction/list-impls.c:
+	  Fixes for HAVE_arch macros from a few days ago.
+
 2006-01-30  David Schleef  <ds@schleef.org>
 
 	* testsuite/mmx_engine.c: Add SSE2
