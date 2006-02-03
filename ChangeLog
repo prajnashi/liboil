@@ -1,5 +1,11 @@
 2006-02-02  David Schleef  <ds@schleef.org>
 
+	* configure.ac: version bump
+
+=== 0.3.7 ===
+
+2006-02-02  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/wavelet.c:
 	* liboil/liboilclasses.h:
 	* liboil/liboilfuncs-04.h:
