@@ -33,8 +33,8 @@
 
 
 #define DEFINE_CLIPCONVERT_POWERPC(dsttype,srctype,minval,maxval,insn1,insn2)					\
-void clipconv_##dsttype##_##srctype##_powerpc(type_##dsttype *dst,	\
-	int dst_stride, type_##srctype *src, int src_stride, int n)		\
+void clipconv_##dsttype##_##srctype##_powerpc(oil_type_##dsttype *dst,	\
+	int dst_stride, oil_type_##srctype *src, int src_stride, int n)		\
 {									\
 	double min = (minval);						\
 	double max = (maxval);						\
