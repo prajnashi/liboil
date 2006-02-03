@@ -86,6 +86,8 @@ static void conv_f32_u16_bitstuff(float *dst, int dest_stride, const uint16_t *s
 }
 OIL_DEFINE_IMPL(conv_f32_u16_bitstuff, conv_f32_u16);
 
+#ifdef ENABLE_BROKEN_IMPLS
+/* This is intermittently broken on powerpc for unknown reasons */
 static void conv_f32_s16_bitstuff(float *dst, int dest_stride, const int16_t *src,
 	int src_stride, int n)
 {
@@ -102,6 +104,7 @@ static void conv_f32_s16_bitstuff(float *dst, int dest_stride, const int16_t *sr
 	}
 }
 OIL_DEFINE_IMPL(conv_f32_s16_bitstuff, conv_f32_s16);
+#endif
 
 
 #define signbit_S32(x) (((uint32_t)(x))>>31)
