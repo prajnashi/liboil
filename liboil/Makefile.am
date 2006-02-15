@@ -17,7 +17,7 @@ if HAVE_MMX_INTRINSICS
 SUBDIRS += fb mmx
 libs += fb/libfb.la mmx/libmmx.la
 endif
-if HAVE_SSE_INTRINSICS
+if HAVE_SSE2_INTRINSICS
 SUBDIRS += sse
 libs += sse/libsse.la
 endif

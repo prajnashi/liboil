@@ -1,3 +1,13 @@
+2006-02-15  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am:
+	  Require SSE2 intrinsics for sse/.  It likely only affects gcc-3.3
+	  although it should be fixed some day.
+	* liboil/i386/copy_i386.c:
+	  Disable some code that's being bad.
+	* m4/as-intrinsics.m4:
+	  Check for an intrinsic that's buggy in gcc-3.3.
+
 2006-02-03  David Schleef  <ds@schleef.org>
 
 	* liboil/conv/conv_bitstuff.c: Disable impl that is busted

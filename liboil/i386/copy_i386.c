@@ -91,6 +91,7 @@ copy_u8_mmx2 (uint8_t *dest, uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx2, copy_u8, OIL_IMPL_FLAG_MMX);
 
+#if 0
 static void
 copy_u8_mmx3 (uint8_t *dest, uint8_t *src, int n)
 {
@@ -156,7 +157,9 @@ copy_u8_mmx3 (uint8_t *dest, uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx3, copy_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 
+#if 0
 static void
 copy_u8_mmx4 (uint8_t *dest, uint8_t *src, int n)
 {
@@ -214,6 +217,7 @@ copy_u8_mmx4 (uint8_t *dest, uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL_FULL (copy_u8_mmx4, copy_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 
 static void
 copy_u8_mmx5 (uint8_t *dest, uint8_t *src, int n)
