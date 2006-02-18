@@ -52,7 +52,7 @@
  *
  */
 
-#if defined(__i386__) || defined(__amd64__)
+#if defined(__linux__) && (defined(__i386__) || defined(__amd64__))
 static char * get_cpuinfo_flags_string (char *cpuinfo);
 static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
@@ -60,7 +60,7 @@ static char * _strndup (const char *s, int n);
 
 static unsigned long oil_cpu_flags;
 
-#if defined(__i386__) || defined(__amd64__)
+#if defined(__linux__) && (defined(__i386__) || defined(__amd64__))
 static char *
 get_proc_cpuinfo (void)
 {
@@ -89,9 +89,7 @@ get_proc_cpuinfo (void)
 
   return cpuinfo;
 }
-#endif
 
-#if defined(__i386__) || defined(__amd64__)
 static void
 oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 {
@@ -143,6 +141,9 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
   free (cpuinfo);
   free (cpuinfo_flags);
 }
+#endif
+
+#if defined(__i386__) || defined(__amd64__)
 
 #ifdef __i386__
 static void
@@ -289,9 +290,9 @@ oil_cpu_i386_kernel_restrict_flags(void)
 static void
 oil_cpu_i386_getflags(void)
 {
+#ifdef __linux__
   char *cpuinfo;
 
-#ifdef __linux__
   cpuinfo = get_proc_cpuinfo();
   if (cpuinfo) {
     oil_cpu_i386_getflags_cpuinfo(cpuinfo);
@@ -372,7 +373,7 @@ oil_cpu_get_flags (void)
   return oil_cpu_flags;
 }
 
-#if defined(__i386__) || defined(__amd64__)
+#if defined(__linux__) && (defined(__i386__) || defined(__amd64__))
 static char *
 get_cpuinfo_flags_string (char *cpuinfo)
 {
