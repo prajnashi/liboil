@@ -36,7 +36,8 @@ c_sources = \
 	sum_f64.c \
 	swab.c \
 	trans8x8.c \
-	yuv.c
+	yuv.c \
+	wavelet.c
 
 libref_la_SOURCES = \
 	$(c_sources)
