@@ -1,5 +1,10 @@
 2006-03-20  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/mt19937.c: Add MMXEXT flag to functions that
+	  require it.  (Fixes #6060)
+
+2006-03-20  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilprofile.c: Detect what kind of ARM processor
 	  is being run on and select the correct profile function.
 	  (Fixes parts of #6077).  Fix s390 assembly (fixes #5822)

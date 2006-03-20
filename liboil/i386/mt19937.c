@@ -202,7 +202,7 @@ mt19937_i386_mmx_2 (uint32_t *d, uint32_t *mt)
       );
 
 }
-OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_2, mt19937, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_2, mt19937, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 
 static void
@@ -296,6 +296,6 @@ mt19937_i386_mmx_3 (uint32_t *d, uint32_t *mt)
       );
 
 }
-OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_3, mt19937, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_3, mt19937, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 
