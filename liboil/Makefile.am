@@ -14,12 +14,12 @@ endif
 endif
 
 if HAVE_MMX_INTRINSICS
-SUBDIRS += fb mmx
-libs += fb/libfb.la mmx/libmmx.la
+SUBDIRS += mmx
+libs += mmx/libmmx.la
 endif
 if HAVE_SSE2_INTRINSICS
-SUBDIRS += sse
-libs += sse/libsse.la
+SUBDIRS += fb sse
+libs += fb/libfb.la sse/libsse.la
 endif
 if HAVE_3DNOW_INTRINSICS
 #subdir_i386 += 3dnow
