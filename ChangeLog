@@ -1,5 +1,11 @@
 2006-03-20  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilprofile.c: Detect what kind of ARM processor
+	  is being run on and select the correct profile function.
+	  (Fixes parts of #6077).  Fix s390 assembly (fixes #5822)
+
+2006-03-20  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilprofile.c: Fix misspelling of XScale profile
 	  function (fixes #6076)
 

@@ -193,7 +193,7 @@ static unsigned long
 oil_profile_stamp_counter(void)
 {
 	uint64_t ts;
-	__asm__ __volatile__ ("STCK 0(%0)\n" : : "r" (&ts));
+	__asm__ __volatile__ ("STCK %0\n" : : "m" (ts));
 	return ts;
 }
 #endif
@@ -263,6 +263,8 @@ oil_profile_stamp (void)
 void
 _oil_profile_init (void)
 {
+  int gtod_warn = 1;
+
 #if defined(__i386__)
 #define have_tsc 1
   if (have_tsc) {
@@ -288,16 +290,33 @@ _oil_profile_init (void)
   _oil_profile_stamp = oil_profile_stamp_mips;
 #endif
 #if defined(__arm__)
-  if (0) {
-    /* need to detect XScale 255 */
-    _oil_profile_stamp = oil_profile_stamp_xscale255;
+  {
+    unsigned int id;
+    __asm__ __volatile__ (
+        "  mrc p15, 0, %0, c0, c0, 0 \n"
+        : "=r" (id));
+    switch(id >> 24) {
+      case 0x69: /* Intel */
+        /* assume that all Intel chips support CP14 timestamp */
+        _oil_profile_stamp = oil_profile_stamp_xscale255;
+        break;
+      case 0x41: /* ARM */
+        /* ARM chips are known to not have timestamping available from 
+         * user space */
+        gtod_warn = 0;
+        break;
+      default:
+        break;
+    }
   }
 #endif
 
 #ifdef HAVE_GETTIMEOFDAY
   if (_oil_profile_stamp == NULL) {
     _oil_profile_stamp = oil_profile_stamp_gtod;
-    OIL_ERROR("Using gettimeofday() as a timestamp function.  Please add a timestamp function for your platform.");
+    if (gtod_warn) {
+      OIL_ERROR("Using gettimeofday() as a timestamp function.  Please add a timestamp function for your platform.");
+    }
   }
 #endif
 
