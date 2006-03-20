@@ -1,3 +1,8 @@
+2006-03-20  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilprofile.c: Fix misspelling of XScale profile
+	  function (fixes #6076)
+
 2006-03-04  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/Makefile.am:

@@ -217,7 +217,7 @@ oil_profile_stamp_mips(void)
 #if defined(__arm__)
 /* untested */
 static unsigned long
-oil_profile_stamp_xcale255(void)
+oil_profile_stamp_xscale255(void)
 {
   unsigned int ts;
   /* this only works for XScale 255 */
