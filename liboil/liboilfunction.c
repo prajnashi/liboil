@@ -255,6 +255,8 @@ oil_impl_is_runnable (OilFunctionImpl *impl)
 
   if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
     return 0;
+  if (impl->flags & OIL_IMPL_FLAG_DISABLED)
+    return 0;
   return 1;
 }
 

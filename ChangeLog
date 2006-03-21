@@ -1,5 +1,10 @@
 2006-03-20  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilfunction.c: (oil_impl_is_runnable): Check if
+	  impl is disabled.
+
+2006-03-20  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am: Disable fb/ if SSE2 instrinsics aren't
 	  present.  Rather harsh, but it's uncommon and people should
 	  really be using a decent toolchain.  (Fixes #6067)
