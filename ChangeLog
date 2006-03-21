@@ -1,5 +1,13 @@
 2006-03-20  David Schleef  <ds@schleef.org>
 
+	* liboil/fb/fbmmx.c: Disabling fbCompositeSolid_nx8888mmx().
+	  I'm tired of it being randomly broken.
+	* liboil/liboilcpu.c: Changes some of the debug messages to
+	  produce a coherent story at OIL_DEBUG=3.
+	* liboil/liboilfunction.c: same
+
+2006-03-20  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilfunction.c: (oil_impl_is_runnable): Check if
 	  impl is disabled.
 

@@ -898,6 +898,8 @@ pack565 (__m64 pixel, __m64 target, int pos)
     return _mm_or_si64 (b, p);
 }
 
+#ifdef ENABLE_BROKEN_IMPLS
+/* broken.  See Debian bug #340932 */
 static void
 fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
 {
@@ -942,6 +944,7 @@ fbCompositeSolid_nx8888mmx (uint32_t *dst, uint32_t *src, int w)
 }
 OIL_DEFINE_IMPL_FULL(fbCompositeSolid_nx8888mmx, composite_over_argb_const_src,
     OIL_IMPL_FLAG_MMX| OIL_IMPL_FLAG_MMXEXT);
+#endif
 
 #if 0
 void

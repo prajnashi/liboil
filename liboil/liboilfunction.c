@@ -143,9 +143,9 @@ oil_init (void)
   oil_init_pointers ();
   oil_init_structs ();
 
-  oil_cpu_fault_check_enable ();
   oil_optimize_all ();
-  oil_cpu_fault_check_disable ();
+
+  OIL_INFO ("oil_init() finished");
 }
 
 /**
@@ -388,7 +388,7 @@ oil_class_optimize (OilFunctionClass * klass)
     return;
   }
 
-  OIL_DEBUG("chose implementation %s", min_impl->name);
+  OIL_DEBUG("choosing implementation %s", min_impl->name);
   klass->chosen_impl = min_impl;
   klass->func = min_impl->func;
 

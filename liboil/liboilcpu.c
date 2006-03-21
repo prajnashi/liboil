@@ -472,6 +472,8 @@ oil_cpu_fault_check_enable (void)
     oldhandler = signal (SIGILL, illegal_instruction_handler);
 #endif
     in_try_block = 0;
+    OIL_INFO("enabling SIGILL handler.  Make sure to continue past "
+        "any SIGILL signals caught by gdb.");
   }
   enable_level++;
 }
@@ -522,6 +524,7 @@ oil_cpu_fault_check_disable (void)
 #else
     signal (SIGILL, oldhandler);
 #endif
+    OIL_INFO("disabling SIGILL handler");
   }
 }
 
