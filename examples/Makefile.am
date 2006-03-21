@@ -1,8 +1,10 @@
 
 SUBDIRS = jpeg md5 uberopt work huffman taylor
 
-noinst_PROGRAMS = example1 oil-graph oil-inspect oil-test report memcpy-speed \
-	oil-suggest printcpu oil-mt19937
+bin_PROGRAMS = oil-bugreport
+
+noinst_PROGRAMS = example1 oil-graph oil-inspect oil-test memcpy-speed \
+	oil-suggest printcpu oil-mt19937 report
 
 
 example1_SOURCES = example1.c
@@ -24,6 +26,10 @@ oil_suggest_LDADD = $(LIBOIL_LIBS)
 oil_test_SOURCES = oil-test.c
 oil_test_CFLAGS = $(LIBOIL_CFLAGS)
 oil_test_LDADD = $(LIBOIL_LIBS)
+
+oil_bugreport_SOURCES = oil-bugreport.c
+oil_bugreport_CFLAGS = $(LIBOIL_CFLAGS)
+oil_bugreport_LDADD = $(LIBOIL_LIBS)
 
 report_SOURCES = report.c
 report_CFLAGS = $(LIBOIL_CFLAGS)

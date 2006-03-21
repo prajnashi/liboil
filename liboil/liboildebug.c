@@ -63,7 +63,6 @@ _oil_debug_init(void)
       _oil_debug_level = level;
     }
   }
-  _oil_debug_print_func = oil_debug_print_valist;
 
   OIL_INFO ("debug init");
 }

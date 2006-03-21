@@ -1,5 +1,11 @@
 2006-03-20  David Schleef  <ds@schleef.org>
 
+	* examples/Makefile.am: add oil-bugreport
+	* examples/oil-bugreport.c:
+	* liboil/liboildebug.c:
+
+2006-03-20  David Schleef  <ds@schleef.org>
+
 	* liboil/fb/fbmmx.c: Disabling fbCompositeSolid_nx8888mmx().
 	  I'm tired of it being randomly broken.
 	* liboil/liboilcpu.c: Changes some of the debug messages to
