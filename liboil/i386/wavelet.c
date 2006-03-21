@@ -183,7 +183,7 @@ deinterleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL (deinterleave_mmx, deinterleave);
+OIL_DEFINE_IMPL_FULL (deinterleave_mmx, deinterleave, OIL_IMPL_FLAG_MMX);
 
 void
 deinterleave_mmx_2 (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -217,7 +217,7 @@ deinterleave_mmx_2 (int16_t *d_2xn, int16_t *s_2xn, int n)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL (deinterleave_mmx_2, deinterleave);
+OIL_DEFINE_IMPL_FULL (deinterleave_mmx_2, deinterleave, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 void
 deinterleave_mmx_3 (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -257,7 +257,7 @@ deinterleave_mmx_3 (int16_t *d_2xn, int16_t *s_2xn, int n)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL (deinterleave_mmx_3, deinterleave);
+OIL_DEFINE_IMPL_FULL (deinterleave_mmx_3, deinterleave, OIL_IMPL_FLAG_MMX);
 
 void
 deinterleave_mmx_4 (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -307,7 +307,7 @@ deinterleave_mmx_4 (int16_t *d_2xn, int16_t *s_2xn, int n)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL (deinterleave_mmx_4, deinterleave);
+OIL_DEFINE_IMPL_FULL (deinterleave_mmx_4, deinterleave, OIL_IMPL_FLAG_MMX);
 
 void
 interleave_c (int16_t *d_2xn, int16_t *s_2xn, int n)
