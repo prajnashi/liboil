@@ -1,5 +1,11 @@
 2006-03-21  David Schleef  <ds@schleef.org>
 
+	* configure.ac: version 0.3.8
+	* doc/tmpl/liboildebug.sgml: gtk-doc wanted to change these
+	* doc/tmpl/liboilimpl-unstable.sgml:
+
+2006-03-21  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/wavelet.c: add mmx/mmxext flag to impls
 
 2006-03-20  David Schleef  <ds@schleef.org>
