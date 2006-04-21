@@ -64,7 +64,7 @@ _oil_debug_init(void)
     }
   }
 
-  OIL_INFO ("debug init");
+  OIL_INFO ("liboil-" VERSION " debug init");
 }
 
 static void

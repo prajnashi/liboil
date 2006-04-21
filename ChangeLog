@@ -1,3 +1,13 @@
+2006-04-21  David Schleef  <ds@schleef.org>
+
+	* Makefile.am:
+	* liboil/Makefile.am: dist various files
+	* liboil/liboildebug.c: debug fix
+	* liboil/liboilfunction.c: doc fix
+	* liboil/liboilcpu.c: move timestamp code here, since it depends
+	  closely on the cpu detection code.
+	* liboil/liboilprofile.c:
+
 2006-03-21  David Schleef  <ds@schleef.org>
 
 	* configure.ac: version 0.3.8

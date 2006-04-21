@@ -3,7 +3,7 @@ AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = liboil testsuite examples doc
 
-EXTRA_DIST = COPYING autogen.sh gtk-doc.make
+EXTRA_DIST = COPYING autogen.sh gtk-doc.make HACKING
 
 pkgconfig_DATA = liboil-$(LIBOIL_MAJORMINOR).pc
 

@@ -41,16 +41,6 @@
  * SECTION:liboilclass-unstable
  * @title:OilFunctionClass
  * @short_description: Functions for manipulating function classes
- */
-
-/**
- * SECTION:liboilimpl-unstable
- * @title:OilFunctionImpl
- * @short_description: Functions for manipulating function implementations.
- */
-
-/**
- * liboilfunction:long_description:
  *
  * <para>
  * Functions operate on arrays of data.  The arrays can be either source
@@ -94,6 +84,12 @@
  * </para>
  */
 
+/**
+ * SECTION:liboilimpl-unstable
+ * @title:OilFunctionImpl
+ * @short_description: Functions for manipulating function implementations.
+ */
+
 extern OilFunctionClass *_oil_function_class_array[];
 extern OilFunctionImpl *_oil_function_impl_array[];
 
@@ -106,7 +102,6 @@ static void oil_init_structs (void);
 static char * xstrdup (const char *s);
 
 void _oil_cpu_init (void);
-void _oil_profile_init (void);
 
 /**
  * SECTION:liboilinit
@@ -139,7 +134,6 @@ oil_init (void)
 
   _oil_debug_init ();
   _oil_cpu_init ();
-  _oil_profile_init ();
   oil_init_pointers ();
   oil_init_structs ();
 
@@ -165,7 +159,6 @@ oil_init_no_optimize (void)
 
   _oil_debug_init ();
   _oil_cpu_init ();
-  _oil_profile_init ();
   oil_init_pointers ();
   oil_init_structs ();
 }

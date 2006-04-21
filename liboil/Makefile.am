@@ -4,6 +4,8 @@ pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
 SUBDIRS = c colorspace conv copy dct jpeg math md5 ref simdpack utf8 deprecated
 
+EXTRA_DIST = README
+
 libs =
 
 if HAVE_I386
@@ -204,7 +206,7 @@ liboilmarshal.c:
 liboilfuncs-doc.h:
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 
-update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(EXEEXT) build_class_decls$(EXEEXT)
+update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(EXEEXT) build_class_decls$(EXEEXT) build_trampolines$(EXTEXT) build_prototypes_04$(EXTEXT)
 	./build_prototypes$(EXEEXT) >liboilfuncs.h
 	./build_marshal$(EXEEXT) >liboilmarshal.c
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
