@@ -1,5 +1,9 @@
 2006-04-21  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilcpu.c:  attempt to make it compile on arm
+
+2006-04-21  David Schleef  <ds@schleef.org>
+
 	* Makefile.am:
 	* liboil/Makefile.am: dist various files
 	* liboil/liboildebug.c: debug fix

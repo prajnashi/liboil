@@ -251,7 +251,6 @@ oil_cpu_get_ticks_per_second (void)
 
 #ifdef USE_CPUINFO
 static char * get_cpuinfo_line (char *cpuinfo, const char *tag);
-static char ** strsplit (char *s);
 static char * _strndup (const char *s, int n);
 
 char *
@@ -303,6 +302,26 @@ get_cpuinfo_line (char *cpuinfo, const char *tag)
   return _strndup (colon, end-colon);
 }
 
+static char *
+_strndup (const char *s, int n)
+{
+  char *r;
+  r = malloc (n+1);
+  memcpy(r,s,n);
+  r[n]=0;
+
+  return r;
+}
+#endif
+
+
+
+/***** i386, amd64 *****/
+
+#if defined(__i386__) || defined(__amd64__)
+
+#if 0
+#if defined(__linux__)
 static char **
 strsplit (char *s)
 {
@@ -327,26 +346,6 @@ strsplit (char *s)
   return list;
 }
 
-static char *
-_strndup (const char *s, int n)
-{
-  char *r;
-  r = malloc (n+1);
-  memcpy(r,s,n);
-  r[n]=0;
-
-  return r;
-}
-#endif
-
-
-
-/***** i386, amd64 *****/
-
-#if defined(__i386__) || defined(__amd64__)
-
-#if 0
-#if defined(__linux__)
 static void
 oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 {
@@ -354,7 +353,7 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
   char **flags;
   char **f;
 
-  cpuinfo_flags = get_cpuinfo_tag(cpuinfo, "flags");
+  cpuinfo_flags = get_cpuinfo_line(cpuinfo, "flags");
   if (cpuinfo_flags == NULL) {
     free (cpuinfo);
     return;
@@ -632,21 +631,20 @@ oil_cpu_detect_arm(void)
 #ifdef __linux__
   int arm_implementer;
   char *cpuinfo;
+  char *s;
 
   cpuinfo = get_proc_cpuinfo();
-  if (cpuinfo) {
-    oil_cpu_arm_getflags_cpuinfo(cpuinfo);
-  }
 
-  s = get_cpuinfo_tag(cpuinfo, "CPU implementer");
+  s = get_cpuinfo_line(cpuinfo, "CPU implementer");
   if (s) {
     arm_implementer = strtoul (s, NULL, 0);
+    free(s);
   }
 
   switch(arm_implementer) {
     case 0x69: /* Intel */
       /* assume that all Intel chips support CP14 timestamp */
-      _oil_profile_stamp = oil_profile_stamp_xscale255;
+      _oil_profile_stamp = oil_profile_stamp_xscale;
       break;
     case 0x41: /* ARM */
       /* ARM chips are known to not have timestamping available from 
