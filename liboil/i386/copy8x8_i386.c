@@ -37,8 +37,6 @@ static void
 copy8x8_u8_mmx (uint8_t *dest, int dstr, uint8_t *src, int sstr)
 {
   __asm__ __volatile__ (
-    "  .balign 16                      \n\t"
-
     "  lea         (%2, %2, 2), %%edi  \n\t"
 
     "  movq        (%1), %%mm0         \n\t"

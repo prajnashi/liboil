@@ -39,8 +39,6 @@ sad8x8_u8_avg_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uint8_
   uint32_t diff;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pcmpeqd     %%mm5, %%mm5     \n\t"	/* fefefefefefefefe in mm5 */
     "  paddb       %%mm5, %%mm5     \n\t"
    
@@ -106,7 +104,6 @@ sad8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, uin
   uint32_t  diff;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
     "  pxor %%mm7, %%mm7            \n\t" 	/* mm7 contains the result */
     "  mov $0x01010101, %%eax       \n\t"
     "  movd %%eax, %%mm6            \n\t"

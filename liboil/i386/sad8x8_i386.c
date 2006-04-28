@@ -40,7 +40,6 @@ sad8x8_u8_mmx (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   uint32_t diff;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
     "  pxor        %%mm6, %%mm6     \n\t"	/* zero out mm6 for unpack */
     "  pxor        %%mm7, %%mm7     \n\t" 	/* mm7 contains the result */
     ".rept 8                         \n\t"
@@ -89,7 +88,6 @@ sad8x8_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   uint32_t diff;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
     "  pxor %%mm7, %%mm7            \n\t" 	/* mm7 contains the result */
 
     ".rept 7                        \n\t"

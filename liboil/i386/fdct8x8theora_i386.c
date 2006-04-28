@@ -327,7 +327,6 @@ fdct8x8theora_mmx(int16_t *src, int16_t *dest)
   uint8_t *temp = (void *)(((unsigned long)align_tmp & ~0xf) + 0x10);
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
     /*
      * Input data is an 8x8 block.  To make processing of the data more efficent
      * we will transpose the block of data to two 4x8 blocks???

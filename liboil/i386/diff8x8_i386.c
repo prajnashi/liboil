@@ -40,8 +40,6 @@ static void
 diff8x8_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss2)
 {
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm7, %%mm7     \n\t" 
 
     ".rept 8                        \n\t"
@@ -82,8 +80,6 @@ diff8x8_const128_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1)
   const int16_t tmp[4] = { 0x0080, 0x0080, 0x0080, 0x0080 };
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm7, %%mm7     \n\t" 
     "  movq        (%3), %%mm1  \n\t"
 
@@ -117,8 +113,6 @@ static void
 diff8x8_average_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss2, uint8_t *src3)
 {
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm7, %%mm7     \n\t" 
 
     ".rept 8                        \n\t"

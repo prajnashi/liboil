@@ -44,8 +44,6 @@ static void
 recon8x8_intra_i386_mmx (uint8_t *dest, int ds, int16_t *change)
 {
   __asm__ __volatile__ (
-    "  .balign 16                      \n\t"
-
     "  movq        (%3), %%mm0       \n\t" /* Set mm0 to 0x8080808080808080 */
 
     "  lea         128(%1), %%edi      \n\t" /* Endpoint in input buffer */
@@ -79,8 +77,6 @@ recon8x8_inter_i386_mmx (uint8_t *dest, int ds, uint8_t *src, int ss, int16_t *c
 {
   /* FIXME doesn't handle ss */
   __asm__ __volatile__ (
-    "  .balign 16                      \n\t"
-
     "  pxor        %%mm0, %%mm0        \n\t"
     "  lea         128(%1), %%edi      \n\t"
 
@@ -119,8 +115,6 @@ recon8x8_inter2_i386_mmx (uint8_t *dest, int ds, uint8_t *s1, int ss1, uint8_t *
 {
   /* FIXME doesn't handle ss1, ss2 */
   __asm__ __volatile__ (
-    "  .balign 16                      \n\t"
-
     "  pxor        %%mm0, %%mm0        \n\t"
     "  lea         128(%1), %%edi      \n\t"
 

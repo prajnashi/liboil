@@ -40,8 +40,6 @@ rowsad8x8_u8_mmx (uint32_t *dest, uint8_t *src1, uint8_t *src2)
   uint32_t MaxSad;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm6, %%mm6     \n\t"	/* zero out mm6 for unpack */
     "  pxor        %%mm7, %%mm7     \n\t" 	/* zero out mm7 for unpack */
     "  movq        (%1), %%mm0      \n\t"	/* take 8 bytes */
@@ -92,8 +90,6 @@ rowsad8x8_u8_mmxext (uint32_t *dest, uint8_t *src1, uint8_t *src2)
   uint32_t MaxSad;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  movd        (%1), %%mm0      \n\t"
     "  movd        (%2), %%mm1      \n\t"
     "  psadbw      %%mm0, %%mm1     \n\t"
@@ -122,8 +118,6 @@ colsad8x8_u8_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss2
   uint32_t MaxSad;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm3, %%mm3     \n\t"	/* zero out mm3 for unpack */
     "  pxor        %%mm4, %%mm4     \n\t"	/* mm4 low sum */
     "  pxor        %%mm5, %%mm5     \n\t" 	/* mm5 high sum */
@@ -205,8 +199,6 @@ colsad8x8_u8_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int 
   uint32_t MaxSad;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm3, %%mm3     \n\t"	/* zero out mm3 for unpack */
     "  pxor        %%mm4, %%mm4     \n\t"	/* mm4 low sum */
     "  pxor        %%mm5, %%mm5     \n\t" 	/* mm5 high sum */

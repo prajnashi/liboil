@@ -1,3 +1,14 @@
+2006-04-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/copy8x8_i386.c: Remove .balign directives
+	* liboil/i386/diff8x8_i386.c:
+	* liboil/i386/error8x8_i386.c:
+	* liboil/i386/fdct8x8theora_i386.c:
+	* liboil/i386/recon8x8_i386.c:
+	* liboil/i386/rowcolsad8x8_i386.c:
+	* liboil/i386/sad8x8_i386.c:
+	* liboil/i386/sad8x8avg_i386.c:
+
 2006-04-21  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c:  attempt to make it compile on arm

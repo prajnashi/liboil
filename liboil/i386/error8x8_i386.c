@@ -42,8 +42,6 @@ err_intra8x8_u8_mmx (uint32_t *dest, uint8_t *src1, int ss1)
   uint32_t  xxsum;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm5, %%mm5     \n\t"
     "  pxor        %%mm6, %%mm6     \n\t"
     "  pxor        %%mm7, %%mm7     \n\t"
@@ -104,8 +102,6 @@ err_inter8x8_u8_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int 
   uint32_t  xxsum;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm5, %%mm5     \n\t"
     "  pxor        %%mm6, %%mm6     \n\t"
     "  pxor        %%mm7, %%mm7     \n\t"
@@ -176,8 +172,6 @@ err_inter8x8_u8_avg_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, 
   uint32_t xxsum;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pcmpeqd     %%mm4, %%mm4     \n\t"	/* fefefefefefefefe in mm4 */
     "  paddb       %%mm4, %%mm4     \n\t"
     "  pxor        %%mm5, %%mm5     \n\t"
@@ -263,8 +257,6 @@ err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src
   uint32_t xxsum;
 
   __asm__ __volatile__ (
-    "  .balign 16                   \n\t"
-
     "  pxor        %%mm4, %%mm4     \n\t"
     "  pxor        %%mm5, %%mm5     \n\t"
     "  mov $0x01010101, %%edi \n\t"
