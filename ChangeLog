@@ -1,3 +1,8 @@
+2006-05-04  David Schleef  <ds@schleef.org>
+
+	* liboil/utf8/utf8_fast.c: Make some code dependent on unaligned
+	access.
+
 2006-04-28  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/copy8x8_i386.c: Remove .balign directives

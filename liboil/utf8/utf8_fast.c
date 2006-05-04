@@ -33,6 +33,7 @@
 #include "liboil/utf8/utf8.h"
 
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 utf8_validate_fast (int32_t *d_1, uint8_t *s, int n)
 {
@@ -74,6 +75,7 @@ error:
   d_1[0] = i;
 }
 OIL_DEFINE_IMPL (utf8_validate_fast, utf8_validate);
+#endif
 
 static void
 utf8_validate_fast2 (int32_t *d_1, uint8_t *s, int n)
@@ -130,6 +132,7 @@ error:
 }
 OIL_DEFINE_IMPL (utf8_validate_fast2, utf8_validate);
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 utf8_validate_fast3 (int32_t *d_1, uint8_t *s, int n)
 {
@@ -184,6 +187,7 @@ error:
   d_1[0] = i;
 }
 OIL_DEFINE_IMPL (utf8_validate_fast3, utf8_validate);
+#endif
 
 static uint8_t utf8_table[256] = {
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
