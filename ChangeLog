@@ -1,3 +1,10 @@
+2006-05-19  David Schleef  <ds@schleef.org>
+
+	* liboil/deprecated/conv.c: Fix the test function on conv_ functions,
+	  since it was testing convertion of negative numbers to unsigned
+	  ints.
+	* liboil/ref/convert.c: same
+
 2006-05-18  David Schleef  <ds@schleef.org>
 
 	* m4/as-intrinsics.m4: Fix SSE2 check.  (Fixes #6714)

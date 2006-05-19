@@ -109,7 +109,11 @@ convert_float_test (OilTest *test)
             ((float *)data)[i] = oil_rand_f32() * (max - min) + min;
             break;
           case 1:
-            ((float *)data)[i] = (oil_rand_f32() - 0.5) * 10;
+            if (min < 0) {
+              ((float *)data)[i] = (oil_rand_f32() - 0.5) * 10;
+            } else {
+              ((float *)data)[i] = oil_rand_f32() * 10;
+            }
             break;
         }
       }

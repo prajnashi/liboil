@@ -115,8 +115,12 @@ conv_test (OilTest *test)
               oil_rand_f32() * (max - min) + min;
             break;
           case 1:
-            OIL_GET(data, stride * i, float) =
-              (oil_rand_f32() - 0.5) * 10;
+            if (min < 0) {
+              OIL_GET(data, stride * i, float) =
+                (oil_rand_f32() - 0.5) * 10;
+            } else {
+              OIL_GET(data, stride * i, float) = oil_rand_f32() * 10;
+            }
             break;
         }
       }
