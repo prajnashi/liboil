@@ -1,3 +1,9 @@
+2006-05-18  David Schleef  <ds@schleef.orog>
+
+	* configure.ac: Remove -O2
+	* liboil/liboilcpu.c: (oil_cpu_detect_arch): use __ppc__ and __PPC__
+	  instead of __powerpc__, which is not supported on OS/X.
+
 2006-05-04  David Schleef  <ds@schleef.org>
 
 	* liboil/utf8/utf8_fast.c: Make some code dependent on unaligned
