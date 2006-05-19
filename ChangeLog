@@ -1,5 +1,9 @@
 2006-05-18  David Schleef  <ds@schleef.org>
 
+	* m4/as-intrinsics.m4: Fix SSE2 check.  (Fixes #6714)
+
+2006-05-18  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilcpu.c: (oil_cpu_detect_arch): Oops, fix compile bug
 	  from last checkin.
 	* liboil/simdpack/multsum.c: (multsum_f64_unroll8):
