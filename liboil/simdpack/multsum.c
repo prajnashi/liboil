@@ -55,3 +55,47 @@ static void multsum_f32_unroll2 (float *dest, float *src1, int sstr1,
 }
 OIL_DEFINE_IMPL (multsum_f32_unroll2, multsum_f32);
 
+
+static void multsum_f64_unroll8 (double *dest, double *src1, int sstr1,
+    double *src2, int sstr2, int n)
+{
+  int i = 0;
+  double sum = 0;
+
+  while(i<n-7) {
+    sum += (OIL_GET(src1,0, double) * OIL_GET(src2,0, double)) +
+           (OIL_GET(src1,sstr1, double) * OIL_GET(src2,sstr2, double)) +
+           (OIL_GET(src1,2*sstr1, double) * OIL_GET(src2,2*sstr2, double)) +
+           (OIL_GET(src1,3*sstr1, double) * OIL_GET(src2,3*sstr2, double)) +
+           (OIL_GET(src1,4*sstr1, double) * OIL_GET(src2,4*sstr2, double)) +
+           (OIL_GET(src1,5*sstr1, double) * OIL_GET(src2,5*sstr2, double)) +
+           (OIL_GET(src1,6*sstr1, double) * OIL_GET(src2,6*sstr2, double)) +
+           (OIL_GET(src1,7*sstr1, double) * OIL_GET(src2,7*sstr2, double));
+    OIL_INCREMENT (src1, sstr1*8);
+    OIL_INCREMENT (src2, sstr2*8);
+    i+=8;
+  }
+  while(i<n-3) {
+    sum += (OIL_GET(src1,0, double) * OIL_GET(src2,0, double)) +
+           (OIL_GET(src1,sstr1, double) * OIL_GET(src2,sstr2, double)) +
+           (OIL_GET(src1,2*sstr1, double) * OIL_GET(src2,2*sstr2, double)) +
+           (OIL_GET(src1,3*sstr1, double) * OIL_GET(src2,3*sstr2, double));
+    OIL_INCREMENT (src1, sstr1*4);
+    OIL_INCREMENT (src2, sstr2*4);
+    i+=4;
+  }
+  while(i<n-1) {
+    sum += (OIL_GET(src1,0, double) * OIL_GET(src2,0, double)) +
+           (OIL_GET(src1,sstr1, double) * OIL_GET(src2,sstr2, double));
+    OIL_INCREMENT (src1, sstr1*2);
+    OIL_INCREMENT (src2, sstr2*2);
+    i+=2;
+  }
+  if (i<n) {
+    sum += OIL_GET(src1,0, double) * OIL_GET(src2,0, double);
+  }
+
+  *dest = sum;
+}
+OIL_DEFINE_IMPL (multsum_f64_unroll8, multsum_f64);
+

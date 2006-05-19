@@ -577,7 +577,7 @@ oil_cpu_detect_i386(void)
 
 /***** powerpc *****/
 
-#if defined(__powerpc__) || defined(__PPC__) || defined(__ppc__))
+#if defined(__powerpc__) || defined(__PPC__) || defined(__ppc__)
 static unsigned long
 oil_profile_stamp_tb(void)
 {
@@ -746,7 +746,7 @@ oil_cpu_detect_arch(void)
 #ifdef __i386__
   oil_cpu_detect_i386();
 #endif
-#if defined(__powerpc__) || defined(__PPC__) || defined(__ppc__))
+#if defined(__powerpc__) || defined(__PPC__) || defined(__ppc__)
   oil_cpu_detect_powerpc();
 #endif
 #ifdef __arm__

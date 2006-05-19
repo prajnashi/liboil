@@ -9,6 +9,7 @@ libsse_la_SOURCES = \
 	copy_sse.c \
 	math_sse.c \
 	math_sse_unroll2.c \
+	multsum_sse.c \
 	sad8x8_sse.c \
 	splat_sse.c
 

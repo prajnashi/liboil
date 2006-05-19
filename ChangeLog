@@ -1,3 +1,13 @@
+2006-05-18  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: (oil_cpu_detect_arch): Oops, fix compile bug
+	  from last checkin.
+	* liboil/simdpack/multsum.c: (multsum_f64_unroll8):
+	* liboil/sse/multsum_sse.c: New file.
+	* liboil/sse/Makefile.am:
+	  Patch from Marcus Brubaker adding some multsum_f64 impls.
+	  (Fixes #6957)
+
 2006-05-18  David Schleef  <ds@schleef.orog>
 
 	* configure.ac: Remove -O2
