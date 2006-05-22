@@ -51,6 +51,7 @@ copy_u8_ptr (uint8_t *dest, const uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL (copy_u8_ptr, copy_u8);
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 copy_u8_ints (uint8_t *dest, const uint8_t *src, int n)
 {
@@ -66,7 +67,9 @@ copy_u8_ints (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (copy_u8_ints, copy_u8);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 /* Submitted by Adam Moss */
 static void
 copy_u8_llints (uint8_t *dest, const uint8_t *src, int n)
@@ -83,7 +86,9 @@ copy_u8_llints (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (copy_u8_llints, copy_u8);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 /* Submitted by Adam Moss */
 static void
 copy_u8_llints_duff (uint8_t *dest, const uint8_t *src, int n)
@@ -123,4 +128,5 @@ copy_u8_llints_duff (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (copy_u8_llints_duff, copy_u8);
+#endif
 

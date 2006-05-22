@@ -33,6 +33,7 @@
 
 OIL_DECLARE_CLASS (copy8x8_u8);
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 copy8x8_u8_ints (uint8_t *d1, int ds, const uint8_t *s1, int ss)
 {
@@ -46,8 +47,9 @@ copy8x8_u8_ints (uint8_t *d1, int ds, const uint8_t *s1, int ss)
   }
 }
 OIL_DEFINE_IMPL (copy8x8_u8_ints, copy8x8_u8);
+#endif
 
-/* FIXME this fails on cpus that require aligned read/writes */
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 copy8x8_u8_ints_unrolled (uint8_t *d1, int ds, const uint8_t *s1, int ss)
 {
@@ -76,4 +78,5 @@ copy8x8_u8_ints_unrolled (uint8_t *d1, int ds, const uint8_t *s1, int ss)
   ((uint32_t*)d1)[1] = ((uint32_t*)s1)[1];
 }
 OIL_DEFINE_IMPL (copy8x8_u8_ints_unrolled, copy8x8_u8);
+#endif
 

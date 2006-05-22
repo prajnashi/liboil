@@ -1,3 +1,12 @@
+2006-05-22  David Schleef  <ds@schleef.org>
+
+	* liboil/c/composite.c:
+	* liboil/copy/copy.c:
+	* liboil/copy/copy8x8.c:
+	* liboil/copy/splat_ref.c:
+	  Wrap a bunch of functions in HAVE_UNALIGNED_ACCESS to fix
+	  alignment issues (Fixes: #6969)
+
 2006-05-19  David Schleef  <ds@schleef.org>
 
 	* liboil/deprecated/conv.c: Fix the test function on conv_ functions,

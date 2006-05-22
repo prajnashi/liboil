@@ -98,6 +98,7 @@ static void splat_u8_ns_memset (uint8_t *dest, const uint8_t *param, int n)
 }
 OIL_DEFINE_IMPL(splat_u8_ns_memset, splat_u8_ns);
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void splat_u8_ns_int (uint8_t *dest, const uint8_t *param, int n)
 {
   int p;
@@ -115,7 +116,9 @@ static void splat_u8_ns_int (uint8_t *dest, const uint8_t *param, int n)
   }
 }
 OIL_DEFINE_IMPL(splat_u8_ns_int, splat_u8_ns);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void splat_u8_ns_int2 (uint8_t *dest, const uint8_t *param, int n)
 {
   uint32_t p;
@@ -134,7 +137,9 @@ static void splat_u8_ns_int2 (uint8_t *dest, const uint8_t *param, int n)
   }
 }
 OIL_DEFINE_IMPL(splat_u8_ns_int2, splat_u8_ns);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void splat_u8_ns_int4 (uint8_t *dest, const uint8_t *param, int n)
 {
   uint32_t p;
@@ -155,6 +160,7 @@ static void splat_u8_ns_int4 (uint8_t *dest, const uint8_t *param, int n)
   }
 }
 OIL_DEFINE_IMPL(splat_u8_ns_int4, splat_u8_ns);
+#endif
 
 
 

@@ -423,6 +423,7 @@ composite_in_over_argb_const_mask_fast (uint32_t *dest, const uint32_t *src,
 OIL_DEFINE_IMPL (composite_in_over_argb_const_mask_fast,
     composite_in_over_argb_const_mask);
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 composite_add_u8_fast (uint8_t *dest, const uint8_t *src, int n)
 {
@@ -454,7 +455,9 @@ composite_add_u8_fast (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (composite_add_u8_fast, composite_add_u8);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 composite_add_u8_const_src_fast (uint8_t *dest, const uint8_t *src, int n)
 {
@@ -485,7 +488,9 @@ composite_add_u8_const_src_fast (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (composite_add_u8_const_src_fast, composite_add_u8_const_src);
+#endif
 
+#ifdef HAVE_UNALIGNED_ACCESS
 static void
 composite_over_u8_fast (uint8_t *dest, const uint8_t *src, int n)
 {
@@ -529,3 +534,4 @@ composite_over_u8_fast (uint8_t *dest, const uint8_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL (composite_over_u8_fast, composite_over_u8);
+#endif
