@@ -1,5 +1,11 @@
 2006-05-22  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/abs_i386.c:
+	* liboil/i386/error8x8_i386.c:
+	  Change movsx opcodes to something more AT&T-like.
+
+2006-05-22  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/diff8x8_i386.c: remove .rept macro, since it isn't
 	  portable.
 	* liboil/i386/sad8x8_i386.c: same

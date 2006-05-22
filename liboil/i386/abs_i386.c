@@ -112,7 +112,7 @@ abs_u16_s16_i386asm3 (uint16_t * dest, int dstr, int16_t * src, int sstr, int n)
 {
   __asm__ __volatile__ ("\n"
       "	.p2align 4,,15			\n"
-      "1:  movsxw (%1), %%eax           \n"
+      "1:  movswl (%1), %%eax           \n"
       "    add %3, %1                   \n"
       "    mov %%eax, %%edx             \n"
       "    sar $0xf, %%ax               \n"

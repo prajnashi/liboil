@@ -74,7 +74,7 @@ err_intra8x8_u8_mmx (uint32_t *dest, uint8_t *src1, int ss1)
     "  psrlq       $16, %%mm5       \n\t"
     "  paddw       %%mm0, %%mm5     \n\t"
     "  movd        %%mm5, %%edi     \n\t"
-    "  movsx       %%di, %%edi      \n\t"
+    "  movswl       %%di, %%edi      \n\t"
     "  movl        %%edi, %0        \n\t"
 
     "  movq        %%mm7, %%mm0     \n\t"
@@ -142,7 +142,7 @@ err_inter8x8_u8_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int 
     "  psrlq       $16, %%mm5       \n\t"
     "  paddw       %%mm0, %%mm5     \n\t"
     "  movd        %%mm5, %%edi     \n\t"
-    "  movsx       %%di, %%edi      \n\t"
+    "  movswl       %%di, %%edi      \n\t"
     "  movl        %%edi, %0        \n\t"
 
     "  movq        %%mm7, %%mm0     \n\t"
@@ -224,7 +224,7 @@ err_inter8x8_u8_avg_mmx (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src2, 
     "  psrlq       $16, %%mm5       \n\t"
     "  paddw       %%mm0, %%mm5     \n\t"
     "  movd        %%mm5, %%edi     \n\t"
-    "  movsx       %%di, %%edi      \n\t"
+    "  movswl       %%di, %%edi      \n\t"
     "  movl        %%edi, %0        \n\t"
 
     "  movq        %%mm7, %%mm0     \n\t"
@@ -309,7 +309,7 @@ err_inter8x8_u8_avg_mmxext (uint32_t *dest, uint8_t *src1, int ss1, uint8_t *src
     "  psrlq       $16, %%mm5       \n\t"
     "  paddw       %%mm0, %%mm5     \n\t"
     "  movd        %%mm5, %%edi     \n\t"
-    "  movsx       %%di, %%edi      \n\t"
+    "  movswl       %%di, %%edi      \n\t"
     "  movl        %%edi, %0        \n\t"
 
     "  movq        %%mm7, %%mm0     \n\t"
