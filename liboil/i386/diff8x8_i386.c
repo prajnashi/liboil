@@ -42,26 +42,36 @@ diff8x8_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2, int ss
   __asm__ __volatile__ (
     "  pxor        %%mm7, %%mm7     \n\t" 
 
-    ".rept 8                        \n\t"
-    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */
-    "  movq        (%1), %%mm1      \n\t" /* mm1 = ReconPtr */
-    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */
-    "  movq        %%mm1, %%mm3     \n\t" /* dup to prepare for up conversion */
-    /* convert from UINT8 to INT16 */
-    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */
-    "  punpcklbw   %%mm7, %%mm1     \n\t" /* mm1 = INT16(ReconPtr) */
-    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */
-    "  punpckhbw   %%mm7, %%mm3     \n\t" /* mm3 = INT16(ReconPtr) */
-    /* start calculation */
-    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - ReconPtr */
-    "  psubw       %%mm3, %%mm2     \n\t" /* mm2 = FiltPtr - ReconPtr */
-    "  movq        %%mm0,  (%2)     \n\t" /* write answer out */
-    "  movq        %%mm2, 8(%2)     \n\t" /* write answer out */
-    /* Increment pointers */
-    "  add         $16, %2          \n\t"
-    "  add         %3, %0           \n\t"
+#define LOOP \
+    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */ \
+    "  movq        (%1), %%mm1      \n\t" /* mm1 = ReconPtr */ \
+    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */ \
+    "  movq        %%mm1, %%mm3     \n\t" /* dup to prepare for up conversion */ \
+    /* convert from UINT8 to INT16 */ \
+    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */ \
+    "  punpcklbw   %%mm7, %%mm1     \n\t" /* mm1 = INT16(ReconPtr) */ \
+    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */ \
+    "  punpckhbw   %%mm7, %%mm3     \n\t" /* mm3 = INT16(ReconPtr) */ \
+    /* start calculation */ \
+    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - ReconPtr */ \
+    "  psubw       %%mm3, %%mm2     \n\t" /* mm2 = FiltPtr - ReconPtr */ \
+    "  movq        %%mm0,  (%2)     \n\t" /* write answer out */ \
+    "  movq        %%mm2, 8(%2)     \n\t" /* write answer out */ \
+    /* Increment pointers */ \
+    "  add         $16, %2          \n\t" \
+    "  add         %3, %0           \n\t" \
     "  add         %4, %1           \n\t"
-    ".endr                          \n\t"
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
+
     "  emms                         \n\t"
 
      : "+r" (src1),
@@ -83,21 +93,31 @@ diff8x8_const128_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1)
     "  pxor        %%mm7, %%mm7     \n\t" 
     "  movq        (%3), %%mm1  \n\t"
 
-    ".rept 8                        \n\t"
-    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */
-    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */
-    /* convert from UINT8 to INT16 */
-    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */
-    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */
-    /* start calculation */
-    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - 128 */
-    "  psubw       %%mm1, %%mm2     \n\t" /* mm2 = FiltPtr - 128 */
-    "  movq        %%mm0,  (%1)     \n\t" /* write answer out */
-    "  movq        %%mm2, 8(%1)     \n\t" /* write answer out */
-    /* Increment pointers */
-    "  add         $16, %1           \n\t"
+#define LOOP \
+    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */ \
+    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */ \
+    /* convert from UINT8 to INT16 */ \
+    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */ \
+    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */ \
+    /* start calculation */ \
+    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - 128 */ \
+    "  psubw       %%mm1, %%mm2     \n\t" /* mm2 = FiltPtr - 128 */ \
+    "  movq        %%mm0,  (%1)     \n\t" /* write answer out */ \
+    "  movq        %%mm2, 8(%1)     \n\t" /* write answer out */ \
+    /* Increment pointers */ \
+    "  add         $16, %1           \n\t" \
     "  add         %2, %0           \n\t"
-    ".endr                          \n\t"
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
+
     "  emms                         \n\t"
 
      : "+r" (src1),
@@ -115,35 +135,45 @@ diff8x8_average_s16_u8_mmx (int16_t *dest, uint8_t *src1, int ss1, uint8_t *src2
   __asm__ __volatile__ (
     "  pxor        %%mm7, %%mm7     \n\t" 
 
-    ".rept 8                        \n\t"
-    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */
-    "  movq        (%1), %%mm1      \n\t" /* mm1 = ReconPtr1 */
-    "  movq        (%2), %%mm4      \n\t" /* mm1 = ReconPtr2 */
-    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */
-    "  movq        %%mm1, %%mm3     \n\t" /* dup to prepare for up conversion */
-    "  movq        %%mm4, %%mm5     \n\t" /* dup to prepare for up conversion */
-    /* convert from UINT8 to INT16 */
-    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */
-    "  punpcklbw   %%mm7, %%mm1     \n\t" /* mm1 = INT16(ReconPtr1) */
-    "  punpcklbw   %%mm7, %%mm4     \n\t" /* mm1 = INT16(ReconPtr2) */
-    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */
-    "  punpckhbw   %%mm7, %%mm3     \n\t" /* mm3 = INT16(ReconPtr1) */
-    "  punpckhbw   %%mm7, %%mm5     \n\t" /* mm3 = INT16(ReconPtr2) */
-    /* average ReconPtr1 and ReconPtr2 */
-    "  paddw       %%mm4, %%mm1     \n\t" /* mm1 = ReconPtr1 + ReconPtr2 */
-    "  paddw       %%mm5, %%mm3     \n\t" /* mm3 = ReconPtr1 + ReconPtr2 */
-    "  psrlw       $1, %%mm1        \n\t" /* mm1 = (ReconPtr1 + ReconPtr2) / 2 */
-    "  psrlw       $1, %%mm3        \n\t" /* mm3 = (ReconPtr1 + ReconPtr2) / 2 */
-    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - ((ReconPtr1 + ReconPtr2) / 2) */
-    "  psubw       %%mm3, %%mm2     \n\t" /* mm2 = FiltPtr - ((ReconPtr1 + ReconPtr2) / 2) */
-    "  movq        %%mm0,  (%3)     \n\t" /* write answer out */
-    "  movq        %%mm2, 8(%3)     \n\t" /* write answer out */
-    /* Increment pointers */
-    "  add         $16, %3           \n\t"
-    "  add         %4, %0           \n\t"
-    "  add         %5, %1           \n\t"
+#define LOOP \
+    "  movq        (%0), %%mm0      \n\t" /* mm0 = FiltPtr */ \
+    "  movq        (%1), %%mm1      \n\t" /* mm1 = ReconPtr1 */ \
+    "  movq        (%2), %%mm4      \n\t" /* mm1 = ReconPtr2 */ \
+    "  movq        %%mm0, %%mm2     \n\t" /* dup to prepare for up conversion */ \
+    "  movq        %%mm1, %%mm3     \n\t" /* dup to prepare for up conversion */ \
+    "  movq        %%mm4, %%mm5     \n\t" /* dup to prepare for up conversion */ \
+    /* convert from UINT8 to INT16 */ \
+    "  punpcklbw   %%mm7, %%mm0     \n\t" /* mm0 = INT16(FiltPtr) */ \
+    "  punpcklbw   %%mm7, %%mm1     \n\t" /* mm1 = INT16(ReconPtr1) */ \
+    "  punpcklbw   %%mm7, %%mm4     \n\t" /* mm1 = INT16(ReconPtr2) */ \
+    "  punpckhbw   %%mm7, %%mm2     \n\t" /* mm2 = INT16(FiltPtr) */ \
+    "  punpckhbw   %%mm7, %%mm3     \n\t" /* mm3 = INT16(ReconPtr1) */ \
+    "  punpckhbw   %%mm7, %%mm5     \n\t" /* mm3 = INT16(ReconPtr2) */ \
+    /* average ReconPtr1 and ReconPtr2 */ \
+    "  paddw       %%mm4, %%mm1     \n\t" /* mm1 = ReconPtr1 + ReconPtr2 */ \
+    "  paddw       %%mm5, %%mm3     \n\t" /* mm3 = ReconPtr1 + ReconPtr2 */ \
+    "  psrlw       $1, %%mm1        \n\t" /* mm1 = (ReconPtr1 + ReconPtr2) / 2 */ \
+    "  psrlw       $1, %%mm3        \n\t" /* mm3 = (ReconPtr1 + ReconPtr2) / 2 */ \
+    "  psubw       %%mm1, %%mm0     \n\t" /* mm0 = FiltPtr - ((ReconPtr1 + ReconPtr2) / 2) */ \
+    "  psubw       %%mm3, %%mm2     \n\t" /* mm2 = FiltPtr - ((ReconPtr1 + ReconPtr2) / 2) */ \
+    "  movq        %%mm0,  (%3)     \n\t" /* write answer out */ \
+    "  movq        %%mm2, 8(%3)     \n\t" /* write answer out */ \
+    /* Increment pointers */ \
+    "  add         $16, %3           \n\t" \
+    "  add         %4, %0           \n\t" \
+    "  add         %5, %1           \n\t" \
     "  add         %5, %2           \n\t"
-    ".endr                          \n\t"
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
+
     "  emms                         \n\t"
 
      : "+r" (src1),

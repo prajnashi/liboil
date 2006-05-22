@@ -1,5 +1,11 @@
 2006-05-22  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/diff8x8_i386.c: remove .rept macro, since it isn't
+	  portable.
+	* liboil/i386/sad8x8_i386.c: same
+
+2006-05-22  David Schleef  <ds@schleef.org>
+
 	* liboil/c/composite.c:
 	* liboil/copy/copy.c:
 	* liboil/copy/copy8x8.c:

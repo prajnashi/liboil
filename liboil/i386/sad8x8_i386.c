@@ -42,23 +42,33 @@ sad8x8_u8_mmx (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   __asm__ __volatile__ (
     "  pxor        %%mm6, %%mm6     \n\t"	/* zero out mm6 for unpack */
     "  pxor        %%mm7, %%mm7     \n\t" 	/* mm7 contains the result */
-    ".rept 8                         \n\t"
-    "  movq        (%1), %%mm0      \n\t"	/* take 8 bytes */
-    "  movq        (%2), %%mm1      \n\t"
-    "  movq        %%mm0, %%mm2     \n\t"
 
-    "  psubusb     %%mm1, %%mm0     \n\t" 	/* A - B */
-    "  psubusb     %%mm2, %%mm1     \n\t"	/* B - A */
-    "  por         %%mm1, %%mm0     \n\t"      	/* and or gives abs difference */
-    "  movq        %%mm0, %%mm1     \n\t"
-
-    "  punpcklbw   %%mm6, %%mm0     \n\t"	/* unpack to higher precision for accumulation */
-    "  paddw       %%mm0, %%mm7     \n\t"	/* accumulate difference... */
-    "  punpckhbw   %%mm6, %%mm1     \n\t"	/* unpack high four bytes to higher precision */
-    "  add         %3, %1           \n\t"	/* Inc pointer into the new data */
-    "  paddw       %%mm1, %%mm7     \n\t"	/* accumulate difference... */
+#define LOOP \
+    "  movq        (%1), %%mm0      \n\t"	/* take 8 bytes */ \
+    "  movq        (%2), %%mm1      \n\t" \
+    "  movq        %%mm0, %%mm2     \n\t" \
+ \
+    "  psubusb     %%mm1, %%mm0     \n\t" 	/* A - B */ \
+    "  psubusb     %%mm2, %%mm1     \n\t"	/* B - A */ \
+    "  por         %%mm1, %%mm0     \n\t"      	/* and or gives abs difference */ \
+    "  movq        %%mm0, %%mm1     \n\t" \
+ \
+    "  punpcklbw   %%mm6, %%mm0     \n\t"	/* unpack to higher precision for accumulation */ \
+    "  paddw       %%mm0, %%mm7     \n\t"	/* accumulate difference... */ \
+    "  punpckhbw   %%mm6, %%mm1     \n\t"	/* unpack high four bytes to higher precision */ \
+    "  add         %3, %1           \n\t"	/* Inc pointer into the new data */ \
+    "  paddw       %%mm1, %%mm7     \n\t"	/* accumulate difference... */ \
     "  add         %4, %2           \n\t"	/* Inc pointer into ref data */
-    ".endr                          \n\t"
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
 
     "  movq        %%mm7, %%mm0     \n\t"
     "  psrlq       $32, %%mm7       \n\t"
@@ -90,14 +100,22 @@ sad8x8_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   __asm__ __volatile__ (
     "  pxor %%mm7, %%mm7            \n\t" 	/* mm7 contains the result */
 
-    ".rept 7                        \n\t"
-    "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
-    "  movq (%2), %%mm1             \n\t"
-    "  psadbw %%mm1, %%mm0          \n\t"
-    "  add %3, %1                   \n\t"	/* Inc pointer into the new data */
-    "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
+#define LOOP \
+    "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */ \
+    "  movq (%2), %%mm1             \n\t" \
+    "  psadbw %%mm1, %%mm0          \n\t" \
+    "  add %3, %1                   \n\t"	/* Inc pointer into the new data */ \
+    "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */ \
     "  add %4, %2                   \n\t"	/* Inc pointer into ref data */
-    ".endr                          \n\t"
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
 
     "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
     "  movq (%2), %%mm1             \n\t"
