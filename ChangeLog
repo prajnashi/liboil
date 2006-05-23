@@ -1,5 +1,9 @@
 2006-05-22  David Schleef  <ds@schleef.org>
 
+	* configure.ac: version bump
+
+2006-05-22  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/abs_i386.c:
 	* liboil/i386/error8x8_i386.c:
 	  Change movsx opcodes to something more AT&T-like.
