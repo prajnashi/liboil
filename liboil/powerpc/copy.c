@@ -37,7 +37,7 @@ OIL_DECLARE_CLASS(copy_u8);
 static void
 copy_u8_altivec (uint8_t *dest, uint8_t *src, int n)
 {
-  while((unsigned long)dest & 0xf && n>0) {
+  while(((unsigned long)dest & 0xf) && n>0) {
     *dest++ = *src++;
     n--;
   }
@@ -73,7 +73,6 @@ copy_u8_altivec (uint8_t *dest, uint8_t *src, int n)
           "  bdnz+ 1b\n"
           "  add %0, %0, r11\n"
           "  add %1, %1, r11\n"
-          "  addi %1, %1, -16\n"
         : "+b" (dest), "+b" (src)
         : "r" (n/16));
     }

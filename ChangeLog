@@ -1,5 +1,10 @@
 2006-05-22  David Schleef  <ds@schleef.org>
 
+	* liboil/powerpc/copy.c:
+	  Fix a mistake in the fast path.
+
+2006-05-22  David Schleef  <ds@schleef.org>
+
 	* liboil/sse/multsum_sse.c: disable broken impl
 
 2006-05-22  David Schleef  <ds@schleef.org>
