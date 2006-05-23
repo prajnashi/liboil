@@ -28,6 +28,7 @@
 }
 
 
+#ifdef ENABLE_BROKEN_IMPLS
 static void
 multsum_f64_sse2_unroll4(double *dest,
      const double *src1, int sstr1,
@@ -63,3 +64,5 @@ multsum_f64_sse2_unroll4(double *dest,
   }
 }
 OIL_DEFINE_IMPL_FULL (multsum_f64_sse2_unroll4, multsum_f64, OIL_IMPL_FLAG_SSE2);
+#endif
+

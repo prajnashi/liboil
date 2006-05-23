@@ -1,5 +1,9 @@
 2006-05-22  David Schleef  <ds@schleef.org>
 
+	* liboil/sse/multsum_sse.c: disable broken impl
+
+2006-05-22  David Schleef  <ds@schleef.org>
+
 	* configure.ac: version bump
 
 2006-05-22  David Schleef  <ds@schleef.org>
