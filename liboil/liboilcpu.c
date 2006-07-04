@@ -743,7 +743,7 @@ oil_cpu_detect_mips(void)
 static void
 oil_cpu_detect_arch(void)
 {
-#ifdef __i386__
+#if defined(__i386__) || defined(__amd64__)
   oil_cpu_detect_i386();
 #endif
 #if defined(__powerpc__) || defined(__PPC__) || defined(__ppc__)

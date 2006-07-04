@@ -1,3 +1,8 @@
+2006-07-04  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: Fix AMD64 cpu detection (again).  Fixes
+	Debian #369315
+
 2006-05-22  David Schleef  <ds@schleef.org>
 
 	* liboil/powerpc/copy.c:
