@@ -1,3 +1,10 @@
+2006-07-06  David Schleef  <ds@schleef.org>
+
+	* testsuite/Makefile.am:
+	* testsuite/stack_align.c:
+	  Add test for calling functions with multiple stack alignments.
+	  Only works on i386/amd64.
+
 2006-07-04  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: Fix AMD64 cpu detection (again).  Fixes
