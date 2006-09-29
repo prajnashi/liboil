@@ -34,22 +34,10 @@
 
 #include <liboil/liboilprototype.h>
 
-typedef struct _Param Param;
-struct _Param {
-  int direction;
-  int is_stride;
-  int index;
-  int prestride_length;
-  int prestride_var;
-  int poststride_length;
-  int poststride_var;
-};
-
-int check_param (Param *p, char *s);
-void print_param (Param *param);
+void print_param (OilParameter *param);
 
 /* format:
- * <isd>[s][0-9*][_[<0-9*,nm>x]<0-9*,nm>] */
+ * <isd>[s][0-9*][_[<0-9*,nm[p0-9*]>x]<0-9*,nm[p0-9*]>] */
 
 char *good_params[] = {
   "d",
@@ -70,6 +58,7 @@ char *good_params[] = {
   "d_4xn",
   "d_nxm",
   "d_8x8",
+  "d_np2",
   NULL
 };
 
@@ -83,10 +72,10 @@ int main (int argc, char *argv[])
   int i;
   int ret;
   int failed = 0;
-  Param param;
+  OilParameter param;
 
   for(i=0;good_params[i];i++){
-    ret = check_param (&param, good_params[i]);
+    ret = oil_param_from_string (&param, good_params[i]);
     if (!ret) {
       printf("***ERROR***\n");
       failed = 1;
@@ -95,7 +84,7 @@ int main (int argc, char *argv[])
   }
 
   for(i=0;bad_params[i];i++){
-    ret = check_param (&param, bad_params[i]);
+    ret = oil_param_from_string (&param, bad_params[i]);
     if (ret) {
       printf("***ERROR***\n");
       failed = 1;
@@ -105,117 +94,28 @@ int main (int argc, char *argv[])
   return failed;
 }
 
-int check_param (Param *p, char *s)
-{
-  printf("trying %s:\n", s);
-  p->direction = *s;
-  switch (*s) {
-    case 'i':
-      break;
-    case 's':
-      break;
-    case 'd':
-      break;
-    default:
-      printf ("  parse error at %s\n", s);
-      return 0;
-  }
-  s++;
-
-  if (*s == 's') {
-    p->is_stride = 1;
-    s++;
-  } else {
-    p->is_stride = 0;
-  }
-
-  if (isdigit ((int)*s)) {
-    p->index = *s - '0';
-    s++;
-  } else {
-    p->index = 1;
-  }
-
-  if (!p->is_stride && *s == '_') {
-    int length;
-    int var;
-
-    s++;
-
-    if (isdigit ((int)*s)) {
-      length = strtoul (s, &s, 10);
-      var = 0;
-    } else if (*s == 'n') {
-      length = 0;
-      var = 1;
-      s++;
-    } else if (*s == 'm') {
-      length = 0;
-      var = 2;
-      s++;
-    } else {
-      printf ("  parse error at %s\n", s);
-      return 0;
-    }
-
-    if (*s == 'x') {
-      s++;
-      p->prestride_length = length;
-      p->prestride_var = var;
-
-      if (isdigit ((int)*s)) {
-        p->poststride_length = strtoul (s, &s, 10);
-        p->poststride_var = 0;
-      } else if (*s == 'n') {
-        p->poststride_length = 0;
-        p->poststride_var = 1;
-        s++;
-      } else if (*s == 'm') {
-        p->poststride_length = 0;
-        p->poststride_var = 2;
-        s++;
-      } else {
-        printf ("  parse error at %s\n", s);
-        return 0;
-      }
-
-    } else {
-      p->poststride_length = length;
-      p->poststride_var = var;
-      p->prestride_length = 1;
-      p->prestride_var = 0;
-    }
-
-  } else {
-    p->poststride_length = 0;
-    p->poststride_var = 1;
-    p->prestride_length = 1;
-    p->prestride_var = 0;
-  }
-  if (*s != 0) {
-    printf ("  parse error at %s\n", s);
-    return 0;
-  }
-
-  return 1;
-}
-
-void print_param (Param *param)
+void print_param (OilParameter *param)
 {
   if (param->is_stride) {
     printf ("  %cs%d\n", param->direction, param->index);
   } else {
     printf ("  %c%d_", param->direction, param->index);
-    if (param->prestride_length) {
-      printf("%d", param->prestride_length);
-    } else {
+    if (param->prestride_var > 0) {
       printf("%c", (param->prestride_var==1) ? 'n' : 'm');
+      if (param->prestride_length) {
+        printf("p%d", param->prestride_length);
+      }
+    } else {
+      printf("%d", param->prestride_length);
     }
     printf("x");
-    if (param->poststride_length) {
-      printf("%d", param->poststride_length);
-    } else {
+    if (param->poststride_var > 0) {
       printf("%c", (param->poststride_var==1) ? 'n' : 'm');
+      if (param->poststride_length) {
+        printf("p%d", param->poststride_length);
+      }
+    } else {
+      printf("%d", param->poststride_length);
     }
     printf("\n");
   }

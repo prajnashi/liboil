@@ -1931,6 +1931,16 @@ oil_deinterleave (int16_t * d_2xn, const int16_t * s_2xn, int n)
   ((void (*)(int16_t * d_2xn, const int16_t * s_2xn, int n))(_oil_function_class_deinterleave.func))(d_2xn, s_2xn, n);
 }
 
+#undef oil_deinterleave2_s16
+void
+oil_deinterleave2_s16 (int16_t * d1_n, int16_t * d2_n, const int16_t * s_2xn, int n)
+{
+  if (_oil_function_class_deinterleave2_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_deinterleave2_s16);
+  }
+  ((void (*)(int16_t * d1_n, int16_t * d2_n, const int16_t * s_2xn, int n))(_oil_function_class_deinterleave2_s16.func))(d1_n, d2_n, s_2xn, n);
+}
+
 #undef oil_dequantize8x8_s16
 void
 oil_dequantize8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s1_8x8, int sstr1, const int16_t * s2_8x8, int sstr2)
@@ -2181,6 +2191,16 @@ oil_interleave (int16_t * d_2xn, const int16_t * s_2xn, int n)
   ((void (*)(int16_t * d_2xn, const int16_t * s_2xn, int n))(_oil_function_class_interleave.func))(d_2xn, s_2xn, n);
 }
 
+#undef oil_interleave2_s16
+void
+oil_interleave2_s16 (int16_t * d_2xn, const int16_t * s1_n, const int16_t * s2_n, int n)
+{
+  if (_oil_function_class_interleave2_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_interleave2_s16);
+  }
+  ((void (*)(int16_t * d_2xn, const int16_t * s1_n, const int16_t * s2_n, int n))(_oil_function_class_interleave2_s16.func))(d_2xn, s1_n, s2_n, n);
+}
+
 #undef oil_inverse_f32
 void
 oil_inverse_f32 (float * d, const float * s, int n)
@@ -2269,6 +2289,36 @@ oil_lift_sub_shift2 (int16_t * d, const int16_t * s1, const int16_t * s2, const 
     oil_class_optimize (&_oil_function_class_lift_sub_shift2);
   }
   ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, int n))(_oil_function_class_lift_sub_shift2.func))(d, s1, s2, s3, n);
+}
+
+#undef oil_mas2_add_s16
+void
+oil_mas2_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np1, const int16_t * s3_2, const int16_t * s4_2, int n)
+{
+  if (_oil_function_class_mas2_add_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas2_add_s16);
+  }
+  ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np1, const int16_t * s3_2, const int16_t * s4_2, int n))(_oil_function_class_mas2_add_s16.func))(d, s1, s2_np1, s3_2, s4_2, n);
+}
+
+#undef oil_mas4_add_s16
+void
+oil_mas4_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np3, const int16_t * s3_4, const int16_t * s4_2, int n)
+{
+  if (_oil_function_class_mas4_add_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas4_add_s16);
+  }
+  ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np3, const int16_t * s3_4, const int16_t * s4_2, int n))(_oil_function_class_mas4_add_s16.func))(d, s1, s2_np3, s3_4, s4_2, n);
+}
+
+#undef oil_mas8_add_s16
+void
+oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n)
+{
+  if (_oil_function_class_mas8_add_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_add_s16);
+  }
+  ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n))(_oil_function_class_mas8_add_s16.func))(d, s1, s2_np7, s3_8, s4_2, n);
 }
 
 #undef oil_maximum_f32
@@ -2569,6 +2619,16 @@ oil_rgb2rgba (uint8_t * d_4xn, const uint8_t * s_3xn, int n)
     oil_class_optimize (&_oil_function_class_rgb2rgba);
   }
   ((void (*)(uint8_t * d_4xn, const uint8_t * s_3xn, int n))(_oil_function_class_rgb2rgba.func))(d_4xn, s_3xn, n);
+}
+
+#undef oil_rgb565_to_argb
+void
+oil_rgb565_to_argb (uint32_t * d, const uint16_t * s, int n)
+{
+  if (_oil_function_class_rgb565_to_argb.func == NULL) {
+    oil_class_optimize (&_oil_function_class_rgb565_to_argb);
+  }
+  ((void (*)(uint32_t * d, const uint16_t * s, int n))(_oil_function_class_rgb565_to_argb.func))(d, s, n);
 }
 
 #undef oil_rowsad8x8_u8

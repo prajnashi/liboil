@@ -1,3 +1,25 @@
+2006-09-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/resample.c:
+	  Disable some (apparently) broken code.
+	* liboil/i386/wavelet.c:
+	  Some MMX code.
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	  updated for new classes.
+	* liboil/liboilparameter.h:
+	  Export oil_param_from_string().
+	* liboil/liboilprototype.c:
+	* liboil/liboiltest.c:
+	  Handle 'np2' notation.
+	* liboil/ref/rgb.c:
+	* liboil/ref/wavelet.c:
+	  Fix a test bug, add some classes.
+	* testsuite/proto3.c:
+	  Use oil_param_from_string() in library.
+
 2006-07-06  David Schleef  <ds@schleef.org>
 
 	* testsuite/Makefile.am:

@@ -371,3 +371,267 @@ lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
 OIL_DEFINE_IMPL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12);
 #endif
 
+void
+interleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
+{
+  int16_t *s2;
+
+  s2 = s_2xn + n;
+
+  while (n&3) {
+    d_2xn[0] = s_2xn[0];
+    d_2xn[1] = s2[0];
+    s_2xn++;
+    s2++;
+    d_2xn+=2;
+    n--;
+  }
+  if (n==0) return;
+
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "1:\n"
+      "  movq (%1,%%ecx,2), %%mm0\n"
+      "  movq (%2,%%ecx,2), %%mm1\n"
+      "  movq %%mm0, %%mm2\n"
+      "  punpckhwd %%mm1, %%mm0\n"
+      "  punpcklwd %%mm1, %%mm2\n"
+      "  movq %%mm2, (%0,%%ecx,4)\n"
+      "  movq %%mm0, 8(%0,%%ecx,4)\n"
+      "  add $4, %%ecx\n"
+      "  cmp %3, %%ecx\n"
+      "  jl 1b\n"
+      "  emms\n"
+      : "+r" (d_2xn), "+r" (s_2xn), "+r" (s2)
+      : "m" (n)
+      : "eax", "ecx");
+}
+OIL_DEFINE_IMPL_FULL (interleave_mmx, interleave, OIL_IMPL_FLAG_MMX);
+
+void
+lift_add_shift1_mmx (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
+{
+  while (n&3) {
+    d[0] = s1[0] + ((s2[0] + s3[0])>>1);
+    d++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "1:\n"
+      "  movq (%2,%%ecx,2), %%mm1\n"
+      "  movq (%3,%%ecx,2), %%mm2\n"
+      "  paddw %%mm2, %%mm1\n"
+      "  psraw $1, %%mm1\n"
+      "  paddw (%1,%%ecx,2), %%mm1\n"
+      "  movq %%mm1, (%0,%%ecx,2)\n"
+      "  add $4, %%ecx\n"
+      "  cmp %4, %%ecx\n"
+      "  jl 1b\n"
+      "  emms\n"
+      : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
+      : "m" (n)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lift_add_shift1_mmx, lift_add_shift1, OIL_IMPL_FLAG_MMX);
+
+void
+lift_sub_shift1_mmx (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
+{
+  while (n&3) {
+    d[0] = s1[0] - ((s2[0] + s3[0])>>1);
+    d++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "1:\n"
+      "  movq (%2,%%ecx,2), %%mm1\n"
+      "  movq (%3,%%ecx,2), %%mm2\n"
+      "  movq (%1,%%ecx,2), %%mm0\n"
+      "  paddw %%mm2, %%mm1\n"
+      "  psraw $1, %%mm1\n"
+      "  psubw %%mm1, %%mm0\n"
+      "  movq %%mm0, (%0,%%ecx,2)\n"
+      "  add $4, %%ecx\n"
+      "  cmp %4, %%ecx\n"
+      "  jl 1b\n"
+      "  emms\n"
+      : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
+      : "m" (n)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lift_sub_shift1_mmx, lift_sub_shift1, OIL_IMPL_FLAG_MMX);
+
+void
+lift_add_shift2_mmx (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
+{
+  while (n&3) {
+    d[0] = s1[0] + ((s2[0] + s3[0])>>2);
+    d++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "1:\n"
+      "  movq (%2,%%ecx,2), %%mm1\n"
+      "  movq (%3,%%ecx,2), %%mm2\n"
+      "  paddw %%mm2, %%mm1\n"
+      "  psraw $2, %%mm1\n"
+      "  paddw (%1,%%ecx,2), %%mm1\n"
+      "  movq %%mm1, (%0,%%ecx,2)\n"
+      "  add $4, %%ecx\n"
+      "  cmp %4, %%ecx\n"
+      "  jl 1b\n"
+      "  emms\n"
+      : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
+      : "m" (n)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lift_add_shift2_mmx, lift_add_shift2, OIL_IMPL_FLAG_MMX);
+
+void
+lift_sub_shift2_mmx (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
+{
+  while (n&3) {
+    d[0] = s1[0] - ((s2[0] + s3[0])>>2);
+    d++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "1:\n"
+      "  movq (%2,%%ecx,2), %%mm1\n"
+      "  movq (%3,%%ecx,2), %%mm2\n"
+      "  movq (%1,%%ecx,2), %%mm0\n"
+      "  paddw %%mm2, %%mm1\n"
+      "  psraw $2, %%mm1\n"
+      "  psubw %%mm1, %%mm0\n"
+      "  movq %%mm0, (%0,%%ecx,2)\n"
+      "  add $4, %%ecx\n"
+      "  cmp %4, %%ecx\n"
+      "  jl 1b\n"
+      "  emms\n"
+      : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
+      : "m" (n)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lift_sub_shift2_mmx, lift_sub_shift2, OIL_IMPL_FLAG_MMX);
+
+#ifdef ENABLE_BROKEN_IMPLS
+void
+synth_53_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
+{
+  int i;
+    
+  if (n==0) return;
+  if (n == 1) {
+    d_2xn[0] = s_2xn[0] - (s_2xn[1] >> 1);
+    d_2xn[1] = s_2xn[1] + d_2xn[0]; 
+  } else {
+    int i;
+
+    d_2xn[0] = s_2xn[0] - (s_2xn[1] >> 1);
+
+    if (n > 6) {
+      n-=5;
+
+      asm volatile ("\n"
+          "  xor %%ecx, %%ecx\n"
+          "  movw 2(%1), %%ecx\n"
+          "  movd %%ecx, %%mm7\n"
+          "  movw 0(%0), %%ecx\n"
+          "  movd %%ecx, %%mm6\n"
+          "  movw 0(%1), %%ecx\n"
+          "  movd %%ecx, %%mm5\n"
+
+          "  xor %%ecx, %%ecx\n"
+          "1:\n"
+          "  movq 4(%1,%%ecx,4), %%mm1\n"  // mm1 = s5 s4 s3 s2
+          "  movq %%mm1, %%mm2\n"          // mm2 = s5 s4 s3 s2
+          "  movq 12(%1,%%ecx,4), %%mm0\n" // mm0 = s9 s8 s7 s6
+          "  punpcklwd %%mm0, %%mm1\n"     // mm1 = s7 s3 s6 s2
+          "  punpckhwd %%mm0, %%mm2\n"     // mm2 = s9 s5 s8 s4
+          "  movq %%mm1, %%mm0\n"          // mm0 = s7 s3 s6 s2
+          "  punpcklwd %%mm2, %%mm0\n"     // mm0 = s8 s6 s4 s2
+          "  punpckhwd %%mm2, %%mm1\n"     // mm1 = s9 s7 s5 s3
+          //"  movq %%mm0, %%mm3\n"          // mm0 = s8 s6 s4 s2
+
+          "  movq %%mm1, %%mm2\n"          // mm2 = s9 s7 s5 s3
+          "  psllq $16, %%mm2\n"           // mm2 = s7 s5 s3 00
+          "  por %%mm7, %%mm2\n"           // mm2 = s7 s5 s3 s1
+          "  movq %%mm2, %%mm4\n"          // mm4 = s7 s5 s3 s1
+          "  paddw %%mm1, %%mm2\n"         // mm2 = s9+s7 ...
+          "  psraw $2, %%mm2\n"            // mm2 = (s9+s7)>>2 ...
+          "  movq %%mm1, %%mm7\n"          // mm7 = s9 s7 s5 s3
+          "  psrlq $48, %%mm7\n"           // mm7 = 00 00 00 s9
+          "  psubw %%mm2, %%mm0\n"         // mm0 = d8 d6 d4 d2
+
+          "  movq %%mm0, %%mm1\n"          // mm1 = d8 d6 d4 d2
+          "  movq %%mm0, %%mm3\n"          // mm1 = d8 d6 d4 d2
+          "  psllq $16, %%mm0\n"           // mm0 = d6 d4 d2 00
+          "  por %%mm6, %%mm0\n"           // mm0 = d6 d4 d2 d0
+          "  psrlq $48, %%mm1\n"           // mm1 = 00 00 00 d8
+          "  movq %%mm1, %%mm6\n"          // mm6 = 00 00 00 d8
+
+          "  movq %%mm0, %%mm1\n"
+          "  paddw %%mm3, %%mm1\n"         // mm0 = d8+d6 ...
+          "  psraw $1, %%mm1\n"            // mm1 = (d8+d6)>>1 ...
+          "  paddw %%mm4, %%mm1\n"         // mm1 = d7 d5 d3 d1
+
+          "  movq %%mm1, %%mm2\n"
+
+          "  movq %%mm0, %%mm1\n"
+          "  punpcklwd %%mm2, %%mm0\n"
+          "  punpckhwd %%mm2, %%mm1\n"
+
+          "  movq %%mm0, (%0, %%ecx, 4)\n"
+          "  movq %%mm1, 8(%0, %%ecx, 4)\n"
+
+          "  add $4, %%ecx\n"
+          "  cmp %3, %%ecx\n"
+          "  jl 1b\n"
+          "  emms\n"
+          : "+r" (d_2xn), "+r" (s_2xn), "+ecx" (i)
+          : "m" (n));
+
+      i*=2;
+      n+=5;
+      d_2xn[i] = s_2xn[i] - ((s_2xn[i-1] + s_2xn[i+1]) >> 2);
+      i+=2;
+    } else {
+      i = 2;
+    }
+    for(;i<n*2-2;i+=2){
+      d_2xn[i] = s_2xn[i] - ((s_2xn[i-1] + s_2xn[i+1]) >> 2);
+      d_2xn[i-1] = s_2xn[i-1] + ((d_2xn[i] + d_2xn[i-2]) >> 1);
+    }
+    d_2xn[n*2-2] = s_2xn[n*2-2] - ((s_2xn[n*2-3] + s_2xn[n*2-1]) >> 2);
+    d_2xn[n*2-3] = s_2xn[n*2-3] + ((d_2xn[n*2-2] + d_2xn[n*2-4]) >> 1);
+    d_2xn[n*2-1] = s_2xn[n*2-1] + d_2xn[n*2-2];
+  } 
+}
+OIL_DEFINE_IMPL_FULL (synth_53_mmx, synth_53, OIL_IMPL_FLAG_MMX);
+#endif
+
+

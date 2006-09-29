@@ -463,14 +463,12 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
 {
   if (!p->type) return;
 
-  if (p->prestride_length) {
-    p->pre_n = p->prestride_length;
-  } else {
-    if (p->prestride_var == 1) {
-      p->pre_n = test->n;
-    } else {
-      p->pre_n = test->m;
-    }
+  p->pre_n = p->prestride_length;
+  if (p->prestride_var == 1) {
+    p->pre_n += test->n;
+  }
+  if (p->prestride_var == 2) {
+    p->pre_n += test->m;
   }
 
   if (ps->value) {
@@ -480,14 +478,12 @@ init_parameter (OilTest *test, OilParameter *p, OilParameter *ps)
     ps->value = p->stride;
   }
 
-  if (p->poststride_length) {
-    p->post_n = p->poststride_length;
-  } else {
-    if (p->poststride_var == 1) {
-      p->post_n = test->n;
-    } else {
-      p->post_n = test->m;
-    }
+  p->post_n = p->poststride_length;
+  if (p->poststride_var == 1) {
+    p->post_n += test->n;
+  }
+  if (p->poststride_var == 2) {
+    p->post_n += test->m;
   }
 
   p->size = p->stride * p->post_n + p->test_header + p->test_footer;

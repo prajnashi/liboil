@@ -10,7 +10,7 @@ wavelet_test (OilTest *test)
   int16_t *data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
   int i;
 
-  for(i=0;i<test->n*2;i++){
+  for(i=0;i<test->n;i++){
     data[i] = oil_rand_u8();
   }
 }
@@ -18,8 +18,12 @@ wavelet_test (OilTest *test)
 
 OIL_DEFINE_CLASS_FULL (deinterleave,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
+OIL_DEFINE_CLASS (deinterleave2_s16,
+    "int16_t *d1_n, int16_t *d2_n, int16_t *s_2xn, int n");
 OIL_DEFINE_CLASS_FULL (interleave,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
+OIL_DEFINE_CLASS (interleave2_s16,
+    "int16_t *d_2xn, int16_t *s1_n, int16_t *s2_n, int n");
 OIL_DEFINE_CLASS_FULL (synth_daub97,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
 OIL_DEFINE_CLASS_FULL (split_daub97,
@@ -36,6 +40,15 @@ OIL_DEFINE_CLASS_FULL (split_135,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
 OIL_DEFINE_CLASS_FULL (synth_135,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
+OIL_DEFINE_CLASS_FULL (mas2_add_s16,
+    "int16_t *d, int16_t *s1, int16_t *s2_np1, int16_t *s3_2, int16_t *s4_2, "
+    "int n", wavelet_test);
+OIL_DEFINE_CLASS_FULL (mas4_add_s16,
+    "int16_t *d, int16_t *s1, int16_t *s2_np3, int16_t *s3_4, int16_t *s4_2, "
+    "int n", wavelet_test);
+OIL_DEFINE_CLASS_FULL (mas8_add_s16,
+    "int16_t *d, int16_t *s1, int16_t *s2_np7, int16_t *s3_8, int16_t *s4_2, "
+    "int n", wavelet_test);
 
 void
 deinterleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -50,6 +63,18 @@ deinterleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
 OIL_DEFINE_IMPL_REF (deinterleave_ref, deinterleave);
 
 void
+deinterleave2_s16_ref (int16_t *d1_n, int16_t *d2_n, int16_t *s_2xn, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++) {
+    d1_n[i] = s_2xn[2*i];
+    d2_n[i] = s_2xn[2*i + 1];
+  }
+}
+OIL_DEFINE_IMPL_REF (deinterleave2_s16_ref, deinterleave2_s16);
+
+void
 interleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
 {
   int i;
@@ -60,6 +85,18 @@ interleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (interleave_ref, interleave);
+
+void
+interleave2_s16_ref (int16_t *d_2xn, int16_t *s1_n, int16_t *s2_n, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++) {
+    d_2xn[2*i] = s1_n[i];
+    d_2xn[2*i + 1] = s2_n[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (interleave2_s16_ref, interleave2_s16);
 
 void
 synth_daub97_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -439,4 +476,54 @@ lift_sub_135_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3,
 }
 OIL_DEFINE_IMPL_REF (lift_sub_135_ref, lift_sub_135);
 
+
+void
+mas2_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  int i;
+  int x;
+
+  for(i=0;i<n;i++){
+    x = s4_2[0] + s2[i]*s3_2[0] + s2[i+1]*s3_2[1];
+    x >>= s4_2[1];
+    d1[i] = s1[i] + x;
+  }
+}
+OIL_DEFINE_IMPL_REF (mas2_add_s16_ref, mas2_add_s16);
+
+void
+mas4_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_4,
+    int16_t *s4_2, int n)
+{
+  int i;
+  int x;
+
+  for(i=0;i<n;i++){
+    x = s4_2[0] + s2[i]*s3_4[0] + s2[i+1]*s3_4[1] + s2[i+2]*s3_4[2] +
+        s2[i+3]*s3_4[3];
+    x >>= s4_2[1];
+    d1[i] = s1[i] + x;
+  }
+}
+OIL_DEFINE_IMPL_REF (mas4_add_s16_ref, mas4_add_s16);
+
+void
+mas8_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_8,
+    int16_t *s4_2, int n)
+{
+  int i;
+  int j;
+  int x;
+
+  for(i=0;i<n;i++){
+    x = s4_2[0];
+    for(j=0;j<8;j++){
+      x += s2[i+j]*s3_8[j];
+    }
+    x >>= s4_2[1];
+    d1[i] = s1[i] + x;
+  }
+}
+OIL_DEFINE_IMPL_REF (mas8_add_s16_ref, mas8_add_s16);
 

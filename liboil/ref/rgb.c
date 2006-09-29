@@ -30,6 +30,7 @@
 #endif
 
 #include <liboil/liboilfunction.h>
+#include <liboil/liboilcolorspace.h>
 
 /**
  * oil_rgb2bgr:
@@ -51,6 +52,15 @@ OIL_DEFINE_CLASS (rgb2bgr, "uint8_t *d_3xn, uint8_t* s_3xn, int n");
  * to 32-bit RGBA pixels in RGBARGBA order.
  */
 OIL_DEFINE_CLASS (rgb2rgba, "uint8_t *d_4xn, uint8_t* s_3xn, int n");
+/**
+ * oil_rgb565_to_argb:
+ * @d:
+ * @s:
+ * @n:
+ *
+ * Converts arrays of 16-bit RGB565 pixels to 32-bit ARGB pixels.
+ */
+OIL_DEFINE_CLASS (rgb565_to_argb, "uint32_t *d, uint16_t* s, int n");
 
 static void
 rgb2bgr_ref (uint8_t *dest, const uint8_t* src, int n)
@@ -87,4 +97,20 @@ rgb2rgba_ref (uint8_t *dest, const uint8_t* src, int n)
 }
 
 OIL_DEFINE_IMPL_REF (rgb2rgba_ref, rgb2rgba);
+
+
+void
+rgb565_to_argb_ref (uint32_t *d, uint16_t* s, int n)
+{
+  int i;
+  int r,g,b;
+
+  for (i = 0; i < n; i++) {
+    r = (s[i] >> 8) & 0xf8;
+    g = (s[i] >> 3) & 0xfc;
+    b = (s[i] << 3) & 0xf8;
+    d[i] = oil_argb(255, r | (r>>5), g | (g>>6), b | (b>>5));
+  }
+}
+OIL_DEFINE_IMPL_REF (rgb565_to_argb_ref, rgb565_to_argb);
 

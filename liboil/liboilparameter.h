@@ -132,6 +132,7 @@ struct _OilParameter {
 };
 
 void *oil_param_get_source_data (OilParameter *param);
+int oil_param_from_string (OilParameter *p, char *s);
 
 #define oil_type_is_floating_point(type) \
   (((type) == OIL_TYPE_f64p) || ((type) == OIL_TYPE_f32p))

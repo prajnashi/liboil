@@ -75,7 +75,6 @@ static void oil_string_append (OilString *s, const char *a);
 static char * oil_string_free (OilString *s, int free_seg);
 
 static char * parse_string (const char *s, const char **endptr);
-static int oil_param_from_string (OilParameter *p, char *s);
 
 static int oil_prototype_check_sanity (OilPrototype *proto);
 
@@ -262,10 +261,8 @@ oil_prototype_check_sanity (OilPrototype *proto)
       if (proto->params[i].parameter_type == OIL_ARG_N) continue;
       if (proto->params[i].parameter_type == OIL_ARG_M) continue;
 
-      if (proto->params[i].prestride_length == 0 &&
-          proto->params[i].prestride_var == 1) return 0;
-      if (proto->params[i].poststride_length == 0 &&
-          proto->params[i].poststride_var == 1) return 0;
+      if (proto->params[i].prestride_var == 1) return 0;
+      if (proto->params[i].poststride_var == 1) return 0;
     }
   }
 
@@ -618,7 +615,7 @@ struct {
   { 0, 0, 0, 0 }
 };
 
-static int
+int
 oil_param_from_string (OilParameter *p, char *s)
 {
   int i;
@@ -685,14 +682,15 @@ oil_param_from_string (OilParameter *p, char *s)
     if (isdigit ((int)*s)) {
       length = strtoul (s, &s, 10);
       var = 0;
-    } else if (*s == 'n') {
-      length = 0;
-      var = 1;
+    } else if (*s == 'n' || *s == 'm') {
+      var = (*s == 'n') ? 1 : 2;
       s++;
-    } else if (*s == 'm') {
-      length = 0;
-      var = 2;
-      s++;
+      if (*s == 'p') {
+        s++;
+        length = strtoul (s, &s, 10);
+      } else {
+        length = 0;
+      }
     } else {
       return 0;
     }
@@ -705,14 +703,15 @@ oil_param_from_string (OilParameter *p, char *s)
       if (isdigit ((int)*s)) {
         p->poststride_length = strtoul (s, &s, 10);
         p->poststride_var = 0;
-      } else if (*s == 'n') {
-        p->poststride_length = 0;
-        p->poststride_var = 1;
+      } else if (*s == 'n' || *s == 'm') {
+        p->poststride_var = (*s == 'n') ? 1 : 2;
         s++;
-      } else if (*s == 'm') {
-        p->poststride_length = 0;
-        p->poststride_var = 2;
-        s++;
+        if (*s == 'p') {
+          s++;
+          p->poststride_length = strtoul (s, &s, 10);
+        } else {
+          p->poststride_length = 0;
+        }
       } else {
         return 0;
       }
