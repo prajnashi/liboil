@@ -20,9 +20,9 @@ main(int argc, char *argv[])
   double cpufreq;
   OilFunctionClass *klass;
   OilFunctionImpl *impl;
-  int use_memset = 0;
+  int the_class;
 
-  //use_memset = 1;
+  the_class = 2;
 
   oil_init ();
 
@@ -33,10 +33,16 @@ main(int argc, char *argv[])
   src = ALIGN(s,128);
   dest = ALIGN(d,128);
 
-  if (use_memset) {
-    klass = oil_class_get ("splat_u32_ns");
-  } else {
-    klass = oil_class_get ("copy_u8");
+  switch(the_class) {
+    case 0:
+      klass = oil_class_get ("splat_u32_ns");
+      break;
+    case 1:
+      klass = oil_class_get ("copy_u8");
+      break;
+    case 2:
+      klass = oil_class_get ("sum_s16");
+      break;
   }
 
   for(impl=klass->first_impl;impl;impl=impl->next) {
@@ -52,14 +58,22 @@ main(int argc, char *argv[])
     for(i=10;i<24;i++){
       oil_profile_init (&prof);
       for(j=0;j<10;j++){
-        if (use_memset) {
-          oil_profile_start(&prof);
-          oil_splat_u32_ns (dest, src, 1<<(i-2));
-          oil_profile_stop(&prof);
-        } else {
-          oil_profile_start(&prof);
-          oil_memcpy (dest, src, 1<<i);
-          oil_profile_stop(&prof);
+        switch(the_class) {
+          case 0:
+            oil_profile_start(&prof);
+            oil_splat_u32_ns (dest, src, 1<<(i-2));
+            oil_profile_stop(&prof);
+            break;
+          case 1:
+            oil_profile_start(&prof);
+            oil_memcpy (dest, src, 1<<i);
+            oil_profile_stop(&prof);
+            break;
+          case 2:
+            oil_profile_start(&prof);
+            oil_sum_s16 ((int16_t *)dest, (int16_t *)src, 1<<(i-1));
+            oil_profile_stop(&prof);
+            break;
         }
       }
 

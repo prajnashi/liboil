@@ -20,6 +20,7 @@ libi386_la_SOURCES = \
 	sad8x8_i386.c \
 	sad8x8avg_i386.c \
 	splat_i386.c \
+	sum.c \
 	swab.c \
 	trans8x8_i386.c \
 	wavelet.c

@@ -33,6 +33,7 @@ c_sources = \
 	sincos_f64.c \
 	splat.c \
 	squaresum_f64.c \
+	sum.c \
 	sum_f64.c \
 	swab.c \
 	trans8x8.c \

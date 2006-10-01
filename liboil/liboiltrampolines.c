@@ -3281,6 +3281,16 @@ oil_sum_f64 (double * d_1, const double * s, int sstr, int n)
   ((void (*)(double * d_1, const double * s, int sstr, int n))(_oil_function_class_sum_f64.func))(d_1, s, sstr, n);
 }
 
+#undef oil_sum_s16
+void
+oil_sum_s16 (int16_t * d_1, const int16_t * s, int n)
+{
+  if (_oil_function_class_sum_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_sum_s16);
+  }
+  ((void (*)(int16_t * d_1, const int16_t * s, int n))(_oil_function_class_sum_s16.func))(d_1, s, n);
+}
+
 #undef oil_swab_u16
 void
 oil_swab_u16 (uint16_t * d_n, const uint16_t * s_n, int n)

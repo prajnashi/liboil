@@ -1,3 +1,18 @@
+2006-10-01  David Schleef  <ds@schleef.org>
+
+	* examples/memcpy-speed.c:
+	  Check read speed.
+	* liboil/ref/Makefile.am:
+	* liboil/ref/sum.c:
+	  new class sum_s16.
+	* liboil/i386/Makefile.am:
+	* liboil/i386/sum.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	  update.
+
 2006-09-28  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/resample.c:
