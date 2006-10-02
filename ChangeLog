@@ -1,3 +1,13 @@
+2006-10-02  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	  Convert [de]interleave to new classes.  Add mas impls.
+	* liboil/liboiltest.c:
+	* liboil/liboiltest.h:
+	  Add some helper functions.
+	* liboil/ref/wavelet.c:
+	  Add a test for mas classes.
+
 2006-10-01  David Schleef  <ds@schleef.org>
 
 	* examples/memcpy-speed.c:

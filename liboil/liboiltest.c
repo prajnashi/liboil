@@ -680,6 +680,24 @@ oil_test_get_source_data (OilTest *test, OilArgType arg_type)
 }
 
 int
+oil_test_get_arg_pre_n (OilTest *test, OilArgType arg_type)
+{
+  return test->params[arg_type].pre_n;
+}
+
+int
+oil_test_get_arg_post_n (OilTest *test, OilArgType arg_type)
+{
+  return test->params[arg_type].post_n;
+}
+
+int
+oil_test_get_arg_stride (OilTest *test, OilArgType arg_type)
+{
+  return test->params[arg_type].stride;
+}
+
+int
 oil_test_get_value (OilTest *test, OilArgType arg_type)
 {
   return test->params[arg_type].value;

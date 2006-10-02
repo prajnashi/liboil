@@ -93,29 +93,26 @@ synth_53_c (int16_t *d_2xn, int16_t *s_2xn, int n)
 OIL_DEFINE_IMPL (synth_53_c, synth_53);
 
 void
-deinterleave_c_1 (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_c_1 (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
   int i;
 
   for(i=0;i<n;i++) {
-    d_2xn[i] = s_2xn[2*i];
-    d_2xn[n + i] = s_2xn[2*i + 1];
+    d1[i] = s_2xn[2*i];
+    d2[i] = s_2xn[2*i + 1];
   }
 }
-OIL_DEFINE_IMPL (deinterleave_c_1, deinterleave);
+OIL_DEFINE_IMPL (deinterleave2_c_1, deinterleave2_s16);
 
 void
-deinterleave_asm (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_asm (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
-  int16_t *d2;
-
   if (n == 0) return;
 
-  d2 = d_2xn + n;
   while (n&1) {
-    d_2xn[0] = s_2xn[0];
+    d1[0] = s_2xn[0];
     d2[0] = s_2xn[1];
-    d_2xn++;
+    d1++;
     d2++;
     s_2xn+=2;
     n--;
@@ -135,23 +132,19 @@ deinterleave_asm (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  movw %%ax, 2(%2,%%ecx,2)\n"
       "  sub $2, %%ecx\n"
       "  jge 1b\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (d2)
+      : "+r" (d1), "+r" (s_2xn), "+r" (d2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL (deinterleave_asm, deinterleave);
+OIL_DEFINE_IMPL (deinterleave2_asm, deinterleave2_s16);
 
 void
-deinterleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_mmx (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
-  int16_t *d2;
-
-  d2 = d_2xn + n;
-
   while (n&3) {
-    d_2xn[0] = s_2xn[0];
+    d1[0] = s_2xn[0];
     d2[0] = s_2xn[1];
-    d_2xn++;
+    d1++;
     d2++;
     s_2xn+=2;
     n--;
@@ -179,23 +172,19 @@ deinterleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  cmp %3, %%ecx\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (d2)
+      : "+r" (d1), "+r" (s_2xn), "+r" (d2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL_FULL (deinterleave_mmx, deinterleave, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (deinterleave2_mmx, deinterleave2_s16, OIL_IMPL_FLAG_MMX);
 
 void
-deinterleave_mmx_2 (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_mmx_2 (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
-  int16_t *d2;
-
-  d2 = d_2xn + n;
-
   while (n&3) {
-    d_2xn[0] = s_2xn[0];
+    d1[0] = s_2xn[0];
     d2[0] = s_2xn[1];
-    d_2xn++;
+    d1++;
     d2++;
     s_2xn+=2;
     n--;
@@ -213,23 +202,19 @@ deinterleave_mmx_2 (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  cmp %3, %%ecx\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (d2)
+      : "+r" (d1), "+r" (s_2xn), "+r" (d2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL_FULL (deinterleave_mmx_2, deinterleave, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+OIL_DEFINE_IMPL_FULL (deinterleave2_mmx_2, deinterleave2_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 void
-deinterleave_mmx_3 (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_mmx_3 (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
-  int16_t *d2;
-
-  d2 = d_2xn + n;
-
   while (n&3) {
-    d_2xn[0] = s_2xn[0];
+    d1[0] = s_2xn[0];
     d2[0] = s_2xn[1];
-    d_2xn++;
+    d1++;
     d2++;
     s_2xn+=2;
     n--;
@@ -253,23 +238,19 @@ deinterleave_mmx_3 (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  cmp %3, %%ecx\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (d2)
+      : "+r" (d1), "+r" (s_2xn), "+r" (d2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL_FULL (deinterleave_mmx_3, deinterleave, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (deinterleave2_mmx_3, deinterleave2_s16, OIL_IMPL_FLAG_MMX);
 
 void
-deinterleave_mmx_4 (int16_t *d_2xn, int16_t *s_2xn, int n)
+deinterleave2_mmx_4 (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 {
-  int16_t *d2;
-
-  d2 = d_2xn + n;
-
   while (n&7) {
-    d_2xn[0] = s_2xn[0];
+    d1[0] = s_2xn[0];
     d2[0] = s_2xn[1];
-    d_2xn++;
+    d1++;
     d2++;
     s_2xn+=2;
     n--;
@@ -303,23 +284,23 @@ deinterleave_mmx_4 (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  cmp %3, %%ecx\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (d2)
+      : "+r" (d1), "+r" (s_2xn), "+r" (d2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL_FULL (deinterleave_mmx_4, deinterleave, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (deinterleave2_mmx_4, deinterleave2_s16, OIL_IMPL_FLAG_MMX);
 
 void
-interleave_c (int16_t *d_2xn, int16_t *s_2xn, int n)
+interleave2_c (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
 {
   int i;
 
   for(i=0;i<n;i++) {
-    d_2xn[2*i] = s_2xn[i];
-    d_2xn[2*i + 1] = s_2xn[n + i];
+    d_2xn[2*i] = s1[i];
+    d_2xn[2*i + 1] = s2[i];
   }
 }
-OIL_DEFINE_IMPL (interleave_c, interleave);
+OIL_DEFINE_IMPL (interleave2_c, interleave2_s16);
 
 
 #ifdef ENABLE_BROKEN_IMPLS
@@ -372,16 +353,12 @@ OIL_DEFINE_IMPL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12);
 #endif
 
 void
-interleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
+interleave2_mmx (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
 {
-  int16_t *s2;
-
-  s2 = s_2xn + n;
-
   while (n&3) {
-    d_2xn[0] = s_2xn[0];
+    d_2xn[0] = s1[0];
     d_2xn[1] = s2[0];
-    s_2xn++;
+    s1++;
     s2++;
     d_2xn+=2;
     n--;
@@ -402,11 +379,11 @@ interleave_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
       "  cmp %3, %%ecx\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (d_2xn), "+r" (s_2xn), "+r" (s2)
+      : "+r" (d_2xn), "+r" (s1), "+r" (s2)
       : "m" (n)
       : "eax", "ecx");
 }
-OIL_DEFINE_IMPL_FULL (interleave_mmx, interleave, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (interleave2_mmx, interleave2_s16, OIL_IMPL_FLAG_MMX);
 
 void
 lift_add_shift1_mmx (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int n)
@@ -633,5 +610,138 @@ synth_53_mmx (int16_t *d_2xn, int16_t *s_2xn, int n)
 }
 OIL_DEFINE_IMPL_FULL (synth_53_mmx, synth_53, OIL_IMPL_FLAG_MMX);
 #endif
+
+
+void
+mas2_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  int shift = s4_2[1];
+    
+  while (n&3) {
+    int x;
+
+    x = s4_2[0] + s2[0]*s3_2[0] + s2[1]*s3_2[1];
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "  movw 0(%0), %%cx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movw 2(%0), %%cx\n"
+      "  movd %%ecx, %%mm6\n"
+      "  pshufw $0x00, %%mm6, %%mm6\n"
+      "  movw 0(%1), %%cx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x00, %%mm5, %%mm5\n"
+      "  movw 2(%1), %%cx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmullw %%mm7, %%mm0\n"
+      "  movq 2(%2), %%mm1\n"
+      "  pmullw %%mm6, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  paddw %%mm5, %%mm0\n"
+      "  psraw %%mm4, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas2_add_s16_mmx, mas2_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+
+void
+mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  int shift = s4_2[1];
+    
+  while (n&3) {
+    int x;
+
+    x = s4_2[0] + s2[0]*s3_2[0] + s2[1]*s3_2[1] + 
+      s2[2]*s3_2[2] + s2[2]*s3_2[2];
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  xor %%ecx, %%ecx\n"
+      "  movw 0(%0), %%cx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movw 2(%0), %%cx\n"
+      "  movd %%ecx, %%mm6\n"
+      "  pshufw $0x00, %%mm6, %%mm6\n"
+      "  movw 2(%0), %%cx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x00, %%mm5, %%mm5\n"
+      "  movw 2(%0), %%cx\n"
+      "  movd %%ecx, %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      "  movw 0(%1), %%cx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  pshufw $0x00, %%mm3, %%mm3\n"
+      "  movw 2(%1), %%cx\n"
+      "  movd %%ecx, %%mm2\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmullw %%mm7, %%mm0\n"
+      "  movq 2(%2), %%mm1\n"
+      "  pmullw %%mm6, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  movq 4(%2), %%mm1\n"
+      "  pmullw %%mm5, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  movq 6(%2), %%mm1\n"
+      "  pmullw %%mm4, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  paddw %%mm3, %%mm0\n"
+      "  psraw %%mm2, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas4_add_s16_mmx, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 

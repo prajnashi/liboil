@@ -102,6 +102,9 @@ void _oil_test_marshal_function (void *func, unsigned long *args, int n_args,
     unsigned int pointer_mask, OilProfile *prof);
 
 void *oil_test_get_source_data (OilTest *test, OilArgType arg_type);
+int oil_test_get_arg_pre_n (OilTest *test, OilArgType arg_type);
+int oil_test_get_arg_post_n (OilTest *test, OilArgType arg_type);
+int oil_test_get_arg_stride (OilTest *test, OilArgType arg_type);
 int oil_test_get_value (OilTest *test, OilArgType arg_type);
 
 #endif
