@@ -444,7 +444,7 @@ test_cpuid (void *ignored)
   get_cpuid (0x00000000, &eax, &ebx, &ecx, &edx);
 }
 
-static int
+static void
 oil_cpu_detect_cpuid (void)
 {
   uint32_t eax, ebx, ecx, edx;
@@ -457,7 +457,7 @@ oil_cpu_detect_cpuid (void)
   oil_cpu_fault_check_disable ();
   if (!ret) {
     /* CPU thinks cpuid is an illegal instruction. */
-    return 0;
+    return;
   }
 
   get_cpuid (0x00000000, &level, (uint32_t *)(vendor+0),
@@ -466,7 +466,7 @@ oil_cpu_detect_cpuid (void)
   OIL_DEBUG("cpuid %d %s", level, vendor);
 
   if (level < 1) {
-    return 0;
+    return;
   }
 
   get_cpuid (0x00000001, &eax, &ebx, &ecx, &edx);

@@ -1,5 +1,16 @@
 2006-10-02  David Schleef  <ds@schleef.org>
 
+	* configure.ac:
+	  Bump the nano.  Duh.
+	* liboil/i386/wavelet.c:
+	* liboil/ref/wavelet.c:
+	  Change the mas functions to have 32-bit intermediates, since
+	  that's necessary for Schroedinger.
+	* liboil/liboilcpu.c:
+	  Fix a compile warning.
+
+2006-10-02  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/wavelet.c:
 	  Convert [de]interleave to new classes.  Add mas impls.
 	* liboil/liboiltest.c:

@@ -24,23 +24,24 @@ mas_test (OilTest *test)
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
   for(i=0;i<test->n;i++){
-    data[i] = oil_rand_u8();
+    //data[i] = oil_rand_s16()>>1;
+    data[i] = 0;
   }
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
   for(i=0;i<test->n;i++){
-    data[i] = oil_rand_u8();
+    data[i] = oil_rand_s16();
   }
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
   n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
   for(i=0;i<n;i++){
-    data[i] = 2;
+    data[i] = (oil_rand_s16()>>4)/n;
   }
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  data[0] = 1;
-  data[1] = 1;
+  data[0] = (1<<11);
+  data[1] = 12;
 }
 
 
@@ -510,7 +511,7 @@ mas2_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
     int16_t *s4_2, int n)
 {
   int i;
-  int16_t x;
+  int x;
 
   for(i=0;i<n;i++){
     x = s4_2[0] + s2[i]*s3_2[0] + s2[i+1]*s3_2[1];
@@ -525,7 +526,7 @@ mas4_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_4,
     int16_t *s4_2, int n)
 {
   int i;
-  int16_t x;
+  int x;
 
   for(i=0;i<n;i++){
     x = s4_2[0] + s2[i]*s3_4[0] + s2[i+1]*s3_4[1] + s2[i+2]*s3_4[2] +
@@ -542,7 +543,7 @@ mas8_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_8,
 {
   int i;
   int j;
-  int16_t x;
+  int x;
 
   for(i=0;i<n;i++){
     x = s4_2[0];

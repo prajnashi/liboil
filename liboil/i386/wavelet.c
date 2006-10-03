@@ -617,7 +617,7 @@ mas2_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
     int16_t *s4_2, int n)
 {
   int shift = s4_2[1];
-    
+
   while (n&3) {
     int x;
 
@@ -634,17 +634,220 @@ mas2_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
 
   n>>=2;
   asm volatile ("\n"
-      "  xor %%ecx, %%ecx\n"
-      "  movw 0(%0), %%cx\n"
+      "  movzwl 0(%0), %%ecx\n"
       "  movd %%ecx, %%mm7\n"
       "  pshufw $0x00, %%mm7, %%mm7\n"
-      "  movw 2(%0), %%cx\n"
+      "  movzwl 2(%0), %%ecx\n"
       "  movd %%ecx, %%mm6\n"
       "  pshufw $0x00, %%mm6, %%mm6\n"
-      "  movw 0(%1), %%cx\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x44, %%mm5, %%mm5\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"       // mm0 = s0, s1, s2, s3
+      "  movq 0(%2), %%mm1\n"       // mm1 = s0, s1, s2, s3
+      "  pmullw %%mm7, %%mm0\n"     // mm0 = lo(s0*a0), lo(s1*a0), ...
+      "  pmulhw %%mm7, %%mm1\n"     // mm1 = hi(s0*a0), hi(s1*a0), ...
+      "  movq %%mm0, %%mm2\n"       // mm2 = lo(s0*a0), lo(s1*a0), ...
+      "  punpcklwd %%mm1, %%mm0\n"  // mm0 = s0*a0, s1*a0
+      "  punpckhwd %%mm1, %%mm2\n"  // mm2 = s2*a0, s3*a0
+      "  movq %%mm2, %%mm1\n"       // mm1 = s2*a0, s3*a0
+
+      "  movq 2(%2), %%mm2\n"
+      "  movq 2(%2), %%mm3\n"
+      "  pmullw %%mm6, %%mm2\n"
+      "  pmulhw %%mm6, %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"  // mm2 = s1*a1, s2*a1
+      "  punpckhwd %%mm3, %%mm4\n"  // mm4 = s3*a1, s4*a1
+      "  movq %%mm4, %%mm3\n"       // mm3 = s3*a1, s4*a1
+
+      "  paddd %%mm3, %%mm1\n"      // mm1 = s2*a0 + s3*a1, ...
+      "  paddd %%mm2, %%mm0\n"      // mm0 = s0*a0 + s1*a1, ...
+
+      "  paddd %%mm5, %%mm1\n"      // mm1 = s2*a0 + s3*a1 + offset, ...
+      "  paddd %%mm5, %%mm0\n"      // mm0 = s0*a0 + s1*a1 + offset, ...
+
+      "  movd %4, %%mm4\n"
+      "  psrad %%mm4, %%mm1\n"      // mm1 = (s2*a0 + s3*a1 + offset)>>shift, ...
+      "  psrad %%mm4, %%mm0\n"      // mm0 = (s0*a0 + s1*a1 + offset)>>shift, ...
+
+      "  packssdw %%mm1, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "r" (shift)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas2_add_s16_mmx, mas2_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+void
+mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_4,
+    int16_t *s4_2, int n)
+{
+  int shift = s4_2[1];
+  //int m;
+
+  //m = n&3;
+#if 1
+  while (n&3) {
+    int x;
+    int i;
+
+    x = s4_2[0];
+    for(i=0;i<4;i++){
+      x += s2[i]*s3_4[i];
+    }
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+#endif
+
+  n>>=2;
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm7\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x44, %%mm5, %%mm5\n"
+      :: "r" (s3_4), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"       // mm0 = s0, s1, s2, s3
+      "  movq 0(%2), %%mm1\n"       // mm1 = s0, s1, s2, s3
+      "  pshufw $0x00, %%mm7, %%mm6\n"
+      "  pmullw %%mm6, %%mm0\n"     // mm0 = lo(s0*a0), lo(s1*a0), ...
+      "  pmulhw %%mm6, %%mm1\n"     // mm1 = hi(s0*a0), hi(s1*a0), ...
+      "  movq %%mm0, %%mm2\n"       // mm2 = lo(s0*a0), lo(s1*a0), ...
+      "  punpcklwd %%mm1, %%mm0\n"  // mm0 = s0*a0, s1*a0
+      "  punpckhwd %%mm1, %%mm2\n"  // mm2 = s2*a0, s3*a0
+      "  movq %%mm2, %%mm1\n"       // mm1 = s2*a0, s3*a0
+
+      "  movq 2(%2), %%mm2\n"
+      "  movq 2(%2), %%mm3\n"
+      "  pshufw $0x55, %%mm7, %%mm6\n"
+      "  pmullw %%mm6, %%mm2\n"
+      "  pmulhw %%mm6, %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"  // mm2 = s1*a1, s2*a1
+      "  punpckhwd %%mm3, %%mm4\n"  // mm4 = s3*a1, s4*a1
+      "  movq %%mm4, %%mm3\n"       // mm3 = s3*a1, s4*a1
+      "  paddd %%mm3, %%mm1\n"      // mm1 = s2*a0 + s3*a1, ...
+      "  paddd %%mm2, %%mm0\n"      // mm0 = s0*a0 + s1*a1, ...
+
+      "  movq 4(%2), %%mm2\n"
+      "  movq 4(%2), %%mm3\n"
+      "  pshufw $0xaa, %%mm7, %%mm6\n"
+      "  pmullw %%mm6, %%mm2\n"
+      "  pmulhw %%mm6, %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  movq %%mm4, %%mm3\n"
+      "  paddd %%mm3, %%mm1\n"
+      "  paddd %%mm2, %%mm0\n"
+
+      "  movq 6(%2), %%mm2\n"
+      "  movq 6(%2), %%mm3\n"
+      "  pshufw $0xff, %%mm7, %%mm6\n"
+      "  pmullw %%mm6, %%mm2\n"
+      "  pmulhw %%mm6, %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  movq %%mm4, %%mm3\n"
+      "  paddd %%mm3, %%mm1\n"
+      "  paddd %%mm2, %%mm0\n"
+
+      "  paddd %%mm5, %%mm1\n"
+      "  paddd %%mm5, %%mm0\n"
+
+      "  movd %4, %%mm4\n"
+      "  psrad %%mm4, %%mm1\n"
+      "  psrad %%mm4, %%mm0\n"
+
+      "  packssdw %%mm1, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "r" (shift)
+      );
+#if 0
+  while (m) {
+    int x;
+    int i;
+
+    x = s4_2[0];
+    for(i=0;i<4;i++){
+      x += s2[i]*s3_4[i];
+    }
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    m--;
+  }
+#endif
+}
+OIL_DEFINE_IMPL_FULL (mas4_add_s16_mmx, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+#if 0
+/* This only does 16-bit intermediates, whereas the ref specifies 32-bit */
+void
+mas2_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  while (n&3) {
+    int x;
+
+    x = s4_2[0] + s2[0]*s3_2[0] + s2[1]*s3_2[1];
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  movzwl 0(%0), %%ecx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movzwl 2(%0), %%ecx\n"
+      "  movd %%ecx, %%mm6\n"
+      "  pshufw $0x00, %%mm6, %%mm6\n"
+      "  movzwl 0(%1), %%ecx\n"
       "  movd %%ecx, %%mm5\n"
       "  pshufw $0x00, %%mm5, %%mm5\n"
-      "  movw 2(%1), %%cx\n"
+      "  movzwl 2(%1), %%ecx\n"
       "  movd %%ecx, %%mm4\n"
       :: "r" (s3_2), "r" (s4_2)
       : "ecx"
@@ -670,14 +873,15 @@ mas2_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas2_add_s16_mmx, mas2_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 
 
+#if 0
+/* This only does 16-bit intermediates, whereas the ref specifies 32-bit */
 void
 mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
     int16_t *s4_2, int n)
 {
-  int shift = s4_2[1];
-    
   while (n&3) {
     int x;
 
@@ -695,23 +899,22 @@ mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
 
   n>>=2;
   asm volatile ("\n"
-      "  xor %%ecx, %%ecx\n"
-      "  movw 0(%0), %%cx\n"
+      "  movzwl 0(%0), %%ecx\n"
       "  movd %%ecx, %%mm7\n"
       "  pshufw $0x00, %%mm7, %%mm7\n"
-      "  movw 2(%0), %%cx\n"
+      "  movzwl 2(%0), %%ecx\n"
       "  movd %%ecx, %%mm6\n"
       "  pshufw $0x00, %%mm6, %%mm6\n"
-      "  movw 2(%0), %%cx\n"
+      "  movzwl 2(%0), %%ecx\n"
       "  movd %%ecx, %%mm5\n"
       "  pshufw $0x00, %%mm5, %%mm5\n"
-      "  movw 2(%0), %%cx\n"
+      "  movzwl 2(%0), %%ecx\n"
       "  movd %%ecx, %%mm4\n"
       "  pshufw $0x00, %%mm4, %%mm4\n"
-      "  movw 0(%1), %%cx\n"
+      "  movzwl 0(%1), %%ecx\n"
       "  movd %%ecx, %%mm3\n"
       "  pshufw $0x00, %%mm3, %%mm3\n"
-      "  movw 2(%1), %%cx\n"
+      "  movzwl 2(%1), %%ecx\n"
       "  movd %%ecx, %%mm2\n"
       :: "r" (s3_2), "r" (s4_2)
       : "ecx"
@@ -743,5 +946,317 @@ mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas4_add_s16_mmx, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
 
+
+#if 0
+/* This only does 16-bit intermediates, whereas the ref specifies 32-bit */
+void
+mas8_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  while (n&3) {
+    int x;
+    int i;
+
+    x = s4_2[0];
+    for(i=0;i<8;i++){
+      x += s2[i]*s3_2[i];
+    }
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movq 8(%0), %%mm7\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  pshufw $0x00, %%mm3, %%mm3\n"
+      "  pxor %%mm4, %%mm4\n"
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  pshufw $0x00, %%mm6, %%mm1\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmullw %%mm1, %%mm0\n"
+      "  pshufw $0x55, %%mm6, %%mm2\n"
+      "  movq 2(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0xaa, %%mm6, %%mm2\n"
+      "  movq 4(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0xff, %%mm6, %%mm2\n"
+      "  movq 6(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+
+      "  pshufw $0x00, %%mm7, %%mm2\n"
+      "  movq 8(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0x55, %%mm7, %%mm2\n"
+      "  movq 10(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0xaa, %%mm7, %%mm2\n"
+      "  movq 12(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0xff, %%mm7, %%mm2\n"
+      "  movq 14(%2), %%mm1\n"
+      "  pmullw %%mm2, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+
+      "  paddw %%mm3, %%mm0\n"
+      "  psraw %%mm4, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas8_add_s16_mmx, mas8_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+#endif
+
+
+void
+mas4_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmaddwd %%mm6, %%mm0\n"
+      "  pshufw $0xee, %%mm0, %%mm1\n"
+      "  paddd %%mm1, %%mm0\n"
+      "  paddd %%mm3, %%mm0\n"
+      "  psrad %%mm4, %%mm0\n"
+      "  movd %%mm0, %%eax\n"
+      "  addw 0(%1), %%ax\n"
+      "  movw %%ax, 0(%0)\n"
+      "  add $2, %0\n"
+      "  add $2, %1\n"
+      "  add $2, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      :
+      : "eax"
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas4_add_s16_pmaddwd, mas4_add_s16, OIL_IMPL_FLAG_SSE);
+
+void
+mas8_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movq 8(%0), %%mm7\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmaddwd %%mm6, %%mm0\n"
+      "  movq 8(%2), %%mm1\n"
+      "  pmaddwd %%mm7, %%mm1\n"
+      "  paddd %%mm1, %%mm0\n"
+      "  pshufw $0xee, %%mm0, %%mm1\n"
+      "  paddd %%mm1, %%mm0\n"
+      "  paddd %%mm3, %%mm0\n"
+      "  psrad %%mm4, %%mm0\n"
+      "  movd %%mm0, %%eax\n"
+      "  addw 0(%1), %%ax\n"
+      "  movw %%ax, 0(%0)\n"
+      "  add $2, %0\n"
+      "  add $2, %1\n"
+      "  add $2, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      :
+      : "eax"
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas8_add_s16_pmaddwd, mas8_add_s16, OIL_IMPL_FLAG_SSE);
+
+
+
+#if 0
+void
+mas8_add_s16_pmaddwd2 (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  while (n&3) {
+    int x;
+    int i;
+
+    x = s4_2[0];
+    for(i=0;i<8;i++){
+      x += s2[i]*s3_2[i];
+    }
+    x >>= s4_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movq 8(%0), %%mm7\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x00, %%mm5, %%mm5\n"
+      "  pxor %%mm4, %%mm4\n"
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmaddwd %%mm6, %%mm0\n"
+      "  movq 8(%2), %%mm1\n"
+      "  pmaddwd %%mm7, %%mm1\n"
+      "  paddd %%mm1, %%mm0\n"
+      "  pshufw $0xee, %%mm0, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+
+      "  movq 2(%2), %%mm2\n"
+      "  pmaddwd %%mm6, %%mm2\n"
+      "  movq 10(%2), %%mm3\n"
+      "  pmaddwd %%mm7, %%mm3\n"
+      "  paddd %%mm3, %%mm2\n"
+      "  pshufw $0xee, %%mm2, %%mm3\n"
+      "  paddw %%mm3, %%mm2\n"
+      "  pextrw $0, %%mm2, %%eax\n"
+      "  pinsrw $1, %%eax, %%mm0\n"
+
+      "  movq 4(%2), %%mm2\n"
+      "  pmaddwd %%mm6, %%mm2\n"
+      "  movq 12(%2), %%mm3\n"
+      "  pmaddwd %%mm7, %%mm3\n"
+      "  paddd %%mm3, %%mm2\n"
+      "  pshufw $0xee, %%mm2, %%mm3\n"
+      "  paddw %%mm3, %%mm2\n"
+      "  pextrw $0, %%mm2, %%eax\n"
+      "  pinsrw $2, %%eax, %%mm0\n"
+
+      "  movq 6(%2), %%mm2\n"
+      "  pmaddwd %%mm6, %%mm2\n"
+      "  movq 14(%2), %%mm3\n"
+      "  pmaddwd %%mm7, %%mm3\n"
+      "  paddd %%mm3, %%mm2\n"
+      "  pshufw $0xee, %%mm2, %%mm3\n"
+      "  paddw %%mm3, %%mm2\n"
+      "  pextrw $0, %%mm2, %%eax\n"
+      "  pinsrw $3, %%eax, %%mm0\n"
+
+      "  paddw %%mm5, %%mm0\n"
+      "  psraw %%mm4, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      :
+      : "eax"
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas8_add_s16_pmaddwd2, mas8_add_s16, OIL_IMPL_FLAG_SSE);
+#endif
+
+#if 0
+/* This only does 16-bit intermediates, whereas the ref specifies 32-bit */
+void
+mas8_add_s16_sse2 (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movq 8(%0), %%mm7\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  pshufw $0x00, %%mm3, %%mm3\n"
+      "  pxor %%mm4, %%mm4\n"
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmullw %%mm6, %%mm0\n"
+      "  movq 8(%2), %%mm1\n"
+      "  pmullw %%mm7, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0xee, %%mm0, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0x01, %%mm0, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  paddw %%mm3, %%mm0\n"
+      "  psraw %%mm4, %%mm0\n"
+      "  movd %%mm0, %%eax\n"
+      "  addw 0(%1), %%ax\n"
+      "  movw %%ax, 0(%0)\n"
+      "  add $2, %0\n"
+      "  add $2, %1\n"
+      "  add $2, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      :
+      : "eax"
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas8_add_s16_sse2, mas8_add_s16, OIL_IMPL_FLAG_SSE);
+#endif
 
