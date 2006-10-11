@@ -1260,3 +1260,180 @@ mas8_add_s16_sse2 (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
 OIL_DEFINE_IMPL_FULL (mas8_add_s16_sse2, mas8_add_s16, OIL_IMPL_FLAG_SSE);
 #endif
 
+void
+mas2_across_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3,
+    int16_t *s4_2, int16_t *s5_2, int n)
+{
+  int shift = s5_2[1];
+
+  while (n&3) {
+    int x;
+
+    x = s5_2[0] + s2[0]*s4_2[0] + s3[0]*s4_2[1];
+    x >>= s5_2[1];
+    d1[0] = s1[0] + x;
+
+    d1++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  if (n==0) return;
+
+  n>>=2;
+  asm volatile ("\n"
+      "  movzwl 0(%0), %%ecx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movzwl 2(%0), %%ecx\n"
+      "  movd %%ecx, %%mm6\n"
+      "  pshufw $0x00, %%mm6, %%mm6\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+      "  pshufw $0x44, %%mm5, %%mm5\n"
+      :: "r" (s4_2), "r" (s5_2)
+      : "ecx"
+      );
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"       // mm0 = s0, s1, s2, s3
+      "  movq 0(%2), %%mm1\n"       // mm1 = s0, s1, s2, s3
+      "  pmullw %%mm7, %%mm0\n"     // mm0 = lo(s0*a0), lo(s1*a0), ...
+      "  pmulhw %%mm7, %%mm1\n"     // mm1 = hi(s0*a0), hi(s1*a0), ...
+      "  movq %%mm0, %%mm2\n"       // mm2 = lo(s0*a0), lo(s1*a0), ...
+      "  punpcklwd %%mm1, %%mm0\n"  // mm0 = s0*a0, s1*a0
+      "  punpckhwd %%mm1, %%mm2\n"  // mm2 = s2*a0, s3*a0
+      "  movq %%mm2, %%mm1\n"       // mm1 = s2*a0, s3*a0
+
+      "  movq 0(%3), %%mm2\n"
+      "  movq 0(%3), %%mm3\n"
+      "  pmullw %%mm6, %%mm2\n"
+      "  pmulhw %%mm6, %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"  // mm2 = s1*a1, s2*a1
+      "  punpckhwd %%mm3, %%mm4\n"  // mm4 = s3*a1, s4*a1
+      "  movq %%mm4, %%mm3\n"       // mm3 = s3*a1, s4*a1
+
+      "  paddd %%mm3, %%mm1\n"      // mm1 = s2*a0 + s3*a1, ...
+      "  paddd %%mm2, %%mm0\n"      // mm0 = s0*a0 + s1*a1, ...
+
+      "  paddd %%mm5, %%mm1\n"      // mm1 = s2*a0 + s3*a1 + offset, ...
+      "  paddd %%mm5, %%mm0\n"      // mm0 = s0*a0 + s1*a1 + offset, ...
+
+      "  movd %5, %%mm4\n"
+      "  psrad %%mm4, %%mm1\n"      // mm1 = (s2*a0 + s3*a1 + offset)>>shift, ...
+      "  psrad %%mm4, %%mm0\n"      // mm0 = (s0*a0 + s1*a1 + offset)>>shift, ...
+
+      "  packssdw %%mm1, %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  add $8, %3\n"
+      "  decl %4\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (s3), "+m" (n)
+      : "r" (shift)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas2_across_add_s16_mmx, mas2_across_add_s16,
+    OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+void
+add_const_rshift_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2_2, int n)
+{
+  while(n&3) {
+    d1[0] = (s1[0] + s2_2[0])>>s2_2[1];
+    d1++;
+    s1++;
+    n--;
+  }
+  n>>=2;
+  asm volatile ("\n"
+      "  movzwl 0(%2), %%ecx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movzwl 2(%2), %%ecx\n"
+      "  movd %%ecx, %%mm6\n"
+      "1:\n"
+      "  movq 0(%1), %%mm0\n"
+      "  paddsw %%mm7, %%mm0\n"
+      "  psraw %%mm6, %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2_2), "+r" (n)
+      :
+      : "ecx"
+      );
+
+}
+OIL_DEFINE_IMPL_FULL (add_const_rshift_s16_mmx, add_const_rshift_s16,
+    OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+void
+multiply_and_add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3, int n)
+{
+  while(n&3) {
+    d1[0] = s1[0] + s2[0]*s3[0];
+    d1++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  n>>=2;
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmullw 0(%3), %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  add $8, %3\n"
+      "  decl %4\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (s3), "+r" (n)
+      );
+
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_add_s16_mmx, multiply_and_add_s16,
+    OIL_IMPL_FLAG_MMX);
+
+void
+add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
+{
+  while(n&3) {
+    d1[0] = s1[0] + s2[0];
+    d1++;
+    s1++;
+    s2++;
+    n--;
+  }
+  n>>=2;
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  paddw 0(%1), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "  add $8, %0\n"
+      "  add $8, %1\n"
+      "  add $8, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      );
+
+}
+OIL_DEFINE_IMPL_FULL (add_s16_mmx, add_s16, OIL_IMPL_FLAG_MMX);
+
