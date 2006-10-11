@@ -1,3 +1,16 @@
+2006-10-10  David Schleef  <ds@schleef.org>
+
+	* liboil-uninstalled.pc.in:
+	* liboil.pc.in:
+	  Spelling fix.  Tee-hee.
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboilmarshal.c:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/wavelet.c:
+	  Add some new classes.
+
 2006-10-02  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

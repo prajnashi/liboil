@@ -41,6 +41,7 @@ void oil_abs_f64_f64 (double * dest, int dstr, const double * src, int sstr, int
 void oil_abs_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n);
 void oil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n);
 void oil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n);
+void oil_add_const_rshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s3_2, int n);
 void oil_add_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n);
 void oil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n);
@@ -262,8 +263,12 @@ void oil_lift_sub_135 (int16_t * d, const int16_t * s1, const int16_t * s2, cons
 void oil_lift_sub_mult_shift12 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, const int16_t * s4_1, int n);
 void oil_lift_sub_shift1 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, int n);
 void oil_lift_sub_shift2 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, int n);
+void oil_lshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s3_1, int n);
+void oil_mas2_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, const int16_t * s4_2, const int16_t * s5_2, int n);
 void oil_mas2_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np1, const int16_t * s3_2, const int16_t * s4_2, int n);
+void oil_mas4_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx4, int sstr2, const int16_t * s3_4, const int16_t * s4_2, int n);
 void oil_mas4_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np3, const int16_t * s3_4, const int16_t * s4_2, int n);
+void oil_mas8_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx8, int sstr2, const int16_t * s3_8, const int16_t * s4_2, int n);
 void oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n);
 void oil_maximum_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_md5 (uint32_t * i_4, const uint32_t * s_16);
