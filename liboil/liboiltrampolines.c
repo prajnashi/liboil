@@ -2491,6 +2491,16 @@ oil_multiply_and_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src
   ((void (*)(int16_t * d, const int16_t * src1, const int16_t * src2, const int16_t * src3, int n))(_oil_function_class_multiply_and_add_s16.func))(d, src1, src2, src3, n);
 }
 
+#undef oil_multiply_and_add_s16_u8
+void
+oil_multiply_and_add_s16_u8 (int16_t * d, const int16_t * src1, const int16_t * src2, const uint8_t * src3, int n)
+{
+  if (_oil_function_class_multiply_and_add_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_add_s16_u8);
+  }
+  ((void (*)(int16_t * d, const int16_t * src1, const int16_t * src2, const uint8_t * src3, int n))(_oil_function_class_multiply_and_add_s16_u8.func))(d, src1, src2, src3, n);
+}
+
 #undef oil_multiply_f32
 void
 oil_multiply_f32 (float * d, const float * s1, const float * s2, int n)

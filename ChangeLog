@@ -8,6 +8,16 @@
 	* liboil/ref/wavelet.c:
 	  New classes plus MMX code.  For Schrödinger.
 
+2006-10-11  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/wavelet.c:
+	  New classes plus MMX code.  For Schrödinger.
+
 2006-10-10  David Schleef  <ds@schleef.org>
 
 	* liboil-uninstalled.pc.in:

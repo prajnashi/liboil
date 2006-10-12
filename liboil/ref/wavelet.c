@@ -151,6 +151,8 @@ OIL_DEFINE_CLASS_FULL (mas8_across_add_s16,
     "int16_t *s4_2, int n", mas_test);
 OIL_DEFINE_CLASS (multiply_and_add_s16,
     "int16_t *d, int16_t *src1, int16_t *src2, int16_t *src3, int n");
+OIL_DEFINE_CLASS (multiply_and_add_s16_u8,
+    "int16_t *d, int16_t *src1, int16_t *src2, uint8_t *src3, int n");
 OIL_DEFINE_CLASS (add_s16,
     "int16_t *d, int16_t *src1, int16_t *src2, int n");
 
@@ -711,6 +713,17 @@ multiply_and_add_s16_ref (int16_t *d, int16_t *src1, int16_t *src2, int16_t *src
   }
 }
 OIL_DEFINE_IMPL_REF (multiply_and_add_s16_ref, multiply_and_add_s16);
+
+void
+multiply_and_add_s16_u8_ref (int16_t *d, int16_t *src1, int16_t *src2,
+    uint8_t *src3, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    d[i] = src1[i] + src2[i]*src3[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_and_add_s16_u8_ref, multiply_and_add_s16_u8);
 
 void
 add_s16_ref (int16_t *d, int16_t *src1, int16_t *src2, int n)
