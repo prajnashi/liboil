@@ -6,6 +6,7 @@ libi386_la_SOURCES = \
 	ayuv2argb_i386.c \
 	clamp.c \
 	composite_i386.c \
+	convert_i386.c \
 	copy8x8_i386.c \
 	copy_i386.c \
 	diff8x8_i386.c \

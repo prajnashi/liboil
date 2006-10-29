@@ -716,8 +716,8 @@ mas4_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_4,
     s2++;
     n--;
   }
-  if (n==0) return;
 #endif
+  if (n==0) return;
 
   n>>=2;
   asm volatile ("\n"
@@ -1042,6 +1042,7 @@ void
 mas4_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
     int16_t *s4_2, int n)
 {
+  if (n==0) return;
   asm volatile ("\n"
       "  movq 0(%0), %%mm6\n"
       "  movzwl 0(%1), %%ecx\n"
@@ -1079,6 +1080,7 @@ void
 mas8_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
     int16_t *s4_2, int n)
 {
+  if (n==0) return;
   asm volatile ("\n"
       "  movq 0(%0), %%mm6\n"
       "  movq 8(%0), %%mm7\n"
@@ -1282,6 +1284,7 @@ mas2_across_add_s16_mmx (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3,
   if (n==0) return;
 
   n>>=2;
+  if (n==0) return;
   asm volatile ("\n"
       "  movzwl 0(%0), %%ecx\n"
       "  movd %%ecx, %%mm7\n"
@@ -1352,6 +1355,7 @@ add_const_rshift_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2_2, int n)
     n--;
   }
   n>>=2;
+  if (n==0) return;
   asm volatile ("\n"
       "  movzwl 0(%2), %%ecx\n"
       "  movd %%ecx, %%mm7\n"
@@ -1389,6 +1393,7 @@ multiply_and_add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3, int
     n--;
   }
   n>>=2;
+  if (n==0) return;
   asm volatile ("\n"
       "1:\n"
       "  movq 0(%2), %%mm0\n"
@@ -1422,6 +1427,7 @@ multiply_and_add_s16_u8_mmx(int16_t *d1, int16_t *s1, int16_t *s2,
     n--;
   }
   n>>=2;
+  if (n==0) return;
   asm volatile ("\n"
       "  pxor %%mm7, %%mm7\n"
       "1:\n"
@@ -1445,6 +1451,48 @@ OIL_DEFINE_IMPL_FULL (multiply_and_add_s16_u8_mmx, multiply_and_add_s16_u8,
     OIL_IMPL_FLAG_MMX);
 
 void
+multiply_and_add_s16_u8_mmx_2(int16_t *d1, int16_t *s1, int16_t *s2,
+    uint8_t *s3, int n)
+{
+  while(n&7) {
+    d1[0] = s1[0] + s2[0]*s3[0];
+    d1++;
+    s1++;
+    s2++;
+    s3++;
+    n--;
+  }
+  n>>=3;
+  if (n==0) return;
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movq 0(%3), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "   movq 4(%3), %%mm1\n"
+      "  pmullw 0(%2), %%mm0\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "  paddw 0(%1), %%mm0\n"
+      "   pmullw 8(%2), %%mm1\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   paddw 8(%1), %%mm1\n"
+      "   movq %%mm1, 8(%0)\n"
+
+      "  add $16, %0\n"
+      "  add $16, %1\n"
+      "  add $16, %2\n"
+      "  add $8, %3\n"
+      "  decl %4\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (s3), "+r" (n)
+      );
+
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_add_s16_u8_mmx_2, multiply_and_add_s16_u8,
+    OIL_IMPL_FLAG_MMX);
+
+void
 add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
 {
   while(n&3) {
@@ -1455,6 +1503,7 @@ add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
     n--;
   }
   n>>=2;
+  if (n==0) return;
   asm volatile ("\n"
       "1:\n"
       "  movq 0(%2), %%mm0\n"
@@ -1471,4 +1520,41 @@ add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
 
 }
 OIL_DEFINE_IMPL_FULL (add_s16_mmx, add_s16, OIL_IMPL_FLAG_MMX);
+
+void
+multiply_and_acc_12xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  if (n==0) return;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movd 0(%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pmullw 0(%1), %%mm0\n"
+      "  paddw 0(%0), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   movd 4(%2), %%mm1\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "   pmullw 8(%1), %%mm1\n"
+      "   paddw 8(%0), %%mm1\n"
+      "   movq %%mm1, 8(%0)\n"
+      "    movd 8(%2), %%mm2\n"
+      "    punpcklbw %%mm7, %%mm2\n"
+      "    pmullw 16(%1), %%mm2\n"
+      "    paddw 16(%0), %%mm2\n"
+      "    movq %%mm2, 16(%0)\n"
+
+      "  addl %4, %0\n"
+      "  addl %5, %1\n"
+      "  addl %6, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (i1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "m" (is1), "m" (ss1), "m" (ss2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_acc_12xn_s16_u8_mmx,
+    multiply_and_acc_12xn_s16_u8, OIL_IMPL_FLAG_MMX);
 

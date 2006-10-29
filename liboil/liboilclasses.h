@@ -281,6 +281,7 @@ OIL_DECLARE_CLASS(minimum_f32);
 OIL_DECLARE_CLASS(mix_u8);
 OIL_DECLARE_CLASS(mt19937);
 OIL_DECLARE_CLASS(mult8x8_s16);
+OIL_DECLARE_CLASS(multiply_and_acc_12xn_s16_u8);
 OIL_DECLARE_CLASS(multiply_and_add_s16);
 OIL_DECLARE_CLASS(multiply_and_add_s16_u8);
 OIL_DECLARE_CLASS(multiply_f32);

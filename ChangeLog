@@ -1,3 +1,17 @@
+2006-10-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/Makefile.am:
+	* liboil/i386/wavelet.c:
+	* liboil/i386/convert_i386.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/wavelet.c:
+	  New classes plus MMX code.  For Schrödinger.
+	* liboil/liboilprototype.c:
+	  Add a useful error message.
+
 2006-10-11  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/wavelet.c:

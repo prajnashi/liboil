@@ -2481,6 +2481,16 @@ oil_mult8x8_s16 (int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8
   ((void (*)(int16_t * d_8x8, const int16_t * s1_8x8, const int16_t * s2_8x8, int ds, int ss1, int ss2))(_oil_function_class_mult8x8_s16.func))(d_8x8, s1_8x8, s2_8x8, ds, ss1, ss2);
 }
 
+#undef oil_multiply_and_acc_12xn_s16_u8
+void
+oil_multiply_and_acc_12xn_s16_u8 (int16_t * i1_12xn, int is1, const int16_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, int n)
+{
+  if (_oil_function_class_multiply_and_acc_12xn_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_acc_12xn_s16_u8);
+  }
+  ((void (*)(int16_t * i1_12xn, int is1, const int16_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, int n))(_oil_function_class_multiply_and_acc_12xn_s16_u8.func))(i1_12xn, is1, s1_12xn, ss1, s2_12xn, ss2, n);
+}
+
 #undef oil_multiply_and_add_s16
 void
 oil_multiply_and_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, const int16_t * src3, int n)

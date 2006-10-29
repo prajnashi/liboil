@@ -225,6 +225,7 @@ oil_prototype_from_string (const char *s)
 
     if (param.type == OIL_TYPE_UNKNOWN ||
         param.parameter_type == OIL_ARG_UNKNOWN) {
+      OIL_ERROR ("bad type (%s) or parameter (%s)", type_name, parameter_name);
       oil_prototype_free (proto);
       return NULL;
     }
