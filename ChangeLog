@@ -1,5 +1,12 @@
 2006-11-04  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/convert_i386.c:
+	  Fix the mmx_2 impl.
+	* liboil/ref/wavelet.c:
+	  Fix mas4_across and mas8_across testing function.
+
+2006-11-04  David Schleef  <ds@schleef.org>
+
 	* configure.ac: version bump
 
 2006-11-04  David Schleef  <ds@schleef.org>

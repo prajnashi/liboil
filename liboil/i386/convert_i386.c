@@ -73,6 +73,7 @@ convert_u8_s16_mmx_2 (uint8_t * dest, const int16_t * src, int n)
     dest++;
     n--;
   }
+  if (n==0) return;
 
   n>>=3;
   if (n&1) {
@@ -86,20 +87,22 @@ convert_u8_s16_mmx_2 (uint8_t * dest, const int16_t * src, int n)
   }
 
   n >>= 1;
-  __asm__ __volatile__ ("\n"
-      "2:\n"
-      "  movq 0(%1), %%mm0\n"
-      "  packuswb 8(%1), %%mm0\n"
-      "  movq %%mm0, 0(%0)\n"
-      "  movq 16(%1), %%mm0\n"
-      "  packuswb 24(%1), %%mm0\n"
-      "  movq %%mm0, 8(%0)\n"
-      "  add $32, %1\n"
-      "  add $16, %0\n"
-      "  decl %2\n"
-      "  jg 2b\n"
-      "  emms\n"
-      : "+r" (dest), "+r" (src), "+r" (n));
+  if (n > 0) {
+    __asm__ __volatile__ ("\n"
+        "2:\n"
+        "  movq 0(%1), %%mm0\n"
+        "  packuswb 8(%1), %%mm0\n"
+        "  movq %%mm0, 0(%0)\n"
+        "  movq 16(%1), %%mm0\n"
+        "  packuswb 24(%1), %%mm0\n"
+        "  movq %%mm0, 8(%0)\n"
+        "  add $32, %1\n"
+        "  add $16, %0\n"
+        "  decl %2\n"
+        "  jg 2b\n"
+        : "+r" (dest), "+r" (src), "+r" (n));
+  }
+  __asm__ __volatile__ ("emms\n");
 }
 OIL_DEFINE_IMPL_FULL (convert_u8_s16_mmx_2, convert_u8_s16, OIL_IMPL_FLAG_MMX);
 
