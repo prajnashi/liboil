@@ -542,7 +542,7 @@ oil_cpu_detect_kernel_support (void)
 		       OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
   }
 #endif
-#if !defined(__linux__) && !defined(__FreeBSD__)
+#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
   /* If we don't know that the operating system supports SSE, don't trust that
    * it will properly support it.
    */

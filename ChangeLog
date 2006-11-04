@@ -1,3 +1,7 @@
+2006-11-04  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: Add NetBSD to known-good SSE kernels.
+
 2006-10-28  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/Makefile.am:
