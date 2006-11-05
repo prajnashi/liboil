@@ -1,5 +1,12 @@
 2006-11-04  David Schleef  <ds@schleef.org>
 
+	* testsuite/instruction/check-instructions.pl:
+	  Add more instructions.
+	* liboil/i386/wavelet.c:
+	  Fix flags.
+
+2006-11-04  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/convert_i386.c:
 	  Fix the mmx_2 impl.
 	* liboil/ref/wavelet.c:

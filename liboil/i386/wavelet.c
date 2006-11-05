@@ -1074,7 +1074,7 @@ mas4_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       : "eax"
       );
 }
-OIL_DEFINE_IMPL_FULL (mas4_add_s16_pmaddwd, mas4_add_s16, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (mas4_add_s16_pmaddwd, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 void
 mas8_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
@@ -1116,7 +1116,7 @@ mas8_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       : "eax"
       );
 }
-OIL_DEFINE_IMPL_FULL (mas8_add_s16_pmaddwd, mas8_add_s16, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (mas8_add_s16_pmaddwd, mas8_add_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 
 
