@@ -79,7 +79,7 @@ merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
       :
       : "memory");
 }
-OIL_DEFINE_IMPL_FULL (merge_linear_u8_mmx, merge_linear_u8, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (merge_linear_u8_mmx, merge_linear_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 static void
 merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,

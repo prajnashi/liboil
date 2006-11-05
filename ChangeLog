@@ -1,5 +1,11 @@
 2006-11-04  David Schleef  <ds@schleef.org>
 
+	* liboil/Makefile.am: dist fix
+	* liboil/i386_amd64/resample.c: fix flags
+	* testsuite/mmx_engine.c: fix for pure mmx cpus
+
+2006-11-04  David Schleef  <ds@schleef.org>
+
 	* configure.ac:
 	* liboil/Makefile.am:
 	* liboil/amd64/Makefile.am:

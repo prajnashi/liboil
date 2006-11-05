@@ -156,7 +156,7 @@ void mmx_engine_test(void)
   CHECK_LATENCY(pmaddwd)
   CHECK_LATENCY(pmulhw)
   CHECK_LATENCY(pmullw)
-  CHECK_LATENCY(pmulhuw)
+  //CHECK_LATENCY(pmulhuw)
   CHECK_LATENCY(por)
   CHECK_LATENCY(pslld)
   CHECK_LATENCY(psllq)
@@ -237,7 +237,10 @@ void mmx_engine_test(void)
   CHECK_THROUGHPUT(pmaddwd)
   CHECK_THROUGHPUT(pmulhw)
   CHECK_THROUGHPUT(pmullw)
+#if 0
+  /* pmulhuw requires mmxext */
   CHECK_THROUGHPUT(pmulhuw)
+#endif
   CHECK_THROUGHPUT(por)
   CHECK_THROUGHPUT(pslld)
   CHECK_THROUGHPUT(psllq)
@@ -316,7 +319,10 @@ void sse2_engine_test(void)
   CHECK_LATENCY(pmaddwd)
   CHECK_LATENCY(pmulhw)
   CHECK_LATENCY(pmullw)
+#if 0
+  /* pmulhuw requires mmxext */
   CHECK_LATENCY(pmulhuw)
+#endif
   CHECK_LATENCY(por)
   CHECK_LATENCY(pslld)
   CHECK_LATENCY(psllq)

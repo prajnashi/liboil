@@ -1,7 +1,7 @@
 
 pkgincludedir = $(includedir)/liboil-@LIBOIL_MAJORMINOR@/liboil
 
-DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
+DIST_SUBDIRS = amd64 3dnow c colorspace conv copy dct fb i386 i386_amd64 jpeg math md5 mmx motovec powerpc powerpc_asm_blocks ref simdpack sse utf8 deprecated
 SUBDIRS = c colorspace conv copy dct jpeg math md5 ref simdpack utf8 deprecated
 
 EXTRA_DIST = README
