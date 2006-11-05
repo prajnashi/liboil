@@ -10,8 +10,8 @@ libs =
 
 if HAVE_I386
 if HAVE_GCC_ASM
-SUBDIRS += i386
-libs += i386/libi386.la
+SUBDIRS += i386 i386_amd64
+libs += i386/libi386.la i386_amd64/libi386_amd64.la
 endif
 endif
 
@@ -30,8 +30,8 @@ endif
 
 if HAVE_AMD64
 if HAVE_GCC_ASM
-SUBDIRS += 
-libs += 
+SUBDIRS += amd64 i386_amd64
+libs += amd64/libamd64.la i386_amd64/libi386_amd64.la
 endif
 endif
 

@@ -208,6 +208,7 @@ liboil/dct/Makefile
 liboil/deprecated/Makefile
 liboil/fb/Makefile
 liboil/i386/Makefile
+liboil/i386_amd64/Makefile
 liboil/jpeg/Makefile
 liboil/math/Makefile
 liboil/md5/Makefile

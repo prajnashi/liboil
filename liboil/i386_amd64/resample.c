@@ -34,7 +34,6 @@
 
 #include <stdio.h>
 
-#ifdef ENABLE_BROKEN_IMPLS
 static void
 merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
     uint32_t *src3, int n)
@@ -49,13 +48,11 @@ merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
   }
   n >>= 2;
   if (n == 0) return;
-  x &= 0xff;
-  x |= (x<<8);
   x |= (x<<16);
   asm volatile ("\n"
       "  pxor %%mm7, %%mm7\n"
       "  movd %3, %%mm6\n"
-      "  punpcklbw %%mm7, %%mm6\n"
+      "  pshufw $0x00, %%mm6, %%mm6\n"
       "  movl $0x01010101, %3\n"
       "  movd %3, %%mm5\n"
       "  punpcklbw %%mm7, %%mm5\n"
@@ -83,7 +80,6 @@ merge_linear_u8_mmx (uint8_t *dest, uint8_t *src1, uint8_t *src2,
       : "memory");
 }
 OIL_DEFINE_IMPL_FULL (merge_linear_u8_mmx, merge_linear_u8, OIL_IMPL_FLAG_MMX);
-#endif
 
 static void
 merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
@@ -99,14 +95,11 @@ merge_linear_u8_sse2 (uint8_t *dest, uint8_t *src1, uint8_t *src2,
   }
   n >>= 3;
   if (n == 0) return;
-  x &= 0xff;
-  x |= (x<<8);
   x |= (x<<16);
   asm volatile ("\n"
       "  pxor %%xmm7, %%xmm7\n"
       "  movd %3, %%xmm6\n"
       "  pshufd $0x00, %%xmm6, %%xmm6\n"
-      "  punpcklbw %%xmm7, %%xmm6\n"
       "  movl $0x01010101, %3\n"
       "  movd %3, %%xmm5\n"
       "  pshufd $0x00, %%xmm5, %%xmm5\n"

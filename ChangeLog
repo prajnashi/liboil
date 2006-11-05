@@ -1,5 +1,29 @@
 2006-11-04  David Schleef  <ds@schleef.org>
 
+	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/amd64/Makefile.am:
+	* liboil/amd64/empty.c:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/clamp.c:
+	* liboil/i386/idct8x8_i386.c:
+	* liboil/i386/mt19937.c:
+	* liboil/i386/resample.c:
+	* liboil/i386/sum.c:
+	* liboil/i386/swab.c:
+	* liboil/i386_amd64/Makefile.am:
+	* liboil/i386_amd64/clamp.c:
+	* liboil/i386_amd64/idct8x8_i386.c:
+	* liboil/i386_amd64/mt19937.c:
+	* liboil/i386_amd64/resample.c:
+	* liboil/i386_amd64/sum.c:
+	* liboil/i386_amd64/swab.c:
+	* testsuite/stack_align.c:
+	  Move stuff from i386/ to i386_amd64/ that compiles on amd64
+	  (along with a resample fix).  Other random amd64 fixes.
+
+2006-11-04  David Schleef  <ds@schleef.org>
+
 	* testsuite/instruction/check-instructions.pl:
 	  Add more instructions.
 	* liboil/i386/wavelet.c:

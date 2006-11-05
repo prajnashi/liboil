@@ -4,25 +4,19 @@ noinst_LTLIBRARIES = libi386.la
 libi386_la_SOURCES = \
 	argb_paint_i386.c \
 	ayuv2argb_i386.c \
-	clamp.c \
 	composite_i386.c \
 	convert_i386.c \
 	copy8x8_i386.c \
 	copy_i386.c \
 	diff8x8_i386.c \
 	error8x8_i386.c \
-	idct8x8_i386.c \
 	md5_i386.c \
-	mt19937.c \
 	mult8x8_i386.c \
 	recon8x8_i386.c \
-	resample.c \
 	rowcolsad8x8_i386.c \
 	sad8x8_i386.c \
 	sad8x8avg_i386.c \
 	splat_i386.c \
-	sum.c \
-	swab.c \
 	trans8x8_i386.c \
 	wavelet.c
 

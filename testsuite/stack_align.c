@@ -235,12 +235,22 @@ int realign_return;
 
 void realign(int align)
 {
+#ifdef HAVE_I386
   __asm__ __volatile__ (
       "  sub %%ebx, %%esp\n"
       "  call check_class_with_alignment\n"
       "  add %%ebx, %%esp\n"
       :: "b" (align)
   );
+#endif
+#ifdef HAVE_AMD64
+  __asm__ __volatile__ (
+      "  sub %%rbx, %%rsp\n"
+      "  call check_class_with_alignment\n"
+      "  add %%rbx, %%rsp\n"
+      :: "b" (align)
+  );
+#endif
 }
 
 void check_class_with_alignment (void)
@@ -289,8 +299,13 @@ int check_class(OilFunctionClass *klass)
   test = oil_test_new(klass);
   for (i=0; i < OIL_ARG_LAST; i++) {
     int align;
+    int step = 4;
 
-    for (align = 0; align <= 32; align += 4) {
+#ifdef HAVE_AMD64
+    step = 16;
+#endif
+
+    for (align = 0; align <= 32; align += step) {
       realign_klass = klass;
       realign_align = align;
       realign(align);
