@@ -1,7 +1,0 @@
-
-setting DISABLED on an implementation doesn't really disable it.
-
-need a UNALIGNED cpu flag for cpus that can handle unaligned
-memory access.
-
-

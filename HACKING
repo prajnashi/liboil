@@ -6,15 +6,17 @@ Hacking on liboil
 New Implementations
 -------------------
 
-  New implementations using gcc inline assembly code should go in
-  liboil/${arch}.  New implementations that are written in C should
-  go in liboil/c.  New implementations written in MMX/SSE/Altivec
-  instrinsics should go in liboil/mmx, liboil/sse, or liboil/altivec.
+  New implementations using GCC inline assembly code should go in
+  liboil/${arch}, or liboil/i386_amd64 if they compile on both i386
+  and amd64 architectures.  New implementations that are written in
+  POSIX C should go in liboil/c.  New implementations written with
+  MMX/SSE/Altivec instrinsics should go in liboil/mmx, liboil/sse,
+  or liboil/altivec.
 
   Implementations copied from other projects should generally be
   given a separate directory under liboil/, similar to liboil/motovec.
 
-  Checklist for implementations:
+  Things to check for when writing new implementations:
 
     - handle the n==0 case correctly
 

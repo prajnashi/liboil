@@ -10,7 +10,7 @@ nor installed.
 
 Using GCC is strongly recommended, since the most interesting bits
 of liboil are written in GCC-style inline assembly.  GCC versions
-prior to 3.2 are not supported.
+prior to 3.4 are not supported.
 
 
 Problems Compiling?
@@ -24,16 +24,17 @@ simply disable it and the corresponding OIL_DEFINE_IMPL() line.
 ABI warning
 ===========
 
-In general, liboil is not ABI stable.  However, portions of liboil
-are guaranteed to be stable through the 0.3.x series, and by using
+Only a portion of the liboil API is ABI stable.  This portion is
+guaranteed to be stable through the 0.3.x series, and by using
 a compatibility library, through the 0.4.x series as well.  This
 policy is designed to provide almost all applications the necessary
 ABI stability for the symbols likely to be used in liboil.
 
 Any symbols declared by including <liboil/liboil.h> follow this
 ABI policy.  This includes all liboil function classes as well
-as a limited number of core functionality, such as oil_init().
+as a limited number of core functions, such as oil_init().
 
+Functions defined in other header files should not be used.
 
 
 ABI Implementation
@@ -64,15 +65,6 @@ will no longer depend on liboil-0.3.so.
 The traditional way of dealing with these changes is to migrate
 all packages to the new library as quickly as possible.  This is
 unduly cumbersome.
-
-
-
-Random Ideas
-============
-
-Why is trans8x8_f64 so slow on powerpc (compared to trans8x8_u16)?
-
-oil_restride_XXX() - copy with stride
 
 
 

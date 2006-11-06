@@ -1,5 +1,17 @@
 2006-11-05  David Schleef  <ds@schleef.org>
 
+	* BUGS:
+	  remove.
+	* BUG-REPORTING:
+	  add.
+	* HACKING:
+	* Makefile.am:
+	* NEWS:
+	* README:
+	  documentation fixes.
+
+2006-11-05  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilcpu.c:
 	* liboil/liboilfunction.c:
 	  Clean up some debugging.
