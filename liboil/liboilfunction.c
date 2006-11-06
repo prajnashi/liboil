@@ -180,6 +180,8 @@ oil_optimize_all (void)
 
     oil_class_optimize (klass);
   }
+  OIL_INFO("%d classes, %d implementations, %d enabled"
+      _oil_n_function_classes, _oil_n_function_impls, 0);
   oil_cpu_fault_check_disable ();
 }
 
@@ -411,7 +413,7 @@ oil_init_structs (void)
 
   for (i = 0; i < _oil_n_function_impls; i++) {
     impl = oil_impl_get_by_index (i);
-    OIL_DEBUG ("registering impl %p (%s)", impl,
+    OIL_LOG ("registering impl %p (%s)", impl,
           (impl->name != NULL) ? impl->name : "NULL");
     if (impl->klass == NULL) {
       OIL_ERROR ("impl->klass is NULL for impl %p (%s)", impl,

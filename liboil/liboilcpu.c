@@ -509,13 +509,13 @@ oil_cpu_detect_cpuid (void)
 
     get_cpuid (0x80000005, &eax, &ebx, &ecx, &edx);
 
-    OIL_WARNING("L1 D-cache: %d kbytes, %d-way, %d lines/tag, %d line size\n",
+    OIL_INFO("L1 D-cache: %d kbytes, %d-way, %d lines/tag, %d line size",
         (ecx>>24)&0xff, (ecx>>16)&0xff, (ecx>>8)&0xff, ecx&0xff);
-    OIL_WARNING("L1 I-cache: %d kbytes, %d-way, %d lines/tag, %d line size\n",
+    OIL_INFO("L1 I-cache: %d kbytes, %d-way, %d lines/tag, %d line size",
         (edx>>24)&0xff, (edx>>16)&0xff, (edx>>8)&0xff, edx&0xff);
 
     get_cpuid (0x80000006, &eax, &ebx, &ecx, &edx);
-    OIL_WARNING("L2 cache: %d kbytes, %d assoc, %d lines/tag, %d line size\n",
+    OIL_INFO("L2 cache: %d kbytes, %d assoc, %d lines/tag, %d line size",
         (ecx>>16)&0xffff, (ecx>>12)&0xf, (ecx>>8)&0xf, ecx&0xff);
   }
 }
