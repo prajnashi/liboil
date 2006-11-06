@@ -1,5 +1,9 @@
 2006-11-05  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilfunction.c: compile fix.
+
+2006-11-05  David Schleef  <ds@schleef.org>
+
 	* BUGS:
 	  remove.
 	* BUG-REPORTING:

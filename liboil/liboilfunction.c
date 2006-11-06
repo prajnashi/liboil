@@ -180,7 +180,7 @@ oil_optimize_all (void)
 
     oil_class_optimize (klass);
   }
-  OIL_INFO("%d classes, %d implementations, %d enabled"
+  OIL_INFO("%d classes, %d implementations, %d enabled",
       _oil_n_function_classes, _oil_n_function_impls, 0);
   oil_cpu_fault_check_disable ();
 }
