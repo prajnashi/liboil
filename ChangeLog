@@ -1,5 +1,14 @@
 2006-11-05  David Schleef  <ds@schleef.org>
 
+	* configure.ac:
+	  version bump
+	* liboil/Makefile.am:
+	  Don't dist created files.
+
+=== 0.3.10 ===
+
+2006-11-05  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilfunction.c: compile fix.
 
 2006-11-05  David Schleef  <ds@schleef.org>

@@ -63,7 +63,9 @@ noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal \
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
 	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h \
-	liboilinternal.h liboilclasses.h liboil-stdint.h
+	liboilinternal.h liboilclasses.h
+
+nodist_pkginclude_HEADERS = liboil-stdint.h
 
 if ENABLE_GTK_DOC
 nodist_noinst_HEADERS = liboilfuncs-doc.h
@@ -109,7 +111,6 @@ liboiltmp1_la_LIBADD = \
 
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil.h \
-	liboilarray.c \
 	liboilcolorspace.h \
 	liboilcpu.c \
 	liboildebug.c \
@@ -125,6 +126,9 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboiltest.c \
 	liboiltest.h \
 	liboiltypes.h
+
+nodist_liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
+	liboilarray.c
 
 if USE_NEW_ABI
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += \
