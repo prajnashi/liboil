@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <glib.h>
 
 #include "jpeg_rgb_decoder.h"
 
@@ -28,14 +27,14 @@ main (int argc, char *argv[])
   dec = jpeg_rgb_decoder_new ();
 
   if (argc < 2) {
-    g_print("jpeg_rgb_test <file.jpg>\n");
+    printf("jpeg_rgb_test <file.jpg>\n");
     exit(1);
   }
   fn = argv[1];
   data = getfile (fn, &len);
 
   if (data == NULL) {
-    g_print("cannot read file %s\n", fn);
+    printf("cannot read file %s\n", fn);
     exit(1);
   }
 
@@ -46,10 +45,10 @@ main (int argc, char *argv[])
 
   dump_pnm (ptr, rowstride, width, height);
 
-  g_free (ptr);
+  free (ptr);
 
   jpeg_rgb_decoder_free (dec);
-  g_free (data);
+  free (data);
 
   return 0;
 }
@@ -76,7 +75,7 @@ getfile (char *path, int *n_bytes)
     return NULL;
   }
 
-  ptr = g_malloc (st.st_size);
+  ptr = malloc (st.st_size);
   if (!ptr) {
     close (fd);
     return NULL;
@@ -84,7 +83,7 @@ getfile (char *path, int *n_bytes)
 
   ret = read (fd, ptr, st.st_size);
   if (ret != st.st_size) {
-    g_free (ptr);
+    free (ptr);
     close (fd);
     return NULL;
   }

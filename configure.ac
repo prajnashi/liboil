@@ -228,6 +228,7 @@ examples/jpeg/Makefile
 examples/md5/Makefile
 examples/taylor/Makefile
 examples/uberopt/Makefile
+examples/videoscale/Makefile
 examples/work/Makefile
 liboil-uninstalled.pc
 liboil.pc

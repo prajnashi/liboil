@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <glib.h>
 #include <string.h>
 
 #include "huffman.h"
@@ -17,6 +16,8 @@
 static char *sprintbits (char *str, unsigned int bits, int n);
 
 
+#define TRUE 1
+#define FALSE 0
 
 void
 huffman_table_dump (HuffmanTable * table)
@@ -29,7 +30,7 @@ huffman_table_dump (HuffmanTable * table)
 
   JPEG_DEBUG (4, "dumping huffman table %p\n", table);
   for (i = 0; i < table->len; i++) {
-    entry = &g_array_index (table, HuffmanEntry, i);
+    entry = table->entries + i;
     n_bits = entry->n_bits;
     code = entry->symbol >> (16 - n_bits);
     sprintbits (str, code, n_bits);
@@ -42,7 +43,8 @@ huffman_table_new (void)
 {
   HuffmanTable *table;
 
-  table = g_array_new (FALSE, TRUE, sizeof (HuffmanEntry));
+  table = malloc (sizeof(HuffmanTable));
+  memset (table, 0, sizeof(HuffmanTable));
 
   return table;
 }
@@ -50,20 +52,20 @@ huffman_table_new (void)
 void
 huffman_table_free (HuffmanTable * table)
 {
-  g_array_free (table, TRUE);
+  free (table);
 }
 
 void
-huffman_table_add (HuffmanTable * table, guint32 code, gint n_bits, gint value)
+huffman_table_add (HuffmanTable * table, uint32_t code, int n_bits, int value)
 {
-  HuffmanEntry entry;
+  HuffmanEntry *entry = table->entries + table->len;
 
-  entry.value = value;
-  entry.symbol = code << (16 - n_bits);
-  entry.mask = 0xffff ^ (0xffff >> n_bits);
-  entry.n_bits = n_bits;
+  entry->value = value;
+  entry->symbol = code << (16 - n_bits);
+  entry->mask = 0xffff ^ (0xffff >> n_bits);
+  entry->n_bits = n_bits;
 
-  g_array_append_val (table, entry);
+  table->len++;
 }
 
 unsigned int
@@ -76,7 +78,7 @@ huffman_table_decode_jpeg (HuffmanTable * tab, bits_t * bits)
 
   code = peekbits (bits, 16);
   for (i = 0; i < tab->len; i++) {
-    entry = &g_array_index (tab, HuffmanEntry, i);
+    entry = tab->entries + i;
     if ((code & entry->mask) == entry->symbol) {
       code = getbits (bits, entry->n_bits);
       sprintbits (str, code, entry->n_bits);

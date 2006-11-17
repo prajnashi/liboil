@@ -1,7 +1,7 @@
 
-#include <glib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "jpeg_rgb_internal.h"
 #include "jpeg.h"
@@ -27,7 +27,8 @@ jpeg_rgb_decoder_new (void)
 {
   JpegRGBDecoder *rgbdec;
 
-  rgbdec = g_new0 (JpegRGBDecoder, 1);
+  rgbdec = malloc (sizeof (JpegRGBDecoder));
+  memset (rgbdec, 0, sizeof (JpegRGBDecoder));
 
   rgbdec->dec = jpeg_decoder_new ();
 
@@ -43,11 +44,11 @@ jpeg_rgb_decoder_free (JpegRGBDecoder * rgbdec)
 
   for (i = 0; i < 3; i++) {
     if (rgbdec->component[i].alloc) {
-      g_free (rgbdec->component[i].image);
+      free (rgbdec->component[i].image);
     }
   }
 
-  g_free (rgbdec);
+  free (rgbdec);
 }
 
 int
@@ -80,7 +81,7 @@ jpeg_rgb_decoder_get_image (JpegRGBDecoder * rgbdec,
         rgbdec->component[i].v_subsample > 1) {
       unsigned char *dest;
 
-      dest = g_malloc (rgbdec->width * rgbdec->height);
+      dest = malloc (rgbdec->width * rgbdec->height);
       if (rgbdec->component[i].v_subsample > 1) {
         if (rgbdec->component[i].h_subsample > 1) {
           imagescale2h2v_u8 (dest,
@@ -107,7 +108,7 @@ jpeg_rgb_decoder_get_image (JpegRGBDecoder * rgbdec,
     }
   }
 
-  rgbdec->image = g_malloc (rgbdec->width * rgbdec->height * 4);
+  rgbdec->image = malloc (rgbdec->width * rgbdec->height * 4);
 
   convert (rgbdec);
 

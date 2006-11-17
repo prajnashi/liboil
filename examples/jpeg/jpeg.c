@@ -4,13 +4,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <glib.h>
 #include <string.h>
 #include <ctype.h>
+#include <limits.h>
+#include <liboil/liboil-stdint.h>
 #include <liboil/liboil.h>
+#include <stdarg.h>
 
 #include "jpeg_internal.h"
 
+
+#define MAX(a,b) ((a)>(b) ? (a) : (b))
 
 
 #define JPEG_MARKER_STUFFED		0x00
@@ -261,7 +265,7 @@ jpeg_decoder_sof_baseline_dct (JpegDecoder * dec, bits_t * bits)
         (dec->height_blocks * 8 * max_v_oversample /
         dec->components[i].v_subsample);
     dec->components[i].rowstride = rowstride;
-    dec->components[i].image = g_malloc (image_size);
+    dec->components[i].image = malloc (image_size);
   }
 
   if (bits->end != bits->ptr)
@@ -671,7 +675,7 @@ jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, bits_t * bits)
 
   /* we allocate extra space, since the getbits() code can
    * potentially read past the end of the buffer */
-  newptr = g_malloc (len + 2);
+  newptr = malloc (len + 2);
   for (i = 0; i < len; i++) {
     newptr[j] = bits->ptr[i];
     j++;
@@ -691,8 +695,7 @@ jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, bits_t * bits)
   x = dec->x;
   y = dec->y;
   n = dec->restart_interval;
-  if (n == 0)
-    n = G_MAXINT;
+  if (n == 0) n = INT_MAX;
   while (n-- > 0) {
     for (i = 0; i < dec->scan_list_length; i++) {
       int dc_table_index;
@@ -754,7 +757,7 @@ jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, bits_t * bits)
   }
   dec->x = x;
   dec->y = y;
-  g_free (newptr);
+  free (newptr);
 }
 
 
@@ -766,7 +769,8 @@ jpeg_decoder_new (void)
 
   oil_init ();
 
-  dec = g_new0 (JpegDecoder, 1);
+  dec = malloc (sizeof(JpegDecoder));
+  memset (dec, 0, sizeof(JpegDecoder));
 
   huffman_table_load_std_jpeg (dec);
 
@@ -785,13 +789,13 @@ jpeg_decoder_free (JpegDecoder * dec)
 
   for (i = 0; i < JPEG_N_COMPONENTS; i++) {
     if (dec->components[i].image)
-      g_free (dec->components[i].image);
+      free (dec->components[i].image);
   }
 
   if (dec->data)
-    g_free (dec->data);
+    free (dec->data);
 
-  g_free (dec);
+  free (dec);
 }
 
 int

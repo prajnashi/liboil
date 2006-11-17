@@ -1,5 +1,5 @@
 
-SUBDIRS = jpeg md5 uberopt work huffman taylor
+SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale
 
 bin_PROGRAMS = oil-bugreport
 

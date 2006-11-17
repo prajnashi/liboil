@@ -1,3 +1,24 @@
+2006-11-16  David Schleef  <ds@schleef.org>
+
+	* examples/jpeg/Makefile.am:
+	* examples/jpeg/huffman.c:
+	* examples/jpeg/huffman.h:
+	* examples/jpeg/jpeg.c:
+	* examples/jpeg/jpeg_rgb_decoder.c:
+	* examples/jpeg/test.c:
+	* examples/jpeg/test_rgb.c:
+	  Remove glibisms from jpeg code.
+	* configure.ac:
+	* examples/Makefile.am:
+	* examples/videoscale/Makefile.am:
+	* examples/videoscale/vs_4tap.c:
+	* examples/videoscale/vs_4tap.h:
+	* examples/videoscale/vs_image.c:
+	* examples/videoscale/vs_image.h:
+	* examples/videoscale/vs_scanline.c:
+	* examples/videoscale/vs_scanline.h:
+	  Add videoscale code from gstreamer.
+
 2006-11-05  David Schleef  <ds@schleef.org>
 
 	* configure.ac:
