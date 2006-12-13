@@ -1,3 +1,21 @@
+2006-12-13  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	* examples/Makefile.am:
+	* examples/audioresample/Makefile.am:
+	* examples/audioresample/buffer.c:
+	* examples/audioresample/buffer.h:
+	* examples/audioresample/functable.c:
+	* examples/audioresample/functable.h:
+	* examples/audioresample/resample-removed.c:
+	* examples/audioresample/resample.c:
+	* examples/audioresample/resample.h:
+	* examples/audioresample/resample_chunk.c:
+	* examples/audioresample/resample_functable.c:
+	* examples/audioresample/resample_ref.c:
+	* examples/audioresample/test_functable1.c:
+	  Copied from elsewhere and hacked up.
+
 2006-12-08  David Schleef  <ds@schleef.org>
 
 	* liboil/Makefile.am: Disable sse directory until the stack

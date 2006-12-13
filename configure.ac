@@ -223,6 +223,7 @@ liboil/utf8/Makefile
 testsuite/Makefile
 testsuite/instruction/Makefile
 examples/Makefile
+examples/audioresample/Makefile
 examples/huffman/Makefile
 examples/jpeg/Makefile
 examples/md5/Makefile
