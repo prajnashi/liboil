@@ -56,6 +56,7 @@
 
 
 OIL_DEFINE_CLASS(mt19937, "uint32_t *d_624, uint32_t *i_624");
+OIL_DEFINE_CLASS(mt19937x8, "uint32_t *d_624x8, uint32_t *i_624x8");
 
 /* mag01[x] = x * MATRIX_A  for x=0,1 */
 static const uint32_t mag01[2]={0x0UL, MATRIX_A};
@@ -90,4 +91,40 @@ mt19937_ref (uint32_t *d, uint32_t *mt)
   }
 }
 OIL_DEFINE_IMPL_REF (mt19937_ref, mt19937);
+
+
+
+static void
+mt19937x8_ref (uint32_t *d, uint32_t *mt)
+{
+  uint32_t y;
+  int kk;
+  int i;
+
+  for(i=0;i<8;i++){
+    for (kk=0;kk<N-M;kk++) {
+        y = (mt[kk*8+i]&UPPER_MASK)|(mt[(kk+1)*8+i]&LOWER_MASK);
+        mt[kk*8+i] = mt[(kk+M)*8+i] ^ (y >> 1) ^ mag01[y & 0x1UL];
+    }
+    for (;kk<N-1;kk++) {
+        y = (mt[kk*8+i]&UPPER_MASK)|(mt[(kk+1)*8+i]&LOWER_MASK);
+        mt[kk*8+i] = mt[(kk+(M-N))*8+i] ^ (y >> 1) ^ mag01[y & 0x1UL];
+    }
+    y = (mt[(N-1)*8+i]&UPPER_MASK)|(mt[0*8+i]&LOWER_MASK);
+    mt[(N-1)*8+i] = mt[(M-1)*8+i] ^ (y >> 1) ^ mag01[y & 0x1UL];
+
+    for(kk=0;kk<N;kk++){
+      y = mt[kk*8 + i];
+
+      /* Tempering */
+      y ^= (y >> 11);
+      y ^= (y << 7) & 0x9d2c5680UL;
+      y ^= (y << 15) & 0xefc60000UL;
+      y ^= (y >> 18);
+
+      d[kk*8 + i] = y;
+    }
+  }
+}
+OIL_DEFINE_IMPL_REF (mt19937x8_ref, mt19937x8);
 
