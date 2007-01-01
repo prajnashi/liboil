@@ -1,5 +1,11 @@
 2007-01-01  David Schleef  <ds@schleef.org>
 
+	* liboil/amd64/Makefile.am:
+	* liboil/amd64/wavelet.c:
+	  Convert i386 asm to amd64.
+
+2007-01-01  David Schleef  <ds@schleef.org>
+
 	* liboil/liboildebug.c:
 	* liboil/liboildebug.h:
 	  Change _oil_debug_print to oil_debug_print.  Fixes #9494.
