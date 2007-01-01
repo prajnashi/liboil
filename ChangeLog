@@ -1,5 +1,10 @@
 2006-12-31  David Schleef  <ds@schleef.org>
 
+	* liboil/i386_amd64/mt19937.c:
+	  amd64 fixes
+
+2006-12-31  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/Makefile.am:
 	* liboil/i386/mt19937.c:
 	* liboil/i386_amd64/mt19937.c:

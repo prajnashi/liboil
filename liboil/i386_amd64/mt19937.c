@@ -332,18 +332,18 @@ OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_3, mt19937, OIL_IMPL_FLAG_MMX | OIL_IMPL_
 static void
 mt19937x8_mmx (uint32_t *d, uint32_t *mt)
 {
-  int i=0;
+  long i = 0;
   asm volatile (
-      "  movl $0x80000000, %0\n"
+      "  mov $0x80000000, %0\n"
       "  movd %0, %%mm5\n"
       "  punpckldq %%mm5, %%mm5\n"
-      "  movl $0x7fffffff, %0\n"
+      "  mov $0x7fffffff, %0\n"
       "  movd %0, %%mm6\n"
       "  punpckldq %%mm6, %%mm6\n"
-      "  movl $0x9908b0df, %0\n"
+      "  mov $0x9908b0df, %0\n"
       "  movd %0, %%mm7\n"
       "  punpckldq %%mm7, %%mm7\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TWIST(x,y) \
       "  movq " #x "(%2,%0,1), %%mm0\n" \
@@ -365,8 +365,8 @@ mt19937x8_mmx (uint32_t *d, uint32_t *mt)
       TWIST(16, 12704)
       TWIST(24, 12704)
 
-      "  addl $32, %0\n"
-      "  cmpl $7264, %0\n"
+      "  add $32, %0\n"
+      "  cmp $7264, %0\n"
       "  jl 1b\n"
 
       "2:\n"
@@ -376,8 +376,8 @@ mt19937x8_mmx (uint32_t *d, uint32_t *mt)
       TWIST(16, -7264)
       TWIST(24, -7264)
 
-      "  addl $32, %0\n"
-      "  cmpl $19936, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19936, %0\n"
       "  jl 2b\n"
 
 #define TWIST2(x,y) \
@@ -400,13 +400,13 @@ mt19937x8_mmx (uint32_t *d, uint32_t *mt)
       TWIST2(16, -7264)
       TWIST2(24, -7264)
 
-      "  movl $0x9d2c5680, %0\n"
+      "  mov $0x9d2c5680, %0\n"
       "  movd %0, %%mm5\n"
       "  punpckldq %%mm5, %%mm5\n"
-      "  movl $0xefc60000, %0\n"
+      "  mov $0xefc60000, %0\n"
       "  movd %0, %%mm6\n"
       "  punpckldq %%mm6, %%mm6\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TEMPER(x) \
       "  movq " #x "(%2,%0,1), %%mm0\n" \
@@ -431,12 +431,11 @@ mt19937x8_mmx (uint32_t *d, uint32_t *mt)
       TEMPER(16)
       TEMPER(24)
 
-      "  addl $32, %0\n"
-      "  cmpl $19968, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19968, %0\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (i)
-      : "r" (d), "r" (mt)
+      : "+r" (i), "+r" (d), "+r" (mt)
       );
  
 #undef TWIST
@@ -448,18 +447,18 @@ OIL_DEFINE_IMPL_FULL (mt19937x8_mmx, mt19937x8, OIL_IMPL_FLAG_MMX);
 static void
 mt19937x8_mmx_2 (uint32_t *d, uint32_t *mt)
 {
-  int i=0;
+  long i = 0;
   asm volatile (
-      "  movl $0x80000000, %0\n"
+      "  mov $0x80000000, %0\n"
       "  movd %0, %%mm5\n"
       "  punpckldq %%mm5, %%mm5\n"
-      "  movl $0x7fffffff, %0\n"
+      "  mov $0x7fffffff, %0\n"
       "  movd %0, %%mm6\n"
       "  punpckldq %%mm6, %%mm6\n"
-      "  movl $0x9908b0df, %0\n"
+      "  mov $0x9908b0df, %0\n"
       "  movd %0, %%mm7\n"
       "  punpckldq %%mm7, %%mm7\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TWIST(x,y) \
       "  movq " #x "(%2,%0,1), %%mm0\n" \
@@ -494,8 +493,8 @@ mt19937x8_mmx_2 (uint32_t *d, uint32_t *mt)
       TWIST(16, 12704)
       //TWIST(24, 12704)
 
-      "  addl $32, %0\n"
-      "  cmpl $7264, %0\n"
+      "  add $32, %0\n"
+      "  cmp $7264, %0\n"
       "  jl 1b\n"
 
       "2:\n"
@@ -505,8 +504,8 @@ mt19937x8_mmx_2 (uint32_t *d, uint32_t *mt)
       TWIST(16, -7264)
       //TWIST(24, -7264)
 
-      "  addl $32, %0\n"
-      "  cmpl $19936, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19936, %0\n"
       "  jl 2b\n"
 
 #define TWIST2(x,y) \
@@ -529,13 +528,13 @@ mt19937x8_mmx_2 (uint32_t *d, uint32_t *mt)
       TWIST2(16, -7264)
       TWIST2(24, -7264)
 
-      "  movl $0x9d2c5680, %0\n"
+      "  mov $0x9d2c5680, %0\n"
       "  movd %0, %%mm5\n"
       "  punpckldq %%mm5, %%mm5\n"
-      "  movl $0xefc60000, %0\n"
+      "  mov $0xefc60000, %0\n"
       "  movd %0, %%mm6\n"
       "  punpckldq %%mm6, %%mm6\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TEMPER(x) \
       "  movq " #x "(%2,%0,1), %%mm0\n" \
@@ -576,12 +575,11 @@ mt19937x8_mmx_2 (uint32_t *d, uint32_t *mt)
       TEMPER(16)
       //TEMPER(24)
 
-      "  addl $32, %0\n"
-      "  cmpl $19968, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19968, %0\n"
       "  jl 1b\n"
       "  emms\n"
-      : "+r" (i)
-      : "r" (d), "r" (mt)
+      : "+r" (i), "+r" (d), "+r" (mt)
       );
  
 #undef TWIST
@@ -593,21 +591,21 @@ OIL_DEFINE_IMPL_FULL (mt19937x8_mmx_2, mt19937x8, OIL_IMPL_FLAG_MMX);
 static void
 mt19937x8_sse (uint32_t *d, uint32_t *mt)
 {
-  int i=0;
+  long i = 0;
   asm volatile (
-      "  movl $0x80000000, %0\n"
+      "  mov $0x80000000, %0\n"
       "  movd %0, %%xmm5\n"
       "  punpckldq %%xmm5, %%xmm5\n"
       "  punpcklqdq %%xmm5, %%xmm5\n"
-      "  movl $0x7fffffff, %0\n"
+      "  mov $0x7fffffff, %0\n"
       "  movd %0, %%xmm6\n"
       "  punpckldq %%xmm6, %%xmm6\n"
       "  punpcklqdq %%xmm6, %%xmm6\n"
-      "  movl $0x9908b0df, %0\n"
+      "  mov $0x9908b0df, %0\n"
       "  movd %0, %%xmm7\n"
       "  punpckldq %%xmm7, %%xmm7\n"
       "  punpcklqdq %%xmm7, %%xmm7\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TWIST(x,y) \
       "  movq " #x "(%2,%0,1), %%xmm0\n" \
@@ -642,8 +640,8 @@ mt19937x8_sse (uint32_t *d, uint32_t *mt)
       //TWIST(16, 12704)
       //TWIST(24, 12704)
 
-      "  addl $32, %0\n"
-      "  cmpl $7264, %0\n"
+      "  add $32, %0\n"
+      "  cmp $7264, %0\n"
       "  jl 1b\n"
 
       "2:\n"
@@ -653,8 +651,8 @@ mt19937x8_sse (uint32_t *d, uint32_t *mt)
       //TWIST(16, -7264)
       //TWIST(24, -7264)
 
-      "  addl $32, %0\n"
-      "  cmpl $19936, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19936, %0\n"
       "  jl 2b\n"
 
 #define TWIST2(x,y) \
@@ -677,15 +675,15 @@ mt19937x8_sse (uint32_t *d, uint32_t *mt)
       TWIST2(16, -7264)
       //TWIST2(24, -7264)
 
-      "  movl $0x9d2c5680, %0\n"
+      "  mov $0x9d2c5680, %0\n"
       "  movd %0, %%xmm5\n"
       "  punpckldq %%xmm5, %%xmm5\n"
       "  punpcklqdq %%xmm5, %%xmm5\n"
-      "  movl $0xefc60000, %0\n"
+      "  mov $0xefc60000, %0\n"
       "  movd %0, %%xmm6\n"
       "  punpckldq %%xmm6, %%xmm6\n"
       "  punpcklqdq %%xmm6, %%xmm6\n"
-      "  movl $0, %0\n"
+      "  mov $0, %0\n"
       "1:\n"
 #define TEMPER(x) \
       "  movq " #x "(%2,%0,1), %%xmm0\n" \
@@ -726,11 +724,10 @@ mt19937x8_sse (uint32_t *d, uint32_t *mt)
       //TEMPER(16)
       //TEMPER(24)
 
-      "  addl $32, %0\n"
-      "  cmpl $19968, %0\n"
+      "  add $32, %0\n"
+      "  cmp $19968, %0\n"
       "  jl 1b\n"
-      : "+r" (i)
-      : "r" (d), "r" (mt)
+      : "+R" (i), "+r" (d), "+r" (mt)
       );
  
 }
