@@ -1,5 +1,12 @@
 2006-12-31  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/Makefile.am:
+	* liboil/i386/mt19937.c:
+	* liboil/i386_amd64/mt19937.c:
+	  Convert to dual arch code.
+
+2006-12-31  David Schleef  <ds@schleef.org>
+
 	* liboil/ref/mt19937ar.c:
 	* liboil/liboilclasses.h:
 	* liboil/liboilfuncs-04.h:
