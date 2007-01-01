@@ -1,5 +1,20 @@
 2007-01-01  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/sad8x8_i386.c:
+	  Add impl based on psadbw.  Nice.
+	* liboil/i386/wavelet.c:
+	  Fix broken impl.
+	* liboil/liboil.h:
+	  Add some consts to macro.
+	* liboil/liboilcpu.c:
+	  XScale's timestamp isn't available from userspace.  Fixes #7988.
+	* liboil/liboiltmp.c:
+	  Add some temporary symbols.  Fixes build on Windows and OS/X
+	* testsuite/mmx_engine.c:
+	  Add psadbw instruction.
+
+2007-01-01  David Schleef  <ds@schleef.org>
+
 	* examples/audioresample/Makefile.am:
 	* examples/audioresample/functable.c:
 	* examples/audioresample/resample.c:

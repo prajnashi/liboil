@@ -46,7 +46,7 @@ void oil_init (void);
  * including the system memcpy().
  */
 #define oil_memcpy(dest,src,n_bytes) \
-  oil_copy_u8((void *)(dest),(void *)(src),(n_bytes))
+  oil_copy_u8((void *)(dest),(const void *)(src),(n_bytes))
 
 /**
  * oil_trans8x8_s16:
@@ -58,7 +58,7 @@ void oil_init (void);
  * Macro wrapping trans8x8_u16().
  */
 #define oil_trans8x8_s16(dest, dstr, src, sstr) \
-  oil_trans8x8_u16((uint16_t *)dest, dstr, (uint16_t *)src, sstr)
+  oil_trans8x8_u16((uint16_t *)dest, dstr, (const uint16_t *)src, sstr)
 
 
 #endif

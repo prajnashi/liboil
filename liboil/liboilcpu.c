@@ -615,15 +615,17 @@ oil_cpu_detect_powerpc(void)
 /***** arm *****/
 
 #ifdef __arm__
+#if 0
 static unsigned long
 oil_profile_stamp_xscale(void)
 {
   unsigned int ts;
   __asm__ __volatile__ (
-      "  mrc p14, 0, %0, c0, c0, 0 \n"
+      "  mrc p14, 0, %0, c1, c0, 0 \n"
       : "=r" (ts));
   return ts;
 }
+#endif
 
 static void
 oil_cpu_detect_arm(void)
@@ -643,9 +645,6 @@ oil_cpu_detect_arm(void)
 
   switch(arm_implementer) {
     case 0x69: /* Intel */
-      /* assume that all Intel chips support CP14 timestamp */
-      _oil_profile_stamp = oil_profile_stamp_xscale;
-      break;
     case 0x41: /* ARM */
       /* ARM chips are known to not have timestamping available from 
        * user space */

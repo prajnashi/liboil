@@ -134,3 +134,46 @@ sad8x8_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   *dest = diff;
 }
 OIL_DEFINE_IMPL_FULL (sad8x8_u8_mmxext, sad8x8_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+static void
+sad8x8_u8_mmxext_2 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
+    int sstr2)
+{
+  uint32_t diff;
+
+  __asm__ __volatile__ (
+    "  pxor %%mm7, %%mm7            \n\t" 	/* mm7 contains the result */
+
+#define LOOP \
+    "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */ \
+    "  psadbw (%2), %%mm0           \n\t" \
+    "  add %3, %1                   \n\t"	/* Inc pointer into the new data */ \
+    "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */ \
+    "  add %4, %2                   \n\t"	/* Inc pointer into ref data */
+
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+    LOOP
+#undef LOOP
+
+    "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
+    "  psadbw (%2), %%mm0           \n\t" \
+    "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
+    "  movd %%mm7, %0               \n\t"
+    "  emms                         \n\t"
+
+     : "=r" (diff),
+       "+r" (src1), 
+       "+r" (src2) 
+     : "r" (sstr1),
+       "r" (sstr2)
+     : "memory"
+  );
+  *dest = diff;
+}
+OIL_DEFINE_IMPL_FULL (sad8x8_u8_mmxext_2, sad8x8_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+

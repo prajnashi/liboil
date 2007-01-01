@@ -303,7 +303,7 @@ interleave2_c (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
 OIL_DEFINE_IMPL (interleave2_c, interleave2_s16);
 
 
-#ifdef ENABLE_BROKEN_IMPLS
+//#ifdef ENABLE_BROKEN_IMPLS
 void
 lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
     int16_t *s3, int16_t *s4, int n)
@@ -338,11 +338,11 @@ lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
       "  por %%mm1, %%mm0\n"
       "  paddsw 0(%1), %%mm0\n"
       "  movq %%mm0, 0(%0)\n"
-      "  decl %%ecx\n"
       "  add $8, %0\n"
       "  add $8, %1\n"
       "  add $8, %2\n"
       "  add $8, %3\n"
+      "  decl %%ecx\n"
       "  jne 1b\n"
       "  emms\n"
       : "+r" (d), "+r" (s1), "+r" (s2), "+r" (s3)
@@ -350,7 +350,7 @@ lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
       : "ecx");
 }
 OIL_DEFINE_IMPL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12);
-#endif
+//#endif
 
 void
 interleave2_mmx (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
