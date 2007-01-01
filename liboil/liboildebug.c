@@ -87,7 +87,7 @@ oil_debug_print_valist (int level, const char *file, const char *func,
 }
 
 void
-_oil_debug_print (int level, const char *file, const char *func,
+oil_debug_print (int level, const char *file, const char *func,
         int line, const char *format, ...)
 {
   va_list var_args;

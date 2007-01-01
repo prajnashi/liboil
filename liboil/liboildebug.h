@@ -110,11 +110,11 @@ typedef enum {
  * @level:
  * @...:
  *
- * Macro to call _oil_debug_print() with the correct values for
+ * Macro to call oil_debug_print() with the correct values for
  * the name of the source file, line of source file, and function.
  */
 #define OIL_DEBUG_PRINT(level, ...) do { \
-  _oil_debug_print((level), __FILE__, OIL_FUNCTION, __LINE__, __VA_ARGS__); \
+  oil_debug_print((level), __FILE__, OIL_FUNCTION, __LINE__, __VA_ARGS__); \
 }while(0)
 
 void oil_debug_set_print_function (OilDebugPrintFunc func);
@@ -123,7 +123,7 @@ void oil_debug_set_level (int level);
 
 void _oil_debug_init (void);
 
-void _oil_debug_print (int level, const char *file, const char *func,
+void oil_debug_print (int level, const char *file, const char *func,
     int line, const char *format, ...);
 
 #endif

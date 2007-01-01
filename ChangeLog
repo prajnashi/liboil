@@ -1,3 +1,9 @@
+2007-01-01  David Schleef  <ds@schleef.org>
+
+	* liboil/liboildebug.c:
+	* liboil/liboildebug.h:
+	  Change _oil_debug_print to oil_debug_print.  Fixes #9494.
+
 2006-12-31  David Schleef  <ds@schleef.org>
 
 	* liboil/i386_amd64/mt19937.c:
