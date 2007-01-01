@@ -28,14 +28,13 @@
 #ifndef __RESAMPLE_H__
 #define __RESAMPLE_H__
 
-#include <audioresample/functable.h>
-#include <audioresample/buffer.h>
+#include "functable.h"
 
 typedef enum {
-	RESAMPLE_FORMAT_S16 = 0,
-	RESAMPLE_FORMAT_S32,
-	RESAMPLE_FORMAT_F32,
-        RESAMPLE_FORMAT_F64
+  RESAMPLE_FORMAT_S16 = 0,
+  RESAMPLE_FORMAT_S32,
+  RESAMPLE_FORMAT_F32,
+  RESAMPLE_FORMAT_F64
 } ResampleFormat;
 
 typedef void (*ResampleCallback) (void *);
@@ -43,79 +42,56 @@ typedef void (*ResampleCallback) (void *);
 typedef struct _ResampleState ResampleState;
 
 struct _ResampleState {
-	/* parameters */
+  /* static parameters */
+  int n_channels;
+  ResampleFormat format;
 
-	int n_channels;
-	ResampleFormat format;
+  /* dynamic parameters */
+  int filter_length;
+  int ratio_n;
+  int ratio_d;
+  double sinc_scale;
+  int oversample;
 
-	int filter_length;
+  /* internal parameters */
 
-	double i_rate;
-	double o_rate;
+  void *last_buffer;
+  int need_reinit;
+  int sample_size;
+  Functable *ft;
 
-        int method;
+  void *forward_data;
+  int forward_samples;
 
-	/* internal parameters */
+  /* filter state */
 
-        int need_reinit;
+  int eos;
 
-	double halftaps;
+  void *buffer;
+  int buffer_len;
 
-	/* filter state */
+  int offset;
 
-        void *o_buf;
-        int o_size;
-
-        AudioresampleBufferQueue *queue;
-        int eos;
-        int started;
-
-	int sample_size;
-
-	void *buffer;
-	int buffer_len;
-
-	double i_start;
-	double o_start;
-
-	double i_inc;
-	double o_inc;
-
-        double sinc_scale;
-
-	double i_end;
-	double o_end;
-
-	int i_samples;
-	int o_samples;
-
-	//void *i_buf;
-
-        Functable *ft;
-
-        double *out_tmp;
 };
 
 void resample_init(void);
-void resample_cleanup(void);
 
-ResampleState *resample_new (void);
+ResampleState *resample_new (ResampleFormat format, int n_channels);
 void resample_free (ResampleState *state);
 
-void resample_add_input_data (ResampleState * r, void *data, int size,
-    ResampleCallback free_func, void *closure);
-void resample_input_eos (ResampleState *r);
-int resample_get_output_size (ResampleState *r);
-int resample_get_output_data (ResampleState *r, void *data, int size);
-
 void resample_set_filter_length (ResampleState *r, int length);
-void resample_set_input_rate (ResampleState *r, double rate);
-void resample_set_output_rate (ResampleState *r, double rate);
-void resample_set_n_channels (ResampleState *r, int n_channels);
-void resample_set_format (ResampleState *r, ResampleFormat format);
-void resample_set_method (ResampleState *r, int method);
-int resample_format_size (ResampleFormat format);
+void resample_set_ratio (ResampleState *r, int n, int d);
+int resample_get_sample_size (ResampleState *r);
 
+void resample_preload_data (ResampleState * r, void *data, int n_samples);
+void resample_set_offset (ResampleState *r, int offset);
+int resample_get_offset (ResampleState *r);
+
+void resample_push_data (ResampleState * r, void *data, int n_samples);
+void resample_push_eos (ResampleState *r);
+
+int resample_get_output_size (ResampleState *r);
+void resample_get_output_data (ResampleState *r, void *data, int size);
 
 #endif /* __RESAMPLE_H__ */
 

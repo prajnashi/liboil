@@ -1,5 +1,14 @@
 2007-01-01  David Schleef  <ds@schleef.org>
 
+	* examples/audioresample/Makefile.am:
+	* examples/audioresample/functable.c:
+	* examples/audioresample/resample.c:
+	* examples/audioresample/resample.h:
+	* examples/audioresample/test_functable1.c:
+	  A bunch of hacking.
+
+2007-01-01  David Schleef  <ds@schleef.org>
+
 	* liboil/amd64/Makefile.am:
 	* liboil/amd64/wavelet.c:
 	  Convert i386 asm to amd64.

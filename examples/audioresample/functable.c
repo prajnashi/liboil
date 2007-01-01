@@ -43,14 +43,16 @@ void
 functable_function_sinc(double *fx, double *dfx, double x,
     double param1, double param2)
 {
+  double y;
   if(x==0){
     *fx = 1;
     *dfx = 0;
     return;
   }
 
-  *fx = sin(x)/x;
-  *dfx = (cos(x) - sin(x)/x)/x;
+  y = x * param1;
+  *fx = sin(y)/y;
+  *dfx = (cos(y) - sin(y)/y)/x;
 }
 
 void

@@ -37,9 +37,13 @@
 #include <limits.h>
 #include <liboil/liboil.h>
 
-#include <audioresample/resample.h>
-#include <audioresample/buffer.h>
-#include <audioresample/debug.h>
+#include "resample.h"
+
+#define MAX_FILTER_LENGTH 64
+
+#define OFFSET(ptr,offset) ((void *)((uint8_t *)(ptr) + (offset)) )
+
+static int resample_format_size (ResampleFormat format);
 
 void resample_scale_ref (ResampleState * r);
 void resample_scale_functable (ResampleState * r);
@@ -57,159 +61,40 @@ resample_init (void)
 }
 
 ResampleState *
-resample_new (void)
+resample_new (ResampleFormat format, int n_channels)
 {
   ResampleState *r;
+  int size;
 
   r = malloc(sizeof(ResampleState));
   memset(r,0,sizeof(ResampleState));
 
+  r->format = format;
+  r->n_channels = n_channels;
+
   r->filter_length = 16;
+  r->ratio_n = 1;
+  r->ratio_d = 1;
 
-  r->i_start = 0;
-  if (r->filter_length & 1) {
-    r->o_start = 0;
-  } else {
-    r->o_start = r->o_inc * 0.5;
-  }
+  r->sinc_scale = 1.0;
+  r->oversample = 10;
 
-  r->queue = audioresample_buffer_queue_new();
-  r->out_tmp = malloc(10000*sizeof(double));
+  r->sample_size = resample_format_size (r->format) * r->n_channels;
+  size = MAX_FILTER_LENGTH * r->sample_size;
+  r->last_buffer = malloc (size);
+  memset (r->last_buffer, 0, size);
+
+  r->ft = functable_new(r->filter_length, r->oversample,
+      -0.5*r->filter_length, 1.0);
+
+  functable_calculate (r->ft, functable_function_sinc, M_PI, 0);
 
   r->need_reinit = 1;
 
   return r;
 }
 
-void
-resample_free (ResampleState * r)
-{
-  if (r->buffer) {
-    free (r->buffer);
-  }
-  if (r->ft) {
-    functable_free (r->ft);
-  }
-  if (r->queue) {
-    audioresample_buffer_queue_free (r->queue);
-  }
-  if (r->out_tmp) {
-    free (r->out_tmp);
-  }
-
-  free (r);
-}
-
-static void
-resample_buffer_free(AudioresampleBuffer *buffer, void *priv)
-{
-  if(buffer->priv2) {
-    ((void (*)(void *))buffer->priv2)(buffer->priv);
-  }
-}
-
-void
-resample_add_input_data (ResampleState * r, void *data, int size,
-    void (*free_func)(void *), void *closure)
-{
-  AudioresampleBuffer *buffer;
-
-  OIL_DEBUG ("data %p size %d", data, size);
-
-  buffer = audioresample_buffer_new_with_data (data, size);
-  buffer->free = resample_buffer_free;
-  buffer->priv2 = free_func;
-  buffer->priv = closure;
-
-  audioresample_buffer_queue_push (r->queue, buffer);
-}
-
-void
-resample_input_eos (ResampleState *r)
-{
-  AudioresampleBuffer *buffer;
-  int sample_size;
-
-  sample_size = r->n_channels * resample_format_size(r->format);
-
-  buffer = audioresample_buffer_new_and_alloc (sample_size *
-      (r->filter_length / 2));
-  memset(buffer->data, 0, buffer->length);
-
-  audioresample_buffer_queue_push (r->queue, buffer);
-
-  r->eos = 1;
-}
-
-int
-resample_get_output_size (ResampleState *r)
-{
-  return floor (audioresample_buffer_queue_get_depth(r->queue) * r->o_rate / r->i_rate);
-}
-
-int
-resample_get_output_data (ResampleState *r, void *data, int size)
-{
-  r->o_buf = data;
-  r->o_size = size;
-
-  switch (r->method) {
-    case 0:
-      resample_scale_ref (r);
-      break;
-    case 1:
-      resample_scale_functable (r);
-      break;
-    default:
-      break;
-  }
-
-  return size - r->o_size;
-}
-
-void
-resample_set_filter_length (ResampleState *r, int length)
-{
-  r->filter_length = length;
-  r->need_reinit = 1;
-}
-
-void
-resample_set_input_rate (ResampleState *r, double rate)
-{
-  r->i_rate = rate;
-  r->need_reinit = 1;
-}
-
-void
-resample_set_output_rate (ResampleState *r, double rate)
-{
-  r->o_rate = rate;
-  r->need_reinit = 1;
-}
-
-void
-resample_set_n_channels (ResampleState *r, int n_channels)
-{
-  r->n_channels = n_channels;
-  r->need_reinit = 1;
-}
-
-void
-resample_set_format (ResampleState *r, ResampleFormat format)
-{
-  r->format = format;
-  r->need_reinit = 1;
-}
-
-void
-resample_set_method (ResampleState *r, int method)
-{
-  r->method = method;
-  r->need_reinit = 1;
-}
-
-int
+static int
 resample_format_size (ResampleFormat format)
 {
   switch(format){
@@ -222,5 +107,97 @@ resample_format_size (ResampleFormat format)
       return 8;
   }
   return 0;
+}
+
+void
+resample_free (ResampleState * r)
+{
+  if (r->last_buffer) {
+    free (r->last_buffer);
+  }
+  if (r->ft) {
+    functable_free (r->ft);
+  }
+
+  free (r);
+}
+
+
+void
+resample_set_filter_length (ResampleState *r, int length)
+{
+  r->filter_length = length;
+
+  /* FIXME adjust the buffer */
+}
+
+void
+resample_set_ratio (ResampleState *r, int n, int d)
+{
+  r->ratio_n = n;
+  r->ratio_d = d;
+
+  /* FIXME adjust offset */
+}
+
+int
+resample_get_sample_size (ResampleState *r)
+{
+  return r->sample_size;
+}
+
+void
+resample_preload_data (ResampleState *r, void *data, int n_samples)
+{
+  if (n_samples > r->filter_length) {
+    data = OFFSET(data, r->sample_size * (n_samples - r->filter_length));
+    n_samples = r->filter_length;
+  }
+  memcpy (OFFSET(r->buffer, r->sample_size * (r->filter_length - n_samples)),
+      data, r->sample_size * n_samples);
+}
+
+void
+resample_set_offset (ResampleState *r, int offset)
+{
+  r->offset = offset;
+  /* FIXME */
+}
+
+int
+resample_get_offset (ResampleState *r)
+{
+  return r->offset;
+}
+
+
+
+void
+resample_push_data (ResampleState * r, void *data, int n_samples)
+{
+  r->forward_data = data;
+  r->forward_samples = n_samples;
+}
+
+void
+resample_push_eos (ResampleState *r)
+{
+  r->eos = 1;
+}
+
+int
+resample_get_output_size (ResampleState *r)
+{
+  if (r->eos) {
+    return 42;
+  } else {
+    return 43;
+  }
+}
+
+void
+resample_get_output_data (ResampleState *r, void *data, int size)
+{
+  /* FIXME do stuff */
 }
 
