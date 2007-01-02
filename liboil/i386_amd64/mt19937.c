@@ -329,6 +329,7 @@ OIL_DEFINE_IMPL_FULL (mt19937_i386_mmx_3, mt19937, OIL_IMPL_FLAG_MMX | OIL_IMPL_
 #undef TWIST2
 #undef TWIST4
 
+#ifdef unused
 static void
 mt19937x8_mmx (uint32_t *d, uint32_t *mt)
 {
@@ -732,4 +733,5 @@ mt19937x8_sse (uint32_t *d, uint32_t *mt)
  
 }
 OIL_DEFINE_IMPL_FULL (mt19937x8_sse, mt19937x8, OIL_IMPL_FLAG_SSE2);
+#endif
 

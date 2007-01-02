@@ -56,7 +56,9 @@
 
 
 OIL_DEFINE_CLASS(mt19937, "uint32_t *d_624, uint32_t *i_624");
+#if 0
 OIL_DEFINE_CLASS(mt19937x8, "uint32_t *d_624x8, uint32_t *i_624x8");
+#endif
 
 /* mag01[x] = x * MATRIX_A  for x=0,1 */
 static const uint32_t mag01[2]={0x0UL, MATRIX_A};
@@ -94,6 +96,9 @@ OIL_DEFINE_IMPL_REF (mt19937_ref, mt19937);
 
 
 
+#if 0
+/* There's no point in doing this in parallel, since the above class
+ * is handled by MMX quite well */
 static void
 mt19937x8_ref (uint32_t *d, uint32_t *mt)
 {
@@ -127,4 +132,5 @@ mt19937x8_ref (uint32_t *d, uint32_t *mt)
   }
 }
 OIL_DEFINE_IMPL_REF (mt19937x8_ref, mt19937x8);
+#endif
 

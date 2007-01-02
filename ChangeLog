@@ -1,5 +1,15 @@
 2007-01-01  David Schleef  <ds@schleef.org>
 
+	* liboil/i386_amd64/mt19937.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/mt19937ar.c:
+	  Revert the mt19937x8 class.  It is dumb.
+
+2007-01-01  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/sad8x8_i386.c:
 	  Add impl based on psadbw.  Nice.
 	* liboil/i386/wavelet.c:
