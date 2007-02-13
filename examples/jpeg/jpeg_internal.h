@@ -12,12 +12,12 @@
 //#define N_COMPONENTS 256
 #define JPEG_N_COMPONENTS 4
 
-typedef struct jpeg_scan_struct JpegScan;
+typedef struct _JpegScan JpegScan;
 
 #define JPEG_ENTROPY_SEGMENT 0x0001
 #define JPEG_LENGTH 0x0002
 
-struct jpeg_decoder_struct {
+struct _JpegDecoder {
 	int width;
 	int height;
 	int depth;
@@ -65,7 +65,7 @@ struct jpeg_decoder_struct {
 	int dc[4];
 };
 
-struct jpeg_scan_struct {
+struct _JpegScan {
 	int length;
 	
 	int n_components;

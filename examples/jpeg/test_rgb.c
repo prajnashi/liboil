@@ -5,26 +5,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "jpeg_rgb_decoder.h"
+#include <liboil/liboil.h>
+#include <liboil/liboilcolorspace.h>
+
+#include "jpeg.h"
 
 /* getfile */
 
 void *getfile (char *path, int *n_bytes);
-static void dump_pnm (unsigned char *ptr, int rowstride, int width, int height);
+static void dump_pnm (uint32_t *ptr, int rowstride, int width, int height);
 
 int
 main (int argc, char *argv[])
 {
   unsigned char *data;
   int len;
-  JpegRGBDecoder *dec;
+  JpegDecoder *dec;
   char *fn;
-  unsigned char *ptr;
-  int rowstride;
+  uint32_t *image;
   int width;
   int height;
 
-  dec = jpeg_rgb_decoder_new ();
+  dec = jpeg_decoder_new ();
 
   if (argc < 2) {
     printf("jpeg_rgb_test <file.jpg>\n");
@@ -38,16 +40,18 @@ main (int argc, char *argv[])
     exit(1);
   }
 
-  jpeg_rgb_decoder_addbits (dec, data, len);
-  jpeg_rgb_decoder_parse (dec);
+  jpeg_decoder_addbits (dec, data, len);
+  jpeg_decoder_parse (dec);
 
-  jpeg_rgb_decoder_get_image (dec, &ptr, &rowstride, &width, &height);
+  jpeg_decoder_get_image_size (dec, &width, &height);
 
-  dump_pnm (ptr, rowstride, width, height);
+  image = (uint32_t *)jpeg_decoder_get_argb_image (dec);
 
-  free (ptr);
+  dump_pnm (image, width*4, width, height);
 
-  jpeg_rgb_decoder_free (dec);
+  free (image);
+
+  jpeg_decoder_free (dec);
   free (data);
 
   return 0;
@@ -96,7 +100,7 @@ getfile (char *path, int *n_bytes)
 }
 
 static void
-dump_pnm (unsigned char *ptr, int rowstride, int width, int height)
+dump_pnm (uint32_t *ptr, int rowstride, int width, int height)
 {
   int x, y;
 
@@ -106,14 +110,14 @@ dump_pnm (unsigned char *ptr, int rowstride, int width, int height)
 
   for (y = 0; y < height; y++) {
     for (x = 0; x < width; x++) {
-      printf ("%d ", ptr[x * 4 + 2]);
-      printf ("%d ", ptr[x * 4 + 1]);
-      printf ("%d ", ptr[x * 4 + 0]);
+      printf ("%d ", oil_argb_R(ptr[x]));
+      printf ("%d ", oil_argb_G(ptr[x]));
+      printf ("%d ", oil_argb_B(ptr[x]));
       if ((x & 15) == 15) {
         printf ("\n");
       }
     }
     printf ("\n");
-    ptr += rowstride;
+    ptr += rowstride/4;
   }
 }
