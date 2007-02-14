@@ -4,7 +4,7 @@ SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale audioresample
 bin_PROGRAMS = oil-bugreport
 
 noinst_PROGRAMS = example1 oil-graph oil-inspect oil-test memcpy-speed \
-	oil-suggest printcpu oil-mt19937 report
+	oil-suggest printcpu oil-mt19937 report oil-random
 
 
 example1_SOURCES = example1.c
@@ -46,4 +46,8 @@ printcpu_LDADD = $(LIBOIL_LIBS)
 oil_mt19937_SOURCES = oil-mt19937.c
 oil_mt19937_CFLAGS = $(LIBOIL_CFLAGS)
 oil_mt19937_LDADD = $(LIBOIL_LIBS)
+
+oil_random_SOURCES = oil-random.c
+oil_random_CFLAGS = $(LIBOIL_CFLAGS)
+oil_random_LDADD = $(LIBOIL_LIBS)
 
