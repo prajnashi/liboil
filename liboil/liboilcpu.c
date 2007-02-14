@@ -531,7 +531,7 @@ oil_cpu_detect_cpuid (void)
 }
 #endif
 
-#ifdef USE_GETISAX
+#ifdef USE_I386_GETISAX
 static void
 oil_cpu_detect_getisax (void)
 {
