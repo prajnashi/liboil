@@ -235,6 +235,7 @@ int realign_return;
 
 void realign(int align)
 {
+#ifdef HAVE_GCC_ASM
 #ifdef HAVE_I386
   __asm__ __volatile__ (
       "  sub %%ebx, %%esp\n"
@@ -250,6 +251,7 @@ void realign(int align)
       "  add %%rbx, %%rsp\n"
       :: "b" (align)
   );
+#endif
 #endif
 }
 

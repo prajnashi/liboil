@@ -57,7 +57,9 @@ string_append (char *str, const char *append)
 static char *
 oil_cpu_flags_to_string (unsigned int flags)
 {
-  char *ret = NULL;
+  char *ret;
+  
+  ret = strdup ("");
 
 #if defined(__i386__) || defined(__amd64__)
   if (flags & OIL_IMPL_FLAG_CMOV) 
