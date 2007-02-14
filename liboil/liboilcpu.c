@@ -47,6 +47,10 @@
 #include <sys/sysctl.h>
 #endif
 
+#ifdef __sun
+#include <sys/auxv.h>
+#endif
+
 /**
  * SECTION:liboilcpu
  * @title: CPU
@@ -60,7 +64,7 @@ static unsigned long oil_cpu_flags;
 
 extern unsigned long (*_oil_profile_stamp)(void);
 
-#if defined(__linux__) && defined(__arm__)
+#if defined(__arm__)
 #define USE_CPUINFO
 #endif
 
@@ -253,7 +257,7 @@ oil_cpu_get_ticks_per_second (void)
 static char * get_cpuinfo_line (char *cpuinfo, const char *tag);
 static char * _strndup (const char *s, int n);
 
-char *
+static char *
 get_proc_cpuinfo (void)
 {
   char *cpuinfo;
@@ -320,8 +324,14 @@ _strndup (const char *s, int n)
 
 #if defined(__i386__) || defined(__amd64__)
 
-#if 0
-#if defined(__linux__)
+#if defined(__sun)
+#define USE_I386_GETISAX
+#else
+#define USE_I386_CPUID
+#endif
+
+
+#ifdef USE_I386_CPUINFO
 static char **
 strsplit (char *s)
 {
@@ -398,7 +408,6 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
   free (cpuinfo_flags);
 }
 #endif
-#endif
 
 static unsigned long
 oil_profile_stamp_rdtsc(void)
@@ -408,6 +417,7 @@ oil_profile_stamp_rdtsc(void)
 	return ts;
 }
 
+#ifdef USE_I386_CPUID
 #ifdef __i386__
 static void
 get_cpuid (uint32_t op, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
@@ -519,14 +529,47 @@ oil_cpu_detect_cpuid (void)
         (ecx>>16)&0xffff, (ecx>>12)&0xf, (ecx>>8)&0xf, ecx&0xff);
   }
 }
+#endif
+
+#ifdef USE_GETISAX
+static void
+oil_cpu_detect_getisax (void)
+{
+  uint_t ui;
+
+  getisax (&ui, 1);
+
+  if (ui & AV_386_CMOV) {
+     oil_cpu_flags |= OIL_IMPL_FLAG_CMOV;
+  }
+  if (ui & AV_386_MMX) {
+     oil_cpu_flags |= OIL_IMPL_FLAG_MMX;
+  }
+  if (ui & AV_386_SSE) {
+     oil_cpu_flags |= OIL_IMPL_FLAG_SSE;
+  }
+  if (ui & AV_386_SSE2) {
+     oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+     oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
+  }
+  if (ui & AV_386_SSE3) {
+     oil_cpu_flags |= OIL_IMPL_FLAG_SSE3;
+  }
+  if (ui & AV_386_AMD_3DNow) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_3DNOW;
+  }
+  if (ui & AV_386_AMD_3DNowx) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_3DNOWEXT;
+  }
+  if (ui & AV_386_AMD_MMX) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
+  }
+}
+#endif
 
 /* Reduce the set of CPU capabilities detected by whatever detection mechanism
  * was chosen, according to kernel limitations.  SSE requires kernel support for
  * use.
- *
- * This function might also want to grow a check for the old RedHat + Linux 2.2
- * unmasked SSE FPU exception bug.  Other than that, if /proc/cpuinfo reported
- * SSE, then it's safe.
  */
 static void
 oil_cpu_detect_kernel_support (void)
@@ -541,12 +584,23 @@ oil_cpu_detect_kernel_support (void)
     oil_cpu_flags &= ~(OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2 |
 		       OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
   }
-#endif
-#if !defined(__linux__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
+#elif defined(__linux__)
+  /*
+   * Might also want to grow a check for the old RedHat + Linux 2.2
+   * unmasked SSE FPU exception bug.  Other than that, if /proc/cpuinfo
+   * reported SSE, then it's safe.
+   */
+#elif defined(__sun)
+  /* Solaris is OK */
+#elif defined(__NetBSD__)
+  /* NetBSD is OK */
+#elif
+   
   /* If we don't know that the operating system supports SSE, don't trust that
    * it will properly support it.
    */
-  OIL_ERROR("Operating system is not known to support SSE.  Assuming it does, which might cause problems");
+  OIL_ERROR("Operating system is not known to support SSE.  "
+      "Assuming it does, which might cause problems");
 #if 0
   oil_cpu_flags &= ~(OIL_IMPL_FLAG_SSE | OIL_IMPL_FLAG_SSE2 |
 		     OIL_IMPL_FLAG_MMXEXT | OIL_IMPL_FLAG_SSE3);
@@ -557,18 +611,15 @@ oil_cpu_detect_kernel_support (void)
 static void
 oil_cpu_detect_i386(void)
 {
-#if 0
-  char *cpuinfo;
-
-  cpuinfo = get_proc_cpuinfo();
-  if (cpuinfo) {
-    oil_cpu_i386_getflags_cpuinfo(cpuinfo);
-  } else {
-    oil_cpu_i386_getflags_cpuid();
-  }
-#endif
-
+#ifdef USE_I386_CPUID
   oil_cpu_detect_cpuid ();
+#endif
+#ifdef USE_I386_GETISAX
+  oil_cpu_detect_getisax ();
+#endif
+#ifdef USE_I386_CPUINFO
+  oil_cpu_detect_cpuinfo ();
+#endif
 
   oil_cpu_detect_kernel_support ();
 }
