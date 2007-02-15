@@ -640,11 +640,7 @@ oil_profile_stamp_tb(void)
 static void
 test_altivec (void * ignored)
 {
-  char x[16] = { 0, };
-
-  asm volatile (
-      "  lvx %%v0, %0, %%r0  \n"
-      :: "r" (x));
+  asm volatile ("vor v0, v0, v0\n");
 }
 
 static void

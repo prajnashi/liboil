@@ -46,7 +46,7 @@ string_append (char *str, const char *append)
   if (str) {
     size_t size = strlen (str) + 2 + strlen (append) + 1;
     ret = malloc (size);
-    snprintf (ret, size, "%s, %s", str, append);
+    snprintf (ret, size, "%s %s", str, append);
     free (str);
   } else {
     ret = strdup (append);
@@ -57,10 +57,8 @@ string_append (char *str, const char *append)
 static char *
 oil_cpu_flags_to_string (unsigned int flags)
 {
-  char *ret;
+  char *ret = NULL;
   
-  ret = strdup ("");
-
 #if defined(__i386__) || defined(__amd64__)
   if (flags & OIL_IMPL_FLAG_CMOV) 
     ret = string_append (ret, "cmov");
@@ -79,10 +77,13 @@ oil_cpu_flags_to_string (unsigned int flags)
   if (flags & OIL_IMPL_FLAG_SSE3) 
     ret = string_append (ret, "sse3");
 #endif
-#if defined(__powerpc__)
+#if defined(__powerpc__) || defined(__ppc__) || defined(__PPC__)
   if (flags & OIL_IMPL_FLAG_ALTIVEC) 
     ret = string_append (ret, "altivec");
 #endif
+  if (ret == NULL) {
+    ret = strdup ("");
+  }
   return ret;
 }
 

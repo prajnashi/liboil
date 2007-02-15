@@ -34,6 +34,7 @@
 #include <liboil/liboilclasses.h>
 
 #include <unistd.h>
+#include <string.h>
 
 
 static void
