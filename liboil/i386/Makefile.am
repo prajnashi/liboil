@@ -18,7 +18,8 @@ libi386_la_SOURCES = \
 	sad8x8avg_i386.c \
 	splat_i386.c \
 	trans8x8_i386.c \
-	wavelet.c
+	wavelet.c \
+	math.c
 
 if USE_NEW_ABI
 else

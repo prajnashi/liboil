@@ -1493,35 +1493,6 @@ OIL_DEFINE_IMPL_FULL (multiply_and_add_s16_u8_mmx_2, multiply_and_add_s16_u8,
     OIL_IMPL_FLAG_MMX);
 
 void
-add_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
-{
-  while(n&3) {
-    d1[0] = s1[0] + s2[0];
-    d1++;
-    s1++;
-    s2++;
-    n--;
-  }
-  n>>=2;
-  if (n==0) return;
-  asm volatile ("\n"
-      "1:\n"
-      "  movq 0(%2), %%mm0\n"
-      "  paddw 0(%1), %%mm0\n"
-      "  movq %%mm0, 0(%0)\n"
-      "  add $8, %0\n"
-      "  add $8, %1\n"
-      "  add $8, %2\n"
-      "  decl %3\n"
-      "  jnz 1b\n"
-      "  emms\n"
-      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
-      );
-
-}
-OIL_DEFINE_IMPL_FULL (add_s16_mmx, add_s16, OIL_IMPL_FLAG_MMX);
-
-void
 multiply_and_acc_12xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
     int ss1, uint8_t *s2, int ss2, int n)
 {
