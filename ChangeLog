@@ -1,5 +1,10 @@
 2007-03-02  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/math.c:
+	  Oops, fix typo.
+
+2007-03-02  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/Makefile.am:
 	* liboil/i386/math.c:
 	* liboil/i386/wavelet.c:

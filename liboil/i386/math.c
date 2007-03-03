@@ -70,7 +70,7 @@ void
 subtract_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s2, int n)
 {
   while(n&3) {
-    d1[0] = s1[0] + s2[0];
+    d1[0] = s1[0] - s2[0];
     d1++;
     s1++;
     s2++;
@@ -99,7 +99,7 @@ void
 subtract_s16_u8_mmx(int16_t *d1, int16_t *s1, uint8_t *s2, int n)
 {
   while(n&7) {
-    d1[0] = s1[0] + s2[0];
+    d1[0] = s1[0] - s2[0];
     d1++;
     s1++;
     s2++;
