@@ -50,6 +50,47 @@
  */
 
 /**
+ * oil_add_s16:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Adds elements in @s2 and @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (add_s16, "int16_t *d, int16_t *src1, int16_t *src2, int n");
+/**
+ * oil_subtract_s16:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Subtracts elements in @s2 from @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (subtract_s16, "int16_t *d, int16_t *src1, int16_t *src2, int n");
+/**
+ * oil_add_s16_u8:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Adds elements in @s2 and @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (add_s16_u8, "int16_t *d, int16_t *src1, uint8_t *src2, int n");
+/**
+ * oil_subtract_s16_u8:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Subtracts elements in @s2 from @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (subtract_s16_u8, "int16_t *d, int16_t *src1, uint8_t *src2, int n");
+
+/**
  * oil_add_f32:
  * @d: destination
  * @s1: source 1
@@ -172,6 +213,46 @@ OIL_DEFINE_CLASS (scalaradd_f32_ns, "float *d, float *s1, float *s2_1, int n");
  * the result in @d.
  */
 OIL_DEFINE_CLASS (scalarmultiply_f32_ns, "float *d, float *s1, float *s2_1, int n");
+
+static void
+add_s16_ref (int16_t *d, int16_t *src1, int16_t *src2, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    d[i] = src1[i] + src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (add_s16_ref, add_s16);
+
+static void
+subtract_s16_ref (int16_t *d, int16_t *src1, int16_t *src2, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    d[i] = src1[i] - src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (subtract_s16_ref, subtract_s16);
+
+static void
+add_s16_u8_ref (int16_t *d, int16_t *src1, uint8_t *src2, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    d[i] = src1[i] + src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (add_s16_u8_ref, add_s16_u8);
+
+static void
+subtract_s16_u8_ref (int16_t *d, int16_t *src1, uint8_t *src2, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    d[i] = src1[i] - src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (subtract_s16_u8_ref, subtract_s16_u8);
 
 static void
 add_f32_ref (float *dest, float *src1, float *src2, int n)

@@ -1,3 +1,13 @@
+2007-03-02  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/math.c:
+	* liboil/ref/wavelet.c:
+	  Migrate more functions from schro.
+
 2007-02-14  David Schleef  <ds@schleef.org>
 
 	* examples/printcpu.c:
