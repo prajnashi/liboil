@@ -1,5 +1,11 @@
 2007-03-16  David Schleef  <ds@schleef.org>
 
+	* doc/tmpl/liboildebug.sgml:
+	* doc/tmpl/liboilimpl-unstable.sgml:
+	  Apparently gtk-doc became sane again.
+
+2007-03-16  David Schleef  <ds@schleef.org>
+
 	* configure.ac:
 	  Add -maltivec flag
 	* m4/as-gcc-inline-assembly.m4:
