@@ -145,6 +145,9 @@ then
   AS_COMPILER_FLAG(-Werror, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Werror")
 fi
 if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
+  AS_COMPILER_FLAG(["-Wa,-maltivec"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -maltivec"],
+    true)
   AS_COMPILER_FLAG(["-Wa,-mregnames"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)

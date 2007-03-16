@@ -1,3 +1,12 @@
+2007-03-16  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	  Add -maltivec flag
+	* m4/as-gcc-inline-assembly.m4:
+	  Require gcc-3.4
+	* m4/as-nano.m4:
+	  handle two-digit version numbers, like in 0.3.10
+
 2007-03-02  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/math.c:
