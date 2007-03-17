@@ -1,6 +1,23 @@
 2007-03-16  David Schleef  <ds@schleef.org>
 
 	* configure.ac:
+	* liboil/Makefile.am:
+	* liboil/sse/Makefile.am:
+	* liboil/sse/composite_sse_2pix.c:
+	* liboil/sse/composite_sse_4pix.c:
+	* liboil/sse/sad8x8_sse.c:
+	* liboil/sse/sse_wrapper.h:
+	  Add idea to wrap SSE2 functions that have trouble with
+	  unaligned stacks with a function that aligns the stack.  From
+	  Christian Aichinger.
+	* m4/as-gcc-inline-assembly.m4:
+	  Fix test for gcc version.
+	* testsuite/stack_align.c:
+	  improve somewhat
+
+2007-03-16  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
 	  version bump to 0.3.11
 
 2007-03-16  David Schleef  <ds@schleef.org>

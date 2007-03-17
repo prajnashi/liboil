@@ -4,7 +4,7 @@ dnl autostars m4 macro for detection of gcc inline assembly
 
 dnl David Schleef <ds@schleef.org>
 
-dnl $Id: as-gcc-inline-assembly.m4,v 1.3 2007-03-16 23:30:02 ds Exp $
+dnl $Id: as-gcc-inline-assembly.m4,v 1.4 2007-03-17 02:03:30 ds Exp $
 
 dnl AS_COMPILER_FLAG(ACTION-IF-ACCEPTED, [ACTION-IF-NOT-ACCEPTED])
 dnl Tries to compile with the given CFLAGS.
@@ -17,7 +17,7 @@ AC_DEFUN([AS_GCC_INLINE_ASSEMBLY],
 
   AC_TRY_COMPILE([], [
 #ifdef __GNUC_MINOR__
-#if __GNUC_MAJOR__ * 1000 + __GNUC_MINOR__ < 3004
+#if (__GNUC__ * 1000 + __GNUC_MINOR__) < 3004
 #error GCC before 3.4 has critical bugs compiling inline assembly
 #endif
 #endif

@@ -32,6 +32,8 @@
 #include <emmintrin.h>
 #include <liboil/liboilcolorspace.h>
 
+#include "sse_wrapper.h"
+
 /* non-SSE2 compositing support */
 #define COMPOSITE_OVER(d,s,m) ((d) + (s) - oil_muldiv_255((d),(m)))
 #define COMPOSITE_ADD(d,s) oil_clamp_255((d) + (s))
@@ -160,7 +162,7 @@ composite_in_argb_sse_2pix (uint32_t *dest, const uint32_t *src,
 	COMPOSITE_IN(oil_argb_B(s), m));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_sse_2pix, composite_in_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_argb_sse_2pix, composite_in_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -188,9 +190,10 @@ composite_in_argb_const_src_sse_2pix (uint32_t *dest, const uint32_t *src,
 	COMPOSITE_IN(oil_argb_B(*src), m));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_src_sse_2pix,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_argb_const_src_sse_2pix,
     composite_in_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
+#ifdef SSE_ALIGN
 static void
 composite_in_argb_const_mask_sse_2pix (uint32_t *dest, const uint32_t *src,
     const uint8_t *mask, int n)
@@ -216,8 +219,9 @@ composite_in_argb_const_mask_sse_2pix (uint32_t *dest, const uint32_t *src,
 	COMPOSITE_IN(oil_argb_B(s), mask[0]));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_mask_sse_2pix,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_argb_const_mask_sse_2pix,
     composite_in_argb_const_mask, OIL_IMPL_FLAG_SSE2);
+#endif
 
 static void
 composite_over_argb_sse_2pix (uint32_t *dest, const uint32_t *src, int n)
@@ -242,7 +246,7 @@ composite_over_argb_sse_2pix (uint32_t *dest, const uint32_t *src, int n)
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_argb_sse_2pix, composite_over_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_over_argb_sse_2pix, composite_over_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -272,7 +276,7 @@ composite_over_argb_const_src_sse_2pix (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_argb_const_src_sse_2pix,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_over_argb_const_src_sse_2pix,
     composite_over_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -309,7 +313,7 @@ composite_in_over_argb_sse_2pix (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_sse_2pix, composite_in_over_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_over_argb_sse_2pix, composite_in_over_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -348,7 +352,7 @@ composite_in_over_argb_const_src_sse_2pix (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_src_sse_2pix,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_over_argb_const_src_sse_2pix,
     composite_in_over_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -387,7 +391,7 @@ composite_in_over_argb_const_mask_sse_2pix (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_mask_sse_2pix,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_in_over_argb_const_mask_sse_2pix,
     composite_in_over_argb_const_mask, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -414,5 +418,5 @@ composite_over_u8_sse_2pix (uint8_t *dest, const uint8_t *src, int n)
     dest++;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_u8_sse_2pix, composite_over_u8,
+OIL_DEFINE_IMPL_FULL_WRAPPER(composite_over_u8_sse_2pix, composite_over_u8,
     OIL_IMPL_FLAG_SSE2);

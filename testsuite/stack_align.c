@@ -43,7 +43,7 @@
 #include <liboil/liboiltest.h>
 #include <liboil/liboilcpu.h>
 
-int verbose = 0;
+int verbose = 1;
 
 /* Amount by which results of different types are allowed to deviate from the
  * reference.
@@ -292,27 +292,25 @@ int check_class(OilFunctionClass *klass)
 {
   OilTest *test;
   int failed = 0;
-  int i;
+  int align;
+  int step = 4;
 
   oil_class_optimize (klass);
 
   if(verbose) printf("checking class %s\n", klass->name);
   
   test = oil_test_new(klass);
-  for (i=0; i < OIL_ARG_LAST; i++) {
-    int align;
-    int step = 4;
 
 #ifdef HAVE_AMD64
-    step = 16;
+  step = 16;
 #endif
 
-    for (align = 0; align <= 32; align += step) {
-      realign_klass = klass;
-      realign_align = align;
-      realign(align);
-      failed |= realign_return;
-    }
+  for (align = 0; align <= 32; align += step) {
+    printf("  alignment %d\n", align);
+    realign_klass = klass;
+    realign_align = align;
+    realign(align);
+    failed |= realign_return;
   }
   oil_test_free (test);
 

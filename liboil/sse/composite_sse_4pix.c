@@ -32,6 +32,10 @@
 #include <emmintrin.h>
 #include <liboil/liboilcolorspace.h>
 
+#include "sse_wrapper.h"
+
+
+
 union m128_int {
   __m128i m128;
   uint64_t ull[2];
@@ -193,7 +197,7 @@ composite_in_argb_sse (uint32_t *dest, const uint32_t *src, const uint8_t *mask,
 	COMPOSITE_IN(oil_argb_B(s), m));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_sse, composite_in_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_argb_sse, composite_in_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -230,7 +234,7 @@ composite_in_argb_const_src_sse (uint32_t *dest, const uint32_t *src,
 	COMPOSITE_IN(oil_argb_B(*src), m));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_src_sse,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_argb_const_src_sse,
     composite_in_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -267,7 +271,7 @@ composite_in_argb_const_mask_sse (uint32_t *dest, const uint32_t *src,
 	COMPOSITE_IN(oil_argb_B(s), mask[0]));
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_argb_const_mask_sse,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_argb_const_mask_sse,
     composite_in_argb_const_mask, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -302,7 +306,7 @@ composite_over_argb_sse (uint32_t *dest, const uint32_t *src, int n)
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_argb_sse, composite_over_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_over_argb_sse, composite_over_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -339,7 +343,7 @@ composite_over_argb_const_src_sse (uint32_t *dest, const uint32_t *src, int n)
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_argb_const_src_sse,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_over_argb_const_src_sse,
     composite_over_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -392,7 +396,7 @@ composite_in_over_argb_sse (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_sse, composite_in_over_argb,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_over_argb_sse, composite_in_over_argb,
     OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -447,7 +451,7 @@ composite_in_over_argb_const_src_sse (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_src_sse,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_over_argb_const_src_sse,
     composite_in_over_argb_const_src, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -502,7 +506,7 @@ composite_in_over_argb_const_mask_sse (uint32_t *dest, const uint32_t *src,
     *dest++ = d;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_in_over_argb_const_mask_sse,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_in_over_argb_const_mask_sse,
     composite_in_over_argb_const_mask, OIL_IMPL_FLAG_SSE2);
 
 static void
@@ -529,5 +533,6 @@ composite_over_u8_sse (uint8_t *dest, const uint8_t *src, int n)
     dest++;
   }
 }
-OIL_DEFINE_IMPL_FULL (composite_over_u8_sse, composite_over_u8,
+OIL_DEFINE_IMPL_FULL_WRAPPER (composite_over_u8_sse, composite_over_u8,
     OIL_IMPL_FLAG_SSE2);
+
