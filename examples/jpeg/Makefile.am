@@ -3,7 +3,7 @@
 noinst_LTLIBRARIES = libjpeg.la
 noinst_PROGRAMS = jpeg_test jpeg_rgb_test
 
-libjpeg_la_SOURCES = jpeg.c huffman.c jpeg_rgb_decoder.c
+libjpeg_la_SOURCES = jpeg.c jpeg_bits.c huffman.c jpeg_rgb_decoder.c jpeg_tables.c
 libjpeg_la_CFLAGS = $(LIBOIL_CFLAGS)
 
 noinst_HEADERS = bits.h huffman.h jpeg.h jpeg_debug.h \

@@ -32,7 +32,7 @@ main (int argc, char *argv[])
   data = getfile (fn, &len);
 
   jpeg_decoder_addbits (dec, data, len);
-  jpeg_decoder_parse (dec);
+  jpeg_decoder_decode (dec);
 
   jpeg_decoder_get_component_ptr (dec, 1, &ptr, &rowstride);
   jpeg_decoder_get_component_size (dec, 1, &width, &height);

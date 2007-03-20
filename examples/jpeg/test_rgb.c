@@ -41,7 +41,7 @@ main (int argc, char *argv[])
   }
 
   jpeg_decoder_addbits (dec, data, len);
-  jpeg_decoder_parse (dec);
+  jpeg_decoder_decode (dec);
 
   jpeg_decoder_get_image_size (dec, &width, &height);
 

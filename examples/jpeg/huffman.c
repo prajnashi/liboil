@@ -12,8 +12,6 @@
 #include "huffman.h"
 #include "jpeg_debug.h"
 
-#define DEBUG printf
-
 /* misc helper function definitions */
 
 static char *sprintbits (char *str, unsigned int bits, int n);
@@ -41,21 +39,10 @@ huffman_table_dump (HuffmanTable * table)
   }
 }
 
-HuffmanTable *
-huffman_table_new (void)
-{
-  HuffmanTable *table;
-
-  table = malloc (sizeof(HuffmanTable));
-  memset (table, 0, sizeof(HuffmanTable));
-
-  return table;
-}
-
 void
-huffman_table_free (HuffmanTable * table)
+huffman_table_init (HuffmanTable *table)
 {
-  free (table);
+  memset (table, 0, sizeof(HuffmanTable));
 }
 
 void
@@ -72,7 +59,7 @@ huffman_table_add (HuffmanTable * table, uint32_t code, int n_bits, int value)
 }
 
 unsigned int
-huffman_table_decode_jpeg (HuffmanTable * tab, bits_t * bits)
+huffman_table_decode_jpeg (HuffmanTable * tab, JpegBits * bits)
 {
   unsigned int code;
   int i;
@@ -96,7 +83,7 @@ huffman_table_decode_jpeg (HuffmanTable * tab, bits_t * bits)
 
 int
 huffman_table_decode_macroblock (short *block, HuffmanTable * dc_tab,
-    HuffmanTable * ac_tab, bits_t * bits)
+    HuffmanTable * ac_tab, JpegBits * bits)
 {
   int r, s, x, rs;
   int k;
@@ -154,24 +141,15 @@ huffman_table_decode_macroblock (short *block, HuffmanTable * dc_tab,
 
 int
 huffman_table_decode (HuffmanTable * dc_tab, HuffmanTable * ac_tab,
-    bits_t * bits)
+    JpegBits * bits)
 {
-  short zz[64];
+  int16_t zz[64];
   int ret;
-  int i;
-  short *q;
 
   while (bits->ptr < bits->end) {
     ret = huffman_table_decode_macroblock (zz, dc_tab, ac_tab, bits);
     if (ret < 0)
       return -1;
-
-    q = zz;
-    for (i = 0; i < 8; i++) {
-      DEBUG ("%3d %3d %3d %3d %3d %3d %3d %3d",
-          q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7]);
-      q += 8;
-    }
   }
 
   return 0;
