@@ -13,5 +13,6 @@ int jpeg_rgb_decoder_get_image(JpegRGBDecoder *dec,
 	unsigned char **image, int *rowstride, int *width, int *height);
 
 
+
 #endif
 

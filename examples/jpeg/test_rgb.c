@@ -20,13 +20,11 @@ main (int argc, char *argv[])
 {
   unsigned char *data;
   int len;
-  JpegDecoder *dec;
   char *fn;
-  uint32_t *image;
+  uint32_t *image = NULL;
   int width;
   int height;
-
-  dec = jpeg_decoder_new ();
+  int ret;
 
   if (argc < 2) {
     printf("jpeg_rgb_test <file.jpg>\n");
@@ -40,18 +38,13 @@ main (int argc, char *argv[])
     exit(1);
   }
 
-  jpeg_decoder_addbits (dec, data, len);
-  jpeg_decoder_decode (dec);
+  ret = jpeg_decode_argb (data, len, &image, &width, &height);
+  if (ret) {
+    dump_pnm (image, width*4, width, height);
+  }
 
-  jpeg_decoder_get_image_size (dec, &width, &height);
+  if (image) free (image);
 
-  image = (uint32_t *)jpeg_decoder_get_argb_image (dec);
-
-  dump_pnm (image, width*4, width, height);
-
-  free (image);
-
-  jpeg_decoder_free (dec);
   free (data);
 
   return 0;

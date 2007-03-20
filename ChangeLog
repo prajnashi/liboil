@@ -1,5 +1,14 @@
 2007-03-20  David Schleef  <ds@schleef.org>
 
+	* examples/jpeg/jpeg.c:
+	* examples/jpeg/jpeg.h:
+	* examples/jpeg/jpeg_rgb_decoder.c:
+	* examples/jpeg/jpeg_rgb_decoder.h:
+	* examples/jpeg/test_rgb.c:
+	  More JPEG hacking.
+
+2007-03-20  David Schleef  <ds@schleef.org>
+
 	* examples/jpeg/Makefile.am:
 	* examples/jpeg/bits.h:
 	* examples/jpeg/huffman.c:

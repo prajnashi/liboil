@@ -27,8 +27,8 @@ void jpeg_decoder_define_huffman_tables (JpegDecoder * dec);
 void jpeg_decoder_define_arithmetic_conditioning (JpegDecoder *dec);
 void jpeg_decoder_define_quantization_tables (JpegDecoder *dec);
 void jpeg_decoder_define_restart_interval (JpegDecoder *dec);
-
 void jpeg_decoder_start_of_frame (JpegDecoder * dec, int marker);
+void jpeg_decoder_start_of_scan (JpegDecoder * dec);
 
 
 /* misc helper function declarations */
@@ -274,91 +274,6 @@ jpeg_decoder_find_component_by_id (JpegDecoder * dec, int id)
   }
   OIL_DEBUG ("undefined component id %d", id);
   return 0;
-}
-
-int
-jpeg_decoder_sos (JpegDecoder * dec, JpegBits * bits)
-{
-  int length;
-  int i;
-
-  int n_components;
-  int spectral_start;
-  int spectral_end;
-  int approx_high;
-  int approx_low;
-  int n;
-
-  OIL_DEBUG ("start of scan");
-
-  length = get_be_u16 (bits);
-  bits->end = bits->ptr + length - 2;
-  OIL_DEBUG ("length=%d", length);
-
-  n_components = get_u8 (bits);
-  n = 0;
-  dec->scan_h_subsample = 0;
-  dec->scan_v_subsample = 0;
-  for (i = 0; i < n_components; i++) {
-    int component_id;
-    int dc_table;
-    int ac_table;
-    int x;
-    int y;
-    int index;
-    int h_subsample;
-    int v_subsample;
-    int quant_index;
-
-    component_id = get_u8 (bits);
-    dc_table = getbits (bits, 4);
-    ac_table = getbits (bits, 4);
-    index = jpeg_decoder_find_component_by_id (dec, component_id);
-
-    h_subsample = dec->components[index].h_sample;
-    v_subsample = dec->components[index].v_sample;
-    quant_index = dec->components[index].quant_table;
-
-    for (y = 0; y < v_subsample; y++) {
-      for (x = 0; x < h_subsample; x++) {
-        dec->scan_list[n].component_index = index;
-        dec->scan_list[n].dc_table = dc_table;
-        dec->scan_list[n].ac_table = ac_table;
-        dec->scan_list[n].quant_table = quant_index;
-        dec->scan_list[n].x = x;
-        dec->scan_list[n].y = y;
-        dec->scan_list[n].offset =
-            y * 8 * dec->components[index].rowstride + x * 8;
-        n++;
-      }
-    }
-
-    dec->scan_h_subsample = MAX (dec->scan_h_subsample, h_subsample);
-    dec->scan_v_subsample = MAX (dec->scan_v_subsample, v_subsample);
-
-    syncbits (bits);
-
-    OIL_DEBUG ("component %d: index=%d dc_table=%d ac_table=%d n=%d",
-        component_id, index, dc_table, ac_table, n);
-  }
-  dec->scan_list_length = n;
-
-  spectral_start = get_u8 (bits);
-  spectral_end = get_u8 (bits);
-  OIL_DEBUG ("spectral range [%d,%d]", spectral_start, spectral_end);
-  approx_high = getbits (bits, 4);
-  approx_low = getbits (bits, 4);
-  OIL_DEBUG ("approx range [%d,%d]", approx_low, approx_high);
-  syncbits (bits);
-
-  dec->x = 0;
-  dec->y = 0;
-  dec->dc[0] = dec->dc[1] = dec->dc[2] = dec->dc[3] = 128 * 8;
-
-  if (bits->end != bits->ptr)
-    OIL_DEBUG ("endptr != bits");
-
-  return length;
 }
 
 int
@@ -613,9 +528,16 @@ jpeg_decoder_free (JpegDecoder * dec)
 void
 jpeg_decoder_error(JpegDecoder *dec, char *fmt, ...)
 {
-  /* FIXME */
-  dec->error_message = strdup(fmt);
-  OIL_ERROR("decoder error: %d", fmt);
+  va_list varargs;
+
+  if (dec->error) return;
+
+  va_start (varargs, fmt);
+  vasprintf(&dec->error_message, fmt, varargs);
+  va_end (varargs);
+
+  OIL_ERROR("decoder error: %s", dec->error_message);
+  abort();
   dec->error = TRUE;
 }
 
@@ -707,13 +629,25 @@ jpeg_decoder_decode (JpegDecoder *dec)
       return FALSE;
     }
 
-    /* FIXME */
-    if (marker == JPEG_MARKER_EOI) {
-      return TRUE;
+    if (marker == JPEG_MARKER_DEFINE_HUFFMAN_TABLES) {
+      jpeg_decoder_define_huffman_tables (dec);
+    } else if (marker == JPEG_MARKER_DEFINE_ARITHMETIC_CONDITIONING) {
+      jpeg_decoder_define_arithmetic_conditioning (dec);
+    } else if (marker == JPEG_MARKER_DEFINE_QUANTIZATION_TABLES) {
+      jpeg_decoder_define_quantization_tables (dec);
+    } else if (marker == JPEG_MARKER_DEFINE_RESTART_INTERVAL) {
+      jpeg_decoder_define_restart_interval (dec);
+    } else if (JPEG_MARKER_IS_APP(marker)) {
+      /* FIXME decode app segment */
+      jpeg_decoder_skip (dec);
+    } else if (marker == JPEG_MARKER_COMMENT) {
+      jpeg_decoder_skip (dec);
+    } else if (marker == JPEG_MARKER_SOS) {
+      jpeg_decoder_start_of_scan (dec);
+    } else {
+      jpeg_decoder_error(dec, "unexpected marker 0x%02x", marker);
+      return FALSE;
     }
-    /* decode frame */
-    /* FIXME */
-    //jpeg_decoder_decode_frame (dec);
   }
 
   return TRUE;
@@ -889,6 +823,85 @@ jpeg_decoder_start_of_frame (JpegDecoder * dec, int marker)
         dec->components[i].id, dec->components[i].h_sample,
         dec->components[i].v_sample, dec->components[i].quant_table);
   }
+}
+
+void
+jpeg_decoder_start_of_scan (JpegDecoder * dec)
+{
+  JpegBits *bits = &dec->bits;
+  int length;
+  int i;
+  int spectral_start;
+  int spectral_end;
+  int approx_high;
+  int approx_low;
+  int n;
+  int tmp;
+  int n_components;
+
+  OIL_DEBUG ("start of scan");
+
+  length = jpeg_bits_get_u16_be (bits);
+  OIL_DEBUG ("length=%d", length);
+
+  n_components = jpeg_bits_get_u8 (bits);
+  n = 0;
+  dec->scan_h_subsample = 0;
+  dec->scan_v_subsample = 0;
+  for (i = 0; i < n_components; i++) {
+    int component_id;
+    int dc_table;
+    int ac_table;
+    int x;
+    int y;
+    int index;
+    int h_subsample;
+    int v_subsample;
+    int quant_index;
+
+    component_id = jpeg_bits_get_u8 (bits);
+    tmp = jpeg_bits_get_u8 (bits);
+    dc_table = tmp >> 4;
+    ac_table = tmp & 0xf;
+    index = jpeg_decoder_find_component_by_id (dec, component_id);
+
+    h_subsample = dec->components[index].h_sample;
+    v_subsample = dec->components[index].v_sample;
+    quant_index = dec->components[index].quant_table;
+
+    for (y = 0; y < v_subsample; y++) {
+      for (x = 0; x < h_subsample; x++) {
+        dec->scan_list[n].component_index = index;
+        dec->scan_list[n].dc_table = dc_table;
+        dec->scan_list[n].ac_table = ac_table;
+        dec->scan_list[n].quant_table = quant_index;
+        dec->scan_list[n].x = x;
+        dec->scan_list[n].y = y;
+        dec->scan_list[n].offset =
+            y * 8 * dec->components[index].rowstride + x * 8;
+        n++;
+      }
+    }
+
+    dec->scan_h_subsample = MAX (dec->scan_h_subsample, h_subsample);
+    dec->scan_v_subsample = MAX (dec->scan_v_subsample, v_subsample);
+
+    OIL_DEBUG ("component %d: index=%d dc_table=%d ac_table=%d n=%d",
+        component_id, index, dc_table, ac_table, n);
+  }
+  dec->scan_list_length = n;
+
+  spectral_start = jpeg_bits_get_u8 (bits);
+  spectral_end = jpeg_bits_get_u8 (bits);
+  OIL_DEBUG ("spectral range [%d,%d]", spectral_start, spectral_end);
+  tmp = jpeg_bits_get_u8 (bits);
+  approx_high = tmp >> 4;
+  approx_low = tmp & 0xf;
+  OIL_DEBUG ("approx range [%d,%d]", approx_low, approx_high);
+
+  dec->x = 0;
+  dec->y = 0;
+  dec->dc[0] = dec->dc[1] = dec->dc[2] = dec->dc[3] = 128 * 8;
 }
 
 
