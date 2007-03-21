@@ -39,7 +39,7 @@ static char *sprintbits (char *str, unsigned int bits, int n);
 static void huffman_table_load_std_jpeg (JpegDecoder * dec);
 
 static void jpeg_decoder_verify_header (JpegDecoder *dec);
-static void jpeg_decoder_calculate_stuff (JpegDecoder *dec);
+static void jpeg_decoder_init_decoder (JpegDecoder *dec);
 
 
 
@@ -131,11 +131,24 @@ jpeg_decoder_verify_header (JpegDecoder *dec)
 }
 
 static void
-jpeg_decoder_calculate_stuff (JpegDecoder *dec)
+jpeg_decoder_init_decoder (JpegDecoder *dec)
 {
   int max_h_sample = 0;
   int max_v_sample = 0;
   int i;
+
+  /* decoder limitations */
+  if (dec->n_components != 3) {
+    jpeg_decoder_error(dec, "wrong number of components %d", dec->n_components);
+    return;
+  }
+  if (dec->sof_type != JPEG_MARKER_SOF_0) {
+    jpeg_decoder_error(dec, "only handle baseline DCT");
+    return;
+  }
+
+
+
 
   for (i=0; i < dec->n_components; i++) {
     max_h_sample = MAX (max_h_sample, dec->components[i].h_sample);
@@ -147,12 +160,14 @@ jpeg_decoder_calculate_stuff (JpegDecoder *dec)
   dec->height_blocks =
       (dec->height + 8 * max_v_sample - 1) / (8 * max_v_sample);
   for (i = 0; i < dec->n_components; i++) {
+    int rowstride;
+    int image_size;
+
     dec->components[i].h_subsample = max_h_sample /
         dec->components[i].h_sample;
     dec->components[i].v_subsample = max_v_sample /
         dec->components[i].v_sample;
 
-#if 0
     rowstride = dec->width_blocks * 8 * max_h_sample /
         dec->components[i].h_subsample;
     image_size = rowstride *
@@ -160,7 +175,6 @@ jpeg_decoder_calculate_stuff (JpegDecoder *dec)
         dec->components[i].v_subsample);
     dec->components[i].rowstride = rowstride;
     dec->components[i].image = malloc (image_size);
-#endif
   }
 }
 
@@ -381,8 +395,9 @@ jpeg_decoder_restart (JpegDecoder * dec, JpegBits * bits)
 }
 
 void
-jpeg_decoder_decode_entropy_segment (JpegDecoder * dec, JpegBits * bits)
+jpeg_decoder_decode_entropy_segment (JpegDecoder * dec)
 {
+  JpegBits * bits = &dec->bits;
   JpegBits b2, *bits2 = &b2;
   short block[64];
   short block2[64];
@@ -547,9 +562,13 @@ jpeg_decoder_get_marker (JpegDecoder *dec, int *marker)
   int a,b;
   JpegBits *bits = &dec->bits;
 
+  if (jpeg_bits_available(bits) < 2) {
+    return FALSE;
+  }
+
   a = jpeg_bits_get_u8(bits);
   if (a != 0xff) {
-    jpeg_decoder_error(dec, "expected marker");
+    jpeg_decoder_error(dec, "expected marker, not 0x%02x", a);
     return FALSE;
   }
 
@@ -591,7 +610,7 @@ jpeg_decoder_decode (JpegDecoder *dec)
   }
 
   /* Interpret markers up to the start of frame */
-  while (1) {
+  while (!dec->error) {
     if (!jpeg_decoder_get_marker (dec, &marker)) {
       return FALSE;
     }
@@ -620,11 +639,18 @@ jpeg_decoder_decode (JpegDecoder *dec)
   jpeg_decoder_start_of_frame(dec, marker);
 
   jpeg_decoder_verify_header (dec);
-  jpeg_decoder_calculate_stuff (dec);
+  if (dec->error) {
+    return FALSE;
+  }
+
+  jpeg_decoder_init_decoder (dec);
+  if (dec->error) {
+    return FALSE;
+  }
 
   /* In this section, we loop over parse units until we reach the end
    * of the image. */
-  while (1) {
+  while (!dec->error) {
     if (!jpeg_decoder_get_marker (dec, &marker)) {
       return FALSE;
     }
@@ -638,12 +664,16 @@ jpeg_decoder_decode (JpegDecoder *dec)
     } else if (marker == JPEG_MARKER_DEFINE_RESTART_INTERVAL) {
       jpeg_decoder_define_restart_interval (dec);
     } else if (JPEG_MARKER_IS_APP(marker)) {
-      /* FIXME decode app segment */
       jpeg_decoder_skip (dec);
     } else if (marker == JPEG_MARKER_COMMENT) {
       jpeg_decoder_skip (dec);
     } else if (marker == JPEG_MARKER_SOS) {
       jpeg_decoder_start_of_scan (dec);
+      jpeg_decoder_decode_entropy_segment (dec);
+    } else if (JPEG_MARKER_IS_RESET(marker)) {
+      jpeg_decoder_decode_entropy_segment (dec);
+    } else if (marker == JPEG_MARKER_EOI) {
+      break;
     } else {
       jpeg_decoder_error(dec, "unexpected marker 0x%02x", marker);
       return FALSE;

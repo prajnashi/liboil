@@ -106,7 +106,7 @@ int jpeg_decoder_application_misc(JpegDecoder *dec, JpegBits *bits);
 int jpeg_decoder_comment(JpegDecoder *dec, JpegBits *bits);
 int jpeg_decoder_restart_interval(JpegDecoder *dec, JpegBits *bits);
 int jpeg_decoder_restart(JpegDecoder *dec, JpegBits *bits);
-void jpeg_decoder_decode_entropy_segment(JpegDecoder *dec, JpegBits *bits);
+void jpeg_decoder_decode_entropy_segment(JpegDecoder *dec);
 
 
 #endif
