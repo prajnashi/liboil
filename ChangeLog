@@ -1,5 +1,9 @@
 2007-03-22  David Schleef  <ds@schleef.org>
 
+	* configure.ac: back to CVS
+
+2007-03-22  David Schleef  <ds@schleef.org>
+
 	* liboil/liboilcpu.c:
 	  Restore the signal mask if we caught a signal.  Fixes #10247
 
