@@ -48,12 +48,13 @@ EOF
 sub binary_pointer
 {
 	my $kernel = shift;
+	my $precision = shift;
+	my $type = "oil_type_$precision";
 	my $operator = shift;
 
 	print <<EOF
-#line 55 "go.pl"
 static void
-${kernel}_f32_pointer (float *dest, float *src1, float *src2, int n)
+${kernel}_${precision}_pointer (${type} *dest, ${type} *src1, ${type} *src2, int n)
 {
   while (n) {
     *dest = *src1 ${operator} *src2;
@@ -63,7 +64,7 @@ ${kernel}_f32_pointer (float *dest, float *src1, float *src2, int n)
     n--;
   }
 }
-OIL_DEFINE_IMPL (${kernel}_f32_pointer, ${kernel}_f32);
+OIL_DEFINE_IMPL (${kernel}_${precision}_pointer, ${kernel}_${precision});
 
 EOF
 ;
@@ -72,12 +73,13 @@ EOF
 sub binary_unroll2
 {
 	my $kernel = shift;
+	my $precision = shift;
+	my $type = "oil_type_$precision";
 	my $operator = shift;
 
 	print <<EOF
-#line 78 "go.pl"
 static void
-${kernel}_f32_unroll2 (float *dest, float *src1, float *src2, int n)
+${kernel}_${precision}_unroll2 (${type} *dest, ${type} *src1, ${type} *src2, int n)
 {
   int i;
 
@@ -93,7 +95,7 @@ ${kernel}_f32_unroll2 (float *dest, float *src1, float *src2, int n)
     dest[i+1] = src1[i+1] ${operator} src2[i+1];
   }
 }
-OIL_DEFINE_IMPL (${kernel}_f32_unroll2, ${kernel}_f32);
+OIL_DEFINE_IMPL (${kernel}_${precision}_unroll2, ${kernel}_${precision});
 
 EOF
 ;
@@ -102,12 +104,13 @@ EOF
 sub binary_unroll4a
 {
 	my $kernel = shift;
+	my $precision = shift;
+	my $type = "oil_type_$precision";
 	my $operator = shift;
 
 	print <<EOF
-#line 78 "go.pl"
 static void
-${kernel}_f32_unroll4a (float *dest, float *src1, float *src2, int n)
+${kernel}_${precision}_unroll4a (${type} *dest, ${type} *src1, ${type} *src2, int n)
 {
   int i;
 
@@ -125,7 +128,7 @@ ${kernel}_f32_unroll4a (float *dest, float *src1, float *src2, int n)
     dest[i+3] = src1[i+3] ${operator} src2[i+3];
   }
 }
-OIL_DEFINE_IMPL (${kernel}_f32_unroll4a, ${kernel}_f32);
+OIL_DEFINE_IMPL (${kernel}_${precision}_unroll4a, ${kernel}_${precision});
 
 EOF
 ;
@@ -134,12 +137,13 @@ EOF
 sub binary_unroll4b
 {
 	my $kernel = shift;
+	my $precision = shift;
+	my $type = "oil_type_$precision";
 	my $operator = shift;
 
 	print <<EOF
-#line 78 "go.pl"
 static void
-${kernel}_f32_unroll4b (float *dest, float *src1, float *src2, int n)
+${kernel}_${precision}_unroll4b (${type} *dest, ${type} *src1, ${type} *src2, int n)
 {
   int i;
 
@@ -153,7 +157,7 @@ ${kernel}_f32_unroll4b (float *dest, float *src1, float *src2, int n)
     dest[i] = src1[i] ${operator} src2[i];
   }
 }
-OIL_DEFINE_IMPL (${kernel}_f32_unroll4b, ${kernel}_f32);
+OIL_DEFINE_IMPL (${kernel}_${precision}_unroll4b, ${kernel}_${precision});
 
 EOF
 ;
@@ -162,12 +166,13 @@ EOF
 sub binary_unroll4c
 {
 	my $kernel = shift;
+	my $precision = shift;
+	my $type = "oil_type_$precision";
 	my $operator = shift;
 
 	print <<EOF
-#line 78 "go.pl"
 static void
-${kernel}_f32_unroll4c (float *dest, float *src1, float *src2, int n)
+${kernel}_${precision}_unroll4c (${type} *dest, ${type} *src1, ${type} *src2, int n)
 {
   int i;
 
@@ -181,32 +186,80 @@ ${kernel}_f32_unroll4c (float *dest, float *src1, float *src2, int n)
     *dest++ = *src1++ ${operator} *src2++;
   }
 }
-OIL_DEFINE_IMPL (${kernel}_f32_unroll4c, ${kernel}_f32);
+OIL_DEFINE_IMPL (${kernel}_${precision}_unroll4c, ${kernel}_${precision});
 
 EOF
 ;
 }
 
+my %binary_operators = (
+ "add" => "+",
+ "subtract" => "-",
+ "multiply" => "*",
+ "divide" => "/"
+);
 
-binary_pointer("add", "+");
-binary_unroll2("add", "+");
-binary_unroll4a("add", "+");
-binary_unroll4b("add", "+");
-binary_unroll4c("add", "+");
+my @types = ( "f32", "f64" );
 
-binary_pointer("multiply", "*");
-binary_unroll2("multiply", "*");
-binary_unroll4a("multiply", "*");
-binary_unroll4b("multiply", "*");
-binary_unroll4c("multiply", "*");
-
-binary_pointer("divide", "/");
-binary_unroll2("divide", "/");
-binary_unroll4a("divide", "/");
-binary_unroll4b("divide", "/");
-binary_unroll4c("divide", "/");
+while ( ($name, $op) = each %binary_operators ) {
+  foreach $prec (@types) {
+    binary_pointer($name, $prec, $op);
+    binary_unroll2($name, $prec, $op);
+    binary_unroll4a($name, $prec, $op);
+    binary_unroll4b($name, $prec, $op);
+    binary_unroll4c($name, $prec, $op);
+  }
+}
 
 exit 0;
+
+binary_pointer("subtract", "f32", "-");
+binary_unroll2("subtract", "f32", "-");
+binary_unroll4a("subtract", "f32", "-");
+binary_unroll4b("subtract", "f32", "-");
+binary_unroll4c("subtract", "f32", "-");
+
+binary_pointer("add", "f32", "+");
+binary_unroll2("add", "f32", "+");
+binary_unroll4a("add", "f32", "+");
+binary_unroll4b("add", "f32", "+");
+binary_unroll4c("add", "f32", "+");
+
+binary_pointer("multiply", "f32", "*");
+binary_unroll2("multiply", "f32", "*");
+binary_unroll4a("multiply", "f32", "*");
+binary_unroll4b("multiply", "f32", "*");
+binary_unroll4c("multiply", "f32", "*");
+
+binary_pointer("divide", "f32", "/");
+binary_unroll2("divide", "f32", "/");
+binary_unroll4a("divide", "f32", "/");
+binary_unroll4b("divide", "f32", "/");
+binary_unroll4c("divide", "f32", "/");
+
+binary_pointer("subtract", "f64", "-");
+binary_unroll2("subtract", "f64", "-");
+binary_unroll4a("subtract", "f64", "-");
+binary_unroll4b("subtract", "f64", "-");
+binary_unroll4c("subtract", "f64", "-");
+
+binary_pointer("add", "f64", "+");
+binary_unroll2("add", "f64", "+");
+binary_unroll4a("add", "f64", "+");
+binary_unroll4b("add", "f64", "+");
+binary_unroll4c("add", "f64", "+");
+
+binary_pointer("multiply", "f64", "*");
+binary_unroll2("multiply", "f64", "*");
+binary_unroll4a("multiply", "f64", "*");
+binary_unroll4b("multiply", "f64", "*");
+binary_unroll4c("multiply", "f64", "*");
+
+binary_pointer("divide", "f64", "/");
+binary_unroll2("divide", "f64", "/");
+binary_unroll4a("divide", "f64", "/");
+binary_unroll4b("divide", "f64", "/");
+binary_unroll4c("divide", "f64", "/");
 
 $blah = "
 static void

@@ -101,6 +101,16 @@ OIL_DEFINE_CLASS (subtract_s16_u8, "int16_t *d, int16_t *src1, uint8_t *src2, in
  */
 OIL_DEFINE_CLASS (add_f32, "float *d, float *s1, float *s2, int n");
 /**
+ * oil_add_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Adds elements in @s2 and @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (add_f64, "double *d, double *s1, double *s2, int n");
+/**
  * oil_subtract_f32:
  * @d: destination
  * @s1: source 1
@@ -110,6 +120,16 @@ OIL_DEFINE_CLASS (add_f32, "float *d, float *s1, float *s2, int n");
  * Subtracts elements in @s2 from @s1 and places the result in @d.
  */
 OIL_DEFINE_CLASS (subtract_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_subtract_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Subtracts elements in @s2 from @s1 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (subtract_f64, "double *d, double *s1, double *s2, int n");
 /**
  * oil_multiply_f32:
  * @d: destination
@@ -121,6 +141,16 @@ OIL_DEFINE_CLASS (subtract_f32, "float *d, float *s1, float *s2, int n");
  */
 OIL_DEFINE_CLASS (multiply_f32, "float *d, float *s1, float *s2, int n");
 /**
+ * oil_multiply_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Multiplies elements in @s1 and @s2 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (multiply_f64, "double *d, double *s1, double *s2, int n");
+/**
  * oil_divide_f32:
  * @d: destination
  * @s1: source 1
@@ -130,6 +160,16 @@ OIL_DEFINE_CLASS (multiply_f32, "float *d, float *s1, float *s2, int n");
  * Divides elements in @s1 by @s2 and places the result in @d.
  */
 OIL_DEFINE_CLASS (divide_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_divide_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Divides elements in @s1 by @s2 and places the result in @d.
+ */
+OIL_DEFINE_CLASS (divide_f64, "double *d, double *s1, double *s2, int n");
 /**
  * oil_minimum_f32:
  * @d: destination
@@ -141,6 +181,16 @@ OIL_DEFINE_CLASS (divide_f32, "float *d, float *s1, float *s2, int n");
  */
 OIL_DEFINE_CLASS (minimum_f32, "float *d, float *s1, float *s2, int n");
 /**
+ * oil_minimum_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Places the lesser of @s1 and @s2 in @d.
+ */
+OIL_DEFINE_CLASS (minimum_f64, "float *d, float *s1, float *s2, int n");
+/**
  * oil_maximum_f32:
  * @d: destination
  * @s1: source 1
@@ -150,6 +200,16 @@ OIL_DEFINE_CLASS (minimum_f32, "float *d, float *s1, float *s2, int n");
  * Places the greater of @s1 and @s2 in @d.
  */
 OIL_DEFINE_CLASS (maximum_f32, "float *d, float *s1, float *s2, int n");
+/**
+ * oil_maximum_f64:
+ * @d: destination
+ * @s1: source 1
+ * @s2: source 2
+ * @n: number of elements
+ *
+ * Places the greater of @s1 and @s2 in @d.
+ */
+OIL_DEFINE_CLASS (maximum_f64, "float *d, float *s1, float *s2, int n");
 
 /**
  * oil_negative_f32:
@@ -266,6 +326,17 @@ add_f32_ref (float *dest, float *src1, float *src2, int n)
 OIL_DEFINE_IMPL_REF (add_f32_ref, add_f32);
 
 static void
+add_f64_ref (double *dest, double *src1, double *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = src1[i] + src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (add_f64_ref, add_f64);
+
+static void
 subtract_f32_ref (float *dest, float *src1, float *src2, int n)
 {
   int i;
@@ -275,6 +346,17 @@ subtract_f32_ref (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (subtract_f32_ref, subtract_f32);
+
+static void
+subtract_f64_ref (double *dest, double *src1, double *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = src1[i] - src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (subtract_f64_ref, subtract_f64);
 
 static void
 multiply_f32_ref (float *dest, float *src1, float *src2, int n)
@@ -288,6 +370,17 @@ multiply_f32_ref (float *dest, float *src1, float *src2, int n)
 OIL_DEFINE_IMPL_REF (multiply_f32_ref, multiply_f32);
 
 static void
+multiply_f64_ref (double *dest, double *src1, double *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = src1[i] * src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_f64_ref, multiply_f64);
+
+static void
 divide_f32_ref (float *dest, float *src1, float *src2, int n)
 {
   int i;
@@ -297,6 +390,17 @@ divide_f32_ref (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (divide_f32_ref, divide_f32);
+
+static void
+divide_f64_ref (double *dest, double *src1, double *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = src1[i] / src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (divide_f64_ref, divide_f64);
 
 static void
 minimum_f32_ref (float *dest, float *src1, float *src2, int n)
@@ -319,6 +423,28 @@ maximum_f32_ref (float *dest, float *src1, float *src2, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (maximum_f32_ref, maximum_f32);
+
+static void
+minimum_f64_ref (float *dest, float *src1, float *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = (src1[i] < src2[i]) ? src1[i] : src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (minimum_f64_ref, minimum_f64);
+
+static void
+maximum_f64_ref (float *dest, float *src1, float *src2, int n)
+{
+  int i;
+
+  for(i=0;i<n;i++){
+    dest[i] = (src1[i] > src2[i]) ? src1[i] : src2[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (maximum_f64_ref, maximum_f64);
 
 static void
 negative_f32_ref (float *dest, float *src1, int n)

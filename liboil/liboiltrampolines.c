@@ -101,6 +101,16 @@ oil_add_f32 (float * d, const float * s1, const float * s2, int n)
   ((void (*)(float * d, const float * s1, const float * s2, int n))(_oil_function_class_add_f32.func))(d, s1, s2, n);
 }
 
+#undef oil_add_f64
+void
+oil_add_f64 (double * d, const double * s1, const double * s2, int n)
+{
+  if (_oil_function_class_add_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_add_f64);
+  }
+  ((void (*)(double * d, const double * s1, const double * s2, int n))(_oil_function_class_add_f64.func))(d, s1, s2, n);
+}
+
 #undef oil_add_s16
 void
 oil_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, int n)
@@ -2031,6 +2041,16 @@ oil_divide_f32 (float * d, const float * s1, const float * s2, int n)
   ((void (*)(float * d, const float * s1, const float * s2, int n))(_oil_function_class_divide_f32.func))(d, s1, s2, n);
 }
 
+#undef oil_divide_f64
+void
+oil_divide_f64 (double * d, const double * s1, const double * s2, int n)
+{
+  if (_oil_function_class_divide_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_divide_f64);
+  }
+  ((void (*)(double * d, const double * s1, const double * s2, int n))(_oil_function_class_divide_f64.func))(d, s1, s2, n);
+}
+
 #undef oil_err_inter8x8_u8
 void
 oil_err_inter8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2)
@@ -2391,6 +2411,26 @@ oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const
   ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n))(_oil_function_class_mas8_add_s16.func))(d, s1, s2_np7, s3_8, s4_2, n);
 }
 
+#undef oil_max_f32
+void
+oil_max_f32 (float * d, const float * s1, int n)
+{
+  if (_oil_function_class_max_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_max_f32);
+  }
+  ((void (*)(float * d, const float * s1, int n))(_oil_function_class_max_f32.func))(d, s1, n);
+}
+
+#undef oil_max_f64
+void
+oil_max_f64 (double * d, const double * s1, int n)
+{
+  if (_oil_function_class_max_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_max_f64);
+  }
+  ((void (*)(double * d, const double * s1, int n))(_oil_function_class_max_f64.func))(d, s1, n);
+}
+
 #undef oil_maximum_f32
 void
 oil_maximum_f32 (float * d, const float * s1, const float * s2, int n)
@@ -2529,6 +2569,16 @@ oil_multiply_f32 (float * d, const float * s1, const float * s2, int n)
     oil_class_optimize (&_oil_function_class_multiply_f32);
   }
   ((void (*)(float * d, const float * s1, const float * s2, int n))(_oil_function_class_multiply_f32.func))(d, s1, s2, n);
+}
+
+#undef oil_multiply_f64
+void
+oil_multiply_f64 (double * d, const double * s1, const double * s2, int n)
+{
+  if (_oil_function_class_multiply_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_f64);
+  }
+  ((void (*)(double * d, const double * s1, const double * s2, int n))(_oil_function_class_multiply_f64.func))(d, s1, s2, n);
 }
 
 #undef oil_multsum_f32
@@ -3369,6 +3419,16 @@ oil_subtract_f32 (float * d, const float * s1, const float * s2, int n)
     oil_class_optimize (&_oil_function_class_subtract_f32);
   }
   ((void (*)(float * d, const float * s1, const float * s2, int n))(_oil_function_class_subtract_f32.func))(d, s1, s2, n);
+}
+
+#undef oil_subtract_f64
+void
+oil_subtract_f64 (double * d, const double * s1, const double * s2, int n)
+{
+  if (_oil_function_class_subtract_f64.func == NULL) {
+    oil_class_optimize (&_oil_function_class_subtract_f64);
+  }
+  ((void (*)(double * d, const double * s1, const double * s2, int n))(_oil_function_class_subtract_f64.func))(d, s1, s2, n);
 }
 
 #undef oil_subtract_s16

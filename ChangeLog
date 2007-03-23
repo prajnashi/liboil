@@ -1,5 +1,17 @@
 2007-03-22  David Schleef  <ds@schleef.org>
 
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/math/ag_math.c:
+	* liboil/math/generate_math.pl:
+	* liboil/ref/math.c:
+	* liboil/sse/math_sse.c:
+	  Add f64 math functions.  From Marcus Brubaker.  Fixes #6958.
+
+2007-03-22  David Schleef  <ds@schleef.org>
+
 	* configure.ac: back to CVS
 
 2007-03-22  David Schleef  <ds@schleef.org>

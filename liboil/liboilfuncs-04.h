@@ -43,6 +43,7 @@ void oil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, 
 void oil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n);
 void oil_add_const_rshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_2, int n);
 void oil_add_f32 (float * d, const float * s1, const float * s2, int n);
+void oil_add_f64 (double * d, const double * s1, const double * s2, int n);
 void oil_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, int n);
 void oil_add_s16_u8 (int16_t * d, const int16_t * src1, const uint8_t * src2, int n);
 void oil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n);
@@ -236,6 +237,7 @@ void oil_diff8x8_const128_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int s
 void oil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 void oil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n);
 void oil_divide_f32 (float * d, const float * s1, const float * s2, int n);
+void oil_divide_f64 (double * d, const double * s1, const double * s2, int n);
 void oil_err_inter8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 void oil_err_inter8x8_u8_avg (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, const uint8_t * s3_8x8, int ss2);
 void oil_err_intra8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1);
@@ -272,6 +274,8 @@ void oil_mas4_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s
 void oil_mas4_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np3, const int16_t * s3_4, const int16_t * s4_2, int n);
 void oil_mas8_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx8, int sstr2, const int16_t * s3_8, const int16_t * s4_2, int n);
 void oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n);
+void oil_max_f32 (float * d, const float * s1, int n);
+void oil_max_f64 (double * d, const double * s1, int n);
 void oil_maximum_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_md5 (uint32_t * i_4, const uint32_t * s_16);
 void oil_mdct12_f64 (double * d_6, const double * s_12);
@@ -286,6 +290,7 @@ void oil_multiply_and_acc_12xn_s16_u8 (int16_t * i1_12xn, int is1, const int16_t
 void oil_multiply_and_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, const int16_t * src3, int n);
 void oil_multiply_and_add_s16_u8 (int16_t * d, const int16_t * src1, const int16_t * src2, const uint8_t * src3, int n);
 void oil_multiply_f32 (float * d, const float * s1, const float * s2, int n);
+void oil_multiply_f64 (double * d, const double * s1, const double * s2, int n);
 void oil_multsum_f32 (float * dest, const float * src1, int sstr1, const float * src2, int sstr2, int n);
 void oil_multsum_f64 (double * dest, const double * src1, int sstr1, const double * src2, int sstr2, int n);
 void oil_negative_f32 (float * d, const float * s, int n);
@@ -370,6 +375,7 @@ void oil_split_daub97 (int16_t * d_2xn, const int16_t * s_2xn, int n);
 void oil_squaresum_f64 (double * d, const double * s, int n);
 void oil_squaresum_shifted_s16 (uint32_t * d, const int16_t * s, int n);
 void oil_subtract_f32 (float * d, const float * s1, const float * s2, int n);
+void oil_subtract_f64 (double * d, const double * s1, const double * s2, int n);
 void oil_subtract_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, int n);
 void oil_subtract_s16_u8 (int16_t * d, const int16_t * src1, const uint8_t * src2, int n);
 void oil_sum_f64 (double * d_1, const double * s, int sstr, int n);
