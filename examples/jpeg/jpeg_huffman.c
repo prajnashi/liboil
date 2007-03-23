@@ -9,7 +9,7 @@
 #include <liboil/liboil.h>
 #include <liboil/liboildebug.h>
 
-#include "huffman.h"
+#include "jpeg_huffman.h"
 #include "jpeg_debug.h"
 
 /* misc helper function definitions */

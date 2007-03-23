@@ -4,7 +4,7 @@
 
 #include <liboil/liboil-stdint.h>
 
-#include "bits.h"
+#include "jpeg_bits.h"
 
 typedef struct _HuffmanEntry HuffmanEntry;
 typedef struct _HuffmanTable HuffmanTable;

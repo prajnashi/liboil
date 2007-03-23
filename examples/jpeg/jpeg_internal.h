@@ -3,8 +3,8 @@
 #define _JPEG_INTERNAL_H_
 
 #include "jpeg.h"
-#include "huffman.h"
-#include "bits.h"
+#include "jpeg_huffman.h"
+#include "jpeg_bits.h"
 #include "jpeg_debug.h"
 
 #ifndef TRUE

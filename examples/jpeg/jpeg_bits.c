@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-#include "bits.h"
+#include "jpeg_bits.h"
 
 /* FIXME */
 #define TRUE 1

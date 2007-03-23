@@ -1,3 +1,16 @@
+2007-03-23  David Schleef  <ds@schleef.org>
+
+	* examples/jpeg/Makefile.am:
+	* examples/jpeg/bits.h:
+	* examples/jpeg/huffman.c:
+	* examples/jpeg/huffman.h:
+	* examples/jpeg/jpeg_bits.c:
+	* examples/jpeg/jpeg_bits.h:
+	* examples/jpeg/jpeg_huffman.c:
+	* examples/jpeg/jpeg_huffman.h:
+	* examples/jpeg/jpeg_internal.h:
+	  Name changes
+
 2007-03-22  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilclasses.h:
