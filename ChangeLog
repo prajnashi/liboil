@@ -1,3 +1,8 @@
+2007-03-26  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	  Add MMX implementation
+
 2007-03-23  David Schleef  <ds@schleef.org>
 
 	* examples/jpeg/Makefile.am:

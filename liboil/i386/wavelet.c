@@ -1529,3 +1529,82 @@ multiply_and_acc_12xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_12xn_s16_u8_mmx,
     multiply_and_acc_12xn_s16_u8, OIL_IMPL_FLAG_MMX);
 
+void
+mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
+    int16_t *s3_4, int16_t *s4_2, int n)
+{
+#if 0
+  int i;
+  int j;
+  int x;
+#endif
+  int16_t *s2_nx4_off;
+
+#if 0
+  for(i=0;i<n;i++){
+    x = s4_2[0];
+    for(j=0;j<4;j++){
+      x += OIL_GET(s2_nx4, i*sizeof(int16_t) + j*sstr2, int16_t)*s3_4[j];
+    }
+    x >>= s4_2[1];
+    d[i] = s1[i] + x;
+  }
+#endif
+  if (n==0) return;
+
+  s2_nx4_off = OIL_OFFSET(s2_nx4, 3*sstr2);
+
+  n >>= 2;
+  __asm__ __volatile__ ("\n"
+      "  movq 0(%[s3_4]), %%mm0\n"
+      "  pshufw $0x55, %%mm0, %%mm1\n"
+      "  pshufw $0xaa, %%mm0, %%mm2\n"
+      "  pshufw $0xff, %%mm0, %%mm3\n"
+      "  pshufw $0x00, %%mm0, %%mm0\n"
+      "  movzwl 0(%[s4_2]), %%ecx\n"
+      "  movd %%ecx, %%mm7\n"
+      "  pshufw $0x00, %%mm7, %%mm7\n"
+      "  movzwl 2(%[s4_2]), %%ecx\n"
+      "  movd %%ecx, %%mm6\n"
+      :
+      : [s3_4] "r" (s3_4),
+        [s4_2] "r" (s4_2)
+      : "ecx"
+      );
+
+  __asm__ __volatile__ ("\n"
+      "1:\n"
+      "  movq 0(%[s2_nx4]), %%mm4\n"
+      "  pmullw %%mm0, %%mm4\n"
+      "  movq (%[s2_nx4],%[sstr]), %%mm5\n"
+      "  pmullw %%mm1, %%mm5\n"
+      "  paddsw %%mm5,%%mm4\n"
+      "  movq (%[s2_nx4],%[sstr],2), %%mm5\n"
+      "  pmullw %%mm2, %%mm5\n"
+      "  paddsw %%mm5,%%mm4\n"
+      "  movq (%[s2_nx4_off]), %%mm5\n"
+      "  pmullw %%mm3, %%mm5\n"
+      "  paddsw %%mm5,%%mm4\n"
+      "  paddsw %%mm7, %%mm4\n"
+      "  psraw %%mm6, %%mm4\n"
+      "  paddsw (%[s1]),%%mm4\n"
+      "  movq %%mm4, 0(%[d])\n"
+
+      "  addl $8, %[s2_nx4]\n"
+      "  addl $8, %[s2_nx4_off]\n"
+      "  addl $8, %[s1]\n"
+      "  addl $8, %[d]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : [s2_nx4] "+r" (s2_nx4),
+        [d] "+r" (d),
+        [s2_nx4_off] "+r" (s2_nx4_off),
+        [n] "+m" (n),
+        [s1] "+r" (s1)
+      : [sstr] "r" (sstr2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
+    OIL_IMPL_FLAG_MMX);
+
