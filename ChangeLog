@@ -1,3 +1,13 @@
+2007-04-10  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/sad8x8_i386.c:
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/sad8x8.c:
+	  Add sad8x8_8xn_u8 class.
+
 2007-03-26  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/wavelet.c:

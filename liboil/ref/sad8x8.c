@@ -73,6 +73,21 @@ OIL_DEFINE_CLASS (sad8x8_s16_2,
  */
 OIL_DEFINE_CLASS (sad8x8_f64_2,
     "double *d_1, double *s1_8x8, int ss1, double *s2_8x8, int ss2");
+/**
+ * oil_sad8x8_8xn_u8:
+ * @d_1:
+ * @s1_8x8:
+ * @ss1:
+ * @s2_8xnp7:
+ * @ss2:
+ * @n:
+ *
+ * Calculates the sum of absolute differences between elements in @s1_8x8
+ * and the 8x8 block of array elements starting at row i in @s2_8x8, and
+ * places the result in @d_n.
+ */
+OIL_DEFINE_CLASS (sad8x8_8xn_u8,
+    "uint32_t *d_n, uint8_t *s1_8x8, int ss1, uint8_t *s2_8xnp7, int ss2, int n");
 
 static void
 sad8x8_f64_2_ref (double *dest, double *src1, int sstr1, double *src2,
@@ -132,4 +147,26 @@ sad8x8_u8_ref (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
   *dest = sum;
 }
 OIL_DEFINE_IMPL_REF (sad8x8_u8_ref, sad8x8_u8);
+
+static void
+sad8x8_8xn_u8_ref (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
+    int sstr2, int n)
+{
+  int i, j, k;
+  int d;
+  uint32_t sum;
+
+  for (i=0;i<n;i++){
+    sum = 0;
+    for (j = 0; j < 8; j++) {
+      for (k = 0; k < 8; k++) {
+        d = ((int) OIL_GET (src1, sstr1 * j + k * sizeof (uint8_t), uint8_t)) -
+            ((int) OIL_GET (src2, sstr2 * (i+j) + k * sizeof (uint8_t), uint8_t));
+        sum += (d < 0) ? -d : d;
+      }
+    }
+    dest[i] = sum;
+  }
+}
+OIL_DEFINE_IMPL_REF (sad8x8_8xn_u8_ref, sad8x8_8xn_u8);
 
