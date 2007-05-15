@@ -44,6 +44,10 @@
 #define OIL_CHECK_PROTOTYPE(a)
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * OIL_OPT_MANGLE:
  *
@@ -345,6 +349,10 @@ void oil_class_register_impl_by_name (const char *klass_name,
     OilFunctionImpl *impl);
 
 void oil_init_no_optimize(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

@@ -72,6 +72,22 @@ New Classes
   for the type ("_f64", "_u8"), or to indicate inaccuracies or
   limitations in implementations ("_i10", "_l10").
 
+  _i10 stands for "inaccurate by a factor of 10", where the baseline
+  accuracy is 2^-52 for doubles and 2^-24 (I think).  It's a decilog
+  scale, so _i20 is a factor of 100, etc.  The baseline accuracy comes
+  from the least expressible number greater than 1.0.
+
+  _l10 stands for "something is limited to 10".  Sometimes this means
+  input range, e.g., _l15 is (was?) used for some function class that
+  could only handle input values in the range [-1<<14, 1<<14-1].
+  Another class uses this to mean that only 10 of the input values
+  can be non-zero (oil_idct8x8theora_l10).
+
+  These modifiers are obviously not well-thought-out.  In order to
+  be useful, applications need to be able to make predictions about
+  accuracy based on value of n, input values, etc.  I also don't
+  think that simply defining new classes is a maintainable solution.
+
   Use of underscores in the base part of the class name is arbitrary.
   This may change in the future.
 

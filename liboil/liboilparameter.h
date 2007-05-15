@@ -30,6 +30,10 @@
 
 #include <liboil/liboiltypes.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * OilType:
  *
@@ -136,6 +140,10 @@ int oil_param_from_string (OilParameter *p, char *s);
 
 #define oil_type_is_floating_point(type) \
   (((type) == OIL_TYPE_f64p) || ((type) == OIL_TYPE_f32p))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

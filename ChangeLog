@@ -1,3 +1,28 @@
+2007-05-14  David Schleef  <ds@schleef.org>
+
+	* HACKING:
+	  Patch from Stephane Fillod <f8cfe@free.fr>
+	* liboil/liboil.h:
+	* liboil/liboilcolorspace.h:
+	* liboil/liboilcpu.h:
+	* liboil/liboildebug.h:
+	* liboil/liboilfunction.h:
+	* liboil/liboilgcc.h:
+	* liboil/liboilparameter.h:
+	* liboil/liboilprofile.h:
+	* liboil/liboilprototype.h:
+	* liboil/liboilrandom.h:
+	* liboil/liboiltest.h:
+	* liboil/liboiltypes.h:
+	  Add C++ wrappers everywhere.
+	* m4/as-libtool.m4:
+	  Fix macro.
+
+2007-04-19  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	  Disable mas4_across_add_s16_mmx, because it's broken.
+
 2007-04-10  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/sad8x8_i386.c:

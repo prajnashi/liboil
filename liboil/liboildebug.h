@@ -30,6 +30,10 @@
 
 #include <stdarg.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * OilDebugPrintFunc:
  * @level: the debug level
@@ -125,6 +129,10 @@ void _oil_debug_init (void);
 
 void oil_debug_print (int level, const char *file, const char *func,
     int line, const char *format, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

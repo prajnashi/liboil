@@ -28,6 +28,10 @@
 #ifndef _LIBOIL_COLORSPACE_H_
 #define _LIBOIL_COLORSPACE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * oil_max:
  * @x: a value
@@ -146,6 +150,10 @@
  * Evaluates to the result.
  */
 #define oil_muldiv_255(a,b) oil_divide_255((a)*(b))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

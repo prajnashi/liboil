@@ -32,6 +32,10 @@
 
 #include <liboil/liboilfuncs.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void oil_init (void);
 
 /**
@@ -60,6 +64,9 @@ void oil_init (void);
 #define oil_trans8x8_s16(dest, dstr, src, sstr) \
   oil_trans8x8_u16((uint16_t *)dest, dstr, (const uint16_t *)src, sstr)
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

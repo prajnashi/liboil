@@ -34,12 +34,20 @@
 
 #include <liboil/liboil-stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef int8_t vec_s8 __attribute__ ((mode(V8QI)));
 typedef uint8_t vec_u8 __attribute__ ((mode(V8QI)));
 typedef int16_t vec_s16 __attribute__ ((mode(V4HI)));
 typedef uint16_t vec_u16 __attribute__ ((mode(V4HI)));
 typedef int32_t vec_s32 __attribute__ ((mode(V2SI)));
 typedef uint32_t vec_u32 __attribute__ ((mode(V2SI)));
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

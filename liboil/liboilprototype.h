@@ -31,6 +31,10 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilparameter.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct _OilPrototype OilPrototype;
 /**
  * OilPrototype:
@@ -55,6 +59,10 @@ int oil_type_sizeof (OilType type);
 const char * oil_type_name (OilType type);
 const char * oil_arg_type_name (OilArgType type);
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

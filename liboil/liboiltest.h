@@ -32,6 +32,10 @@
 #include <liboil/liboilprototype.h>
 #include <liboil/liboilprofile.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * OilTest:
  * 
@@ -106,6 +110,10 @@ int oil_test_get_arg_pre_n (OilTest *test, OilArgType arg_type);
 int oil_test_get_arg_post_n (OilTest *test, OilArgType arg_type);
 int oil_test_get_arg_stride (OilTest *test, OilArgType arg_type);
 int oil_test_get_value (OilTest *test, OilArgType arg_type);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

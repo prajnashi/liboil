@@ -30,6 +30,10 @@
 
 #include <liboil/liboil-stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * OIL_PROFILE_HIST_LENGTH
  *
@@ -84,6 +88,10 @@ void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
 	(x)->stop = oil_profile_stamp(); \
         oil_profile_stop_handle(x); \
 }while(0)
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif
