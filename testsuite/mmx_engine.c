@@ -118,7 +118,7 @@ void mmx_engine_test(void)
     oil_profile_start(&prof); \
     asm volatile ( \
         "  mov $1000, %%ecx\n" \
-        ".align 16\n" \
+        ".p2align 4,,15\n" \
         "1:\n" \
         "  " #insn " %%mm0, %%mm1\n" \
         "  " #insn " %%mm1, %%mm2\n" \
@@ -188,7 +188,7 @@ void mmx_engine_test(void)
     oil_profile_start(&prof); \
     asm volatile ( \
         "  mov $1000, %%ecx\n" \
-        ".align 16\n" \
+        ".p2align 4,,15\n" \
         "1:\n" \
         "  " #insn " %%mm0, %%mm1\n" \
         "  " #insn " %%mm0, %%mm2\n" \
@@ -284,7 +284,7 @@ void sse2_engine_test(void)
     oil_profile_start(&prof); \
     asm volatile ( \
         "  mov $1000, %%ecx\n" \
-        ".align 16\n" \
+        ".p2align 4,,15\n" \
         "1:\n" \
         "  " #insn " %%xmm0, %%xmm1\n" \
         "  " #insn " %%xmm1, %%xmm2\n" \
@@ -355,7 +355,7 @@ void sse2_engine_test(void)
     oil_profile_start(&prof); \
     asm volatile ( \
         "  mov $1000, %%ecx\n" \
-        ".align 16\n" \
+        ".p2align 4,,15\n" \
         "1:\n" \
         "  " #insn " %%xmm0, %%xmm1\n" \
         "  " #insn " %%xmm0, %%xmm2\n" \

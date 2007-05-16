@@ -87,6 +87,7 @@ mas48_across_test (OilTest *test)
   int j;
   int n;
   int m;
+  int sum;
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
   for(i=0;i<test->n;i++){
@@ -99,20 +100,23 @@ mas48_across_test (OilTest *test)
   stride = oil_test_get_arg_stride (test, OIL_ARG_SRC2);
   for(j=0;j<m;j++){
     for(i=0;i<test->n;i++){
-      data[i] = oil_rand_s16()>>4;
+      data[i] = oil_rand_s16()>>12;
     }
     data = OIL_OFFSET(data, stride);
   }
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
   n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
-  for(i=0;i<n;i++){
-    data[i] = (oil_rand_s16()>>4)/n;
+  sum = 0;
+  for(i=0;i<n-1;i++){
+    data[i] = (oil_rand_s16()>>8)/n;
+    sum += data[i];
   }
+  data[i] = 128 - sum;
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  data[0] = (1<<11);
-  data[1] = 12;
+  data[0] = (1<<6);
+  data[1] = 7;
 }
 
 static void
