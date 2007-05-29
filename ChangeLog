@@ -1,3 +1,8 @@
+2007-05-28  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/wavelet.c:
+	  Disable broken impl
+
 2007-05-16  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

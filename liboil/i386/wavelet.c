@@ -1529,27 +1529,28 @@ multiply_and_acc_12xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_12xn_s16_u8_mmx,
     multiply_and_acc_12xn_s16_u8, OIL_IMPL_FLAG_MMX);
 
+#ifdef ENABLE_BROKEN_IMPLS
 void
 mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
     int16_t *s3_4, int16_t *s4_2, int n)
 {
-#if 0
-  int i;
-  int j;
-  int x;
-#endif
   int16_t *s2_nx4_off;
 
-#if 0
-  for(i=0;i<n;i++){
+  while (n&3) {
+    int x;
+    int j;
     x = s4_2[0];
     for(j=0;j<4;j++){
-      x += OIL_GET(s2_nx4, i*sizeof(int16_t) + j*sstr2, int16_t)*s3_4[j];
+      x += OIL_GET(s2_nx4, j*sstr2, int16_t)*s3_4[j];
     }
     x >>= s4_2[1];
-    d[i] = s1[i] + x;
+    d[0] = s1[0] + x;
+
+    n--;
+    d++;
+    s1++;
+    s2_nx4++;
   }
-#endif
   if (n==0) return;
 
   s2_nx4_off = OIL_OFFSET(s2_nx4, 3*sstr2);
@@ -1607,4 +1608,5 @@ mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
 }
 OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
     OIL_IMPL_FLAG_MMX);
+#endif
 
