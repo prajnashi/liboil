@@ -1,5 +1,10 @@
 2007-05-28  David Schleef  <ds@schleef.org>
 
+	* m4/ac_libtool_tags.m4:
+	  Add.
+
+2007-05-28  David Schleef  <ds@schleef.org>
+
 	* liboil/i386/wavelet.c:
 	  Disable broken impl
 
