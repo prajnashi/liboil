@@ -4,7 +4,7 @@ dnl autostars m4 macro for generating defines for various host architectures
 
 dnl David Schleef <ds@schleef.org>
 
-dnl $Id: as-host-defines.m4,v 1.1 2006-01-31 02:20:03 ds Exp $
+dnl $Id: as-host-defines.m4,v 1.2 2007-06-04 20:25:23 ds Exp $
 
 dnl AS_HOST_DEFINES()
 
@@ -19,7 +19,7 @@ AC_DEFUN([AS_HOST_DEFINES],
       HAVE_AMD64=yes
       AC_DEFINE(HAVE_AMD64, 1, [Defined if host is amd64])
       ;;
-    xpowerpc|xppc)
+    xpowerpc|xppc|xpowerpc64|xppc64)
       HAVE_POWERPC=yes
       AC_DEFINE(HAVE_POWERPC, 1, [Defined if host is powerpc])
       ;;
