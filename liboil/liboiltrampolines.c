@@ -2791,6 +2791,46 @@ oil_rowsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, const uint8_t * s2_8x8
   ((void (*)(uint32_t * d_1, const uint8_t * s1_8x8, const uint8_t * s2_8x8))(_oil_function_class_rowsad8x8_u8.func))(d_1, s1_8x8, s2_8x8);
 }
 
+#undef oil_sad12x12_12xn_u8
+void
+oil_sad12x12_12xn_u8 (uint32_t * d_n, const uint8_t * s1_12x12, int ss1, const uint8_t * s2_12xnp11, int ss2, int n)
+{
+  if (_oil_function_class_sad12x12_12xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_sad12x12_12xn_u8);
+  }
+  ((void (*)(uint32_t * d_n, const uint8_t * s1_12x12, int ss1, const uint8_t * s2_12xnp11, int ss2, int n))(_oil_function_class_sad12x12_12xn_u8.func))(d_n, s1_12x12, ss1, s2_12xnp11, ss2, n);
+}
+
+#undef oil_sad12x12_u8
+void
+oil_sad12x12_u8 (uint32_t * d_1, const uint8_t * s1_12x12, int ss1, const uint8_t * s2_12x12, int ss2)
+{
+  if (_oil_function_class_sad12x12_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_sad12x12_u8);
+  }
+  ((void (*)(uint32_t * d_1, const uint8_t * s1_12x12, int ss1, const uint8_t * s2_12x12, int ss2))(_oil_function_class_sad12x12_u8.func))(d_1, s1_12x12, ss1, s2_12x12, ss2);
+}
+
+#undef oil_sad16x16_16xn_u8
+void
+oil_sad16x16_16xn_u8 (uint32_t * d_n, const uint8_t * s1_16x16, int ss1, const uint8_t * s2_16xnp15, int ss2, int n)
+{
+  if (_oil_function_class_sad16x16_16xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_sad16x16_16xn_u8);
+  }
+  ((void (*)(uint32_t * d_n, const uint8_t * s1_16x16, int ss1, const uint8_t * s2_16xnp15, int ss2, int n))(_oil_function_class_sad16x16_16xn_u8.func))(d_n, s1_16x16, ss1, s2_16xnp15, ss2, n);
+}
+
+#undef oil_sad16x16_u8
+void
+oil_sad16x16_u8 (uint32_t * d_1, const uint8_t * s1_16x16, int ss1, const uint8_t * s2_16x16, int ss2)
+{
+  if (_oil_function_class_sad16x16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_sad16x16_u8);
+  }
+  ((void (*)(uint32_t * d_1, const uint8_t * s1_16x16, int ss1, const uint8_t * s2_16x16, int ss2))(_oil_function_class_sad16x16_u8.func))(d_1, s1_16x16, ss1, s2_16x16, ss2);
+}
+
 #undef oil_sad8x8_8xn_u8
 void
 oil_sad8x8_8xn_u8 (uint32_t * d_n, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8xnp7, int ss2, int n)

@@ -1,3 +1,12 @@
+2007-06-07  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/ref/sad8x8.c:
+	  Add 12x12 and 16x16 classes.
+
 2007-06-04  David Schleef  <ds@schleef.org>
 
 	* m4/as-host-defines.m4: Add powerpc64
