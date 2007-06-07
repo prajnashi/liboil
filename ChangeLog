@@ -1,5 +1,9 @@
 2007-06-07  David Schleef  <ds@schleef.org>
 
+	* liboil/i386/sad8x8_i386.c: Add i386 impls for sad12x12 and sad16x16
+
+2007-06-07  David Schleef  <ds@schleef.org>
+
 	* configure.ac: bump to 0.3.12.1
 
 2007-06-07  David Schleef  <ds@schleef.org>
