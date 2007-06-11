@@ -1,3 +1,9 @@
+2007-06-11  David Schleef  <ds@schleef.org>
+
+	* examples/oil-suggest-lib:
+	* examples/oil-suggest.c:
+	  Add suggester for all the symbols in a library.
+
 2007-06-07  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/sad8x8_i386.c: Add i386 impls for sad12x12 and sad16x16

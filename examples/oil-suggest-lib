@@ -1,0 +1,5 @@
+#!/bin/sh
+
+./oil-suggest $(nm -u $1 |grep oil_function_class|sed 's/.*U oil_function_class_ptr_//')
+
+

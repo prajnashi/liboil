@@ -89,8 +89,8 @@ oil_suggest_class (OilFunctionClass *klass, int verbose)
 
   x = get_speed_score (klass);
 
-  if (x == 1.0) {
-    printf("%s\n", klass->name);
+  if (x < 20.0) {
+    printf("%s %g\n", klass->name, x);
   }
 
 }
@@ -109,12 +109,31 @@ oil_suggest_all (void)
   }
 }
 
+static void
+oil_suggest (const char *s)
+{
+  OilFunctionClass *klass = oil_class_get (s);
+
+  if (klass) {
+    oil_suggest_class (klass, 0);
+  }
+}
+
 int
 main (int argc, char *argv[])
 {
+  int i;
+
   oil_init();
 
-  oil_suggest_all ();
+  if (argc == 1) {
+    oil_suggest_all ();
+    return 0;
+  }
+
+  for(i=1;i<argc;i++){
+    oil_suggest (argv[i]);
+  }
 
   return 0;
 }
