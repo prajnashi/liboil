@@ -1,3 +1,17 @@
+2007-06-13  David Schleef  <ds@schleef.org>
+
+	* liboil/amd64/wavelet.c:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/convert_i386.c:
+	* liboil/i386/math.c:
+	* liboil/i386/sad8x8_i386.c:
+	* liboil/i386_amd64/Makefile.am:
+	* liboil/i386_amd64/convert.c:
+	* liboil/i386_amd64/copy.c:
+	* liboil/i386_amd64/math.c:
+	* liboil/i386_amd64/sad8x8.c:
+	  Convert a bunch of stuff to dual-arch.
+
 2007-06-12  David Schleef  <ds@schleef.org>
 
 	* liboil/i386/convert_i386.c:

@@ -31,6 +31,7 @@
 
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilclasses.h>
+#include <stddef.h>
 
 
 static void
@@ -83,8 +84,8 @@ sad8x8_u8_mmx (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=m" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -127,8 +128,8 @@ sad8x8_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=r" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -169,8 +170,8 @@ sad8x8_u8_mmxext_2 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=r" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -190,27 +191,27 @@ sad8x8_u8_mmxext_3 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
     "  psadbw (%2), %%mm0           \n\t"
     "  movq (%1,%3), %%mm1          \n\t"	/* take 8 bytes */
     "  psadbw (%2,%4), %%mm1        \n\t"
-    "  leal (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
+    "  lea (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
     "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
-    "  leal (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
+    "  lea (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
     "  paddw %%mm1, %%mm7           \n\t"	/* accumulate difference... */
 
     "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
     "  psadbw (%2), %%mm0           \n\t"
     "  movq (%1,%3), %%mm1          \n\t"	/* take 8 bytes */
     "  psadbw (%2,%4), %%mm1        \n\t"
-    "  leal (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
+    "  lea (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
     "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
-    "  leal (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
+    "  lea (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
     "  paddw %%mm1, %%mm7           \n\t"	/* accumulate difference... */
 
     "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
     "  psadbw (%2), %%mm0           \n\t"
     "  movq (%1,%3), %%mm1          \n\t"	/* take 8 bytes */
     "  psadbw (%2,%4), %%mm1        \n\t"
-    "  leal (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
+    "  lea (%1,%3,2), %1           \n\t"	/* Inc pointer into the new data */
     "  paddw %%mm0, %%mm7           \n\t"	/* accumulate difference... */
-    "  leal (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
+    "  lea (%2,%4,2), %2           \n\t"	/* Inc pointer into ref data */
     "  paddw %%mm1, %%mm7           \n\t"	/* accumulate difference... */
 
     "  movq (%1), %%mm0             \n\t"	/* take 8 bytes */
@@ -226,8 +227,8 @@ sad8x8_u8_mmxext_3 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=r" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -252,12 +253,12 @@ sad8x8_u8_mmxext_4 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
     "  paddw %%mm0, %%mm6           \n\t"
     "   paddw %%mm1, %%mm7           \n\t"
 
-    "  leal (%1,%3,8), %1           \n\t"
-    "   leal (%2,%4,8), %2           \n\t"
+    "  lea (%1,%3,8), %1           \n\t"
+    "   lea (%2,%4,8), %2           \n\t"
     "  neg %3\n\t"
     "   neg %4\n\t"
-    "  leal (%1,%3), %1           \n\t"
-    "   leal (%2,%4), %2           \n\t"
+    "  lea (%1,%3), %1           \n\t"
+    "   lea (%2,%4), %2           \n\t"
 
     "  movq (%1), %%mm0             \n\t"
     "   movq (%1,%3,1), %%mm1          \n\t"
@@ -279,10 +280,9 @@ sad8x8_u8_mmxext_4 (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
 
      : "=r" (diff),
        "+r" (src1), 
-       "+r" (src2),
-       "+r" (sstr1),
-       "+r" (sstr2)
-     :
+       "+r" (src2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -312,8 +312,8 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
     "   psadbw (%[src2],%[sstr2],4), %%mm1      \n\t"
     "   paddw %%mm1, %%mm7           \n\t"
     "  movd %%mm7, 0(%[dest])               \n\t"
-    "  addl %[sstr2],%[src2]\n\t"
-    "  addl $4, %[dest]\n\t"
+    "  add %[sstr2],%[src2]\n\t"
+    "  add $4, %[dest]\n\t"
     "  decl %[n]\n\t"
     "  jnz 1b\n\t"
     "  emms                         \n\t"
@@ -321,8 +321,8 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
        [src2] "+r" (src2_tmp),
        [n] "+m" (n_tmp),
        [dest] "+r" (dest_tmp)
-     : [sstr1] "r" (sstr1),
-       [sstr2] "r" (sstr2)
+     : [sstr1] "r" ((ptrdiff_t)(sstr1)),
+       [sstr2] "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
 
@@ -332,7 +332,9 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
   sstr2 = -sstr2;
 
   __asm__ __volatile__ ("\n"
+#ifdef __i386__
     "  pushl %%ebx\n\t"
+#endif
     "1:\n"
     "  movq (%[src1]), %%mm7             \n\t"
     "  psadbw (%[src2]), %%mm7           \n\t"
@@ -347,19 +349,21 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
     "   paddw %%mm1, %%mm7           \n\t"
     "  movd %%mm7, %%ebx\n\t"
     "  addl %%ebx, 0(%[dest])\n\t"
-    "  subl %[sstr2],%[src2]\n\t"
-    "  addl $4, %[dest]\n\t"
+    "  sub %[sstr2],%[src2]\n\t"
+    "  add $4, %[dest]\n\t"
     "  decl %[n]\n\t"
     "  jnz 1b\n\t"
+#ifdef __i386__
     "  popl %%ebx\n\t"
+#endif
 
     "  emms                         \n\t"
      : [src1] "+r" (src1), 
        [src2] "+r" (src2),
        [dest] "+r" (dest),
        [n] "+m" (n)
-     : [sstr1] "r" (sstr1),
-       [sstr2] "r" (sstr2)
+     : [sstr1] "r" ((ptrdiff_t)(sstr1)),
+       [sstr2] "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
 }
@@ -416,8 +420,8 @@ sad12x12_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=r" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
@@ -476,8 +480,8 @@ sad16x16_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
      : "=r" (diff),
        "+r" (src1), 
        "+r" (src2) 
-     : "r" (sstr1),
-       "r" (sstr2)
+     : "r" ((ptrdiff_t)(sstr1)),
+       "r" ((ptrdiff_t)(sstr2))
      : "memory"
   );
   *dest = diff;
