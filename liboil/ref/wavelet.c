@@ -108,6 +108,18 @@ mas48_across_test (OilTest *test)
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
   n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
   sum = 0;
+#if 0
+  if (n==8) {
+    for(i=0;i<8;i++){
+      data[i] = 1;
+    }
+  } else {
+    data[0] = -1;
+    data[1] = 9;
+    data[2] = 9;
+    data[3] = -1;
+  }
+#endif
   for(i=0;i<n-1;i++){
     data[i] = (oil_rand_s16()>>8)/n;
     sum += data[i];
@@ -117,6 +129,10 @@ mas48_across_test (OilTest *test)
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
   data[0] = (1<<6);
   data[1] = 7;
+#if 0
+  data[0] = (1<<(4-1));
+  data[1] = 4;
+#endif
 }
 
 static void

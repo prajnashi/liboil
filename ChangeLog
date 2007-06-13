@@ -1,3 +1,11 @@
+2007-06-12  David Schleef  <ds@schleef.org>
+
+	* liboil/i386/convert_i386.c:
+	* liboil/i386/copy_i386.c:
+	* liboil/i386/wavelet.c:
+	* liboil/ref/wavelet.c:
+	  More implementations related to schro.
+
 2007-06-11  David Schleef  <ds@schleef.org>
 
 	* examples/oil-suggest-lib:

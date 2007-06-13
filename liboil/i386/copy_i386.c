@@ -335,3 +335,82 @@ static void splat_u8_ns_mmx2a (uint8_t *dest, const uint8_t *param, int n)
 }
 OIL_DEFINE_IMPL_FULL(splat_u8_ns_mmx2a, splat_u8_ns, OIL_IMPL_FLAG_MMX);
 
+static void splat_u16_ns_mmx (uint16_t *dest, const uint16_t *src, int n)
+{
+  while(n&3) {
+    *dest = *src;
+    dest++;
+    n--;
+  }
+  if (n==0) return;
+  n >>= 2;
+  asm volatile (
+    "  movzwl 0(%[src]), %%ecx\n"
+    "  movd %%ecx, %%mm0\n"
+    "  pshufw $00, %%mm0, %%mm0\n"
+    "1:\n"
+    "  movq %%mm0, (%[dest])\n"
+    "  add $8, %0\n"
+    "  decl %[n]\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : [dest] "+r" (dest),
+      [n] "+r" (n)
+    : [src] "r" (src));
+}
+OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx, splat_u16_ns, OIL_IMPL_FLAG_MMX);
+
+static void splat_u16_ns_mmx_2 (uint16_t *dest, const uint16_t *src, int n)
+{
+  while(n&7) {
+    *dest = *src;
+    dest++;
+    n--;
+  }
+  if (n==0) return;
+  n >>= 3;
+  asm volatile (
+    "  movzwl 0(%[src]), %%ecx\n"
+    "  movd %%ecx, %%mm0\n"
+    "  pshufw $00, %%mm0, %%mm0\n"
+    "1:\n"
+    "  movq %%mm0, 0(%[dest])\n"
+    "  movq %%mm0, 8(%[dest])\n"
+    "  add $16, %0\n"
+    "  decl %[n]\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : [dest] "+r" (dest),
+      [n] "+r" (n)
+    : [src] "r" (src));
+}
+OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx_2, splat_u16_ns, OIL_IMPL_FLAG_MMX);
+
+static void splat_u16_ns_mmx_3 (uint16_t *dest, const uint16_t *src, int n)
+{
+  while(n&15) {
+    *dest = *src;
+    dest++;
+    n--;
+  }
+  if (n==0) return;
+  n >>= 4;
+  asm volatile (
+    "  movzwl 0(%[src]), %%ecx\n"
+    "  movd %%ecx, %%mm0\n"
+    "  pshufw $00, %%mm0, %%mm0\n"
+    "1:\n"
+    "  movq %%mm0, 0(%[dest])\n"
+    "  movq %%mm0, 8(%[dest])\n"
+    "  movq %%mm0, 16(%[dest])\n"
+    "  movq %%mm0, 24(%[dest])\n"
+    "  add $32, %0\n"
+    "  decl %[n]\n"
+    "  jnz 1b\n"
+    "  emms\n"
+    : [dest] "+r" (dest),
+      [n] "+r" (n)
+    : [src] "r" (src));
+}
+OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx_3, splat_u16_ns, OIL_IMPL_FLAG_MMX);
+

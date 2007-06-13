@@ -106,3 +106,32 @@ convert_u8_s16_mmx_2 (uint8_t * dest, const int16_t * src, int n)
 }
 OIL_DEFINE_IMPL_FULL (convert_u8_s16_mmx_2, convert_u8_s16, OIL_IMPL_FLAG_MMX);
 
+static void
+convert_s16_u8_mmx (int16_t * dest, const uint8_t * src, int n)
+{
+  while(n&7) {
+    dest[0] = src[0];
+    src++;
+    dest++;
+    n--;
+  }
+
+  n>>=3;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm0, %%mm0\n"
+      "1:\n"
+      "  movd 0(%1), %%mm1\n"
+      "  punpcklbw %%mm0, %%mm1\n"
+      "  movq %%mm1, 0(%0)\n"
+      "   movd 4(%1), %%mm2\n"
+      "   punpcklbw %%mm0, %%mm2\n"
+      "   movq %%mm2, 8(%0)\n"
+      "  add $8, %1\n"
+      "  add $16, %0\n"
+      "  decl %2\n"
+      "  jg 1b\n"
+      "  emms\n"
+      : "+r" (dest), "+r" (src), "+r" (n));
+}
+OIL_DEFINE_IMPL_FULL (convert_s16_u8_mmx, convert_s16_u8, OIL_IMPL_FLAG_MMX);
+

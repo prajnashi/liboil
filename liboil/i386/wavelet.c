@@ -1610,3 +1610,330 @@ OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
     OIL_IMPL_FLAG_MMX);
 #endif
 
+void
+mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
+    int16_t *s3_4, int16_t *s4_2, int n)
+{
+  int16_t *s2_nx4_off;
+
+  while (n&3) {
+    int x;
+    int j;
+    x = s4_2[0];
+    for(j=0;j<4;j++){
+      x += OIL_GET(s2_nx4, j*sstr2, int16_t)*s3_4[j];
+    }
+    x >>= s4_2[1];
+    d[0] = s1[0] + x;
+
+    n--;
+    d++;
+    s1++;
+    s2_nx4++;
+  }
+  if (n==0) return;
+
+  s2_nx4_off = OIL_OFFSET(s2_nx4, 3*sstr2);
+
+  n >>= 2;
+  __asm__ __volatile__ ("\n"
+      "  movq 0(%[s3_4]), %%mm0\n"
+      "  pxor %%mm5, %%mm5\n"
+      "  movd 0(%[s4_2]), %%mm5\n"
+      :
+      : [s3_4] "r" (s3_4),
+        [s4_2] "r" (s4_2)
+      );
+
+  __asm__ __volatile__ ("\n"
+      "1:\n"
+      "  pshufw $0x00, %%mm0, %%mm6\n"
+      "  pmullw 0(%[s2_nx4]), %%mm6\n"
+      "  pshufw $0x00, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[s2_nx4]), %%mm3\n"
+      "  movq %%mm6, %%mm7\n"
+      "  punpcklwd %%mm3, %%mm6\n"
+      "  punpckhwd %%mm3, %%mm7\n"
+
+      "  pshufw $0x55, %%mm0, %%mm2\n"
+      "  pmullw 0(%[s2_nx4],%[sstr]), %%mm2\n"
+      "  pshufw $0x55, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[s2_nx4],%[sstr]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  pshufw $0xaa, %%mm0, %%mm2\n"
+      "  pmullw 0(%[s2_nx4],%[sstr],2), %%mm2\n"
+      "  pshufw $0xaa, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[s2_nx4],%[sstr],2), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  pshufw $0xff, %%mm0, %%mm2\n"
+      "  pmullw 0(%[s2_nx4_off]), %%mm2\n"
+      "  pshufw $0xff, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[s2_nx4_off]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  pshufw $0xcc, %%mm5, %%mm1\n"
+      "  paddd %%mm1, %%mm6\n"
+      "  paddd %%mm1, %%mm7\n"
+
+      "  pshufw $0xfd, %%mm5, %%mm1\n"
+      "  psrad %%mm1, %%mm6\n"
+      "  psrad %%mm1, %%mm7\n"
+      "  packssdw %%mm7, %%mm6\n"
+
+      "  paddsw (%[s1]),%%mm6\n"
+      "  movq %%mm6, 0(%[d])\n"
+
+      "  addl $8, %[s2_nx4]\n"
+      "  addl $8, %[s2_nx4_off]\n"
+      "  addl $8, %[s1]\n"
+      "  addl $8, %[d]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : [s2_nx4] "+r" (s2_nx4),
+        [d] "+r" (d),
+        [s2_nx4_off] "+r" (s2_nx4_off),
+        [n] "+m" (n),
+        [s1] "+r" (s1)
+      : [sstr] "r" (sstr2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
+    OIL_IMPL_FLAG_MMX);
+
+void
+mas8_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx8, int sstr2,
+    int16_t *s3_8, int16_t *s4_2, int n)
+{
+  int16_t *s2_nx8_off;
+  void *tmp = NULL;
+
+  while (n&3) {
+    int x;
+    int j;
+    x = s4_2[0];
+    for(j=0;j<8;j++){
+      x += OIL_GET(s2_nx8, j*sstr2, int16_t)*s3_8[j];
+    }
+    x >>= s4_2[1];
+    d[0] = s1[0] + x;
+
+    n--;
+    d++;
+    s1++;
+    s2_nx8++;
+  }
+  if (n==0) return;
+
+  s2_nx8_off = OIL_OFFSET(s2_nx8, 7*sstr2);
+
+  n >>= 2;
+  __asm__ __volatile__ ("\n"
+      "  movq 0(%[s3_8]), %%mm0\n"
+      "  pxor %%mm5, %%mm5\n"
+      "  movd 0(%[s4_2]), %%mm5\n"
+      :
+      : [s3_8] "r" (s3_8),
+        [s4_2] "r" (s4_2)
+      );
+
+  __asm__ __volatile__ ("\n"
+      "1:\n"
+      "  movl %[s2_nx8], %[tmp]\n"
+      "  movq 0(%[s3_8]), %%mm0\n"
+
+      "  pshufw $0x00, %%mm0, %%mm6\n"
+      "  pmullw 0(%[tmp]), %%mm6\n"
+      "  pshufw $0x00, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm6, %%mm7\n"
+      "  punpcklwd %%mm3, %%mm6\n"
+      "  punpckhwd %%mm3, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0x55, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0x55, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0xaa, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0xaa, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0xff, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0xff, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  movq 8(%[s3_8]), %%mm0\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0x00, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0x00, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0x55, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0x55, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0xaa, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0xaa, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  addl %[sstr], %[tmp]\n"
+      "  pshufw $0xff, %%mm0, %%mm2\n"
+      "  pmullw 0(%[tmp]), %%mm2\n"
+      "  pshufw $0xff, %%mm0, %%mm3\n"
+      "  pmulhw 0(%[tmp]), %%mm3\n"
+      "  movq %%mm2, %%mm4\n"
+      "  punpcklwd %%mm3, %%mm2\n"
+      "  punpckhwd %%mm3, %%mm4\n"
+      "  paddd %%mm2, %%mm6\n"
+      "  paddd %%mm4, %%mm7\n"
+
+      "  pshufw $0xcc, %%mm5, %%mm1\n"
+      "  paddd %%mm1, %%mm6\n"
+      "  paddd %%mm1, %%mm7\n"
+
+      "  pshufw $0xfd, %%mm5, %%mm1\n"
+      "  psrad %%mm1, %%mm6\n"
+      "  psrad %%mm1, %%mm7\n"
+      "  packssdw %%mm7, %%mm6\n"
+
+      "  paddsw (%[s1]),%%mm6\n"
+      "  movq %%mm6, 0(%[d])\n"
+
+      "  addl $8, %[s2_nx8]\n"
+      "  addl $8, %[s1]\n"
+      "  addl $8, %[d]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : [s2_nx8] "+r" (s2_nx8),
+        [tmp] "+r" (tmp),
+        [s3_8] "+r" (s3_8),
+        [d] "+r" (d),
+        [n] "+m" (n),
+        [s1] "+r" (s1)
+      : [sstr] "m" (sstr2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas8_across_add_s16_mmx, mas8_across_add_s16,
+    OIL_IMPL_FLAG_MMX);
+
+void
+lshift_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
+{
+  while (n&3) {
+    d1[0] = s1[0]<<s3_1[0];
+    d1++;
+    s1++;
+    n--;
+  }
+  n >>= 2;
+  __asm__ __volatile__ ("\n"
+      "  movzwl 0(%[s3_1]), %%ecx\n"
+      "  movd %%ecx, %%mm1\n"
+      "1:\n"
+      "  movq 0(%[s1]), %%mm0\n"
+      "  psllw %%mm1, %%mm0\n"
+      "  movq %%mm0, 0(%[d1])\n"
+      "  add $8, %[d1]\n"
+      "  add $8, %[s1]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms"
+      : [d1] "+r" (d1),
+        [s1] "+r" (s1),
+        [n] "+r" (n)
+      : [s3_1] "r" (s3_1)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lshift_s16_mmx, lshift_s16, OIL_IMPL_FLAG_MMX);
+
+void
+lshift_s16_mmx_2(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
+{
+  while (n&7) {
+    d1[0] = s1[0]<<s3_1[0];
+    d1++;
+    s1++;
+    n--;
+  }
+  n >>= 3;
+  __asm__ __volatile__ ("\n"
+      "  movzwl 0(%[s3_1]), %%ecx\n"
+      "  movd %%ecx, %%mm1\n"
+      "1:\n"
+      "  movq 0(%[s1]), %%mm0\n"
+      "  psllw %%mm1, %%mm0\n"
+      "  movq %%mm0, 0(%[d1])\n"
+      "  movq 8(%[s1]), %%mm0\n"
+      "  psllw %%mm1, %%mm0\n"
+      "  movq %%mm0, 8(%[d1])\n"
+      "  add $16, %[d1]\n"
+      "  add $16, %[s1]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms"
+      : [d1] "+r" (d1),
+        [s1] "+r" (s1),
+        [n] "+r" (n)
+      : [s3_1] "r" (s3_1)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (lshift_s16_mmx_2, lshift_s16, OIL_IMPL_FLAG_MMX);
+
+
