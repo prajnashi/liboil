@@ -1,3 +1,10 @@
+2007-06-15  David Schleef  <ds@schleef.org>
+
+	* examples/jpeg/jpeg.c:
+	  Don't use vasprintf().
+	* liboil/i386/Makefile.am:
+	  copy_i386.c was moved.
+
 2007-06-13  David Schleef  <ds@schleef.org>
 
 	* liboil/amd64/wavelet.c:

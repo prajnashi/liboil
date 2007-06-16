@@ -6,7 +6,6 @@ libi386_la_SOURCES = \
 	ayuv2argb_i386.c \
 	composite_i386.c \
 	copy8x8_i386.c \
-	copy_i386.c \
 	diff8x8_i386.c \
 	error8x8_i386.c \
 	md5_i386.c \

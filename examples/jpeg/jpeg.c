@@ -548,7 +548,12 @@ jpeg_decoder_error(JpegDecoder *dec, char *fmt, ...)
   if (dec->error) return;
 
   va_start (varargs, fmt);
+#if 0
   vasprintf(&dec->error_message, fmt, varargs);
+#else
+  dec->error_message = malloc(100);
+  vsnprintf(dec->error_message, 100, fmt, varargs);
+#endif
   va_end (varargs);
 
   OIL_ERROR("decoder error: %s", dec->error_message);
