@@ -1,3 +1,8 @@
+2007-07-13  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: Fix cpu detection on GNU/kFreeBSD.  See
+	  Debian #433025.
+
 2007-06-15  David Schleef  <ds@schleef.org>
 
 	* examples/jpeg/jpeg.c:

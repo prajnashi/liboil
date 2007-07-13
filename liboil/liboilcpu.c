@@ -578,7 +578,7 @@ oil_cpu_detect_getisax (void)
 static void
 oil_cpu_detect_kernel_support (void)
 {
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
   int ret, enabled;
   size_t len;
 
@@ -598,7 +598,7 @@ oil_cpu_detect_kernel_support (void)
   /* Solaris is OK */
 #elif defined(__NetBSD__)
   /* NetBSD is OK */
-#elif
+#else
    
   /* If we don't know that the operating system supports SSE, don't trust that
    * it will properly support it.
