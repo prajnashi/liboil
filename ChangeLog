@@ -1,3 +1,8 @@
+2007-08-14  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: Use sigsetjmp/siglongjmp instead of
+	  setjmp/longjmp.  Fixes #10247.
+
 2007-07-13  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: Fix cpu detection on GNU/kFreeBSD.  See

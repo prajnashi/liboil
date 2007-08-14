@@ -150,7 +150,7 @@ illegal_instruction_handler (int num)
     sigemptyset (&set);
     sigaddset (&set, SIGILL);
     sigprocmask (SIG_UNBLOCK, &set, NULL);
-    longjmp (jump_env, 1);
+    siglongjmp (jump_env, 1);
   } else {
     abort ();
   }
@@ -204,7 +204,7 @@ oil_cpu_fault_check_try (void (*func) (void *), void *priv)
   int ret;
 
   in_try_block = 1;
-  ret = setjmp (jump_env);
+  ret = sigsetjmp (jump_env);
   if (!ret) {
     func (priv);
   }
