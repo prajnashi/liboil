@@ -1,3 +1,7 @@
+2007-08-15  David Schleef  <ds@schleef.org>
+
+	* liboil/liboilcpu.c: Fix stupid typo.
+
 2007-08-14  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: Use sigsetjmp/siglongjmp instead of
