@@ -81,6 +81,14 @@ oil_cpu_flags_to_string (unsigned int flags)
   if (flags & OIL_IMPL_FLAG_ALTIVEC) 
     ret = string_append (ret, "altivec");
 #endif
+#if defined(__arm__)
+  if (flags & OIL_IMPL_FLAG_EDSP) 
+    ret = string_append (ret, "edsp");
+  if (flags & OIL_IMPL_FLAG_ARM6) 
+    ret = string_append (ret, "arm6");
+  if (flags & OIL_IMPL_FLAG_VFP) 
+    ret = string_append (ret, "vfp");
+#endif
   if (ret == NULL) {
     ret = strdup ("");
   }

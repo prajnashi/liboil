@@ -682,11 +682,65 @@ oil_profile_stamp_xscale(void)
 }
 #endif
 
+static char **
+strsplit (char *s)
+{
+  char **list = NULL;
+  char *tok;
+  int n = 0;
+
+  while (*s == ' ') s++;
+
+  list = malloc (1 * sizeof(char *));
+  while (*s) {
+    tok = s;
+    while (*s && *s != ' ') s++;
+
+    list[n] = _strndup (tok, s - tok);
+    while (*s && *s == ' ') s++;
+    list = realloc (list, (n + 2) * sizeof(char *));
+    n++;
+  }
+
+  list[n] = NULL;
+  return list;
+}
+
+static void
+oil_cpu_arm_getflags_cpuinfo (char *cpuinfo)
+{
+  char *cpuinfo_flags;
+  char **flags;
+  char **f;
+
+  cpuinfo_flags = get_cpuinfo_line(cpuinfo, "Features");
+  if (cpuinfo_flags == NULL) {
+    free (cpuinfo);
+    return;
+  }
+
+  flags = strsplit(cpuinfo_flags);
+  for (f = flags; *f; f++) {
+    if (strcmp (*f, "edsp") == 0) {
+      OIL_DEBUG ("cpu feature %s", *f);
+      oil_cpu_flags |= OIL_IMPL_FLAG_EDSP;
+    }
+    if (strcmp (*f, "vfp") == 0) {
+      OIL_DEBUG ("cpu feature %s", *f);
+      oil_cpu_flags |= OIL_IMPL_FLAG_VFP;
+    }
+
+    free (*f);
+  }
+  free (flags);
+  free (cpuinfo_flags);
+}
+
 static void
 oil_cpu_detect_arm(void)
 {
 #ifdef __linux__
-  int arm_implementer;
+  int arm_implementer, arm_arch;
   char *cpuinfo;
   char *s;
 
@@ -708,6 +762,15 @@ oil_cpu_detect_arm(void)
       break;
   }
 
+  s = get_cpuinfo_line(cpuinfo, "CPU architecture");
+  if (s) {
+    arm_arch = strtoul (s, NULL, 0);
+    if (arm_arch >= 6)
+      oil_cpu_flags |= OIL_IMPL_FLAG_ARM6;
+    free(s);
+  }
+
+  oil_cpu_arm_getflags_cpuinfo (cpuinfo);
   free (cpuinfo);
 #endif
 }

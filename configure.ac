@@ -158,6 +158,15 @@ if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
     true)
 fi
 
+if test x$HAVE_GCC_ASM = xyes -a x$HAVE_ARM = xyes ; then
+  AS_COMPILER_FLAG(["-Wa,-mfpu=vfp"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mfpu=vfp"],
+    true)
+  AS_COMPILER_FLAG(["-Wa,-mfloat-abi=softfp"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mfloat-abi=softfp"],
+    true)
+fi
+
 #AS_COMPILER_FLAG(["-fasm-blocks"], HAVE_ASM_BLOCKS=yes, HAVE_ASM_BLOCKS=no)
 HAVE_ASM_BLOCKS=no
 if test "x$HAVE_ASM_BLOCKS" = "xyes"
@@ -232,6 +241,7 @@ liboil/ref/Makefile
 liboil/simdpack/Makefile
 liboil/sse/Makefile
 liboil/utf8/Makefile
+liboil/arm/Makefile
 testsuite/Makefile
 testsuite/instruction/Makefile
 examples/Makefile

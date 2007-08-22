@@ -1,3 +1,17 @@
+2007-08-22  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	* examples/printcpu.c:
+	* liboil/Makefile.am:
+	* liboil/arm/Makefile.am:
+	* liboil/arm/math_vfp.c:
+	* liboil/arm/math_vfp_asm.S:
+	* liboil/liboilcpu.c:
+	* liboil/liboilfunction.h:
+	* m4/as-host-defines.m4:
+	  Add some VFP implementations for ARM.  From Josep Torra Valles
+	  <josep@fluendo.com>
+
 2007-08-15  David Schleef  <ds@schleef.org>
 
 	* liboil/liboilcpu.c: Fix stupid typo.
