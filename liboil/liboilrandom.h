@@ -28,14 +28,13 @@
 #ifndef _LIBOIL_RANDOM_H_
 #define _LIBOIL_RANDOM_H_
 
-#include <stdlib.h>
-
+#include <liboil/liboilutils.h>
 #include <liboil/liboiltypes.h>
 #include <stdlib.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 void oil_random_s32(oil_type_s32 *dest, int n);
 void oil_random_s64 (oil_type_s64 *dest, int n);
@@ -122,9 +121,9 @@ void oil_random_alpha (oil_type_u8 *dest, int n);
  */
 #define oil_rand_f32() (rand()/(RAND_MAX+1.0))
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

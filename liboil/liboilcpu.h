@@ -28,23 +28,22 @@
 #ifndef _LIBOIL_CPU_H_
 #define _LIBOIL_CPU_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <liboil/liboilutils.h>
+
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 void _oil_cpu_init (void);
 unsigned int oil_cpu_get_flags (void);
 
-void oil_cpu_fault_check_enable (void);
-void oil_cpu_fault_check_disable (void);
-
-int oil_cpu_fault_check_try (void (*func)(void *), void *priv);
-
 double oil_cpu_get_ticks_per_second (void);
 
-#ifdef __cplusplus
-}
+double oil_cpu_get_frequency (void);
+
 #endif
+
+OIL_END_DECLS
 
 #endif
 

@@ -18,6 +18,7 @@ c_sources = \
 	diff8x8.c \
 	diffsquaresum_f64.c \
 	error8x8.c \
+	mas.c \
 	math.c \
 	mix_u8.c \
 	mt19937ar.c \

@@ -16,126 +16,6 @@ wavelet_test (OilTest *test)
 }
 
 static void
-mas_test (OilTest *test)
-{
-  int16_t *data;
-  int i;
-  int n;
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
-  for(i=0;i<test->n;i++){
-    //data[i] = oil_rand_s16()>>1;
-    data[i] = 0;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
-  for(i=0;i<test->n;i++){
-    data[i] = oil_rand_s16();
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
-  n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
-  for(i=0;i<n;i++){
-    data[i] = (oil_rand_s16()>>4)/n;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  data[0] = (1<<11);
-  data[1] = 12;
-}
-
-static void
-mas2_across_test (OilTest *test)
-{
-  int16_t *data;
-  int i;
-  int n;
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
-  for(i=0;i<test->n;i++){
-    //data[i] = oil_rand_s16()>>1;
-    data[i] = 0;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
-  for(i=0;i<test->n;i++){
-    data[i] = oil_rand_s16()>>4;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
-  for(i=0;i<test->n;i++){
-    data[i] = oil_rand_s16()>>4;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  n = oil_test_get_arg_post_n (test, OIL_ARG_SRC4);
-  for(i=0;i<n;i++){
-    data[i] = (oil_rand_s16()>>4)/n;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC5);
-  data[0] = (1<<11);
-  data[1] = 12;
-}
-
-static void
-mas48_across_test (OilTest *test)
-{
-  int16_t *data;
-  int stride;
-  int i;
-  int j;
-  int n;
-  int m;
-  int sum;
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
-  for(i=0;i<test->n;i++){
-    //data[i] = oil_rand_s16()>>1;
-    data[i] = 0;
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
-  m = oil_test_get_arg_post_n (test, OIL_ARG_SRC2);
-  stride = oil_test_get_arg_stride (test, OIL_ARG_SRC2);
-  for(j=0;j<m;j++){
-    for(i=0;i<test->n;i++){
-      data[i] = oil_rand_s16()>>12;
-    }
-    data = OIL_OFFSET(data, stride);
-  }
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
-  n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
-  sum = 0;
-#if 0
-  if (n==8) {
-    for(i=0;i<8;i++){
-      data[i] = 1;
-    }
-  } else {
-    data[0] = -1;
-    data[1] = 9;
-    data[2] = 9;
-    data[3] = -1;
-  }
-#endif
-  for(i=0;i<n-1;i++){
-    data[i] = (oil_rand_s16()>>8)/n;
-    sum += data[i];
-  }
-  data[i] = 128 - sum;
-
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  data[0] = (1<<6);
-  data[1] = 7;
-#if 0
-  data[0] = (1<<(4-1));
-  data[1] = 4;
-#endif
-}
-
-static void
 rshift_test (OilTest *test)
 {
   int16_t *data;
@@ -184,28 +64,10 @@ OIL_DEFINE_CLASS_FULL (split_135,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
 OIL_DEFINE_CLASS_FULL (synth_135,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
-OIL_DEFINE_CLASS_FULL (mas2_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2_np1, int16_t *s3_2, int16_t *s4_2, "
-    "int n", mas_test);
-OIL_DEFINE_CLASS_FULL (mas4_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2_np3, int16_t *s3_4, int16_t *s4_2, "
-    "int n", mas_test);
-OIL_DEFINE_CLASS_FULL (mas8_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2_np7, int16_t *s3_8, int16_t *s4_2, "
-    "int n", mas_test);
 OIL_DEFINE_CLASS_FULL (add_const_rshift_s16,
     "int16_t *d1, int16_t *s1, int16_t *s2_2, int n", rshift_test);
 OIL_DEFINE_CLASS_FULL (lshift_s16,
     "int16_t *d1, int16_t *s1, int16_t *s2_1, int n", lshift_test);
-OIL_DEFINE_CLASS_FULL (mas2_across_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3, int16_t *s4_2, "
-    "int16_t *s5_2, int n", mas2_across_test);
-OIL_DEFINE_CLASS_FULL (mas4_across_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2, int16_t *s3_4, "
-    "int16_t *s4_2, int n", mas48_across_test);
-OIL_DEFINE_CLASS_FULL (mas8_across_add_s16,
-    "int16_t *d, int16_t *s1, int16_t *s2_nx8, int sstr2, int16_t *s3_8, "
-    "int16_t *s4_2, int n", mas48_across_test);
 OIL_DEFINE_CLASS (multiply_and_add_s16,
     "int16_t *d, int16_t *src1, int16_t *src2, int16_t *src3, int n");
 OIL_DEFINE_CLASS (multiply_and_add_s16_u8,
@@ -530,13 +392,6 @@ lift_test (OilTest *test)
   for(i=0;i<test->n;i++){
     data[i] = oil_rand_u8();
   }
-#if 0
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  if (data) {
-    data[0] = oil_rand_u8();
-    data[1] = oil_rand_u8();
-  }
-#endif
 }
 
 OIL_DEFINE_CLASS_FULL (lift_add_shift1,
@@ -641,56 +496,6 @@ OIL_DEFINE_IMPL_REF (lift_sub_135_ref, lift_sub_135);
 
 
 void
-mas2_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
-    int16_t *s4_2, int n)
-{
-  int i;
-  int x;
-
-  for(i=0;i<n;i++){
-    x = s4_2[0] + s2[i]*s3_2[0] + s2[i+1]*s3_2[1];
-    x >>= s4_2[1];
-    d1[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas2_add_s16_ref, mas2_add_s16);
-
-void
-mas4_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_4,
-    int16_t *s4_2, int n)
-{
-  int i;
-  int x;
-
-  for(i=0;i<n;i++){
-    x = s4_2[0] + s2[i]*s3_4[0] + s2[i+1]*s3_4[1] + s2[i+2]*s3_4[2] +
-        s2[i+3]*s3_4[3];
-    x >>= s4_2[1];
-    d1[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas4_add_s16_ref, mas4_add_s16);
-
-void
-mas8_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_8,
-    int16_t *s4_2, int n)
-{
-  int i;
-  int j;
-  int x;
-
-  for(i=0;i<n;i++){
-    x = s4_2[0];
-    for(j=0;j<8;j++){
-      x += s2[i+j]*s3_8[j];
-    }
-    x >>= s4_2[1];
-    d1[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas8_add_s16_ref, mas8_add_s16);
-
-void
 add_const_rshift_s16_ref(int16_t *d1, int16_t *s1, int16_t *s3_2, int n)
 {
   int i;
@@ -709,57 +514,6 @@ lshift_s16_ref(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (lshift_s16_ref, lshift_s16);
-
-void
-mas2_across_add_s16_ref (int16_t *d, int16_t *s1, int16_t *s2, int16_t *s3,
-    int16_t *s4_2, int16_t *s5_2, int n)
-{
-  int i;
-  int x;
-  for(i=0;i<n;i++){
-    x = s5_2[0];
-    x += s2[i]*s4_2[0] + s3[i]*s4_2[1];
-    x >>= s5_2[1];
-    d[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas2_across_add_s16_ref, mas2_across_add_s16);
-
-void
-mas4_across_add_s16_ref (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
-    int16_t *s3_4, int16_t *s4_2, int n)
-{
-  int i;
-  int j;
-  int x;
-  for(i=0;i<n;i++){
-    x = s4_2[0];
-    for(j=0;j<4;j++){
-      x += OIL_GET(s2_nx4, i*sizeof(int16_t) + j*sstr2, int16_t)*s3_4[j];
-    }
-    x >>= s4_2[1];
-    d[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas4_across_add_s16_ref, mas4_across_add_s16);
-
-void
-mas8_across_add_s16_ref (int16_t *d, int16_t *s1, int16_t *s2_nx8, int sstr2,
-    int16_t *s3_8, int16_t *s4_2, int n)
-{
-  int i;
-  int j;
-  int x;
-  for(i=0;i<n;i++){
-    x = s4_2[0];
-    for(j=0;j<8;j++){
-      x += OIL_GET(s2_nx8, i*sizeof(int16_t) + j*sstr2, int16_t)*s3_8[j];
-    }
-    x >>= s4_2[1];
-    d[i] = s1[i] + x;
-  }
-}
-OIL_DEFINE_IMPL_REF (mas8_across_add_s16_ref, mas8_across_add_s16);
 
 void
 multiply_and_add_s16_ref (int16_t *d, int16_t *src1, int16_t *src2, int16_t *src3, int n)

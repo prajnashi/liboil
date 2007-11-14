@@ -70,7 +70,7 @@ noinst_PROGRAMS = build_prototypes build_prototypes_doc build_marshal \
 pkginclude_HEADERS = liboil.h liboilfunction.h liboildebug.h liboilfuncs.h \
 	liboiltypes.h liboilcpu.h liboilprototype.h liboilparameter.h \
 	liboilrandom.h liboilgcc.h liboiltest.h liboilprofile.h \
-	liboilinternal.h liboilclasses.h
+	liboilinternal.h liboilclasses.h liboilfault.h liboilutils.h
 
 nodist_pkginclude_HEADERS = liboil-stdint.h
 
@@ -114,7 +114,7 @@ liboiltmp1_la_LDFLAGS = \
 	-export-symbols-regex 'oil_'
 liboiltmp1_la_LIBADD = \
 	liboilfunctions.la \
-	$(LIBM)
+	$(LIBM) $(LIBRT)
 
 liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboil.h \
@@ -122,6 +122,8 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilcpu.c \
 	liboildebug.c \
 	liboildebug.h \
+	liboilfault.c \
+	liboilfault.h \
 	liboilfuncs.h \
 	liboilfunction.c \
 	liboilfunction.h \
@@ -132,7 +134,9 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilrandom.c \
 	liboiltest.c \
 	liboiltest.h \
-	liboiltypes.h
+	liboiltypes.h \
+	liboilutils.c \
+	liboilutils.h
 
 nodist_liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilarray.c

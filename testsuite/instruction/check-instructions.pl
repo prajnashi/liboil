@@ -118,6 +118,7 @@ sub check
 	"fcomp",
 	"fcompp",
 	"fdiv",
+	"fdivl",
 	"fdivr",
 	"fdivrl", 
 	"fdivrs",

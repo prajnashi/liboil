@@ -28,11 +28,11 @@
 #ifndef _LIBOIL_PROFILE_H_
 #define _LIBOIL_PROFILE_H_
 
-#include <liboil/liboil-stdint.h>
+#include <liboil/liboilutils.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * OIL_PROFILE_HIST_LENGTH
@@ -89,9 +89,9 @@ void oil_profile_get_ave_std (OilProfile *prof, double *ave_p, double *std_p);
         oil_profile_stop_handle(x); \
 }while(0)
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 
 #endif

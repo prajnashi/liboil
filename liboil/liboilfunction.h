@@ -28,6 +28,7 @@
 #ifndef _LIBOIL_FUNCTION_H_
 #define _LIBOIL_FUNCTION_H_
 
+#include <liboil/liboilutils.h>
 #include <liboil/liboiltypes.h>
 
 /**
@@ -44,9 +45,9 @@
 #define OIL_CHECK_PROTOTYPE(a)
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * OIL_OPT_MANGLE:
@@ -353,9 +354,9 @@ void oil_class_register_impl_by_name (const char *klass_name,
 
 void oil_init_no_optimize(void);
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

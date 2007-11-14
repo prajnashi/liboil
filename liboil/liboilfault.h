@@ -1,6 +1,6 @@
 /*
  * LIBOIL - Library of Optimized Inner Loops
- * Copyright (c) 2003,2004 David A. Schleef <ds@schleef.org>
+ * Copyright (c) 2007 David A. Schleef <ds@schleef.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,13 +25,23 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _LIBOIL_INTERNAL_H_
-#define _LIBOIL_INTERNAL_H_
+#ifndef _LIBOIL_FAULT_H_
+#define _LIBOIL_FAULT_H_
 
-#include <liboil/liboil.h>
 #include <liboil/liboilutils.h>
-#include <liboil/liboilfunction.h>
-#include <liboil/liboilclasses.h>
+
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
+
+void oil_fault_check_enable (void);
+void oil_fault_check_disable (void);
+
+int oil_fault_check_try (void (*func)(void *), void *priv);
+
+#endif
+
+OIL_END_DECLS
 
 #endif
 

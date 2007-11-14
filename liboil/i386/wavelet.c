@@ -290,20 +290,7 @@ deinterleave2_mmx_4 (int16_t *d1, int16_t *d2, int16_t *s_2xn, int n)
 }
 OIL_DEFINE_IMPL_FULL (deinterleave2_mmx_4, deinterleave2_s16, OIL_IMPL_FLAG_MMX);
 
-void
-interleave2_c (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
-{
-  int i;
 
-  for(i=0;i<n;i++) {
-    d_2xn[2*i] = s1[i];
-    d_2xn[2*i + 1] = s2[i];
-  }
-}
-OIL_DEFINE_IMPL (interleave2_c, interleave2_s16);
-
-
-//#ifdef ENABLE_BROKEN_IMPLS
 void
 lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
     int16_t *s3, int16_t *s4, int n)
@@ -349,8 +336,7 @@ lift_add_mult_shift12_i386_mmx (int16_t *d, int16_t *s1, int16_t *s2,
       : "m" (val), "m" (n)
       : "ecx");
 }
-OIL_DEFINE_IMPL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12);
-//#endif
+OIL_DEFINE_IMPL_FULL (lift_add_mult_shift12_i386_mmx, lift_add_mult_shift12, OIL_IMPL_FLAG_MMX);
 
 void
 interleave2_mmx (int16_t *d_2xn, int16_t *s1, int16_t *s2, int n)
@@ -1056,7 +1042,7 @@ mas4_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       "1:\n"
       "  movq 0(%2), %%mm0\n"
       "  pmaddwd %%mm6, %%mm0\n"
-      "  pshufw $0xee, %%mm0, %%mm1\n"
+      "  pshufw $0xee, %%mm0, %%mm1\n" // 11 10 11 10
       "  paddd %%mm1, %%mm0\n"
       "  paddd %%mm3, %%mm0\n"
       "  psrad %%mm4, %%mm0\n"
@@ -1075,6 +1061,73 @@ mas4_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas4_add_s16_pmaddwd, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
+
+void
+mas4_add_s16_pmaddwd_2 (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
+    int16_t *s4_2, int n)
+{
+  if (n==0) return;
+  asm volatile ("\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movzwl 0(%1), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      "  pshufw $0x44, %%mm3, %%mm3\n" // 01 00 01 00
+      "  movzwl 2(%1), %%ecx\n"
+      "  movd %%ecx, %%mm4\n"
+      :: "r" (s3_2), "r" (s4_2)
+      : "ecx"
+      );
+  if (n&1) {
+    asm volatile ("\n"
+        "  movq 0(%2), %%mm0\n"
+        "  pmaddwd %%mm6, %%mm0\n"
+        "  pshufw $0xee, %%mm0, %%mm1\n" // 11 10 11 10
+        "  paddd %%mm1, %%mm0\n"
+        "  paddd %%mm3, %%mm0\n"
+        "  psrad %%mm4, %%mm0\n"
+        "  movd %%mm0, %%eax\n"
+        "  addw 0(%1), %%ax\n"
+        "  movw %%ax, 0(%0)\n"
+        "  add $2, %0\n"
+        "  add $2, %1\n"
+        "  add $2, %2\n"
+        "  decl %3\n"
+        : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+        :
+        : "eax"
+        );
+  }
+  n>>=1;
+  asm volatile ("\n"
+      "1:\n"
+      "  movq 0(%2), %%mm0\n"
+      "  pmaddwd %%mm6, %%mm0\n"
+      "  movq 2(%2), %%mm2\n"
+      "  pmaddwd %%mm6, %%mm2\n"
+
+      "  movq %%mm0, %%mm1\n"
+      "  punpckhdq %%mm2, %%mm0\n"
+      "  punpckldq %%mm2, %%mm1\n"
+
+      "  paddd %%mm1, %%mm0\n"
+      "  paddd %%mm3, %%mm0\n"
+      "  psrad %%mm4, %%mm0\n"
+      "  pshufw $0xd8, %%mm0, %%mm0\n" // 11 01 10 00
+
+      "  paddw 0(%1), %%mm0\n"
+      "  movd %%mm0, 0(%0)\n"
+      "  add $4, %0\n"
+      "  add $4, %1\n"
+      "  add $4, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (d1), "+r" (s1), "+r" (s2), "+r" (n)
+      :
+      : "eax"
+      );
+}
+OIL_DEFINE_IMPL_FULL (mas4_add_s16_pmaddwd_2, mas4_add_s16, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
 void
 mas8_add_s16_pmaddwd (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
@@ -1607,7 +1660,7 @@ mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
-    OIL_IMPL_FLAG_MMX);
+    OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 #endif
 
 void
@@ -1713,7 +1766,7 @@ mas4_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx4, int sstr2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas4_across_add_s16_mmx, mas4_across_add_s16,
-    OIL_IMPL_FLAG_MMX);
+    OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 void
 mas8_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx8, int sstr2,
@@ -1871,7 +1924,7 @@ mas8_across_add_s16_mmx (int16_t *d, int16_t *s1, int16_t *s2_nx8, int sstr2,
       );
 }
 OIL_DEFINE_IMPL_FULL (mas8_across_add_s16_mmx, mas8_across_add_s16,
-    OIL_IMPL_FLAG_MMX);
+    OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 void
 lshift_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
@@ -1913,6 +1966,7 @@ lshift_s16_mmx_2(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
     n--;
   }
   n >>= 3;
+  if (n == 0) return;
   __asm__ __volatile__ ("\n"
       "  movzwl 0(%[s3_1]), %%ecx\n"
       "  movd %%ecx, %%mm1\n"

@@ -29,10 +29,11 @@
 #define _LIBOIL_PARAMETER_H_
 
 #include <liboil/liboiltypes.h>
+#include <liboil/liboilutils.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * OilType:
@@ -141,9 +142,9 @@ int oil_param_from_string (OilParameter *p, char *s);
 #define oil_type_is_floating_point(type) \
   (((type) == OIL_TYPE_f64p) || ((type) == OIL_TYPE_f32p))
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

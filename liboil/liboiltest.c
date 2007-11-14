@@ -33,7 +33,7 @@
 #include <liboil/liboildebug.h>
 #include <liboil/liboilrandom.h>
 #include <liboil/liboilprofile.h>
-#include <liboil/liboilcpu.h>
+#include <liboil/liboilfault.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -354,7 +354,7 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   }
 
   test->impl = impl;
-  ret = oil_cpu_fault_check_try (oil_test_check_function, test);
+  ret = oil_fault_check_try (oil_test_check_function, test);
   if (!ret) {
     OIL_ERROR ("illegal instruction in %s", test->impl->name);
     test->profile_ave = 0;

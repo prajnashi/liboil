@@ -33,10 +33,6 @@
 
 #define SHIFT 10
 
-#define MAX(a,b) (((a) > (b)) ? (a) : (b))
-#define MIN(a,b) (((a) < (b)) ? (a) : (b))
-#define CLAMP(x,a,b) MAX(MIN((x),(b)),(a))
-
 int16_t vs_4tap_taps[256][4];
 
 double vs_4tap_func (double x)

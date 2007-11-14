@@ -2351,6 +2351,46 @@ oil_lshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_1, int n)
   ((void (*)(int16_t * d1, const int16_t * s1, const int16_t * s2_1, int n))(_oil_function_class_lshift_s16.func))(d1, s1, s2_1, n);
 }
 
+#undef oil_mas10_u8
+void
+oil_mas10_u8 (uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas10_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas10_u8);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n))(_oil_function_class_mas10_u8.func))(d, s1_np9, s2_10, s3_2, n);
+}
+
+#undef oil_mas10_u8_l15
+void
+oil_mas10_u8_l15 (uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas10_u8_l15.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas10_u8_l15);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n))(_oil_function_class_mas10_u8_l15.func))(d, s1_np9, s2_10, s3_2, n);
+}
+
+#undef oil_mas10_u8_sym_l15
+void
+oil_mas10_u8_sym_l15 (uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas10_u8_sym_l15.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas10_u8_sym_l15);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np9, const int16_t * s2_10, const int16_t * s3_2, int n))(_oil_function_class_mas10_u8_sym_l15.func))(d, s1_np9, s2_10, s3_2, n);
+}
+
+#undef oil_mas12_addc_rshift_decim2_u8
+void
+oil_mas12_addc_rshift_decim2_u8 (uint8_t * d, const uint8_t * s1_2xnp11, const int16_t * s2_12, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas12_addc_rshift_decim2_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas12_addc_rshift_decim2_u8);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_2xnp11, const int16_t * s2_12, const int16_t * s3_2, int n))(_oil_function_class_mas12_addc_rshift_decim2_u8.func))(d, s1_2xnp11, s2_12, s3_2, n);
+}
+
 #undef oil_mas2_across_add_s16
 void
 oil_mas2_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, const int16_t * s4_2, const int16_t * s5_2, int n)
@@ -2409,6 +2449,36 @@ oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const
     oil_class_optimize (&_oil_function_class_mas8_add_s16);
   }
   ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n))(_oil_function_class_mas8_add_s16.func))(d, s1, s2_np7, s3_8, s4_2, n);
+}
+
+#undef oil_mas8_u8
+void
+oil_mas8_u8 (uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas8_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_u8);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n))(_oil_function_class_mas8_u8.func))(d, s1_np7, s2_8, s3_2, n);
+}
+
+#undef oil_mas8_u8_l15
+void
+oil_mas8_u8_l15 (uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas8_u8_l15.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_u8_l15);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n))(_oil_function_class_mas8_u8_l15.func))(d, s1_np7, s2_8, s3_2, n);
+}
+
+#undef oil_mas8_u8_sym_l15
+void
+oil_mas8_u8_sym_l15 (uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas8_u8_sym_l15.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_u8_sym_l15);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n))(_oil_function_class_mas8_u8_sym_l15.func))(d, s1_np7, s2_8, s3_2, n);
 }
 
 #undef oil_maximum_f32

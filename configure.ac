@@ -141,6 +141,9 @@ AC_CHECK_FUNCS([sigaction])
 LIBM="-lm"
 AC_SUBST(LIBM)
 
+LIBRT="-lrt"
+AC_SUBST(LIBRT)
+
 AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
 if test "x$LIBOIL_CVS" = "xyes"
 then
@@ -148,13 +151,16 @@ then
 fi
 if test x$HAVE_GCC_ASM = xyes -a x$HAVE_POWERPC = xyes ; then
   AS_COMPILER_FLAG(["-Wa,-maltivec"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -maltivec"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-maltivec"],
     true)
   AS_COMPILER_FLAG(["-Wa,-mregnames"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wa,-mregnames"],
     true)
   AS_COMPILER_FLAG(["-force_cpusubtype_ALL"],
     [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -force_cpusubtype_ALL"],
+    true)
+  AS_COMPILER_FLAG(["-fno-tree-vectorize"],
+    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -fno-tree-vectorize"],
     true)
 fi
 
@@ -206,10 +212,10 @@ AC_SUBST(_3DNOWEXT_CFLAGS)
 AC_SUBST(ALTIVEC_CFLAGS)
 
 
-LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir)"
+LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir) -DOIL_ENABLE_UNSTABLE_API"
 AC_SUBST(LIBOIL_CFLAGS)
 
-LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la"
+LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la -lm -lrt"
 AC_SUBST(LIBOIL_LIBS)
 
 pkgconfigdir="\$(libdir)/pkgconfig"

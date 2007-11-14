@@ -32,7 +32,6 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/simdpack/simdpack.h>
 
-#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 #define oil_type_min_f32 -1.0
 #define oil_type_max_f32 1.0
 #define oil_type_min_f64 -1.0

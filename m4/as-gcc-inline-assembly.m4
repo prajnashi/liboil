@@ -4,7 +4,7 @@ dnl autostars m4 macro for detection of gcc inline assembly
 
 dnl David Schleef <ds@schleef.org>
 
-dnl $Id: as-gcc-inline-assembly.m4,v 1.4 2007-03-17 02:03:30 ds Exp $
+dnl $Id: as-gcc-inline-assembly.m4,v 1.5 2007-11-14 06:48:57 ds Exp $
 
 dnl AS_COMPILER_FLAG(ACTION-IF-ACCEPTED, [ACTION-IF-NOT-ACCEPTED])
 dnl Tries to compile with the given CFLAGS.
@@ -38,7 +38,7 @@ AC_DEFUN([AS_GCC_ASM_POWERPC_FPU],
 [
   AC_MSG_CHECKING([if compiler supports FPU instructions on PowerPC])
 
-  AC_TRY_COMPILE([], [__asm__ ("fadd 0,0,0"::) ], [flag_ok=yes], [flag_ok=no])
+  AC_TRY_COMPILE([], [double x = 0; __asm__ ("fadd 0,0,0"::"f" (x):"32") ], [flag_ok=yes], [flag_ok=no])
 
   if test "X$flag_ok" = Xyes ; then
     $1

@@ -67,7 +67,6 @@ struct _OilString {
   char *data;
 };
 
-static char * _strndup (const char *s, int n);
 static OilType oil_type_from_string (const char *s, int ptr);
 
 static OilString *oil_string_new (const char *a);
@@ -351,18 +350,6 @@ oil_string_free (OilString *s, int free_seg)
     return NULL;
   }
   return data;
-}
-
-
-static char *
-_strndup (const char *s, int n)
-{
-  char *r;
-  r = malloc (n+1);
-  memcpy(r,s,n);
-  r[n]=0;
-
-  return r;
 }
 
 

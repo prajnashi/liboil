@@ -28,13 +28,11 @@
 #ifndef _LIBOIL_H_
 #define _LIBOIL_H_
 
-#include <liboil/liboil-stdint.h>
+#include <liboil/liboilutils.h>
 
 #include <liboil/liboilfuncs.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
 
 void oil_init (void);
 
@@ -64,9 +62,7 @@ void oil_init (void);
 #define oil_trans8x8_s16(dest, dstr, src, sstr) \
   oil_trans8x8_u16((uint16_t *)dest, dstr, (const uint16_t *)src, sstr)
 
-#ifdef __cplusplus
-}
-#endif
+OIL_END_DECLS
 
 #endif
 

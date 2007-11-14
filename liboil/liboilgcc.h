@@ -32,11 +32,11 @@
 #error liboilgcc.h should only be included if the compiler is GCC
 #endif
 
-#include <liboil/liboil-stdint.h>
+#include <liboil/liboilutils.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 typedef int8_t vec_s8 __attribute__ ((mode(V8QI)));
 typedef uint8_t vec_u8 __attribute__ ((mode(V8QI)));
@@ -45,9 +45,9 @@ typedef uint16_t vec_u16 __attribute__ ((mode(V4HI)));
 typedef int32_t vec_s32 __attribute__ ((mode(V2SI)));
 typedef uint32_t vec_u32 __attribute__ ((mode(V2SI)));
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

@@ -29,10 +29,11 @@
 #define _LIBOIL_DEBUG_H_
 
 #include <stdarg.h>
+#include <liboil/liboilutils.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * OilDebugPrintFunc:
@@ -130,9 +131,9 @@ void _oil_debug_init (void);
 void oil_debug_print (int level, const char *file, const char *func,
     int line, const char *format, ...);
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

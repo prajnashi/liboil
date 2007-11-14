@@ -31,6 +31,8 @@
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
 #include <liboil/liboilcpu.h>
+#include <liboil/liboilfault.h>
+#include <liboil/liboilutils.h>
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -80,6 +82,14 @@ oil_profile_stamp_gtod (void)
 #endif
 
 static unsigned long
+oil_profile_stamp_clock_gettime (void)
+{
+  struct timespec ts;
+  clock_gettime (CLOCK_MONOTONIC, &ts);
+  return 1000000000*ts.tv_sec + ts.tv_nsec;
+}
+
+static unsigned long
 oil_profile_stamp_zero (void)
 {
   return 0;
@@ -105,6 +115,9 @@ _oil_cpu_init (void)
   }
 
   OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
+
+  _oil_profile_stamp = oil_profile_stamp_clock_gettime;
+  OIL_INFO("Using clock_gettime() as a timestamp function.");
 
 #ifdef HAVE_GETTIMEOFDAY
   if (_oil_profile_stamp == NULL) {
@@ -132,111 +145,6 @@ oil_cpu_get_flags (void)
 }
 
 
-static jmp_buf jump_env;
-#ifdef HAVE_SIGACTION
-static struct sigaction action;
-static struct sigaction oldaction;
-#else
-static void * oldhandler;
-#endif
-static int in_try_block;
-static int enable_level;
-
-static void
-illegal_instruction_handler (int num)
-{
-  if (in_try_block) {
-#if 0
-    /* alternate method of siglongjmp() */
-    sigset_t set;
-    sigemptyset (&set);
-    sigaddset (&set, SIGILL);
-    sigprocmask (SIG_UNBLOCK, &set, NULL);
-    longjmp (jump_env, 1);
-#endif
-    siglongjmp (jump_env, 1);
-  } else {
-    abort ();
-  }
-}
-
-/**
- * oil_cpu_fault_check_enable:
- *
- * Enables fault checking mode.  This function may be called multiple times.
- * Each call to this function must be paired with a corresponding call
- * to oil_cpu_fault_check_disable().
- *
- * This function sets a signal handler for SIGILL.
- */
-void
-oil_cpu_fault_check_enable (void)
-{
-  if (enable_level == 0) {
-#ifdef HAVE_SIGACTION
-    memset (&action, 0, sizeof(action));
-    action.sa_handler = &illegal_instruction_handler;
-    sigaction (SIGILL, &action, &oldaction);
-#else
-    oldhandler = signal (SIGILL, illegal_instruction_handler);
-#endif
-    in_try_block = 0;
-    OIL_INFO("enabling SIGILL handler.  Make sure to continue past "
-        "any SIGILL signals caught by gdb.");
-  }
-  enable_level++;
-}
-
-/**
- * oil_cpu_fault_check_try:
- * @func: the function to attempt
- * @priv: a value to pass to the function
- *
- * Calls to this
- * function must be preceded by a call to oil_cpu_fault_check_enable()
- * to enable fault checking mode.  This function sets up recovery
- * information and then calls the function @func with the parameter
- * @priv.  If @func or any other functions it calls attempt to execute
- * an illegal instruction, the exception will be caught and recovered from.
- *
- * Returns: 1 if the function was executed sucessfully, 0 if the
- * function attempted to execute an illegal instruction.
- */
-int
-oil_cpu_fault_check_try (void (*func) (void *), void *priv)
-{
-  int ret;
-
-  in_try_block = 1;
-  ret = sigsetjmp (jump_env, 1);
-  if (!ret) {
-    func (priv);
-  }
-  in_try_block = 0;
-
-  return (ret == 0);
-}
-
-/**
- * oil_cpu_fault_check_disable:
- *
- * Disables fault checking mode.  See oil_cpu_fault_check_enable()
- * for details.
- */
-void
-oil_cpu_fault_check_disable (void)
-{
-  enable_level--;
-  if (enable_level == 0) {
-#ifdef HAVE_SIGACTION
-    sigaction (SIGILL, &oldaction, NULL);
-#else
-    signal (SIGILL, oldhandler);
-#endif
-    OIL_INFO("disabling SIGILL handler");
-  }
-}
-
 #if 0
 /**
  * oil_cpu_get_ticks_per_second:
@@ -260,73 +168,20 @@ oil_cpu_get_ticks_per_second (void)
 }
 #endif
 
-
-#ifdef USE_CPUINFO
-static char * get_cpuinfo_line (char *cpuinfo, const char *tag);
-static char * _strndup (const char *s, int n);
-
-static char *
-get_proc_cpuinfo (void)
+double
+oil_cpu_get_frequency (void)
 {
-  char *cpuinfo;
-  int fd;
-  int n;
-
-  cpuinfo = malloc(4096);
-  if (cpuinfo == NULL) return NULL;
-
-  fd = open("/proc/cpuinfo", O_RDONLY);
-  if (fd < 0) {
-    free (cpuinfo);
-    return NULL;
+#if defined(__linux__)
+  int freq;
+  if (get_file_int ("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq",
+        &freq)) {
+    return 1000.0 * freq;
   }
-
-  n = read(fd, cpuinfo, 4095);
-  if (n < 0) {
-    free (cpuinfo);
-    close (fd);
-    return NULL;
-  }
-  cpuinfo[n] = 0;
-
-  close (fd);
-
-  return cpuinfo;
-}
-
-static char *
-get_cpuinfo_line (char *cpuinfo, const char *tag)
-{
-  char *flags;
-  char *end;
-  char *colon;
-
-  flags = strstr(cpuinfo,tag);
-  if (flags == NULL) return NULL;
-
-  end = strchr(flags, '\n');
-  if (end == NULL) return NULL;
-  colon = strchr (flags, ':');
-  if (colon == NULL) return NULL;
-  colon++;
-  if(colon >= end) return NULL;
-
-  return _strndup (colon, end-colon);
-}
-
-static char *
-_strndup (const char *s, int n)
-{
-  char *r;
-  r = malloc (n+1);
-  memcpy(r,s,n);
-  r[n]=0;
-
-  return r;
-}
+  return 0;
+#else
+  return 0;
 #endif
-
-
+}
 
 /***** i386, amd64 *****/
 
@@ -340,30 +195,6 @@ _strndup (const char *s, int n)
 
 
 #ifdef USE_I386_CPUINFO
-static char **
-strsplit (char *s)
-{
-  char **list = NULL;
-  char *tok;
-  int n = 0;
-
-  while (*s == ' ') s++;
-
-  list = malloc (1 * sizeof(char *));
-  while (*s) {
-    tok = s;
-    while (*s && *s != ' ') s++;
-
-    list[n] = _strndup (tok, s - tok);
-    while (*s && *s == ' ') s++;
-    list = realloc (list, (n + 2) * sizeof(char *));
-    n++;
-  }
-
-  list[n] = NULL;
-  return list;
-}
-
 static void
 oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 {
@@ -371,7 +202,7 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
   char **flags;
   char **f;
 
-  cpuinfo_flags = get_cpuinfo_line(cpuinfo, "flags");
+  cpuinfo_flags = get_tag_value (cpuinfo, "flags");
   if (cpuinfo_flags == NULL) {
     free (cpuinfo);
     return;
@@ -470,9 +301,9 @@ oil_cpu_detect_cpuid (void)
   char vendor[13] = { 0 };
   int ret;
 
-  oil_cpu_fault_check_enable ();
-  ret = oil_cpu_fault_check_try(test_cpuid, NULL);
-  oil_cpu_fault_check_disable ();
+  oil_fault_check_enable ();
+  ret = oil_fault_check_try(test_cpuid, NULL);
+  oil_fault_check_disable ();
   if (!ret) {
     /* CPU thinks cpuid is an illegal instruction. */
     return;
@@ -655,12 +486,12 @@ static void
 oil_cpu_detect_powerpc(void)
 {
 
-  oil_cpu_fault_check_enable ();
-  if (oil_cpu_fault_check_try(test_altivec, NULL)) {
+  oil_fault_check_enable ();
+  if (oil_fault_check_try(test_altivec, NULL)) {
     OIL_DEBUG ("cpu flag altivec");
     oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
   }
-  oil_cpu_fault_check_disable ();
+  oil_fault_check_disable ();
 
   _oil_profile_stamp = oil_profile_stamp_tb;
 }
@@ -681,30 +512,6 @@ oil_profile_stamp_xscale(void)
   return ts;
 }
 #endif
-
-static char **
-strsplit (char *s)
-{
-  char **list = NULL;
-  char *tok;
-  int n = 0;
-
-  while (*s == ' ') s++;
-
-  list = malloc (1 * sizeof(char *));
-  while (*s) {
-    tok = s;
-    while (*s && *s != ' ') s++;
-
-    list[n] = _strndup (tok, s - tok);
-    while (*s && *s == ' ') s++;
-    list = realloc (list, (n + 2) * sizeof(char *));
-    n++;
-  }
-
-  list[n] = NULL;
-  return list;
-}
 
 static void
 oil_cpu_arm_getflags_cpuinfo (char *cpuinfo)

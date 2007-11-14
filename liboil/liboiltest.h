@@ -29,12 +29,13 @@
 #define _LIBOIL_TEST_H_
 
 #include <liboil/liboil.h>
+#include <liboil/liboilutils.h>
 #include <liboil/liboilprototype.h>
 #include <liboil/liboilprofile.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * OilTest:
@@ -111,9 +112,9 @@ int oil_test_get_arg_post_n (OilTest *test, OilArgType arg_type);
 int oil_test_get_arg_stride (OilTest *test, OilArgType arg_type);
 int oil_test_get_value (OilTest *test, OilArgType arg_type);
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

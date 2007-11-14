@@ -28,12 +28,13 @@
 #ifndef _LIBOIL_PROTOTYPE_H_
 #define _LIBOIL_PROTOTYPE_H_
 
+#include <liboil/liboilutils.h>
 #include <liboil/liboilfunction.h>
 #include <liboil/liboilparameter.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 typedef struct _OilPrototype OilPrototype;
 /**
@@ -59,10 +60,9 @@ int oil_type_sizeof (OilType type);
 const char * oil_type_name (OilType type);
 const char * oil_arg_type_name (OilArgType type);
 
-
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 

@@ -1,3 +1,49 @@
+2007-11-13  David Schleef  <ds@schleef.org>
+
+	* configure.ac:
+	  Fix powerpc flags.
+	* examples/videoscale/vs_4tap.c:
+	* liboil/Makefile.am:
+	* liboil/deprecated/vectoradd_s.c:
+	* liboil/liboil.h:
+	* liboil/liboilcolorspace.h:
+	* liboil/liboilcpu.c:
+	* liboil/liboilcpu.h:
+	* liboil/liboildebug.h:
+	* liboil/liboilfault.c:
+	* liboil/liboilfault.h:
+	* liboil/liboilfunction.c:
+	* liboil/liboilfunction.h:
+	* liboil/liboilgcc.h:
+	* liboil/liboilinternal.h:
+	* liboil/liboilparameter.h:
+	* liboil/liboilprofile.h:
+	* liboil/liboilprototype.c:
+	* liboil/liboilprototype.h:
+	* liboil/liboilrandom.h:
+	* liboil/liboiltest.c:
+	* liboil/liboiltest.h:
+	* liboil/liboiltrampolines.c:
+	* liboil/liboiltypes.h:
+	* liboil/liboilutils.c:
+	* liboil/liboilutils.h:
+	  Rearrange lots of stuff.  Hide everything behind
+	  OIL_ENABLE_UNSTABLE_API.
+	* liboil/liboilclasses.h:
+	* liboil/liboilfuncs-04.h:
+	* liboil/liboilfuncs.h:
+	* liboil/i386/Makefile.am:
+	* liboil/i386/mas.c:
+	* liboil/i386/wavelet.c:
+	* liboil/i386_amd64/copy.c:
+	* liboil/ref/Makefile.am:
+	* liboil/ref/mas.c:
+	* liboil/ref/wavelet.c:
+	  Add some mas functions from schro.
+	* m4/as-gcc-inline-assembly.m4:
+	* testsuite/instruction/check-instructions.pl:
+	  Add some new instructions.
+
 2007-08-22  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

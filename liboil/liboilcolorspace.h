@@ -28,9 +28,11 @@
 #ifndef _LIBOIL_COLORSPACE_H_
 #define _LIBOIL_COLORSPACE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <liboil/liboilutils.h>
+
+OIL_BEGIN_DECLS
+
+#ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
  * oil_max:
@@ -151,9 +153,9 @@ extern "C" {
  */
 #define oil_muldiv_255(a,b) oil_divide_255((a)*(b))
 
-#ifdef __cplusplus
-}
 #endif
+
+OIL_END_DECLS
 
 #endif
 
