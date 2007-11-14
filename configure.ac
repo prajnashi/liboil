@@ -138,11 +138,15 @@ AC_CHECK_HEADERS([inttypes.h])
 AC_CHECK_FUNCS([gettimeofday])
 AC_CHECK_FUNCS([sigaction])
 
-LIBM="-lm"
+AC_CHECK_LIBM
 AC_SUBST(LIBM)
 
-LIBRT="-lrt"
+save_libs="$LIBS"
+AC_CHECK_LIB(rt, clock_gettime,
+   AC_DEFINE(HAVE_CLOCK_GETTIME, 1, [Defined if we have clock_gettime()]))
+LIBRT=$LIBS
 AC_SUBST(LIBRT)
+LIBS="$save_libs"
 
 AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
 if test "x$LIBOIL_CVS" = "xyes"

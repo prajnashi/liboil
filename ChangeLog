@@ -1,5 +1,11 @@
 2007-11-14  David Schleef  <ds@schleef.org>
 
+	* configure.ac:
+	* liboil.pc.in:
+	  Fix librt detection.
+
+2007-11-14  David Schleef  <ds@schleef.org>
+
 	* liboil/Makefile.am:
 	* liboil/liboilcpu-arm.c:
 	* liboil/liboilcpu-misc.c:
