@@ -1,3 +1,14 @@
+2007-11-14  David Schleef  <ds@schleef.org>
+
+	* liboil/Makefile.am:
+	* liboil/liboilcpu-arm.c:
+	* liboil/liboilcpu-misc.c:
+	* liboil/liboilcpu-powerpc.c:
+	* liboil/liboilcpu-x86.c:
+	* liboil/liboilcpu.c:
+	* liboil/liboilcpu.h:
+	  Split liboilcpu.c into per-arch source files.
+
 2007-11-13  David Schleef  <ds@schleef.org>
 
 	* configure.ac:

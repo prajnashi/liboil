@@ -138,6 +138,24 @@ liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilutils.c \
 	liboilutils.h
 
+if HAVE_I386
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += liboilcpu-x86.c
+else
+if HAVE_AMD64
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += liboilcpu-x86.c
+else
+if HAVE_POWERPC
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += liboilcpu-powerpc.c
+else
+if HAVE_ARM
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += liboilcpu-arm.c
+else
+liboil_@LIBOIL_MAJORMINOR@_la_SOURCES += liboilcpu-misc.c
+endif
+endif
+endif
+endif
+
 nodist_liboil_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	liboilarray.c
 

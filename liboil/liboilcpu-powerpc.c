@@ -25,28 +25,84 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _LIBOIL_CPU_H_
-#define _LIBOIL_CPU_H_
-
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+#include <liboil/liboilfunction.h>
+#include <liboil/liboildebug.h>
+#include <liboil/liboilcpu.h>
+#include <liboil/liboilfault.h>
 #include <liboil/liboilutils.h>
 
-OIL_BEGIN_DECLS
+//#include <unistd.h>
+//#include <fcntl.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <stdio.h>
+//#include <setjmp.h>
+//#include <signal.h>
+//#include <sys/time.h>
+//#include <time.h>
 
-#ifdef OIL_ENABLE_UNSTABLE_API
-
-void _oil_cpu_init (void);
-unsigned int oil_cpu_get_flags (void);
-
-double oil_cpu_get_ticks_per_second (void);
-
-double oil_cpu_get_frequency (void);
-
-extern unsigned long oil_cpu_flags;
-extern unsigned long (*_oil_profile_stamp)(void);
-
+#if defined(__FreeBSD__)
+#include <sys/types.h>
+#include <sys/sysctl.h>
 #endif
 
-OIL_END_DECLS
 
+/***** powerpc *****/
+
+static unsigned long
+oil_profile_stamp_tb(void)
+{
+  unsigned long ts;
+  __asm__ __volatile__("mftb %0\n" : "=r" (ts));
+  return ts;
+}
+
+static void
+test_altivec (void * ignored)
+{
+  asm volatile ("vor v0, v0, v0\n");
+}
+
+#if defined(__FreeBSD__)
+void
+oil_check_altivec_sysctl (void)
+{
+  int ret, av;
+  size_t len;
+
+  len = sizeof(enabled);
+  ret = sysctlbyname("hw.altivec", &av, &len, NULL, 0);
+  if (!ret && av) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
+  }
+}
 #endif
+
+void
+oil_check_altivec_fault (void)
+{
+  oil_fault_check_enable ();
+  if (oil_fault_check_try(test_altivec, NULL)) {
+    OIL_DEBUG ("cpu flag altivec");
+    oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
+  }
+  oil_fault_check_disable ();
+}
+
+void
+oil_cpu_detect_arch(void)
+{
+#if defined(__FreeBSD__)
+  oil_check_altivec_sysctl();
+#else
+  oil_check_altivec_fault();
+#endif
+
+  _oil_profile_stamp = oil_profile_stamp_tb;
+}
+
+
 
