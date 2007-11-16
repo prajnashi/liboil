@@ -141,12 +141,11 @@ AC_CHECK_FUNCS([sigaction])
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
 
-save_libs="$LIBS"
 AC_CHECK_LIB(rt, clock_gettime,
-   AC_DEFINE(HAVE_CLOCK_GETTIME, 1, [Defined if we have clock_gettime()]))
-LIBRT=$LIBS
+   AC_DEFINE(HAVE_CLOCK_GETTIME, 1, [Defined if we have clock_gettime()])
+   LIBRT=-lrt
+   )
 AC_SUBST(LIBRT)
-LIBS="$save_libs"
 
 AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
 if test "x$LIBOIL_CVS" = "xyes"
@@ -219,7 +218,7 @@ AC_SUBST(ALTIVEC_CFLAGS)
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir) -DOIL_ENABLE_UNSTABLE_API"
 AC_SUBST(LIBOIL_CFLAGS)
 
-LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la -lm -lrt"
+LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $LIBM $LIBRT"
 AC_SUBST(LIBOIL_LIBS)
 
 pkgconfigdir="\$(libdir)/pkgconfig"
