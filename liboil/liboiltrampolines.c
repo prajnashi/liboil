@@ -131,6 +131,26 @@ oil_add_s16_u8 (int16_t * d, const int16_t * src1, const uint8_t * src2, int n)
   ((void (*)(int16_t * d, const int16_t * src1, const uint8_t * src2, int n))(_oil_function_class_add_s16_u8.func))(d, src1, src2, n);
 }
 
+#undef oil_addc_rshift_s16
+void
+oil_addc_rshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_2, int n)
+{
+  if (_oil_function_class_addc_rshift_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_addc_rshift_s16);
+  }
+  ((void (*)(int16_t * d1, const int16_t * s1, const int16_t * s2_2, int n))(_oil_function_class_addc_rshift_s16.func))(d1, s1, s2_2, n);
+}
+
+#undef oil_addc_s16
+void
+oil_addc_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_1, int n)
+{
+  if (_oil_function_class_addc_s16.func == NULL) {
+    oil_class_optimize (&_oil_function_class_addc_s16);
+  }
+  ((void (*)(int16_t * d1, const int16_t * s1, const int16_t * s2_1, int n))(_oil_function_class_addc_s16.func))(d1, s1, s2_1, n);
+}
+
 #undef oil_argb_paint_u8
 void
 oil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n)
@@ -2451,6 +2471,16 @@ oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const
   ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n))(_oil_function_class_mas8_add_s16.func))(d, s1, s2_np7, s3_8, s4_2, n);
 }
 
+#undef oil_mas8_addc_rshift_decim2_u8
+void
+oil_mas8_addc_rshift_decim2_u8 (uint8_t * d, const uint8_t * s1_2xnp9, const int16_t * s2_8, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas8_addc_rshift_decim2_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_addc_rshift_decim2_u8);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_2xnp9, const int16_t * s2_8, const int16_t * s3_2, int n))(_oil_function_class_mas8_addc_rshift_decim2_u8.func))(d, s1_2xnp9, s2_8, s3_2, n);
+}
+
 #undef oil_mas8_u8
 void
 oil_mas8_u8 (uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n)
@@ -2689,6 +2719,16 @@ oil_null (void)
     oil_class_optimize (&_oil_function_class_null);
   }
   ((void (*)(void))(_oil_function_class_null.func))();
+}
+
+#undef oil_packyuyv
+void
+oil_packyuyv (uint32_t * d, const uint8_t * s1_nx2, const uint8_t * s2, const uint8_t * s3, int n)
+{
+  if (_oil_function_class_packyuyv.func == NULL) {
+    oil_class_optimize (&_oil_function_class_packyuyv);
+  }
+  ((void (*)(uint32_t * d, const uint8_t * s1_nx2, const uint8_t * s2, const uint8_t * s3, int n))(_oil_function_class_packyuyv.func))(d, s1_nx2, s2, s3, n);
 }
 
 #undef oil_permute_f32
@@ -3709,6 +3749,16 @@ oil_trans8x8_u8 (uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss)
     oil_class_optimize (&_oil_function_class_trans8x8_u8);
   }
   ((void (*)(uint8_t * d_8x8, int ds, const uint8_t * s_8x8, int ss))(_oil_function_class_trans8x8_u8.func))(d_8x8, ds, s_8x8, ss);
+}
+
+#undef oil_unpackyuyv
+void
+oil_unpackyuyv (uint8_t * d1_nx2, uint8_t * d2, uint8_t * d3, const uint32_t * s, int n)
+{
+  if (_oil_function_class_unpackyuyv.func == NULL) {
+    oil_class_optimize (&_oil_function_class_unpackyuyv);
+  }
+  ((void (*)(uint8_t * d1_nx2, uint8_t * d2, uint8_t * d3, const uint32_t * s, int n))(_oil_function_class_unpackyuyv.func))(d1_nx2, d2, d3, s, n);
 }
 
 #undef oil_unzigzag8x8_s16

@@ -102,6 +102,30 @@ OIL_DEFINE_CLASS (ayuv2yvyu, "uint32_t *d_n, uint32_t *s_n, int n");
  * half of the destination array is written.  Alpha values are ignored.
  */
 OIL_DEFINE_CLASS (ayuv2uyvy, "uint32_t *d_n, uint32_t *s_n, int n");
+/**
+ * oil_packyuyv:
+ * @d:
+ * @s1_nx2:
+ * @s2:
+ * @s3:
+ * n:
+ *
+ * Packs pixels in separate Y, U, and V arrays to YUYV.
+ */
+OIL_DEFINE_CLASS (packyuyv,
+    "uint32_t *d, uint8_t *s1_nx2, uint8_t *s2, uint8_t *s3, int n");
+/**
+ * oil_unpackyuyv:
+ * @d1_nx2:
+ * @d2:
+ * @d3:
+ * @s:
+ * n:
+ *
+ * Unpacks YUYV pixels into separate Y, U, and V arrays;
+ */
+OIL_DEFINE_CLASS (unpackyuyv,
+    "uint8_t *d1_nx2, uint8_t *d2, uint8_t *d3, uint32_t *s int n");
 
 
 static void
@@ -216,4 +240,34 @@ ayuv2uyvy_ref (uint32_t *d, uint32_t *src, int n)
   }
 }
 OIL_DEFINE_IMPL_REF (ayuv2uyvy_ref, ayuv2uyvy);
+
+static void
+packyuyv_ref (uint32_t *d, uint8_t *s1_nx2, uint8_t *s2, uint8_t *s3, int n)
+{
+  int i;
+  uint8_t *dest = (uint8_t *)d;
+
+  for(i=0;i<n;i++){
+    dest[i*4 + 0] = s1_nx2[i*2+0];
+    dest[i*4 + 2] = s1_nx2[i*2+1];
+    dest[i*4 + 1] = s2[i];
+    dest[i*4 + 3] = s3[i];
+  }
+}
+OIL_DEFINE_IMPL_REF (packyuyv_ref, packyuyv);
+
+static void
+unpackyuyv_ref (uint8_t *d1_nx2, uint8_t *d2, uint8_t *d3, uint32_t *s, int n)
+{
+  int i;
+  uint8_t *src = (uint8_t *)s;
+
+  for(i=0;i<n;i++){
+    d1_nx2[i*2+0] = src[i*4 + 0];
+    d1_nx2[i*2+1] = src[i*4 + 2];
+    d2[i] = src[i*4 + 1];
+    d3[i] = src[i*4 + 3];
+  }
+}
+OIL_DEFINE_IMPL_REF (unpackyuyv_ref, unpackyuyv);
 

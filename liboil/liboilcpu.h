@@ -32,10 +32,11 @@
 
 OIL_BEGIN_DECLS
 
+unsigned int oil_cpu_get_flags (void);
+
 #ifdef OIL_ENABLE_UNSTABLE_API
 
 void _oil_cpu_init (void);
-unsigned int oil_cpu_get_flags (void);
 
 double oil_cpu_get_ticks_per_second (void);
 

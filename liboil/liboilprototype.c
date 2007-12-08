@@ -518,6 +518,10 @@ const char * oil_arg_type_name (OilArgType type)
       return "dest2";
     case OIL_ARG_DSTR2:
       return "dstr2";
+    case OIL_ARG_DEST3:
+      return "dest3";
+    case OIL_ARG_DSTR3:
+      return "dstr3";
     case OIL_ARG_SRC1:
       return "src1";
     case OIL_ARG_SSTR1:
@@ -562,6 +566,8 @@ struct {
   { "dstr1", "ds1" },
   { "dest2", "d2" },
   { "dstr2", "ds2" },
+  { "dest3", "d3" },
+  { "dstr3", "ds3" },
   { "src", "s1" },
   { "src1", "s1" },
   { "sstr", "ss1" },
@@ -586,6 +592,8 @@ struct {
   { OIL_ARG_DSTR1, 'd', 1, 1 },
   { OIL_ARG_DEST2, 'd', 0, 2 },
   { OIL_ARG_DSTR2, 'd', 1, 2 },
+  { OIL_ARG_DEST3, 'd', 0, 3 },
+  { OIL_ARG_DSTR3, 'd', 1, 3 },
   { OIL_ARG_SRC1, 's', 0, 1 },
   { OIL_ARG_SSTR1, 's', 1, 1 },
   { OIL_ARG_SRC2, 's', 0, 2 },

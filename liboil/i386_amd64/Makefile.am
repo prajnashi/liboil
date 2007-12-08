@@ -2,6 +2,7 @@
 noinst_LTLIBRARIES = libi386_amd64.la
 
 libi386_amd64_la_SOURCES = \
+	addc.c \
 	clamp.c \
 	convert.c \
 	copy.c \
@@ -11,7 +12,8 @@ libi386_amd64_la_SOURCES = \
 	resample.c \
 	sad8x8.c \
 	sum.c \
-	swab.c
+	swab.c \
+	yuv.c
 
 libi386_amd64_la_CFLAGS = $(LIBOIL_CFLAGS)
 

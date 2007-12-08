@@ -47,6 +47,64 @@
 
 OIL_BEGIN_DECLS
 
+/**
+ * OilImplFlag:
+ *
+ * Implementation flags.
+ *
+ * @OIL_IMPL_FLAG_REF: is the reference implementation for the class.
+ *
+ * @OIL_IMPL_FLAG_OPT: was compiled with alternate CFLAGS as specified
+ * by --enable-alternate-optimization.
+ *
+ * @OIL_IMPL_FLAG_ASM: is written in assembly code.
+ *
+ * @OIL_IMPL_FLAG_DISABLED: is disabled.  This can be set either in the
+ * source code or during library initialization.
+ *
+ * @OIL_IMPL_FLAG_CMOV: uses the i386 instruction cmov or its variants.
+ *
+ * @OIL_IMPL_FLAG_MMX: uses MMX instructions.
+ *
+ * @OIL_IMPL_FLAG_SSE: uses SSE instructions.
+ *
+ * @OIL_IMPL_FLAG_MMXEXT: uses AMD's extended MMX instructions.  These
+ * are a subset of what Intel calls SSE2.  If an implementation uses
+ * only AMD's extended MMX instructions, it should set this flag, and
+ * not @OIL_IMPL_FLAG_SSE2.
+ *
+ * @OIL_IMPL_FLAG_SSE2: uses SSE2 instructions.  This flag implies
+ * @OIL_IMPL_FLAG_SSE and @OIL_IMPL_FLAG_MMXEXT.
+ *
+ * @OIL_IMPL_FLAG_3DNOW: uses 3DNow! instructions.
+ *
+ * @OIL_IMPL_FLAG_3DNOWEXT: uses extended 3DNow! instructions.
+ *
+ * @OIL_IMPL_FLAG_SSE3: uses SSE3 instructions.  This flag implies
+ * @OIL_IMPL_FLAG_SSE2.
+ *
+ * @OIL_IMPL_FLAG_ALTIVEC: uses Altivec instructions.
+ *
+ */
+typedef enum {
+  OIL_IMPL_FLAG_REF = (1<<0),
+  OIL_IMPL_FLAG_OPT = (1<<1),
+  OIL_IMPL_FLAG_ASM = (1<<2),
+  OIL_IMPL_FLAG_DISABLED = (1<<3),
+  OIL_IMPL_FLAG_CMOV = (1<<16),
+  OIL_IMPL_FLAG_MMX = (1<<17),
+  OIL_IMPL_FLAG_SSE = (1<<18),
+  OIL_IMPL_FLAG_MMXEXT = (1<<19),
+  OIL_IMPL_FLAG_SSE2 = (1<<20),
+  OIL_IMPL_FLAG_3DNOW = (1<<21),
+  OIL_IMPL_FLAG_3DNOWEXT = (1<<22),
+  OIL_IMPL_FLAG_SSE3 = (1<<23),
+  OIL_IMPL_FLAG_ALTIVEC = (1<<24),
+  OIL_IMPL_FLAG_EDSP = (1<<25),
+  OIL_IMPL_FLAG_ARM6 = (1<<26),
+  OIL_IMPL_FLAG_VFP = (1<<27)
+} OilImplFlag;
+
 #ifdef OIL_ENABLE_UNSTABLE_API
 
 /**
@@ -149,64 +207,6 @@ struct _OilFunctionImpl {
  * Increments the pointer @ptr by @offset number of bytes.
  */
 #define OIL_INCREMENT(ptr, offset) (ptr = (void *)((uint8_t *)ptr + (offset)) )
-
-/**
- * OilImplFlag:
- *
- * Implementation flags.
- *
- * @OIL_IMPL_FLAG_REF: is the reference implementation for the class.
- *
- * @OIL_IMPL_FLAG_OPT: was compiled with alternate CFLAGS as specified
- * by --enable-alternate-optimization.
- *
- * @OIL_IMPL_FLAG_ASM: is written in assembly code.
- *
- * @OIL_IMPL_FLAG_DISABLED: is disabled.  This can be set either in the
- * source code or during library initialization.
- *
- * @OIL_IMPL_FLAG_CMOV: uses the i386 instruction cmov or its variants.
- *
- * @OIL_IMPL_FLAG_MMX: uses MMX instructions.
- *
- * @OIL_IMPL_FLAG_SSE: uses SSE instructions.
- *
- * @OIL_IMPL_FLAG_MMXEXT: uses AMD's extended MMX instructions.  These
- * are a subset of what Intel calls SSE2.  If an implementation uses
- * only AMD's extended MMX instructions, it should set this flag, and
- * not @OIL_IMPL_FLAG_SSE2.
- *
- * @OIL_IMPL_FLAG_SSE2: uses SSE2 instructions.  This flag implies
- * @OIL_IMPL_FLAG_SSE and @OIL_IMPL_FLAG_MMXEXT.
- *
- * @OIL_IMPL_FLAG_3DNOW: uses 3DNow! instructions.
- *
- * @OIL_IMPL_FLAG_3DNOWEXT: uses extended 3DNow! instructions.
- *
- * @OIL_IMPL_FLAG_SSE3: uses SSE3 instructions.  This flag implies
- * @OIL_IMPL_FLAG_SSE2.
- *
- * @OIL_IMPL_FLAG_ALTIVEC: uses Altivec instructions.
- *
- */
-typedef enum {
-  OIL_IMPL_FLAG_REF = (1<<0),
-  OIL_IMPL_FLAG_OPT = (1<<1),
-  OIL_IMPL_FLAG_ASM = (1<<2),
-  OIL_IMPL_FLAG_DISABLED = (1<<3),
-  OIL_IMPL_FLAG_CMOV = (1<<16),
-  OIL_IMPL_FLAG_MMX = (1<<17),
-  OIL_IMPL_FLAG_SSE = (1<<18),
-  OIL_IMPL_FLAG_MMXEXT = (1<<19),
-  OIL_IMPL_FLAG_SSE2 = (1<<20),
-  OIL_IMPL_FLAG_3DNOW = (1<<21),
-  OIL_IMPL_FLAG_3DNOWEXT = (1<<22),
-  OIL_IMPL_FLAG_SSE3 = (1<<23),
-  OIL_IMPL_FLAG_ALTIVEC = (1<<24),
-  OIL_IMPL_FLAG_EDSP = (1<<25),
-  OIL_IMPL_FLAG_ARM6 = (1<<26),
-  OIL_IMPL_FLAG_VFP = (1<<27)
-} OilImplFlag;
 
 /**
  * OIL_CPU_FLAG_MASK:

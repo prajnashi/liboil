@@ -8,6 +8,7 @@ endif
 noinst_LTLIBRARIES = libref.la $(opt_libs)
 
 c_sources = \
+	addc.c \
 	argb_paint.c \
 	ayuv2argb.c \
 	clamp.c \

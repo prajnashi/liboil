@@ -451,7 +451,14 @@ oil_test_cleanup (OilTest *test)
   /* dest2 */
   if(params[OIL_ARG_DEST2].type) {
     if (!params[OIL_ARG_DSTR2].type) {
-      params[OIL_ARG_DSTR2].value = oil_type_sizeof (params[OIL_ARG_DEST1].type);
+      params[OIL_ARG_DSTR2].value = oil_type_sizeof (params[OIL_ARG_DEST2].type);
+    }
+  }
+
+  /* dest3 */
+  if(params[OIL_ARG_DEST3].type) {
+    if (!params[OIL_ARG_DSTR3].type) {
+      params[OIL_ARG_DSTR3].value = oil_type_sizeof (params[OIL_ARG_DEST3].type);
     }
   }
 
@@ -517,6 +524,8 @@ oil_test_init_params (OilTest *test)
       &test->params[OIL_ARG_DSTR1]);
   init_parameter (test, &test->params[OIL_ARG_DEST2],
       &test->params[OIL_ARG_DSTR2]);
+  init_parameter (test, &test->params[OIL_ARG_DEST3],
+      &test->params[OIL_ARG_DSTR3]);
 
   init_parameter (test, &test->params[OIL_ARG_SRC1],
       &test->params[OIL_ARG_SSTR1]);
