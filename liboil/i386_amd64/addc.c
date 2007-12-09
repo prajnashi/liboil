@@ -122,9 +122,11 @@ addc_rshift_s16_mmx (int16_t *d, int16_t *s, int16_t *s2, int n)
 {
   int val = s2[0];
   int shift = s2[1];
+  int16_t x;
 
   while(n&15) {
-    d[0] = (s[0] + s2[0])>>shift;
+    x = s[0] + s2[0];
+    d[0] = x>>shift;
     s++;
     d++;
     n--;
