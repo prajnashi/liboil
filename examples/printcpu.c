@@ -39,7 +39,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-static char *
+char *
 string_append (char *str, const char *append)
 {
   char *ret;
