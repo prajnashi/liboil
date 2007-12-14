@@ -256,6 +256,7 @@ testsuite/instruction/Makefile
 examples/Makefile
 examples/audioresample/Makefile
 examples/huffman/Makefile
+examples/jit/Makefile
 examples/jpeg/Makefile
 examples/md5/Makefile
 examples/taylor/Makefile
