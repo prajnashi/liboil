@@ -21,6 +21,7 @@ mas10_u8_mmx (uint8_t *d, const uint8_t *s1_np9, const int16_t *s2_10,
     n--;
   }
 
+  if (n == 0) return;
   n>>=2;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
@@ -101,6 +102,7 @@ mas10_u8_mmx_2 (uint8_t *d, const uint8_t *s1_np9, const int16_t *s2_10,
     ptr[4*j + 3] = s2_10[j];
   }
 
+  if (n == 0) return;
   n>>=2;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
@@ -168,6 +170,7 @@ mas10_u8_mmx_3 (uint8_t *d, const uint8_t *s1_np9, const int16_t *s2_10,
     n--;
   }
 
+  if (n == 0) return;
   n>>=2;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
@@ -274,6 +277,7 @@ void
 mas10_u8_mmx_4 (uint8_t *d, const uint8_t *s1_np9, const int16_t *s2_10,
         const int16_t *s3_2, int n)
 {
+  if (n == 0) return;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
 
@@ -342,6 +346,7 @@ mas8_u8_mmx_3 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
     n--;
   }
 
+  if (n == 0) return;
   n>>=2;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
@@ -428,6 +433,7 @@ void
 mas8_u8_mmx_4 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
         const int16_t *s3_2, int n)
 {
+  if (n == 0) return;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
 
@@ -490,6 +496,7 @@ mas8_u8_sym_mmx_3 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
     n--;
   }
 
+  if (n == 0) return;
   n>>=2;
   __asm__ __volatile__("\n"
       "  pxor %%mm7, %%mm7\n"
