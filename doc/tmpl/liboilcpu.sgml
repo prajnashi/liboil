@@ -25,30 +25,6 @@
 @Returns: 
 
 
-<!-- ##### FUNCTION oil_cpu_fault_check_enable ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### FUNCTION oil_cpu_fault_check_disable ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### FUNCTION oil_cpu_fault_check_try ##### -->
-<para>
-
-</para>
-
-@func: 
-@priv: 
-@Returns: 
-
-
 <!-- ##### FUNCTION oil_cpu_get_ticks_per_second ##### -->
 <para>
 

@@ -152,6 +152,27 @@
 
 @OIL_IMPL_FLAG_ALTIVEC: 
 
+<!-- ##### FUNCTION oil_cpu_fault_check_disable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION oil_cpu_fault_check_enable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION oil_cpu_fault_check_try ##### -->
+<para>
+
+</para>
+
+@func: 
+@priv: 
+@Returns: 
+
 <!-- ##### FUNCTION oil_profile_stamp_gtod ##### -->
 <para>
 
