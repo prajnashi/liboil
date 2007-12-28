@@ -1,6 +1,7 @@
 audioresample/test_functable1
 example1
 huffman/huffman_test
+jit/jit
 jpeg/jpeg_rgb_test
 jpeg/jpeg_test
 md5/md5sum
