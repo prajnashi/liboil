@@ -98,7 +98,7 @@ int main (int argc, char *argv[])
     oil_test_check_impl (test, impl);
 
     for (impl = klass->first_impl; impl; impl = impl->next) {
-      if (oil_impl_is_runnable (impl)) {
+      if (oil_impl_is_usable (impl)) {
         oil_test_check_impl (test, impl);
         //printf(" %g %g", test->profile_ave, test->profile_std);
         printf(" %g", test->profile_ave);

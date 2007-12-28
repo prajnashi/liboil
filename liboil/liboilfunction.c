@@ -251,6 +251,26 @@ oil_impl_is_runnable (OilFunctionImpl *impl)
 
   if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
     return 0;
+  return 1;
+}
+
+/**
+ * oil_impl_is_usable:
+ * @impl: an @OilFunctionImpl
+ *
+ * Determines whether the function implementation given by @impl
+ * is useful, that is, it can be executed on the current CPU and
+ * passes tests.
+ *
+ * Returns: 1 if the implementation can be used, otherwise 0
+ */
+int
+oil_impl_is_usable (OilFunctionImpl *impl)
+{
+  unsigned int oil_cpu_flags = oil_cpu_get_flags();
+
+  if ((impl->flags & OIL_CPU_FLAG_MASK) & (~oil_cpu_flags))
+    return 0;
   if (impl->flags & OIL_IMPL_FLAG_DISABLED)
     return 0;
   return 1;

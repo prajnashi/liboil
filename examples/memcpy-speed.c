@@ -48,8 +48,8 @@ main(int argc, char *argv[])
   for(impl=klass->first_impl;impl;impl=impl->next) {
     printf("impl %s\n", impl->name);
 
-    if (!oil_impl_is_runnable(impl)) {
-      printf("  not runnable\n");
+    if (!oil_impl_is_usable(impl)) {
+      printf("  not usable\n");
       continue;
     }
 
