@@ -2641,6 +2641,46 @@ oil_multiply_and_acc_12xn_s16_u8 (int16_t * i1_12xn, int is1, const int16_t * s1
   ((void (*)(int16_t * i1_12xn, int is1, const int16_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, int n))(_oil_function_class_multiply_and_acc_12xn_s16_u8.func))(i1_12xn, is1, s1_12xn, ss1, s2_12xn, ss2, n);
 }
 
+#undef oil_multiply_and_acc_16xn_s16_u8
+void
+oil_multiply_and_acc_16xn_s16_u8 (int16_t * i1_16xn, int is1, const int16_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, int n)
+{
+  if (_oil_function_class_multiply_and_acc_16xn_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_acc_16xn_s16_u8);
+  }
+  ((void (*)(int16_t * i1_16xn, int is1, const int16_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, int n))(_oil_function_class_multiply_and_acc_16xn_s16_u8.func))(i1_16xn, is1, s1_16xn, ss1, s2_16xn, ss2, n);
+}
+
+#undef oil_multiply_and_acc_24xn_s16_u8
+void
+oil_multiply_and_acc_24xn_s16_u8 (int16_t * i1_24xn, int is1, const int16_t * s1_24xn, int ss1, const uint8_t * s2_24xn, int ss2, int n)
+{
+  if (_oil_function_class_multiply_and_acc_24xn_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_acc_24xn_s16_u8);
+  }
+  ((void (*)(int16_t * i1_24xn, int is1, const int16_t * s1_24xn, int ss1, const uint8_t * s2_24xn, int ss2, int n))(_oil_function_class_multiply_and_acc_24xn_s16_u8.func))(i1_24xn, is1, s1_24xn, ss1, s2_24xn, ss2, n);
+}
+
+#undef oil_multiply_and_acc_6xn_s16_u8
+void
+oil_multiply_and_acc_6xn_s16_u8 (int16_t * i1_6xn, int is1, const int16_t * s1_6xn, int ss1, const uint8_t * s2_6xn, int ss2, int n)
+{
+  if (_oil_function_class_multiply_and_acc_6xn_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_acc_6xn_s16_u8);
+  }
+  ((void (*)(int16_t * i1_6xn, int is1, const int16_t * s1_6xn, int ss1, const uint8_t * s2_6xn, int ss2, int n))(_oil_function_class_multiply_and_acc_6xn_s16_u8.func))(i1_6xn, is1, s1_6xn, ss1, s2_6xn, ss2, n);
+}
+
+#undef oil_multiply_and_acc_8xn_s16_u8
+void
+oil_multiply_and_acc_8xn_s16_u8 (int16_t * i1_8xn, int is1, const int16_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n)
+{
+  if (_oil_function_class_multiply_and_acc_8xn_s16_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_multiply_and_acc_8xn_s16_u8);
+  }
+  ((void (*)(int16_t * i1_8xn, int is1, const int16_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n))(_oil_function_class_multiply_and_acc_8xn_s16_u8.func))(i1_8xn, is1, s1_8xn, ss1, s2_8xn, ss2, n);
+}
+
 #undef oil_multiply_and_add_s16
 void
 oil_multiply_and_add_s16 (int16_t * d, const int16_t * src1, const int16_t * src2, const int16_t * src3, int n)

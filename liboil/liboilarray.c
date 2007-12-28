@@ -263,6 +263,10 @@ extern OilFunctionClass _oil_function_class_mix_u8;
 extern OilFunctionClass _oil_function_class_mt19937;
 extern OilFunctionClass _oil_function_class_mult8x8_s16;
 extern OilFunctionClass _oil_function_class_multiply_and_acc_12xn_s16_u8;
+extern OilFunctionClass _oil_function_class_multiply_and_acc_16xn_s16_u8;
+extern OilFunctionClass _oil_function_class_multiply_and_acc_24xn_s16_u8;
+extern OilFunctionClass _oil_function_class_multiply_and_acc_6xn_s16_u8;
+extern OilFunctionClass _oil_function_class_multiply_and_acc_8xn_s16_u8;
 extern OilFunctionClass _oil_function_class_multiply_and_add_s16;
 extern OilFunctionClass _oil_function_class_multiply_and_add_s16_u8;
 extern OilFunctionClass _oil_function_class_multiply_f32;
@@ -661,6 +665,10 @@ OilFunctionClass *_oil_function_class_array[] = {
   &_oil_function_class_mt19937,
   &_oil_function_class_mult8x8_s16,
   &_oil_function_class_multiply_and_acc_12xn_s16_u8,
+  &_oil_function_class_multiply_and_acc_16xn_s16_u8,
+  &_oil_function_class_multiply_and_acc_24xn_s16_u8,
+  &_oil_function_class_multiply_and_acc_6xn_s16_u8,
+  &_oil_function_class_multiply_and_acc_8xn_s16_u8,
   &_oil_function_class_multiply_and_add_s16,
   &_oil_function_class_multiply_and_add_s16_u8,
   &_oil_function_class_multiply_f32,
@@ -1545,6 +1553,15 @@ extern OilFunctionImpl _oil_function_impl_mult8x8_s16_mmx;
 extern OilFunctionImpl _oil_function_impl_mult8x8_s16_ref;
 extern OilFunctionImpl _oil_function_impl_multiply_and_acc_12xn_s16_u8_mmx;
 extern OilFunctionImpl _oil_function_impl_multiply_and_acc_12xn_s16_u8_ref;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_16xn_s16_u8_mmx;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_16xn_s16_u8_ref;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_24xn_s16_u8_mmx;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_24xn_s16_u8_ref;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_6xn_s16_u8_c;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_6xn_s16_u8_mmx;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_6xn_s16_u8_ref;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_8xn_s16_u8_mmx;
+extern OilFunctionImpl _oil_function_impl_multiply_and_acc_8xn_s16_u8_ref;
 extern OilFunctionImpl _oil_function_impl_multiply_and_add_s16_mmx;
 extern OilFunctionImpl _oil_function_impl_multiply_and_add_s16_ref;
 extern OilFunctionImpl _oil_function_impl_multiply_and_add_s16_u8_mmx;
@@ -2607,6 +2624,15 @@ OilFunctionImpl *_oil_function_impl_array[] = {
   &_oil_function_impl_mult8x8_s16_ref,
   &_oil_function_impl_multiply_and_acc_12xn_s16_u8_mmx,
   &_oil_function_impl_multiply_and_acc_12xn_s16_u8_ref,
+  &_oil_function_impl_multiply_and_acc_16xn_s16_u8_mmx,
+  &_oil_function_impl_multiply_and_acc_16xn_s16_u8_ref,
+  &_oil_function_impl_multiply_and_acc_24xn_s16_u8_mmx,
+  &_oil_function_impl_multiply_and_acc_24xn_s16_u8_ref,
+  &_oil_function_impl_multiply_and_acc_6xn_s16_u8_c,
+  &_oil_function_impl_multiply_and_acc_6xn_s16_u8_mmx,
+  &_oil_function_impl_multiply_and_acc_6xn_s16_u8_ref,
+  &_oil_function_impl_multiply_and_acc_8xn_s16_u8_mmx,
+  &_oil_function_impl_multiply_and_acc_8xn_s16_u8_ref,
   &_oil_function_impl_multiply_and_add_s16_mmx,
   &_oil_function_impl_multiply_and_add_s16_ref,
   &_oil_function_impl_multiply_and_add_s16_u8_mmx,

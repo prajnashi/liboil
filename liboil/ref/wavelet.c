@@ -72,8 +72,16 @@ OIL_DEFINE_CLASS (multiply_and_add_s16,
     "int16_t *d, int16_t *src1, int16_t *src2, int16_t *src3, int n");
 OIL_DEFINE_CLASS (multiply_and_add_s16_u8,
     "int16_t *d, int16_t *src1, int16_t *src2, uint8_t *src3, int n");
+OIL_DEFINE_CLASS (multiply_and_acc_6xn_s16_u8, "int16_t *i1_6xn, int is1, "
+    "int16_t *s1_6xn, int ss1, uint8_t *s2_6xn, int ss2, int n");
+OIL_DEFINE_CLASS (multiply_and_acc_8xn_s16_u8, "int16_t *i1_8xn, int is1, "
+    "int16_t *s1_8xn, int ss1, uint8_t *s2_8xn, int ss2, int n");
 OIL_DEFINE_CLASS (multiply_and_acc_12xn_s16_u8, "int16_t *i1_12xn, int is1, "
     "int16_t *s1_12xn, int ss1, uint8_t *s2_12xn, int ss2, int n");
+OIL_DEFINE_CLASS (multiply_and_acc_16xn_s16_u8, "int16_t *i1_16xn, int is1, "
+    "int16_t *s1_16xn, int ss1, uint8_t *s2_16xn, int ss2, int n");
+OIL_DEFINE_CLASS (multiply_and_acc_24xn_s16_u8, "int16_t *i1_24xn, int is1, "
+    "int16_t *s1_24xn, int ss1, uint8_t *s2_24xn, int ss2, int n");
 
 void
 deinterleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -537,6 +545,40 @@ multiply_and_add_s16_u8_ref (int16_t *d, int16_t *src1, int16_t *src2,
 OIL_DEFINE_IMPL_REF (multiply_and_add_s16_u8_ref, multiply_and_add_s16_u8);
 
 void
+multiply_and_acc_6xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  int i, j;
+  for(j=0;j<n;j++){
+    for(i=0;i<6;i++){
+      i1[i] += s1[i]*s2[i];
+    }
+    i1 = OIL_OFFSET(i1,is1);
+    s1 = OIL_OFFSET(s1,ss1);
+    s2 = OIL_OFFSET(s2,ss2);
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_and_acc_6xn_s16_u8_ref,
+    multiply_and_acc_6xn_s16_u8);
+
+void
+multiply_and_acc_8xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  int i, j;
+  for(j=0;j<n;j++){
+    for(i=0;i<8;i++){
+      i1[i] += s1[i]*s2[i];
+    }
+    i1 = OIL_OFFSET(i1,is1);
+    s1 = OIL_OFFSET(s1,ss1);
+    s2 = OIL_OFFSET(s2,ss2);
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_and_acc_8xn_s16_u8_ref,
+    multiply_and_acc_8xn_s16_u8);
+
+void
 multiply_and_acc_12xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
     int ss1, uint8_t *s2, int ss2, int n)
 {
@@ -552,4 +594,38 @@ multiply_and_acc_12xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
 }
 OIL_DEFINE_IMPL_REF (multiply_and_acc_12xn_s16_u8_ref,
     multiply_and_acc_12xn_s16_u8);
+
+void
+multiply_and_acc_16xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  int i, j;
+  for(j=0;j<n;j++){
+    for(i=0;i<16;i++){
+      i1[i] += s1[i]*s2[i];
+    }
+    i1 = OIL_OFFSET(i1,is1);
+    s1 = OIL_OFFSET(s1,ss1);
+    s2 = OIL_OFFSET(s2,ss2);
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_and_acc_16xn_s16_u8_ref,
+    multiply_and_acc_16xn_s16_u8);
+
+void
+multiply_and_acc_24xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  int i, j;
+  for(j=0;j<n;j++){
+    for(i=0;i<24;i++){
+      i1[i] += s1[i]*s2[i];
+    }
+    i1 = OIL_OFFSET(i1,is1);
+    s1 = OIL_OFFSET(s1,ss1);
+    s2 = OIL_OFFSET(s2,ss2);
+  }
+}
+OIL_DEFINE_IMPL_REF (multiply_and_acc_24xn_s16_u8_ref,
+    multiply_and_acc_24xn_s16_u8);
 

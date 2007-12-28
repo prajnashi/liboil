@@ -819,6 +819,18 @@ typedef void (*_oil_type_mult8x8_s16)(int16_t * d_8x8, const int16_t * s1_8x8, c
 extern OilFunctionClass *oil_function_class_ptr_multiply_and_acc_12xn_s16_u8;
 typedef void (*_oil_type_multiply_and_acc_12xn_s16_u8)(int16_t * i1_12xn, int is1, const int16_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, int n);
 #define oil_multiply_and_acc_12xn_s16_u8 ((_oil_type_multiply_and_acc_12xn_s16_u8)(*(void **)oil_function_class_ptr_multiply_and_acc_12xn_s16_u8))
+extern OilFunctionClass *oil_function_class_ptr_multiply_and_acc_16xn_s16_u8;
+typedef void (*_oil_type_multiply_and_acc_16xn_s16_u8)(int16_t * i1_16xn, int is1, const int16_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, int n);
+#define oil_multiply_and_acc_16xn_s16_u8 ((_oil_type_multiply_and_acc_16xn_s16_u8)(*(void **)oil_function_class_ptr_multiply_and_acc_16xn_s16_u8))
+extern OilFunctionClass *oil_function_class_ptr_multiply_and_acc_24xn_s16_u8;
+typedef void (*_oil_type_multiply_and_acc_24xn_s16_u8)(int16_t * i1_24xn, int is1, const int16_t * s1_24xn, int ss1, const uint8_t * s2_24xn, int ss2, int n);
+#define oil_multiply_and_acc_24xn_s16_u8 ((_oil_type_multiply_and_acc_24xn_s16_u8)(*(void **)oil_function_class_ptr_multiply_and_acc_24xn_s16_u8))
+extern OilFunctionClass *oil_function_class_ptr_multiply_and_acc_6xn_s16_u8;
+typedef void (*_oil_type_multiply_and_acc_6xn_s16_u8)(int16_t * i1_6xn, int is1, const int16_t * s1_6xn, int ss1, const uint8_t * s2_6xn, int ss2, int n);
+#define oil_multiply_and_acc_6xn_s16_u8 ((_oil_type_multiply_and_acc_6xn_s16_u8)(*(void **)oil_function_class_ptr_multiply_and_acc_6xn_s16_u8))
+extern OilFunctionClass *oil_function_class_ptr_multiply_and_acc_8xn_s16_u8;
+typedef void (*_oil_type_multiply_and_acc_8xn_s16_u8)(int16_t * i1_8xn, int is1, const int16_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
+#define oil_multiply_and_acc_8xn_s16_u8 ((_oil_type_multiply_and_acc_8xn_s16_u8)(*(void **)oil_function_class_ptr_multiply_and_acc_8xn_s16_u8))
 extern OilFunctionClass *oil_function_class_ptr_multiply_and_add_s16;
 typedef void (*_oil_type_multiply_and_add_s16)(int16_t * d, const int16_t * src1, const int16_t * src2, const int16_t * src3, int n);
 #define oil_multiply_and_add_s16 ((_oil_type_multiply_and_add_s16)(*(void **)oil_function_class_ptr_multiply_and_add_s16))

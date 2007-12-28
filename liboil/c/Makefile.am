@@ -13,7 +13,8 @@ c_sources = \
 	ag_clamp.c \
 	composite.c \
 	copy.c \
-	swab.c
+	swab.c \
+	wavelet.c
 
 lib_c_la_SOURCES = \
         $(c_sources)

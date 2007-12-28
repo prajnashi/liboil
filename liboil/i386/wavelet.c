@@ -1991,3 +1991,162 @@ lshift_s16_mmx_2(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
 OIL_DEFINE_IMPL_FULL (lshift_s16_mmx_2, lshift_s16, OIL_IMPL_FLAG_MMX);
 
 
+void
+multiply_and_acc_6xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  /* FIXME this reads outside the arrays.  Bad. */
+  if (n==0) return;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movd 0(%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pmullw 0(%1), %%mm0\n"
+      "  paddw 0(%0), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   movd 4(%2), %%mm1\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "   pmullw 8(%1), %%mm1\n"
+      "   paddw 8(%0), %%mm1\n"
+      "   movd %%mm1, 8(%0)\n"
+
+      "  addl %4, %0\n"
+      "  addl %5, %1\n"
+      "  addl %6, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (i1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "m" (is1), "m" (ss1), "m" (ss2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_acc_6xn_s16_u8_mmx,
+    multiply_and_acc_6xn_s16_u8, OIL_IMPL_FLAG_MMX);
+
+void
+multiply_and_acc_8xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  if (n==0) return;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movd 0(%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pmullw 0(%1), %%mm0\n"
+      "  paddw 0(%0), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   movd 4(%2), %%mm1\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "   pmullw 8(%1), %%mm1\n"
+      "   paddw 8(%0), %%mm1\n"
+      "   movq %%mm1, 8(%0)\n"
+
+      "  addl %4, %0\n"
+      "  addl %5, %1\n"
+      "  addl %6, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (i1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "m" (is1), "m" (ss1), "m" (ss2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_acc_8xn_s16_u8_mmx,
+    multiply_and_acc_8xn_s16_u8, OIL_IMPL_FLAG_MMX);
+
+void
+multiply_and_acc_16xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  if (n==0) return;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movd 0(%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pmullw 0(%1), %%mm0\n"
+      "  paddw 0(%0), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   movd 4(%2), %%mm1\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "   pmullw 8(%1), %%mm1\n"
+      "   paddw 8(%0), %%mm1\n"
+      "   movq %%mm1, 8(%0)\n"
+      "    movd 8(%2), %%mm2\n"
+      "    punpcklbw %%mm7, %%mm2\n"
+      "    pmullw 16(%1), %%mm2\n"
+      "    paddw 16(%0), %%mm2\n"
+      "    movq %%mm2, 16(%0)\n"
+      "     movd 12(%2), %%mm2\n"
+      "     punpcklbw %%mm7, %%mm2\n"
+      "     pmullw 24(%1), %%mm2\n"
+      "     paddw 24(%0), %%mm2\n"
+      "     movq %%mm2, 24(%0)\n"
+
+      "  addl %4, %0\n"
+      "  addl %5, %1\n"
+      "  addl %6, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (i1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "m" (is1), "m" (ss1), "m" (ss2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_acc_16xn_s16_u8_mmx,
+    multiply_and_acc_16xn_s16_u8, OIL_IMPL_FLAG_MMX);
+
+void
+multiply_and_acc_24xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
+    int ss1, uint8_t *s2, int ss2, int n)
+{
+  if (n==0) return;
+  __asm__ __volatile__ ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "1:\n"
+      "  movd 0(%2), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  pmullw 0(%1), %%mm0\n"
+      "  paddw 0(%0), %%mm0\n"
+      "  movq %%mm0, 0(%0)\n"
+      "   movd 4(%2), %%mm1\n"
+      "   punpcklbw %%mm7, %%mm1\n"
+      "   pmullw 8(%1), %%mm1\n"
+      "   paddw 8(%0), %%mm1\n"
+      "   movq %%mm1, 8(%0)\n"
+      "    movd 8(%2), %%mm2\n"
+      "    punpcklbw %%mm7, %%mm2\n"
+      "    pmullw 16(%1), %%mm2\n"
+      "    paddw 16(%0), %%mm2\n"
+      "    movq %%mm2, 16(%0)\n"
+      "     movd 12(%2), %%mm2\n"
+      "     punpcklbw %%mm7, %%mm2\n"
+      "     pmullw 24(%1), %%mm2\n"
+      "     paddw 24(%0), %%mm2\n"
+      "     movq %%mm2, 24(%0)\n"
+      " movd 16(%2), %%mm2\n"
+      " punpcklbw %%mm7, %%mm2\n"
+      " pmullw 32(%1), %%mm2\n"
+      " paddw 32(%0), %%mm2\n"
+      " movq %%mm2, 32(%0)\n"
+      "  movd 20(%2), %%mm2\n"
+      "  punpcklbw %%mm7, %%mm2\n"
+      "  pmullw 40(%1), %%mm2\n"
+      "  paddw 40(%0), %%mm2\n"
+      "  movq %%mm2, 40(%0)\n"
+
+      "  addl %4, %0\n"
+      "  addl %5, %1\n"
+      "  addl %6, %2\n"
+      "  decl %3\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : "+r" (i1), "+r" (s1), "+r" (s2), "+r" (n)
+      : "m" (is1), "m" (ss1), "m" (ss2)
+      );
+}
+OIL_DEFINE_IMPL_FULL (multiply_and_acc_24xn_s16_u8_mmx,
+    multiply_and_acc_24xn_s16_u8, OIL_IMPL_FLAG_MMX);
+
