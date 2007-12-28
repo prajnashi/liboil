@@ -130,11 +130,13 @@ static void
 oil_cpu_detect_arm(void)
 {
 #ifdef __linux__
-  int arm_implementer, arm_arch;
+  int arm_implementer = 0;
+  int arm_arch;
   char *cpuinfo;
   char *s;
 
   cpuinfo = get_proc_cpuinfo();
+  if (cpuinfo == NULL) return;
 
   s = get_cpuinfo_line(cpuinfo, "CPU implementer");
   if (s) {
