@@ -285,6 +285,15 @@ typedef void (*_oil_type_colorspace_argb)(uint32_t * d, const uint32_t * s, cons
 extern OilFunctionClass *oil_function_class_ptr_colsad8x8_u8;
 typedef void (*_oil_type_colsad8x8_u8)(uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 #define oil_colsad8x8_u8 ((_oil_type_colsad8x8_u8)(*(void **)oil_function_class_ptr_colsad8x8_u8))
+extern OilFunctionClass *oil_function_class_ptr_combine4_12xn_u8;
+typedef void (*_oil_type_combine4_12xn_u8)(uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const uint8_t * s3_12xn, int ss3, const uint8_t * s4_12xn, int ss4, const int16_t * s5_6, int n);
+#define oil_combine4_12xn_u8 ((_oil_type_combine4_12xn_u8)(*(void **)oil_function_class_ptr_combine4_12xn_u8))
+extern OilFunctionClass *oil_function_class_ptr_combine4_16xn_u8;
+typedef void (*_oil_type_combine4_16xn_u8)(uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const uint8_t * s3_16xn, int ss3, const uint8_t * s4_16xn, int ss4, const int16_t * s5_6, int n);
+#define oil_combine4_16xn_u8 ((_oil_type_combine4_16xn_u8)(*(void **)oil_function_class_ptr_combine4_16xn_u8))
+extern OilFunctionClass *oil_function_class_ptr_combine4_8xn_u8;
+typedef void (*_oil_type_combine4_8xn_u8)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const uint8_t * s3_8xn, int ss3, const uint8_t * s4_8xn, int ss4, const int16_t * s5_6, int n);
+#define oil_combine4_8xn_u8 ((_oil_type_combine4_8xn_u8)(*(void **)oil_function_class_ptr_combine4_8xn_u8))
 extern OilFunctionClass *oil_function_class_ptr_compare_u8;
 typedef void (*_oil_type_compare_u8)(uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n);
 #define oil_compare_u8 ((_oil_type_compare_u8)(*(void **)oil_function_class_ptr_compare_u8))
@@ -765,6 +774,9 @@ typedef void (*_oil_type_mas4_add_s16)(int16_t * d, const int16_t * s1, const in
 extern OilFunctionClass *oil_function_class_ptr_mas8_across_add_s16;
 typedef void (*_oil_type_mas8_across_add_s16)(int16_t * d, const int16_t * s1, const int16_t * s2_nx8, int sstr2, const int16_t * s3_8, const int16_t * s4_2, int n);
 #define oil_mas8_across_add_s16 ((_oil_type_mas8_across_add_s16)(*(void **)oil_function_class_ptr_mas8_across_add_s16))
+extern OilFunctionClass *oil_function_class_ptr_mas8_across_u8;
+typedef void (*_oil_type_mas8_across_u8)(uint8_t * d, const uint8_t * s1_nx8, int sstr1, const int16_t * s2_8, const int16_t * s3_2, int n);
+#define oil_mas8_across_u8 ((_oil_type_mas8_across_u8)(*(void **)oil_function_class_ptr_mas8_across_u8))
 extern OilFunctionClass *oil_function_class_ptr_mas8_add_s16;
 typedef void (*_oil_type_mas8_add_s16)(int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n);
 #define oil_mas8_add_s16 ((_oil_type_mas8_add_s16)(*(void **)oil_function_class_ptr_mas8_add_s16))

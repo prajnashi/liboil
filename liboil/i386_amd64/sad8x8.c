@@ -488,3 +488,136 @@ sad16x16_u8_mmxext (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2,
 }
 OIL_DEFINE_IMPL_FULL (sad16x16_u8_mmxext, sad16x16_u8, OIL_IMPL_FLAG_MMX | OIL_IMPL_FLAG_MMXEXT);
 
+void
+combine4_12xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 8(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      ::"r" (s5_6));
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+#define DO_4(offset) \
+        "  movd " #offset "(%1), %%mm0\n" \
+        "  punpcklbw %%mm7, %%mm0\n" \
+        "  pshufw $0x00, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm0\n" \
+        "  movd " #offset "(%2), %%mm1\n" \
+        "  punpcklbw %%mm7, %%mm1\n" \
+        "  pshufw $0x55, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm1\n" \
+        "  movd " #offset "(%3), %%mm2\n" \
+        "  punpcklbw %%mm7, %%mm2\n" \
+        "  pshufw $0xaa, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm2\n" \
+        "  movd " #offset "(%4), %%mm3\n" \
+        "  punpcklbw %%mm7, %%mm3\n" \
+        "  pshufw $0xff, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm3\n" \
+        "  paddw %%mm1, %%mm0\n" \
+        "  paddw %%mm2, %%mm0\n" \
+        "  paddw %%mm3, %%mm0\n" \
+        "  paddw %%mm4, %%mm0\n" \
+        "  psrlw $4, %%mm0\n" \
+        "  packuswb %%mm0, %%mm0\n" \
+        "  movd %%mm0, " #offset "(%0)\n"
+
+        DO_4(0)
+        DO_4(4)
+        DO_4(8)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2), "r" (s3), "r" (s4));
+
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine4_12xn_u8_mmx, combine4_12xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+combine4_8xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 8(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      ::"r" (s5_6));
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        DO_4(0)
+        DO_4(4)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2), "r" (s3), "r" (s4));
+
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine4_8xn_u8_mmx, combine4_8xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+combine4_16xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 8(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      ::"r" (s5_6));
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        DO_4(0)
+        DO_4(4)
+        DO_4(8)
+        DO_4(12)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2), "r" (s3), "r" (s4));
+
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine4_16xn_u8_mmx, combine4_16xn_u8, OIL_IMPL_FLAG_MMX);
+

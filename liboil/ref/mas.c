@@ -250,6 +250,8 @@ OIL_DEFINE_CLASS_FULL (mas12across_addc_rshift_u8,
 OIL_DEFINE_CLASS_FULL (mas8_addc_rshift_decim2_u8,
     "uint8_t *d, uint8_t *s1_2xnp9, int16_t *s2_8, "
     "int16_t *s3_2, int n", mas8_test);
+OIL_DEFINE_CLASS_FULL (mas8_across_u8, "uint8_t *d, uint8_t *s1_nx8, int sstr1, "
+    "int16_t *s2_8, int16_t *s3_2, int n", mas8_u8_test);
 
 void
 mas2_add_s16_ref(int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3_2,
@@ -420,6 +422,24 @@ mas8_u8_sym_l15_ref (uint8_t *d, const uint8_t *s1_np7,
   mas8_u8_ref (d, s1_np7, s2_8, s3_2, n);
 }
 OIL_DEFINE_IMPL_REF (mas8_u8_sym_l15_ref, mas8_u8_sym_l15);
+
+void
+mas8_across_u8_ref (uint8_t *d, uint8_t *s1_nx8, int sstr1,
+    int16_t *s2_8, int16_t *s3_2, int n)
+{
+  int i;
+  int j;
+  int x;
+  for(i=0;i<n;i++){
+    x = s3_2[0];
+    for(j=0;j<8;j++){
+      x += OIL_GET(s1_nx8, i*sizeof(uint8_t) + j*sstr1, uint8_t)*s2_8[j];
+    }
+    x >>= s3_2[1];
+    d[i] = CLAMP(x,0,255);
+  }
+}
+OIL_DEFINE_IMPL_REF (mas8_across_u8_ref, mas8_across_u8);
 
 static void
 mas12_addc_rshift_decim2_u8_ref (uint8_t *dest, const uint8_t *src,

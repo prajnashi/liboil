@@ -861,6 +861,36 @@ oil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t
   ((void (*)(uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2))(_oil_function_class_colsad8x8_u8.func))(d_1, s1_8x8, ss1, s2_8x8, ss2);
 }
 
+#undef oil_combine4_12xn_u8
+void
+oil_combine4_12xn_u8 (uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const uint8_t * s3_12xn, int ss3, const uint8_t * s4_12xn, int ss4, const int16_t * s5_6, int n)
+{
+  if (_oil_function_class_combine4_12xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_combine4_12xn_u8);
+  }
+  ((void (*)(uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const uint8_t * s3_12xn, int ss3, const uint8_t * s4_12xn, int ss4, const int16_t * s5_6, int n))(_oil_function_class_combine4_12xn_u8.func))(d_12xn, ds1, s1_12xn, ss1, s2_12xn, ss2, s3_12xn, ss3, s4_12xn, ss4, s5_6, n);
+}
+
+#undef oil_combine4_16xn_u8
+void
+oil_combine4_16xn_u8 (uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const uint8_t * s3_16xn, int ss3, const uint8_t * s4_16xn, int ss4, const int16_t * s5_6, int n)
+{
+  if (_oil_function_class_combine4_16xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_combine4_16xn_u8);
+  }
+  ((void (*)(uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const uint8_t * s3_16xn, int ss3, const uint8_t * s4_16xn, int ss4, const int16_t * s5_6, int n))(_oil_function_class_combine4_16xn_u8.func))(d_16xn, ds1, s1_16xn, ss1, s2_16xn, ss2, s3_16xn, ss3, s4_16xn, ss4, s5_6, n);
+}
+
+#undef oil_combine4_8xn_u8
+void
+oil_combine4_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const uint8_t * s3_8xn, int ss3, const uint8_t * s4_8xn, int ss4, const int16_t * s5_6, int n)
+{
+  if (_oil_function_class_combine4_8xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_combine4_8xn_u8);
+  }
+  ((void (*)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const uint8_t * s3_8xn, int ss3, const uint8_t * s4_8xn, int ss4, const int16_t * s5_6, int n))(_oil_function_class_combine4_8xn_u8.func))(d_8xn, ds1, s1_8xn, ss1, s2_8xn, ss2, s3_8xn, ss3, s4_8xn, ss4, s5_6, n);
+}
+
 #undef oil_compare_u8
 void
 oil_compare_u8 (uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n)
@@ -2459,6 +2489,16 @@ oil_mas8_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx8
     oil_class_optimize (&_oil_function_class_mas8_across_add_s16);
   }
   ((void (*)(int16_t * d, const int16_t * s1, const int16_t * s2_nx8, int sstr2, const int16_t * s3_8, const int16_t * s4_2, int n))(_oil_function_class_mas8_across_add_s16.func))(d, s1, s2_nx8, sstr2, s3_8, s4_2, n);
+}
+
+#undef oil_mas8_across_u8
+void
+oil_mas8_across_u8 (uint8_t * d, const uint8_t * s1_nx8, int sstr1, const int16_t * s2_8, const int16_t * s3_2, int n)
+{
+  if (_oil_function_class_mas8_across_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_mas8_across_u8);
+  }
+  ((void (*)(uint8_t * d, const uint8_t * s1_nx8, int sstr1, const int16_t * s2_8, const int16_t * s3_2, int n))(_oil_function_class_mas8_across_u8.func))(d, s1_nx8, sstr1, s2_8, s3_2, n);
 }
 
 #undef oil_mas8_add_s16

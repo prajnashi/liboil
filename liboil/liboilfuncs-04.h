@@ -119,6 +119,9 @@ void oil_clipconv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int ss
 void oil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n);
 void oil_colorspace_argb (uint32_t * d, const uint32_t * s, const int16_t * s2_24, int n);
 void oil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
+void oil_combine4_12xn_u8 (uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const uint8_t * s3_12xn, int ss3, const uint8_t * s4_12xn, int ss4, const int16_t * s5_6, int n);
+void oil_combine4_16xn_u8 (uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const uint8_t * s3_16xn, int ss3, const uint8_t * s4_16xn, int ss4, const int16_t * s5_6, int n);
+void oil_combine4_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const uint8_t * s3_8xn, int ss3, const uint8_t * s4_8xn, int ss4, const int16_t * s5_6, int n);
 void oil_compare_u8 (uint32_t * d_1, const uint8_t * s1, const uint8_t * s2, int n);
 void oil_composite_add_argb (uint32_t * i_n, const uint32_t * s1_n, int n);
 void oil_composite_add_argb_const_src (uint32_t * i_n, const uint32_t * s1_1, int n);
@@ -279,6 +282,7 @@ void oil_mas2_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np1, 
 void oil_mas4_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx4, int sstr2, const int16_t * s3_4, const int16_t * s4_2, int n);
 void oil_mas4_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np3, const int16_t * s3_4, const int16_t * s4_2, int n);
 void oil_mas8_across_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_nx8, int sstr2, const int16_t * s3_8, const int16_t * s4_2, int n);
+void oil_mas8_across_u8 (uint8_t * d, const uint8_t * s1_nx8, int sstr1, const int16_t * s2_8, const int16_t * s3_2, int n);
 void oil_mas8_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2_np7, const int16_t * s3_8, const int16_t * s4_2, int n);
 void oil_mas8_addc_rshift_decim2_u8 (uint8_t * d, const uint8_t * s1_2xnp9, const int16_t * s2_8, const int16_t * s3_2, int n);
 void oil_mas8_u8 (uint8_t * d, const uint8_t * s1_np7, const int16_t * s2_8, const int16_t * s3_2, int n);

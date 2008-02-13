@@ -39,6 +39,20 @@ lshift_test (OilTest *test)
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
   data[0] = 12;
 }
+ 
+static void
+combine4_test (OilTest *test)
+{
+  int16_t *data;
+
+  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC5);
+  data[0] = 4;
+  data[1] = 4;
+  data[2] = 4;
+  data[3] = 4;
+  data[4] = 8;
+  data[5] = 4;
+}
 
 OIL_DEFINE_CLASS_FULL (deinterleave,
     "int16_t *d_2xn, int16_t *s_2xn, int n", wavelet_test);
@@ -82,6 +96,15 @@ OIL_DEFINE_CLASS (multiply_and_acc_16xn_s16_u8, "int16_t *i1_16xn, int is1, "
     "int16_t *s1_16xn, int ss1, uint8_t *s2_16xn, int ss2, int n");
 OIL_DEFINE_CLASS (multiply_and_acc_24xn_s16_u8, "int16_t *i1_24xn, int is1, "
     "int16_t *s1_24xn, int ss1, uint8_t *s2_24xn, int ss2, int n");
+OIL_DEFINE_CLASS_FULL (combine4_8xn_u8, "uint8_t *d_8xn, int ds1, "
+    "uint8_t *s1_8xn, int ss1, uint8_t *s2_8xn, int ss2, uint8_t *s3_8xn, "
+    "int ss3, uint8_t *s4_8xn, int ss4, int16_t *s5_6, int n", combine4_test);
+OIL_DEFINE_CLASS_FULL (combine4_12xn_u8, "uint8_t *d_12xn, int ds1, "
+    "uint8_t *s1_12xn, int ss1, uint8_t *s2_12xn, int ss2, uint8_t *s3_12xn, "
+    "int ss3, uint8_t *s4_12xn, int ss4, int16_t *s5_6, int n", combine4_test);
+OIL_DEFINE_CLASS_FULL (combine4_16xn_u8, "uint8_t *d_16xn, int ds1, "
+    "uint8_t *s1_16xn, int ss1, uint8_t *s2_16xn, int ss2, uint8_t *s3_16xn, "
+    "int ss3, uint8_t *s4_16xn, int ss4, int16_t *s5_6, int n", combine4_test);
 
 void
 deinterleave_ref (int16_t *d_2xn, int16_t *s_2xn, int n)
@@ -628,4 +651,88 @@ multiply_and_acc_24xn_s16_u8_ref (int16_t *i1, int is1, int16_t *s1,
 }
 OIL_DEFINE_IMPL_REF (multiply_and_acc_24xn_s16_u8_ref,
     multiply_and_acc_24xn_s16_u8);
+
+void
+combine4_8xn_u8_ref (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int i;
+  int j;
+  for(j=0;j<n;j++){
+    for(i=0;i<8;i++){
+      int x = 0;
+      x += s5_6[0] * s1[i];
+      x += s5_6[1] * s2[i];
+      x += s5_6[2] * s3[i];
+      x += s5_6[3] * s4[i];
+      d[i] = (x + s5_6[4]) >> s5_6[5];
+    }
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+}
+OIL_DEFINE_IMPL_REF (combine4_8xn_u8_ref, combine4_8xn_u8);
+
+void
+combine4_12xn_u8_ref (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int i;
+  int j;
+  for(j=0;j<n;j++){
+    for(i=0;i<12;i++){
+      int x = 0;
+      x += s5_6[0] * s1[i];
+      x += s5_6[1] * s2[i];
+      x += s5_6[2] * s3[i];
+      x += s5_6[3] * s4[i];
+      d[i] = (x + s5_6[4]) >> s5_6[5];
+    }
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+}
+OIL_DEFINE_IMPL_REF (combine4_12xn_u8_ref, combine4_12xn_u8);
+
+void
+combine4_16xn_u8_ref (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    uint8_t *s3, int ss3,
+    uint8_t *s4, int ss4,
+    int16_t *s5_6, int n)
+{
+  int i;
+  int j;
+  for(j=0;j<n;j++){
+    for(i=0;i<16;i++){
+      int x = 0;
+      x += s5_6[0] * s1[i];
+      x += s5_6[1] * s2[i];
+      x += s5_6[2] * s3[i];
+      x += s5_6[3] * s4[i];
+      d[i] = (x + s5_6[4]) >> s5_6[5];
+    }
+    s1 += ss1;
+    s2 += ss2;
+    s3 += ss3;
+    s4 += ss4;
+    d += ds1;
+  }
+}
+OIL_DEFINE_IMPL_REF (combine4_16xn_u8_ref, combine4_16xn_u8);
 

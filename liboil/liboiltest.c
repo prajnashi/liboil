@@ -39,6 +39,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define MAX_PARAMS 20
+
 /**
  * SECTION:liboiltest
  * @title:OilTest
@@ -222,7 +224,7 @@ oil_test_check_function (void * priv)
   OilTest *test = priv;
   int i;
   int j;
-  unsigned long args[10];
+  unsigned long args[MAX_PARAMS];
   unsigned int pointer_mask;
 
   oil_test_init (test);
@@ -287,7 +289,7 @@ oil_test_check_ref (OilTest *test)
 {
   int i;
 
-  if (test->proto->n_params > 10) {
+  if (test->proto->n_params > MAX_PARAMS) {
     OIL_ERROR ("function class %s has too many parameters",
         test->klass->name);
     return;
@@ -344,7 +346,7 @@ oil_test_check_impl (OilTest *test, OilFunctionImpl *impl)
   int fail = 0;
   int ret;
 
-  if (test->proto->n_params > 10) {
+  if (test->proto->n_params > MAX_PARAMS) {
     OIL_ERROR ("function has too many parameters");
     return 0;
   }
