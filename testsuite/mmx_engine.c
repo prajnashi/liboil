@@ -123,7 +123,19 @@ void mmx_engine_test(void)
         "  " #insn " %%mm0, %%mm1\n" \
         "  " #insn " %%mm1, %%mm2\n" \
         "  " #insn " %%mm2, %%mm3\n" \
-        "  " #insn " %%mm3, %%mm0\n" \
+        "  " #insn " %%mm3, %%mm4\n" \
+        "  " #insn " %%mm4, %%mm5\n" \
+        "  " #insn " %%mm5, %%mm6\n" \
+        "  " #insn " %%mm6, %%mm7\n" \
+        "  " #insn " %%mm7, %%mm0\n" \
+        "  " #insn " %%mm0, %%mm1\n" \
+        "  " #insn " %%mm1, %%mm2\n" \
+        "  " #insn " %%mm2, %%mm3\n" \
+        "  " #insn " %%mm3, %%mm4\n" \
+        "  " #insn " %%mm4, %%mm5\n" \
+        "  " #insn " %%mm5, %%mm6\n" \
+        "  " #insn " %%mm6, %%mm7\n" \
+        "  " #insn " %%mm7, %%mm0\n" \
         "  decl %%ecx\n" \
         "  jne 1b\n" \
         "  emms\n" \
@@ -132,7 +144,7 @@ void mmx_engine_test(void)
   } \
   oil_profile_get_ave_std(&prof, &ave, &std); \
   ave -= OFFSET; \
-  sci_sprint_alt(s,ave/4000,std/4000); \
+  sci_sprint_alt(s,ave/16000,std/16000); \
   printf("latency of " #insn ": %s\n", s);
 
   CHECK_LATENCY(packssdw)
@@ -190,22 +202,22 @@ void mmx_engine_test(void)
         "  mov $1000, %%ecx\n" \
         ".p2align 4,,15\n" \
         "1:\n" \
-        "  " #insn " %%mm0, %%mm1\n" \
-        "  " #insn " %%mm0, %%mm2\n" \
-        "  " #insn " %%mm0, %%mm3\n" \
-        "  " #insn " %%mm0, %%mm4\n" \
-        "  " #insn " %%mm0, %%mm1\n" \
-        "  " #insn " %%mm0, %%mm2\n" \
-        "  " #insn " %%mm0, %%mm3\n" \
-        "  " #insn " %%mm0, %%mm4\n" \
-        "  " #insn " %%mm0, %%mm1\n" \
-        "  " #insn " %%mm0, %%mm2\n" \
-        "  " #insn " %%mm0, %%mm3\n" \
-        "  " #insn " %%mm0, %%mm4\n" \
-        "  " #insn " %%mm0, %%mm1\n" \
-        "  " #insn " %%mm0, %%mm2\n" \
-        "  " #insn " %%mm0, %%mm3\n" \
-        "  " #insn " %%mm0, %%mm4\n" \
+        "  " #insn " %%mm0, %%mm0\n" \
+        "  " #insn " %%mm1, %%mm1\n" \
+        "  " #insn " %%mm2, %%mm2\n" \
+        "  " #insn " %%mm3, %%mm3\n" \
+        "  " #insn " %%mm4, %%mm4\n" \
+        "  " #insn " %%mm5, %%mm5\n" \
+        "  " #insn " %%mm6, %%mm6\n" \
+        "  " #insn " %%mm7, %%mm7\n" \
+        "  " #insn " %%mm0, %%mm0\n" \
+        "  " #insn " %%mm1, %%mm1\n" \
+        "  " #insn " %%mm2, %%mm2\n" \
+        "  " #insn " %%mm3, %%mm3\n" \
+        "  " #insn " %%mm4, %%mm4\n" \
+        "  " #insn " %%mm5, %%mm5\n" \
+        "  " #insn " %%mm6, %%mm6\n" \
+        "  " #insn " %%mm7, %%mm7\n" \
         "  decl %%ecx\n" \
         "  jne 1b\n" \
         "  emms\n" \
@@ -289,7 +301,19 @@ void sse2_engine_test(void)
         "  " #insn " %%xmm0, %%xmm1\n" \
         "  " #insn " %%xmm1, %%xmm2\n" \
         "  " #insn " %%xmm2, %%xmm3\n" \
-        "  " #insn " %%xmm3, %%xmm0\n" \
+        "  " #insn " %%xmm3, %%xmm4\n" \
+        "  " #insn " %%xmm4, %%xmm5\n" \
+        "  " #insn " %%xmm5, %%xmm6\n" \
+        "  " #insn " %%xmm6, %%xmm7\n" \
+        "  " #insn " %%xmm7, %%xmm0\n" \
+        "  " #insn " %%xmm0, %%xmm1\n" \
+        "  " #insn " %%xmm1, %%xmm2\n" \
+        "  " #insn " %%xmm2, %%xmm3\n" \
+        "  " #insn " %%xmm3, %%xmm4\n" \
+        "  " #insn " %%xmm4, %%xmm5\n" \
+        "  " #insn " %%xmm5, %%xmm6\n" \
+        "  " #insn " %%xmm6, %%xmm7\n" \
+        "  " #insn " %%xmm7, %%xmm0\n" \
         "  decl %%ecx\n" \
         "  jne 1b\n" \
         :::"ecx"); \
@@ -297,7 +321,7 @@ void sse2_engine_test(void)
   } \
   oil_profile_get_ave_std(&prof, &ave, &std); \
   ave -= OFFSET; \
-  sci_sprint_alt(s,ave/4000,std/4000); \
+  sci_sprint_alt(s,ave/16000,std/16000); \
   printf("latency of " #insn ": %s\n", s);
 
   CHECK_LATENCY(packssdw)
@@ -357,20 +381,22 @@ void sse2_engine_test(void)
         "  mov $1000, %%ecx\n" \
         ".p2align 4,,15\n" \
         "1:\n" \
-        "  " #insn " %%xmm0, %%xmm1\n" \
-        "  " #insn " %%xmm0, %%xmm2\n" \
-        "  " #insn " %%xmm0, %%xmm3\n" \
-        "  " #insn " %%xmm0, %%xmm4\n" \
-        "  " #insn " %%xmm0, %%xmm5\n" \
-        "  " #insn " %%xmm0, %%xmm6\n" \
-        "  " #insn " %%xmm0, %%xmm7\n" \
-        "  " #insn " %%xmm0, %%xmm1\n" \
-        "  " #insn " %%xmm0, %%xmm2\n" \
-        "  " #insn " %%xmm0, %%xmm3\n" \
-        "  " #insn " %%xmm0, %%xmm4\n" \
-        "  " #insn " %%xmm0, %%xmm5\n" \
-        "  " #insn " %%xmm0, %%xmm6\n" \
-        "  " #insn " %%xmm0, %%xmm7\n" \
+        "  " #insn " %%xmm0, %%xmm0\n" \
+        "  " #insn " %%xmm1, %%xmm1\n" \
+        "  " #insn " %%xmm2, %%xmm2\n" \
+        "  " #insn " %%xmm3, %%xmm3\n" \
+        "  " #insn " %%xmm4, %%xmm4\n" \
+        "  " #insn " %%xmm5, %%xmm5\n" \
+        "  " #insn " %%xmm6, %%xmm6\n" \
+        "  " #insn " %%xmm7, %%xmm7\n" \
+        "  " #insn " %%xmm0, %%xmm0\n" \
+        "  " #insn " %%xmm1, %%xmm1\n" \
+        "  " #insn " %%xmm2, %%xmm2\n" \
+        "  " #insn " %%xmm3, %%xmm3\n" \
+        "  " #insn " %%xmm4, %%xmm4\n" \
+        "  " #insn " %%xmm5, %%xmm5\n" \
+        "  " #insn " %%xmm6, %%xmm6\n" \
+        "  " #insn " %%xmm7, %%xmm7\n" \
         "  decl %%ecx\n" \
         "  jne 1b\n" \
         :::"ecx"); \
@@ -378,7 +404,7 @@ void sse2_engine_test(void)
   } \
   oil_profile_get_ave_std(&prof, &ave, &std); \
   ave -= OFFSET; \
-  sci_sprint_alt(s,ave/14000,std/14000); \
+  sci_sprint_alt(s,ave/16000,std/16000); \
   printf("throughput of " #insn ": %s\n", s);
 
   CHECK_THROUGHPUT(packssdw)
