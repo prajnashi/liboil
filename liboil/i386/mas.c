@@ -509,6 +509,7 @@ mas8_u8_sym_mmx_3 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
       "  movq 0(%[s2_8]), %%mm3\n"
       "  movq 8(%[s2_8]), %%mm4\n"
 
+      " .p2align 4,,15                  \n"
       "1:\n"
       /* load 128 */
       "  pshufw $0x00, %%mm6, %%mm2\n"
@@ -518,9 +519,10 @@ mas8_u8_sym_mmx_3 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
       "  movd 7(%[s1_np7]), %%mm1\n"
       "  punpcklbw %%mm7, %%mm1\n"
       "  paddw %%mm1, %%mm0\n"
-      "  pshufw $0x00, %%mm3, %%mm1\n"
-      "  pmullw %%mm1, %%mm0\n"
-      "  paddw %%mm0, %%mm2\n"
+      //"  pshufw $0x00, %%mm3, %%mm1\n"
+      //"  pmullw %%mm1, %%mm0\n"
+      //"  paddw %%mm0, %%mm2\n"
+      "  psubw %%mm0, %%mm2\n"
 
       "  movd 1(%[s1_np7]), %%mm0\n"
       "  punpcklbw %%mm7, %%mm0\n"
@@ -567,11 +569,112 @@ mas8_u8_sym_mmx_3 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
 }
 OIL_DEFINE_IMPL_FULL (mas8_u8_sym_mmx_3, mas8_u8_sym_l15, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
+void
+mas8_u8_sym_mmx_41 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
+        const int16_t *s3_2, int n)
+{
+  int j;
+  int x;
+  int16_t tmp[16];
+
+  while(n&3) {
+    x = 0;
+    for(j=0;j<8;j++){
+      x += s1_np7[j] * s2_8[j];
+    }
+    *d = CLAMP((x + s3_2[0])>>s3_2[1],0,255);
+    d++;
+    s1_np7++;
+    n--;
+  }
+
+  if (n == 0) return;
+  n>>=2;
+  __asm__ __volatile__("\n"
+      "  pxor %%mm7, %%mm7\n"
+
+      "  movd (%[s3_2]), %%mm6\n"
+
+      "  movzwl 2(%[s3_2]), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+
+      "  movq 0(%[s2_8]), %%mm3\n"
+      "  pshufw $0x55*0, %%mm3, %%mm1\n"
+      "  movq %%mm1, 0(%[coeff])\n"
+      "  pshufw $0x55*1, %%mm3, %%mm1\n"
+      "  movq %%mm1, 8(%[coeff])\n"
+      "  pshufw $0x55*2, %%mm3, %%mm1\n"
+      "  movq %%mm1, 16(%[coeff])\n"
+      "  pshufw $0x55*3, %%mm3, %%mm1\n"
+      "  movq %%mm1, 24(%[coeff])\n"
+      :
+      : [s2_8] "r" (s2_8),
+        [s3_2] "r" (s3_2),
+        [coeff] "r" (tmp)
+      : "ecx");
+
+  __asm__ __volatile__("\n"
+      " .p2align 4,,15                  \n"
+      "1:\n"
+      /* load 128 */
+      "  pshufw $0x00, %%mm6, %%mm2\n"
+
+      "  movd 0(%[s1_np7]), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  movd 7(%[s1_np7]), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pmullw 0(%[coeff]), %%mm0\n"
+      "  paddw %%mm0, %%mm2\n"
+
+      "  movd 1(%[s1_np7]), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  movd 6(%[s1_np7]), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pmullw 8(%[coeff]), %%mm0\n"
+      "  paddw %%mm0, %%mm2\n"
+
+      "  movd 2(%[s1_np7]), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  movd 5(%[s1_np7]), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pmullw 16(%[coeff]), %%mm0\n"
+      "  paddw %%mm0, %%mm2\n"
+
+      "  movd 3(%[s1_np7]), %%mm0\n"
+      "  punpcklbw %%mm7, %%mm0\n"
+      "  movd 4(%[s1_np7]), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  paddw %%mm1, %%mm0\n"
+      "  pmullw 24(%[coeff]), %%mm0\n"
+      "  paddw %%mm0, %%mm2\n"
+
+      "  psraw %%mm5, %%mm2\n"
+      "  pmaxsw %%mm7, %%mm2\n"
+      "  packuswb %%mm2, %%mm2\n"
+      "  movd %%mm2, 0(%[d])\n"
+      "  addl $4, %[d]\n"
+      "  addl $4, %[s1_np7]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+      "  emms\n"
+      : [d] "+r" (d),
+        [s1_np7] "+r" (s1_np7),
+        [n] "+m" (n)
+      : [s2_8] "r" (s2_8),
+        [coeff] "r" (tmp)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (mas8_u8_sym_mmx_41, mas8_u8_sym_l15, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
+
+
 #define PSHUFW_3210 "0xe4"
 #define PSHUFW_0123 "0x1b"
 
 void
-mas8_u8_sym_mmx_4 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
+mas8_u8_sym_mmx_5 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
         const int16_t *s3_2, int n)
 {
   if (n==0) return;
@@ -585,26 +688,33 @@ mas8_u8_sym_mmx_4 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
       "  movzwl 2(%[s3_2]), %%ecx\n"
       "  movd %%ecx, %%mm5\n"
 
-      "  testl $1, %[n]\n"
+      "  cmpl $0, %[n]\n"
       "  jz 2f\n"
 
+      "1:\n"
       "  movd 0(%[s1_np7]), %%mm0\n"
       "  punpcklbw %%mm7, %%mm0\n"
+#if 1
       "  movd 4(%[s1_np7]), %%mm1\n"
       "  punpcklbw %%mm7, %%mm1\n"
-      "  pshufw $" PSHUFW_0123 ", %%mm1, %%mm1\n"
+      "  pshufw $0x1b, %%mm1, %%mm1\n" // 00 01 10 11
       "  paddw %%mm1, %%mm0\n"
       "  pmaddwd 0(%[s2_8]), %%mm0\n"
+#else
+      "  pmaddwd 0(%[s2_8]), %%mm0\n"
 
-      "  movq %%mm0, %%mm1\n"
-      "  punpckhdq %%mm2, %%mm0\n"
-      "  punpckldq %%mm2, %%mm1\n"
+      "  movd 4(%[s1_np7]), %%mm1\n"
+      "  punpcklbw %%mm7, %%mm1\n"
+      "  pmaddwd 8(%[s2_8]), %%mm1\n"
+      "  paddd %%mm1, %%mm0\n"
+#endif
+      
+      "  pshufw $0xee, %%mm0, %%mm1\n" // 11 10 11 10
       "  paddd %%mm1, %%mm0\n"
       "  paddd %%mm6, %%mm0\n"
 
       "  psrad %%mm5, %%mm0\n"
       "  pmaxsw %%mm7, %%mm0\n"
-      "  pshufw $0xd8, %%mm0, %%mm0\n" // 11 01 10 00
       "  packuswb %%mm0, %%mm0\n"
       "  movd %%mm0, %%ecx\n"
       "  movb %%cl,0(%[d])\n"
@@ -612,44 +722,9 @@ mas8_u8_sym_mmx_4 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
       "  addl $1, %[d]\n"
       "  addl $1, %[s1_np7]\n"
       "  decl %[n]\n"
+      "  jnz 1b\n"
 
       "2:\n"
-      "  shrl $1, %[n]\n"
-
-      "1:\n"
-      "  movd 0(%[s1_np7]), %%mm0\n"
-      "  punpcklbw %%mm7, %%mm0\n"
-      "  movd 4(%[s1_np7]), %%mm1\n"
-      "  punpcklbw %%mm7, %%mm1\n"
-      "  pshufw $" PSHUFW_0123 ", %%mm1, %%mm1\n"
-      "  paddw %%mm1, %%mm0\n"
-      "  pmaddwd 0(%[s2_8]), %%mm0\n"
-
-      "  movd 1(%[s1_np7]), %%mm2\n"
-      "  punpcklbw %%mm7, %%mm2\n"
-      "  movd 5(%[s1_np7]), %%mm3\n"
-      "  punpcklbw %%mm7, %%mm3\n"
-      "  pshufw $" PSHUFW_0123 ", %%mm3, %%mm3\n"
-      "  paddw %%mm3, %%mm2\n"
-      "  pmaddwd 0(%[s2_8]), %%mm2\n"
-
-      "  movq %%mm0, %%mm1\n"
-      "  punpckhdq %%mm2, %%mm0\n"
-      "  punpckldq %%mm2, %%mm1\n"
-      "  paddd %%mm1, %%mm0\n"
-      "  paddd %%mm6, %%mm0\n"
-
-      "  psrad %%mm5, %%mm0\n"
-      "  pmaxsw %%mm7, %%mm0\n"
-      "  pshufw $0xd8, %%mm0, %%mm0\n" // 11 01 10 00
-      "  packuswb %%mm0, %%mm0\n"
-      "  movd %%mm0, %%ecx\n"
-      "  movw %%cx,0(%[d])\n"
-
-      "  addl $2, %[d]\n"
-      "  addl $2, %[s1_np7]\n"
-      "  decl %[n]\n"
-      "  jnz 1b\n"
       "  emms\n"
       : [d] "+r" (d),
         [s1_np7] "+r" (s1_np7),
@@ -658,7 +733,71 @@ mas8_u8_sym_mmx_4 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
         [s3_2] "r" (s3_2)
       : "ecx");
 }
-OIL_DEFINE_IMPL_FULL (mas8_u8_sym_mmx_4, mas8_u8_sym_l15, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
+OIL_DEFINE_IMPL_FULL (mas8_u8_sym_mmx_5, mas8_u8_sym_l15, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
+
+void
+mas8_u8_sym_mmx_6 (uint8_t *d, const uint8_t *s1_np7, const int16_t *s2_8,
+        const int16_t *s3_2, int n)
+{
+  int8_t coeff[8];
+  int8_t *ack;
+  int i;
+
+  for(i=0;i<8;i++){
+    //coeff[i] = s2_8[i];
+    coeff[i] = i;
+  }
+  ack = coeff;
+
+  if (n==0) return;
+  __asm__ __volatile__("\n"
+      "  pxor %%mm7, %%mm7\n"
+
+      "  movzwl 0(%[s3_2]), %%ecx\n"
+      "  movd %%ecx, %%mm6\n"
+      "  pshufw $0x44, %%mm6, %%mm6\n" // 01 00 01 00
+
+      "  movzwl 2(%[s3_2]), %%ecx\n"
+      "  movd %%ecx, %%mm5\n"
+
+      "  movq 0(%[s2_8]), %%mm4\n"
+      "  packsswb 8(%[s2_8]), %%mm4\n"
+
+      "1:\n"
+      "  movq 0(%[s1_np7]), %%mm0\n"
+      "  pmaddubsw %%mm4, %%mm0\n"
+
+#if 1
+      "  pshufw $0xee, %%mm0, %%mm1\n" // 11 10 11 10
+      "  paddw %%mm1, %%mm0\n"
+      "  pshufw $0x55, %%mm0, %%mm1\n" // 01 01 01 01
+      "  paddw %%mm1, %%mm0\n"
+#else
+      "  phaddw %%mm0, %%mm0\n"
+      "  phaddw %%mm0, %%mm0\n"
+#endif
+
+      "  paddw %%mm6, %%mm0\n"
+      "  psraw %%mm5, %%mm0\n"
+      "  pmaxsw %%mm7, %%mm0\n"
+      "  packuswb %%mm0, %%mm0\n"
+      "  movd %%mm0, %%ecx\n"
+      "  movb %%cl,0(%[d])\n"
+
+      "  addl $1, %[d]\n"
+      "  addl $1, %[s1_np7]\n"
+      "  decl %[n]\n"
+      "  jnz 1b\n"
+
+      "  emms\n"
+      : [d] "+r" (d),
+        [s1_np7] "+r" (s1_np7),
+        [n] "+m" (n)
+      : [s2_8] "r" (s2_8),
+        [s3_2] "r" (s3_2)
+      : "ecx");
+}
+OIL_DEFINE_IMPL_FULL (mas8_u8_sym_mmx_6, mas8_u8_sym_l15, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 #ifdef ENABLE_BROKEN_IMPLS
 /* This only works for the taps array: -1, 3, -7, 21, 21, -7, 3, -1 */

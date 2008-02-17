@@ -621,3 +621,123 @@ combine4_16xn_u8_mmx (uint8_t *d, int ds1,
 }
 OIL_DEFINE_IMPL_FULL (combine4_16xn_u8_mmx, combine4_16xn_u8, OIL_IMPL_FLAG_MMX);
 
+void
+combine2_12xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    int16_t *s3_4, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 4(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      "  movzwl 6(%0), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      ::"r" (s3_4)
+      :"ecx");
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+#define COMBINE2_4(offset) \
+        "  movd " #offset "(%1), %%mm0\n" \
+        "  punpcklbw %%mm7, %%mm0\n" \
+        "  pshufw $0x00, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm0\n" \
+        "  movd " #offset "(%2), %%mm1\n" \
+        "  punpcklbw %%mm7, %%mm1\n" \
+        "  pshufw $0x55, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm1\n" \
+        "  paddw %%mm1, %%mm0\n" \
+        "  paddw %%mm4, %%mm0\n" \
+        "  psrlw %%mm3, %%mm0\n" \
+        "  packuswb %%mm0, %%mm0\n" \
+        "  movd %%mm0, " #offset "(%0)\n"
+
+        COMBINE2_4(0)
+        COMBINE2_4(4)
+        COMBINE2_4(8)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine2_12xn_u8_mmx, combine2_12xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+combine2_8xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    int16_t *s3_4, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 4(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      "  movzwl 6(%0), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      ::"r" (s3_4)
+      :"ecx");
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        COMBINE2_4(0)
+        COMBINE2_4(4)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine2_8xn_u8_mmx, combine2_8xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+combine2_16xn_u8_mmx (uint8_t *d, int ds1,
+    uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2,
+    int16_t *s3_4, int n)
+{
+  int j;
+
+  asm volatile ("\n"
+      "  pxor %%mm7, %%mm7\n"
+      "  movq 0(%0), %%mm6\n"
+      "  movd 4(%0), %%mm4\n"
+      "  pshufw $0x00, %%mm4, %%mm4\n"
+      "  movzwl 6(%0), %%ecx\n"
+      "  movd %%ecx, %%mm3\n"
+      ::"r" (s3_4)
+      :"ecx");
+
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        COMBINE2_4(0)
+        COMBINE2_4(4)
+        COMBINE2_4(8)
+        COMBINE2_4(12)
+
+        :
+        : "r" (d), "r" (s1), "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (combine2_16xn_u8_mmx, combine2_16xn_u8, OIL_IMPL_FLAG_MMX);
+
