@@ -18,18 +18,27 @@ mas_test (OilTest *test)
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
   for(i=0;i<test->n;i++){
-    data[i] = oil_rand_s16();
+    data[i] = oil_rand_s16() >> 4;
   }
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC3);
   n = oil_test_get_arg_post_n (test, OIL_ARG_SRC3);
-  for(i=0;i<n;i++){
-    data[i] = (oil_rand_s16()>>4)/n;
-  }
+  if (n == 2) {
+    data[0] = 1;
+    data[1] = 1;
 
-  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
-  data[0] = (1<<11);
-  data[1] = 12;
+    data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
+    data[0] = 1;
+    data[1] = 1;
+  } else {
+    for(i=0;i<n;i++){
+      data[i] = (oil_rand_s16()>>4)/n;
+    }
+
+    data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC4);
+    data[0] = (1<<11);
+    data[1] = 12;
+  }
 }
 
 static void
@@ -163,6 +172,15 @@ mas8_u8_test (OilTest *test)
   static const int taps[] = { -1, 3, -7, 21, 21, -7, 3, -1 };
   int16_t *data;
   int i;
+#if 0
+  int n;
+
+  data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC1);
+  n = oil_test_get_arg_post_n (test, OIL_ARG_SRC1);
+  for(i=0;i<n;i++){
+    data[i] = 100*((i%8)==4);
+  }
+#endif
 
   data = (int16_t *)oil_test_get_source_data (test, OIL_ARG_SRC2);
   for(i=0;i<8;i++){
