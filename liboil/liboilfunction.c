@@ -395,6 +395,8 @@ oil_class_optimize (OilFunctionClass * klass)
       }
     } else {
       OIL_WARNING("disabling implementation %s", impl->name);
+      impl->profile_ave = test->profile_ave;
+      impl->profile_std = test->profile_std;
       impl->flags |= OIL_IMPL_FLAG_DISABLED;
     }
   }
