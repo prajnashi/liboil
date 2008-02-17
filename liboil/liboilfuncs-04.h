@@ -41,6 +41,8 @@ void oil_abs_f64_f64 (double * dest, int dstr, const double * src, int sstr, int
 void oil_abs_u16_s16 (uint16_t * dest, int dstr, const int16_t * src, int sstr, int n);
 void oil_abs_u32_s32 (uint32_t * dest, int dstr, const int32_t * src, int sstr, int n);
 void oil_abs_u8_s8 (uint8_t * dest, int dstr, const int8_t * src, int sstr, int n);
+void oil_add2_rshift_add_s16 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, const int16_t * s4_2, int n);
+void oil_add2_rshift_sub_s16 (int16_t * d, const int16_t * s1, const int16_t * s2, const int16_t * s3, const int16_t * s4_2, int n);
 void oil_add_const_rshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_2, int n);
 void oil_add_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_add_f64 (double * d, const double * s1, const double * s2, int n);
@@ -119,6 +121,9 @@ void oil_clipconv_u8_u16 (uint8_t * dest, int dstr, const uint16_t * src, int ss
 void oil_clipconv_u8_u32 (uint8_t * dest, int dstr, const uint32_t * src, int sstr, int n);
 void oil_colorspace_argb (uint32_t * d, const uint32_t * s, const int16_t * s2_24, int n);
 void oil_colsad8x8_u8 (uint32_t * d_1, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
+void oil_combine2_12xn_u8 (uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const int16_t * s3_4, int n);
+void oil_combine2_16xn_u8 (uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const int16_t * s3_4, int n);
+void oil_combine2_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const int16_t * s3_4, int n);
 void oil_combine4_12xn_u8 (uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, const uint8_t * s3_12xn, int ss3, const uint8_t * s4_12xn, int ss4, const int16_t * s5_6, int n);
 void oil_combine4_16xn_u8 (uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, const uint8_t * s3_16xn, int ss3, const uint8_t * s4_16xn, int ss4, const int16_t * s5_6, int n);
 void oil_combine4_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, const uint8_t * s3_8xn, int ss3, const uint8_t * s4_8xn, int ss4, const int16_t * s5_6, int n);
