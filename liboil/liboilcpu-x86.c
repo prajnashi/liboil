@@ -107,6 +107,19 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
       OIL_DEBUG ("cpu flag %s", *f);
       oil_cpu_flags |= OIL_IMPL_FLAG_3DNOWEXT;
     }
+    if (strcmp (*f, "sse3") == 0) {
+      OIL_DEBUG ("cpu flag %s", *f);
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE3;
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
+    }
+    if (strcmp (*f, "ssse3") == 0) {
+      OIL_DEBUG ("cpu flag %s", *f);
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSSE3;
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE3;
+      oil_cpu_flags |= OIL_IMPL_FLAG_SSE2;
+      oil_cpu_flags |= OIL_IMPL_FLAG_MMXEXT;
+    }
 
     free (*f);
   }

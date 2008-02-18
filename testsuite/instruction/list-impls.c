@@ -69,6 +69,8 @@ main (int argc, char *argv[])
       if (flags & OIL_IMPL_FLAG_MMXEXT) printf(" mmxext");
       if (flags & OIL_IMPL_FLAG_SSE) printf(" sse");
       if (flags & OIL_IMPL_FLAG_SSE2) printf(" sse2");
+      if (flags & OIL_IMPL_FLAG_SSE3) printf(" sse3");
+      if (flags & OIL_IMPL_FLAG_SSSE3) printf(" ssse3");
       if (flags & OIL_IMPL_FLAG_ALTIVEC) printf(" altivec");
       printf("\n");
     }

@@ -83,6 +83,9 @@ OIL_BEGIN_DECLS
  * @OIL_IMPL_FLAG_SSE3: uses SSE3 instructions.  This flag implies
  * @OIL_IMPL_FLAG_SSE2.
  *
+ * @OIL_IMPL_FLAG_SSSE3: uses SSSE3 instructions.  This flag implies
+ * @OIL_IMPL_FLAG_SSE3.
+ *
  * @OIL_IMPL_FLAG_ALTIVEC: uses Altivec instructions.
  *
  */
@@ -102,7 +105,8 @@ typedef enum {
   OIL_IMPL_FLAG_ALTIVEC = (1<<24),
   OIL_IMPL_FLAG_EDSP = (1<<25),
   OIL_IMPL_FLAG_ARM6 = (1<<26),
-  OIL_IMPL_FLAG_VFP = (1<<27)
+  OIL_IMPL_FLAG_VFP = (1<<27),
+  OIL_IMPL_FLAG_SSSE3 = (1<<28)
 } OilImplFlag;
 
 #ifdef OIL_ENABLE_UNSTABLE_API

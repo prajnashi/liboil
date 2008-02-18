@@ -48,6 +48,12 @@ sub get_flags
 		}elsif (grep { /^$opcode$/ } @sse2_list) {
 			$exts->{"sse2"} = 1;
 			$debug && print "  $opcode: sse2\n";
+		}elsif (grep { /^$opcode$/ } @sse3_list) {
+			$exts->{"sse3"} = 1;
+			$debug && print "  $opcode: sse3\n";
+		}elsif (grep { /^$opcode$/ } @ssse3_list) {
+			$exts->{"ssse3"} = 1;
+			$debug && print "  $opcode: ssse3\n";
 		}else {
 			print "FIXME:\t\"$opcode\",\n";
 			$error = 1;
@@ -511,6 +517,39 @@ sub check
 	"pause",
 	"lfence",
 	"mfence",
+);
+
+@sse3_list = (
+	"addsubpd",
+	"addsubps",
+	"haddpd",
+	"haddps",
+	"hsubpd",
+	"hsubps",
+	"lddqu",
+	"movddup",
+	"movshdup",
+	"movsldup",
+	"fisttp"
+);
+
+@ssse3_list = (
+	"psignb",
+	"psignw",
+	"psignd",
+	"pabsb",
+	"pabsw",
+	"pabsd",
+	"palignr",
+	"pshufb",
+	"pmulhrsw",
+	"pmaddubsw",
+	"phsubw",
+	"phsubd",
+	"phsubsw",
+	"phaddw",
+	"phaddd",
+	"phaddsw"
 );
 
 #@clflush_list = (
