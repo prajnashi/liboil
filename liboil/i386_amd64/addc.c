@@ -41,7 +41,7 @@ addc_s16_mmx (int16_t *d, int16_t *s, int16_t *s2, int n)
         : [val] "r" (val));
   }
 }
-OIL_DEFINE_IMPL_FULL (addc_s16_mmx, addc_s16, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (addc_s16_mmx, addc_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 void
 addc_s16_mmx2 (int16_t *d, int16_t *s, int16_t *s2, int n)
@@ -81,7 +81,7 @@ addc_s16_mmx2 (int16_t *d, int16_t *s, int16_t *s2, int n)
         : [val] "r" (val));
   }
 }
-OIL_DEFINE_IMPL_FULL (addc_s16_mmx2, addc_s16, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (addc_s16_mmx2, addc_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 
 void
 addc_s16_sse (int16_t *d, int16_t *s, int16_t *s2, int n)
@@ -115,7 +115,7 @@ addc_s16_sse (int16_t *d, int16_t *s, int16_t *s2, int n)
         : [val] "r" (val));
   }
 }
-OIL_DEFINE_IMPL_FULL (addc_s16_sse, addc_s16, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (addc_s16_sse, addc_s16, OIL_IMPL_FLAG_SSE|OIL_IMPL_FLAG_SSE2|OIL_IMPL_FLAG_MMXEXT);
 
 void
 addc_rshift_s16_mmx (int16_t *d, int16_t *s, int16_t *s2, int n)
@@ -163,5 +163,5 @@ addc_rshift_s16_mmx (int16_t *d, int16_t *s, int16_t *s2, int n)
         : [val] "r" (val), [shift] "r" (shift));
   }
 }
-OIL_DEFINE_IMPL_FULL (addc_rshift_s16_mmx, addc_rshift_s16, OIL_IMPL_FLAG_MMX);
+OIL_DEFINE_IMPL_FULL (addc_rshift_s16_mmx, addc_rshift_s16, OIL_IMPL_FLAG_MMX|OIL_IMPL_FLAG_MMXEXT);
 

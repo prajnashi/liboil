@@ -2721,7 +2721,7 @@ add2_rshift_add_s16_sse (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3,
       :
       );
 }
-OIL_DEFINE_IMPL_FULL (add2_rshift_add_s16_sse, add2_rshift_add_s16, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (add2_rshift_add_s16_sse, add2_rshift_add_s16, OIL_IMPL_FLAG_MMXEXT|OIL_IMPL_FLAG_SSE|OIL_IMPL_FLAG_SSE2);
 
 void
 add2_rshift_sub_s16_sse (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3,
@@ -2774,5 +2774,5 @@ add2_rshift_sub_s16_sse (int16_t *d1, int16_t *s1, int16_t *s2, int16_t *s3,
       :
       );
 }
-OIL_DEFINE_IMPL_FULL (add2_rshift_sub_s16_sse, add2_rshift_sub_s16, OIL_IMPL_FLAG_SSE);
+OIL_DEFINE_IMPL_FULL (add2_rshift_sub_s16_sse, add2_rshift_sub_s16, OIL_IMPL_FLAG_MMXEXT|OIL_IMPL_FLAG_SSE|OIL_IMPL_FLAG_SSE2);
 
