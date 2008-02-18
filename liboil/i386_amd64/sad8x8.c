@@ -741,3 +741,86 @@ combine2_16xn_u8_mmx (uint8_t *d, int ds1,
 }
 OIL_DEFINE_IMPL_FULL (combine2_16xn_u8_mmx, combine2_16xn_u8, OIL_IMPL_FLAG_MMX);
 
+#define AVG2_4(offset) \
+        "  movd " #offset "(%1), %%mm0\n" \
+        "  punpcklbw %%mm7, %%mm0\n" \
+        "  pshufw $0x00, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm0\n" \
+        "  movd " #offset "(%2), %%mm1\n" \
+        "  punpcklbw %%mm7, %%mm1\n" \
+        "  pshufw $0x55, %%mm6, %%mm5\n" \
+        "  pmullw %%mm5, %%mm1\n" \
+        "  paddw %%mm1, %%mm0\n" \
+        "  paddw %%mm4, %%mm0\n" \
+        "  psrlw %%mm3, %%mm0\n" \
+        "  packuswb %%mm0, %%mm0\n" \
+        "  movd %%mm0, " #offset "(%0)\n"
+void
+avg2_8xn_u8_mmx (uint8_t *d, int ds1, uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2, int n)
+{
+  int j;
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        "  movq 0(%[s1]), %%mm0\n"
+        "  pavgb 0(%[s2]), %%mm0\n"
+        "  movq %%mm0, 0(%[d])\n"
+        :
+        : [d] "r" (d), [s1] "r" (s1), [s2] "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (avg2_8xn_u8_mmx, avg2_8xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+avg2_12xn_u8_mmx (uint8_t *d, int ds1, uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2, int n)
+{
+  int j;
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        "  movq 0(%[s1]), %%mm0\n"
+        "  pavgb 0(%[s2]), %%mm0\n"
+        "  movq %%mm0, 0(%[d])\n"
+        "  movq 4(%[s1]), %%mm0\n"
+        "  pavgb 4(%[s2]), %%mm0\n"
+        "  movq %%mm0, 4(%[d])\n"
+        :
+        : [d] "r" (d), [s1] "r" (s1), [s2] "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (avg2_12xn_u8_mmx, avg2_12xn_u8, OIL_IMPL_FLAG_MMX);
+
+void
+avg2_16xn_u8_mmx (uint8_t *d, int ds1, uint8_t *s1, int ss1,
+    uint8_t *s2, int ss2, int n)
+{
+  int j;
+  for(j=0;j<n;j++){
+    asm volatile ("\n"
+        "  movq 0(%[s1]), %%mm0\n"
+        "  pavgb 0(%[s2]), %%mm0\n"
+        "  movq %%mm0, 0(%[d])\n"
+        "  movq 8(%[s1]), %%mm0\n"
+        "  pavgb 8(%[s2]), %%mm0\n"
+        "  movq %%mm0, 8(%[d])\n"
+        :
+        : [d] "r" (d), [s1] "r" (s1), [s2] "r" (s2));
+
+    s1 += ss1;
+    s2 += ss2;
+    d += ds1;
+  }
+  asm volatile ("emms");
+}
+OIL_DEFINE_IMPL_FULL (avg2_16xn_u8_mmx, avg2_16xn_u8, OIL_IMPL_FLAG_MMX);
+

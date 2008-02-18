@@ -191,6 +191,36 @@ oil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uin
   ((void (*)(uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n))(_oil_function_class_average2_u8.func))(d, dstr, s1, sstr1, s2, sstr2, n);
 }
 
+#undef oil_avg2_12xn_u8
+void
+oil_avg2_12xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n)
+{
+  if (_oil_function_class_avg2_12xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_avg2_12xn_u8);
+  }
+  ((void (*)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n))(_oil_function_class_avg2_12xn_u8.func))(d_8xn, ds1, s1_8xn, ss1, s2_8xn, ss2, n);
+}
+
+#undef oil_avg2_16xn_u8
+void
+oil_avg2_16xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n)
+{
+  if (_oil_function_class_avg2_16xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_avg2_16xn_u8);
+  }
+  ((void (*)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n))(_oil_function_class_avg2_16xn_u8.func))(d_8xn, ds1, s1_8xn, ss1, s2_8xn, ss2, n);
+}
+
+#undef oil_avg2_8xn_u8
+void
+oil_avg2_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n)
+{
+  if (_oil_function_class_avg2_8xn_u8.func == NULL) {
+    oil_class_optimize (&_oil_function_class_avg2_8xn_u8);
+  }
+  ((void (*)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n))(_oil_function_class_avg2_8xn_u8.func))(d_8xn, ds1, s1_8xn, ss1, s2_8xn, ss2, n);
+}
+
 #undef oil_ayuv2argb_u8
 void
 oil_ayuv2argb_u8 (uint8_t * d_4xn, const uint8_t * s_4xn, int n)

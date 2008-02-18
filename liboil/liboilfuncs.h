@@ -84,6 +84,15 @@ typedef void (*_oil_type_argb_paint_u8)(uint8_t * i_4xn, const uint8_t * s1_4, c
 extern OilFunctionClass *oil_function_class_ptr_average2_u8;
 typedef void (*_oil_type_average2_u8)(uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n);
 #define oil_average2_u8 ((_oil_type_average2_u8)(*(void **)oil_function_class_ptr_average2_u8))
+extern OilFunctionClass *oil_function_class_ptr_avg2_12xn_u8;
+typedef void (*_oil_type_avg2_12xn_u8)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
+#define oil_avg2_12xn_u8 ((_oil_type_avg2_12xn_u8)(*(void **)oil_function_class_ptr_avg2_12xn_u8))
+extern OilFunctionClass *oil_function_class_ptr_avg2_16xn_u8;
+typedef void (*_oil_type_avg2_16xn_u8)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
+#define oil_avg2_16xn_u8 ((_oil_type_avg2_16xn_u8)(*(void **)oil_function_class_ptr_avg2_16xn_u8))
+extern OilFunctionClass *oil_function_class_ptr_avg2_8xn_u8;
+typedef void (*_oil_type_avg2_8xn_u8)(uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
+#define oil_avg2_8xn_u8 ((_oil_type_avg2_8xn_u8)(*(void **)oil_function_class_ptr_avg2_8xn_u8))
 extern OilFunctionClass *oil_function_class_ptr_ayuv2argb_u8;
 typedef void (*_oil_type_ayuv2argb_u8)(uint8_t * d_4xn, const uint8_t * s_4xn, int n);
 #define oil_ayuv2argb_u8 ((_oil_type_ayuv2argb_u8)(*(void **)oil_function_class_ptr_ayuv2argb_u8))
