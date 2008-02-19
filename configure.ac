@@ -137,6 +137,7 @@ AC_CHECK_HEADERS([inttypes.h])
 
 AC_CHECK_FUNCS([gettimeofday])
 AC_CHECK_FUNCS([sigaction])
+AC_CHECK_FUNCS([sigsetjmp])
 
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
