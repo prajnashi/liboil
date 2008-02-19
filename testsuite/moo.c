@@ -32,6 +32,7 @@
 int main (int argc, char *argv[])
 {
   oil_init ();
+  oil_init ();
 
   return 0;
 }
