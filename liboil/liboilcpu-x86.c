@@ -44,7 +44,7 @@
 #include <sys/time.h>
 #include <time.h>
 
-#if defined(__FreeBSD__)
+#if defined(__FreeBSD__) || defined(__APPLE__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #endif
@@ -294,7 +294,7 @@ oil_cpu_detect_getisax (void)
 static void
 oil_cpu_detect_kernel_support (void)
 {
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__APPLE__)
   int ret, enabled;
   size_t len;
 
