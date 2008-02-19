@@ -16,6 +16,9 @@ AC_DEFUN([AS_GCC_INLINE_ASSEMBLY],
   AC_MSG_CHECKING([if compiler supports gcc-style inline assembly])
 
   AC_TRY_COMPILE([], [
+#ifndef __GNUC__
+#error Not GCC
+#endif
 #ifdef __GNUC_MINOR__
 #if (__GNUC__ * 1000 + __GNUC_MINOR__) < 3004
 #error GCC before 3.4 has critical bugs compiling inline assembly
