@@ -230,13 +230,7 @@ liboilarray.c: liboiltmp1.la Makefile
 	echo >>liboilarray.c.tmp
 	cmp liboilarray.c.tmp liboilarray.c || mv liboilarray.c.tmp liboilarray.c
 
-liboilfuncs.h:
-	./build_prototypes$(EXEEXT) >liboilfuncs.h
-
-liboilmarshal.c:
-	./build_marshal$(EXEEXT) >liboilmarshal.c
-
-liboilfuncs-doc.h:
+liboilfuncs-doc.h: build_prototypes_doc$(EXEEXT)
 	./build_prototypes_doc$(EXEEXT) >liboilfuncs-doc.h
 
 update: build_prototypes$(EXEEXT) build_marshal$(EXEEXT) build_prototypes_doc$(EXEEXT) build_class_decls$(EXEEXT) build_trampolines$(EXTEXT) build_prototypes_04$(EXTEXT)
