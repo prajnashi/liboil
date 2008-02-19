@@ -672,6 +672,9 @@ typedef void (*_oil_type_diff8x8_const128_s16_u8)(int16_t * d_8x8, const uint8_t
 extern OilFunctionClass *oil_function_class_ptr_diff8x8_s16_u8;
 typedef void (*_oil_type_diff8x8_s16_u8)(int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
 #define oil_diff8x8_s16_u8 ((_oil_type_diff8x8_s16_u8)(*(void **)oil_function_class_ptr_diff8x8_s16_u8))
+extern OilFunctionClass *oil_function_class_ptr_diffsquaresum_f32;
+typedef void (*_oil_type_diffsquaresum_f32)(float * d_1, const float * src1, int sstr1, const float * src2, int sstr2, int n);
+#define oil_diffsquaresum_f32 ((_oil_type_diffsquaresum_f32)(*(void **)oil_function_class_ptr_diffsquaresum_f32))
 extern OilFunctionClass *oil_function_class_ptr_diffsquaresum_f64;
 typedef void (*_oil_type_diffsquaresum_f64)(double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n);
 #define oil_diffsquaresum_f64 ((_oil_type_diffsquaresum_f64)(*(void **)oil_function_class_ptr_diffsquaresum_f64))
@@ -1140,6 +1143,9 @@ typedef void (*_oil_type_split_approx97)(int16_t * d_2xn, const int16_t * s_2xn,
 extern OilFunctionClass *oil_function_class_ptr_split_daub97;
 typedef void (*_oil_type_split_daub97)(int16_t * d_2xn, const int16_t * s_2xn, int n);
 #define oil_split_daub97 ((_oil_type_split_daub97)(*(void **)oil_function_class_ptr_split_daub97))
+extern OilFunctionClass *oil_function_class_ptr_squaresum_f32;
+typedef void (*_oil_type_squaresum_f32)(float * d, const float * s, int n);
+#define oil_squaresum_f32 ((_oil_type_squaresum_f32)(*(void **)oil_function_class_ptr_squaresum_f32))
 extern OilFunctionClass *oil_function_class_ptr_squaresum_f64;
 typedef void (*_oil_type_squaresum_f64)(double * d, const double * s, int n);
 #define oil_squaresum_f64 ((_oil_type_squaresum_f64)(*(void **)oil_function_class_ptr_squaresum_f64))

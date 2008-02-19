@@ -248,6 +248,7 @@ void oil_dequantize8x8_s16 (int16_t * d_8x8, int dstr, const int16_t * s1_8x8, i
 void oil_diff8x8_average_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2, const uint8_t * s3_8x8, int ss3);
 void oil_diff8x8_const128_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1);
 void oil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2);
+void oil_diffsquaresum_f32 (float * d_1, const float * src1, int sstr1, const float * src2, int sstr2, int n);
 void oil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n);
 void oil_divide_f32 (float * d, const float * s1, const float * s2, int n);
 void oil_divide_f64 (double * d, const double * s1, const double * s2, int n);
@@ -404,6 +405,7 @@ void oil_split_135 (int16_t * d_2xn, const int16_t * s_2xn, int n);
 void oil_split_53 (int16_t * d_2xn, const int16_t * s_2xn, int n);
 void oil_split_approx97 (int16_t * d_2xn, const int16_t * s_2xn, int n);
 void oil_split_daub97 (int16_t * d_2xn, const int16_t * s_2xn, int n);
+void oil_squaresum_f32 (float * d, const float * s, int n);
 void oil_squaresum_f64 (double * d, const double * s, int n);
 void oil_squaresum_shifted_s16 (uint32_t * d, const int16_t * s, int n);
 void oil_subtract_f32 (float * d, const float * s1, const float * s2, int n);

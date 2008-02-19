@@ -2151,6 +2151,16 @@ oil_diff8x8_s16_u8 (int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint
   ((void (*)(int16_t * d_8x8, const uint8_t * s1_8x8, int ss1, const uint8_t * s2_8x8, int ss2))(_oil_function_class_diff8x8_s16_u8.func))(d_8x8, s1_8x8, ss1, s2_8x8, ss2);
 }
 
+#undef oil_diffsquaresum_f32
+void
+oil_diffsquaresum_f32 (float * d_1, const float * src1, int sstr1, const float * src2, int sstr2, int n)
+{
+  if (_oil_function_class_diffsquaresum_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_diffsquaresum_f32);
+  }
+  ((void (*)(float * d_1, const float * src1, int sstr1, const float * src2, int sstr2, int n))(_oil_function_class_diffsquaresum_f32.func))(d_1, src1, sstr1, src2, sstr2, n);
+}
+
 #undef oil_diffsquaresum_f64
 void
 oil_diffsquaresum_f64 (double * d_1, const double * src1, int sstr1, const double * src2, int sstr2, int n)
@@ -3709,6 +3719,16 @@ oil_split_daub97 (int16_t * d_2xn, const int16_t * s_2xn, int n)
     oil_class_optimize (&_oil_function_class_split_daub97);
   }
   ((void (*)(int16_t * d_2xn, const int16_t * s_2xn, int n))(_oil_function_class_split_daub97.func))(d_2xn, s_2xn, n);
+}
+
+#undef oil_squaresum_f32
+void
+oil_squaresum_f32 (float * d, const float * s, int n)
+{
+  if (_oil_function_class_squaresum_f32.func == NULL) {
+    oil_class_optimize (&_oil_function_class_squaresum_f32);
+  }
+  ((void (*)(float * d, const float * s, int n))(_oil_function_class_squaresum_f32.func))(d, s, n);
 }
 
 #undef oil_squaresum_f64

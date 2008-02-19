@@ -18,6 +18,7 @@ c_sources = \
 	copy8x8.c \
 	diff8x8.c \
 	diffsquaresum_f64.c \
+	diffsquaresum_f32.c \
 	error8x8.c \
 	mas.c \
 	math.c \
@@ -34,6 +35,7 @@ c_sources = \
 	sad8x8avg.c \
 	sincos_f64.c \
 	splat.c \
+	squaresum_f32.c \
 	squaresum_f64.c \
 	sum.c \
 	sum_f64.c \
