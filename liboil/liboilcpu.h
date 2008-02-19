@@ -42,8 +42,8 @@ double oil_cpu_get_ticks_per_second (void);
 
 double oil_cpu_get_frequency (void);
 
-extern unsigned long oil_cpu_flags;
-extern unsigned long (*_oil_profile_stamp)(void);
+OIL_EXPORT unsigned long oil_cpu_flags;
+OIL_EXPORT unsigned long (*_oil_profile_stamp)(void);
 
 #endif
 

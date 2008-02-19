@@ -82,6 +82,15 @@ typedef unsigned int oil_bool;
 #define OIL_END_DECLS
 #endif
 
+#ifdef _MSC_VER
+#ifdef OIL_EXPORTS
+#define OIL_EXPORT __declspec(dllexport) extern
+#else
+#define OIL_EXPORT __declspec(dllimport) extern
+#endif
+#else /* not _MSC_VER */
+#define OIL_EXPORT extern
+#endif
 
 OIL_BEGIN_DECLS
 

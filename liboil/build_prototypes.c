@@ -67,7 +67,7 @@ int main (int argc, char *argv[])
           string = xstrdup("void");
         }
 
-        printf ("extern OilFunctionClass *oil_function_class_ptr_%s;\n",
+        printf ("OIL_EXPORT OilFunctionClass *oil_function_class_ptr_%s;\n",
             klass->name);
         printf ("typedef void (*_oil_type_%s)(%s);\n",klass->name,string);
         printf ("#define oil_%s ((_oil_type_%s)(*(void **)oil_function_class_ptr_%s))\n",
