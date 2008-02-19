@@ -40,7 +40,7 @@
 static void
 swab_u16_libc (uint16_t *d, const uint16_t *s, int n)
 {
-  swab (s, d, n*2);
+  swab ((void *)s, (void *)d, n*2);
 }
 OIL_DEFINE_IMPL (swab_u16_libc, swab_u16);
 
