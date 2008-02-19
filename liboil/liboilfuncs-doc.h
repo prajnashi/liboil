@@ -16,8 +16,8 @@ void oil_addc_rshift_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_2
 void oil_addc_s16 (int16_t * d1, const int16_t * s1, const int16_t * s2_1, int n);
 void oil_argb_paint_u8 (uint8_t * i_4xn, const uint8_t * s1_4, const uint8_t * s2_n, int n);
 void oil_average2_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr1, const uint8_t * s2, int sstr2, int n);
-void oil_avg2_12xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
-void oil_avg2_16xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
+void oil_avg2_12xn_u8 (uint8_t * d_12xn, int ds1, const uint8_t * s1_12xn, int ss1, const uint8_t * s2_12xn, int ss2, int n);
+void oil_avg2_16xn_u8 (uint8_t * d_16xn, int ds1, const uint8_t * s1_16xn, int ss1, const uint8_t * s2_16xn, int ss2, int n);
 void oil_avg2_8xn_u8 (uint8_t * d_8xn, int ds1, const uint8_t * s1_8xn, int ss1, const uint8_t * s2_8xn, int ss2, int n);
 void oil_ayuv2argb_u8 (uint8_t * d_4xn, const uint8_t * s_4xn, int n);
 void oil_ayuv2uyvy (uint32_t * d_n, const uint32_t * s_n, int n);
