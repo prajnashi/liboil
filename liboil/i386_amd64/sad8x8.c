@@ -332,9 +332,6 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
   sstr2 = -sstr2;
 
   __asm__ __volatile__ ("\n"
-#ifdef __i386__
-    "  pushl %%ebx\n\t"
-#endif
     "1:\n"
     "  movq (%[src1]), %%mm7             \n\t"
     "  psadbw (%[src2]), %%mm7           \n\t"
@@ -347,15 +344,13 @@ sad8x8_8xn_u8_psadbw (uint32_t * dest, uint8_t * src1, int sstr1, uint8_t * src2
     "   movq (%[src1],%[sstr1],4), %%mm1          \n\t"
     "   psadbw (%[src2],%[sstr2],4), %%mm1      \n\t"
     "   paddw %%mm1, %%mm7           \n\t"
-    "  movd %%mm7, %%ebx\n\t"
-    "  addl %%ebx, 0(%[dest])\n\t"
+    "  movq 0(%[dest]), %%mm1\n\t"
+    "  paddd %%mm7, %%mm1\n\t"
+    "  movq %%mm1, 0(%[dest])\n\t"
     "  sub %[sstr2],%[src2]\n\t"
     "  add $4, %[dest]\n\t"
     "  decl %[n]\n\t"
     "  jnz 1b\n\t"
-#ifdef __i386__
-    "  popl %%ebx\n\t"
-#endif
 
     "  emms                         \n\t"
      : [src1] "+r" (src1), 
