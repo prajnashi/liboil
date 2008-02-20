@@ -33,6 +33,7 @@
 
 #include "sse_wrapper.h"
 
+#ifdef ENABLE_BROKEN_IMPLS
 union m128_int {
   __m128i m128;
   uint32_t i[4];
@@ -63,3 +64,5 @@ sad8x8_u8_sse (uint32_t *dest, uint8_t *src1, int sstr1, uint8_t *src2,
   *dest = sumi.i[0] + sumi.i[2];
 }
 OIL_DEFINE_IMPL_FULL_WRAPPER(sad8x8_u8_sse, sad8x8_u8, OIL_IMPL_FLAG_SSE2);
+#endif
+

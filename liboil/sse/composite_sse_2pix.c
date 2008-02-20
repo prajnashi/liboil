@@ -43,6 +43,8 @@
  * the channel value in the low byte.  This means 2 pixels per pass.
  */
 
+#ifdef ENABLE_BROKEN_IMPLS
+
 union m128_int {
   __m128i m128;
   uint64_t ull[2];
@@ -420,3 +422,5 @@ composite_over_u8_sse_2pix (uint8_t *dest, const uint8_t *src, int n)
 }
 OIL_DEFINE_IMPL_FULL_WRAPPER(composite_over_u8_sse_2pix, composite_over_u8,
     OIL_IMPL_FLAG_SSE2);
+#endif
+
