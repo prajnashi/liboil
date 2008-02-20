@@ -185,11 +185,11 @@ then
 fi
 AM_CONDITIONAL(HAVE_ASM_BLOCKS, test "x$HAVE_ASM_BLOCKS" = "xyes")
 
-if test "x$HAVE_I386" = "xyes"
-then
-  # I'd write a test for this, but as of 4.1.2, gcc is still broken
-  AC_DEFINE(USE_SSE_WRAPPER, 1, [Defined if SSE functions need stack alignment wrappers])
-fi
+#if test "x$HAVE_I386" = "xyes"
+#then
+#  # I'd write a test for this, but as of 4.1.2, gcc is still broken
+#  AC_DEFINE(USE_SSE_WRAPPER, 1, [Defined if SSE functions need stack alignment wrappers])
+#fi
 
 AS_MMX_INTRINSICS(MMX_CFLAGS, HAVE_MMX_INTRINSICS=yes, HAVE_MMX_INTRINSICS=no)
 AS_SSE_INTRINSICS(SSE_CFLAGS, HAVE_SSE_INTRINSICS=yes, HAVE_SSE_INTRINSICS=no)
