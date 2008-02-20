@@ -16,10 +16,11 @@ static void func ## _wrapper (void) \
       "  movdqa %%xmm0, 0x00(%%esp)\n" \
       "  movdqu 0x18(%%ebp), %%xmm0\n" \
       "  movdqa %%xmm0, 0x10(%%esp)\n" \
-      "  call " #func "\n" \
+      "  call *%[f]\n" \
       "  movl %%ebp, %%esp\n" \
-      : : : "xmm0"); \
-  (void)&func; \
+      : \
+      : [f] "r" (func) \
+      : "xmm0"); \
 }
 
 #define OIL_DEFINE_IMPL_FULL_WRAPPER(func,klass,flags) \
