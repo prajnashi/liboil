@@ -29,7 +29,11 @@ multiply_and_acc_6xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
       "  jnz 1b\n"
       "  emms\n"
       : "+r" (i1), "+r" (s1), "+r" (s2), "+m" (n)
+#ifdef __i386__
+      : "m" (is1), "m" (ss1), "m" (ss2)
+#else
       : "r" ((long)is1), "r" ((long)ss1), "r" ((long)ss2)
+#endif
       );
 }
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_6xn_s16_u8_mmx,
@@ -61,7 +65,11 @@ multiply_and_acc_8xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
       "  jnz 1b\n"
       "  emms\n"
       : "+r" (i1), "+r" (s1), "+r" (s2), "+m" (n)
+#ifdef __i386__
+      : "m" (is1), "m" (ss1), "m" (ss2)
+#else
       : "r" ((long)is1), "r" ((long)ss1), "r" ((long)ss2)
+#endif
       );
 }
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_8xn_s16_u8_mmx,
@@ -103,7 +111,11 @@ multiply_and_acc_16xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
       "  jnz 1b\n"
       "  emms\n"
       : "+r" (i1), "+r" (s1), "+r" (s2), "+m" (n)
+#ifdef __i386__
+      : "m" (is1), "m" (ss1), "m" (ss2)
+#else
       : "r" ((long)is1), "r" ((long)ss1), "r" ((long)ss2)
+#endif
       );
 }
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_16xn_s16_u8_mmx,
@@ -155,7 +167,11 @@ multiply_and_acc_24xn_s16_u8_mmx (int16_t *i1, int is1, int16_t *s1,
       "  jnz 1b\n"
       "  emms\n"
       : "+r" (i1), "+r" (s1), "+r" (s2), "+m" (n)
+#ifdef __i386__
+      : "m" (is1), "m" (ss1), "m" (ss2)
+#else
       : "r" ((long)is1), "r" ((long)ss1), "r" ((long)ss2)
+#endif
       );
 }
 OIL_DEFINE_IMPL_FULL (multiply_and_acc_24xn_s16_u8_mmx,
