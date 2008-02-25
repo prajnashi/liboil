@@ -356,7 +356,8 @@ static void splat_u16_ns_mmx (uint16_t *dest, const uint16_t *src, int n)
     "  emms\n"
     : [dest] "+r" (dest),
       [n] "+r" (n)
-    : [src] "r" (src));
+    : [src] "r" (src)
+    : "ecx");
 }
 OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx, splat_u16_ns, OIL_IMPL_FLAG_MMX);
 
@@ -382,7 +383,8 @@ static void splat_u16_ns_mmx_2 (uint16_t *dest, const uint16_t *src, int n)
     "  emms\n"
     : [dest] "+r" (dest),
       [n] "+r" (n)
-    : [src] "r" (src));
+    : [src] "r" (src),
+    : "ecx");
 }
 OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx_2, splat_u16_ns, OIL_IMPL_FLAG_MMX);
 
@@ -410,7 +412,8 @@ static void splat_u16_ns_mmx_3 (uint16_t *dest, const uint16_t *src, int n)
     "  emms\n"
     : [dest] "+r" (dest),
       [n] "+r" (n)
-    : [src] "r" (src));
+    : [src] "r" (src)
+    : "ecx");
 }
 OIL_DEFINE_IMPL_FULL (splat_u16_ns_mmx_3, splat_u16_ns, OIL_IMPL_FLAG_MMX);
 
