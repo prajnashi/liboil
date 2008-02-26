@@ -215,6 +215,12 @@ AC_SUBST(_3DNOW_CFLAGS)
 AC_SUBST(_3DNOWEXT_CFLAGS)
 AC_SUBST(ALTIVEC_CFLAGS)
 
+dnl binutils-2.18 required for this, but is too new for FreeBSD/Solaris
+AS_GCC_INLINE_ASM_INSTRUCTION([pmaddubsw %%mm0, %%mm0], [HAVE_SSSE3_ASM=yes], [HAVE_SSSE3_ASM=no])
+if test "x$HAVE_SSSE3_ASM" = xyes ; then
+  AC_DEFINE(HAVE_SSSE3_ASM, 1, [Defined if compiler/assembler can handle SSSE3 instructions])
+fi
+
 AC_DEFINE(OIL_EXPORTS, 1, [Defined for compiling internal code])
 
 LIBOIL_CFLAGS="$LIBOIL_CFLAGS -D_BSD_SOURCE -D_GNU_SOURCE -I\$(top_srcdir) -DOIL_ENABLE_UNSTABLE_API"
