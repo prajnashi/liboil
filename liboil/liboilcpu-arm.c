@@ -60,10 +60,6 @@
  *
  */
 
-static void oil_cpu_detect_arch(void);
-
-static unsigned long oil_cpu_flags;
-
 extern unsigned long (*_oil_profile_stamp)(void);
 
 #if defined(__arm__)
@@ -124,6 +120,35 @@ oil_cpu_arm_getflags_cpuinfo (char *cpuinfo)
   }
   free (flags);
   free (cpuinfo_flags);
+}
+
+static char *
+get_proc_cpuinfo (void)
+{
+  char *cpuinfo;
+  int fd;
+  int n;
+
+  cpuinfo = malloc(4096);
+  if (cpuinfo == NULL) return NULL;
+
+  fd = open("/proc/cpuinfo", O_RDONLY);
+  if (fd < 0) {
+    free (cpuinfo);
+    return NULL;
+  }
+
+  n = read(fd, cpuinfo, 4095);
+  if (n < 0) {
+    free (cpuinfo);
+    close (fd);
+    return NULL;
+  }
+  cpuinfo[n] = 0;
+
+  close (fd);
+
+  return cpuinfo;
 }
 
 static void
@@ -249,7 +274,7 @@ oil_cpu_detect_mips(void)
 }
 #endif
 
-static void
+void
 oil_cpu_detect_arch(void)
 {
 #if defined(__i386__) || defined(__amd64__)
