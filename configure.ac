@@ -134,6 +134,8 @@ AC_CHECK_HEADER(ieee754.h,
   AC_DEFINE(HAVE_IEEE754_H, 1, [Define if ieee754.h exists]))
 
 AC_CHECK_HEADERS([inttypes.h])
+AC_CHECK_HEADERS([sys/time.h])
+AC_CHECK_HEADERS([unistd.h])
 
 AC_CHECK_FUNCS([gettimeofday])
 AC_CHECK_FUNCS([sigaction])
