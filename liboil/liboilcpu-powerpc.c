@@ -66,16 +66,31 @@ test_altivec (void * ignored)
   asm volatile ("vor v0, v0, v0\n");
 }
 
-#if defined(__FreeBSD__)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 void
-oil_check_altivec_sysctl (void)
+oil_check_altivec_sysctl_freebsd (void)
 {
   int ret, av;
   size_t len;
 
-  len = sizeof(enabled);
+  len = sizeof(av);
   ret = sysctlbyname("hw.altivec", &av, &len, NULL, 0);
   if (!ret && av) {
+    oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
+  }
+}
+#endif
+
+#if defined(__APPLE__)
+void
+oil_check_altivec_sysctl_darwin (void)
+{
+  int ret, vu;
+  size_t len;
+
+  len = sizeof(vu);
+  ret = sysctlbyname("hw.vectorunit", &vu, &len, NULL, 0);
+  if (!ret && vu) {
     oil_cpu_flags |= OIL_IMPL_FLAG_ALTIVEC;
   }
 }
@@ -95,8 +110,10 @@ oil_check_altivec_fault (void)
 void
 oil_cpu_detect_arch(void)
 {
-#if defined(__FreeBSD__)
-  oil_check_altivec_sysctl();
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+  oil_check_altivec_sysctl_freebsd();
+#elif defined(__APPLE__)
+  oil_check_altivec_sysctl_darwin();
 #else
   oil_check_altivec_fault();
 #endif
