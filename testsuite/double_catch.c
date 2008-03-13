@@ -18,7 +18,7 @@ void unknown_insn(void *far)
 #ifdef HAVE_POWERPC
 void unknown_insn(void *far)
 {
-  asm ("illegal");
+  asm (".long 0");
 }
 #define HAVE_ILLEGAL_INSN
 #endif
