@@ -1,52 +1,51 @@
-#include <liboil/liboilfault.h>
-#include <signal.h>
-#include <stdio.h>
-#include <setjmp.h>
-void blip(void *far) {
-	write(2,"hip\n",4);
-	asm("ud2");
-	write(2,"hop\n",4);
-}
 
-jmp_buf buf;
-void handle(int num) {
-	fprintf(stderr,"my catch!\n");
-	longjmp(buf, 1);
-}
-int main(void) {
-#if 0
-	struct sigaction act;
-	int ret;
-
-	memset(&act, 0, sizeof(act));
-	act.sa_handler = &handle;
-	act.sa_flags = SA_NOMASK;
-	sigaction(SIGILL, &act, NULL);
-
-	ret = setjmp(buf);
-	if (!ret) {
-		fprintf(stderr,"soo..\n");
-		blip(NULL);
-	}
-	if (ret)
-		fprintf(stderr,"failed\n");
-
-	ret = setjmp(buf);
-	if (!ret) {
-		fprintf(stderr,"soo..\n");
-		blip(NULL);
-	}
-	if (ret)
-		fprintf(stderr,"failed\n");
-
-#else
-	oil_fault_check_enable();
-	fprintf(stderr,"soo..\n");
-	if (!oil_fault_check_try(blip, NULL))
-		fprintf(stderr,"failed\n");
-	fprintf(stderr,"soo..\n");
-	if (!oil_fault_check_try(blip, NULL))
-		fprintf(stderr,"failed\n");
-	fprintf(stderr,"done..\n");
+#ifdef HAVE_CONFIG_H
+#include "config.h"
 #endif
+
+#include <liboil/liboil.h>
+#include <liboil/liboilfault.h>
+#include <stdio.h>
+
+#ifdef HAVE_I386
+void unknown_insn(void *far)
+{
+  asm ("ud2");
+}
+#define HAVE_ILLEGAL_INSN
+#endif
+
+#ifdef HAVE_POWERPC
+void unknown_insn(void *far)
+{
+  asm ("illegal");
+}
+#define HAVE_ILLEGAL_INSN
+#endif
+
+int main(void)
+{
+  oil_init();
+
+#ifdef HAVE_ILLEGAL_INSN
+  oil_fault_check_enable();
+
+  if (oil_fault_check_try(unknown_insn, NULL)) {
+    printf("didn't catch failure\n");
+    return 1;
+  }
+
+  if (oil_fault_check_try(unknown_insn, NULL)) {
+    printf("didn't catch failure\n");
+    return 1;
+  }
+
+  oil_fault_check_disable();
+
+  printf("OK\n");
+#else
+  printf("No illegal instruction for this architecture, test inconclusive\n");
+#endif
+
+  return 0;
 }
