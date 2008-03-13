@@ -174,12 +174,13 @@ fi
 
 if test x$HAVE_GCC_ASM = xyes -a x$HAVE_ARM = xyes ; then
   AS_COMPILER_FLAG(["-Wa,-mfpu=vfp"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mfpu=vfp"],
+    [VFP_CFLAGS="$VFP_CFLAGS -mfpu=vfp"],
     true)
-  AS_COMPILER_FLAG(["-Wa,-mfloat-abi=softfp"],
-    [LIBOIL_CFLAGS="$LIBOIL_CFLAGS -mfloat-abi=softfp"],
-    true)
+  #AS_COMPILER_FLAG(["-Wa,-mfloat-abi=softfp"],
+  #  [VFP_CFLAGS="$VFP_CFLAGS -mfloat-abi=softfp"],
+  #  true)
 fi
+AC_SUBST(VFP_CFLAGS)
 
 #AS_COMPILER_FLAG(["-fasm-blocks"], HAVE_ASM_BLOCKS=yes, HAVE_ASM_BLOCKS=no)
 HAVE_ASM_BLOCKS=no
