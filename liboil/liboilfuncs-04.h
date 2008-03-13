@@ -369,6 +369,7 @@ void oil_scalarmult_u16 (uint16_t * d, int dstr, const uint16_t * s1, int sstr, 
 void oil_scalarmult_u32 (uint32_t * d, int dstr, const uint32_t * s1, int sstr, const uint32_t * s2_1, int n);
 void oil_scalarmult_u8 (uint8_t * d, int dstr, const uint8_t * s1, int sstr, const uint8_t * s2_1, int n);
 void oil_scalarmultiply_f32_ns (float * d, const float * s1, const float * s2_1, int n);
+void oil_scalarmultiply_f64_ns (double * d, const double * s1, const double * s2_1, int n);
 void oil_scaleconv_f32_s16 (float * dest, const int16_t * src, int n, const double * s2_1, const double * s3_1);
 void oil_scaleconv_f32_s32 (float * dest, const int32_t * src, int n, const double * s2_1, const double * s3_1);
 void oil_scaleconv_f32_s8 (float * dest, const int8_t * src, int n, const double * s2_1, const double * s3_1);

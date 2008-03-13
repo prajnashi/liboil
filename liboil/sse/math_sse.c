@@ -337,3 +337,29 @@ scalarmultiply_f32_ns_sse (float *dest, float *src1, float *val, int n)
   }
 }
 OIL_DEFINE_IMPL_FULL (scalarmultiply_f32_ns_sse, scalarmultiply_f32_ns, OIL_IMPL_FLAG_SSE);
+
+#ifdef ENABLE_BROKEN_IMPLS
+static void
+scalarmultiply_f64_ns_sse2 (double *dest, double *src1, double *val, int n)
+{
+  __m128d xmm1;
+
+  /* Initial operations to align the destination pointer */
+  for (; ((long)dest & 15) && (n > 0); n--) {
+    *dest++ = *src1++ * *val;
+  }
+  xmm1 = _mm_load_pd1(val);
+  for (; n >= 8; n -= 8) {
+    __m128d xmm0;
+    xmm0 = _mm_loadu_pd(src1);
+    xmm0 = _mm_mul_pd(xmm0, xmm1);
+    _mm_store_pd(dest, xmm0);
+    dest += 8;
+    src1 += 8;
+  }
+  for (; n > 0; n--) {
+    *dest++ = *src1++ * *val;
+  }
+}
+OIL_DEFINE_IMPL_FULL (scalarmultiply_f64_ns_sse2, scalarmultiply_f64_ns, OIL_IMPL_FLAG_SSE2);
+#endif
