@@ -28,15 +28,13 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+
 #include <liboil/liboilfunction.h>
 #include <liboil/liboildebug.h>
 #include <liboil/liboilfault.h>
 
-//#include <unistd.h>
-//#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <stdio.h>
 #include <setjmp.h>
 #include <signal.h>
 
@@ -55,20 +53,11 @@ static void
 illegal_instruction_handler (int num)
 {
   if (in_try_block) {
-#ifdef HAVE_SIGSETJMP
-#if 0
-    /* alternate method of siglongjmp() */
     sigset_t set;
     sigemptyset (&set);
     sigaddset (&set, SIGILL);
     sigprocmask (SIG_UNBLOCK, &set, NULL);
     longjmp (jump_env, 1);
-#else
-    siglongjmp (jump_env, 1);
-#endif
-#else
-    longjmp (jump_env, 1);
-#endif
   } else {
     abort ();
   }
@@ -122,11 +111,7 @@ oil_fault_check_try (void (*func) (void *), void *priv)
   int ret;
 
   in_try_block = 1;
-#ifdef HAVE_SIGSETJMP
-  ret = sigsetjmp (jump_env, 1);
-#else
   ret = setjmp (jump_env);
-#endif
   if (!ret) {
     func (priv);
   }
