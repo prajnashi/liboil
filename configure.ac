@@ -121,6 +121,8 @@ fi
 AX_CREATE_STDINT_H([liboil/liboil-stdint.h])
 
 AC_FUNC_MMAP()
+AC_CHECK_LIB(m, rint,
+  AC_DEFINE(HAVE_RINT, 1, [Define if rint() is available]))
 AC_CHECK_LIB(m, rintf,
   AC_DEFINE(HAVE_RINTF, 1, [Define if rintf() is available]))
 AC_CHECK_LIB(m, lrint,
