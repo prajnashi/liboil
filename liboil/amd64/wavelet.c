@@ -1770,6 +1770,7 @@ lshift_s16_mmx(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
     n--;
   }
   n >>= 2;
+  if (n == 0) return;
   __asm__ __volatile__ ("\n"
       "  movzwl 0(%[s3_1]), %%ecx\n"
       "  movd %%ecx, %%mm1\n"
@@ -1800,6 +1801,7 @@ lshift_s16_mmx_2(int16_t *d1, int16_t *s1, int16_t *s3_1, int n)
     n--;
   }
   n >>= 3;
+  if (n == 0) return;
   __asm__ __volatile__ ("\n"
       "  movzwl 0(%[s3_1]), %%ecx\n"
       "  movd %%ecx, %%mm1\n"
