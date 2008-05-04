@@ -53,10 +53,12 @@ static void
 illegal_instruction_handler (int num)
 {
   if (in_try_block) {
+#ifndef HAVE_OS_WIN32
     sigset_t set;
     sigemptyset (&set);
     sigaddset (&set, SIGILL);
     sigprocmask (SIG_UNBLOCK, &set, NULL);
+#endif
     longjmp (jump_env, 1);
   } else {
     abort ();
