@@ -239,7 +239,11 @@ void realign(int align)
 #ifdef HAVE_I386
   __asm__ __volatile__ (
       "  sub %%ebx, %%esp\n"
+#ifdef HAVE_SYMBOL_UNDERSCORE
+      "  call _check_class_with_alignment\n"
+#else
       "  call check_class_with_alignment\n"
+#endif
       "  add %%ebx, %%esp\n"
       :: "b" (align)
   );
@@ -247,7 +251,11 @@ void realign(int align)
 #ifdef HAVE_AMD64
   __asm__ __volatile__ (
       "  sub %%rbx, %%rsp\n"
+#ifdef HAVE_SYMBOL_UNDERSCORE
+      "  call _check_class_with_alignment\n"
+#else
       "  call check_class_with_alignment\n"
+#endif
       "  add %%rbx, %%rsp\n"
       :: "b" (align)
   );
@@ -266,6 +274,7 @@ void check_class_with_alignment (void)
   test = oil_test_new(klass);
 
   oil_test_set_iterations(test, 1);
+  test->n = 100;
 
   impl = klass->reference_impl;
   oil_test_check_impl (test, impl);
