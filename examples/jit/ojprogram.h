@@ -9,6 +9,11 @@ typedef struct _OJVariable {
   char *name;
 } OJVariable;
 
+typedef struct _OJType {
+  char *name;
+  int size;
+} OJType;
+
 typedef struct _OJArgument {
   OJVariable *var;
   int is_indirect;
@@ -41,17 +46,47 @@ typedef struct _OJProgram {
 
 }OJProgram;
 
+typedef struct _OJState {
+  int index;
+
+  int args[4];
+
+}OJState;
+
+typedef void (*OJOpcodeEmulateFunc)(OJState *state, void *user);
+
 typedef struct _OJOpcode {
   char *name;
-  int n_args;
+  int n_src;
+  int n_dest;
+  OJType *arg_types[10];
+
+  OJOpcodeEmulateFunc emulate;
+  void *emulate_user;
 } OJOpcode;
 
 
 OJProgram * oj_program_new (void);
 int oj_opcode_lookup (const char *s, int len);
-void oj_program_parse (OJProgram *p, const char *program);
+
+void oj_program_append (OJProgram *p, const char *opcode, int arg0, int arg1, int arg2);
+
 void oj_program_output_mmx (OJProgram *p);
 void oj_program_free (OJProgram *program);
+
+int oj_program_add_temporary (OJProgram *program, OJType *type);
+int oj_program_add_source (OJProgram *program, const char *type);
+int oj_program_add_destination (OJProgram *program, const char *type);
+int oj_program_add_constant (OJProgram *program, OJType *type, int value);
+int oj_program_add_parameter (OJProgram *program, OJType *type, int value);
+void oj_program_append (OJProgram *program, const char *opcode, int arg0,
+    int arg1, int arg2);
+
+
+
+OJType * oj_type_get (const char *name);
+void oj_type_register (const char *name, int size);
+
 
 #endif
 
