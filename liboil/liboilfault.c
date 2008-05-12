@@ -38,6 +38,9 @@
 #include <setjmp.h>
 #include <signal.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 static jmp_buf jump_env;
 #ifdef HAVE_SIGACTION
@@ -49,21 +52,35 @@ static void * oldhandler;
 static int in_try_block;
 static int enable_level;
 
+#ifdef _WIN32
+static LONG __stdcall
+illegal_instruction_handler (EXCEPTION_POINTERS *e)
+{
+  if (in_try_block) {
+    /* according to the laws of win32, this isn't allowed.
+     * It does, however, work. */
+    longjmp (jump_env, 1);
+  }
+  /* kill the process */
+  return EXCEPTION_EXECUTE_HANDLER;
+}
+#else
 static void
 illegal_instruction_handler (int num)
 {
   if (in_try_block) {
-#ifndef HAVE_OS_WIN32
+//#ifdef HAVE_SIGPROCMASK
     sigset_t set;
     sigemptyset (&set);
     sigaddset (&set, SIGILL);
     sigprocmask (SIG_UNBLOCK, &set, NULL);
-#endif
+//#endif
     longjmp (jump_env, 1);
   } else {
     abort ();
   }
 }
+#endif
 
 /**
  * oil_fault_check_enable:
@@ -78,12 +95,16 @@ void
 oil_fault_check_enable (void)
 {
   if (enable_level == 0) {
+#ifndef _WIN32
 #ifdef HAVE_SIGACTION
     memset (&action, 0, sizeof(action));
     action.sa_handler = &illegal_instruction_handler;
     sigaction (SIGILL, &action, &oldaction);
 #else
     oldhandler = signal (SIGILL, illegal_instruction_handler);
+#endif
+#else
+    oldhandler = SetUnhandledExceptionFilter(illegal_instruction_handler);
 #endif
     in_try_block = 0;
     OIL_INFO("enabling SIGILL handler.  Make sure to continue past "
@@ -133,10 +154,14 @@ oil_fault_check_disable (void)
 {
   enable_level--;
   if (enable_level == 0) {
+#ifndef _WIN32
 #ifdef HAVE_SIGACTION
     sigaction (SIGILL, &oldaction, NULL);
 #else
     signal (SIGILL, oldhandler);
+#endif
+#else
+    SetUnhandledExceptionFilter(oldhandler);
 #endif
     OIL_INFO("disabling SIGILL handler");
   }
