@@ -151,7 +151,8 @@ out:
 }
 #endif
 
-void
+#if !defined(__FreeBSD__) && !defined(__FreeBSD_kernel__) && !defined(__APPLE__) && !defined(__linux__)
+static void
 oil_check_altivec_fault (void)
 {
   oil_fault_check_enable ();
@@ -161,6 +162,7 @@ oil_check_altivec_fault (void)
   }
   oil_fault_check_disable ();
 }
+#endif
 
 void
 oil_cpu_detect_arch(void)
