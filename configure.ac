@@ -152,6 +152,21 @@ AC_CHECK_LIB(rt, clock_gettime,
    )
 AC_SUBST(LIBRT)
 
+AC_CACHE_CHECK(for monotonic clocks,
+    oil_cv_monotonic_clock,AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+#include <time.h>
+#include <unistd.h>
+int main() {
+#if !(defined(_POSIX_MONOTONIC_CLOCK) && _POSIX_MONOTONIC_CLOCK >= 0 && defined(CLOCK_MONOTONIC))
+        #error No monotonic clock
+#endif
+        return 0;
+}
+]])],oil_cv_monotonic_clock=yes,oil_cv_monotonic_clock=no))
+if test "$oil_cv_monotonic_clock" = "yes"; then
+  AC_DEFINE(HAVE_MONOTONIC_CLOCK,1,[Defined if we have a monotonic clock])
+fi
+
 AS_COMPILER_FLAG(-Wall, LIBOIL_CFLAGS="$LIBOIL_CFLAGS -Wall")
 if test "x$LIBOIL_CVS" = "xyes"
 then

@@ -57,6 +57,8 @@
 #include <sys/auxv.h>
 #endif
 
+
+
 /**
  * SECTION:liboilcpu
  * @title: CPU
@@ -80,7 +82,7 @@ oil_profile_stamp_gtod (void)
 }
 #endif
 
-#ifdef HAVE_CLOCK_GETTIME
+#if defined(HAVE_CLOCK_GETTIME) && defined(HAVE_MONOTONIC_CLOCK)
 static unsigned long
 oil_profile_stamp_clock_gettime (void)
 {
@@ -117,7 +119,7 @@ _oil_cpu_init (void)
 
   OIL_INFO ("cpu flags %08lx", oil_cpu_flags);
 
-#ifdef HAVE_CLOCK_GETTIME
+#if defined(HAVE_CLOCK_GETTIME) && defined(HAVE_MONOTONIC_CLOCK)
   if (_oil_profile_stamp == NULL) {
     _oil_profile_stamp = oil_profile_stamp_clock_gettime;
     OIL_INFO("Using clock_gettime() as a timestamp function.");
