@@ -192,7 +192,7 @@ void mmx_engine_test(void)
   CHECK_LATENCY(punpckldq)
   CHECK_LATENCY(punpcklwd)
   CHECK_LATENCY(pxor)
-  CHECK_LATENCY(psadbw)
+  //CHECK_LATENCY(psadbw)
 
 #define CHECK_THROUGHPUT(insn) \
   oil_profile_init (&prof); \
@@ -277,7 +277,7 @@ void mmx_engine_test(void)
   CHECK_THROUGHPUT(punpckldq)
   CHECK_THROUGHPUT(punpcklwd)
   CHECK_THROUGHPUT(pxor)
-  CHECK_THROUGHPUT(psadbw)
+  //CHECK_THROUGHPUT(psadbw)
 
 #undef CHECK_LATENCY
 #undef CHECK_THROUGHPUT
