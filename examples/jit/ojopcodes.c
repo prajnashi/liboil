@@ -52,33 +52,33 @@ oj_opcode_find_by_name (const char *name)
 }
 
 static void
-add_s16 (OJState *state, void *user)
+add_s16 (OJExecutor *ex, void *user)
 {
-  state->args[0] = (int16_t)(state->args[1] + state->args[2]);
+  ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 + ex->args[2]->s16);
 }
 
 static void
-sub_s16 (OJState *state, void *user)
+sub_s16 (OJExecutor *ex, void *user)
 {
-  state->args[0] = (int16_t)(state->args[1] - state->args[2]);
+  ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 - ex->args[2]->s16);
 }
 
 static void
-mul_s16 (OJState *state, void *user)
+mul_s16 (OJExecutor *ex, void *user)
 {
-  state->args[0] = (int16_t)(state->args[1] * state->args[2]);
+  ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 * ex->args[2]->s16);
 }
 
 static void
-lshift_s16 (OJState *state, void *user)
+lshift_s16 (OJExecutor *ex, void *user)
 {
-  state->args[0] = (int16_t)(state->args[1] << state->args[2]);
+  ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 << ex->args[2]->s16);
 }
 
 static void
-rshift_s16 (OJState *state, void *user)
+rshift_s16 (OJExecutor *ex, void *user)
 {
-  state->args[0] = (int16_t)(state->args[1] >> state->args[2]);
+  ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 >> ex->args[2]->s16);
 }
 
 void
