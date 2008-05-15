@@ -9,21 +9,21 @@
 #include <orc/orcprogram.h>
 
 
-static OJOpcode *opcode_list;
+static OrcOpcode *opcode_list;
 static int n_opcodes;
 static int n_opcodes_alloc;
 
 
 
 void
-oj_opcode_register (const char *name, int n_dest, int n_src,
-    OJOpcodeEmulateFunc emulate, void *user)
+orc_opcode_register (const char *name, int n_dest, int n_src,
+    OrcOpcodeEmulateFunc emulate, void *user)
 {
-  OJOpcode *opcode;
+  OrcOpcode *opcode;
 
   if (n_opcodes == n_opcodes_alloc) {
     n_opcodes_alloc += 100;
-    opcode_list = realloc(opcode_list, sizeof(OJOpcode) * n_opcodes_alloc);
+    opcode_list = realloc(opcode_list, sizeof(OrcOpcode) * n_opcodes_alloc);
   }
 
   opcode = opcode_list + n_opcodes;
@@ -37,8 +37,8 @@ oj_opcode_register (const char *name, int n_dest, int n_src,
   n_opcodes++;
 }
 
-OJOpcode *
-oj_opcode_find_by_name (const char *name)
+OrcOpcode *
+orc_opcode_find_by_name (const char *name)
 {
   int i;
 
@@ -52,43 +52,43 @@ oj_opcode_find_by_name (const char *name)
 }
 
 static void
-add_s16 (OJExecutor *ex, void *user)
+add_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 + ex->args[2]->s16);
 }
 
 static void
-sub_s16 (OJExecutor *ex, void *user)
+sub_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 - ex->args[2]->s16);
 }
 
 static void
-mul_s16 (OJExecutor *ex, void *user)
+mul_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 * ex->args[2]->s16);
 }
 
 static void
-lshift_s16 (OJExecutor *ex, void *user)
+lshift_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 << ex->args[2]->s16);
 }
 
 static void
-rshift_s16 (OJExecutor *ex, void *user)
+rshift_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 >> ex->args[2]->s16);
 }
 
 void
-oj_opcode_init (void)
+orc_opcode_init (void)
 {
-  oj_opcode_register("add_s16", 1, 2, add_s16, NULL);
-  oj_opcode_register("sub_s16", 1, 2, sub_s16, NULL);
-  oj_opcode_register("mul_s16", 1, 2, mul_s16, NULL);
-  oj_opcode_register("lshift_s16", 1, 2, lshift_s16, NULL);
-  oj_opcode_register("rshift_s16", 1, 2, rshift_s16, NULL);
+  orc_opcode_register("add_s16", 1, 2, add_s16, NULL);
+  orc_opcode_register("sub_s16", 1, 2, sub_s16, NULL);
+  orc_opcode_register("mul_s16", 1, 2, mul_s16, NULL);
+  orc_opcode_register("lshift_s16", 1, 2, lshift_s16, NULL);
+  orc_opcode_register("rshift_s16", 1, 2, rshift_s16, NULL);
 }
 
 

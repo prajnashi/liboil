@@ -14,26 +14,26 @@
 
 #define SIZE 65536
 
-void x86_emit_push (OJProgram *program, int size, int reg);
-void x86_emit_pop (OJProgram *program, int size, int reg);
-void x86_emit_mov_memoffset_reg (OJProgram *program, int size, int offset, int reg1, int reg2);
-void x86_emit_mov_reg_memoffset (OJProgram *program, int size, int reg1, int offset, int reg2);
-void x86_emit_mov_imm_reg (OJProgram *program, int size, int value, int reg1);
-void x86_emit_mov_reg_reg (OJProgram *program, int size, int reg1, int reg2);
-void x86_emit_test_reg_reg (OJProgram *program, int size, int reg1, int reg2);
-void x86_emit_dec_memoffset (OJProgram *program, int size, int offset, int reg);
-void x86_emit_add_imm_memoffset (OJProgram *program, int size, int value, int offset, int reg);
-void x86_emit_ret (OJProgram *program);
-void x86_emit_je (OJProgram *program, int label);
-void x86_emit_jne (OJProgram *program, int label);
-void x86_emit_label (OJProgram *program, int label);
+void x86_emit_push (OrcProgram *program, int size, int reg);
+void x86_emit_pop (OrcProgram *program, int size, int reg);
+void x86_emit_mov_memoffset_reg (OrcProgram *program, int size, int offset, int reg1, int reg2);
+void x86_emit_mov_reg_memoffset (OrcProgram *program, int size, int reg1, int offset, int reg2);
+void x86_emit_mov_imm_reg (OrcProgram *program, int size, int value, int reg1);
+void x86_emit_mov_reg_reg (OrcProgram *program, int size, int reg1, int reg2);
+void x86_emit_test_reg_reg (OrcProgram *program, int size, int reg1, int reg2);
+void x86_emit_dec_memoffset (OrcProgram *program, int size, int offset, int reg);
+void x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value, int offset, int reg);
+void x86_emit_ret (OrcProgram *program);
+void x86_emit_je (OrcProgram *program, int label);
+void x86_emit_jne (OrcProgram *program, int label);
+void x86_emit_label (OrcProgram *program, int label);
 
-void x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2);
-void x86_emit_modrm_reg (OJProgram *program, int reg1, int reg2);
-void x86_test (OJProgram *program);
+void x86_emit_modrm_memoffset (OrcProgram *program, int reg1, int offset, int reg2);
+void x86_emit_modrm_reg (OrcProgram *program, int reg1, int reg2);
+void x86_test (OrcProgram *program);
 
 enum {
-  X86_EAX = OJ_GP_REG_BASE,
+  X86_EAX = ORC_GP_REG_BASE,
   X86_ECX,
   X86_EDX,
   X86_EBX,
@@ -49,7 +49,7 @@ x86_get_regname(int i)
   static const char *x86_regs[] = { "eax", "ecx", "edx", "ebx",
     "esp", "ebp", "esi", "edi" };
 
-  if (i>=OJ_GP_REG_BASE && i<OJ_GP_REG_BASE + 8) return x86_regs[i - OJ_GP_REG_BASE];
+  if (i>=ORC_GP_REG_BASE && i<ORC_GP_REG_BASE + 8) return x86_regs[i - ORC_GP_REG_BASE];
   switch (i) {
     case 0:
       return "UNALLOCATED";
@@ -63,7 +63,7 @@ x86_get_regname(int i)
 static int
 x86_get_regnum(int i)
 {
-  return i - OJ_GP_REG_BASE;
+  return i - ORC_GP_REG_BASE;
 }
 
 static const char *
@@ -72,7 +72,7 @@ x86_get_regname_16(int i)
   static const char *x86_regs[] = { "ax", "cx", "dx", "bx",
     "sp", "bp", "si", "di" };
 
-  if (i>=OJ_GP_REG_BASE && i<OJ_GP_REG_BASE + 8) return x86_regs[i - OJ_GP_REG_BASE];
+  if (i>=ORC_GP_REG_BASE && i<ORC_GP_REG_BASE + 8) return x86_regs[i - ORC_GP_REG_BASE];
   switch (i) {
     case 0:
       return "UNALLOCATED";
@@ -84,12 +84,12 @@ x86_get_regname_16(int i)
 }
 
 
-void oj_program_rewrite_vars (OJProgram *program);
-void oj_program_allocate_regs (OJProgram *program);
-void oj_program_dump (OJProgram *program);
+void orc_program_rewrite_vars (OrcProgram *program);
+void orc_program_allocate_regs (OrcProgram *program);
+void orc_program_dump (OrcProgram *program);
 
 void
-x86_emit_prologue (OJProgram *program)
+x86_emit_prologue (OrcProgram *program)
 {
   g_print(".global test\n");
   g_print("test:\n");
@@ -101,7 +101,7 @@ x86_emit_prologue (OJProgram *program)
 }
 
 void
-x86_emit_epilogue (OJProgram *program)
+x86_emit_epilogue (OrcProgram *program)
 {
   x86_emit_pop (program, 4, X86_EBX);
   x86_emit_pop (program, 4, X86_ESI);
@@ -111,7 +111,7 @@ x86_emit_epilogue (OJProgram *program)
 }
 
 void
-x86_do_fixups (OJProgram *program)
+x86_do_fixups (OrcProgram *program)
 {
   int i;
   for(i=0;i<program->n_fixups;i++){
@@ -125,30 +125,30 @@ x86_do_fixups (OJProgram *program)
 }
 
 void
-oj_program_compile_x86 (OJProgram *program)
+orc_program_compile_x86 (OrcProgram *program)
 {
   int j;
   int k;
-  OJInstruction *insn;
-  OJOpcode *opcode;
-  OJVariable *args[10];
-  OJRuleList *list;
-  OJRule *rule;
+  OrcInstruction *insn;
+  OrcOpcode *opcode;
+  OrcVariable *args[10];
+  OrcRuleList *list;
+  OrcRule *rule;
 
-  oj_program_allocate_codemem (program);
+  orc_program_allocate_codemem (program);
 
-  list = oj_rule_list_new();
-  oj_program_x86_register_rules (list);
+  list = orc_rule_list_new();
+  orc_program_x86_register_rules (list);
 
-  oj_program_rewrite_vars (program);
+  orc_program_rewrite_vars (program);
 
   x86_emit_prologue (program);
 
-  x86_emit_mov_memoffset_reg (program, 4, (int)G_STRUCT_OFFSET(OJExecutor,n),
+  x86_emit_mov_memoffset_reg (program, 4, (int)G_STRUCT_OFFSET(OrcExecutor,n),
       X86_EBP, X86_ECX);
 
   x86_emit_mov_reg_memoffset (program, 4, X86_ECX,
-      (int)G_STRUCT_OFFSET(OJExecutor,counter), X86_EBP);
+      (int)G_STRUCT_OFFSET(OrcExecutor,counter), X86_EBP);
 
   x86_emit_test_reg_reg (program, 4, X86_ECX, X86_ECX);
 
@@ -168,16 +168,16 @@ oj_program_compile_x86 (OJProgram *program)
 
     for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
       switch (args[k]->vartype) {
-        case OJ_VAR_TYPE_SRC:
+        case ORC_VAR_TYPE_SRC:
           x86_emit_mov_memoffset_reg (program, 4,
-              (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]),
+              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[k]),
               X86_EBP, X86_ECX);
           x86_emit_mov_memoffset_reg (program, 2, 0, X86_ECX, args[k]->alloc);
           break;
-        case OJ_VAR_TYPE_CONST:
+        case ORC_VAR_TYPE_CONST:
           x86_emit_mov_imm_reg (program, 2, args[k]->s16, args[k]->alloc);
           break;
-        case OJ_VAR_TYPE_TEMP:
+        case ORC_VAR_TYPE_TEMP:
 #if 0
           g_print("  movw temp, %%%s\n",
               x86_get_regname(args[k]->alloc));
@@ -188,9 +188,9 @@ oj_program_compile_x86 (OJProgram *program)
       }
     }
 
-    rule = oj_rule_list_get (list, opcode);
+    rule = orc_rule_list_get (list, opcode);
     if (rule) {
-      if (!(rule->flags & OJ_RULE_3REG) && insn->args[0] != insn->args[1]) {
+      if (!(rule->flags & ORC_RULE_3REG) && insn->args[0] != insn->args[1]) {
         x86_emit_mov_reg_reg (program, 2, args[1]->alloc, args[0]->alloc);
       }
       rule->emit (program, rule->emit_user, insn);
@@ -200,13 +200,13 @@ oj_program_compile_x86 (OJProgram *program)
 
     for(k=0;k<opcode->n_dest;k++){
       switch (args[k]->vartype) {
-        case OJ_VAR_TYPE_DEST:
+        case ORC_VAR_TYPE_DEST:
           x86_emit_mov_memoffset_reg (program, 4,
-              (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]),
+              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[k]),
               X86_EBP, X86_ECX);
           x86_emit_mov_reg_memoffset (program, 2, args[k]->alloc, 0, X86_ECX);
           break;
-        case OJ_VAR_TYPE_TEMP:
+        case ORC_VAR_TYPE_TEMP:
 #if 0
           g_print("  movw %%%s, temp\n",
               x86_get_regname(args[k]->alloc));
@@ -219,15 +219,15 @@ oj_program_compile_x86 (OJProgram *program)
   }
 
   for(k=0;k<program->n_vars;k++){
-    if (program->vars[k].vartype == OJ_VAR_TYPE_SRC ||
-        program->vars[k].vartype == OJ_VAR_TYPE_DEST) {
+    if (program->vars[k].vartype == ORC_VAR_TYPE_SRC ||
+        program->vars[k].vartype == ORC_VAR_TYPE_DEST) {
       x86_emit_add_imm_memoffset (program, 4, 2, 
-          (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]),
+          (int)G_STRUCT_OFFSET(OrcExecutor, arrays[k]),
           X86_EBP);
     }
   }
 
-  x86_emit_dec_memoffset (program, 4, (int)G_STRUCT_OFFSET(OJExecutor,counter),
+  x86_emit_dec_memoffset (program, 4, (int)G_STRUCT_OFFSET(OrcExecutor,counter),
       X86_EBP);
   x86_emit_jne (program, 0);
   x86_emit_label (program, 1);
@@ -239,14 +239,14 @@ oj_program_compile_x86 (OJProgram *program)
 
   x86_do_fixups (program);
 
-  oj_program_dump_code (program);
+  orc_program_dump_code (program);
 }
 
 
 /* rules */
 
 static void
-x86_rule_add_s16 (OJProgram *p, void *user, OJInstruction *insn)
+x86_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
   g_print("  addw %%%s, %%%s\n",
       x86_get_regname_16(p->vars[insn->args[2]].alloc),
@@ -260,7 +260,7 @@ x86_rule_add_s16 (OJProgram *p, void *user, OJInstruction *insn)
 }
 
 static void
-x86_rule_sub_s16 (OJProgram *p, void *user, OJInstruction *insn)
+x86_rule_sub_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
   g_print("  subw %%%s, %%%s\n",
       x86_get_regname_16(p->vars[insn->args[2]].alloc),
@@ -273,7 +273,7 @@ x86_rule_sub_s16 (OJProgram *p, void *user, OJInstruction *insn)
 }
 
 static void
-x86_rule_mul_s16 (OJProgram *p, void *user, OJInstruction *insn)
+x86_rule_mul_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
   g_print("  imulw %%%s, %%%s\n",
       x86_get_regname_16(p->vars[insn->args[2]].alloc),
@@ -287,7 +287,7 @@ x86_rule_mul_s16 (OJProgram *p, void *user, OJInstruction *insn)
 }
 
 static void
-x86_rule_lshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
+x86_rule_lshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
   x86_emit_mov_reg_reg(p, 4, p->vars[insn->args[2]].alloc, X86_ECX);
 
@@ -300,7 +300,7 @@ x86_rule_lshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
 }
 
 static void
-x86_rule_rshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
+x86_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
   x86_emit_mov_reg_reg(p, 4, p->vars[insn->args[2]].alloc, X86_ECX);
 
@@ -314,25 +314,25 @@ x86_rule_rshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
 
 
 void
-oj_program_x86_register_rules (OJRuleList *list)
+orc_program_x86_register_rules (OrcRuleList *list)
 {
-  oj_rule_list_register (list, "add_s16", x86_rule_add_s16, NULL,
-      OJ_RULE_REG_REG);
-  oj_rule_list_register (list, "sub_s16", x86_rule_sub_s16, NULL,
-      OJ_RULE_REG_REG);
-  oj_rule_list_register (list, "mul_s16", x86_rule_mul_s16, NULL,
-      OJ_RULE_REG_REG);
-  oj_rule_list_register (list, "lshift_s16", x86_rule_lshift_s16, NULL,
-      OJ_RULE_REG_REG);
-  oj_rule_list_register (list, "rshift_s16", x86_rule_rshift_s16, NULL,
-      OJ_RULE_REG_REG);
+  orc_rule_list_register (list, "add_s16", x86_rule_add_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_list_register (list, "sub_s16", x86_rule_sub_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_list_register (list, "mul_s16", x86_rule_mul_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_list_register (list, "lshift_s16", x86_rule_lshift_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_list_register (list, "rshift_s16", x86_rule_rshift_s16, NULL,
+      ORC_RULE_REG_REG);
 }
 
 
 /* code generation */
 
 void
-x86_emit_push (OJProgram *program, int size, int reg)
+x86_emit_push (OrcProgram *program, int size, int reg)
 {
 
   if (size == 1) {
@@ -348,7 +348,7 @@ x86_emit_push (OJProgram *program, int size, int reg)
 }
 
 void
-x86_emit_pop (OJProgram *program, int size, int reg)
+x86_emit_pop (OrcProgram *program, int size, int reg)
 {
 
   if (size == 1) {
@@ -367,7 +367,7 @@ x86_emit_pop (OJProgram *program, int size, int reg)
 #define X86_SIB(ss, ind, reg) ((((ss)&3)<<6)|(((ind)&7)<<3)|((reg)&7))
 
 void
-x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2)
+x86_emit_modrm_memoffset (OrcProgram *program, int reg1, int offset, int reg2)
 {
   if (offset == 0 && reg2 != X86_EBP) {
     if (reg2 == X86_ESP) {
@@ -395,13 +395,13 @@ x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2)
 }
 
 void
-x86_emit_modrm_reg (OJProgram *program, int reg1, int reg2)
+x86_emit_modrm_reg (OrcProgram *program, int reg1, int reg2)
 {
   *program->codeptr++ = X86_MODRM(3, reg1, reg2);
 }
 
 void
-x86_emit_mov_memoffset_reg (OJProgram *program, int size, int offset,
+x86_emit_mov_memoffset_reg (OrcProgram *program, int size, int offset,
     int reg1, int reg2)
 {
   if (size == 2) {
@@ -418,7 +418,7 @@ x86_emit_mov_memoffset_reg (OJProgram *program, int size, int offset,
 }
 
 void
-x86_emit_mov_reg_memoffset (OJProgram *program, int size, int reg1, int offset,
+x86_emit_mov_reg_memoffset (OrcProgram *program, int size, int reg1, int offset,
     int reg2)
 {
   if (size == 2) {
@@ -435,7 +435,7 @@ x86_emit_mov_reg_memoffset (OJProgram *program, int size, int reg1, int offset,
 }
 
 void
-x86_emit_mov_imm_reg (OJProgram *program, int size, int value, int reg1)
+x86_emit_mov_imm_reg (OrcProgram *program, int size, int value, int reg1)
 {
   if (size == 2) {
     g_print("  movw $%d, %%%s\n", value, x86_get_regname_16(reg1));
@@ -454,7 +454,7 @@ x86_emit_mov_imm_reg (OJProgram *program, int size, int value, int reg1)
 
 }
 
-void x86_emit_mov_reg_reg (OJProgram *program, int size, int reg1, int reg2)
+void x86_emit_mov_reg_reg (OrcProgram *program, int size, int reg1, int reg2)
 {
   if (size == 2) {
     g_print("  movw %%%s, %%%s\n", x86_get_regname_16(reg1),
@@ -471,7 +471,7 @@ void x86_emit_mov_reg_reg (OJProgram *program, int size, int reg1, int reg2)
 
 
 void
-x86_emit_test_reg_reg (OJProgram *program, int size, int reg1, int reg2)
+x86_emit_test_reg_reg (OrcProgram *program, int size, int reg1, int reg2)
 {
   if (size == 2) {
     g_print("  testw %%%s, %%%s\n", x86_get_regname_16(reg1),
@@ -487,7 +487,7 @@ x86_emit_test_reg_reg (OJProgram *program, int size, int reg1, int reg2)
 }
 
 void
-x86_emit_add_imm_memoffset (OJProgram *program, int size, int value,
+x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value,
     int offset, int reg)
 {
   if (size == 2) {
@@ -516,7 +516,7 @@ x86_emit_add_imm_memoffset (OJProgram *program, int size, int value,
 }
 
 void
-x86_emit_dec_memoffset (OJProgram *program, int size,
+x86_emit_dec_memoffset (OrcProgram *program, int size,
     int offset, int reg)
 {
   if (size == 2) {
@@ -530,14 +530,14 @@ x86_emit_dec_memoffset (OJProgram *program, int size,
   x86_emit_modrm_memoffset (program, 1, offset, reg);
 }
 
-void x86_emit_ret (OJProgram *program)
+void x86_emit_ret (OrcProgram *program)
 {
   g_print("  ret\n");
   *program->codeptr++ = 0xc3;
 }
 
 void
-x86_add_fixup (OJProgram *program, unsigned char *ptr, int label)
+x86_add_fixup (OrcProgram *program, unsigned char *ptr, int label)
 {
   program->fixups[program->n_fixups].ptr = ptr;
   program->fixups[program->n_fixups].label = label;
@@ -546,12 +546,12 @@ x86_add_fixup (OJProgram *program, unsigned char *ptr, int label)
 }
 
 void
-x86_add_label (OJProgram *program, unsigned char *ptr, int label)
+x86_add_label (OrcProgram *program, unsigned char *ptr, int label)
 {
   program->labels[label] = ptr;
 }
 
-void x86_emit_je (OJProgram *program, int label)
+void x86_emit_je (OrcProgram *program, int label)
 {
   g_print("  je .L%d\n", label);
 
@@ -560,7 +560,7 @@ void x86_emit_je (OJProgram *program, int label)
   *program->codeptr++ = -1;
 }
 
-void x86_emit_jne (OJProgram *program, int label)
+void x86_emit_jne (OrcProgram *program, int label)
 {
   g_print("  jne .L%d\n", label);
   *program->codeptr++ = 0x75;
@@ -568,7 +568,7 @@ void x86_emit_jne (OJProgram *program, int label)
   *program->codeptr++ = -1;
 }
 
-void x86_emit_label (OJProgram *program, int label)
+void x86_emit_label (OrcProgram *program, int label)
 {
   g_print(".L%d:\n", label);
 
@@ -576,7 +576,7 @@ void x86_emit_label (OJProgram *program, int label)
 }
 
 void
-x86_test (OJProgram *program)
+x86_test (OrcProgram *program)
 {
   int size;
   int i;
@@ -585,7 +585,7 @@ x86_test (OJProgram *program)
 
   for(size=2;size<=4;size+=2) {
     for(i=0;i<8;i++){
-      reg = OJ_GP_REG_BASE + i;
+      reg = ORC_GP_REG_BASE + i;
       x86_emit_push (program, size, reg);
       x86_emit_pop (program, size, reg);
       x86_emit_mov_imm_reg (program, size, 0, reg);
@@ -601,7 +601,7 @@ x86_test (OJProgram *program)
       x86_emit_add_imm_memoffset (program, size, 256, 1, reg);
       x86_emit_add_imm_memoffset (program, size, 256, 256, reg);
       for(j=0;j<8;j++){
-        int reg2 = OJ_GP_REG_BASE + j;
+        int reg2 = ORC_GP_REG_BASE + j;
         x86_emit_mov_reg_reg (program, size, reg, reg2);
         x86_emit_mov_memoffset_reg (program, size, 0, reg, reg2);
         x86_emit_mov_memoffset_reg (program, size, 1, reg, reg2);

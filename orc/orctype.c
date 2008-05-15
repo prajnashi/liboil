@@ -8,12 +8,12 @@
 
 #include <orc/orcprogram.h>
 
-OJType *types;
+OrcType *types;
 static int n_types;
 static int n_alloc_types;
 
-OJType *
-oj_type_get (const char *name)
+OrcType *
+orc_type_get (const char *name)
 {
   int i;
   for(i=0;i<n_types;i++){
@@ -25,13 +25,13 @@ oj_type_get (const char *name)
 }
 
 void
-oj_type_register (const char *name, int size)
+orc_type_register (const char *name, int size)
 {
-  OJType *type;
+  OrcType *type;
 
   if (n_types == n_alloc_types) {
     n_alloc_types += 100;
-    types = realloc (types, sizeof(OJType) * n_alloc_types);
+    types = realloc (types, sizeof(OrcType) * n_alloc_types);
   }
 
   type = types + n_types;

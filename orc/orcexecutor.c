@@ -9,54 +9,54 @@
 #include <orc/orcprogram.h>
 
 
-OJExecutor *
-oj_executor_new (OJProgram *program)
+OrcExecutor *
+orc_executor_new (OrcProgram *program)
 {
-  OJExecutor *ex;
+  OrcExecutor *ex;
 
-  ex = g_malloc0(sizeof(OJExecutor));
+  ex = g_malloc0(sizeof(OrcExecutor));
 
   ex->program = program;
 
-  memcpy (ex->vars, program->vars, 10*sizeof(OJVariable));
+  memcpy (ex->vars, program->vars, 10*sizeof(OrcVariable));
 
   return ex;
 }
 
 void
-oj_executor_free (OJExecutor *ex)
+orc_executor_free (OrcExecutor *ex)
 {
   g_free (ex);
 }
 
 void
-oj_executor_run (OJExecutor *ex)
+orc_executor_run (OrcExecutor *ex)
 {
 
 
 }
 
 void
-oj_executor_set_array (OJExecutor *ex, int var, void *ptr)
+orc_executor_set_array (OrcExecutor *ex, int var, void *ptr)
 {
   ex->arrays[var] = ptr;
 }
 
 void
-oj_executor_set_n (OJExecutor *ex, int n)
+orc_executor_set_n (OrcExecutor *ex, int n)
 {
   ex->n = n;
 }
 
 void
-oj_executor_emulate (OJExecutor *ex)
+orc_executor_emulate (OrcExecutor *ex)
 {
   int i;
   int j;
   int k;
-  OJProgram *program = ex->program;
-  OJInstruction *insn;
-  OJOpcode *opcode;
+  OrcProgram *program = ex->program;
+  OrcInstruction *insn;
+  OrcOpcode *opcode;
 
   printf("n %d\n", ex->n);
   printf("n_insns %d\n", program->n_insns);
@@ -75,7 +75,7 @@ oj_executor_emulate (OJExecutor *ex)
         printf("setting up arg %d as var %d vartype %d\n",
             k, insn->args[k], ex->args[k]->vartype);
 
-        if (ex->args[k]->vartype == OJ_VAR_TYPE_SRC) {
+        if (ex->args[k]->vartype == ORC_VAR_TYPE_SRC) {
           void *ptr = ex->arrays[insn->args[k]] + 2*i;
 
           printf("load %p\n", ptr);
@@ -88,7 +88,7 @@ oj_executor_emulate (OJExecutor *ex)
           ex->args[1]->s16, ex->args[2]->s16);
 
       for(k=0;k<opcode->n_src + opcode->n_dest;k++){
-        if (ex->args[k]->vartype == OJ_VAR_TYPE_DEST) {
+        if (ex->args[k]->vartype == ORC_VAR_TYPE_DEST) {
           void *ptr = ex->arrays[insn->args[k]] + 2*i;
 
           printf("store %p\n", ptr);

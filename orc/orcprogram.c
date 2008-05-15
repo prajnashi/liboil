@@ -9,21 +9,21 @@
 #include <orc/orcprogram.h>
 
 
-OJProgram *
-oj_program_new (void)
+OrcProgram *
+orc_program_new (void)
 {
-  OJProgram *p;
-  p = g_malloc0(sizeof(OJProgram));
+  OrcProgram *p;
+  p = g_malloc0(sizeof(OrcProgram));
   return p;
 }
 
 int
-oj_program_add_temporary (OJProgram *program, const char *type, const char *name)
+orc_program_add_temporary (OrcProgram *program, const char *type, const char *name)
 {
   int i = program->n_vars;
 
-  program->vars[i].vartype = OJ_VAR_TYPE_TEMP;
-  program->vars[i].type = oj_type_get(type);
+  program->vars[i].vartype = ORC_VAR_TYPE_TEMP;
+  program->vars[i].type = orc_type_get(type);
   program->vars[i].name = strdup(name);
   program->n_vars++;
 
@@ -31,11 +31,11 @@ oj_program_add_temporary (OJProgram *program, const char *type, const char *name
 }
 
 int
-oj_program_dup_temporary (OJProgram *program, int var, int j)
+orc_program_dup_temporary (OrcProgram *program, int var, int j)
 {
   int i = program->n_vars;
 
-  program->vars[i].vartype = OJ_VAR_TYPE_TEMP;
+  program->vars[i].vartype = ORC_VAR_TYPE_TEMP;
   program->vars[i].type = program->vars[var].type;
   program->vars[i].name = g_strdup_printf("%s.dup%d",
       program->vars[var].name, j);
@@ -45,12 +45,12 @@ oj_program_dup_temporary (OJProgram *program, int var, int j)
 }
 
 int
-oj_program_add_source (OJProgram *program, const char *type, const char *name)
+orc_program_add_source (OrcProgram *program, const char *type, const char *name)
 {
   int i = program->n_vars;
 
-  program->vars[i].vartype = OJ_VAR_TYPE_SRC;
-  program->vars[i].type = oj_type_get(type);
+  program->vars[i].vartype = ORC_VAR_TYPE_SRC;
+  program->vars[i].type = orc_type_get(type);
   program->vars[i].name = strdup(name);
   program->n_vars++;
 
@@ -58,12 +58,12 @@ oj_program_add_source (OJProgram *program, const char *type, const char *name)
 }
 
 int
-oj_program_add_destination (OJProgram *program, const char *type, const char *name)
+orc_program_add_destination (OrcProgram *program, const char *type, const char *name)
 {
   int i = program->n_vars;
 
-  program->vars[i].vartype = OJ_VAR_TYPE_DEST;
-  program->vars[i].type = oj_type_get(type);
+  program->vars[i].vartype = ORC_VAR_TYPE_DEST;
+  program->vars[i].type = orc_type_get(type);
   program->vars[i].name = strdup(name);
   program->n_vars++;
 
@@ -71,12 +71,12 @@ oj_program_add_destination (OJProgram *program, const char *type, const char *na
 }
 
 int
-oj_program_add_constant (OJProgram *program, const char *type, int value, const char *name)
+orc_program_add_constant (OrcProgram *program, const char *type, int value, const char *name)
 {
   int i = program->n_vars;
 
-  program->vars[i].vartype = OJ_VAR_TYPE_CONST;
-  program->vars[i].type = oj_type_get(type);
+  program->vars[i].vartype = ORC_VAR_TYPE_CONST;
+  program->vars[i].type = orc_type_get(type);
   program->vars[i].s16 = value;
   program->vars[i].name = strdup(name);
   program->n_vars++;
@@ -85,21 +85,21 @@ oj_program_add_constant (OJProgram *program, const char *type, int value, const 
 }
 
 int
-oj_program_add_parameter (OJProgram *program, OJType *type, int value, const char *name)
+orc_program_add_parameter (OrcProgram *program, OrcType *type, int value, const char *name)
 {
 
   return 0;
 }
 
 void
-oj_program_append (OJProgram *program, const char *name, int arg0,
+orc_program_append (OrcProgram *program, const char *name, int arg0,
     int arg1, int arg2)
 {
-  OJInstruction *insn;
+  OrcInstruction *insn;
 
   insn = program->insns + program->n_insns;
 
-  insn->opcode = oj_opcode_find_by_name (name);
+  insn->opcode = orc_opcode_find_by_name (name);
   if (!insn->opcode) {
     printf("unknown opcode: %s\n", name);
   }
@@ -112,13 +112,13 @@ oj_program_append (OJProgram *program, const char *name, int arg0,
 
 
 void
-oj_program_rewrite_vars (OJProgram *program)
+orc_program_rewrite_vars (OrcProgram *program)
 {
   int i;
   int j;
   int k;
-  OJInstruction *insn;
-  OJOpcode *opcode;
+  OrcInstruction *insn;
+  OrcOpcode *opcode;
   int var;
   int actual_var;
   int alloc[8] = { 0, 1, 0, 0, 1, 1, 0, 0 };
@@ -130,7 +130,7 @@ oj_program_rewrite_vars (OJProgram *program)
     /* set up args */
     for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
       var = insn->args[k];
-      if (program->vars[var].vartype == OJ_VAR_TYPE_DEST) {
+      if (program->vars[var].vartype == ORC_VAR_TYPE_DEST) {
         g_print("ERROR: using dest var as source\n");
       }
 
@@ -141,7 +141,7 @@ oj_program_rewrite_vars (OJProgram *program)
       }
 
       if (!program->vars[var].used) {
-        if (program->vars[var].vartype == OJ_VAR_TYPE_TEMP) {
+        if (program->vars[var].vartype == ORC_VAR_TYPE_TEMP) {
           g_print("ERROR: using uninitialized temp var\n");
         }
         program->vars[var].used = TRUE;
@@ -153,13 +153,13 @@ oj_program_rewrite_vars (OJProgram *program)
     for(k=0;k<opcode->n_dest;k++){
       var = insn->args[k];
 
-      if (program->vars[var].vartype == OJ_VAR_TYPE_SRC) {
+      if (program->vars[var].vartype == ORC_VAR_TYPE_SRC) {
         g_print("ERROR: using src var as dest\n");
       }
-      if (program->vars[var].vartype == OJ_VAR_TYPE_CONST) {
+      if (program->vars[var].vartype == ORC_VAR_TYPE_CONST) {
         g_print("ERROR: using const var as dest\n");
       }
-      if (program->vars[var].vartype == OJ_VAR_TYPE_PARAM) {
+      if (program->vars[var].vartype == ORC_VAR_TYPE_PARAM) {
         g_print("ERROR: using param var as dest\n");
       }
 
@@ -173,11 +173,11 @@ oj_program_rewrite_vars (OJProgram *program)
         program->vars[actual_var].used = TRUE;
         program->vars[actual_var].first_use = j;
       } else {
-        if (program->vars[var].vartype == OJ_VAR_TYPE_DEST) {
+        if (program->vars[var].vartype == ORC_VAR_TYPE_DEST) {
           g_print("ERROR: writing dest more than once\n");
         }
-        if (program->vars[var].vartype == OJ_VAR_TYPE_TEMP) {
-          actual_var = oj_program_dup_temporary (program, var, j);
+        if (program->vars[var].vartype == ORC_VAR_TYPE_TEMP) {
+          actual_var = orc_program_dup_temporary (program, var, j);
           program->vars[var].replaced = TRUE;
           program->vars[var].replacement = actual_var;
           insn->args[k] = actual_var;
@@ -194,7 +194,7 @@ oj_program_rewrite_vars (OJProgram *program)
       if (program->vars[i].first_use == j) {
         for(k=0;k<8;k++){
           if (!alloc[k]) {
-            program->vars[i].alloc = k + OJ_GP_REG_BASE;
+            program->vars[i].alloc = k + ORC_GP_REG_BASE;
             alloc[k] = 1;
             break;
           }
@@ -206,7 +206,7 @@ oj_program_rewrite_vars (OJProgram *program)
     }
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].last_use == j) {
-        alloc[program->vars[i].alloc - OJ_GP_REG_BASE] = 0;
+        alloc[program->vars[i].alloc - ORC_GP_REG_BASE] = 0;
       }
     }
   }
@@ -224,7 +224,7 @@ oj_program_rewrite_vars (OJProgram *program)
 }
 
 void
-oj_program_dump_code (OJProgram *program)
+orc_program_dump_code (OrcProgram *program)
 {
   FILE *file;
 
@@ -235,12 +235,12 @@ oj_program_dump_code (OJProgram *program)
 }
 
 void
-oj_program_dump (OJProgram *program)
+orc_program_dump (OrcProgram *program)
 {
   int i;
   int j;
-  OJOpcode *opcode;
-  OJInstruction *insn;
+  OrcOpcode *opcode;
+  OrcInstruction *insn;
 
   for(i=0;i<program->n_insns;i++){
     insn = program->insns + i;

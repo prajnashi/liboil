@@ -9,37 +9,37 @@
 #include <orc/orcprogram.h>
 
 
-OJRuleList *
-oj_rule_list_new (void)
+OrcRuleList *
+orc_rule_list_new (void)
 {
-  OJRuleList *rule_list;
+  OrcRuleList *rule_list;
 
-  rule_list = malloc (sizeof(OJRuleList));
-  memset (rule_list, 0, sizeof(OJRuleList));
+  rule_list = malloc (sizeof(OrcRuleList));
+  memset (rule_list, 0, sizeof(OrcRuleList));
 
   return rule_list;
 }
 
 void
-oj_rule_list_free (OJRuleList *rule_list)
+orc_rule_list_free (OrcRuleList *rule_list)
 {
   free (rule_list->rules);
   free (rule_list);
 }
 
 void
-oj_rule_list_register (OJRuleList *rule_list, const char *opcode_name,
-    OJRuleEmitFunc emit, void *emit_user, unsigned int flags)
+orc_rule_list_register (OrcRuleList *rule_list, const char *opcode_name,
+    OrcRuleEmitFunc emit, void *emit_user, unsigned int flags)
 {
   int i;
 
   if (rule_list->n_rules == rule_list->n_alloc) {
     rule_list->n_alloc += 100;
-    rule_list->rules = realloc (rule_list, sizeof(OJRule) * rule_list->n_alloc);
+    rule_list->rules = realloc (rule_list, sizeof(OrcRule) * rule_list->n_alloc);
   }
 
   i = rule_list->n_rules;
-  rule_list->rules[i].opcode = oj_opcode_find_by_name (opcode_name);
+  rule_list->rules[i].opcode = orc_opcode_find_by_name (opcode_name);
   rule_list->rules[i].emit = emit;
   rule_list->rules[i].emit_user = emit_user;
   rule_list->rules[i].flags = flags;
@@ -47,8 +47,8 @@ oj_rule_list_register (OJRuleList *rule_list, const char *opcode_name,
   rule_list->n_rules++;
 }
 
-OJRule *
-oj_rule_list_get (OJRuleList *rule_list, OJOpcode *opcode)
+OrcRule *
+orc_rule_list_get (OrcRuleList *rule_list, OrcOpcode *opcode)
 {
   int i;
   for (i=0;i<rule_list->n_rules;i++){

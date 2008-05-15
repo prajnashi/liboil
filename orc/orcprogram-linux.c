@@ -16,7 +16,7 @@
 
 
 void
-oj_program_allocate_codemem (OJProgram *program)
+orc_program_allocate_codemem (OrcProgram *program)
 {
   char *filename;
   int fd;
