@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "ojprogram.h"
+#include <orc/ojprogram.h>
 
 #define N 10
 

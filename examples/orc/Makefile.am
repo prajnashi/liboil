@@ -1,0 +1,8 @@
+
+noinst_PROGRAMS = jit
+
+AM_LDFLAGS = $(ORC_LIBS) $(GLIB_LIBS)
+AM_CFLAGS = $(ORC_CFLAGS) $(GLIB_CFLAGS)
+
+jit_SOURCES = jit.c
+

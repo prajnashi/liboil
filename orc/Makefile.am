@@ -1,12 +1,15 @@
 
+includedir = $(includedir)/orc-@LIBOIL_MAJORMINOR@/orc
 
-noinst_PROGRAMS = jit
+lib_LTLIBRARIES = liborc-@LIBOIL_MAJORMINOR@.la
 
+liborc_@LIBOIL_MAJORMINOR@_la_LIBS = $(LIBOIL_LIBS) $(GLIB_LIBS)
+liborc_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
 
-AM_LDFLAGS = $(LIBOIL_LIBS) $(GLIB_LIBS)
-AM_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
-
-jit_SOURCES = jit.c \
+liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
+	orcexecutor.c \
+	orcrule.c \
+	orctype.c \
 	ojprogram.c \
 	ojprogram-x86.c \
 	ojprogram.h \

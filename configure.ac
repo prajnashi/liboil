@@ -249,6 +249,12 @@ AC_SUBST(LIBOIL_CFLAGS)
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $LIBM $LIBRT"
 AC_SUBST(LIBOIL_LIBS)
 
+ORC_CFLAGS="$LIBOIL_CFLAGS"
+AC_SUBST(ORC_CFLAGS)
+
+ORC_LIBS="\$(top_builddir)/orc/liborc-$LIBOIL_MAJORMINOR.la $LIBOIL_LIBS"
+AC_SUBST(ORC_LIBS)
+
 pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
 
