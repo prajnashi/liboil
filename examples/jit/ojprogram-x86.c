@@ -119,8 +119,42 @@ oj_program_output_mmx (OJProgram *program)
 }
 #endif
 
-static const char *x86_regs[] = { "eax", "ecx", "edx", "ebx",
-  "esp", "ebp", "esi", "edi" };
+#define X86_REG_BASE 8
+
+static const char *
+x86_get_regname(int i)
+{
+  static const char *x86_regs[] = { "eax", "ecx", "edx", "ebx",
+    "esp", "ebp", "esi", "edi" };
+
+  if (i>=X86_REG_BASE && i<X86_REG_BASE + 8) return x86_regs[i - X86_REG_BASE];
+  switch (i) {
+    case 0:
+      return "UNALLOCATED";
+    case 1:
+      return "direct";
+    default:
+      return "ERROR";
+  }
+}
+
+static const char *
+x86_get_regname_16(int i)
+{
+  static const char *x86_regs[] = { "ax", "cx", "dx", "bx",
+    "sp", "bp", "si", "di" };
+
+  if (i>=X86_REG_BASE && i<X86_REG_BASE + 8) return x86_regs[i - X86_REG_BASE];
+  switch (i) {
+    case 0:
+      return "UNALLOCATED";
+    case 1:
+      return "direct";
+    default:
+      return "ERROR";
+  }
+}
+
 
 void oj_program_rewrite_vars (OJProgram *program);
 void oj_program_allocate_regs (OJProgram *program);
@@ -134,6 +168,11 @@ oj_program_compile_x86 (OJProgram *program)
   OJInstruction *insn;
   OJOpcode *opcode;
   OJVariable *args[10];
+  OJRuleList *list;
+  OJRule *rule;
+
+  list = oj_rule_list_new();
+  oj_program_x86_register_rules (list);
 
   oj_program_rewrite_vars (program);
   oj_program_dump (program);
@@ -141,11 +180,14 @@ oj_program_compile_x86 (OJProgram *program)
   printf("# n_insns %d\n", program->n_insns);
   g_print("  push %%ebp\n");
   g_print("  movl 0x8(%%esp), %%ebp\n");
+  g_print("  push %%edi\n");
+  g_print("  push %%esi\n");
+  g_print("  push %%ebx\n");
 
   g_print("  movl 0x%02x(%%ebp), %%ecx\n", (int)G_STRUCT_OFFSET(OJExecutor,n));
   g_print("  movl %%ecx, 0x%02x(%%ebp)\n", (int)G_STRUCT_OFFSET(OJExecutor,counter));
   g_print("  testl %%ecx, %%ecx\n");
-  g_print("  jeq 2f\n");
+  g_print("  je 2f\n");
   g_print("1:\n");
 
   for(j=0;j<program->n_insns;j++){
@@ -155,40 +197,59 @@ oj_program_compile_x86 (OJProgram *program)
     printf("# %d: %s\n", j, insn->opcode->name);
 
     /* set up args */
-    for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
+    for(k=0;k<opcode->n_src + opcode->n_dest;k++){
       args[k] = program->vars + insn->args[k];
+    }
 
+    for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
       switch (args[k]->vartype) {
         case OJ_VAR_TYPE_SRC:
-          g_print("  movl 0x%02x(%%ebp), %%esi\n",
+          g_print("  movl 0x%02x(%%ebp), %%ecx\n",
               (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]));
-          g_print("  movw 0(%%esi), %%%s\n", x86_regs[k]);
+          g_print("  movw 0(%%ecx), %%%s\n",
+              x86_get_regname_16(args[k]->alloc));
           break;
         case OJ_VAR_TYPE_CONST:
-          g_print("  movl $%d, %%%s\n", args[k]->s16, x86_regs[k]);
+          g_print("  movl $%d, %%%s\n", args[k]->s16,
+              x86_get_regname(args[k]->alloc));
           break;
         case OJ_VAR_TYPE_TEMP:
-          g_print("  movw temp, %%%s\n", x86_regs[k]);
+#if 0
+          g_print("  movw temp, %%%s\n",
+              x86_get_regname(args[k]->alloc));
+#endif
           break;
         default:
           break;
       }
     }
 
-    //opcode->emulate (ex, opcode->emulate_user);
-    printf("emit: %s\n", opcode->name);
+    rule = oj_rule_list_get (list, opcode);
+    if (rule) {
+      if (rule->flags & OJ_RULE_MUST_CHAIN_SRC1 &&
+          insn->args[0] != insn->args[1]) {
+        g_print ("  movw %%%s, %%%s\n",
+            x86_get_regname_16(args[1]->alloc),
+            x86_get_regname_16(args[0]->alloc));
+      }
+      rule->emit (program, rule->emit_user, insn);
+    } else {
+      printf("No rule for: %s\n", opcode->name);
+    }
 
     for(k=0;k<opcode->n_dest;k++){
-      args[k] = program->vars + insn->args[k];
-
       switch (args[k]->vartype) {
         case OJ_VAR_TYPE_DEST:
-          g_print("  movl 0x%02x(%%ebp), %%esi\n",
+          g_print("  movl 0x%02x(%%ebp), %%ecx\n",
               (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]));
-          g_print("  movw %%%s, 0(%%esi)\n", x86_regs[k]);
+          g_print("  movw %%%s, 0(%%ecx)\n",
+              x86_get_regname_16(args[k]->alloc));
           break;
         case OJ_VAR_TYPE_TEMP:
-          g_print("  movw %%%s, temp\n", x86_regs[k]);
+#if 0
+          g_print("  movw %%%s, temp\n",
+              x86_get_regname(args[k]->alloc));
+#endif
           break;
         default:
           break;
@@ -196,15 +257,26 @@ oj_program_compile_x86 (OJProgram *program)
     }
   }
 
+  for(k=0;k<program->n_vars;k++){
+    if (program->vars[k].vartype == OJ_VAR_TYPE_SRC ||
+        program->vars[k].vartype == OJ_VAR_TYPE_DEST) {
+      g_print("  addl $2, 0x%02x(%%ebp)\n",
+          (int)G_STRUCT_OFFSET(OJExecutor, arrays[k]));
+    }
+  }
   g_print("  decl 0x%02x(%%ebp)\n", (int)G_STRUCT_OFFSET(OJExecutor,counter));
   g_print("  jne 1b\n");
   g_print("2:\n");
 
+  g_print("  pop %%ebx\n");
+  g_print("  pop %%esi\n");
+  g_print("  pop %%edi\n");
   g_print("  pop %%ebp\n");
   g_print("  ret\n");
 }
 
 
+#if 0
 static int
 oj_program_get_reg (OJProgram *program, int insn, int var)
 {
@@ -238,7 +310,9 @@ oj_program_retire_reg (OJProgram *program, int var)
     }
   }
 }
+#endif
 
+#if 0
 void
 oj_program_allocate_regs (OJProgram *program)
 {
@@ -274,7 +348,7 @@ oj_program_allocate_regs (OJProgram *program)
       if (program->regs[i].first_use == j) {
         for(k=0;k<8;k++){
           if (!alloc[k]) {
-            program->regs[i].alloc = k;
+            program->regs[i].alloc = X86_REG_BASE + k;
             alloc[k] = 1;
             break;
           }
@@ -286,7 +360,7 @@ oj_program_allocate_regs (OJProgram *program)
     }
     for(i=0;i<program->n_regs;i++){
       if (program->regs[i].last_use == j) {
-        alloc[program->regs[i].alloc] = 0;
+        alloc[program->regs[i].alloc - X86_REG_BASE] = 0;
       }
     }
   }
@@ -297,21 +371,24 @@ oj_program_allocate_regs (OJProgram *program)
         program->regs[i].first_use,
         program->regs[i].last_use,
         program->regs[i].retired,
-        x86_regs[program->regs[i].alloc]);
+        x86_get_regname(program->regs[i].alloc));
   }
 
 }
+#endif
 
 
 void
 oj_program_rewrite_vars (OJProgram *program)
 {
+  int i;
   int j;
   int k;
   OJInstruction *insn;
   OJOpcode *opcode;
   int var;
   int actual_var;
+  int alloc[8] = { 0, 1, 0, 0, 1, 1, 0, 0 };
 
   for(j=0;j<program->n_insns;j++){
     insn = program->insns + j;
@@ -337,7 +414,7 @@ oj_program_rewrite_vars (OJProgram *program)
         program->vars[var].used = TRUE;
         program->vars[var].first_use = j;
       }
-      program->vars[var].last_use = j;
+      program->vars[actual_var].last_use = j;
     }
 
     for(k=0;k<opcode->n_dest;k++){
@@ -379,13 +456,12 @@ oj_program_rewrite_vars (OJProgram *program)
     }
   }
 
-#if 0
   for(j=0;j<program->n_insns;j++){
-    for(i=0;i<program->n_regs;i++){
-      if (program->regs[i].first_use == j) {
+    for(i=0;i<program->n_vars;i++){
+      if (program->vars[i].first_use == j) {
         for(k=0;k<8;k++){
           if (!alloc[k]) {
-            program->regs[i].alloc = k;
+            program->vars[i].alloc = k + X86_REG_BASE;
             alloc[k] = 1;
             break;
           }
@@ -395,22 +471,20 @@ oj_program_rewrite_vars (OJProgram *program)
         }
       }
     }
-    for(i=0;i<program->n_regs;i++){
-      if (program->regs[i].last_use == j) {
-        alloc[program->regs[i].alloc] = 0;
+    for(i=0;i<program->n_vars;i++){
+      if (program->vars[i].last_use == j) {
+        alloc[program->vars[i].alloc - X86_REG_BASE] = 0;
       }
     }
   }
 
-  for(i=0;i<program->n_regs;i++){
-    g_print("%2d: %2d %2d %2d %d %s\n",
-        i, program->regs[i].var,
-        program->regs[i].first_use,
-        program->regs[i].last_use,
-        program->regs[i].retired,
-        x86_regs[program->regs[i].alloc]);
+  for(i=0;i<program->n_vars;i++){
+    g_print("%2d: %2d %2d %s\n",
+        i,
+        program->vars[i].first_use,
+        program->vars[i].last_use,
+        x86_get_regname(program->vars[i].alloc));
   }
-#endif
 
 }
 
@@ -450,4 +524,65 @@ oj_program_dump (OJProgram *program)
   }
 
 }
+
+
+/* rules */
+
+static void
+x86_rule_add_s16 (OJProgram *p, void *user, OJInstruction *insn)
+{
+  g_print("  addw %%%s, %%%s\n",
+      x86_get_regname_16(p->vars[insn->args[2]].alloc),
+      x86_get_regname_16(p->vars[insn->args[0]].alloc));
+}
+
+static void
+x86_rule_sub_s16 (OJProgram *p, void *user, OJInstruction *insn)
+{
+  g_print("  subw %%%s, %%%s\n",
+      x86_get_regname_16(p->vars[insn->args[2]].alloc),
+      x86_get_regname_16(p->vars[insn->args[0]].alloc));
+}
+
+static void
+x86_rule_mul_s16 (OJProgram *p, void *user, OJInstruction *insn)
+{
+  g_print("  imulw %%%s, %%%s\n",
+      x86_get_regname_16(p->vars[insn->args[2]].alloc),
+      x86_get_regname_16(p->vars[insn->args[0]].alloc));
+}
+
+static void
+x86_rule_lshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
+{
+  g_print("  shlw %%%s, %%%s\n",
+      x86_get_regname_16(p->vars[insn->args[2]].alloc),
+      x86_get_regname_16(p->vars[insn->args[0]].alloc));
+}
+
+static void
+x86_rule_rshift_s16 (OJProgram *p, void *user, OJInstruction *insn)
+{
+  g_print("  movl %%%s, %%ecx\n",
+      x86_get_regname(p->vars[insn->args[2]].alloc));
+  g_print("  sarw %%cl, %%%s\n",
+      x86_get_regname_16(p->vars[insn->args[0]].alloc));
+}
+
+
+void
+oj_program_x86_register_rules (OJRuleList *list)
+{
+  oj_rule_list_register (list, "add_s16", x86_rule_add_s16, NULL,
+      OJ_RULE_MUST_CHAIN_SRC1 | OJ_RULE_SYMMETRIC_SRC);
+  oj_rule_list_register (list, "sub_s16", x86_rule_sub_s16, NULL,
+      OJ_RULE_MUST_CHAIN_SRC1);
+  oj_rule_list_register (list, "mul_s16", x86_rule_mul_s16, NULL,
+      OJ_RULE_MUST_CHAIN_SRC1 | OJ_RULE_SYMMETRIC_SRC);
+  oj_rule_list_register (list, "lshift_s16", x86_rule_lshift_s16, NULL,
+      OJ_RULE_MUST_CHAIN_SRC1);
+  oj_rule_list_register (list, "rshift_s16", x86_rule_rshift_s16, NULL,
+      OJ_RULE_MUST_CHAIN_SRC1);
+}
+
 

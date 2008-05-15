@@ -11,9 +11,11 @@ typedef struct _OJOpcode OJOpcode;
 typedef struct _OJArgument OJArgument;
 typedef struct _OJInstruction OJInstruction;
 typedef struct _OJProgram OJProgram;
-typedef struct _OJRegister OJRegister;
+typedef struct _OJRule OJRule;
+typedef struct _OJRuleList OJRuleList;
 
 typedef void (*OJOpcodeEmulateFunc)(OJExecutor *ex, void *user);
+typedef void (*OJRuleEmitFunc)(OJProgram *p, void *user, OJInstruction *insn);
 
 struct _OJType {
   char *name;
@@ -39,6 +41,8 @@ struct _OJVariable {
   int last_use;
   int replaced;
   int replacement;
+
+  int alloc;
 
   int16_t s16;
 };
@@ -68,8 +72,11 @@ struct _OJArgument {
 struct _OJInstruction {
   OJOpcode *opcode;
   int args[3];
+
+  OJRule *rule;
 };
 
+#if 0
 struct _OJRegister {
   int var;
 
@@ -79,6 +86,7 @@ struct _OJRegister {
 
   int alloc;
 };
+#endif
 
 struct _OJProgram {
   OJInstruction insns[100];
@@ -88,9 +96,6 @@ struct _OJProgram {
   int n_vars;
 
   OJInstruction *insn;
-
-  OJRegister regs[100];
-  int n_regs;
 };
 
 struct _OJExecutor {
@@ -104,6 +109,27 @@ struct _OJExecutor {
   OJVariable *args[4];
 
 };
+
+#define OJ_RULE_MUST_CHAIN_SRC1   0x0001
+#define OJ_RULE_MAY_CHAIN_SRC1    0x0002
+#define OJ_RULE_SYMMETRIC_SRC     0x0004
+#define OJ_RULE_SRC2_IS_CL        0x0008
+
+struct _OJRule {
+  OJOpcode *opcode;
+
+  unsigned int flags;
+
+  OJRuleEmitFunc emit;
+  void *emit_user;
+};
+
+struct _OJRuleList {
+  int n_alloc;
+  int n_rules;
+  OJRule *rules;
+};
+
 
 OJProgram * oj_program_new (void);
 OJOpcode * oj_opcode_find_by_name (const char *name);
@@ -133,6 +159,12 @@ void oj_executor_set_n (OJExecutor *ex, int n);
 void oj_executor_emulate (OJExecutor *ex);
 
 
+OJRuleList *oj_rule_list_new(void);
+void oj_rule_list_free (OJRuleList *rule_list);
+void oj_rule_list_register (OJRuleList *rule_list, const char *op_name,
+    OJRuleEmitFunc emit, void *emit_user, unsigned int flags);
+OJRule * oj_rule_list_get (OJRuleList *rule_list, OJOpcode *opcode);
+void oj_program_x86_register_rules (OJRuleList *rule_list);
 
 #endif
 

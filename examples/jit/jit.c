@@ -14,6 +14,8 @@ int16_t src1[N];
 int16_t src2[N];
 int16_t dest[N];
 
+void test(OJExecutor *ex);
+
 int
 main (int argc, char *argv[])
 {
@@ -21,7 +23,6 @@ main (int argc, char *argv[])
   OJExecutor *ex;
   int s1, s2, d1, offset, shift;
   int t1;
-  int i;
 
   oj_opcode_init ();
 
@@ -45,23 +46,38 @@ main (int argc, char *argv[])
   oj_executor_set_array (ex, s2, src2);
   oj_executor_set_array (ex, d1, dest);
 
-  if (0) {
+  oj_program_compile_x86 (p);
+
+#if 0
+  if (1) {
+    int i;
+
     for(i=0;i<N;i++){
       src1[i] = rand()&0xf;
       src2[i] = rand()&0xf;
     }
 
-    oj_executor_emulate (ex);
+    test (ex);
+    //oj_executor_emulate (ex);
 
     for(i=0;i<N;i++){
       printf("  %4d %4d %4d %4d\n", src1[i], src2[i], dest[i],
           (src1[i] + src2[i] + 1)>>1);
     }
-  } else {
-    oj_program_compile_x86 (p);
   }
+#endif
 
   return 0;
 }
 
+
+
+void
+test1 (int16_t *dest, int16_t *src1, int16_t *src2, int n)
+{
+  int i;
+  for(i=0;i<n;i++){
+    dest[i] = (src1[i] + src2[i] + 1)>>1;
+  }
+}
 
