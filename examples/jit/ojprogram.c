@@ -401,3 +401,51 @@ oj_program_rewrite_vars (OJProgram *program)
 
 }
 
+void
+oj_program_dump_code (OJProgram *program)
+{
+  FILE *file;
+
+  file = fopen("dump","w");
+
+  fwrite (program->code, 1, program->codeptr - program->code, file);
+  fclose (file);
+}
+
+void
+oj_program_dump (OJProgram *program)
+{
+  int i;
+  int j;
+  OJOpcode *opcode;
+  OJInstruction *insn;
+
+  for(i=0;i<program->n_insns;i++){
+    insn = program->insns + i;
+    opcode = insn->opcode;
+
+    g_print("insn: %d\n", i);
+    g_print("  opcode: %s\n", opcode->name);
+
+    for(j=0;j<opcode->n_dest;j++){
+      g_print("  dest%d: %d %s\n", j, insn->args[j],
+          program->vars[insn->args[j]].name);
+    }
+    for(j=0;j<opcode->n_src;j++){
+      g_print("  src%d: %d %s\n", j, insn->args[opcode->n_dest + j],
+          program->vars[insn->args[opcode->n_dest + j]].name);
+    }
+
+    g_print("\n");
+  }
+
+  for(i=0;i<program->n_vars;i++){
+    g_print("var: %d %s\n", i, program->vars[i].name);
+    g_print("first_use: %d\n", program->vars[i].first_use);
+    g_print("last_use: %d\n", program->vars[i].last_use);
+
+    g_print("\n");
+  }
+
+}
+

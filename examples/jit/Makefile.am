@@ -10,5 +10,6 @@ jit_SOURCES = jit.c \
 	ojprogram.c \
 	ojprogram-x86.c \
 	ojprogram.h \
-	ojopcodes.c
+	ojopcodes.c \
+	ojprogram-linux.c
 

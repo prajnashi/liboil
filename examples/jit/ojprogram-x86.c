@@ -32,8 +32,6 @@ void x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg
 void x86_emit_modrm_reg (OJProgram *program, int reg1, int reg2);
 void x86_test (OJProgram *program);
 
-void oj_program_dump_code (OJProgram *program);
-
 enum {
   X86_EAX = OJ_GP_REG_BASE,
   X86_ECX,
@@ -228,6 +226,7 @@ oj_program_compile_x86 (OJProgram *program)
           X86_EBP);
     }
   }
+
   x86_emit_dec_memoffset (program, 4, (int)G_STRUCT_OFFSET(OJExecutor,counter),
       X86_EBP);
   x86_emit_jne (program, 0);
@@ -241,44 +240,6 @@ oj_program_compile_x86 (OJProgram *program)
   x86_do_fixups (program);
 
   oj_program_dump_code (program);
-}
-
-
-void
-oj_program_dump (OJProgram *program)
-{
-  int i;
-  int j;
-  OJOpcode *opcode;
-  OJInstruction *insn;
-
-  for(i=0;i<program->n_insns;i++){
-    insn = program->insns + i;
-    opcode = insn->opcode;
-
-    g_print("insn: %d\n", i);
-    g_print("  opcode: %s\n", opcode->name);
-
-    for(j=0;j<opcode->n_dest;j++){
-      g_print("  dest%d: %d %s\n", j, insn->args[j],
-          program->vars[insn->args[j]].name);
-    }
-    for(j=0;j<opcode->n_src;j++){
-      g_print("  src%d: %d %s\n", j, insn->args[opcode->n_dest + j],
-          program->vars[insn->args[opcode->n_dest + j]].name);
-    }
-
-    g_print("\n");
-  }
-
-  for(i=0;i<program->n_vars;i++){
-    g_print("var: %d %s\n", i, program->vars[i].name);
-    g_print("first_use: %d\n", program->vars[i].first_use);
-    g_print("last_use: %d\n", program->vars[i].last_use);
-
-    g_print("\n");
-  }
-
 }
 
 
@@ -368,58 +329,7 @@ oj_program_x86_register_rules (OJRuleList *list)
 }
 
 
-void
-oj_program_allocate_codemem (OJProgram *program)
-{
-  char *filename;
-  int fd;
-  GError *error = NULL;
-
-  fd = g_file_open_tmp ("liboilexecXXXXXX", &filename, &error);
-  if (fd == -1) {
-    /* FIXME oh crap */
-    g_print("failed to create temp file\n");
-    program->error = TRUE;
-    return;
-  }
-  unlink (filename);
-  g_free (filename);
-
-  ftruncate (fd, SIZE);
-
-  program->code = mmap (NULL, SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-  if (program->code == MAP_FAILED) {
-    /* FIXME oh crap */
-    g_print("failed to create write map\n");
-    program->error = TRUE;
-    return;
-  }
-  program->code_exec = mmap (NULL, SIZE, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
-  if (program->code_exec == MAP_FAILED) {
-    /* FIXME oh crap */
-    g_print("failed to create exec map\n");
-    program->error = TRUE;
-    return;
-  }
-
-  close (fd);
-
-  program->codeptr = program->code;
-}
-
-
 /* code generation */
-
-void
-oj_program_dump_code (OJProgram *program)
-{
-  FILE *file;
-
-  file = fopen("dump","w");
-
-  fwrite (program->code, 1, program->codeptr - program->code, file);
-  fclose (file);
-}
 
 void
 x86_emit_push (OJProgram *program, int size, int reg)

@@ -95,6 +95,7 @@ struct _OJProgram {
   unsigned char *code;
   void *code_exec;
   unsigned char *codeptr;
+  int code_size;
   
   OJFixup fixups[100];
   int n_fixups;
@@ -177,6 +178,7 @@ void oj_rule_list_register (OJRuleList *rule_list, const char *op_name,
 OJRule * oj_rule_list_get (OJRuleList *rule_list, OJOpcode *opcode);
 void oj_program_x86_register_rules (OJRuleList *rule_list);
 void oj_program_allocate_codemem (OJProgram *program);
+void oj_program_dump_code (OJProgram *program);
 
 #endif
 
