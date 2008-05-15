@@ -13,6 +13,7 @@ typedef struct _OJInstruction OJInstruction;
 typedef struct _OJProgram OJProgram;
 typedef struct _OJRule OJRule;
 typedef struct _OJRuleList OJRuleList;
+typedef struct _OJFixup OJFixup;
 
 typedef void (*OJOpcodeEmulateFunc)(OJExecutor *ex, void *user);
 typedef void (*OJRuleEmitFunc)(OJProgram *p, void *user, OJInstruction *insn);
@@ -76,17 +77,11 @@ struct _OJInstruction {
   OJRule *rule;
 };
 
-#if 0
-struct _OJRegister {
-  int var;
-
-  int first_use;
-  int last_use;
-  int retired;
-
-  int alloc;
+struct _OJFixup {
+  unsigned char *ptr;
+  int type;
+  int label;
 };
-#endif
 
 struct _OJProgram {
   OJInstruction insns[100];
@@ -96,6 +91,16 @@ struct _OJProgram {
   int n_vars;
 
   OJInstruction *insn;
+
+  unsigned char *code;
+  void *code_exec;
+  unsigned char *codeptr;
+  
+  OJFixup fixups[100];
+  int n_fixups;
+  unsigned char *labels[100];
+
+  int error;
 };
 
 struct _OJExecutor {
@@ -165,6 +170,7 @@ void oj_rule_list_register (OJRuleList *rule_list, const char *op_name,
     OJRuleEmitFunc emit, void *emit_user, unsigned int flags);
 OJRule * oj_rule_list_get (OJRuleList *rule_list, OJOpcode *opcode);
 void oj_program_x86_register_rules (OJRuleList *rule_list);
+void oj_program_allocate_codemem (OJProgram *program);
 
 #endif
 
