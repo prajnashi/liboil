@@ -115,10 +115,15 @@ struct _OJExecutor {
 
 };
 
-#define OJ_RULE_MUST_CHAIN_SRC1   0x0001
-#define OJ_RULE_MAY_CHAIN_SRC1    0x0002
-#define OJ_RULE_SYMMETRIC_SRC     0x0004
-#define OJ_RULE_SRC2_IS_CL        0x0008
+enum {
+  OJ_RULE_3REG = (1<<0),
+  OJ_RULE_REG_REG = (1<<1),
+  OJ_RULE_MEM_REG = (1<<2),
+  OJ_RULE_REG_MEM = (1<<3),
+  OJ_RULE_REG_IMM = (1<<4),
+  OJ_RULE_MEM_IMM = (1<<5),
+  OJ_RULE_REG_CL = (1<<6)
+};
 
 struct _OJRule {
   OJOpcode *opcode;
@@ -135,6 +140,7 @@ struct _OJRuleList {
   OJRule *rules;
 };
 
+#define OJ_GP_REG_BASE 8
 
 OJProgram * oj_program_new (void);
 OJOpcode * oj_opcode_find_by_name (const char *name);

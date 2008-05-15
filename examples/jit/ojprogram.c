@@ -289,3 +289,115 @@ oj_rule_list_get (OJRuleList *rule_list, OJOpcode *opcode)
   return NULL;
 }
 
+void
+oj_program_rewrite_vars (OJProgram *program)
+{
+  int i;
+  int j;
+  int k;
+  OJInstruction *insn;
+  OJOpcode *opcode;
+  int var;
+  int actual_var;
+  int alloc[8] = { 0, 1, 0, 0, 1, 1, 0, 0 };
+
+  for(j=0;j<program->n_insns;j++){
+    insn = program->insns + j;
+    opcode = insn->opcode;
+
+    /* set up args */
+    for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
+      var = insn->args[k];
+      if (program->vars[var].vartype == OJ_VAR_TYPE_DEST) {
+        g_print("ERROR: using dest var as source\n");
+      }
+
+      actual_var = var;
+      if (program->vars[var].replaced) {
+        actual_var = program->vars[var].replacement;
+        insn->args[k] = actual_var;
+      }
+
+      if (!program->vars[var].used) {
+        if (program->vars[var].vartype == OJ_VAR_TYPE_TEMP) {
+          g_print("ERROR: using uninitialized temp var\n");
+        }
+        program->vars[var].used = TRUE;
+        program->vars[var].first_use = j;
+      }
+      program->vars[actual_var].last_use = j;
+    }
+
+    for(k=0;k<opcode->n_dest;k++){
+      var = insn->args[k];
+
+      if (program->vars[var].vartype == OJ_VAR_TYPE_SRC) {
+        g_print("ERROR: using src var as dest\n");
+      }
+      if (program->vars[var].vartype == OJ_VAR_TYPE_CONST) {
+        g_print("ERROR: using const var as dest\n");
+      }
+      if (program->vars[var].vartype == OJ_VAR_TYPE_PARAM) {
+        g_print("ERROR: using param var as dest\n");
+      }
+
+      actual_var = var;
+      if (program->vars[var].replaced) {
+        actual_var = program->vars[var].replacement;
+        insn->args[k] = actual_var;
+      }
+
+      if (!program->vars[var].used) {
+        program->vars[actual_var].used = TRUE;
+        program->vars[actual_var].first_use = j;
+      } else {
+        if (program->vars[var].vartype == OJ_VAR_TYPE_DEST) {
+          g_print("ERROR: writing dest more than once\n");
+        }
+        if (program->vars[var].vartype == OJ_VAR_TYPE_TEMP) {
+          actual_var = oj_program_dup_temporary (program, var, j);
+          program->vars[var].replaced = TRUE;
+          program->vars[var].replacement = actual_var;
+          insn->args[k] = actual_var;
+          program->vars[actual_var].used = TRUE;
+          program->vars[actual_var].first_use = j;
+        }
+      }
+      program->vars[actual_var].last_use = j;
+    }
+  }
+
+  for(j=0;j<program->n_insns;j++){
+    for(i=0;i<program->n_vars;i++){
+      if (program->vars[i].first_use == j) {
+        for(k=0;k<8;k++){
+          if (!alloc[k]) {
+            program->vars[i].alloc = k + OJ_GP_REG_BASE;
+            alloc[k] = 1;
+            break;
+          }
+        }
+        if (k==8) {
+          g_print("register overflow\n");
+        }
+      }
+    }
+    for(i=0;i<program->n_vars;i++){
+      if (program->vars[i].last_use == j) {
+        alloc[program->vars[i].alloc - OJ_GP_REG_BASE] = 0;
+      }
+    }
+  }
+
+#if 0
+  for(i=0;i<program->n_vars;i++){
+    g_print("%2d: %2d %2d %s\n",
+        i,
+        program->vars[i].first_use,
+        program->vars[i].last_use,
+        x86_get_regname(program->vars[i].alloc));
+  }
+#endif
+
+}
+
