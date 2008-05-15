@@ -1,9 +1,5 @@
 
-SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale audioresample
-
-if HAVE_GLIB
-SUBDIRS += jit
-endif
+SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale audioresample orc
 
 bin_PROGRAMS = oil-bugreport
 

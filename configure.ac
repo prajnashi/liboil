@@ -279,14 +279,15 @@ liboil/simdpack/Makefile
 liboil/sse/Makefile
 liboil/utf8/Makefile
 liboil/arm/Makefile
+orc/Makefile
 testsuite/Makefile
 testsuite/instruction/Makefile
 examples/Makefile
 examples/audioresample/Makefile
 examples/huffman/Makefile
-examples/jit/Makefile
 examples/jpeg/Makefile
 examples/md5/Makefile
+examples/orc/Makefile
 examples/taylor/Makefile
 examples/uberopt/Makefile
 examples/videoscale/Makefile
