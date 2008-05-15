@@ -12,6 +12,7 @@
 
 #include "ojprogram.h"
 
+#define SIZE 65536
 
 #define X86_REG_BASE 8
 
@@ -31,6 +32,7 @@ void x86_emit_label (OJProgram *program, int label);
 
 void x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2);
 void x86_emit_modrm_reg (OJProgram *program, int reg1, int reg2);
+void x86_test (OJProgram *program);
 
 void oj_program_dump_code (OJProgram *program);
 
@@ -107,7 +109,6 @@ oj_program_compile_x86 (OJProgram *program)
   oj_program_x86_register_rules (list);
 
   oj_program_rewrite_vars (program);
-  //oj_program_dump (program);
 
   printf(".global test\n");
   printf("test:\n");
@@ -232,6 +233,9 @@ oj_program_compile_x86 (OJProgram *program)
   x86_emit_pop (program, 4, X86_EDI);
   x86_emit_pop (program, 4, X86_EBP);
   x86_emit_ret (program);
+
+  x86_test (program);
+
 
   {
     int i;
@@ -501,15 +505,15 @@ oj_program_allocate_codemem (OJProgram *program)
   unlink (filename);
   g_free (filename);
 
-  ftruncate (fd, 4096);
+  ftruncate (fd, SIZE);
 
-  program->code = mmap (NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+  program->code = mmap (NULL, SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
   if (program->code == MAP_FAILED) {
     /* FIXME oh crap */
     g_print("failed to create write map\n");
     return;
   }
-  program->code_exec = mmap (NULL, 4096, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
+  program->code_exec = mmap (NULL, SIZE, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
   if (program->code_exec == MAP_FAILED) {
     /* FIXME oh crap */
     g_print("failed to create exec map\n");
@@ -584,7 +588,7 @@ x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2)
 {
   if (offset == 0 && reg2 != X86_EBP) {
     if (reg2 == X86_ESP) {
-      *program->codeptr++ = X86_MODRM(1, 4, reg1);
+      *program->codeptr++ = X86_MODRM(0, 4, reg1);
       *program->codeptr++ = X86_SIB(0, 4, reg2);
     } else {
       *program->codeptr++ = X86_MODRM(0, reg2, reg1);
@@ -596,7 +600,7 @@ x86_emit_modrm_memoffset (OJProgram *program, int reg1, int offset, int reg2)
     }
     *program->codeptr++ = (offset & 0xff);
   } else {
-    *program->codeptr++ = X86_MODRM(1, reg2, reg1);
+    *program->codeptr++ = X86_MODRM(2, reg2, reg1);
     if (reg2 == X86_ESP) {
       *program->codeptr++ = X86_SIB(0, 4, reg2);
     }
@@ -658,7 +662,7 @@ x86_emit_mov_imm_reg (OJProgram *program, int size, int value, int reg1)
     *program->codeptr++ = ((value>>8) & 0xff);
   } else {
     g_print("  movl $%d, %%%s\n", value, x86_get_regname(reg1));
-    *program->codeptr++ = 0xb8;
+    *program->codeptr++ = 0xb8 + x86_get_regnum(reg1);
     *program->codeptr++ = (value & 0xff);
     *program->codeptr++ = ((value>>8) & 0xff);
     *program->codeptr++ = ((value>>16) & 0xff);
@@ -721,6 +725,10 @@ x86_emit_add_imm_memoffset (OJProgram *program, int size, int value,
     x86_emit_modrm_memoffset (program, 0, offset, reg);
     *program->codeptr++ = (value & 0xff);
     *program->codeptr++ = ((value>>8) & 0xff);
+    if (size == 4) {
+      *program->codeptr++ = ((value>>16) & 0xff);
+      *program->codeptr++ = ((value>>24) & 0xff);
+    }
   }
 }
 
@@ -782,5 +790,45 @@ void x86_emit_label (OJProgram *program, int label)
   g_print(".L%d:\n", label);
 
   x86_add_label (program, program->codeptr, label);
+}
+
+void
+x86_test (OJProgram *program)
+{
+  int size;
+  int i;
+  int j;
+  int reg;
+
+  for(size=2;size<=4;size+=2) {
+    for(i=0;i<8;i++){
+      reg = X86_REG_BASE + i;
+      x86_emit_push (program, size, reg);
+      x86_emit_pop (program, size, reg);
+      x86_emit_mov_imm_reg (program, size, 0, reg);
+      x86_emit_mov_imm_reg (program, size, 1, reg);
+      x86_emit_mov_imm_reg (program, size, 256, reg);
+      x86_emit_dec_memoffset (program, size, 0, reg);
+      x86_emit_dec_memoffset (program, size, 1, reg);
+      x86_emit_dec_memoffset (program, size, 256, reg);
+      x86_emit_add_imm_memoffset (program, size, 1, 0, reg);
+      x86_emit_add_imm_memoffset (program, size, 1, 1, reg);
+      x86_emit_add_imm_memoffset (program, size, 1, 256, reg);
+      x86_emit_add_imm_memoffset (program, size, 256, 0, reg);
+      x86_emit_add_imm_memoffset (program, size, 256, 1, reg);
+      x86_emit_add_imm_memoffset (program, size, 256, 256, reg);
+      for(j=0;j<8;j++){
+        int reg2 = X86_REG_BASE + j;
+        x86_emit_mov_reg_reg (program, size, reg, reg2);
+        x86_emit_mov_memoffset_reg (program, size, 0, reg, reg2);
+        x86_emit_mov_memoffset_reg (program, size, 1, reg, reg2);
+        x86_emit_mov_memoffset_reg (program, size, 256, reg, reg2);
+        x86_emit_mov_reg_memoffset (program, size, reg, 0, reg2);
+        x86_emit_mov_reg_memoffset (program, size, reg, 1, reg2);
+        x86_emit_mov_reg_memoffset (program, size, reg, 256, reg2);
+      }
+    }
+  }
+
 }
 

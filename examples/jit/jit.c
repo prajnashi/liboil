@@ -48,7 +48,7 @@ main (int argc, char *argv[])
 
   oj_program_compile_x86 (p);
 
-  if (1) {
+  if (0) {
     int i;
     void (*func) (OJExecutor *);
 
