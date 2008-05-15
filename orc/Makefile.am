@@ -10,9 +10,9 @@ liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	orcexecutor.c \
 	orcrule.c \
 	orctype.c \
-	ojprogram.c \
-	ojprogram-x86.c \
-	ojprogram.h \
-	ojopcodes.c \
-	ojprogram-linux.c
+	orcprogram.c \
+	orcprogram-x86.c \
+	orcprogram.h \
+	orcopcodes.c \
+	orcprogram-linux.c
 
