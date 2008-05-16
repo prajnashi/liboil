@@ -23,7 +23,9 @@ orc_rule_list_new (void)
 void
 orc_rule_list_free (OrcRuleList *rule_list)
 {
-  free (rule_list->rules);
+  if (rule_list->rules) {
+    free (rule_list->rules);
+  }
   free (rule_list);
 }
 
@@ -35,7 +37,7 @@ orc_rule_list_register (OrcRuleList *rule_list, const char *opcode_name,
 
   if (rule_list->n_rules == rule_list->n_alloc) {
     rule_list->n_alloc += 100;
-    rule_list->rules = realloc (rule_list, sizeof(OrcRule) * rule_list->n_alloc);
+    rule_list->rules = realloc (rule_list->rules, sizeof(OrcRule) * rule_list->n_alloc);
   }
 
   i = rule_list->n_rules;

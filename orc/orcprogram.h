@@ -143,11 +143,15 @@ struct _OrcRuleList {
 
 #define ORC_GP_REG_BASE 8
 
+void orc_init (void);
+
 OrcProgram * orc_program_new (void);
 OrcOpcode * orc_opcode_find_by_name (const char *name);
 void orc_opcode_init (void);
 
 void orc_program_append (OrcProgram *p, const char *opcode, int arg0, int arg1, int arg2);
+
+void orc_x86_init (void);
 
 void orc_program_compile_x86 (OrcProgram *p);
 void orc_program_free (OrcProgram *program);
@@ -169,6 +173,7 @@ void orc_executor_free (OrcExecutor *ex);
 void orc_executor_set_array (OrcExecutor *ex, int var, void *ptr);
 void orc_executor_set_n (OrcExecutor *ex, int n);
 void orc_executor_emulate (OrcExecutor *ex);
+void orc_executor_run (OrcExecutor *ex);
 
 
 OrcRuleList *orc_rule_list_new(void);

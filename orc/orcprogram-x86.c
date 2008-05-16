@@ -124,6 +124,15 @@ x86_do_fixups (OrcProgram *program)
   }
 }
 
+static OrcRuleList *orc_x86_list;
+
+void
+orc_x86_init (void)
+{
+  orc_x86_list = orc_rule_list_new();
+  orc_program_x86_register_rules (orc_x86_list);
+}
+
 void
 orc_program_compile_x86 (OrcProgram *program)
 {
@@ -132,13 +141,9 @@ orc_program_compile_x86 (OrcProgram *program)
   OrcInstruction *insn;
   OrcOpcode *opcode;
   OrcVariable *args[10];
-  OrcRuleList *list;
   OrcRule *rule;
 
   orc_program_allocate_codemem (program);
-
-  list = orc_rule_list_new();
-  orc_program_x86_register_rules (list);
 
   orc_program_rewrite_vars (program);
 
@@ -188,7 +193,7 @@ orc_program_compile_x86 (OrcProgram *program)
       }
     }
 
-    rule = orc_rule_list_get (list, opcode);
+    rule = orc_rule_list_get (orc_x86_list, opcode);
     if (rule) {
       if (!(rule->flags & ORC_RULE_3REG) && insn->args[0] != insn->args[1]) {
         x86_emit_mov_reg_reg (program, 2, args[1]->alloc, args[0]->alloc);

@@ -13,8 +13,19 @@ OrcProgram *
 orc_program_new (void)
 {
   OrcProgram *p;
-  p = g_malloc0(sizeof(OrcProgram));
+  p = malloc(sizeof(OrcProgram));
+  memset (p, 0, sizeof(OrcProgram));
   return p;
+}
+
+void
+orc_program_free (OrcProgram *program)
+{
+  int i;
+  for(i=0;i<program->n_vars;i++){
+    free (program->vars[i].name);
+  }
+  free (program);
 }
 
 int

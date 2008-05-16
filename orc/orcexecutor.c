@@ -32,8 +32,10 @@ orc_executor_free (OrcExecutor *ex)
 void
 orc_executor_run (OrcExecutor *ex)
 {
+  void (*func) (OrcExecutor *);
 
-
+  func = ex->program->code_exec;
+  func (ex);
 }
 
 void

@@ -7,6 +7,7 @@ liborc_@LIBOIL_MAJORMINOR@_la_LIBS = $(LIBOIL_LIBS) $(GLIB_LIBS)
 liborc_@LIBOIL_MAJORMINOR@_la_CFLAGS = $(LIBOIL_CFLAGS) $(GLIB_CFLAGS)
 
 liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
+	orc.c \
 	orcexecutor.c \
 	orcrule.c \
 	orctype.c \
