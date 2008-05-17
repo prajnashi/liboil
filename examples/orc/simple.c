@@ -55,7 +55,7 @@ test1(void)
 
     for(i=0;i<N;i++){
       src1[i] = rand()&0xf;
-      src2[i] = rand()&0xf;
+      src2[i] = rand()&0x3;
     }
 
     orc_executor_run (ex);
@@ -63,7 +63,7 @@ test1(void)
 
     for(i=0;i<N;i++){
       printf("#  %4d %4d %4d %4d\n", src1[i], src2[i], dest[i],
-          (src1[i] + src2[i] + 1)>>1);
+          src1[i] + src2[i]);
     }
   }
 

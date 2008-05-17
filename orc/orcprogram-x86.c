@@ -239,7 +239,7 @@ orc_program_compile_x86 (OrcProgram *program)
 
   x86_emit_epilogue (program);
 
-  x86_test (program);
+  //x86_test (program);
 
 
   x86_do_fixups (program);
@@ -258,9 +258,9 @@ x86_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       x86_get_regname_16(p->vars[insn->args[0]].alloc));
 
   *p->codeptr++ = 0x66;
-  *p->codeptr++ = 0x01;
-  x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,
-      p->vars[insn->args[2]].alloc);
+  *p->codeptr++ = 0x03;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
 
 }
 
@@ -272,9 +272,9 @@ x86_rule_sub_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       x86_get_regname_16(p->vars[insn->args[0]].alloc));
 
   *p->codeptr++ = 0x66;
-  *p->codeptr++ = 0x29;
-  x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,
-      p->vars[insn->args[2]].alloc);
+  *p->codeptr++ = 0x2b;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
 }
 
 static void
@@ -287,8 +287,8 @@ x86_rule_mul_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
   *p->codeptr++ = 0x66;
   *p->codeptr++ = 0x0f;
   *p->codeptr++ = 0xaf;
-  x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,
-      p->vars[insn->args[2]].alloc);
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
 }
 
 static void
