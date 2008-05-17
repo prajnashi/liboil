@@ -146,6 +146,19 @@ orc_x86_init (void)
 }
 
 void
+orc_program_reset_alloc (OrcProgram *program)
+{
+  int i;
+
+  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+    program->alloc_regs[i] = 0;
+  }
+  program->alloc_regs[X86_ECX] = 1;
+  program->alloc_regs[X86_ESP] = 1;
+  program->alloc_regs[X86_EBP] = 1;
+}
+
+void
 orc_program_compile_x86 (OrcProgram *program)
 {
   int j;

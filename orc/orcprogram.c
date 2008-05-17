@@ -132,6 +132,20 @@ orc_program_assign_rules (OrcProgram *program)
   }
 }
 
+int
+orc_program_allocate_register (OrcProgram *program, int data_reg)
+{
+  int i;
+
+  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+    if (program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      return i;
+    }
+  }
+  g_print("register overflow\n");
+  return 0;
+}
 
 void
 orc_program_rewrite_vars (OrcProgram *program)
@@ -143,9 +157,10 @@ orc_program_rewrite_vars (OrcProgram *program)
   OrcOpcode *opcode;
   int var;
   int actual_var;
-  int alloc[8] = { 0, 1, 0, 0, 1, 1, 0, 0 };
 
   orc_program_assign_rules (program);
+
+  orc_program_reset_alloc (program);
 
   for(j=0;j<program->n_insns;j++){
     insn = program->insns + j;
@@ -224,19 +239,11 @@ orc_program_rewrite_vars (OrcProgram *program)
       int dest = program->insns[j].args[0];
       if (program->vars[src1].last_use == j) {
         if (program->vars[src1].first_use == j) {
-          for(k=0;k<8;k++){
-            if (alloc[k] == 0) {
-              program->vars[src1].alloc = k + ORC_GP_REG_BASE;
-              alloc[k] = 1;
-              program->used_regs[k] = 1;
-              break;
-            }
-          }
-          if (k==8) {
-            g_print("register overflow\n");
-          }
+          k = orc_program_allocate_register (program, FALSE);
+          program->vars[src1].alloc = k;
+          program->used_regs[k] = 1;
         }
-        alloc[program->vars[src1].alloc - ORC_GP_REG_BASE]++;
+        program->alloc_regs[program->vars[src1].alloc]++;
         program->vars[dest].alloc = program->vars[src1].alloc;
       }
     }
@@ -245,27 +252,19 @@ orc_program_rewrite_vars (OrcProgram *program)
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].first_use == j) {
         if (program->vars[i].alloc) continue;
-        for(k=0;k<8;k++){
-          if (alloc[k] == 0) {
-            program->vars[i].alloc = k + ORC_GP_REG_BASE;
-            alloc[k] = 1;
-            program->used_regs[k] = 1;
-            break;
-          }
-        }
-        if (k==8) {
-          g_print("register overflow\n");
-        }
+        k = orc_program_allocate_register (program, FALSE);
+        program->vars[i].alloc = k;
+        program->used_regs[k] = 1;
       }
     }
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].last_use == j) {
-        alloc[program->vars[i].alloc - ORC_GP_REG_BASE]--;
+        program->alloc_regs[program->vars[i].alloc]--;
       }
     }
   }
 
-#if 1
+#if 0
   for(i=0;i<program->n_vars;i++){
     g_print("# %2d: %2d %2d %d\n",
         i,

@@ -18,6 +18,8 @@ typedef struct _OrcFixup OrcFixup;
 typedef void (*OrcOpcodeEmulateFunc)(OrcExecutor *ex, void *user);
 typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn);
 
+#define ORC_N_REGS 64
+
 struct _OrcType {
   char *name;
   int size;
@@ -104,8 +106,8 @@ struct _OrcProgram {
 
   int error;
 
-  int used_regs[8];
-  int alloc_regs[8];
+  int used_regs[ORC_N_REGS];
+  int alloc_regs[ORC_N_REGS];
 };
 
 struct _OrcExecutor {
@@ -167,6 +169,8 @@ int orc_program_add_destination (OrcProgram *program, const char *type, const ch
 int orc_program_add_constant (OrcProgram *program, const char *type, int value, const char *name);
 void orc_program_append (OrcProgram *program, const char *opcode, int arg0,
     int arg1, int arg2);
+
+void orc_program_reset_alloc (OrcProgram *program);
 
 
 OrcType * orc_type_get (const char *name);
