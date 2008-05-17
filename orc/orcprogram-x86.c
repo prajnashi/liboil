@@ -136,7 +136,7 @@ x86_do_fixups (OrcProgram *program)
   }
 }
 
-static OrcRuleList *orc_x86_list;
+OrcRuleList *orc_x86_list;
 
 void
 orc_x86_init (void)
@@ -176,12 +176,17 @@ orc_program_compile_x86 (OrcProgram *program)
     insn = program->insns + j;
     opcode = insn->opcode;
 
-    printf("# %d: %s\n", j, insn->opcode->name);
+    printf("# %d: %s", j, insn->opcode->name);
 
     /* set up args */
     for(k=0;k<opcode->n_src + opcode->n_dest;k++){
       args[k] = program->vars + insn->args[k];
+      printf(" %d", args[k]->alloc);
+      if (args[k]->is_chained) {
+        printf(" (chained)");
+      }
     }
+    printf("\n");
 
     for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
       switch (args[k]->vartype) {
@@ -205,9 +210,9 @@ orc_program_compile_x86 (OrcProgram *program)
       }
     }
 
-    rule = orc_rule_list_get (orc_x86_list, opcode);
+    rule = insn->rule;
     if (rule) {
-      if (!(rule->flags & ORC_RULE_3REG) && insn->args[0] != insn->args[1]) {
+      if (!(rule->flags & ORC_RULE_3REG) && args[0]->alloc != args[1]->alloc) {
         x86_emit_mov_reg_reg (program, 2, args[1]->alloc, args[0]->alloc);
       }
       rule->emit (program, rule->emit_user, insn);

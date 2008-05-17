@@ -121,6 +121,17 @@ orc_program_append (OrcProgram *program, const char *name, int arg0,
   program->n_insns++;
 }
 
+void
+orc_program_assign_rules (OrcProgram *program)
+{
+  int i;
+
+  for(i=0;i<program->n_insns;i++) {
+    program->insns[i].rule = orc_rule_list_get (orc_x86_list,
+        program->insns[i].opcode);
+  }
+}
+
 
 void
 orc_program_rewrite_vars (OrcProgram *program)
@@ -133,6 +144,8 @@ orc_program_rewrite_vars (OrcProgram *program)
   int var;
   int actual_var;
   int alloc[8] = { 0, 1, 0, 0, 1, 1, 0, 0 };
+
+  orc_program_assign_rules (program);
 
   for(j=0;j<program->n_insns;j++){
     insn = program->insns + j;
@@ -201,10 +214,39 @@ orc_program_rewrite_vars (OrcProgram *program)
   }
 
   for(j=0;j<program->n_insns;j++){
+#if 1
+    /* must be true to chain src1 to dest:
+     *  - rule must handle it
+     *  - src1 must be last_use
+     */
+    if (1 || program->insns[j].rule->flags & ORC_RULE_REG_REG) {
+      int src1 = program->insns[j].args[1];
+      int dest = program->insns[j].args[0];
+      if (program->vars[src1].last_use == j) {
+        if (program->vars[src1].first_use == j) {
+          for(k=0;k<8;k++){
+            if (alloc[k] == 0) {
+              program->vars[src1].alloc = k + ORC_GP_REG_BASE;
+              alloc[k] = 1;
+              program->used_regs[k] = 1;
+              break;
+            }
+          }
+          if (k==8) {
+            g_print("register overflow\n");
+          }
+        }
+        alloc[program->vars[src1].alloc - ORC_GP_REG_BASE]++;
+        program->vars[dest].alloc = program->vars[src1].alloc;
+      }
+    }
+#endif
+
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].first_use == j) {
+        if (program->vars[i].alloc) continue;
         for(k=0;k<8;k++){
-          if (!alloc[k]) {
+          if (alloc[k] == 0) {
             program->vars[i].alloc = k + ORC_GP_REG_BASE;
             alloc[k] = 1;
             program->used_regs[k] = 1;
@@ -218,18 +260,18 @@ orc_program_rewrite_vars (OrcProgram *program)
     }
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].last_use == j) {
-        alloc[program->vars[i].alloc - ORC_GP_REG_BASE] = 0;
+        alloc[program->vars[i].alloc - ORC_GP_REG_BASE]--;
       }
     }
   }
 
-#if 0
+#if 1
   for(i=0;i<program->n_vars;i++){
-    g_print("%2d: %2d %2d %s\n",
+    g_print("# %2d: %2d %2d %d\n",
         i,
         program->vars[i].first_use,
         program->vars[i].last_use,
-        x86_get_regname(program->vars[i].alloc));
+        program->vars[i].alloc);
   }
 #endif
 

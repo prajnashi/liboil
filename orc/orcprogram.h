@@ -44,6 +44,7 @@ struct _OrcVariable {
   int replacement;
 
   int alloc;
+  int is_chained;
 
   int16_t s16;
 };
@@ -104,6 +105,7 @@ struct _OrcProgram {
   int error;
 
   int used_regs[8];
+  int alloc_regs[8];
 };
 
 struct _OrcExecutor {
@@ -186,6 +188,8 @@ OrcRule * orc_rule_list_get (OrcRuleList *rule_list, OrcOpcode *opcode);
 void orc_program_x86_register_rules (OrcRuleList *rule_list);
 void orc_program_allocate_codemem (OrcProgram *program);
 void orc_program_dump_code (OrcProgram *program);
+ 
+extern OrcRuleList *orc_x86_list;
 
 #endif
 
