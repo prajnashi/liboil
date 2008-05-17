@@ -102,6 +102,8 @@ struct _OrcProgram {
   unsigned char *labels[100];
 
   int error;
+
+  int used_regs[8];
 };
 
 struct _OrcExecutor {

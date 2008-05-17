@@ -95,17 +95,29 @@ x86_emit_prologue (OrcProgram *program)
   g_print("test:\n");
   x86_emit_push (program, 4, X86_EBP);
   x86_emit_mov_memoffset_reg (program, 4, 8, X86_ESP, X86_EBP);
-  x86_emit_push (program, 4, X86_EDI);
-  x86_emit_push (program, 4, X86_ESI);
-  x86_emit_push (program, 4, X86_EBX);
+  if (program->used_regs[x86_get_regnum(X86_EDI)]) {
+    x86_emit_push (program, 4, X86_EDI);
+  }
+  if (program->used_regs[x86_get_regnum(X86_ESI)]) {
+    x86_emit_push (program, 4, X86_ESI);
+  }
+  if (program->used_regs[x86_get_regnum(X86_EBX)]) {
+    x86_emit_push (program, 4, X86_EBX);
+  }
 }
 
 void
 x86_emit_epilogue (OrcProgram *program)
 {
-  x86_emit_pop (program, 4, X86_EBX);
-  x86_emit_pop (program, 4, X86_ESI);
-  x86_emit_pop (program, 4, X86_EDI);
+  if (program->used_regs[x86_get_regnum(X86_EBX)]) {
+    x86_emit_pop (program, 4, X86_EBX);
+  }
+  if (program->used_regs[x86_get_regnum(X86_ESI)]) {
+    x86_emit_pop (program, 4, X86_ESI);
+  }
+  if (program->used_regs[x86_get_regnum(X86_EDI)]) {
+    x86_emit_pop (program, 4, X86_EDI);
+  }
   x86_emit_pop (program, 4, X86_EBP);
   x86_emit_ret (program);
 }

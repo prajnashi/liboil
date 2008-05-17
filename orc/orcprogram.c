@@ -207,6 +207,7 @@ orc_program_rewrite_vars (OrcProgram *program)
           if (!alloc[k]) {
             program->vars[i].alloc = k + ORC_GP_REG_BASE;
             alloc[k] = 1;
+            program->used_regs[k] = 1;
             break;
           }
         }
