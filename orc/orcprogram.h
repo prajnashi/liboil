@@ -78,6 +78,7 @@ struct _OrcInstruction {
   int args[3];
 
   OrcRule *rule;
+  unsigned int rule_flag;
 };
 
 struct _OrcFixup {

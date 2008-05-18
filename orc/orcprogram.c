@@ -127,8 +127,18 @@ orc_program_assign_rules (OrcProgram *program)
   int i;
 
   for(i=0;i<program->n_insns;i++) {
-    program->insns[i].rule = orc_rule_list_get (orc_x86_list,
-        program->insns[i].opcode);
+    OrcInstruction *insn = program->insns + i;
+    unsigned int flags;
+
+    insn->rule = orc_rule_list_get (orc_x86_list,insn->opcode);
+
+    flags = insn->rule->flags;
+    if (flags & ORC_RULE_REG_IMM &&
+        program->vars[insn->args[2]].vartype == ORC_VAR_TYPE_CONST) {
+      program->insns[i].rule_flag = ORC_RULE_REG_IMM;
+    } else {
+      program->insns[i].rule_flag = ORC_RULE_REG_REG;
+    }
   }
 }
 
@@ -248,6 +258,12 @@ orc_program_rewrite_vars (OrcProgram *program)
       }
     }
 #endif
+
+    /* immediate operand, don't load */
+    if (program->insns[j].rule_flag == ORC_RULE_REG_IMM) {
+      int src2 = program->insns[j].args[2];
+      program->vars[src2].alloc = 1;
+    }
 
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].first_use == j) {
