@@ -8,6 +8,10 @@
 
 #include <orc/orcprogram.h>
 
+void orc_program_assign_rules (OrcProgram *program);
+void orc_program_rewrite_vars (OrcProgram *program);
+void orc_program_rewrite_vars2 (OrcProgram *program);
+void orc_program_do_regs (OrcProgram *program);
 
 OrcProgram *
 orc_program_new (void)
@@ -125,6 +129,38 @@ orc_program_append (OrcProgram *program, const char *name, int arg0,
   program->n_insns++;
 }
 
+int
+orc_program_allocate_register (OrcProgram *program, int data_reg)
+{
+  int i;
+
+  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+    if (program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      return i;
+    }
+  }
+  g_print("register overflow\n");
+  return 0;
+}
+
+void
+orc_program_compile (OrcProgram *program)
+{
+  orc_program_assign_rules (program);
+  orc_program_rewrite_vars (program);
+
+  orc_program_do_regs (program);
+
+  orc_program_reset_alloc (program);
+  orc_program_rewrite_vars2 (program);
+
+  orc_program_allocate_codemem (program);
+  orc_program_assemble_x86 (program);
+
+  orc_program_dump_code (program);
+}
+
 void
 orc_program_assign_rules (OrcProgram *program)
 {
@@ -146,35 +182,15 @@ orc_program_assign_rules (OrcProgram *program)
   }
 }
 
-int
-orc_program_allocate_register (OrcProgram *program, int data_reg)
-{
-  int i;
-
-  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
-    if (program->alloc_regs[i] == 0) {
-      program->alloc_regs[i]++;
-      return i;
-    }
-  }
-  g_print("register overflow\n");
-  return 0;
-}
-
 void
 orc_program_rewrite_vars (OrcProgram *program)
 {
-  int i;
   int j;
   int k;
   OrcInstruction *insn;
   OrcOpcode *opcode;
   int var;
   int actual_var;
-
-  orc_program_assign_rules (program);
-
-  orc_program_reset_alloc (program);
 
   for(j=0;j<program->n_insns;j++){
     insn = program->insns + j;
@@ -241,6 +257,20 @@ orc_program_rewrite_vars (OrcProgram *program)
       program->vars[actual_var].last_use = j;
     }
   }
+}
+
+void
+orc_program_do_regs (OrcProgram *program)
+{
+
+}
+
+void
+orc_program_rewrite_vars2 (OrcProgram *program)
+{
+  int i;
+  int j;
+  int k;
 
   for(j=0;j<program->n_insns;j++){
 #if 1

@@ -11,6 +11,7 @@ typedef struct _OrcOpcode OrcOpcode;
 typedef struct _OrcArgument OrcArgument;
 typedef struct _OrcInstruction OrcInstruction;
 typedef struct _OrcProgram OrcProgram;
+typedef struct _OrcRegister OrcRegister;
 typedef struct _OrcRule OrcRule;
 typedef struct _OrcFixup OrcFixup;
 
@@ -105,6 +106,15 @@ struct _OrcFixup {
   int label;
 };
 
+struct _OrcRegister {
+  int var;
+
+  int is_chained;
+  int chained_reg;
+
+  int merge;
+};
+
 struct _OrcProgram {
   OrcInstruction insns[100];
   int n_insns;
@@ -114,6 +124,9 @@ struct _OrcProgram {
 
   OrcInstruction *insn;
   int rule_set;
+
+  OrcRegister registers[100];
+  int n_regs;
 
   unsigned char *code;
   void *code_exec;
@@ -164,7 +177,8 @@ void orc_program_append (OrcProgram *p, const char *opcode, int arg0, int arg1, 
 
 void orc_x86_init (void);
 
-void orc_program_compile_x86 (OrcProgram *p);
+void orc_program_compile (OrcProgram *p);
+void orc_program_assemble_x86 (OrcProgram *p);
 void orc_program_free (OrcProgram *program);
 
 int orc_program_add_temporary (OrcProgram *program, const char *type, const char *name);

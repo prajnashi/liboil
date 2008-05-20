@@ -177,7 +177,7 @@ orc_program_reset_alloc (OrcProgram *program)
 }
 
 void
-orc_program_compile_x86 (OrcProgram *program)
+orc_program_assemble_x86 (OrcProgram *program)
 {
   int j;
   int k;
@@ -185,10 +185,6 @@ orc_program_compile_x86 (OrcProgram *program)
   OrcOpcode *opcode;
   OrcVariable *args[10];
   OrcRule *rule;
-
-  orc_program_allocate_codemem (program);
-
-  orc_program_rewrite_vars (program);
 
   x86_emit_prologue (program);
 
@@ -294,8 +290,6 @@ orc_program_compile_x86 (OrcProgram *program)
 
 
   x86_do_fixups (program);
-
-  orc_program_dump_code (program);
 }
 
 
