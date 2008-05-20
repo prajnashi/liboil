@@ -32,6 +32,9 @@ void x86_emit_modrm_memoffset (OrcProgram *program, int reg1, int offset, int re
 void x86_emit_modrm_reg (OrcProgram *program, int reg1, int reg2);
 void x86_test (OrcProgram *program);
 
+void orc_program_x86_register_rules (void);
+void orc_program_mmx_register_rules (void);
+
 enum {
   X86_EAX = ORC_GP_REG_BASE,
   X86_ECX,
@@ -83,6 +86,23 @@ x86_get_regname_16(int i)
   }
 }
 
+static const char *
+x86_get_regname_mmx(int i)
+{
+  static const char *x86_regs[] = { "mm0", "mm1", "mm2", "mm3",
+    "mm4", "mm5", "mm6", "mm7" };
+
+  if (i>=ORC_GP_REG_BASE && i<ORC_GP_REG_BASE + 8) return x86_regs[i - ORC_GP_REG_BASE];
+  switch (i) {
+    case 0:
+      return "UNALLOCATED";
+    case 1:
+      return "direct";
+    default:
+      return "ERROR";
+  }
+}
+
 
 void orc_program_rewrite_vars (OrcProgram *program);
 void orc_program_allocate_regs (OrcProgram *program);
@@ -95,13 +115,13 @@ x86_emit_prologue (OrcProgram *program)
   g_print("test:\n");
   x86_emit_push (program, 4, X86_EBP);
   x86_emit_mov_memoffset_reg (program, 4, 8, X86_ESP, X86_EBP);
-  if (program->used_regs[x86_get_regnum(X86_EDI)]) {
+  if (program->used_regs[X86_EDI]) {
     x86_emit_push (program, 4, X86_EDI);
   }
-  if (program->used_regs[x86_get_regnum(X86_ESI)]) {
+  if (program->used_regs[X86_ESI]) {
     x86_emit_push (program, 4, X86_ESI);
   }
-  if (program->used_regs[x86_get_regnum(X86_EBX)]) {
+  if (program->used_regs[X86_EBX]) {
     x86_emit_push (program, 4, X86_EBX);
   }
 }
@@ -109,13 +129,13 @@ x86_emit_prologue (OrcProgram *program)
 void
 x86_emit_epilogue (OrcProgram *program)
 {
-  if (program->used_regs[x86_get_regnum(X86_EBX)]) {
+  if (program->used_regs[X86_EBX]) {
     x86_emit_pop (program, 4, X86_EBX);
   }
-  if (program->used_regs[x86_get_regnum(X86_ESI)]) {
+  if (program->used_regs[X86_ESI]) {
     x86_emit_pop (program, 4, X86_ESI);
   }
-  if (program->used_regs[x86_get_regnum(X86_EDI)]) {
+  if (program->used_regs[X86_EDI]) {
     x86_emit_pop (program, 4, X86_EDI);
   }
   x86_emit_pop (program, 4, X86_EBP);
@@ -136,13 +156,11 @@ x86_do_fixups (OrcProgram *program)
   }
 }
 
-OrcRuleList *orc_x86_list;
-
 void
 orc_x86_init (void)
 {
-  orc_x86_list = orc_rule_list_new();
-  orc_program_x86_register_rules (orc_x86_list);
+  orc_program_x86_register_rules ();
+  orc_program_mmx_register_rules ();
 }
 
 void
@@ -199,6 +217,7 @@ orc_program_compile_x86 (OrcProgram *program)
         printf(" (chained)");
       }
     }
+    printf(" rule_flag=%d", insn->rule_flag);
     printf("\n");
 
     for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
@@ -210,7 +229,7 @@ orc_program_compile_x86 (OrcProgram *program)
           x86_emit_mov_memoffset_reg (program, 2, 0, X86_ECX, args[k]->alloc);
           break;
         case ORC_VAR_TYPE_CONST:
-          if (args[k]->alloc != 1) {
+          if (insn->rule_flag != ORC_RULE_REG_IMM) {
             x86_emit_mov_imm_reg (program, 2, args[k]->s16, args[k]->alloc);
           }
           break;
@@ -281,6 +300,13 @@ orc_program_compile_x86 (OrcProgram *program)
 
 
 /* rules */
+
+static void
+x86_rule_loadi_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  x86_emit_mov_imm_reg (p, 2,  p->vars[insn->args[2]].s16,
+      p->vars[insn->args[0]].alloc);
+}
 
 static void
 x86_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
@@ -386,20 +412,129 @@ x86_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 
 
 void
-orc_program_x86_register_rules (OrcRuleList *list)
+orc_program_x86_register_rules (void)
 {
-  orc_rule_list_register (list, "add_s16", x86_rule_add_s16, NULL,
+  orc_rule_register ("_loadi_s16", ORC_RULE_SCALAR_1, x86_rule_loadi_s16, NULL,
+      ORC_RULE_REG_IMM);
+
+  orc_rule_register ("add_s16", ORC_RULE_SCALAR_1, x86_rule_add_s16, NULL,
       ORC_RULE_REG_REG | ORC_RULE_REG_IMM);
-  orc_rule_list_register (list, "sub_s16", x86_rule_sub_s16, NULL,
+  orc_rule_register ("sub_s16", ORC_RULE_SCALAR_1, x86_rule_sub_s16, NULL,
       ORC_RULE_REG_REG);
-  orc_rule_list_register (list, "mul_s16", x86_rule_mul_s16, NULL,
+  orc_rule_register ("mul_s16", ORC_RULE_SCALAR_1, x86_rule_mul_s16, NULL,
       ORC_RULE_REG_REG);
-  orc_rule_list_register (list, "lshift_s16", x86_rule_lshift_s16, NULL,
+  orc_rule_register ("lshift_s16", ORC_RULE_SCALAR_1, x86_rule_lshift_s16, NULL,
       ORC_RULE_REG_REG);
-  orc_rule_list_register (list, "rshift_s16", x86_rule_rshift_s16, NULL,
+  orc_rule_register ("rshift_s16", ORC_RULE_SCALAR_1, x86_rule_rshift_s16, NULL,
       ORC_RULE_REG_REG | ORC_RULE_REG_IMM);
 }
 
+/* mmx rules */
+
+static void
+mmx_rule_loadi_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  x86_emit_mov_imm_reg (p, 4,  p->vars[insn->args[2]].s16, X86_ECX);
+
+  g_print("  movd %%ecx, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0x6e;
+  x86_emit_modrm_reg (p, X86_ECX, p->vars[insn->args[0]].alloc);
+
+  g_print("  pshufw $0, %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0x70;
+  x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,
+      p->vars[insn->args[0]].alloc);
+  *p->codeptr++ = 0x00;
+}
+
+static void
+mmx_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  g_print("  paddw %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[2]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0xfd;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
+}
+
+static void
+mmx_rule_sub_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  g_print("  psubw %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[2]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0xf9;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
+}
+
+static void
+mmx_rule_mul_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  g_print("  pmullw %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[2]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0xd5;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
+}
+
+static void
+mmx_rule_lshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  g_print("  psllw %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[2]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0xf1;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
+}
+
+static void
+mmx_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
+{
+  g_print("  psraw %%%s, %%%s\n",
+      x86_get_regname_mmx(p->vars[insn->args[2]].alloc),
+      x86_get_regname_mmx(p->vars[insn->args[0]].alloc));
+
+  *p->codeptr++ = 0x0f;
+  *p->codeptr++ = 0xe1;
+  x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
+      p->vars[insn->args[0]].alloc);
+}
+
+void
+orc_program_mmx_register_rules (void)
+{
+  orc_rule_register ("_loadi_s16", ORC_RULE_MMX_4, mmx_rule_loadi_s16, NULL,
+      ORC_RULE_REG_IMM);
+
+  orc_rule_register ("add_s16", ORC_RULE_MMX_4, mmx_rule_add_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_register ("sub_s16", ORC_RULE_MMX_4, mmx_rule_sub_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_register ("mul_s16", ORC_RULE_MMX_4, mmx_rule_mul_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_register ("lshift_s16", ORC_RULE_MMX_4, mmx_rule_lshift_s16, NULL,
+      ORC_RULE_REG_REG);
+  orc_rule_register ("rshift_s16", ORC_RULE_MMX_4, mmx_rule_rshift_s16, NULL,
+      ORC_RULE_REG_REG);
+}
 
 /* code generation */
 

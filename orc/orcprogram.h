@@ -12,13 +12,24 @@ typedef struct _OrcArgument OrcArgument;
 typedef struct _OrcInstruction OrcInstruction;
 typedef struct _OrcProgram OrcProgram;
 typedef struct _OrcRule OrcRule;
-typedef struct _OrcRuleList OrcRuleList;
 typedef struct _OrcFixup OrcFixup;
 
 typedef void (*OrcOpcodeEmulateFunc)(OrcExecutor *ex, void *user);
 typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn);
 
 #define ORC_N_REGS 64
+
+#define ORC_OPCODE_N_ARGS 4
+#define ORC_OPCODE_N_RULES 8
+
+enum {
+  ORC_RULE_SCALAR_1 = 0,
+  ORC_RULE_SCALAR_2,
+  ORC_RULE_MMX_1,
+  ORC_RULE_MMX_2,
+  ORC_RULE_MMX_4,
+  ORC_RULE_MMX_8
+};
 
 struct _OrcType {
   char *name;
@@ -51,12 +62,19 @@ struct _OrcVariable {
   int16_t s16;
 };
 
+struct _OrcRule {
+  unsigned int flags;
+  OrcRuleEmitFunc emit;
+  void *emit_user;
+};
 
 struct _OrcOpcode {
   char *name;
   int n_src;
   int n_dest;
-  OrcType *arg_types[10];
+  OrcType *arg_types[ORC_OPCODE_N_ARGS];
+
+  OrcRule rules[ORC_OPCODE_N_RULES];
 
   OrcOpcodeEmulateFunc emulate;
   void *emulate_user;
@@ -95,6 +113,7 @@ struct _OrcProgram {
   int n_vars;
 
   OrcInstruction *insn;
+  int rule_set;
 
   unsigned char *code;
   void *code_exec;
@@ -133,21 +152,6 @@ enum {
   ORC_RULE_REG_CL = (1<<6)
 };
 
-struct _OrcRule {
-  OrcOpcode *opcode;
-
-  unsigned int flags;
-
-  OrcRuleEmitFunc emit;
-  void *emit_user;
-};
-
-struct _OrcRuleList {
-  int n_alloc;
-  int n_rules;
-  OrcRule *rules;
-};
-
 #define ORC_GP_REG_BASE 8
 
 void orc_init (void);
@@ -184,17 +188,12 @@ void orc_executor_set_n (OrcExecutor *ex, int n);
 void orc_executor_emulate (OrcExecutor *ex);
 void orc_executor_run (OrcExecutor *ex);
 
-
-OrcRuleList *orc_rule_list_new(void);
-void orc_rule_list_free (OrcRuleList *rule_list);
-void orc_rule_list_register (OrcRuleList *rule_list, const char *op_name,
+void orc_rule_register (const char *opcode_name, unsigned int mode,
     OrcRuleEmitFunc emit, void *emit_user, unsigned int flags);
-OrcRule * orc_rule_list_get (OrcRuleList *rule_list, OrcOpcode *opcode);
-void orc_program_x86_register_rules (OrcRuleList *rule_list);
+
+void orc_program_x86_register_rules (void);
 void orc_program_allocate_codemem (OrcProgram *program);
 void orc_program_dump_code (OrcProgram *program);
  
-extern OrcRuleList *orc_x86_list;
-
 #endif
 

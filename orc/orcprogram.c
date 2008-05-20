@@ -13,8 +13,12 @@ OrcProgram *
 orc_program_new (void)
 {
   OrcProgram *p;
+
   p = malloc(sizeof(OrcProgram));
   memset (p, 0, sizeof(OrcProgram));
+
+  p->rule_set = ORC_RULE_SCALAR_1;
+
   return p;
 }
 
@@ -130,7 +134,7 @@ orc_program_assign_rules (OrcProgram *program)
     OrcInstruction *insn = program->insns + i;
     unsigned int flags;
 
-    insn->rule = orc_rule_list_get (orc_x86_list,insn->opcode);
+    insn->rule = insn->opcode->rules + program->rule_set;
 
     flags = insn->rule->flags;
     if (flags & ORC_RULE_REG_IMM &&
@@ -259,10 +263,15 @@ orc_program_rewrite_vars (OrcProgram *program)
     }
 #endif
 
-    /* immediate operand, don't load */
     if (program->insns[j].rule_flag == ORC_RULE_REG_IMM) {
+      /* immediate operand, don't load */
       int src2 = program->insns[j].args[2];
       program->vars[src2].alloc = 1;
+    } else {
+      int src2 = program->insns[j].args[2];
+      if (program->vars[src2].alloc == 1) {
+        program->vars[src2].alloc = 0;
+      }
     }
 
     for(i=0;i<program->n_vars;i++){

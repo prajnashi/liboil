@@ -52,6 +52,12 @@ orc_opcode_find_by_name (const char *name)
 }
 
 static void
+move_s16 (OrcExecutor *ex, void *user)
+{
+  ex->args[0]->s16 = ex->args[1]->s16;
+}
+
+static void
 add_s16 (OrcExecutor *ex, void *user)
 {
   ex->args[0]->s16 = (int16_t)(ex->args[1]->s16 + ex->args[2]->s16);
@@ -84,6 +90,8 @@ rshift_s16 (OrcExecutor *ex, void *user)
 void
 orc_opcode_init (void)
 {
+  orc_opcode_register("_loadi_s16", 1, 1, move_s16, NULL);
+
   orc_opcode_register("add_s16", 1, 2, add_s16, NULL);
   orc_opcode_register("sub_s16", 1, 2, sub_s16, NULL);
   orc_opcode_register("mul_s16", 1, 2, mul_s16, NULL);
