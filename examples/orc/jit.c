@@ -8,7 +8,7 @@
 
 #include <orc/orcprogram.h>
 
-#define N 10
+#define N 20
 
 int16_t src1[N];
 int16_t src2[N];
@@ -35,23 +35,18 @@ main (int argc, char *argv[])
   offset = orc_program_add_constant (p, "s16", 1, "offset");
   shift = orc_program_add_constant (p, "s16", 1, "shift");
 
+#if 0
   orc_program_append (p, "add_s16", t1, s1, s2);
   orc_program_append (p, "add_s16", t1, t1, offset);
   orc_program_append (p, "rshift_s16", d1, t1, shift);
-
-#if 0
-  orc_program_append (p, "lshift_s16", t1, t1, shift);
-  orc_program_append (p, "sub_s16", t1, t1, shift);
-  orc_program_append (p, "mul_s16", t1, t1, shift);
-  //orc_program_append (p, "_loadi_s16", t1, t1, shift);
 #endif
 
-  ex = orc_executor_new (p);
-
-  orc_executor_set_n (ex, N);
-  orc_executor_set_array (ex, s1, src1);
-  orc_executor_set_array (ex, s2, src2);
-  orc_executor_set_array (ex, d1, dest);
+#if 1
+  orc_program_append (p, "lshift_s16", d1, s1, shift);
+  //orc_program_append (p, "sub_s16", t1, t1, shift);
+  //orc_program_append (p, "mul_s16", d1, s1, s2);
+  //orc_program_append (p, "_loadi_s16", t1, t1, shift);
+#endif
 
   orc_program_compile (p);
 
@@ -63,16 +58,26 @@ main (int argc, char *argv[])
       src2[i] = rand()&0xf;
     }
 
+    ex = orc_executor_new (p);
+
+    orc_executor_set_n (ex, N);
+    orc_executor_set_array (ex, s1, src1);
+    orc_executor_set_array (ex, s2, src2);
+    orc_executor_set_array (ex, d1, dest);
+
+    printf("#code exec %p\n", ex->program->code_exec);
+
     orc_executor_run (ex);
     //orc_executor_emulate (ex);
 
     for(i=0;i<N;i++){
       printf("#  %4d %4d %4d %4d\n", src1[i], src2[i], dest[i],
-          (src1[i] + src2[i] + 1)>>1);
+          src1[i] << 1);
     }
+
+    orc_executor_free (ex);
   }
 
-  orc_executor_free (ex);
   orc_program_free (p);
 
   return 0;

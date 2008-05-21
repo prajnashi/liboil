@@ -14,7 +14,8 @@ orc_executor_new (OrcProgram *program)
 {
   OrcExecutor *ex;
 
-  ex = g_malloc0(sizeof(OrcExecutor));
+  ex = malloc(sizeof(OrcExecutor));
+  memset(ex,0,sizeof(OrcExecutor));
 
   ex->program = program;
 
@@ -26,7 +27,7 @@ orc_executor_new (OrcProgram *program)
 void
 orc_executor_free (OrcExecutor *ex)
 {
-  g_free (ex);
+  free (ex);
 }
 
 void

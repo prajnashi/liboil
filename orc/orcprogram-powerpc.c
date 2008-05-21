@@ -14,38 +14,14 @@
 
 #define SIZE 65536
 
-#if 0
-void x86_emit_push (OrcProgram *program, int size, int reg);
-void x86_emit_pop (OrcProgram *program, int size, int reg);
-void x86_emit_mov_memoffset_reg (OrcProgram *program, int size, int offset, int reg1, int reg2);
-void x86_emit_mov_memoffset_mmx (OrcProgram *program, int size, int offset,
-    int reg1, int reg2);
-void x86_emit_mov_reg_memoffset (OrcProgram *program, int size, int reg1, int offset, int reg2);
-void x86_emit_mov_mmx_memoffset (OrcProgram *program, int size, int reg1, int offset,
-    int reg2);
-void x86_emit_mov_imm_reg (OrcProgram *program, int size, int value, int reg1);
-void x86_emit_mov_reg_reg (OrcProgram *program, int size, int reg1, int reg2);
-void x86_emit_mov_reg_mmx (OrcProgram *program, int reg1, int reg2);
-void x86_emit_mov_mmx_reg (OrcProgram *program, int reg1, int reg2);
-void x86_emit_test_reg_reg (OrcProgram *program, int size, int reg1, int reg2);
-void x86_emit_sar_imm_reg (OrcProgram *program, int size, int value, int reg);
-void x86_emit_dec_memoffset (OrcProgram *program, int size, int offset, int reg);
-void x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value, int offset, int reg);
-void x86_emit_add_imm_reg (OrcProgram *program, int size, int value, int reg);
-void x86_emit_emms (OrcProgram *program);
-#endif
+void powerpc_emit_addi (OrcProgram *program, int regd, int rega, int imm);
+void powerpc_emit_lwz (OrcProgram *program, int regd, int rega, int imm);
+void powerpc_emit_stwu (OrcProgram *program, int regs, int rega, int offset);
+
 void powerpc_emit_ret (OrcProgram *program);
 void powerpc_emit_beq (OrcProgram *program, int label);
 void powerpc_emit_bne (OrcProgram *program, int label);
 void powerpc_emit_label (OrcProgram *program, int label);
-
-#if 0
-static void mmx_emit_loadi_s16 (OrcProgram *p, int reg, int value);
-
-void x86_emit_modrm_memoffset (OrcProgram *program, int reg1, int offset, int reg2);
-void x86_emit_modrm_reg (OrcProgram *program, int reg1, int reg2);
-void x86_test (OrcProgram *program);
-#endif
 
 void orc_program_powerpc_register_rules (void);
 
@@ -81,7 +57,39 @@ enum {
   POWERPC_R28,
   POWERPC_R29,
   POWERPC_R30,
-  POWERPC_R31
+  POWERPC_R31,
+  POWERPC_V0,
+  POWERPC_V1,
+  POWERPC_V2,
+  POWERPC_V3,
+  POWERPC_V4,
+  POWERPC_V5,
+  POWERPC_V6,
+  POWERPC_V7,
+  POWERPC_V8,
+  POWERPC_V9,
+  POWERPC_V10,
+  POWERPC_V11,
+  POWERPC_V12,
+  POWERPC_V13,
+  POWERPC_V14,
+  POWERPC_V15,
+  POWERPC_V16,
+  POWERPC_V17,
+  POWERPC_V18,
+  POWERPC_V19,
+  POWERPC_V20,
+  POWERPC_V21,
+  POWERPC_V22,
+  POWERPC_V23,
+  POWERPC_V24,
+  POWERPC_V25,
+  POWERPC_V26,
+  POWERPC_V27,
+  POWERPC_V28,
+  POWERPC_V29,
+  POWERPC_V30,
+  POWERPC_V31
 };
 
 const char *
@@ -109,6 +117,12 @@ powerpc_get_regname(int i)
     default:
       return "ERROR";
   }
+}
+
+int
+powerpc_regnum (int i)
+{
+  return (i-ORC_GP_REG_BASE)&0x1f;
 }
 
 int
@@ -142,6 +156,15 @@ void orc_program_rewrite_vars (OrcProgram *program);
 void orc_program_dump (OrcProgram *program);
 
 void
+powerpc_emit(OrcProgram *program, unsigned int insn)
+{
+  *program->codeptr++ = (insn>>24);
+  *program->codeptr++ = (insn>>16);
+  *program->codeptr++ = (insn>>8);
+  *program->codeptr++ = (insn>>0);
+}
+
+void
 powerpc_emit_prologue (OrcProgram *program)
 {
   int i;
@@ -149,9 +172,7 @@ powerpc_emit_prologue (OrcProgram *program)
   printf (".global test\n");
   printf ("test:\n");
 
-  printf ("  stwu %s,-16(%s)\n", 
-      powerpc_get_regname(POWERPC_R1),
-      powerpc_get_regname(POWERPC_R1));
+  powerpc_emit_stwu (program, POWERPC_R1, POWERPC_R1, -16);
 
   for(i=POWERPC_R13;i<=POWERPC_R31;i++){
     if (program->used_regs[i]) {
@@ -159,6 +180,113 @@ powerpc_emit_prologue (OrcProgram *program)
     }
   }
 }
+
+void
+powerpc_emit_addi (OrcProgram *program, int regd, int rega, int imm)
+{
+  unsigned int insn;
+
+  printf("  addi %s, %s, %d\n",
+      powerpc_get_regname(regd),
+      powerpc_get_regname(rega), imm);
+  insn = (14<<26) | (powerpc_regnum (regd)<<21) | (powerpc_regnum (rega)<<16);
+  insn |= imm&0xffff;
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_lwz (OrcProgram *program, int regd, int rega, int imm)
+{
+  unsigned int insn;
+
+  printf("  lwz %s, %d(%s)\n",
+      powerpc_get_regname(regd),
+      imm, powerpc_get_regname(rega));
+  insn = (32<<26) | (powerpc_regnum (regd)<<21) | (powerpc_regnum (rega)<<16);
+  insn |= imm&0xffff;
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_stwu (OrcProgram *program, int regs, int rega, int offset)
+{
+  unsigned int insn;
+
+  printf("  stwu %s, %d(%s)\n",
+      powerpc_get_regname(regs),
+      offset, powerpc_get_regname(rega));
+  insn = (37<<26) | (powerpc_regnum (regs)<<21) | (powerpc_regnum (rega)<<16);
+  insn |= offset&0xffff;
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_srawi (OrcProgram *program, int regd, int rega, int shift,
+    int record)
+{
+  unsigned int insn;
+
+  printf("  srawi%s %s, %s, %d\n", (record)?".":"",
+      powerpc_get_regname(regd),
+      powerpc_get_regname(rega), shift);
+
+  insn = (31<<26) | (powerpc_regnum (regd)<<21) | (powerpc_regnum (rega)<<16);
+  insn |= (shift<<11) | (824<<1) | record;
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_655510 (OrcProgram *program, int major, int d, int a, int b,
+    int minor)
+{
+  unsigned int insn;
+
+  insn = (major<<26) | (d<<21) | (a<<16);
+  insn |= (b<<11) | (minor<<0);
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_X (OrcProgram *program, int major, int d, int a, int b,
+    int minor)
+{
+  unsigned int insn;
+
+  insn = (major<<26) | (d<<21) | (a<<16);
+  insn |= (b<<11) | (minor<<1) | (0<<0);
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_VA (OrcProgram *program, int major, int d, int a, int b,
+    int c, int minor)
+{
+  unsigned int insn;
+
+  insn = (major<<26) | (d<<21) | (a<<16);
+  insn |= (b<<11) | (c<<6) | (minor<<0);
+
+  powerpc_emit (program, insn);
+}
+
+void
+powerpc_emit_VX (OrcProgram *program, int major, int d, int a, int b,
+    int minor)
+{
+  unsigned int insn;
+
+  insn = (major<<26) | (d<<21) | (a<<16);
+  insn |= (b<<11) | (minor<<0);
+
+  powerpc_emit (program, insn);
+}
+
 
 void
 powerpc_emit_epilogue (OrcProgram *program)
@@ -171,26 +299,48 @@ powerpc_emit_epilogue (OrcProgram *program)
     }
   }
 
-  printf("  addi %s, %s, 16\n",
-      powerpc_get_regname(POWERPC_R1),
-      powerpc_get_regname(POWERPC_R1));
+  powerpc_emit_addi (program, POWERPC_R1, POWERPC_R1, 16);
   printf("  blr\n");
+  powerpc_emit(program, 0x4e800020);
 }
 
 void
 powerpc_do_fixups (OrcProgram *program)
 {
-#if 0
   int i;
+  unsigned int insn;
+
   for(i=0;i<program->n_fixups;i++){
     if (program->fixups[i].type == 0) {
       unsigned char *label = program->labels[program->fixups[i].label];
       unsigned char *ptr = program->fixups[i].ptr;
 
-      ptr[0] += label - ptr;
+      insn = *(unsigned int *)ptr;
+      *(unsigned int *)ptr = (insn&0xffff0000) | ((insn + (label-ptr))&0xffff);
     }
   }
-#endif
+}
+
+void
+powerpc_flush (OrcProgram *program)
+{
+  unsigned char *ptr;
+  int cache_line_size = 32;
+  int i;
+  int size = program->codeptr - program->code;
+
+  ptr = program->code;
+  for (i=0;i<size;i+=cache_line_size) {
+    __asm__ __volatile__ ("dcbst %0,%1" :: "r" (ptr), "r" (i));
+  }
+  __asm__ __volatile ("sync");
+
+  ptr = program->code_exec;
+  for (i=0;i<size;i+=cache_line_size) {
+    __asm__ __volatile__ ("icbi %0,%1" :: "r" (ptr), "r" (i));
+  }
+  __asm__ __volatile ("isync");
+
 }
 
 void
@@ -207,9 +357,10 @@ orc_program_powerpc_reset_alloc (OrcProgram *program)
   for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+64;i++){
     program->alloc_regs[i] = 0;
   }
-  program->alloc_regs[POWERPC_R0] = 1;
-  program->alloc_regs[POWERPC_R1] = 1;
-  program->alloc_regs[POWERPC_R3] = 1;
+  for(i=0;i<9;i++){
+    program->alloc_regs[POWERPC_R0 + i] = 1;
+  }
+  program->alloc_regs[POWERPC_V0] = 1;
 }
 
 void
@@ -222,14 +373,17 @@ powerpc_load_constants (OrcProgram *program)
         printf("  vspltish %s, %d\n",
             powerpc_get_regname(program->vars[i].alloc),
             program->vars[i].s16);
+        powerpc_emit_655510 (program, 4,
+            powerpc_regnum(program->vars[i].alloc),
+            program->vars[i].s16, 0, 844);
         break;
       case ORC_VAR_TYPE_SRC:
       case ORC_VAR_TYPE_DEST:
         if (program->vars[i].ptr_register) {
-          printf("  ldw %s, %d(%s)\n",
-              powerpc_get_regname(program->vars[i].ptr_register),
-              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[i]),
-              powerpc_get_regname(POWERPC_R3));
+          powerpc_emit_lwz (program,
+              program->vars[i].ptr_register,
+              POWERPC_R3,
+              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[i]));
         } else {
           /* FIXME */
           printf("ERROR");
@@ -249,9 +403,26 @@ powerpc_emit_load_src (OrcProgram *program, OrcVariable *var)
 
   switch (program->rule_set) {
     case ORC_RULE_ALTIVEC_1:
-      printf("  lvehx %s, 0(%s)\n", 
+      printf("  lvehx %s, 0, %s\n", 
           powerpc_get_regname (var->alloc),
           powerpc_get_regname (ptr_reg));
+      powerpc_emit_X (program, 31, powerpc_regnum(var->alloc),
+          0, powerpc_regnum(ptr_reg), 39);
+      printf("  lvsl %s, 0, %s\n", 
+          powerpc_get_regname (POWERPC_V0),
+          powerpc_get_regname (ptr_reg));
+      powerpc_emit_X (program, 31, powerpc_regnum(POWERPC_V0),
+          0, powerpc_regnum(ptr_reg), 6);
+      printf("  vperm %s, %s, %s, %s\n", 
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (POWERPC_V0));
+      powerpc_emit_VA (program, 4,
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(POWERPC_V0), 43);
       break;
     default:
       printf("ERROR\n");
@@ -266,9 +437,27 @@ powerpc_emit_store_dest (OrcProgram *program, OrcVariable *var)
 
   switch (program->rule_set) {
     case ORC_RULE_ALTIVEC_1:
-      printf("  stvehx %s, 0(%s)\n", 
+      printf("  lvsr %s, 0, %s\n", 
+          powerpc_get_regname (POWERPC_V0),
+          powerpc_get_regname (ptr_reg));
+      powerpc_emit_X (program, 31, powerpc_regnum(POWERPC_V0),
+          0, powerpc_regnum(ptr_reg), 38);
+      printf("  vperm %s, %s, %s, %s\n", 
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (var->alloc),
+          powerpc_get_regname (POWERPC_V0));
+      powerpc_emit_VA (program, 4,
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(var->alloc),
+          powerpc_regnum(POWERPC_V0), 43);
+      printf("  stvehx %s, 0, %s\n", 
           powerpc_get_regname (var->alloc),
           powerpc_get_regname (ptr_reg));
+      powerpc_emit_X (program, 31,
+          powerpc_regnum(var->alloc),
+          0, powerpc_regnum(ptr_reg), 167);
       break;
     default:
       printf("ERROR\n");
@@ -287,18 +476,14 @@ orc_program_assemble_powerpc (OrcProgram *program)
 
   powerpc_emit_prologue (program);
 
-  printf("  ldw. %s, %d(%s)\n",
-      powerpc_get_regname(POWERPC_R0),
-      (int)G_STRUCT_OFFSET(OrcExecutor, n),
-      powerpc_get_regname(POWERPC_R3));
-  if (program->loop_shift != 0) {
-    printf("  srawi. %s, %s, %d\n",
-        powerpc_get_regname(POWERPC_R0),
-        powerpc_get_regname(POWERPC_R0),
-        program->loop_shift);
-  }
+  powerpc_emit_lwz (program, POWERPC_R0, POWERPC_R3,
+      (int)G_STRUCT_OFFSET(OrcExecutor, n));
+  powerpc_emit_srawi (program, POWERPC_R0, POWERPC_R0,
+      program->loop_shift, 1);
 
   powerpc_emit_beq (program, 1);
+
+  powerpc_emit (program, 0x7c0903a6);
   printf ("  mtctr %s\n", powerpc_get_regname(POWERPC_R0));
 
   powerpc_load_constants (program);
@@ -360,9 +545,9 @@ orc_program_assemble_powerpc (OrcProgram *program)
     if (program->vars[k].vartype == ORC_VAR_TYPE_SRC ||
         program->vars[k].vartype == ORC_VAR_TYPE_DEST) {
       if (program->vars[k].ptr_register) {
-        printf("  addi %s, %s, %d\n",
-            powerpc_get_regname(program->vars[k].ptr_register),
-            powerpc_get_regname(program->vars[k].ptr_register),
+        powerpc_emit_addi (program,
+            program->vars[k].ptr_register,
+            program->vars[k].ptr_register,
             orc_variable_get_size(program->vars + k) << program->loop_shift);
       } else {
         printf("ERROR\n");
@@ -376,6 +561,8 @@ orc_program_assemble_powerpc (OrcProgram *program)
   powerpc_emit_epilogue (program);
 
   powerpc_do_fixups (program);
+
+  powerpc_flush (program);
 }
 
 
@@ -384,10 +571,20 @@ orc_program_assemble_powerpc (OrcProgram *program)
 static void
 powerpc_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
+  unsigned int x;
+
   printf("  vadduhm %s, %s, %s\n",
       powerpc_get_regname(p->vars[insn->args[0]].alloc),
       powerpc_get_regname(p->vars[insn->args[1]].alloc),
       powerpc_get_regname(p->vars[insn->args[2]].alloc));
+
+  x = (4<<26);
+  x |= (powerpc_regnum (p->vars[insn->args[0]].alloc)<<21);
+  x |= (powerpc_regnum (p->vars[insn->args[1]].alloc)<<16);
+  x |= (powerpc_regnum (p->vars[insn->args[2]].alloc)<<11);
+  x |= 64;
+
+  powerpc_emit (p, x);
 }
 
 static void
@@ -402,10 +599,26 @@ powerpc_rule_sub_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 static void
 powerpc_rule_mul_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
-  printf("  vmladduhm %s, %s, %s, vzero\n",
+  printf("  vxor %s, %s, %s\n",
+      powerpc_get_regname(POWERPC_V0),
+      powerpc_get_regname(POWERPC_V0),
+      powerpc_get_regname(POWERPC_V0));
+  powerpc_emit_VX(p, 4,
+      powerpc_regnum(POWERPC_V0),
+      powerpc_regnum(POWERPC_V0),
+      powerpc_regnum(POWERPC_V0), 1220);
+
+  printf("  vmladduhm %s, %s, %s, %s\n",
       powerpc_get_regname(p->vars[insn->args[0]].alloc),
       powerpc_get_regname(p->vars[insn->args[1]].alloc),
-      powerpc_get_regname(p->vars[insn->args[2]].alloc));
+      powerpc_get_regname(p->vars[insn->args[2]].alloc),
+      powerpc_get_regname(POWERPC_V0));
+  powerpc_emit_VA(p, 4, 
+      powerpc_regnum(p->vars[insn->args[0]].alloc),
+      powerpc_regnum(p->vars[insn->args[1]].alloc),
+      powerpc_regnum(p->vars[insn->args[2]].alloc),
+      powerpc_regnum(POWERPC_V0), 34);
+
 }
 
 static void
@@ -415,15 +628,29 @@ powerpc_rule_lshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       powerpc_get_regname(p->vars[insn->args[0]].alloc),
       powerpc_get_regname(p->vars[insn->args[1]].alloc),
       powerpc_get_regname(p->vars[insn->args[2]].alloc));
+  powerpc_emit_VX(p, 4,
+      powerpc_regnum(p->vars[insn->args[0]].alloc),
+      powerpc_regnum(p->vars[insn->args[1]].alloc),
+      powerpc_regnum(p->vars[insn->args[2]].alloc), 68);
 }
 
 static void
 powerpc_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 {
+  unsigned int x;
+
   printf("  vsrah %s, %s, %s\n",
       powerpc_get_regname(p->vars[insn->args[0]].alloc),
       powerpc_get_regname(p->vars[insn->args[1]].alloc),
       powerpc_get_regname(p->vars[insn->args[2]].alloc));
+
+  x = (4<<26);
+  x |= (powerpc_regnum (p->vars[insn->args[0]].alloc)<<21);
+  x |= (powerpc_regnum (p->vars[insn->args[1]].alloc)<<16);
+  x |= (powerpc_regnum (p->vars[insn->args[2]].alloc)<<11);
+  x |= 836;
+
+  powerpc_emit (p, x);
 }
 
 
@@ -444,320 +671,20 @@ orc_program_powerpc_register_rules (void)
 
 /* code generation */
 
-#if 0
-void
-x86_emit_push (OrcProgram *program, int size, int reg)
-{
-
-  if (size == 1) {
-    program->error = 1;
-  } else if (size == 2) {
-    g_print("  pushw %%%s\n", x86_get_regname_16(reg));
-    *program->codeptr++ = 0x66;
-    *program->codeptr++ = 0x50 + x86_get_regnum(reg);
-  } else {
-    g_print("  pushl %%%s\n", x86_get_regname(reg));
-    *program->codeptr++ = 0x50 + x86_get_regnum(reg);
-  }
-}
-
-void
-x86_emit_pop (OrcProgram *program, int size, int reg)
-{
-
-  if (size == 1) {
-    program->error = 1;
-  } else if (size == 2) {
-    g_print("  popw %%%s\n", x86_get_regname_16(reg));
-    *program->codeptr++ = 0x66;
-    *program->codeptr++ = 0x58 + x86_get_regnum(reg);
-  } else {
-    g_print("  popl %%%s\n", x86_get_regname(reg));
-    *program->codeptr++ = 0x58 + x86_get_regnum(reg);
-  }
-}
-
-#define X86_MODRM(mod, rm, reg) ((((mod)&3)<<6)|(((rm)&7)<<0)|(((reg)&7)<<3))
-#define X86_SIB(ss, ind, reg) ((((ss)&3)<<6)|(((ind)&7)<<3)|((reg)&7))
-
-void
-x86_emit_modrm_memoffset (OrcProgram *program, int reg1, int offset, int reg2)
-{
-  if (offset == 0 && reg2 != X86_EBP) {
-    if (reg2 == X86_ESP) {
-      *program->codeptr++ = X86_MODRM(0, 4, reg1);
-      *program->codeptr++ = X86_SIB(0, 4, reg2);
-    } else {
-      *program->codeptr++ = X86_MODRM(0, reg2, reg1);
-    }
-  } else if (offset >= -128 && offset < 128) {
-    *program->codeptr++ = X86_MODRM(1, reg2, reg1);
-    if (reg2 == X86_ESP) {
-      *program->codeptr++ = X86_SIB(0, 4, reg2);
-    }
-    *program->codeptr++ = (offset & 0xff);
-  } else {
-    *program->codeptr++ = X86_MODRM(2, reg2, reg1);
-    if (reg2 == X86_ESP) {
-      *program->codeptr++ = X86_SIB(0, 4, reg2);
-    }
-    *program->codeptr++ = (offset & 0xff);
-    *program->codeptr++ = ((offset>>8) & 0xff);
-    *program->codeptr++ = ((offset>>16) & 0xff);
-    *program->codeptr++ = ((offset>>24) & 0xff);
-  }
-}
-
-void
-x86_emit_modrm_reg (OrcProgram *program, int reg1, int reg2)
-{
-  *program->codeptr++ = X86_MODRM(3, reg1, reg2);
-}
-
-void
-x86_emit_mov_memoffset_reg (OrcProgram *program, int size, int offset,
-    int reg1, int reg2)
-{
-  if (size == 2) {
-    g_print("  movw %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
-        x86_get_regname_16(reg2));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  movl %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
-        x86_get_regname(reg2));
-  }
-
-  *program->codeptr++ = 0x8b;
-  x86_emit_modrm_memoffset (program, reg2, offset, reg1);
-}
-
-void
-x86_emit_mov_memoffset_mmx (OrcProgram *program, int size, int offset,
-    int reg1, int reg2)
-{
-  if (size == 4) {
-    g_print("  movd %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
-        x86_get_regname_mmx(reg2));
-    *program->codeptr++ = 0x0f;
-    *program->codeptr++ = 0x6e;
-  } else {
-    g_print("  movq %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
-        x86_get_regname_mmx(reg2));
-    *program->codeptr++ = 0x0f;
-    *program->codeptr++ = 0x6f;
-  }
-  x86_emit_modrm_memoffset (program, reg2, offset, reg1);
-}
-
-void
-x86_emit_mov_reg_memoffset (OrcProgram *program, int size, int reg1, int offset,
-    int reg2)
-{
-  if (size == 2) {
-    g_print("  movw %%%s, %d(%%%s)\n", x86_get_regname_16(reg1), offset,
-        x86_get_regname(reg2));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  movl %%%s, %d(%%%s)\n", x86_get_regname(reg1), offset,
-        x86_get_regname(reg2));
-  }
-
-  *program->codeptr++ = 0x89;
-  x86_emit_modrm_memoffset (program, reg1, offset, reg2);
-}
-
-void
-x86_emit_mov_mmx_memoffset (OrcProgram *program, int size, int reg1, int offset,
-    int reg2)
-{
-  if (size == 4) {
-    g_print("  movd %%%s, %d(%%%s)\n", x86_get_regname_mmx(reg1), offset,
-        x86_get_regname(reg2));
-    *program->codeptr++ = 0x0f;
-    *program->codeptr++ = 0x7e;
-  } else {
-    g_print("  movq %%%s, %d(%%%s)\n", x86_get_regname_mmx(reg1), offset,
-        x86_get_regname(reg2));
-    *program->codeptr++ = 0x0f;
-    *program->codeptr++ = 0x7f;
-  }
-
-  x86_emit_modrm_memoffset (program, reg1, offset, reg2);
-}
-
-void
-x86_emit_mov_imm_reg (OrcProgram *program, int size, int value, int reg1)
-{
-  if (size == 2) {
-    g_print("  movw $%d, %%%s\n", value, x86_get_regname_16(reg1));
-    *program->codeptr++ = 0x66;
-    *program->codeptr++ = 0xb8 + x86_get_regnum(reg1);
-    *program->codeptr++ = (value & 0xff);
-    *program->codeptr++ = ((value>>8) & 0xff);
-  } else {
-    g_print("  movl $%d, %%%s\n", value, x86_get_regname(reg1));
-    *program->codeptr++ = 0xb8 + x86_get_regnum(reg1);
-    *program->codeptr++ = (value & 0xff);
-    *program->codeptr++ = ((value>>8) & 0xff);
-    *program->codeptr++ = ((value>>16) & 0xff);
-    *program->codeptr++ = ((value>>24) & 0xff);
-  }
-
-}
-
-void x86_emit_mov_reg_reg (OrcProgram *program, int size, int reg1, int reg2)
-{
-  if (size == 2) {
-    g_print("  movw %%%s, %%%s\n", x86_get_regname_16(reg1),
-        x86_get_regname_16(reg2));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  movl %%%s, %%%s\n", x86_get_regname(reg1),
-        x86_get_regname(reg2));
-  }
-
-  *program->codeptr++ = 0x89;
-  x86_emit_modrm_reg (program, reg2, reg1);
-}
-
-void x86_emit_mov_reg_mmx (OrcProgram *program, int reg1, int reg2)
-{
-  /* FIXME */
-  g_print("  movd %%%s, %%%s\n", x86_get_regname(reg1),
-      x86_get_regname_mmx(reg2));
-  *program->codeptr++ = 0x0f;
-  *program->codeptr++ = 0x6e;
-  x86_emit_modrm_reg (program, reg1, reg2);
-}
-
-void x86_emit_mov_mmx_reg (OrcProgram *program, int reg1, int reg2)
-{
-  /* FIXME */
-  g_print("  movd %%%s, %%%s\n", x86_get_regname_mmx(reg1),
-      x86_get_regname(reg2));
-  *program->codeptr++ = 0x0f;
-  *program->codeptr++ = 0x7e;
-  x86_emit_modrm_reg (program, reg2, reg1);
-}
-
-void
-x86_emit_test_reg_reg (OrcProgram *program, int size, int reg1, int reg2)
-{
-  if (size == 2) {
-    g_print("  testw %%%s, %%%s\n", x86_get_regname_16(reg1),
-        x86_get_regname_16(reg2));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  testl %%%s, %%%s\n", x86_get_regname(reg1),
-        x86_get_regname(reg2));
-  }
-
-  *program->codeptr++ = 0x85;
-  x86_emit_modrm_reg (program, reg2, reg1);
-}
-
-void
-x86_emit_sar_imm_reg (OrcProgram *program, int size, int value, int reg)
-{
-  g_print("  sarl $%d, %%%s\n", value, x86_get_regname(reg));
-
-  if (value == 1) {
-    *program->codeptr++ = 0xd1;
-    x86_emit_modrm_reg (program, reg, 7);
-  } else {
-    *program->codeptr++ = 0xc1;
-    x86_emit_modrm_reg (program, reg, 7);
-    *program->codeptr++ = value;
-  }
-}
-
-void
-x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value,
-    int offset, int reg)
-{
-  if (size == 2) {
-    g_print("  addw $%d, %d(%%%s)\n", value, offset,
-        x86_get_regname(reg));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  addl $%d, %d(%%%s)\n", value, offset,
-        x86_get_regname(reg));
-  }
-
-  if (value >= -128 && value < 128) {
-    *program->codeptr++ = 0x83;
-    x86_emit_modrm_memoffset (program, 0, offset, reg);
-    *program->codeptr++ = (value & 0xff);
-  } else {
-    *program->codeptr++ = 0x81;
-    x86_emit_modrm_memoffset (program, 0, offset, reg);
-    *program->codeptr++ = (value & 0xff);
-    *program->codeptr++ = ((value>>8) & 0xff);
-    if (size == 4) {
-      *program->codeptr++ = ((value>>16) & 0xff);
-      *program->codeptr++ = ((value>>24) & 0xff);
-    }
-  }
-}
-
-void
-x86_emit_add_imm_reg (OrcProgram *program, int size, int value, int reg)
-{
-  if (size == 2) {
-    g_print("  addw $%d, %%%s\n", value, x86_get_regname_16(reg));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  addl $%d, %%%s\n", value, x86_get_regname(reg));
-  }
-
-  if (value >= -128 && value < 128) {
-    *program->codeptr++ = 0x83;
-    x86_emit_modrm_reg (program, reg, 0);
-    *program->codeptr++ = (value & 0xff);
-  } else {
-    *program->codeptr++ = 0x81;
-    x86_emit_modrm_reg (program, reg, 0);
-    *program->codeptr++ = (value & 0xff);
-    *program->codeptr++ = ((value>>8) & 0xff);
-    if (size == 4) {
-      *program->codeptr++ = ((value>>16) & 0xff);
-      *program->codeptr++ = ((value>>24) & 0xff);
-    }
-  }
-}
-
-void
-x86_emit_dec_memoffset (OrcProgram *program, int size,
-    int offset, int reg)
-{
-  if (size == 2) {
-    g_print("  decw %d(%%%s)\n", offset, x86_get_regname(reg));
-    *program->codeptr++ = 0x66;
-  } else {
-    g_print("  decl %d(%%%s)\n", offset, x86_get_regname(reg));
-  }
-
-  *program->codeptr++ = 0xff;
-  x86_emit_modrm_memoffset (program, 1, offset, reg);
-}
-#endif
-
 void powerpc_emit_ret (OrcProgram *program)
 {
   g_print("  ret\n");
   //*program->codeptr++ = 0xc3;
 }
 
-#if 0
 void
-x86_add_fixup (OrcProgram *program, unsigned char *ptr, int label)
+powerpc_add_fixup (OrcProgram *program, unsigned char *ptr, int label)
 {
   program->fixups[program->n_fixups].ptr = ptr;
   program->fixups[program->n_fixups].label = label;
   program->fixups[program->n_fixups].type = 0;
   program->n_fixups++;
 }
-#endif
 
 void
 powerpc_add_label (OrcProgram *program, unsigned char *ptr, int label)
@@ -769,21 +696,16 @@ void powerpc_emit_beq (OrcProgram *program, int label)
 {
   g_print("  ble- .L%d\n", label);
 
-#if 0
-  *program->codeptr++ = 0x74;
-  x86_add_fixup (program, program->codeptr, label);
-  *program->codeptr++ = -1;
-#endif
+  powerpc_add_fixup (program, program->codeptr, label);
+  powerpc_emit (program, 0x40810000);
 }
 
 void powerpc_emit_bne (OrcProgram *program, int label)
 {
   g_print("  bdnz+ .L%d\n", label);
-#if 0
-  *program->codeptr++ = 0x75;
-  x86_add_fixup (program, program->codeptr, label);
-  *program->codeptr++ = -1;
-#endif
+
+  powerpc_add_fixup (program, program->codeptr, label);
+  powerpc_emit (program, 0x42000000);
 }
 
 void powerpc_emit_label (OrcProgram *program, int label)
