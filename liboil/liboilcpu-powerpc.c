@@ -65,11 +65,13 @@ oil_profile_stamp_tb(void)
   return ts;
 }
 
+#if !defined(__FreeBSD__) && !defined(__FreeBSD_kernel__) && !defined(__APPLE__) && !defined(__linux__)
 static void
 test_altivec (void * ignored)
 {
   asm volatile ("vor v0, v0, v0\n");
 }
+#endif
 
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 static void
