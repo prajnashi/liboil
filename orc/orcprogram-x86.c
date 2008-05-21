@@ -123,9 +123,38 @@ x86_get_regname_mmx(int i)
   }
 }
 
+int
+orc_program_x86_allocate_register (OrcProgram *program, int data_reg)
+{
+  int i;
+
+  if (program->rule_set == ORC_RULE_SCALAR_1) {
+    data_reg = FALSE;
+  }
+
+  if (!data_reg) {
+    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+      if (program->alloc_regs[i] == 0) {
+        program->alloc_regs[i]++;
+        program->used_regs[i] = 1;
+        return i;
+      }
+    }
+  } else {
+    for(i=ORC_GP_REG_BASE+8;i<ORC_GP_REG_BASE+16;i++){
+      if (program->alloc_regs[i] == 0) {
+        program->alloc_regs[i]++;
+        program->used_regs[i] = 1;
+        return i;
+      }
+    }
+  }
+  g_print("register overflow\n");
+  return 0;
+}
+
 
 void orc_program_rewrite_vars (OrcProgram *program);
-void orc_program_allocate_regs (OrcProgram *program);
 void orc_program_dump (OrcProgram *program);
 
 void

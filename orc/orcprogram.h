@@ -30,7 +30,8 @@ enum {
   ORC_RULE_MMX_1,
   ORC_RULE_MMX_2,
   ORC_RULE_MMX_4,
-  ORC_RULE_MMX_8
+  ORC_RULE_MMX_8,
+  ORC_RULE_ALTIVEC_1
 };
 
 struct _OrcType {
@@ -184,10 +185,12 @@ void orc_opcode_init (void);
 void orc_program_append (OrcProgram *p, const char *opcode, int arg0, int arg1, int arg2);
 
 void orc_x86_init (void);
+void orc_powerpc_init (void);
 void orc_c_init (void);
 
 void orc_program_compile (OrcProgram *p);
 void orc_program_assemble_x86 (OrcProgram *p);
+void orc_program_assemble_powerpc (OrcProgram *p);
 void orc_program_assemble_c (OrcProgram *p);
 void orc_program_free (OrcProgram *program);
 
@@ -199,7 +202,8 @@ int orc_program_add_constant (OrcProgram *program, const char *type, int value, 
 void orc_program_append (OrcProgram *program, const char *opcode, int arg0,
     int arg1, int arg2);
 
-void orc_program_reset_alloc (OrcProgram *program);
+void orc_program_x86_reset_alloc (OrcProgram *program);
+void orc_program_powerpc_reset_alloc (OrcProgram *program);
 
 
 OrcType * orc_type_get (const char *name);
@@ -214,6 +218,10 @@ void orc_executor_run (OrcExecutor *ex);
 
 void orc_rule_register (const char *opcode_name, unsigned int mode,
     OrcRuleEmitFunc emit, void *emit_user, unsigned int flags);
+
+int orc_program_allocate_register (OrcProgram *program, int is_data);
+int orc_program_x86_allocate_register (OrcProgram *program, int is_data);
+int orc_program_powerpc_allocate_register (OrcProgram *program, int is_data);
 
 void orc_program_x86_register_rules (void);
 void orc_program_allocate_codemem (OrcProgram *program);

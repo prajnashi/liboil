@@ -22,7 +22,7 @@ orc_program_new (void)
   p = malloc(sizeof(OrcProgram));
   memset (p, 0, sizeof(OrcProgram));
 
-  p->rule_set = ORC_RULE_MMX_1;
+  p->rule_set = ORC_RULE_ALTIVEC_1;
   p->n_per_loop = 1;
   p->loop_shift = 0;
 
@@ -135,31 +135,11 @@ orc_program_append (OrcProgram *program, const char *name, int arg0,
 int
 orc_program_allocate_register (OrcProgram *program, int data_reg)
 {
-  int i;
-
-  if (program->rule_set == ORC_RULE_SCALAR_1) {
-    data_reg = FALSE;
-  }
-
-  if (!data_reg) {
-    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
-    }
+  if (program->rule_set == ORC_RULE_ALTIVEC_1) {
+    return orc_program_powerpc_allocate_register (program, data_reg);
   } else {
-    for(i=ORC_GP_REG_BASE+8;i<ORC_GP_REG_BASE+16;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
-    }
+    return orc_program_x86_allocate_register (program, data_reg);
   }
-  g_print("register overflow\n");
-  return 0;
 }
 
 void
@@ -168,7 +148,8 @@ orc_program_compile (OrcProgram *program)
   orc_program_assign_rules (program);
   orc_program_rewrite_vars (program);
 
-  orc_program_reset_alloc (program);
+  //orc_program_x86_reset_alloc (program);
+  orc_program_powerpc_reset_alloc (program);
   orc_program_global_reg_alloc (program);
 
   orc_program_do_regs (program);
@@ -176,7 +157,8 @@ orc_program_compile (OrcProgram *program)
   orc_program_rewrite_vars2 (program);
 
   orc_program_allocate_codemem (program);
-  orc_program_assemble_x86 (program);
+  //orc_program_assemble_x86 (program);
+  orc_program_assemble_powerpc (program);
   //orc_program_assemble_c (program);
 
   orc_program_dump_code (program);
