@@ -60,8 +60,28 @@ enum {
   POWERPC_R7,
   POWERPC_R8,
   POWERPC_R9,
-  POWERPC_R30 = POWERPC_R0+30,
-  POWERPC_R31 = POWERPC_R0+31
+  POWERPC_R10,
+  POWERPC_R11,
+  POWERPC_R12,
+  POWERPC_R13,
+  POWERPC_R14,
+  POWERPC_R15,
+  POWERPC_R16,
+  POWERPC_R17,
+  POWERPC_R18,
+  POWERPC_R19,
+  POWERPC_R20,
+  POWERPC_R21,
+  POWERPC_R22,
+  POWERPC_R23,
+  POWERPC_R24,
+  POWERPC_R25,
+  POWERPC_R26,
+  POWERPC_R27,
+  POWERPC_R28,
+  POWERPC_R29,
+  POWERPC_R30,
+  POWERPC_R31
 };
 
 const char *
@@ -124,39 +144,37 @@ void orc_program_dump (OrcProgram *program);
 void
 powerpc_emit_prologue (OrcProgram *program)
 {
+  int i;
+
   printf (".global test\n");
   printf ("test:\n");
 
-  printf ("  mr %s, %s", powerpc_get_regname(POWERPC_R30),
-      powerpc_get_regname(POWERPC_R3));
-#if 0
-  if (program->used_regs[X86_EDI]) {
-    x86_emit_push (program, 4, X86_EDI);
+  printf ("  stwu %s,-16(%s)\n", 
+      powerpc_get_regname(POWERPC_R1),
+      powerpc_get_regname(POWERPC_R1));
+
+  for(i=POWERPC_R13;i<=POWERPC_R31;i++){
+    if (program->used_regs[i]) {
+      //powerpc_emit_push (program, 4, i);
+    }
   }
-  if (program->used_regs[X86_ESI]) {
-    x86_emit_push (program, 4, X86_ESI);
-  }
-  if (program->used_regs[X86_EBX]) {
-    x86_emit_push (program, 4, X86_EBX);
-  }
-#endif
 }
 
 void
 powerpc_emit_epilogue (OrcProgram *program)
 {
-#if 0
-  if (program->used_regs[X86_EBX]) {
-    x86_emit_pop (program, 4, X86_EBX);
+  int i;
+
+  for(i=POWERPC_R31;i>=POWERPC_R31;i--){
+    if (program->used_regs[i]) {
+      //powerpc_emit_pop (program, 4, i);
+    }
   }
-  if (program->used_regs[X86_ESI]) {
-    x86_emit_pop (program, 4, X86_ESI);
-  }
-  if (program->used_regs[X86_EDI]) {
-    x86_emit_pop (program, 4, X86_EDI);
-  }
-#endif
-  powerpc_emit_ret (program);
+
+  printf("  addi %s, %s, 16\n",
+      powerpc_get_regname(POWERPC_R1),
+      powerpc_get_regname(POWERPC_R1));
+  printf("  blr\n");
 }
 
 void
@@ -190,7 +208,8 @@ orc_program_powerpc_reset_alloc (OrcProgram *program)
     program->alloc_regs[i] = 0;
   }
   program->alloc_regs[POWERPC_R0] = 1;
-  program->alloc_regs[POWERPC_R31] = 1;
+  program->alloc_regs[POWERPC_R1] = 1;
+  program->alloc_regs[POWERPC_R3] = 1;
 }
 
 void
@@ -207,10 +226,10 @@ powerpc_load_constants (OrcProgram *program)
       case ORC_VAR_TYPE_SRC:
       case ORC_VAR_TYPE_DEST:
         if (program->vars[i].ptr_register) {
-          printf("  ldw %s, %s, %d\n",
+          printf("  ldw %s, %d(%s)\n",
               powerpc_get_regname(program->vars[i].ptr_register),
-              powerpc_get_regname(POWERPC_R30),
-              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[i]));
+              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[i]),
+              powerpc_get_regname(POWERPC_R3));
         } else {
           /* FIXME */
           printf("ERROR");
@@ -230,7 +249,7 @@ powerpc_emit_load_src (OrcProgram *program, OrcVariable *var)
 
   switch (program->rule_set) {
     case ORC_RULE_ALTIVEC_1:
-      printf("  lvehx %s, 0, %s\n", 
+      printf("  lvehx %s, 0(%s)\n", 
           powerpc_get_regname (var->alloc),
           powerpc_get_regname (ptr_reg));
       break;
@@ -247,7 +266,7 @@ powerpc_emit_store_dest (OrcProgram *program, OrcVariable *var)
 
   switch (program->rule_set) {
     case ORC_RULE_ALTIVEC_1:
-      printf("  stvehx %s, 0, %s\n", 
+      printf("  stvehx %s, 0(%s)\n", 
           powerpc_get_regname (var->alloc),
           powerpc_get_regname (ptr_reg));
       break;
@@ -268,18 +287,19 @@ orc_program_assemble_powerpc (OrcProgram *program)
 
   powerpc_emit_prologue (program);
 
-#if 0
-  powerpc_emit_mov_memoffset_reg (program, 4, (int)G_STRUCT_OFFSET(OrcExecutor,n),
-      X86_EBP, X86_ECX);
-
-  powerpc_emit_sar_imm_reg (program, 4, program->loop_shift, X86_ECX);
-  powerpc_emit_mov_reg_memoffset (program, 4, X86_ECX,
-      (int)G_STRUCT_OFFSET(OrcExecutor,counter), X86_EBP);
-
-  powerpc_emit_test_reg_reg (program, 4, X86_ECX, X86_ECX);
-#endif
+  printf("  ldw. %s, %d(%s)\n",
+      powerpc_get_regname(POWERPC_R0),
+      (int)G_STRUCT_OFFSET(OrcExecutor, n),
+      powerpc_get_regname(POWERPC_R3));
+  if (program->loop_shift != 0) {
+    printf("  srawi. %s, %s, %d\n",
+        powerpc_get_regname(POWERPC_R0),
+        powerpc_get_regname(POWERPC_R0),
+        program->loop_shift);
+  }
 
   powerpc_emit_beq (program, 1);
+  printf ("  mtctr %s\n", powerpc_get_regname(POWERPC_R0));
 
   powerpc_load_constants (program);
 
@@ -339,26 +359,17 @@ orc_program_assemble_powerpc (OrcProgram *program)
   for(k=0;k<program->n_vars;k++){
     if (program->vars[k].vartype == ORC_VAR_TYPE_SRC ||
         program->vars[k].vartype == ORC_VAR_TYPE_DEST) {
-#if 0
       if (program->vars[k].ptr_register) {
-        powerpc_emit_add_imm_reg (program, 4,
-            orc_variable_get_size(program->vars + k) * program->n_per_loop,
-            program->vars[k].ptr_register);
+        printf("  addi %s, %s, %d\n",
+            powerpc_get_regname(program->vars[k].ptr_register),
+            powerpc_get_regname(program->vars[k].ptr_register),
+            orc_variable_get_size(program->vars + k) << program->loop_shift);
       } else {
-        powerpc_emit_add_imm_memoffset (program, 4,
-            orc_variable_get_size(program->vars + k) * program->n_per_loop,
-            (int)G_STRUCT_OFFSET(OrcExecutor, arrays[k]),
-            X86_EBP);
+        printf("ERROR\n");
       }
-#endif
     }
   }
 
-#if 0
-  powerpc_emit_dec_memoffset (program, 4,
-      (int)G_STRUCT_OFFSET(OrcExecutor,counter),
-      X86_EBP);
-#endif
   powerpc_emit_bne (program, 0);
   powerpc_emit_label (program, 1);
 
@@ -756,7 +767,7 @@ powerpc_add_label (OrcProgram *program, unsigned char *ptr, int label)
 
 void powerpc_emit_beq (OrcProgram *program, int label)
 {
-  g_print("  beq .L%d\n", label);
+  g_print("  ble- .L%d\n", label);
 
 #if 0
   *program->codeptr++ = 0x74;
@@ -767,7 +778,7 @@ void powerpc_emit_beq (OrcProgram *program, int label)
 
 void powerpc_emit_bne (OrcProgram *program, int label)
 {
-  g_print("  bne .L%d\n", label);
+  g_print("  bdnz+ .L%d\n", label);
 #if 0
   *program->codeptr++ = 0x75;
   x86_add_fixup (program, program->codeptr, label);
