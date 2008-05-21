@@ -9,6 +9,7 @@
 #include <orc/orcprogram.h>
 
 void orc_program_assign_rules (OrcProgram *program);
+void orc_program_global_reg_alloc (OrcProgram *program);
 void orc_program_rewrite_vars (OrcProgram *program);
 void orc_program_rewrite_vars2 (OrcProgram *program);
 void orc_program_do_regs (OrcProgram *program);
@@ -21,7 +22,8 @@ orc_program_new (void)
   p = malloc(sizeof(OrcProgram));
   memset (p, 0, sizeof(OrcProgram));
 
-  p->rule_set = ORC_RULE_SCALAR_1;
+  p->rule_set = ORC_RULE_MMX_4;
+  p->n_per_loop = 4;
 
   return p;
 }
@@ -134,10 +136,25 @@ orc_program_allocate_register (OrcProgram *program, int data_reg)
 {
   int i;
 
-  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
-    if (program->alloc_regs[i] == 0) {
-      program->alloc_regs[i]++;
-      return i;
+  if (program->rule_set == ORC_RULE_SCALAR_1) {
+    data_reg = FALSE;
+  }
+
+  if (!data_reg) {
+    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+      if (program->alloc_regs[i] == 0) {
+        program->alloc_regs[i]++;
+        program->used_regs[i] = 1;
+        return i;
+      }
+    }
+  } else {
+    for(i=ORC_GP_REG_BASE+8;i<ORC_GP_REG_BASE+16;i++){
+      if (program->alloc_regs[i] == 0) {
+        program->alloc_regs[i]++;
+        program->used_regs[i] = 1;
+        return i;
+      }
     }
   }
   g_print("register overflow\n");
@@ -150,9 +167,11 @@ orc_program_compile (OrcProgram *program)
   orc_program_assign_rules (program);
   orc_program_rewrite_vars (program);
 
+  orc_program_reset_alloc (program);
+  orc_program_global_reg_alloc (program);
+
   orc_program_do_regs (program);
 
-  orc_program_reset_alloc (program);
   orc_program_rewrite_vars2 (program);
 
   orc_program_allocate_codemem (program);
@@ -260,9 +279,53 @@ orc_program_rewrite_vars (OrcProgram *program)
 }
 
 void
+orc_program_global_reg_alloc (OrcProgram *program)
+{
+  int i;
+  OrcVariable *var;
+
+
+  for(i=0;i<program->n_vars;i++){
+    var = program->vars + i;
+    switch (var->vartype) {
+      case ORC_VAR_TYPE_CONST:
+        var->first_use = -1;
+        var->last_use = -1;
+        var->alloc = orc_program_allocate_register (program, TRUE);
+        break;
+      case ORC_VAR_TYPE_SRC:
+      case ORC_VAR_TYPE_DEST:
+        var->ptr_register = orc_program_allocate_register (program, FALSE);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+void
 orc_program_do_regs (OrcProgram *program)
 {
+  int i;
+  int k;
+  int var;
+  OrcInstruction *insn;
+  OrcOpcode *opcode;
 
+  for(i=0;i<program->n_insns;i++){
+    insn = program->insns + i;
+    opcode = insn->opcode;
+
+    for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
+      var = insn->args[k];
+
+
+    }
+
+    for(k=0;k<opcode->n_dest;k++){
+      var = insn->args[k];
+    }
+  }
 }
 
 void
@@ -283,9 +346,8 @@ orc_program_rewrite_vars2 (OrcProgram *program)
       int dest = program->insns[j].args[0];
       if (program->vars[src1].last_use == j) {
         if (program->vars[src1].first_use == j) {
-          k = orc_program_allocate_register (program, FALSE);
+          k = orc_program_allocate_register (program, TRUE);
           program->vars[src1].alloc = k;
-          program->used_regs[k] = 1;
         }
         program->alloc_regs[program->vars[src1].alloc]++;
         program->vars[dest].alloc = program->vars[src1].alloc;
@@ -307,9 +369,8 @@ orc_program_rewrite_vars2 (OrcProgram *program)
     for(i=0;i<program->n_vars;i++){
       if (program->vars[i].first_use == j) {
         if (program->vars[i].alloc) continue;
-        k = orc_program_allocate_register (program, FALSE);
+        k = orc_program_allocate_register (program, TRUE);
         program->vars[i].alloc = k;
-        program->used_regs[k] = 1;
       }
     }
     for(i=0;i<program->n_vars;i++){
@@ -377,5 +438,11 @@ orc_program_dump (OrcProgram *program)
     g_print("\n");
   }
 
+}
+
+int
+orc_variable_get_size (OrcVariable *var)
+{
+  return 2;
 }
 

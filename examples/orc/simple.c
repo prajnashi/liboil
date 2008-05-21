@@ -42,7 +42,7 @@ test1(void)
 
   orc_program_append (p, "add_s16", d1, s1, s2);
 
-  orc_program_compile_x86 (p);
+  orc_program_compile (p);
 
   ex = orc_executor_new (p);
   orc_executor_set_n (ex, N);

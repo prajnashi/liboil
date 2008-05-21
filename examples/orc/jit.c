@@ -39,6 +39,13 @@ main (int argc, char *argv[])
   orc_program_append (p, "add_s16", t1, t1, offset);
   orc_program_append (p, "rshift_s16", d1, t1, shift);
 
+#if 0
+  orc_program_append (p, "lshift_s16", t1, t1, shift);
+  orc_program_append (p, "sub_s16", t1, t1, shift);
+  orc_program_append (p, "mul_s16", t1, t1, shift);
+  //orc_program_append (p, "_loadi_s16", t1, t1, shift);
+#endif
+
   ex = orc_executor_new (p);
 
   orc_executor_set_n (ex, N);
@@ -46,9 +53,9 @@ main (int argc, char *argv[])
   orc_executor_set_array (ex, s2, src2);
   orc_executor_set_array (ex, d1, dest);
 
-  orc_program_compile_x86 (p);
+  orc_program_compile (p);
 
-  if (0) {
+  if (1) {
     int i;
 
     for(i=0;i<N;i++){
@@ -77,8 +84,11 @@ void
 test1 (int16_t *dest, int16_t *src1, int16_t *src2, int n)
 {
   int i;
+  int16_t t1, t2;
   for(i=0;i<n;i++){
-    dest[i] = (src1[i] + src2[i] + 1)>>1;
+    t1 = src1[i] + src2[i];
+    t2 = t1 + 1;
+    dest[i] = t2>>1;
   }
 }
 

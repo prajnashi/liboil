@@ -61,6 +61,9 @@ struct _OrcVariable {
   int is_chained;
 
   int16_t s16;
+
+  int ptr_register;
+  int ptr_offset;
 };
 
 struct _OrcRule {
@@ -109,6 +112,7 @@ struct _OrcFixup {
 struct _OrcRegister {
   int var;
 
+  int is_data;
   int is_chained;
   int chained_reg;
 
@@ -141,6 +145,8 @@ struct _OrcProgram {
 
   int used_regs[ORC_N_REGS];
   int alloc_regs[ORC_N_REGS];
+
+  int n_per_loop;
 };
 
 struct _OrcExecutor {
@@ -208,6 +214,8 @@ void orc_rule_register (const char *opcode_name, unsigned int mode,
 void orc_program_x86_register_rules (void);
 void orc_program_allocate_codemem (OrcProgram *program);
 void orc_program_dump_code (OrcProgram *program);
+
+int orc_variable_get_size (OrcVariable *var);
  
 #endif
 
