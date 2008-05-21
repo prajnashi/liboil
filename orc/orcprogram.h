@@ -18,7 +18,7 @@ typedef struct _OrcFixup OrcFixup;
 typedef void (*OrcOpcodeEmulateFunc)(OrcExecutor *ex, void *user);
 typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn);
 
-#define ORC_N_REGS 64
+#define ORC_N_REGS 100
 
 #define ORC_OPCODE_N_ARGS 4
 #define ORC_OPCODE_N_RULES 8
