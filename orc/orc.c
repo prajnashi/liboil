@@ -16,5 +16,6 @@ orc_init (void)
   oil_init ();
   orc_opcode_init();
   orc_x86_init();
+  orc_c_init();
 }
 

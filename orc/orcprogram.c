@@ -22,8 +22,9 @@ orc_program_new (void)
   p = malloc(sizeof(OrcProgram));
   memset (p, 0, sizeof(OrcProgram));
 
-  p->rule_set = ORC_RULE_MMX_4;
-  p->n_per_loop = 4;
+  p->rule_set = ORC_RULE_MMX_1;
+  p->n_per_loop = 1;
+  p->loop_shift = 0;
 
   return p;
 }
@@ -176,6 +177,7 @@ orc_program_compile (OrcProgram *program)
 
   orc_program_allocate_codemem (program);
   orc_program_assemble_x86 (program);
+  //orc_program_assemble_c (program);
 
   orc_program_dump_code (program);
 }

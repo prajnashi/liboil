@@ -2,7 +2,7 @@
 #ifndef _ORC_PROGRAM_H_
 #define _ORC_PROGRAM_H_
 
-#include <glib.h>
+//#include <glib.h>
 
 typedef struct _OrcType OrcType;
 typedef struct _OrcExecutor OrcExecutor;
@@ -24,7 +24,8 @@ typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn)
 #define ORC_OPCODE_N_RULES 8
 
 enum {
-  ORC_RULE_SCALAR_1 = 0,
+  ORC_RULE_C = 0,
+  ORC_RULE_SCALAR_1,
   ORC_RULE_SCALAR_2,
   ORC_RULE_MMX_1,
   ORC_RULE_MMX_2,
@@ -146,6 +147,7 @@ struct _OrcProgram {
   int used_regs[ORC_N_REGS];
   int alloc_regs[ORC_N_REGS];
 
+  int loop_shift;
   int n_per_loop;
 };
 
@@ -182,9 +184,11 @@ void orc_opcode_init (void);
 void orc_program_append (OrcProgram *p, const char *opcode, int arg0, int arg1, int arg2);
 
 void orc_x86_init (void);
+void orc_c_init (void);
 
 void orc_program_compile (OrcProgram *p);
 void orc_program_assemble_x86 (OrcProgram *p);
+void orc_program_assemble_c (OrcProgram *p);
 void orc_program_free (OrcProgram *program);
 
 int orc_program_add_temporary (OrcProgram *program, const char *type, const char *name);

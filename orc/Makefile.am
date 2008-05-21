@@ -12,6 +12,7 @@ liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	orcrule.c \
 	orctype.c \
 	orcprogram.c \
+	orcprogram-c.c \
 	orcprogram-x86.c \
 	orcprogram.h \
 	orcopcodes.c \

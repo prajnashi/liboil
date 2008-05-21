@@ -274,6 +274,9 @@ x86_emit_store_dest (OrcProgram *program, OrcVariable *var)
       break;
     case ORC_RULE_MMX_1:
       /* FIXME we might be using ecx twice here */
+      if (ptr_reg == X86_ECX) {
+        printf("ERROR\n");
+      }
       x86_emit_mov_mmx_reg (program, var->alloc, X86_ECX);
       x86_emit_mov_reg_memoffset (program, 2, X86_ECX, 0, ptr_reg);
       break;
@@ -303,7 +306,7 @@ orc_program_assemble_x86 (OrcProgram *program)
   x86_emit_mov_memoffset_reg (program, 4, (int)G_STRUCT_OFFSET(OrcExecutor,n),
       X86_EBP, X86_ECX);
 
-  x86_emit_sar_imm_reg (program, 4, 2, X86_ECX);
+  x86_emit_sar_imm_reg (program, 4, program->loop_shift, X86_ECX);
   x86_emit_mov_reg_memoffset (program, 4, X86_ECX,
       (int)G_STRUCT_OFFSET(OrcExecutor,counter), X86_EBP);
 
@@ -658,19 +661,23 @@ mmx_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
 void
 orc_program_mmx_register_rules (void)
 {
+  int i;
+
   orc_rule_register ("_loadi_s16", ORC_RULE_MMX_4, mmx_rule_loadi_s16, NULL,
       ORC_RULE_REG_IMM);
 
-  orc_rule_register ("add_s16", ORC_RULE_MMX_4, mmx_rule_add_s16, NULL,
-      ORC_RULE_REG_REG);
-  orc_rule_register ("sub_s16", ORC_RULE_MMX_4, mmx_rule_sub_s16, NULL,
-      ORC_RULE_REG_REG);
-  orc_rule_register ("mul_s16", ORC_RULE_MMX_4, mmx_rule_mul_s16, NULL,
-      ORC_RULE_REG_REG);
-  orc_rule_register ("lshift_s16", ORC_RULE_MMX_4, mmx_rule_lshift_s16, NULL,
-      ORC_RULE_REG_REG);
-  orc_rule_register ("rshift_s16", ORC_RULE_MMX_4, mmx_rule_rshift_s16, NULL,
-      ORC_RULE_REG_REG);
+  for(i=ORC_RULE_MMX_1; i <= ORC_RULE_MMX_4; i++) {
+    orc_rule_register ("add_s16", i, mmx_rule_add_s16, NULL,
+        ORC_RULE_REG_REG);
+    orc_rule_register ("sub_s16", i, mmx_rule_sub_s16, NULL,
+        ORC_RULE_REG_REG);
+    orc_rule_register ("mul_s16", i, mmx_rule_mul_s16, NULL,
+        ORC_RULE_REG_REG);
+    orc_rule_register ("lshift_s16", i, mmx_rule_lshift_s16, NULL,
+        ORC_RULE_REG_REG);
+    orc_rule_register ("rshift_s16", i, mmx_rule_rshift_s16, NULL,
+        ORC_RULE_REG_REG);
+  }
 }
 
 /* code generation */
@@ -765,18 +772,17 @@ void
 x86_emit_mov_memoffset_mmx (OrcProgram *program, int size, int offset,
     int reg1, int reg2)
 {
-  /* FIXME */
   if (size == 4) {
     g_print("  movd %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
         x86_get_regname_mmx(reg2));
-    *program->codeptr++ = 0x66;
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x6e;
   } else {
     g_print("  movq %d(%%%s), %%%s\n", offset, x86_get_regname(reg1),
         x86_get_regname_mmx(reg2));
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x6f;
   }
-
-  *program->codeptr++ = 0x0f;
-  *program->codeptr++ = 0x6f;
   x86_emit_modrm_memoffset (program, reg2, offset, reg1);
 }
 
@@ -801,18 +807,18 @@ void
 x86_emit_mov_mmx_memoffset (OrcProgram *program, int size, int reg1, int offset,
     int reg2)
 {
-  /* FIXME */
   if (size == 4) {
     g_print("  movd %%%s, %d(%%%s)\n", x86_get_regname_mmx(reg1), offset,
         x86_get_regname(reg2));
-    *program->codeptr++ = 0x66;
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x7e;
   } else {
     g_print("  movq %%%s, %d(%%%s)\n", x86_get_regname_mmx(reg1), offset,
         x86_get_regname(reg2));
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x7f;
   }
 
-  *program->codeptr++ = 0x0f;
-  *program->codeptr++ = 0x7f;
   x86_emit_modrm_memoffset (program, reg1, offset, reg2);
 }
 
@@ -856,9 +862,9 @@ void x86_emit_mov_reg_mmx (OrcProgram *program, int reg1, int reg2)
   /* FIXME */
   g_print("  movd %%%s, %%%s\n", x86_get_regname(reg1),
       x86_get_regname_mmx(reg2));
-  *program->codeptr++ = 0x66;
-  *program->codeptr++ = 0x89;
-  x86_emit_modrm_reg (program, reg2, reg1);
+  *program->codeptr++ = 0x0f;
+  *program->codeptr++ = 0x6e;
+  x86_emit_modrm_reg (program, reg1, reg2);
 }
 
 void x86_emit_mov_mmx_reg (OrcProgram *program, int reg1, int reg2)
@@ -866,8 +872,8 @@ void x86_emit_mov_mmx_reg (OrcProgram *program, int reg1, int reg2)
   /* FIXME */
   g_print("  movd %%%s, %%%s\n", x86_get_regname_mmx(reg1),
       x86_get_regname(reg2));
-  *program->codeptr++ = 0x66;
-  *program->codeptr++ = 0x89;
+  *program->codeptr++ = 0x0f;
+  *program->codeptr++ = 0x7e;
   x86_emit_modrm_reg (program, reg2, reg1);
 }
 
