@@ -1,7 +1,6 @@
 
 #include "config.h"
 
-#include <glib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -59,8 +58,8 @@ orc_program_dup_temporary (OrcProgram *program, int var, int j)
 
   program->vars[i].vartype = ORC_VAR_TYPE_TEMP;
   program->vars[i].type = program->vars[var].type;
-  program->vars[i].name = g_strdup_printf("%s.dup%d",
-      program->vars[var].name, j);
+  program->vars[i].name = malloc (strlen(program->vars[var].name) + 10);
+  sprintf(program->vars[i].name, "%s.dup%d", program->vars[var].name, j);
   program->n_vars++;
 
   return i;
@@ -203,7 +202,7 @@ orc_program_rewrite_vars (OrcProgram *program)
     for(k=opcode->n_dest;k<opcode->n_src + opcode->n_dest;k++){
       var = insn->args[k];
       if (program->vars[var].vartype == ORC_VAR_TYPE_DEST) {
-        g_print("ERROR: using dest var as source\n");
+        printf("ERROR: using dest var as source\n");
       }
 
       actual_var = var;
@@ -214,7 +213,7 @@ orc_program_rewrite_vars (OrcProgram *program)
 
       if (!program->vars[var].used) {
         if (program->vars[var].vartype == ORC_VAR_TYPE_TEMP) {
-          g_print("ERROR: using uninitialized temp var\n");
+          printf("ERROR: using uninitialized temp var\n");
         }
         program->vars[var].used = TRUE;
         program->vars[var].first_use = j;
@@ -226,13 +225,13 @@ orc_program_rewrite_vars (OrcProgram *program)
       var = insn->args[k];
 
       if (program->vars[var].vartype == ORC_VAR_TYPE_SRC) {
-        g_print("ERROR: using src var as dest\n");
+        printf("ERROR: using src var as dest\n");
       }
       if (program->vars[var].vartype == ORC_VAR_TYPE_CONST) {
-        g_print("ERROR: using const var as dest\n");
+        printf("ERROR: using const var as dest\n");
       }
       if (program->vars[var].vartype == ORC_VAR_TYPE_PARAM) {
-        g_print("ERROR: using param var as dest\n");
+        printf("ERROR: using param var as dest\n");
       }
 
       actual_var = var;
@@ -246,7 +245,7 @@ orc_program_rewrite_vars (OrcProgram *program)
         program->vars[actual_var].first_use = j;
       } else {
         if (program->vars[var].vartype == ORC_VAR_TYPE_DEST) {
-          g_print("ERROR: writing dest more than once\n");
+          printf("ERROR: writing dest more than once\n");
         }
         if (program->vars[var].vartype == ORC_VAR_TYPE_TEMP) {
           actual_var = orc_program_dup_temporary (program, var, j);
@@ -366,7 +365,7 @@ orc_program_rewrite_vars2 (OrcProgram *program)
 
 #if 0
   for(i=0;i<program->n_vars;i++){
-    g_print("# %2d: %2d %2d %d\n",
+    printf("# %2d: %2d %2d %d\n",
         i,
         program->vars[i].first_use,
         program->vars[i].last_use,
@@ -399,27 +398,27 @@ orc_program_dump (OrcProgram *program)
     insn = program->insns + i;
     opcode = insn->opcode;
 
-    g_print("insn: %d\n", i);
-    g_print("  opcode: %s\n", opcode->name);
+    printf("insn: %d\n", i);
+    printf("  opcode: %s\n", opcode->name);
 
     for(j=0;j<opcode->n_dest;j++){
-      g_print("  dest%d: %d %s\n", j, insn->args[j],
+      printf("  dest%d: %d %s\n", j, insn->args[j],
           program->vars[insn->args[j]].name);
     }
     for(j=0;j<opcode->n_src;j++){
-      g_print("  src%d: %d %s\n", j, insn->args[opcode->n_dest + j],
+      printf("  src%d: %d %s\n", j, insn->args[opcode->n_dest + j],
           program->vars[insn->args[opcode->n_dest + j]].name);
     }
 
-    g_print("\n");
+    printf("\n");
   }
 
   for(i=0;i<program->n_vars;i++){
-    g_print("var: %d %s\n", i, program->vars[i].name);
-    g_print("first_use: %d\n", program->vars[i].first_use);
-    g_print("last_use: %d\n", program->vars[i].last_use);
+    printf("var: %d %s\n", i, program->vars[i].name);
+    printf("first_use: %d\n", program->vars[i].first_use);
+    printf("last_use: %d\n", program->vars[i].last_use);
 
-    g_print("\n");
+    printf("\n");
   }
 
 }

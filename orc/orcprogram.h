@@ -28,6 +28,16 @@ typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn)
 #define ORC_OPCODE_N_ARGS 4
 #define ORC_OPCODE_N_RULES 8
 
+#define ORC_STRUCT_OFFSET(struct_type, member)    \
+      ((long) ((unsigned int *) &((struct_type*) 0)->member))
+
+#ifndef TRUE
+#define TRUE 1
+#endif
+#ifndef FALSE
+#define FALSE 0
+#endif
+
 enum {
   ORC_RULE_C = 0,
   ORC_RULE_SCALAR_1,

@@ -1,7 +1,6 @@
 
 #include "config.h"
 
-#include <glib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -147,7 +146,7 @@ orc_program_powerpc_allocate_register (OrcProgram *program, int data_reg)
       }
     }
   }
-  g_print("register overflow\n");
+  printf("register overflow\n");
   return 0;
 }
 
@@ -384,7 +383,7 @@ powerpc_load_constants (OrcProgram *program)
           powerpc_emit_lwz (program,
               program->vars[i].ptr_register,
               POWERPC_R3,
-              (int)G_STRUCT_OFFSET(OrcExecutor, arrays[i]));
+              (int)ORC_STRUCT_OFFSET(OrcExecutor, arrays[i]));
         } else {
           /* FIXME */
           printf("ERROR");
@@ -478,7 +477,7 @@ orc_program_assemble_powerpc (OrcProgram *program)
   powerpc_emit_prologue (program);
 
   powerpc_emit_lwz (program, POWERPC_R0, POWERPC_R3,
-      (int)G_STRUCT_OFFSET(OrcExecutor, n));
+      (int)ORC_STRUCT_OFFSET(OrcExecutor, n));
   powerpc_emit_srawi (program, POWERPC_R0, POWERPC_R0,
       program->loop_shift, 1);
 
@@ -674,7 +673,7 @@ orc_program_powerpc_register_rules (void)
 
 void powerpc_emit_ret (OrcProgram *program)
 {
-  g_print("  ret\n");
+  printf("  ret\n");
   //*program->codeptr++ = 0xc3;
 }
 
@@ -695,7 +694,7 @@ powerpc_add_label (OrcProgram *program, unsigned char *ptr, int label)
 
 void powerpc_emit_beq (OrcProgram *program, int label)
 {
-  g_print("  ble- .L%d\n", label);
+  printf("  ble- .L%d\n", label);
 
   powerpc_add_fixup (program, program->codeptr, label);
   powerpc_emit (program, 0x40810000);
@@ -703,7 +702,7 @@ void powerpc_emit_beq (OrcProgram *program, int label)
 
 void powerpc_emit_bne (OrcProgram *program, int label)
 {
-  g_print("  bdnz+ .L%d\n", label);
+  printf("  bdnz+ .L%d\n", label);
 
   powerpc_add_fixup (program, program->codeptr, label);
   powerpc_emit (program, 0x42000000);
@@ -711,7 +710,7 @@ void powerpc_emit_bne (OrcProgram *program, int label)
 
 void powerpc_emit_label (OrcProgram *program, int label)
 {
-  g_print(".L%d:\n", label);
+  printf(".L%d:\n", label);
 
   powerpc_add_label (program, program->codeptr, label);
 }
