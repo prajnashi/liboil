@@ -18,7 +18,7 @@ typedef struct _OrcFixup OrcFixup;
 typedef void (*OrcOpcodeEmulateFunc)(OrcExecutor *ex, void *user);
 typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn);
 
-#define ORC_N_REGS 100
+#define ORC_N_REGS (32*4)
 #define ORC_N_INSNS 100
 #define ORC_N_VARIABLES 100
 #define ORC_N_REGISTERS 100
@@ -190,7 +190,7 @@ enum {
   ORC_RULE_REG_CL = (1<<6)
 };
 
-#define ORC_GP_REG_BASE 8
+#define ORC_GP_REG_BASE 32
 
 void orc_init (void);
 
