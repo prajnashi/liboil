@@ -1,5 +1,5 @@
 
-includedir = $(includedir)/orc-@LIBOIL_MAJORMINOR@/orc
+pkgincludedir = $(includedir)/orc-@LIBOIL_MAJORMINOR@/orc
 
 lib_LTLIBRARIES = liborc-@LIBOIL_MAJORMINOR@.la
 
@@ -18,4 +18,8 @@ liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	orcprogram.h \
 	orcopcodes.c \
 	orcprogram-linux.c
+
+pkginclude_HEADERS = \
+	orc.h \
+	orcprogram.h
 

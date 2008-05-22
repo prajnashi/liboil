@@ -300,6 +300,8 @@ examples/videoscale/Makefile
 examples/work/Makefile
 liboil-uninstalled.pc
 liboil.pc
+orc-uninstalled.pc
+orc.pc
 ])
 AC_OUTPUT
 
