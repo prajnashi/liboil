@@ -219,7 +219,7 @@ orc_x86_init (void)
 }
 
 void
-orc_program_reset_alloc (OrcProgram *program)
+orc_program_x86_reset_alloc (OrcProgram *program)
 {
   int i;
 

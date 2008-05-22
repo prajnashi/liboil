@@ -324,6 +324,7 @@ powerpc_do_fixups (OrcProgram *program)
 void
 powerpc_flush (OrcProgram *program)
 {
+#ifdef HAVE_POWERPC
   unsigned char *ptr;
   int cache_line_size = 32;
   int i;
@@ -340,7 +341,7 @@ powerpc_flush (OrcProgram *program)
     __asm__ __volatile__ ("icbi %0,%1" :: "r" (ptr), "r" (i));
   }
   __asm__ __volatile ("isync");
-
+#endif
 }
 
 void

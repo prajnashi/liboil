@@ -19,6 +19,11 @@ typedef void (*OrcOpcodeEmulateFunc)(OrcExecutor *ex, void *user);
 typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn);
 
 #define ORC_N_REGS 100
+#define ORC_N_INSNS 100
+#define ORC_N_VARIABLES 100
+#define ORC_N_REGISTERS 100
+#define ORC_N_FIXUPS 100
+#define ORC_N_LABELS 100
 
 #define ORC_OPCODE_N_ARGS 4
 #define ORC_OPCODE_N_RULES 8
@@ -121,17 +126,18 @@ struct _OrcRegister {
   int merge;
 };
 
+
 struct _OrcProgram {
-  OrcInstruction insns[100];
+  OrcInstruction insns[ORC_N_INSNS];
   int n_insns;
 
-  OrcVariable vars[100];
+  OrcVariable vars[ORC_N_VARIABLES];
   int n_vars;
 
   OrcInstruction *insn;
   int rule_set;
 
-  OrcRegister registers[100];
+  OrcRegister registers[ORC_N_REGISTERS];
   int n_regs;
 
   unsigned char *code;
@@ -139,9 +145,9 @@ struct _OrcProgram {
   unsigned char *codeptr;
   int code_size;
   
-  OrcFixup fixups[100];
+  OrcFixup fixups[ORC_N_FIXUPS];
   int n_fixups;
-  unsigned char *labels[100];
+  unsigned char *labels[ORC_N_LABELS];
 
   int error;
 
@@ -157,10 +163,10 @@ struct _OrcExecutor {
   int n;
   int counter;
 
-  void *arrays[10];
+  void *arrays[ORC_N_VARIABLES];
 
-  OrcVariable vars[10];
-  OrcVariable *args[4];
+  OrcVariable vars[ORC_N_VARIABLES];
+  OrcVariable *args[ORC_OPCODE_N_ARGS];
 
 };
 
