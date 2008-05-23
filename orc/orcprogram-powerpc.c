@@ -57,7 +57,7 @@ enum {
   POWERPC_R29,
   POWERPC_R30,
   POWERPC_R31,
-  POWERPC_V0,
+  POWERPC_V0 = ORC_VEC1_REG_BASE,
   POWERPC_V1,
   POWERPC_V2,
   POWERPC_V3,
@@ -350,7 +350,7 @@ orc_powerpc_init (void)
 }
 
 void
-orc_program_powerpc_reset_alloc (OrcProgram *program)
+orc_program_powerpc_init (OrcProgram *program)
 {
   int i;
 

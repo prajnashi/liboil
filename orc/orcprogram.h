@@ -25,6 +25,12 @@ typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn)
 #define ORC_N_FIXUPS 100
 #define ORC_N_LABELS 100
 
+#define ORC_GP_REG_BASE 32
+#define ORC_VEC1_REG_BASE 64
+#define ORC_VEC2_REG_BASE 96
+
+#define ORC_REGCLASS_GP 1
+
 #define ORC_OPCODE_N_ARGS 4
 #define ORC_OPCODE_N_RULES 8
 
@@ -161,6 +167,10 @@ struct _OrcProgram {
 
   int error;
 
+  int data_register_class;
+
+  int valid_regs[ORC_N_REGS];
+  int save_regs[ORC_N_REGS];
   int used_regs[ORC_N_REGS];
   int alloc_regs[ORC_N_REGS];
 
@@ -190,7 +200,6 @@ enum {
   ORC_RULE_REG_CL = (1<<6)
 };
 
-#define ORC_GP_REG_BASE 32
 
 void orc_init (void);
 
@@ -205,6 +214,8 @@ void orc_powerpc_init (void);
 void orc_c_init (void);
 
 void orc_program_compile (OrcProgram *p);
+void orc_program_x86_init (OrcProgram *p);
+void orc_program_powerpc_init (OrcProgram *p);
 void orc_program_assemble_x86 (OrcProgram *p);
 void orc_program_assemble_powerpc (OrcProgram *p);
 void orc_program_assemble_c (OrcProgram *p);

@@ -62,19 +62,26 @@ enum {
   X86_R13,
   X86_R14,
   X86_R15,
-  X86_MM0,
+  X86_MM0 = ORC_VEC1_REG_BASE,
   X86_MM1,
   X86_MM2,
   X86_MM3,
   X86_MM4,
   X86_MM5,
   X86_MM6,
-  X86_MM7
+  X86_MM7,
+  X86_XMM0 = ORC_VEC2_REG_BASE,
 };
 
+#ifdef HAVE_X86_64
 static int x86_64 = 1;
 static int x86_ptr_size = 8;
 static int x86_exec_ptr = X86_EDI;
+#else
+static int x86_64 = 0;
+static int x86_ptr_size = 4;
+static int x86_exec_ptr = X86_EBP;
+#endif
 
 
 static const char *
@@ -91,6 +98,7 @@ x86_get_regname(int i)
     case 1:
       return "direct";
     default:
+      printf("register %d\n", i);
       return "ERROR";
   }
 }
@@ -167,30 +175,34 @@ int
 orc_program_x86_allocate_register (OrcProgram *program, int data_reg)
 {
   int i;
+  int klass;
+  int offset;
 
-  if (program->rule_set == ORC_RULE_SCALAR_1) {
-    data_reg = FALSE;
-  }
-
-  if (!data_reg) {
-    int n_regs = 8;
-    if (x86_64) n_regs = 16;
-    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+n_regs;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
-    }
+  if (data_reg) {
+    klass = program->data_register_class;
   } else {
-    for(i=X86_MM0;i<X86_MM0+8;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
+    klass = ORC_REGCLASS_GP;
+  }
+  offset = klass << 5;
+
+  for(i=offset;i<offset+32;i++){
+    if (program->valid_regs[i] &&
+        !program->save_regs[i] &&
+        program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      program->used_regs[i] = 1;
+      return i;
     }
   }
+  for(i=offset;i<offset+32;i++){
+    if (program->valid_regs[i] &&
+        program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      program->used_regs[i] = 1;
+      return i;
+    }
+  }
+
   printf("register overflow\n");
   return 0;
 }
@@ -269,24 +281,40 @@ orc_x86_init (void)
 }
 
 void
-orc_program_x86_reset_alloc (OrcProgram *program)
+orc_program_x86_init (OrcProgram *program)
 {
   int i;
 
-  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+16;i++){
-    program->alloc_regs[i] = 0;
-  }
-  program->alloc_regs[X86_ECX] = 1;
-  program->alloc_regs[X86_ESP] = 1;
-  program->alloc_regs[X86_EBP] = 1;
-
   if (x86_64) {
-    /* used for passing parameters */
-    program->alloc_regs[X86_EDI] = 1;
-    /* don't feel like saving */
-    program->alloc_regs[X86_ESI] = 1;
-    program->alloc_regs[X86_EBX] = 1;
+    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+16;i++){
+      program->valid_regs[i] = 1;
+    }
+    program->valid_regs[X86_ECX] = 0;
+    program->valid_regs[X86_EDI] = 0;
+    program->valid_regs[X86_ESP] = 0;
+    for(i=X86_XMM0;i<X86_XMM0+16;i++){
+      program->valid_regs[i] = 1;
+    }
+  } else {
+    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
+      program->valid_regs[i] = 1;
+    }
+    program->valid_regs[X86_ECX] = 0;
+    program->valid_regs[X86_ESP] = 0;
+    program->valid_regs[X86_EBP] = 0;
+    for(i=X86_XMM0;i<X86_XMM0+8;i++){
+      program->valid_regs[i] = 1;
+    }
   }
+  for(i=X86_MM0;i<X86_MM0+8;i++){
+    program->valid_regs[i] = 1;
+  }
+  for(i=0;i<128;i++){
+    program->alloc_regs[i] = 0;
+    program->used_regs[i] = 0;
+  }
+
+  program->data_register_class = 2;
 }
 
 void

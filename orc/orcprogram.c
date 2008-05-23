@@ -134,21 +134,55 @@ orc_program_append (OrcProgram *program, const char *name, int arg0,
 int
 orc_program_allocate_register (OrcProgram *program, int data_reg)
 {
-  if (program->rule_set == ORC_RULE_ALTIVEC_1) {
-    return orc_program_powerpc_allocate_register (program, data_reg);
+  int i;
+  int klass;
+  int offset;
+
+  if (data_reg) {
+    klass = program->data_register_class;
   } else {
-    return orc_program_x86_allocate_register (program, data_reg);
+    klass = ORC_REGCLASS_GP;
   }
+  offset = klass << 5;
+
+  for(i=offset;i<offset+32;i++){
+    if (program->valid_regs[i] &&
+        !program->save_regs[i] &&
+        program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      program->used_regs[i] = 1;
+      return i;
+    }
+  }
+  for(i=offset;i<offset+32;i++){
+    if (program->valid_regs[i] &&
+        program->alloc_regs[i] == 0) {
+      program->alloc_regs[i]++;
+      program->used_regs[i] = 1;
+      return i;
+    }
+  }
+
+  printf("register overflow\n");
+  return 0;
 }
 
 void
 orc_program_compile (OrcProgram *program)
 {
+#if defined(HAVE_POWERPC)
+  orc_program_powerpc_init (program);
+#elif defined(HAVE_I386)
+  orc_program_x86_init (program);
+#elif defined(HAVE_AMD64)
+  orc_program_x86_init (program);
+#else
+#error FIXME
+#endif
+
   orc_program_assign_rules (program);
   orc_program_rewrite_vars (program);
 
-  orc_program_x86_reset_alloc (program);
-  //orc_program_powerpc_reset_alloc (program);
   orc_program_global_reg_alloc (program);
 
   orc_program_do_regs (program);
@@ -156,8 +190,15 @@ orc_program_compile (OrcProgram *program)
   orc_program_rewrite_vars2 (program);
 
   orc_program_allocate_codemem (program);
+#if defined(HAVE_POWERPC)
+  orc_program_assemble_powerpc (program);
+#elif defined(HAVE_I386)
   orc_program_assemble_x86 (program);
-  //orc_program_assemble_powerpc (program);
+#elif defined(HAVE_AMD64)
+  orc_program_assemble_x86 (program);
+#else
+#error FIXME
+#endif
   //orc_program_assemble_c (program);
 
   orc_program_dump_code (program);
