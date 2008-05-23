@@ -71,9 +71,10 @@ enum {
   X86_MM6,
   X86_MM7,
   X86_XMM0 = ORC_VEC2_REG_BASE,
+  X86_XMM1
 };
 
-#ifdef HAVE_X86_64
+#ifdef HAVE_AMD64
 static int x86_64 = 1;
 static int x86_ptr_size = 8;
 static int x86_exec_ptr = X86_EDI;
@@ -295,6 +296,12 @@ orc_program_x86_init (OrcProgram *program)
     for(i=X86_XMM0;i<X86_XMM0+16;i++){
       program->valid_regs[i] = 1;
     }
+    program->save_regs[X86_EBX] = 1;
+    program->save_regs[X86_EBP] = 1;
+    program->save_regs[X86_R12] = 1;
+    program->save_regs[X86_R13] = 1;
+    program->save_regs[X86_R14] = 1;
+    program->save_regs[X86_R15] = 1;
   } else {
     for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+8;i++){
       program->valid_regs[i] = 1;
@@ -305,6 +312,9 @@ orc_program_x86_init (OrcProgram *program)
     for(i=X86_XMM0;i<X86_XMM0+8;i++){
       program->valid_regs[i] = 1;
     }
+    program->save_regs[X86_EBX] = 1;
+    program->save_regs[X86_EDI] = 1;
+    program->save_regs[X86_EBP] = 1;
   }
   for(i=X86_MM0;i<X86_MM0+8;i++){
     program->valid_regs[i] = 1;
