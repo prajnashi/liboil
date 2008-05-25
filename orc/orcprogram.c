@@ -21,7 +21,11 @@ orc_program_new (void)
   p = malloc(sizeof(OrcProgram));
   memset (p, 0, sizeof(OrcProgram));
 
+#if defined(HAVE_POWERPC)
+  p->rule_set = ORC_RULE_ALTIVEC_1;
+#else
   p->rule_set = ORC_RULE_MMX_1;
+#endif
   p->n_per_loop = 1;
   p->loop_shift = 0;
 

@@ -64,7 +64,6 @@ orc_executor_emulate (OrcExecutor *ex)
   //printf("n_insns %d\n", program->n_insns);
 
   for(i=0;i<ex->n;i++){
-    printf("%d\n", i);
     for(j=0;j<program->n_insns;j++){
       insn = program->insns + j;
       opcode = insn->opcode;

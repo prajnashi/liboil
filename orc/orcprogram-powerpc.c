@@ -88,7 +88,39 @@ enum {
   POWERPC_V28,
   POWERPC_V29,
   POWERPC_V30,
-  POWERPC_V31
+  POWERPC_V31,
+  POWERPC_F0 = ORC_VEC2_REG_BASE,
+  POWERPC_F1,
+  POWERPC_F2,
+  POWERPC_F3,
+  POWERPC_F4,
+  POWERPC_F5,
+  POWERPC_F6,
+  POWERPC_F7,
+  POWERPC_F8,
+  POWERPC_F9,
+  POWERPC_F10,
+  POWERPC_F11,
+  POWERPC_F12,
+  POWERPC_F13,
+  POWERPC_F14,
+  POWERPC_F15,
+  POWERPC_F16,
+  POWERPC_F17,
+  POWERPC_F18,
+  POWERPC_F19,
+  POWERPC_F20,
+  POWERPC_F21,
+  POWERPC_F22,
+  POWERPC_F23,
+  POWERPC_F24,
+  POWERPC_F25,
+  POWERPC_F26,
+  POWERPC_F27,
+  POWERPC_F28,
+  POWERPC_F29,
+  POWERPC_F30,
+  POWERPC_F31
 };
 
 const char *
@@ -123,36 +155,6 @@ powerpc_regnum (int i)
 {
   return (i-ORC_GP_REG_BASE)&0x1f;
 }
-
-int
-orc_program_powerpc_allocate_register (OrcProgram *program, int data_reg)
-{
-  int i;
-
-  if (!data_reg) {
-    for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+32;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
-    }
-  } else {
-    for(i=ORC_GP_REG_BASE+32;i<ORC_GP_REG_BASE+64;i++){
-      if (program->alloc_regs[i] == 0) {
-        program->alloc_regs[i]++;
-        program->used_regs[i] = 1;
-        return i;
-      }
-    }
-  }
-  printf("register overflow\n");
-  return 0;
-}
-
-
-void orc_program_rewrite_vars (OrcProgram *program);
-void orc_program_dump (OrcProgram *program);
 
 void
 powerpc_emit(OrcProgram *program, unsigned int insn)
@@ -354,13 +356,27 @@ orc_program_powerpc_init (OrcProgram *program)
 {
   int i;
 
-  for(i=ORC_GP_REG_BASE;i<ORC_GP_REG_BASE+64;i++){
-    program->alloc_regs[i] = 0;
+  for(i=0;i<32;i++){
+    program->valid_regs[POWERPC_R0+i] = 1;
+    program->valid_regs[POWERPC_F0+i] = 1;
+    program->valid_regs[POWERPC_V0+i] = 1;
   }
-  for(i=0;i<9;i++){
-    program->alloc_regs[POWERPC_R0 + i] = 1;
+  program->valid_regs[POWERPC_R0] = 0; /* used for temp space */
+  program->valid_regs[POWERPC_R1] = 0; /* stack pointer */
+  program->valid_regs[POWERPC_R2] = 0; /* TOC pointer */
+  program->valid_regs[POWERPC_R3] = 0; /* pointer to OrcExecutor */
+  program->valid_regs[POWERPC_R13] = 0; /* reserved */
+  program->valid_regs[POWERPC_V0] = 0; /* used for temp space */
+
+  for(i=14;i<32;i++){
+    program->save_regs[POWERPC_R0 + i] = 1;
+    program->save_regs[POWERPC_F0 + i] = 1;
   }
-  program->alloc_regs[POWERPC_V0] = 1;
+  for(i=20;i<32;i++){
+    program->save_regs[POWERPC_V0 + i] = 1;
+  }
+
+  program->data_register_class = 2;
 }
 
 void
