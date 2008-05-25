@@ -35,13 +35,11 @@ main (int argc, char *argv[])
   offset = orc_program_add_constant (p, "s16", 1, "offset");
   shift = orc_program_add_constant (p, "s16", 1, "shift");
 
-#if 0
   orc_program_append (p, "add_s16", t1, s1, s2);
   orc_program_append (p, "add_s16", t1, t1, offset);
   orc_program_append (p, "rshift_s16", d1, t1, shift);
-#endif
 
-#if 1
+#if 0
   orc_program_append (p, "lshift_s16", d1, s1, shift);
   //orc_program_append (p, "sub_s16", t1, t1, shift);
   //orc_program_append (p, "mul_s16", d1, s1, s2);
@@ -72,7 +70,7 @@ main (int argc, char *argv[])
 
     for(i=0;i<N;i++){
       printf("#  %4d %4d %4d %4d\n", src1[i], src2[i], dest[i],
-          src1[i] << 1);
+          (src1[i] + src2[i] + 1) >> 1);
     }
 
     orc_executor_free (ex);
