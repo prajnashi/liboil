@@ -29,12 +29,18 @@ void x86_emit_test_reg_reg (OrcProgram *program, int size, int reg1, int reg2);
 void x86_emit_sar_imm_reg (OrcProgram *program, int size, int value, int reg);
 void x86_emit_dec_memoffset (OrcProgram *program, int size, int offset, int reg);
 void x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value, int offset, int reg);
+void x86_emit_and_imm_memoffset (OrcProgram *program, int size, int value, int offset, int reg);
 void x86_emit_add_imm_reg (OrcProgram *program, int size, int value, int reg);
+void x86_emit_and_imm_reg (OrcProgram *program, int size, int value, int reg);
+void x86_emit_cmp_imm_memoffset (OrcProgram *program, int size, int value,
+    int offset, int reg);
 void x86_emit_emms (OrcProgram *program);
 void x86_emit_ret (OrcProgram *program);
 void x86_emit_je (OrcProgram *program, int label);
 void x86_emit_jne (OrcProgram *program, int label);
 void x86_emit_label (OrcProgram *program, int label);
+
+void x86_emit_loop (OrcProgram *program);
 
 static void mmx_emit_loadi_s16 (OrcProgram *p, int reg, int value);
 
@@ -421,29 +427,69 @@ x86_emit_store_dest (OrcProgram *program, OrcVariable *var)
 void
 orc_program_assemble_x86 (OrcProgram *program)
 {
+  x86_emit_prologue (program);
+
+  x86_emit_mov_memoffset_reg (program, 4, (int)ORC_STRUCT_OFFSET(OrcExecutor,n),
+      x86_exec_ptr, X86_ECX);
+  x86_emit_sar_imm_reg (program, 4, 2, X86_ECX);
+  x86_emit_mov_reg_memoffset (program, 4, X86_ECX,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter2), x86_exec_ptr);
+
+  x86_emit_mov_memoffset_reg (program, 4,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,n), x86_exec_ptr, X86_ECX);
+  x86_emit_and_imm_reg (program, 4, 3, X86_ECX);
+  x86_emit_mov_reg_memoffset (program, 4, X86_ECX,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter1), x86_exec_ptr);
+
+  x86_load_constants (program);
+
+  x86_emit_cmp_imm_memoffset (program, 4, 0,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter1), x86_exec_ptr);
+  x86_emit_je (program, 1);
+
+  program->rule_set = ORC_RULE_MMX_1;
+  program->n_per_loop = 1;
+  program->loop_shift = 0;
+  x86_emit_label (program, 0);
+  x86_emit_loop (program);
+  x86_emit_dec_memoffset (program, 4,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter1),
+      x86_exec_ptr);
+  x86_emit_cmp_imm_memoffset (program, 4, 0,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter1),
+      x86_exec_ptr);
+  x86_emit_jne (program, 0);
+  x86_emit_label (program, 1);
+
+  x86_emit_cmp_imm_memoffset (program, 4, 0,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter2), x86_exec_ptr);
+  x86_emit_je (program, 3);
+
+  program->rule_set = ORC_RULE_MMX_4;
+  program->n_per_loop = 4;
+  program->loop_shift = 2;
+  x86_emit_label (program, 2);
+  x86_emit_loop (program);
+  x86_emit_dec_memoffset (program, 4,
+      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter2),
+      x86_exec_ptr);
+  x86_emit_jne (program, 2);
+  x86_emit_label (program, 3);
+
+  x86_emit_epilogue (program);
+
+  x86_do_fixups (program);
+}
+
+void
+x86_emit_loop (OrcProgram *program)
+{
   int j;
   int k;
   OrcInstruction *insn;
   OrcOpcode *opcode;
   OrcVariable *args[10];
   OrcRule *rule;
-
-  x86_emit_prologue (program);
-
-  x86_emit_mov_memoffset_reg (program, 4, (int)ORC_STRUCT_OFFSET(OrcExecutor,n),
-      x86_exec_ptr, X86_ECX);
-
-  x86_emit_sar_imm_reg (program, 4, program->loop_shift, X86_ECX);
-  x86_emit_mov_reg_memoffset (program, 4, X86_ECX,
-      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter), x86_exec_ptr);
-
-  x86_emit_test_reg_reg (program, 4, X86_ECX, X86_ECX);
-
-  x86_emit_je (program, 1);
-
-  x86_load_constants (program);
-
-  x86_emit_label (program, 0);
 
   for(j=0;j<program->n_insns;j++){
     insn = program->insns + j;
@@ -514,21 +560,7 @@ orc_program_assemble_x86 (OrcProgram *program)
       }
     }
   }
-
-  x86_emit_dec_memoffset (program, 4,
-      (int)ORC_STRUCT_OFFSET(OrcExecutor,counter),
-      x86_exec_ptr);
-  x86_emit_jne (program, 0);
-  x86_emit_label (program, 1);
-
-  x86_emit_epilogue (program);
-
-  //x86_test (program);
-
-
-  x86_do_fixups (program);
 }
-
 
 /* rules */
 
@@ -1085,6 +1117,70 @@ x86_emit_sar_imm_reg (OrcProgram *program, int size, int value, int reg)
 }
 
 void
+x86_emit_and_imm_memoffset (OrcProgram *program, int size, int value,
+    int offset, int reg)
+{
+  if (size == 2) {
+    printf("  andw $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+    *program->codeptr++ = 0x66;
+  } else if (size == 4) {
+    printf("  andl $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+  } else {
+    printf("  and $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+  }
+
+  x86_emit_rex(program, size, 0, 0, reg);
+  if (value >= -128 && value < 128) {
+    *program->codeptr++ = 0x83;
+    /* FIXME */
+    x86_emit_modrm_memoffset (program, 0, offset, reg);
+    *program->codeptr++ = (value & 0xff);
+  } else {
+    *program->codeptr++ = 0x81;
+    /* FIXME */
+    x86_emit_modrm_memoffset (program, 0, offset, reg);
+    *program->codeptr++ = (value & 0xff);
+    *program->codeptr++ = ((value>>8) & 0xff);
+    if (size == 4) {
+      *program->codeptr++ = ((value>>16) & 0xff);
+      *program->codeptr++ = ((value>>24) & 0xff);
+    }
+  }
+}
+
+void
+x86_emit_and_imm_reg (OrcProgram *program, int size, int value, int reg)
+{
+  if (size == 2) {
+    printf("  andw $%d, %%%s\n", value, x86_get_regname_16(reg));
+    *program->codeptr++ = 0x66;
+  } else if (size == 4) {
+    printf("  andl $%d, %%%s\n", value, x86_get_regname(reg));
+  } else {
+    printf("  and $%d, %%%s\n", value, x86_get_regname_64(reg));
+  }
+
+  x86_emit_rex(program, size, 0, 0, reg);
+  if (value >= -128 && value < 128) {
+    *program->codeptr++ = 0x83;
+    x86_emit_modrm_reg (program, reg, 4);
+    *program->codeptr++ = (value & 0xff);
+  } else {
+    *program->codeptr++ = 0x81;
+    x86_emit_modrm_reg (program, reg, 4);
+    *program->codeptr++ = (value & 0xff);
+    *program->codeptr++ = ((value>>8) & 0xff);
+    if (size == 4) {
+      *program->codeptr++ = ((value>>16) & 0xff);
+      *program->codeptr++ = ((value>>24) & 0xff);
+    }
+  }
+}
+
+void
 x86_emit_add_imm_memoffset (OrcProgram *program, int size, int value,
     int offset, int reg)
 {
@@ -1137,6 +1233,39 @@ x86_emit_add_imm_reg (OrcProgram *program, int size, int value, int reg)
   } else {
     *program->codeptr++ = 0x81;
     x86_emit_modrm_reg (program, reg, 0);
+    *program->codeptr++ = (value & 0xff);
+    *program->codeptr++ = ((value>>8) & 0xff);
+    if (size == 4) {
+      *program->codeptr++ = ((value>>16) & 0xff);
+      *program->codeptr++ = ((value>>24) & 0xff);
+    }
+  }
+}
+
+void
+x86_emit_cmp_imm_memoffset (OrcProgram *program, int size, int value,
+    int offset, int reg)
+{
+  if (size == 2) {
+    printf("  cmpw $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+    *program->codeptr++ = 0x66;
+  } else if (size == 4) {
+    printf("  cmpl $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+  } else {
+    printf("  cmp $%d, %d(%%%s)\n", value, offset,
+        x86_get_regname_ptr(reg));
+  }
+
+  x86_emit_rex(program, size, 0, 0, reg);
+  if (value >= -128 && value < 128) {
+    *program->codeptr++ = 0x83;
+    x86_emit_modrm_memoffset (program, 7, offset, reg);
+    *program->codeptr++ = (value & 0xff);
+  } else {
+    *program->codeptr++ = 0x81;
+    x86_emit_modrm_memoffset (program, 7, offset, reg);
     *program->codeptr++ = (value & 0xff);
     *program->codeptr++ = ((value>>8) & 0xff);
     if (size == 4) {

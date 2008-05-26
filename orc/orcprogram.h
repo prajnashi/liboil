@@ -181,7 +181,9 @@ struct _OrcProgram {
 struct _OrcExecutor {
   OrcProgram *program;
   int n;
-  int counter;
+  int counter1;
+  int counter2;
+  int counter3;
 
   void *arrays[ORC_N_VARIABLES];
 
