@@ -17,9 +17,14 @@ liborc_@LIBOIL_MAJORMINOR@_la_SOURCES = \
 	orcprogram-powerpc.c \
 	orcprogram.h \
 	orcopcodes.c \
-	orcprogram-linux.c
+	orcprogram-linux.c \
+	orcrules-mmx.c \
+	orcrules-x86.c \
+	orcrules-sse.c \
+	x86.c
 
 pkginclude_HEADERS = \
 	orc.h \
-	orcprogram.h
+	orcprogram.h \
+	x86.h
 
