@@ -32,7 +32,7 @@ typedef void (*OrcRuleEmitFunc)(OrcProgram *p, void *user, OrcInstruction *insn)
 #define ORC_REGCLASS_GP 1
 
 #define ORC_OPCODE_N_ARGS 4
-#define ORC_OPCODE_N_RULES 8
+#define ORC_OPCODE_N_RULES 12
 
 #define ORC_STRUCT_OFFSET(struct_type, member)    \
       ((long) ((unsigned int *) &((struct_type*) 0)->member))
@@ -52,6 +52,10 @@ enum {
   ORC_RULE_MMX_2,
   ORC_RULE_MMX_4,
   ORC_RULE_MMX_8,
+  ORC_RULE_SSE_1,
+  ORC_RULE_SSE_2,
+  ORC_RULE_SSE_4,
+  ORC_RULE_SSE_8,
   ORC_RULE_ALTIVEC_1
 };
 
