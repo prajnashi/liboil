@@ -24,10 +24,10 @@ orc_program_new (void)
 #if defined(HAVE_POWERPC)
   p->rule_set = ORC_RULE_ALTIVEC_1;
 #else
-  p->rule_set = ORC_RULE_MMX_1;
+  p->rule_set = ORC_RULE_SSE_8;
 #endif
-  p->n_per_loop = 1;
-  p->loop_shift = 0;
+  p->n_per_loop = 8;
+  p->loop_shift = 3;
 
   return p;
 }

@@ -102,10 +102,12 @@ x86_get_regname_mmx(int i)
 const char *
 x86_get_regname_sse(int i)
 {
-  static const char *x86_regs[] = { "xmm0", "xmm1", "xmm2", "xmm3",
-    "xmm4", "xmm5", "xmm6", "xmm7" };
+  static const char *x86_regs[] = {
+    "xmm0", "xmm1", "xmm2", "xmm3", "xmm4", "xmm5", "xmm6", "xmm7",
+    "xmm8", "xmm9", "xmm10", "xmm11", "xmm12", "xmm13", "xmm14", "xmm15"
+  };
 
-  if (i>=X86_XMM0 && i<X86_XMM0 + 8) return x86_regs[i - X86_XMM0];
+  if (i>=X86_XMM0 && i<X86_XMM0 + 16) return x86_regs[i - X86_XMM0];
   switch (i) {
     case 0:
       return "UNALLOCATED";
@@ -244,6 +246,35 @@ x86_emit_mov_memoffset_mmx (OrcProgram *program, int size, int offset,
 }
 
 void
+x86_emit_mov_memoffset_sse (OrcProgram *program, int size, int offset,
+    int reg1, int reg2)
+{
+  if (size == 4) {
+    printf("  movd %d(%%%s), %%%s\n", offset, x86_get_regname_ptr(reg1),
+        x86_get_regname_sse(reg2));
+    *program->codeptr++ = 0x66;
+    x86_emit_rex(program, 0, reg2, 0, reg1);
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x6e;
+  } else if (size == 8) {
+    printf("  movq %d(%%%s), %%%s\n", offset, x86_get_regname_ptr(reg1),
+        x86_get_regname_sse(reg2));
+    *program->codeptr++ = 0x66;
+    x86_emit_rex(program, 0, reg2, 0, reg1);
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x6f;
+  } else {
+    printf("  movdqu %d(%%%s), %%%s\n", offset, x86_get_regname_ptr(reg1),
+        x86_get_regname_sse(reg2));
+    x86_emit_rex(program, 0, reg2, 0, reg1);
+    *program->codeptr++ = 0xf3;
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x6f;
+  }
+  x86_emit_modrm_memoffset (program, reg2, offset, reg1);
+}
+
+void
 x86_emit_mov_reg_memoffset (OrcProgram *program, int size, int reg1, int offset,
     int reg2)
 {
@@ -277,6 +308,35 @@ x86_emit_mov_mmx_memoffset (OrcProgram *program, int size, int reg1, int offset,
   } else if (size == 8) {
     printf("  movq %%%s, %d(%%%s)\n", x86_get_regname_mmx(reg1), offset,
         x86_get_regname_ptr(reg2));
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x7f;
+  }
+
+  x86_emit_modrm_memoffset (program, reg1, offset, reg2);
+}
+
+void
+x86_emit_mov_sse_memoffset (OrcProgram *program, int size, int reg1, int offset,
+    int reg2)
+{
+  if (size == 4) {
+    printf("  movd %%%s, %d(%%%s)\n", x86_get_regname_sse(reg1), offset,
+        x86_get_regname_ptr(reg2));
+    *program->codeptr++ = 0x66;
+    x86_emit_rex(program, 0, reg1, 0, reg2);
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x7e;
+  } else if (size == 8) {
+    printf("  movq %%%s, %d(%%%s)\n", x86_get_regname_sse(reg1), offset,
+        x86_get_regname_ptr(reg2));
+    *program->codeptr++ = 0x66;
+    x86_emit_rex(program, 0, reg1, 0, reg2);
+    *program->codeptr++ = 0x0f;
+    *program->codeptr++ = 0x7f;
+  } else {
+    printf("  movdqu %%%s, %d(%%%s)\n", x86_get_regname_sse(reg1), offset,
+        x86_get_regname_ptr(reg2));
+    *program->codeptr++ = 0xf3;
     *program->codeptr++ = 0x0f;
     *program->codeptr++ = 0x7f;
   }
@@ -343,6 +403,30 @@ void x86_emit_mov_mmx_reg (OrcProgram *program, int reg1, int reg2)
   /* FIXME */
   printf("  movd %%%s, %%%s\n", x86_get_regname_mmx(reg1),
       x86_get_regname(reg2));
+  x86_emit_rex(program, 0, reg2, 0, reg1);
+  *program->codeptr++ = 0x0f;
+  *program->codeptr++ = 0x7e;
+  x86_emit_modrm_reg (program, reg2, reg1);
+}
+
+void x86_emit_mov_reg_sse (OrcProgram *program, int reg1, int reg2)
+{
+  /* FIXME */
+  printf("  movd %%%s, %%%s\n", x86_get_regname(reg1),
+      x86_get_regname_sse(reg2));
+  *program->codeptr++ = 0x66;
+  x86_emit_rex(program, 0, reg1, 0, reg2);
+  *program->codeptr++ = 0x0f;
+  *program->codeptr++ = 0x6e;
+  x86_emit_modrm_reg (program, reg1, reg2);
+}
+
+void x86_emit_mov_sse_reg (OrcProgram *program, int reg1, int reg2)
+{
+  /* FIXME */
+  printf("  movd %%%s, %%%s\n", x86_get_regname_sse(reg1),
+      x86_get_regname(reg2));
+  *program->codeptr++ = 0x66;
   x86_emit_rex(program, 0, reg2, 0, reg1);
   *program->codeptr++ = 0x0f;
   *program->codeptr++ = 0x7e;

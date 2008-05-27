@@ -29,6 +29,7 @@ sse_emit_loadi_s16 (OrcProgram *p, int reg, int value)
     x86_emit_mov_imm_reg (p, 4, value, X86_ECX);
 
     printf("  movd %%ecx, %%%s\n", x86_get_regname_sse(reg));
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0x6e;
     x86_emit_modrm_reg (p, X86_ECX, reg);
@@ -36,6 +37,7 @@ sse_emit_loadi_s16 (OrcProgram *p, int reg, int value)
     printf("  pshufw $0, %%%s, %%%s\n", x86_get_regname_sse(reg),
         x86_get_regname_sse(reg));
 
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0x70;
     x86_emit_modrm_reg (p, reg, reg);
@@ -57,6 +59,7 @@ sse_rule_add_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       x86_get_regname_sse(p->vars[insn->args[2]].alloc),
       x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+  *p->codeptr++ = 0x66;
   *p->codeptr++ = 0x0f;
   *p->codeptr++ = 0xfd;
   x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
@@ -70,6 +73,7 @@ sse_rule_sub_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       x86_get_regname_sse(p->vars[insn->args[2]].alloc),
       x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+  *p->codeptr++ = 0x66;
   *p->codeptr++ = 0x0f;
   *p->codeptr++ = 0xf9;
   x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
@@ -83,6 +87,7 @@ sse_rule_mul_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
       x86_get_regname_sse(p->vars[insn->args[2]].alloc),
       x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+  *p->codeptr++ = 0x66;
   *p->codeptr++ = 0x0f;
   *p->codeptr++ = 0xd5;
   x86_emit_modrm_reg (p, p->vars[insn->args[2]].alloc,
@@ -97,6 +102,7 @@ sse_rule_lshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
         p->vars[insn->args[2]].s16,
         x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0x71;
     x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc, 6);
@@ -107,6 +113,7 @@ sse_rule_lshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
         x86_get_regname_sse(p->vars[insn->args[2]].alloc),
         x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0xf1;
     x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,
@@ -122,6 +129,7 @@ sse_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
         p->vars[insn->args[2]].s16,
         x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0x71;
     x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc, 4);
@@ -132,6 +140,7 @@ sse_rule_rshift_s16 (OrcProgram *p, void *user, OrcInstruction *insn)
         x86_get_regname_sse(p->vars[insn->args[2]].alloc),
         x86_get_regname_sse(p->vars[insn->args[0]].alloc));
 
+    *p->codeptr++ = 0x66;
     *p->codeptr++ = 0x0f;
     *p->codeptr++ = 0xe1;
     x86_emit_modrm_reg (p, p->vars[insn->args[0]].alloc,

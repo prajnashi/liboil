@@ -185,7 +185,7 @@ orc_program_x86_init (OrcProgram *program)
     program->used_regs[i] = 0;
   }
 
-  program->data_register_class = 2;
+  program->data_register_class = 3;
 }
 
 void
@@ -240,6 +240,19 @@ x86_emit_load_src (OrcProgram *program, OrcVariable *var)
     case ORC_RULE_MMX_4:
       x86_emit_mov_memoffset_mmx (program, 8, 0, ptr_reg, var->alloc);
       break;
+    case ORC_RULE_SSE_1:
+      x86_emit_mov_memoffset_reg (program, 2, 0, ptr_reg, X86_ECX);
+      x86_emit_mov_reg_sse (program, X86_ECX, var->alloc);
+      break;
+    case ORC_RULE_SSE_2:
+      x86_emit_mov_memoffset_sse (program, 4, 0, ptr_reg, var->alloc);
+      break;
+    case ORC_RULE_SSE_4:
+      x86_emit_mov_memoffset_sse (program, 8, 0, ptr_reg, var->alloc);
+      break;
+    case ORC_RULE_SSE_8:
+      x86_emit_mov_memoffset_sse (program, 16, 0, ptr_reg, var->alloc);
+      break;
     default:
       printf("ERROR\n");
   }
@@ -274,6 +287,23 @@ x86_emit_store_dest (OrcProgram *program, OrcVariable *var)
     case ORC_RULE_MMX_4:
       x86_emit_mov_mmx_memoffset (program, 8, var->alloc, 0, ptr_reg);
       break;
+    case ORC_RULE_SSE_1:
+      /* FIXME we might be using ecx twice here */
+      if (ptr_reg == X86_ECX) {
+        printf("ERROR\n");
+      }
+      x86_emit_mov_sse_reg (program, var->alloc, X86_ECX);
+      x86_emit_mov_reg_memoffset (program, 2, X86_ECX, 0, ptr_reg);
+      break;
+    case ORC_RULE_SSE_2:
+      x86_emit_mov_sse_memoffset (program, 4, var->alloc, 0, ptr_reg);
+      break;
+    case ORC_RULE_SSE_4:
+      x86_emit_mov_sse_memoffset (program, 8, var->alloc, 0, ptr_reg);
+      break;
+    case ORC_RULE_SSE_8:
+      x86_emit_mov_sse_memoffset (program, 16, var->alloc, 0, ptr_reg);
+      break;
     default:
       printf("ERROR\n");
   }
@@ -302,7 +332,7 @@ orc_program_assemble_x86 (OrcProgram *program)
       (int)ORC_STRUCT_OFFSET(OrcExecutor,counter1), x86_exec_ptr);
   x86_emit_je (program, 1);
 
-  program->rule_set = ORC_RULE_MMX_1;
+  program->rule_set = ORC_RULE_SSE_1;
   program->n_per_loop = 1;
   program->loop_shift = 0;
   x86_emit_label (program, 0);
@@ -320,9 +350,9 @@ orc_program_assemble_x86 (OrcProgram *program)
       (int)ORC_STRUCT_OFFSET(OrcExecutor,counter2), x86_exec_ptr);
   x86_emit_je (program, 3);
 
-  program->rule_set = ORC_RULE_MMX_4;
-  program->n_per_loop = 4;
-  program->loop_shift = 2;
+  program->rule_set = ORC_RULE_SSE_8;
+  program->n_per_loop = 8;
+  program->loop_shift = 3;
   x86_emit_label (program, 2);
   x86_emit_loop (program);
   x86_emit_dec_memoffset (program, 4,
