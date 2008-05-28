@@ -32,6 +32,21 @@ orc_program_new (void)
   return p;
 }
 
+OrcProgram *
+orc_program_new_dss (const char *type_d1, const char *type_s1,
+    const char *type_s2)
+{
+  OrcProgram *p;
+
+  p = orc_program_new ();
+
+  orc_program_add_destination (p, type_d1, "d1");
+  orc_program_add_source (p, type_d1, "s1");
+  orc_program_add_source (p, type_d1, "s2");
+
+  return p;
+}
+
 void
 orc_program_free (OrcProgram *program)
 {
@@ -131,6 +146,39 @@ orc_program_append (OrcProgram *program, const char *name, int arg0,
   insn->args[0] = arg0;
   insn->args[1] = arg1;
   insn->args[2] = arg2;
+  
+  program->n_insns++;
+}
+
+int
+orc_program_find_var_by_name (OrcProgram *program, const char *name)
+{
+  int i;
+
+  for(i=0;i<program->n_vars;i++){
+    if (strcmp (program->vars[i].name, name) == 0) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+void
+orc_program_append_str (OrcProgram *program, const char *name,
+    const char *arg1, const char *arg2, const char *arg3)
+{
+  OrcInstruction *insn;
+
+  insn = program->insns + program->n_insns;
+
+  insn->opcode = orc_opcode_find_by_name (name);
+  if (!insn->opcode) {
+    printf("unknown opcode: %s\n", name);
+  }
+  insn->args[0] = orc_program_find_var_by_name (program, arg1);
+  insn->args[1] = orc_program_find_var_by_name (program, arg2);
+  insn->args[2] = orc_program_find_var_by_name (program, arg3);
   
   program->n_insns++;
 }

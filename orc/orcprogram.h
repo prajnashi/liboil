@@ -210,10 +210,14 @@ enum {
 void orc_init (void);
 
 OrcProgram * orc_program_new (void);
+OrcProgram * orc_program_new_dss (const char *type1, const char *type2,
+    const char *type3);
 OrcOpcode * orc_opcode_find_by_name (const char *name);
 void orc_opcode_init (void);
 
 void orc_program_append (OrcProgram *p, const char *opcode, int arg0, int arg1, int arg2);
+void orc_program_append_str (OrcProgram *p, const char *opcode,
+    const char * arg0, const char * arg1, const char * arg2);
 
 void orc_x86_init (void);
 void orc_powerpc_init (void);
@@ -226,6 +230,8 @@ void orc_program_assemble_x86 (OrcProgram *p);
 void orc_program_assemble_powerpc (OrcProgram *p);
 void orc_program_assemble_c (OrcProgram *p);
 void orc_program_free (OrcProgram *program);
+
+int orc_program_find_var_by_name (OrcProgram *program, const char *name);
 
 int orc_program_add_temporary (OrcProgram *program, const char *type, const char *name);
 int orc_program_dup_temporary (OrcProgram *program, int i, int j);
@@ -245,6 +251,7 @@ void orc_type_register (const char *name, int size);
 OrcExecutor * orc_executor_new (OrcProgram *program);
 void orc_executor_free (OrcExecutor *ex);
 void orc_executor_set_array (OrcExecutor *ex, int var, void *ptr);
+void orc_executor_set_array_str (OrcExecutor *ex, const char *name, void *ptr);
 void orc_executor_set_n (OrcExecutor *ex, int n);
 void orc_executor_emulate (OrcExecutor *ex);
 void orc_executor_run (OrcExecutor *ex);
