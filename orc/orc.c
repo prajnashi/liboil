@@ -12,7 +12,7 @@
 void
 orc_init (void)
 {
-  oil_init ();
+  //oil_init ();
   orc_opcode_init();
   orc_x86_init();
   orc_powerpc_init();

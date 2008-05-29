@@ -3,6 +3,7 @@
 #define _ORC_PROGRAM_H_
 
 //#include <glib.h>
+#include <liboil/liboil-stdint.h>
 
 typedef struct _OrcType OrcType;
 typedef struct _OrcExecutor OrcExecutor;
