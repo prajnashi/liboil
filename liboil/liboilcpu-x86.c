@@ -34,14 +34,18 @@
 #include <liboil/liboilfault.h>
 #include <liboil/liboilutils.h>
 
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <setjmp.h>
 #include <signal.h>
+#ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
+#endif
 #include <time.h>
 
 #if defined(__FreeBSD__) || defined(__APPLE__)
@@ -129,6 +133,7 @@ oil_cpu_i386_getflags_cpuinfo (char *cpuinfo)
 }
 #endif
 
+#ifdef HAVE_GCC_ASM
 static unsigned long
 oil_profile_stamp_rdtsc(void)
 {
@@ -136,6 +141,7 @@ oil_profile_stamp_rdtsc(void)
 	__asm__ __volatile__("rdtsc\n" : "=a" (ts) : : "edx");
 	return ts;
 }
+#endif
 
 #ifdef USE_I386_CPUID
 #ifdef __i386__
@@ -201,9 +207,11 @@ oil_cpu_detect_cpuid (void)
 
   get_cpuid (0x00000001, &eax, &ebx, &ecx, &edx);
 
+#ifdef HAVE_GCC_ASM
   if (edx & (1<<4)) {
     _oil_profile_stamp = oil_profile_stamp_rdtsc;
   }
+#endif
 
   /* Intel flags */
   if (edx & (1<<15)) {

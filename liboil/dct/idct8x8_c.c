@@ -43,13 +43,13 @@
  */
 
 #define BLOCK8x8_F64(ptr, stride, row, column) \
-	(*((double *)((void *)ptr + stride*row) + column))
+	(*((double *)((unsigned char *)ptr + stride*row) + column))
 
 #define BLOCK8x8_PTR_F64(ptr, stride, row, column) \
-	((double *)((void *)ptr + stride*row) + column)
+	((double *)((unsigned char *)ptr + stride*row) + column)
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
-	(*((int16_t *)((void *)ptr + stride*row) + column))
+	(*((int16_t *)((unsigned char *)ptr + stride*row) + column))
 
 static void
 idct8x8_test (OilTest *test)

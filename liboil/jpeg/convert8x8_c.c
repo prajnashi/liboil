@@ -74,16 +74,16 @@ OIL_DEFINE_CLASS (clipconv8x8_u8_s16,
     "uint8_t * d_8x8, int dstr, int16_t * s_8x8, int sstr");
 
 #define BLOCK8x8_F64(ptr, stride, row, column) \
-	(*((double *)((void *)ptr + stride*row) + column))
+	(*((double *)((unsigned char *)ptr + stride*row) + column))
 
 #define BLOCK8x8_PTR_F64(ptr, stride, row, column) \
-	((double *)((void *)ptr + stride*row) + column)
+	((double *)((unsigned char *)ptr + stride*row) + column)
 
 #define BLOCK8x8_S16(ptr, stride, row, column) \
-	(*((int16_t *)((void *)ptr + stride*row) + column))
+	(*((int16_t *)((unsigned char *)ptr + stride*row) + column))
 
 #define BLOCK8x8_U8(ptr, stride, row, column) \
-	(*((uint8_t *)((void *)ptr + stride*row) + column))
+	(*((uint8_t *)((unsigned char *)ptr + stride*row) + column))
 
 
 static void
@@ -93,7 +93,7 @@ conv8x8_s16_f64_c (int16_t * dest, int dstr, double *src, int sstr)
 
   for (i = 0; i < 8; i++) {
     for (j = 0; j < 8; j++) {
-      BLOCK8x8_S16 (dest, dstr, i, j) = rint (BLOCK8x8_F64 (src, sstr, i, j));
+      BLOCK8x8_S16 (dest, dstr, i, j) = floor (0.5 + BLOCK8x8_F64 (src, sstr, i, j));
     }
   }
 }
