@@ -249,12 +249,6 @@ AC_SUBST(LIBOIL_CFLAGS)
 LIBOIL_LIBS="\$(top_builddir)/liboil/liboil-$LIBOIL_MAJORMINOR.la $LIBM $LIBRT"
 AC_SUBST(LIBOIL_LIBS)
 
-ORC_CFLAGS="$LIBOIL_CFLAGS"
-AC_SUBST(ORC_CFLAGS)
-
-ORC_LIBS="\$(top_builddir)/orc/liborc-$LIBOIL_MAJORMINOR.la $LIBOIL_LIBS"
-AC_SUBST(ORC_LIBS)
-
 pkgconfigdir="\$(libdir)/pkgconfig"
 AC_SUBST(pkgconfigdir)
 
@@ -285,7 +279,6 @@ liboil/simdpack/Makefile
 liboil/sse/Makefile
 liboil/utf8/Makefile
 liboil/arm/Makefile
-orc/Makefile
 testsuite/Makefile
 testsuite/instruction/Makefile
 examples/Makefile
@@ -293,15 +286,12 @@ examples/audioresample/Makefile
 examples/huffman/Makefile
 examples/jpeg/Makefile
 examples/md5/Makefile
-examples/orc/Makefile
 examples/taylor/Makefile
 examples/uberopt/Makefile
 examples/videoscale/Makefile
 examples/work/Makefile
 liboil-uninstalled.pc
 liboil.pc
-orc-uninstalled.pc
-orc.pc
 ])
 AC_OUTPUT
 
