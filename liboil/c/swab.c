@@ -38,6 +38,24 @@
 #endif
 #include <string.h>
 
+#ifdef HAVE_ANDROID
+/*
+ * There is no swab() in Android platform. Implement it here
+ */
+static void swab(const void *src, void *dest, ssize_t nbytes)
+{
+    const char *sp = (const char *)src;
+    const char *send = sp + (nbytes - nbytes % 2);
+    char *dp = (char*)dest;
+    
+    while (sp < send)
+    {
+        *(dp++) = *(sp+1);
+        *(dp++) = *sp;
+        sp+=2;
+    }
+}              
+#endif 
 
 static void
 swab_u16_libc (uint16_t *d, const uint16_t *s, int n)
