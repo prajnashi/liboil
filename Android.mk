@@ -1,9 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
-GSTREAMER_TOP := $(LOCAL_PATH)
+LIBOIL_TOP := $(LOCAL_PATH)
 
 include $(CLEAR_VARS)
 
-include $(GSTREAMER_TOP)/liboil/Android.mk
+include $(LIBOIL_TOP)/liboil/Android.mk
 
 
